@@ -79,7 +79,6 @@
 				</control>
 				<control type="button" id="102">
 					<description>Recordings</description>
-					<visible>![Window.IsActive(TVRecordings) | Window.IsActive(RadioRecordings)]</visible>
 					<include>9000SysButtons</include>
 					<label>19163</label> 
 					<onclick condition="IsEmpty(Window.Property(IsRadio))">ActivateWindow(TVRecordings)</onclick> 
@@ -87,13 +86,19 @@
 				</control>
 				<control type="button" id="103">
 					<description>Timers</description>
-					<visible>![Window.IsActive(TVTimers) | Window.IsActive(RadioTimers)]</visible>
+					<include>9000SysButtons</include>
+					<label>19138</label> 
+					<onclick condition="IsEmpty(Window.Property(IsRadio))">ActivateWindow(TVTimerRules)</onclick> 
+					<onclick condition="!IsEmpty(Window.Property(IsRadio))">ActivateWindow(RadioTimerRules)</onclick> 
+				</control>
+				<control type="button" id="104">
+					<description>Timers</description>
 					<include>9000SysButtons</include>
 					<label>19040</label> 
 					<onclick condition="IsEmpty(Window.Property(IsRadio))">ActivateWindow(TVTimers)</onclick> 
 					<onclick condition="!IsEmpty(Window.Property(IsRadio))">ActivateWindow(RadioTimers)</onclick> 
 				</control>
-				<control type="button" id="104">
+				<control type="button" id="105">
 					<description>Search</description>
 					<visible>![Window.IsActive(TVSearch) | Window.IsActive(RadioSearch)]</visible>
 					<include>9000SysButtons</include>
@@ -131,11 +136,17 @@
           <label>19051</label> 
           <visible>Window.IsActive(TVChannels) | Window.IsActive(RadioChannels)</visible> 
         </control> 
-                <control type="radiobutton" id="7"> 
+        <control type="radiobutton" id="7"> 
           <description>Show deleted recordings</description> 
           <include>9000SysButtons</include> 
           <label>19184</label> 
           <visible>Window.IsActive(TVRecordings) | Window.IsActive(RadioRecordings)</visible> 
+        </control>
+        <control type="radiobutton" id="8"> 
+          <description>Hide disabled timers</description> 
+          <include>9000SysButtons</include> 
+          <label>19077</label> 
+          <visible>Window.IsActive(TVTimers) | Window.IsActive(RadioTimers) | Window.IsActive(TVTimerRules) | Window.IsActive(RadioTimerRules)</visible> 
         </control> 
 
 				<control type="button" id="2"> 
