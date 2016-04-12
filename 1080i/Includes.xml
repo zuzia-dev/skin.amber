@@ -166,7 +166,7 @@
         <texture border="100,0,0,0" flipy="true">common/TimePanel.png</texture>
       </control>
       <control type="label">
-        <visible>!Player.HasAudio | [Player.HasAudio + !IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))]</visible>
+        <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))]</visible>
         <include>VisibleFadeEffect</include>
         <posx>30</posx>
         <posy>0</posy>
@@ -176,7 +176,7 @@
         <label>$VAR[GlobalHeadings]</label>
       </control>
       <control type="group">
-        <visible>Player.HasAudio + IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+        <visible>Player.HasAudio + String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
         <include>VisibleFadeEffect</include>
         <control type="image" description="Speaker">
           <visible>Player.HasAudio</visible>
@@ -244,7 +244,7 @@
     <animation effect="fade" time="50">VisibleChange</animation>
   </include>
   <include name="Stars">
-    <visible>!IsEmpty(ListItem.StarRating)</visible>
+    <visible>!String.IsEmpty(ListItem.StarRating)</visible>
     <height>24</height>
     <width>174</width>
     <aspectratio align="left">keep</aspectratio>
@@ -262,7 +262,7 @@
       <aspectratio aligny="center">keep</aspectratio>
     </control>
     <control type="group">
-      <visible>[Container.content(tvshows) | container.content(seasons)] + IntegerGreaterThan(ListItem.Property(UnWatchedEpisodes),0)</visible>
+      <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
       <control type="image" description="Label2 BG">
         <posx>84r</posx>
         <posy>15</posy>
@@ -734,7 +734,7 @@
   <include name="Home.Main.Menu.Items">
     <include condition="Skin.HasSetting(plexbmc)">Plexbmc.Items</include>
     <item id="21" description="Custom1">
-      <visible>!IsEmpty(Skin.String(CustomHome.1.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.1.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.1.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.1.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.1.Path)]</onclick>
@@ -747,7 +747,7 @@
       <onclick>ActivateWindow(Pictures,root)</onclick>
     </item>
     <item id="22" description="Custom2">
-      <visible>!IsEmpty(Skin.String(CustomHome.2.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.2.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.2.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.2.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.2.Path)]</onclick>
@@ -759,7 +759,7 @@
       <onclick>ActivateWindow(1119)</onclick>
     </item>
     <item id="23" description="Custom3">
-      <visible>!IsEmpty(Skin.String(CustomHome.3.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.3.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.3.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.3.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.3.Path)]</onclick>
@@ -772,7 +772,7 @@
       <onclick>ActivateWindow(Videos,root)</onclick>
     </item>
     <item id="24" description="Custom.4">
-      <visible>!IsEmpty(Skin.String(CustomHome.4.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.4.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.4.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.4.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.4.Path)]</onclick>
@@ -785,7 +785,7 @@
       <onclick>$VAR[MovieEntryPoint]</onclick>
     </item>
     <item id="25" description="Custom.5">
-      <visible>!IsEmpty(Skin.String(CustomHome.5.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.5.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.5.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.5.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.5.Path)]</onclick>
@@ -798,7 +798,7 @@
       <onclick>$VAR[TVEntryPoint]</onclick>
     </item>
     <item id="26" description="Custom.6">
-      <visible>!IsEmpty(Skin.String(CustomHome.6.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.6.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.6.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.6.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.6.Path)]</onclick>
@@ -813,7 +813,7 @@
       <onclick condition="Library.HasContent(Music) + Skin.HasSetting(ArtistView)">ActivateWindow(Music,Artists,return)</onclick>
     </item>
     <item id="27" description="Custom.7">
-      <visible>!IsEmpty(Skin.String(CustomHome.7.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.7.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.7.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.7.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.7.Path)]</onclick>
@@ -834,7 +834,7 @@
       <onclick>ActivateWindow(VideoLibrary,MusicVideoTitles,return)</onclick>
     </item>
     <item id="28" description="Custom.8">
-      <visible>!IsEmpty(Skin.String(CustomHome.8.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.8.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.8.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.8.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.8.Path)]</onclick>
@@ -858,7 +858,7 @@
       <onclick>ActivateWindow(Favourites)</onclick>
     </item>
     <item id="29" description="Custom.9">
-      <visible>!IsEmpty(Skin.String(CustomHome.9.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.9.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.9.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.9.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.9.Path)]</onclick>
@@ -1738,7 +1738,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <control type="image">
-        <visible>!IsEmpty(ListItem.AudioCodec)</visible>
+        <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1747,7 +1747,7 @@
         <texture>$INFO[ListItem.AudioCodec,badges/audio/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.AudioChannels)</visible>
+        <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1756,7 +1756,7 @@
         <texture>$INFO[ListItem.AudioChannels,badges/channels,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.VideoCodec)</visible>
+        <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1765,7 +1765,7 @@
         <texture>$INFO[ListItem.VideoCodec,badges/video/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.VideoResolution) + IntegerGreaterThan(ListItem.VideoResolution,710)</visible>
+        <visible>!String.IsEmpty(ListItem.VideoResolution) + Integer.IsGreater(ListItem.VideoResolution,710)</visible>
         <height>45</height>
         <width>90</width>
         <posx>0</posx>
@@ -1794,55 +1794,55 @@
             <label>$LOCALIZE[557]:</label>
             <label2>$INFO[ListItem.Artist]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Artist)</visible>
+            <visible>!String.IsEmpty(ListItem.Artist)</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
           </item>
           <item>
             <label>$LOCALIZE[563]:</label>
             <label2>$INFO[ListItem.Rating]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Rating)</visible>
+            <visible>!String.IsEmpty(ListItem.Rating)</visible>
           </item>
           <item>
             <label>$LOCALIZE[175]:</label>
             <label2>$INFO[ListItem.Property(Album_Mood)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Mood))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Mood))</visible>
           </item>
           <item>
             <label>$LOCALIZE[176]:</label>
             <label2>$INFO[ListItem.Property(Album_Style)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Style))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Style))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21895]:</label>
             <label2>$INFO[ListItem.Property(Album_Theme)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Theme))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Theme))</visible>
           </item>
           <item>
             <label>146</label>
             <label2>$INFO[ListItem.Property(Album_Type)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Type))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Type))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21899]:</label>
             <label2>$INFO[ListItem.Property(Album_Label)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Label))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
           </item>
           <item>
             <label>$LOCALIZE[562]:</label>
             <label2>$INFO[ListItem.Year]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Year)</visible>
+            <visible>!String.IsEmpty(ListItem.Year)</visible>
           </item>
  </include>
 <include name="ArtistInfoContent">
@@ -1850,55 +1850,55 @@
             <label>$LOCALIZE[21893]:</label>
             <label2>$INFO[ListItem.Property(Artist_Born)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Born))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Born))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21894]:</label>
             <label2>$INFO[ListItem.Property(Artist_Formed)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Formed))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Formed))</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
           </item>
           <item>
             <label>$LOCALIZE[175]:</label>
             <label2>$INFO[ListItem.Property(Artist_Mood)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Mood))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
           </item>
           <item>
             <label>$LOCALIZE[176]:</label>
             <label2>$INFO[ListItem.Property(Artist_Style)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Style))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Style))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21892]:</label>
             <label2>$INFO[ListItem.Property(Artist_Instrument)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Instrument))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Instrument))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21897]:</label>
             <label2>$INFO[ListItem.Property(Artist_Died)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Died))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Died))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21896]:</label>
             <label2>$INFO[ListItem.Property(Artist_Disbanded)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21898]:</label>
             <label2>$INFO[ListItem.Property(Artist_YearsActive)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
           </item>
 </include>
 <include name="SongInfoContent">
@@ -1906,31 +1906,31 @@
             <label>$LOCALIZE[557]:</label>
             <label2>$INFO[ListItem.Artist]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Artist)</visible>
+            <visible>!String.IsEmpty(ListItem.Artist)</visible>
           </item>
           <item>
             <label>$LOCALIZE[558]:</label>
             <label2>$INFO[ListItem.Album]$INFO[listitem.discnumber, - $LOCALIZE[427] ]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Album)</visible>
+            <visible>!String.IsEmpty(ListItem.Album)</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
           </item>
           <item>
             <label>$LOCALIZE[562]:</label>
             <label2>$INFO[ListItem.Property(ListItem.Year)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(ListItem.Year))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(ListItem.Year))</visible>
           </item>
           <item>
             <label>$LOCALIZE[554]:</label>
             <label2>$INFO[ListItem.Property(ListItem.TrackNumber)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
           </item>
 </include>
 

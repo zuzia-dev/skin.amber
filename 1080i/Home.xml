@@ -38,7 +38,7 @@
       <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Home_Layout</include>
 	  <control type="group" description="Plexhome user">
 	    <control type="label"> <!-- username -->
-          <visible>Skin.HasSetting(plexbmc) + substring(Window(Home).Property(plexbmc.plexhome_enabled),true)</visible>
+          <visible>Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(plexbmc.plexhome_enabled),true)</visible>
           <posx>1800</posx>
           <posy>1020</posy>
           <width>460</width>
@@ -51,7 +51,7 @@
           <font>Volume</font>
         </control>
         <control type="image"> <!-- avatar -->
-          <visible>Skin.HasSetting(plexbmc) + substring(Window(Home).Property(plexbmc.plexhome_enabled),true)</visible>
+          <visible>Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(plexbmc.plexhome_enabled),true)</visible>
           <posx>1810</posx>
           <posy>995</posy>
           <width>74</width>
@@ -83,7 +83,7 @@
         </control>
       </control>
       <control type="group" description="Weather on Horizontal home screen">
-        <visible>!IsEmpty(Weather.Plugin) + !Skin.HasSetting(VerticalHome)</visible>
+        <visible>!String.IsEmpty(Weather.Plugin) + !Skin.HasSetting(VerticalHome)</visible>
         <include>WeatherAni0</include>
         <top>990</top>
         <left>960</left>
@@ -137,7 +137,7 @@
       <control type="group" description="Weather on Vertical home screen">
         <left>1100</left>
         <top>71</top>
-        <visible>!IsEmpty(Weather.Plugin) + Skin.HasSetting(VerticalHome)</visible>
+        <visible>!String.IsEmpty(Weather.Plugin) + Skin.HasSetting(VerticalHome)</visible>
         <include>WeatherAni0</include>
         <control type="image" description="BG">
           <left>0</left>
@@ -184,7 +184,7 @@
       </control>
     </control>
     <control type="group">
-      <animation effect="slide" start="0,0" end="531,0" time="250" delay="0" reversible="true" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(plexbmc) + Control.HasFocus(311) + !IsEmpty(Container(311).ListItem.Property(Plot))">conditional</animation>
+      <animation effect="slide" start="0,0" end="531,0" time="250" delay="0" reversible="true" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(plexbmc) + Control.HasFocus(311) + !String.IsEmpty(Container(311).ListItem.Property(Plot))">conditional</animation>
       <control type="label" description="Title">
         <posx>-500</posx>
         <posy>90</posy>
