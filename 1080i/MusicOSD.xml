@@ -22,14 +22,22 @@
     <control type="group">
       <posx>120</posx>
       <posy>758</posy>
-      <!--101-->
+      <control type="image" description="Stars">
+        <left>-140</left>
+        <top>73r</top>
+        <width>315</width>
+        <height>54</height>
+        <aspectratio>keep</aspectratio>
+        <texture>$INFO[MusicPlayer.UserRating,badges/ratings/rating,.png]</texture>
+        <colordiffuse>Silver</colordiffuse>
+      </control>
       <control type="grouplist" id="101">
         <left>200</left>
         <top>93r</top>
         <width>1280</width>
         <height>98</height>
         <align>center</align>
-        <onright>609</onright>
+        <onright>608</onright>
         <onleft>609</onleft>
         <orientation>horizontal</orientation>
         <control type="group" id="699">
@@ -192,6 +200,22 @@
           <onclick>PlayerControl(Forward)</onclick>
         </control>
       </control>
+      <control type="button" id="608">
+        <description>Rating</description>
+        <left>1640</left>
+        <top>93r</top>
+        <width>90</width>
+        <height>98</height>
+        <label>$LOCALIZE[33063]</label>
+        <font>-</font>
+        <onleft>604</onleft>
+        <onright>609</onright>
+        <onup>602</onup>
+        <ondown>602</ondown>
+        <texturefocus>OSD/OSDStarFO.png</texturefocus>
+        <texturenofocus>OSD/OSDStarNF.png</texturenofocus>
+        <onclick>setrating</onclick>
+      </control>
       <control type="button" id="609">
         <description>Options</description>
         <left>1700</left>
@@ -200,14 +224,13 @@
         <height>98</height>
         <label>$LOCALIZE[33063]</label>
         <font>-</font>
-        <onleft>604</onleft>
+        <onleft>608</onleft>
         <onright>606</onright>
         <onup>602</onup>
         <ondown>602</ondown>
         <texturefocus>OSD/OSDOptionsFO.png</texturefocus>
         <texturenofocus>OSD/OSDOptionsNF.png</texturenofocus>
         <onclick>Control.SetFocus(555)</onclick>
-        <!--<onclick>ActivateWindow(1113)</onclick>-->
       </control>
     </control>
     <control type="group" description="All dialog content">
@@ -246,7 +269,7 @@
           <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
           <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">XBMC.RunScript($INFO[Skin.String(LyricPath)])</onclick>
         </control>
-		<control type="button" id="555" description="Playlist">
+		    <control type="button" id="555" description="Playlist">
           <width>525</width>
           <label>$LOCALIZE[559]</label>
           <onclick>Close</onclick>
