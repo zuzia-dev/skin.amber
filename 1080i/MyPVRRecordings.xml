@@ -21,7 +21,6 @@
           <visible>!Player.HasVideo + !String.StartsWith(ListItem.Icon,Default)</visible>
         </control>
         <control type="list" id="50" description="REC">
-          <visible>Control.IsVisible(50)</visible>
           <posx>820</posx>
           <posy>120</posy>
           <width>1076</width>
@@ -149,7 +148,6 @@
           </focusedlayout>
         </control>
         <control type="list" id="51" description="REC">
-          <visible>Control.IsVisible(51)</visible>
           <posx>820</posx>
           <posy>120</posy>
           <width>1076</width>
@@ -285,7 +283,7 @@
       <control type="group" description="INFO">
         <posx>60</posx>
         <posy>480</posy>
-        <control type="label" description="Title above progress">
+        <control type="label" description="Title">
           <posy>-12</posy>
           <width>700</width>
           <font>InfoTitle</font>
@@ -293,23 +291,90 @@
           <aligny>center</aligny>
           <height>60</height>
           <wrapmultiline>true</wrapmultiline>
-          <label>$INFO[ListItem.label]</label>
+          <label>$VAR[PVRRecordingsTitle]</label>
         </control>
         <control type="textbox" description="Plot Value for TV">
-          <posx>0</posx>
+          <visible>!ListItem.IsFolder</visible><posx>0</posx>
           <posy>50</posy>
           <width>700</width>
-          <height>411</height>
+          <height>400</height>
           <align>justify</align>
           <pagecontrol>-</pagecontrol>
           <label>$INFO[ListItem.Plot]</label>
         </control>
+        <control type="panel" id="80">
+          <visible>ListItem.IsFolder</visible>
+          <top>50</top>
+          <width>720</width>
+          <height>440</height>
+          <orientation>vertical</orientation>
+          <scrolltime tween="sine" easing="out">50</scrolltime>
+          <autoscroll>true</autoscroll>
+          <focusedlayout height="40" width="720">
+            <control type="image">
+              <left>0</left>
+              <top>5</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>$VAR[Overlay]</texture>
+            </control>            
+            <control type="label">
+              <left>40</left>
+              <height>40</height>
+              <width>670</width>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Label,[COLOR=White2],[/COLOR]]$INFO[ListItem.Date,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.Duration,[COLOR=Highlight] • [/COLOR]]</label>
+              <font>ListDetails</font>
+              <scrollspeed>25</scrollspeed>
+            </control>
+          </focusedlayout>
+          <itemlayout height="40" width="720">
+            <control type="image">
+              <left>0</left>
+              <top>5</top>
+              <width>30</width>
+              <height>30</height>
+              <texture>$VAR[Overlay]</texture>
+            </control>
+            <control type="label">
+              <left>40</left>
+              <height>40</height>
+              <width>670</width>
+              <aligny>center</aligny>
+              <label>$INFO[ListItem.Label,[COLOR=White2],[/COLOR]]$INFO[ListItem.Date,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.Duration,[COLOR=Highlight] • [/COLOR]]</label>
+              <font>ListDetails</font>
+              <scrollspeed>25</scrollspeed>
+            </control>
+          </itemlayout>
+          <content sortby="date" sortorder="ascending">$INFO[ListItem.Path]/$INFO[ListItem.Label]</content>
+        </control>        
         <control type="label">
-          <posy>480</posy>
+          <visible>!ListItem.IsFolder</visible><posx>0</posx>
+          <top>460</top>
           <width>700</width>
           <height>36</height>
           <font>Details</font>
           <label>$INFO[ListItem.Duration,[COLOR=Grey]$LOCALIZE[2050]: [/COLOR]]</label>
+        </control>
+        <control type="label">
+          <description>Disk usage text</description>
+          <top>510</top>
+          <width>700</width>
+          <height>20</height>
+          <label>$INFO[PVR.backenddiskspace]</label>
+          <font>ListDetails</font>
+          <visible>!Integer.IsGreater(PVR.backenddiskspaceprogr,100)</visible>
+        </control>
+        <control type="progress">
+          <description>Disk usage bar</description>
+          <left>0</left>
+          <top>545</top>
+          <width>700</width>
+          <height>6</height>
+          <info>PVR.backenddiskspaceprogr</info>
+          <texturebg border="0,0,0,0">img/AmberDotBG.png</texturebg>
+          <midtexture border="0,0,0,0">img/AmberDot.png</midtexture>
+          <visible>!Integer.IsGreater(PVR.backenddiskspaceprogr,100)</visible>
         </control>
       </control>
     </control>
@@ -330,6 +395,6 @@
       <onleft>50</onleft>
       <onright>9000</onright>
     </control>
-	  <include>PVRSideBlade</include>
+    <include>PVRSideBlade</include>
   </controls>
 </window>
