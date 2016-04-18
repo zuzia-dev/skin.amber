@@ -15,7 +15,6 @@
   <include name="Horizontal_Home_Layout">
     <control type="group" description="HORIZONTAL HOME">
       <control type="group" id="700">
-	  <include condition="Skin.HasSetting(Shelf.Delay)">Shelf_Delay</include>
 	    <posy>-105</posy>
         <control type="image" description="RA BG XBMC only">
         <visible>!Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [Control.IsVisible(311) + !Control.IsVisible(312)] | [!Control.IsVisible(311) + Control.IsVisible(312)] | [Control.IsVisible(411) + !Control.IsVisible(413)] | [!Control.IsVisible(411) + Control.IsVisible(413)] | [Control.IsVisible(511) + !Control.IsVisible(513)] | [!Control.IsVisible(511) + Control.IsVisible(513)] | [Control.IsVisible(514) + !Control.IsVisible(515)] | [!Control.IsVisible(514) + Control.IsVisible(515)] | Control.IsVisible(412) | Control.IsVisible(512)]</visible>
@@ -34,7 +33,7 @@
           <texture border="0,40,0,40">home/OverlayRA2.png</texture>
       </control>
 	  <control type="image" description="RA BG Plexbmc only">
-        <visible>Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [IntegerGreaterThan(Container(311).NumItems,0) + !IntegerGreaterThan(Container(312).NumItems,0)] | [!IntegerGreaterThan(Container(311).NumItems,0) + IntegerGreaterThan(Container(312).NumItems,0)] | [IntegerGreaterThan(Container(411).NumItems,0) + !IntegerGreaterThan(Container(413).NumItems,0)] | [!IntegerGreaterThan(Container(411).NumItems,0) + IntegerGreaterThan(Container(413).NumItems,0)] | Control.IsVisible(511) | Control.IsVisible(900) | Control.IsVisible(901)]</visible>
+        <visible>Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [Integer.IsGreater(Container(311).NumItems,0) + !Integer.IsGreater(Container(312).NumItems,0)] | [!Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + !Integer.IsGreater(Container(413).NumItems,0)] | [!Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)] | Control.IsVisible(511) | Control.IsVisible(900) | Control.IsVisible(901)]</visible>
         <posx>0</posx>
           <posy>345</posy>
           <width>1920</width>
@@ -42,7 +41,7 @@
           <texture border="0,40,0,40">home/OverlayRA2.png</texture>
       </control>
       <control type="image" description="RA BG 2 Plexbmc only">
-        <visible>Skin.HasSetting(plexbmc) + [[IntegerGreaterThan(Container(311).NumItems,0) + IntegerGreaterThan(Container(312).NumItems,0)] | [IntegerGreaterThan(Container(411).NumItems,0) + IntegerGreaterThan(Container(413).NumItems,0)]]</visible>
+        <visible>Skin.HasSetting(plexbmc) + [[Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)]]</visible>
         <posx>0</posx>
           <posy>183</posy>
           <width>1920</width>
@@ -50,17 +49,17 @@
           <texture border="0,40,0,40">home/OverlayRA2.png</texture>
       </control>
 	    <include condition="!Skin.HasSetting(Hide.Favourites)">Favourite.List</include>
-          <include condition="System.GetBool(pvrmanager.enabled)">PVR.List</include>
+      <include condition="System.GetBool(PVR.HasTVChannels | PVR.HasRadioChannels)">PVR.List</include>
       <include condition="Skin.HasSetting(Shelf.Addons)">Addons.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_RecentItems),t,left)">Recent.Movies.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_RecentItems),t,left)">Recent.Concerts.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_RecentItems),t,left)">Recent.Episodes.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_RecentItems),t,left)">Recent.Albums.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_RecentItems),t,left)">Recent.Clips.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + [SubString(Window(Home).Property(SkinWidgets_Recommended),t,left) | SubString(Window(Home).Property(SkinWidgets_RandomItems),t,left)]">Recommended.And.Random.Movies.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_Recommended),t,left)">Recommended.Concerts.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_Recommended),t,left)">Recommended.Episodes.List</include>
-      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + SubString(Window(Home).Property(SkinWidgets_Recommended),t,left)">Recommended.Albums.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_RecentItems),t)">Recent.Movies.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_RecentItems),t)">Recent.Concerts.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_RecentItems),t)">Recent.Episodes.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_RecentItems),t)">Recent.Albums.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_RecentItems),t)">Recent.Clips.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + [String.StartsWith(Window(Home).Property(SkinWidgets_Recommended),t) | String.StartsWith(Window(Home).Property(SkinWidgets_RandomItems),t)]">Recommended.And.Random.Movies.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_Recommended),t)">Recommended.Concerts.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_Recommended),t)">Recommended.Episodes.List</include>
+      <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.StartsWith(Window(Home).Property(SkinWidgets_Recommended),t)">Recommended.Albums.List</include>
       <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + Skin.HasSetting(plexbmc)">Plexbmc_Shelf</include>
       </control>
       <control type="group">
@@ -98,7 +97,7 @@
             <onclick>ActivateWindow(1112)</onclick>
           </control>-->
           <control type="image" description="Bottom glass border">
-            <animation effect="zoom" start="100,100" end="100,50" time="100" condition="!IntegerGreaterThan(Container(9001).NumItems,0)">Conditional</animation>
+            <animation effect="zoom" start="100,100" end="100,50" time="100" condition="!Integer.IsGreater(Container(9001).NumItems,0)">Conditional</animation>
             <posx>0</posx>
             <posy>787</posy>
             <width>1920</width>
@@ -164,7 +163,7 @@
           </content>
         </control>
         <control type="fixedlist" id="9001" description="Submenu Bar">
-          <animation effect="slide" start="0,0" end="-128,0" time="0" condition="StringCompare(Container(9001).NumItems,2) | StringCompare(Container(9001).NumItems,4) | StringCompare(Container(9001).NumItems,6)">conditional</animation>
+          <animation effect="slide" start="0,0" end="-128,0" time="0" condition="String.IsEqual(Container(9001).NumItems,2) | String.IsEqual(Container(9001).NumItems,4) | String.IsEqual(Container(9001).NumItems,6)">conditional</animation>
           <animation effect="fade" time="200" start="100" end="100" reversible="true" condition="!Control.HasFocus(9001)">Conditional</animation>
           <include>VisibleFadeEffect</include>
           <posx>64</posx>

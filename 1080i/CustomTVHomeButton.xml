@@ -51,7 +51,7 @@
             <onclick>Skin.Reset(CustomTV.1.Label)</onclick>
 			<onclick>Skin.Reset(CustomTV.1.Path)</onclick>
 			<onclick>Skin.Reset(tv_entries)</onclick>
-            <selected>IsEmpty(Skin.String(tv_entries)) + IsEmpty(Skin.String(CustomTV.1.Path))</selected>
+            <selected>String.IsEmpty(Skin.String(tv_entries)) + String.IsEmpty(Skin.String(CustomTV.1.Path))</selected>
           </control>
           <control type="radiobutton" id="702" description="Playlists">
             <width>525</width>
@@ -59,7 +59,7 @@
             <onclick>Skin.Reset(CustomTV.1.Label)</onclick>
 			<onclick>Skin.Reset(CustomTV.1.Path)</onclick>
 			<onclick>Skin.SetString(tv_entries,playlists)</onclick>
-            <selected>StringCompare(Skin.String(tv_entries),playlists)</selected>
+            <selected>String.IsEqual(Skin.String(tv_entries),playlists)</selected>
           </control>
           <control type="radiobutton" id="703" description="Files">
             <width>525</width>
@@ -67,7 +67,7 @@
             <onclick>Skin.Reset(CustomTV.1.Label)</onclick>
 			<onclick>Skin.Reset(CustomTV.1.Path)</onclick>
 			<onclick>Skin.SetString(tv_entries,files)</onclick>
-            <selected>StringCompare(Skin.String(tv_entries),files)</selected>
+            <selected>String.IsEqual(Skin.String(tv_entries),files)</selected>
           </control>
           <control type="radiobutton" id="704" description="Library">
             <width>525</width>
@@ -75,10 +75,10 @@
             <onclick>Skin.Reset(CustomTV.1.Label)</onclick>
 			<onclick>Skin.Reset(CustomTV.1.Path)</onclick>
 			<onclick>Skin.SetString(tv_entries,library)</onclick>
-            <selected>StringCompare(Skin.String(tv_entries),library)</selected>
+            <selected>String.IsEqual(Skin.String(tv_entries),library)</selected>
           </control>
 		  <control type="radiobutton" id="705" description="Custom">
-            <visible>IsEmpty(Skin.String(CustomTV.1.Path))</visible>
+            <visible>String.IsEmpty(Skin.String(CustomTV.1.Path))</visible>
 			<width>525</width>
             <label>636</label>
             <onclick>Skin.Reset(tv_entries)</onclick>
@@ -86,12 +86,12 @@
 			<selected>false</selected>
 		  </control>
 		  <control type="radiobutton" id="706" description="Custom">
-            <visible>!IsEmpty(Skin.String(CustomTV.1.Path))</visible>
+            <visible>!String.IsEmpty(Skin.String(CustomTV.1.Path))</visible>
 			<width>525</width>
             <label>$INFO[Skin.String(CustomTV.1.Label)]</label>
             <onclick>Skin.Reset(tv_entries)</onclick>
 			<onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomTV.1)</onclick>
-			<selected>!IsEmpty(Skin.String(CustomTV.1.Path))</selected>
+			<selected>!String.IsEmpty(Skin.String(CustomTV.1.Path))</selected>
           </control>
         </control>
       </control>

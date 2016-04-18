@@ -18,7 +18,7 @@
         <visible>true</visible>
       </control>
       <control type="multiimage" description="Slideshow">
-        <visible>Skin.HasSetting(MusicPlayingFanart) + !IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
+        <visible>Skin.HasSetting(MusicPlayingFanart) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
         <include>Dimensions_Fullscreen</include>
         <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
         <aspectratio aligny="top">scale</aspectratio>
@@ -32,7 +32,7 @@
         </animation>
       </control>
       <control type="image" description="Fanart only">
-        <visible>Skin.HasSetting(MusicPlayingFanart) + IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
+        <visible>Skin.HasSetting(MusicPlayingFanart) + String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
         <include>Dimensions_Fullscreen</include>
         <fadetime>400</fadetime>
         <aspectratio>scale</aspectratio>
@@ -62,19 +62,19 @@
         <control type="group" description="Info panel LEFT">
           <animation condition="Window.IsActive(MusicOSD.xml)" effect="slide" start="0,0" end="0,-105" time="400">Conditional</animation>
           <posy>165</posy>
-          <animation type="Conditional" condition="!IntegerGreaterThan(Control.GetLabel(23),0)" reversible="false">
+          <animation type="Conditional" condition="!Integer.IsGreater(Control.GetLabel(23),0)" reversible="false">
             <effect type="zoom" tween="quadratic" start="0" end="100" time="800" center="640,360" />
             <effect type="fade" start="0" end="100" time="800" center="640,360" />
           </animation>
-          <animation type="Conditional" condition="StringCompare(Control.GetLabel(23),100)" reversible="false">
+          <animation type="Conditional" condition="String.IsEqual(Control.GetLabel(23),100)" reversible="false">
             <effect type="zoom" tween="quadratic" easing="in" start="100" end="260" time="300" center="640,360" />
             <effect type="fade" start="100" end="0" easing="out" time="300" />
           </animation>
-          <animation type="Conditional" condition="IntegerGreaterThan(Control.GetLabel(23),30) + !IntegerGreaterThan(Control.GetLabel(23),60)" reversible="false">
+          <animation type="Conditional" condition="Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)" reversible="false">
             <effect type="rotatey" tween="quadratic" start="0" end="180" time="1000" center="960,540" />
             <effect type="fade" start="100" end="0" time="400" center="640,360" />
           </animation>
-          <animation type="Conditional" condition="![IntegerGreaterThan(Control.GetLabel(23),30) + !IntegerGreaterThan(Control.GetLabel(23),60)]" reversible="false">
+          <animation type="Conditional" condition="![Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)]" reversible="false">
             <effect type="rotatey" tween="quadratic" start="180" end="0" time="1000" center="960,540" />
             <effect type="fade" start="0" end="100" delay="300" time="700" center="640,360" />
           </animation>
@@ -181,7 +181,7 @@
         <control type="group" description="Info panel RIGHT">
           <animation condition="Window.IsActive(MusicOSD.xml)" effect="slide" start="0,0" end="0,-105" time="400">Conditional</animation>
           <posy>165</posy>
-          <visible>IntegerGreaterThan(Control.GetLabel(23),30) + !IntegerGreaterThan(Control.GetLabel(23),60)</visible>
+          <visible>Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)</visible>
           <animation type="Visible">
             <effect type="rotatey" tween="quadratic" start="-180" end="0" time="1000" center="960," />
             <effect type="fade" start="0" end="100" delay="300" time="700" center="640,360" />
@@ -292,42 +292,9 @@
         </control>
       </control>
     </control>
-    <control type="group" id="0">
-      <posx>0</posx>
-      <posy>0</posy>
-      <visible>Player.ShowCodec</visible>
-      <animation effect="fade" time="200">VisibleChange</animation>
-      <control type="image" description="Info Background">
-        <posx>0</posx>
-        <posy>0</posy>
-        <width>1920</width>
-        <height>60</height>
-        <texture>img/BlackDotST2.png</texture>
-      </control>
-      <control type="label" description="row 1 sys label">
-        <posx>45</posx>
-        <posy>0</posy>
-        <width>1770</width>
-        <height>60</height>
-        <align>left</align>
-        <aligny>center</aligny>
-        <font>Details</font>
-        <label>[UPPERCASE]$INFO[musicplayer.Codec][/UPPERCASE] $INFO[musicplayer.Bitrate, @ ,kbps]$INFO[musicplayer.bitspersample, · ,bit]$INFO[musicplayer.Samplerate, · ,kHz]$INFO[musicplayer.Channels, · , $LOCALIZE[21444]]</label>
-      </control>
-      <control type="label" description="row 2 sys label">
-        <posx>1875</posx>
-        <posy>0</posy>
-        <width>1770</width>
-        <height>60</height>
-        <align>right</align>
-        <aligny>center</aligny>
-        <font>Details</font>
-        <label>$INFO[Visualisation.Preset,, @ ]$INFO[Visualisation.Name]</label>
-      </control>
-    </control>
     <control type="group">
       <posy>1020</posy>
-      <visible>IntegerGreaterThan(Control.GetLabel(23),95) | !IntegerGreaterThan(Control.GetLabel(23),5)</visible>
+      <visible>Integer.IsGreater(Control.GetLabel(23),95) | !Integer.IsGreater(Control.GetLabel(23),5)</visible>
       <animation effect="fade" time="800">VisibleChange</animation>
       <animation condition="Window.IsActive(MusicOSD.xml)" effect="slide" start="0,0" end="0,-105" time="400">Conditional</animation>
       <control type="label" description="Previous">

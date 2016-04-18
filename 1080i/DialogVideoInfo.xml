@@ -45,7 +45,7 @@
     <control type="group" description="Posters">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -54,7 +54,7 @@
         <aspectratio>stretch</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -66,7 +66,7 @@
     <control type="group" description="Plexbmc Posters">
       <visible>Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -75,7 +75,7 @@
         <aspectratio>scale</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -109,11 +109,11 @@
         </control>
         <control type="image" description="Stars rating">
           <posx>860</posx>
-          <posy>-35</posy>
-          <height>50</height>
+          <posy>-37</posy>
+          <height>54</height>
           <width>139</width>
           <aspectratio aligny="center" align="right">keep</aspectratio>
-          <texture>$INFO[ListItem.Rating,badges/,.png]</texture>
+          <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
         </control>
         <control type="image" description="Line Split">
           <posx>0</posx>
@@ -127,7 +127,7 @@
           <posx>0</posx>
           <posy>30</posy>
           <control type="group">
-            <visible>![container.content(tvshows) | container.content(episodes) | SubString(Container.FolderPath,videodb://musicvideos/,left)]</visible>
+            <visible>![container.content(tvshows) | container.content(episodes) | String.StartsWith(Container.FolderPath,videodb://musicvideos/)]</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -136,61 +136,61 @@
                   <label>$LOCALIZE[20376]:</label>
                   <label2>$INFO[ListItem.OriginalTitle]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.OriginalTitle) + !stringcompare(ListItem.OriginalTitle,Listitem.Title)</visible>
+                  <visible>!String.IsEmpty(ListItem.OriginalTitle) + !String.IsEqual(ListItem.OriginalTitle,Listitem.Title)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20339]:</label>
                   <label2>$INFO[ListItem.Director]</label2>
                   <onclick>SendClick(2003,13)</onclick>
-                  <visible>!IsEmpty(ListItem.Director)</visible>
+                  <visible>!String.IsEmpty(ListItem.Director)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20417]:</label>
                   <label2>$INFO[ListItem.Writer]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Writer)</visible>
+                  <visible>!String.IsEmpty(ListItem.Writer)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[572]:</label>
                   <label2>$INFO[ListItem.Studio]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Studio)</visible>
+                  <visible>!String.IsEmpty(ListItem.Studio)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[515]:</label>
                   <label2>$INFO[ListItem.Genre]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Genre)</visible>
+                  <visible>!String.IsEmpty(ListItem.Genre)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[562]:</label>
                   <label2>$INFO[ListItem.Year]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Year)</visible>
+                  <visible>!String.IsEmpty(ListItem.Year)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[2050]:</label>
                   <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Duration)</visible>
+                  <visible>!String.IsEmpty(ListItem.Duration)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[38018]:</label>
                   <label2>$INFO[ListItem.Userrating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Userrating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Userrating)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[563]:</label>
                   <label2>$INFO[ListItem.RatingAndVotes]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.RatingAndVotes)</visible>
+                  <visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20074]:</label>
                   <label2>$INFO[ListItem.mpaa]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.mpaa)</visible>
+                  <visible>!String.IsEmpty(ListItem.mpaa)</visible>
                 </item>
               </content>
             </control>
@@ -205,37 +205,37 @@
                   <label>$LOCALIZE[20360]:</label>
                   <label2>$INFO[listitem.episode] [COLOR=Grey] ($INFO[ListItem.Property(WatchedEpisodes),, $LOCALIZE[16102]] - $INFO[ListItem.Property(UnWatchedEpisodes), , $LOCALIZE[16101]])[/COLOR]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Episode)</visible>
+                  <visible>!String.IsEmpty(ListItem.Episode)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[31322]:</label>
                   <label2>$INFO[ListItem.Premiered]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Premiered)</visible>
+                  <visible>!String.IsEmpty(ListItem.Premiered)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[515]:</label>
                   <label2>$INFO[ListItem.Genre]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Genre)</visible>
+                  <visible>!String.IsEmpty(ListItem.Genre)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[562]:</label>
                   <label2>$INFO[ListItem.Year]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Year)</visible>
+                  <visible>!String.IsEmpty(ListItem.Year)</visible>
                 </item>
                  <item>
                   <label>$LOCALIZE[38018]:</label>
                   <label2>$INFO[ListItem.Userrating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Userrating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Userrating)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[563]:</label>
                   <label2>$INFO[ListItem.Rating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Rating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Rating)</visible>
                 </item>
               </content>
             </control>
@@ -250,67 +250,67 @@
                   <label>$LOCALIZE[20364]:</label>
                   <label2>$INFO[ListItem.TVShowTitle]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.TVShowTitle)</visible>
+                  <visible>!String.IsEmpty(ListItem.TVShowTitle)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20373]:</label>
                   <label2>$INFO[ListItem.Season]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Season)</visible>
+                  <visible>!String.IsEmpty(ListItem.Season)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[31322]:</label>
                   <label2>$INFO[ListItem.Premiered]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Premiered)</visible>
+                  <visible>!String.IsEmpty(ListItem.Premiered)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[515]:</label>
                   <label2>$INFO[ListItem.Genre]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Genre)</visible>
+                  <visible>!String.IsEmpty(ListItem.Genre)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20339]:</label>
                   <label2>$INFO[ListItem.Director]</label2>
                   <onclick>SendClick(2003,13)</onclick>
-                  <visible>!IsEmpty(ListItem.Director)</visible>
+                  <visible>!String.IsEmpty(ListItem.Director)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20417]:</label>
                   <label2>$INFO[ListItem.Writer]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Writer)</visible>
+                  <visible>!String.IsEmpty(ListItem.Writer)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[562]:</label>
                   <label2>$INFO[ListItem.Year]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Year)</visible>
+                  <visible>!String.IsEmpty(ListItem.Year)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[2050]:</label>
                   <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Duration)</visible>
+                  <visible>!String.IsEmpty(ListItem.Duration)</visible>
                 </item>
                  <item>
                   <label>$LOCALIZE[38018]:</label>
                   <label2>$INFO[ListItem.Userrating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Userrating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Userrating)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[563]:</label>
                   <label2>$INFO[ListItem.Rating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Rating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Rating)</visible>
                 </item>
               </content>
             </control>
           </control>
           <control type="group" description="Music Videos">
-            <visible>SubString(Container.FolderPath,videodb://musicvideos/,left)</visible>
+            <visible>String.StartsWith(Container.FolderPath,videodb://musicvideos/)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -319,55 +319,55 @@
                   <label>$LOCALIZE[557]:</label>
                   <label2>$INFO[ListItem.Artist]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Artist)</visible>
+                  <visible>!String.IsEmpty(ListItem.Artist)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[558]:</label>
                   <label2>$INFO[ListItem.Album]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Album)</visible>
+                  <visible>!String.IsEmpty(ListItem.Album)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[515]:</label>
                   <label2>$INFO[ListItem.Genre]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Genre)</visible>
+                  <visible>!String.IsEmpty(ListItem.Genre)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[572]:</label>
                   <label2>$INFO[ListItem.Studio]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Studio)</visible>
+                  <visible>!String.IsEmpty(ListItem.Studio)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20417]:</label>
                   <label2>$INFO[ListItem.Writer]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Writer)</visible>
+                  <visible>!String.IsEmpty(ListItem.Writer)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[20339]:</label>
                   <label2>$INFO[ListItem.Director]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Director)</visible>
+                  <visible>!String.IsEmpty(ListItem.Director)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[562]:</label>
                   <label2>$INFO[ListItem.Year]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Year)</visible>
+                  <visible>!String.IsEmpty(ListItem.Year)</visible>
                 </item>
                 <item>
                   <label>$LOCALIZE[2050]:</label>
                   <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Duration)</visible>
+                  <visible>!String.IsEmpty(ListItem.Duration)</visible>
                 </item>
                  <item>
                   <label>$LOCALIZE[38018]:</label>
                   <label2>$INFO[ListItem.Userrating]</label2>
                   <onclick>noop</onclick>
-                  <visible>!IsEmpty(ListItem.Userrating)</visible>
+                  <visible>!String.IsEmpty(ListItem.Userrating)</visible>
                 </item>
               </content>
             </control>
@@ -410,7 +410,7 @@
           <orientation>horizontal</orientation>
           <align>left</align>
           <control type="button">
-            <visible>!IsEmpty(ListItem.VideoResolution)</visible>
+            <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
             <height>36</height>
             <width>102</width>
             <posx>0</posx>
@@ -424,7 +424,7 @@
             <label>$INFO[ListItem.VideoResolution]</label>
           </control>
           <control type="image">
-            <visible>!IsEmpty(ListItem.VideoCodec)</visible>
+            <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
             <height>36</height>
             <width>102</width>
             <aspectratio>keep</aspectratio>
@@ -432,7 +432,7 @@
             <texture>$INFO[ListItem.VideoCodec,badges/video/,.png]</texture>
           </control>
           <control type="image">
-            <visible>!IsEmpty(ListItem.AudioChannels)</visible>
+            <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
             <height>36</height>
             <width>102</width>
             <aspectratio>keep</aspectratio>
@@ -440,7 +440,7 @@
             <texture>$INFO[ListItem.AudioChannels,badges/channels,.png]</texture>
           </control>
           <control type="image">
-            <visible>!IsEmpty(ListItem.AudioCodec)</visible>
+            <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
             <height>36</height>
             <width>102</width>
             <aspectratio>keep</aspectratio>
@@ -448,7 +448,7 @@
             <texture>$INFO[ListItem.AudioCodec,badges/audio/,.png]</texture>
           </control>
           <control type="button">
-            <visible>!IsEmpty(ListItem.VideoAspect)</visible>
+            <visible>!String.IsEmpty(ListItem.VideoAspect)</visible>
             <height>36</height>
             <width>102</width>
             <posx>0</posx>
@@ -527,7 +527,7 @@
           <textcolor>White</textcolor>
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
-          <visible>!IsEmpty(ListItem.Trailer)</visible>
+          <visible>!String.IsEmpty(ListItem.Trailer)</visible>
           <pulseonselect>true</pulseonselect>
         </control>
         <control type="button" id="9012" description="Actors">

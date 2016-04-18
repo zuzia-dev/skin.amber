@@ -103,11 +103,6 @@
     <animation effect="fade" time="200">Visible</animation>
     <animation effect="fade" time="100">Hidden</animation>
   </include>
-  <include name="Shelf_Delay">
-    <visible>System.IdleTime(1)</visible>
-    <animation effect="fade" start="0" end="100" time="200" delay="400" condition="System.IdleTime(1)">Conditional</animation>
-    <animation effect="fade" start="100" end="0" time="0" condition="!System.IdleTime(1)">Conditional</animation>
-  </include>
   <include name="HiddenButton">
     <posx>-30</posx>
     <posy>-30</posy>
@@ -171,7 +166,7 @@
         <texture border="100,0,0,0" flipy="true">common/TimePanel.png</texture>
       </control>
       <control type="label">
-        <visible>!Player.HasAudio | [Player.HasAudio + !IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))]</visible>
+        <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))]</visible>
         <include>VisibleFadeEffect</include>
         <posx>30</posx>
         <posy>0</posy>
@@ -181,7 +176,7 @@
         <label>$VAR[GlobalHeadings]</label>
       </control>
       <control type="group">
-        <visible>Player.HasAudio + IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+        <visible>Player.HasAudio + String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
         <include>VisibleFadeEffect</include>
         <control type="image" description="Speaker">
           <visible>Player.HasAudio</visible>
@@ -249,12 +244,12 @@
     <animation effect="fade" time="50">VisibleChange</animation>
   </include>
   <include name="Stars">
-    <visible>!IsEmpty(ListItem.StarRating)</visible>
-    <height>24</height>
+    <visible>!String.IsEmpty(ListItem.UserRating)</visible>
+    <height>54</height>
     <width>174</width>
     <aspectratio align="left">keep</aspectratio>
     <colordiffuse>Silver</colordiffuse>
-    <texture>$INFO[ListItem.StarRating]</texture>
+    <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
   </include>
   <include name="ListWatchedOverlay">
     <control type="image">
@@ -267,7 +262,7 @@
       <aspectratio aligny="center">keep</aspectratio>
     </control>
     <control type="group">
-      <visible>[Container.content(tvshows) | container.content(seasons)] + IntegerGreaterThan(ListItem.Property(UnWatchedEpisodes),0)</visible>
+      <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
       <control type="image" description="Label2 BG">
         <posx>84r</posx>
         <posy>15</posy>
@@ -321,7 +316,7 @@
 		<colordiffuse>Highlight</colordiffuse>
   </include>
   <include name="PosterThumb">
-    <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+    <texture background="true">$VAR[Poster]</texture>
     <aspectratio aligny="top">stretch</aspectratio>
   </include>
   <include name="PosterThumbBG">
@@ -415,7 +410,7 @@
       <label>$LOCALIZE[31965]</label>
     </control>
     <control type="radiobutton" id="9147" description="View 52">
-      <visible>Container.Content(Movies) | Container.Content(TVShows) | Container.Content(episodes) | container.content(songs) | Container.Content(albums) | Container.Content(artists) | Window.IsActive(MyPics.xml)</visible>
+      <visible>Container.Content(Movies) | Container.Content(TVShows) | Container.Content(episodes) | container.content(songs) | Container.Content(albums) | Container.Content(artists) | Container.Content(images)</visible>
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(52)</onclick>
       <selected>Control.IsVisible(52)</selected>
@@ -739,7 +734,7 @@
   <include name="Home.Main.Menu.Items">
     <include condition="Skin.HasSetting(plexbmc)">Plexbmc.Items</include>
     <item id="21" description="Custom1">
-      <visible>!IsEmpty(Skin.String(CustomHome.1.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.1.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.1.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.1.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.1.Path)]</onclick>
@@ -752,7 +747,7 @@
       <onclick>ActivateWindow(Pictures,root)</onclick>
     </item>
     <item id="22" description="Custom2">
-      <visible>!IsEmpty(Skin.String(CustomHome.2.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.2.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.2.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.2.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.2.Path)]</onclick>
@@ -764,7 +759,7 @@
       <onclick>ActivateWindow(1119)</onclick>
     </item>
     <item id="23" description="Custom3">
-      <visible>!IsEmpty(Skin.String(CustomHome.3.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.3.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.3.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.3.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.3.Path)]</onclick>
@@ -777,7 +772,7 @@
       <onclick>ActivateWindow(Videos,root)</onclick>
     </item>
     <item id="24" description="Custom.4">
-      <visible>!IsEmpty(Skin.String(CustomHome.4.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.4.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.4.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.4.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.4.Path)]</onclick>
@@ -790,7 +785,7 @@
       <onclick>$VAR[MovieEntryPoint]</onclick>
     </item>
     <item id="25" description="Custom.5">
-      <visible>!IsEmpty(Skin.String(CustomHome.5.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.5.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.5.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.5.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.5.Path)]</onclick>
@@ -803,7 +798,7 @@
       <onclick>$VAR[TVEntryPoint]</onclick>
     </item>
     <item id="26" description="Custom.6">
-      <visible>!IsEmpty(Skin.String(CustomHome.6.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.6.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.6.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.6.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.6.Path)]</onclick>
@@ -818,7 +813,7 @@
       <onclick condition="Library.HasContent(Music) + Skin.HasSetting(ArtistView)">ActivateWindow(Music,Artists,return)</onclick>
     </item>
     <item id="27" description="Custom.7">
-      <visible>!IsEmpty(Skin.String(CustomHome.7.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.7.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.7.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.7.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.7.Path)]</onclick>
@@ -839,7 +834,7 @@
       <onclick>ActivateWindow(VideoLibrary,MusicVideoTitles,return)</onclick>
     </item>
     <item id="28" description="Custom.8">
-      <visible>!IsEmpty(Skin.String(CustomHome.8.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.8.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.8.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.8.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.8.Path)]</onclick>
@@ -863,7 +858,7 @@
       <onclick>ActivateWindow(Favourites)</onclick>
     </item>
     <item id="29" description="Custom.9">
-      <visible>!IsEmpty(Skin.String(CustomHome.9.Path))</visible>
+      <visible>!String.IsEmpty(Skin.String(CustomHome.9.Path))</visible>
       <label>$INFO[Skin.String(CustomHome.9.Label)]</label>
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.9.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.9.Path)]</onclick>
@@ -913,23 +908,23 @@
       <onclick>EjectTray()</onclick>
     </item>
     <item id="2" description="Program apps">
-      <visible>Container(300).HasFocus(2) + !Skin.HasSetting(Addons2)</visible>
+      <visible>Container(300).HasFocus(2)</visible>
       <label>$LOCALIZE[0]</label>
       <onclick condition="!System.Platform.Android">ActivateWindow(Programs,Addons,return)</onclick>
       <onclick condition="System.Platform.Android">ActivateWindow(Programs)</onclick>
     </item>
     <item id="3" description="Video apps">
-      <visible>Container(300).HasFocus(2) + !Skin.HasSetting(Addons4)</visible>
+      <visible>Container(300).HasFocus(2)</visible>
       <label>$LOCALIZE[157]</label>
       <onclick>ActivateWindow(VideoLibrary,Addons,return)</onclick>
     </item>
     <item id="4" description="Music apps">
-      <visible>Container(300).HasFocus(2) + !Skin.HasSetting(Addons5)</visible>
+      <visible>Container(300).HasFocus(2)</visible>
       <label>$LOCALIZE[2]</label>
       <onclick>ActivateWindow(Music,Addons,return)</onclick>
     </item>
     <item id="5" description="Picture apps">
-      <visible>Container(300).HasFocus(2) + !Skin.HasSetting(Addons3)</visible>
+      <visible>Container(300).HasFocus(2)</visible>
       <label>$LOCALIZE[1]</label>
       <onclick>XBMC.ActivateWindow(Pictures,Addons,return)</onclick>
     </item>
@@ -946,7 +941,7 @@
     <item id="7" description="RA TV">
       <visible>Container(300).HasFocus(5)</visible>
       <label>$LOCALIZE[575]</label>
-      <onclick>ActivateWindow(Videos,"library://video/inprogressshows.xml/",return)</onclick>
+      <onclick>ActivateWindow(Videos,InProgressTvShows,return)</onclick>
     </item>
     <item id="8" description="RA TV">
       <visible>Container(300).HasFocus(5)</visible>
@@ -965,37 +960,37 @@
       <onclick>SendClick(8)</onclick>
     </item>
     <item id="11" description="MyMovies">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies1)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[136]</label>
       <onclick>ActivateWindow(Videos,playlists,return)</onclick>
     </item>
     <item id="35" description="MyMovies">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies1)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[135]</label>
       <onclick>ActivateWindow(Videos,Moviegenres,return)</onclick>
     </item>
     <item id="12" description="RA Movies">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies2)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[20434]</label>
       <onclick>ActivateWindow(Videos,Moviesets,return)</onclick>
     </item>
     <item id="13" description="RA Movies">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies2)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[31020]</label>
       <onclick>ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
     </item>
     <item id="14" description="RA Movies">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies2)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[20459]</label>
       <onclick>ActivateWindow(Videos,MovieTags,return)</onclick>
     </item>
     <item id="15" description="Library">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies4)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[1024]</label>
       <onclick>ActivateWindow(Videolibrary,root)</onclick>
     </item>
     <item id="16" description="Search">
-      <visible>Container(300).HasFocus(4) + !Skin.HasSetting(Movies5)</visible>
+      <visible>Container(300).HasFocus(4)</visible>
       <label>$LOCALIZE[137]</label>
       <onclick>ActivateWindow(VideoLibrary)</onclick>
       <onclick>SendClick(8)</onclick>
@@ -1011,28 +1006,28 @@
       <onclick>ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
     </item>
     <item id="19" description="Files Videos">
-      <visible>Container(300).HasFocus(3) + !Skin.HasSetting(Movies4)</visible>
+      <visible>Container(300).HasFocus(3)</visible>
       <label>$LOCALIZE[744]</label>
       <onclick>ActivateWindow(Videos,files,return)</onclick>
     </item>
     <item id="20" description="Search">
-      <visible>Container(300).HasFocus(3) + !Skin.HasSetting(Movies5)</visible>
+      <visible>Container(300).HasFocus(3)</visible>
       <label>$LOCALIZE[137]</label>
       <onclick>ActivateWindow(VideoLibrary)</onclick>
       <onclick>SendClick(8)</onclick>
     </item>
     <item id="21" description="Music Videos">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music2) + Library.HasContent(Music)</visible>
+      <visible>Container(300).HasFocus(6) + Library.HasContent(Music)</visible>
       <label>$LOCALIZE[132]</label>
       <onclick>ActivateWindow(Music,Albums)</onclick>
     </item>
     <item id="22" description="Artists">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music1) + Library.HasContent(Music)</visible>
+      <visible>Container(300).HasFocus(6) + Library.HasContent(Music)</visible>
       <label>$LOCALIZE[133]</label>
       <onclick>ActivateWindow(Music,Artists)</onclick>
     </item>
     <item id="23" description="Top 100">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music1) + Library.HasContent(Music)</visible>
+      <visible>Container(300).HasFocus(6) + Library.HasContent(Music)</visible>
       <label>$LOCALIZE[271]</label>
       <onclick>ActivateWindow(Music,top100,return)</onclick>
     </item>
@@ -1043,17 +1038,17 @@
       <onclick condition="!Library.HasContent(music)">ActivateWindow(10502,"videodb://musicvideos/")</onclick>
     </item>
     <item id="24" description="Recently added">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music1) + Library.HasContent(Music)</visible>
+      <visible>Container(300).HasFocus(6) + Library.HasContent(Music)</visible>
       <label>$LOCALIZE[31020]</label>
       <onclick>ActivateWindow(Music,recentlyaddedalbums,return)</onclick>
     </item>
     <item id="25" description="Files">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music4)</visible>
+      <visible>Container(300).HasFocus(6)</visible>
       <label>$LOCALIZE[744]</label>
       <onclick>ActivateWindow(Music,Files,return)</onclick>
     </item>
     <item id="26" description="Search">
-      <visible>Container(300).HasFocus(6) + !Skin.HasSetting(Music5) + Library.HasContent(Music)</visible>
+      <visible>Container(300).HasFocus(6) + Library.HasContent(Music)</visible>
       <label>$LOCALIZE[137]</label>
       <onclick>ActivateWindow(Music,root)</onclick>
       <onclick>SendClick(8)</onclick>
@@ -1143,7 +1138,12 @@
       <label>19163</label>
       <onclick>ActivateWindow(TVRecordings)</onclick>
     </item>
-    <item id="104" description="TV Timer">
+    <item id="104" description="TV Timer Rules">
+      <visible>Container(300).HasFocus(300)</visible>
+      <label>19138</label>
+      <onclick>ActivateWindow(TVTimerRules)</onclick>
+    </item>    
+    <item id="105" description="TV Timer">
       <visible>Container(300).HasFocus(300)</visible>
       <label>19040</label>
       <onclick>ActivateWindow(TVTimers)</onclick>
@@ -1163,6 +1163,11 @@
       <label>19163</label>
       <onclick>ActivateWindow(RadioRecordings)</onclick>
     </item>
+    <item id="104" description="Radio Timer">
+      <visible>Container(300).HasFocus(301)</visible>
+      <label>19138</label>
+      <onclick>ActivateWindow(RadioTimerRules)</onclick>
+    </item>    
     <item id="104" description="Radio Timer">
       <visible>Container(300).HasFocus(301)</visible>
       <label>19040</label>
@@ -1733,7 +1738,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <control type="image">
-        <visible>!IsEmpty(ListItem.AudioCodec)</visible>
+        <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1742,7 +1747,7 @@
         <texture>$INFO[ListItem.AudioCodec,badges/audio/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.AudioChannels)</visible>
+        <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1751,7 +1756,7 @@
         <texture>$INFO[ListItem.AudioChannels,badges/channels,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.VideoCodec)</visible>
+        <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
         <height>45</height>
         <width>90</width>
         <bordersize>3</bordersize>
@@ -1760,7 +1765,7 @@
         <texture>$INFO[ListItem.VideoCodec,badges/video/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!IsEmpty(ListItem.VideoResolution) + IntegerGreaterThan(ListItem.VideoResolution,710)</visible>
+        <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
         <height>45</height>
         <width>90</width>
         <posx>0</posx>
@@ -1789,55 +1794,61 @@
             <label>$LOCALIZE[557]:</label>
             <label2>$INFO[ListItem.Artist]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Artist)</visible>
+            <visible>!String.IsEmpty(ListItem.Artist)</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
+          </item>
+          <item>
+            <label>$LOCALIZE[38018]:</label>
+            <label2>$INFO[ListItem.UserRating]</label2>
+            <onclick>noop</onclick>
+            <visible>!String.IsEmpty(ListItem.UserRating)</visible>
           </item>
           <item>
             <label>$LOCALIZE[563]:</label>
-            <label2>$INFO[ListItem.Rating]</label2>
+            <label2>$INFO[ListItem.RatingAndVotes]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Rating)</visible>
+            <visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
           </item>
           <item>
             <label>$LOCALIZE[175]:</label>
             <label2>$INFO[ListItem.Property(Album_Mood)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Mood))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Mood))</visible>
           </item>
           <item>
             <label>$LOCALIZE[176]:</label>
             <label2>$INFO[ListItem.Property(Album_Style)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Style))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Style))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21895]:</label>
             <label2>$INFO[ListItem.Property(Album_Theme)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Theme))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Theme))</visible>
           </item>
           <item>
             <label>146</label>
             <label2>$INFO[ListItem.Property(Album_Type)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Type))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Type))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21899]:</label>
             <label2>$INFO[ListItem.Property(Album_Label)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Album_Label))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
           </item>
           <item>
             <label>$LOCALIZE[562]:</label>
             <label2>$INFO[ListItem.Year]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Year)</visible>
+            <visible>!String.IsEmpty(ListItem.Year)</visible>
           </item>
  </include>
 <include name="ArtistInfoContent">
@@ -1845,55 +1856,55 @@
             <label>$LOCALIZE[21893]:</label>
             <label2>$INFO[ListItem.Property(Artist_Born)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Born))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Born))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21894]:</label>
             <label2>$INFO[ListItem.Property(Artist_Formed)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Formed))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Formed))</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
           </item>
           <item>
             <label>$LOCALIZE[175]:</label>
             <label2>$INFO[ListItem.Property(Artist_Mood)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Mood))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
           </item>
           <item>
             <label>$LOCALIZE[176]:</label>
             <label2>$INFO[ListItem.Property(Artist_Style)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Style))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Style))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21892]:</label>
             <label2>$INFO[ListItem.Property(Artist_Instrument)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Instrument))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Instrument))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21897]:</label>
             <label2>$INFO[ListItem.Property(Artist_Died)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Died))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Died))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21896]:</label>
             <label2>$INFO[ListItem.Property(Artist_Disbanded)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
           </item>
           <item>
             <label>$LOCALIZE[21898]:</label>
             <label2>$INFO[ListItem.Property(Artist_YearsActive)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
           </item>
 </include>
 <include name="SongInfoContent">
@@ -1901,31 +1912,43 @@
             <label>$LOCALIZE[557]:</label>
             <label2>$INFO[ListItem.Artist]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Artist)</visible>
+            <visible>!String.IsEmpty(ListItem.Artist)</visible>
           </item>
           <item>
             <label>$LOCALIZE[558]:</label>
             <label2>$INFO[ListItem.Album]$INFO[listitem.discnumber, - $LOCALIZE[427] ]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Album)</visible>
+            <visible>!String.IsEmpty(ListItem.Album)</visible>
           </item>
           <item>
             <label>$LOCALIZE[515]:</label>
             <label2>$INFO[ListItem.Genre]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Genre)</visible>
+            <visible>!String.IsEmpty(ListItem.Genre)</visible>
+          </item>
+          <item>
+            <label>$LOCALIZE[38018]:</label>
+            <label2>$INFO[ListItem.UserRating]</label2>
+            <onclick>noop</onclick>
+            <visible>!String.IsEmpty(ListItem.UserRating)</visible>
+          </item>
+          <item>
+            <label>$LOCALIZE[563]:</label>
+            <label2>$INFO[ListItem.RatingAndVotes]</label2>
+            <onclick>noop</onclick>
+            <visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
           </item>
           <item>
             <label>$LOCALIZE[562]:</label>
             <label2>$INFO[ListItem.Property(ListItem.Year)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(ListItem.Year))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(ListItem.Year))</visible>
           </item>
           <item>
             <label>$LOCALIZE[554]:</label>
             <label2>$INFO[ListItem.Property(ListItem.TrackNumber)]</label2>
             <onclick>noop</onclick>
-            <visible>!IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
           </item>
 </include>
 
