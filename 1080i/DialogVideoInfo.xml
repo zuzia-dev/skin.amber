@@ -488,7 +488,7 @@
         <align>center</align>
         <orientation>horizontal</orientation>
         <control type="button" id="299" description="Cinema">
-          <visible>Container.Content(Movies) + system.hasaddon(script.cinema.experience)</visible>
+          <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
           <height>54</height>
           <width>250</width>
           <align>center</align>
@@ -498,8 +498,7 @@
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
           <onclick>Dialog.Close(all,true)</onclick>
-          <onclick>Playlist.Clear</onclick>
-          <onclick>RunScript(script.cinema.experience)</onclick>
+          <onclick>RunScript(script.cinemavision,experience)</onclick>
         </control>
         <control type="togglebutton" id="8" description="Play/browse to Show">
           <height>54</height>
@@ -578,7 +577,7 @@
           <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[31956]</label>
           <texturefocus>-</texturefocus>
-          <onclick>XBMC.RunScript(script.tvtunes,mode=solo)</onclick>
+          <onclick>RunScript(script.tvtunes,mode=solo)</onclick>
         </control>
       </control>
       <control type="image" description="Line Split">
