@@ -45,7 +45,49 @@
         <preloaditems>4</preloaditems>
         <pagecontrol>60</pagecontrol>
         <scrolltime>400</scrolltime>
-        <itemlayout condition="Container.content(MusicVideos) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)" height="350" width="290">
+        <itemlayout condition="container.content(addons) | Window.IsActive(MyMusicNav.xml) | Container.Content(musicvideos) | Window.IsActive(MyMusicSongs.xml) | Container.Content(images)" height="360" width="360">
+          <control type="image">
+            <posx>36</posx>
+            <posy>12</posy>
+            <width>288</width>
+            <height>288</height>
+            <include>SquareThumbBG</include>
+          </control>
+          <control type="image">
+            <posx>36</posx>
+            <posy>12</posy>
+            <width>288</width>
+            <height>288</height>
+            <include>SquareThumb</include>
+          </control>
+        </itemlayout>
+        <focusedlayout condition="container.content(addons) | Window.IsActive(MyMusicNav.xml) | Container.Content(musicvideos) | Window.IsActive(MyMusicSongs.xml) | Container.Content(images)" height="360" width="360">
+          <control type="image">
+            <posx>36</posx>
+            <posy>12</posy>
+            <width>288</width>
+            <height>288</height>
+            <include>SquareThumbFO</include>
+          </control>
+          <control type="image">
+            <posx>36</posx>
+            <posy>12</posy>
+            <width>288</width>
+            <height>288</height>
+            <include>SquareThumb</include>
+          </control>
+          <control type="label">
+            <posx>10</posx>
+            <posy>309</posy>
+            <width>340</width>
+            <height>45</height>
+            <font>Details</font>
+            <textcolor>Highlight</textcolor>
+            <align>center</align>
+            <label>$INFO[ListItem.Label]</label>
+          </control>
+        </focusedlayout>
+        <itemlayout condition="Container.Content(Movies) | container.content(TVshows) | container.content(seasons)" height="350" width="290">
           <control type="image">
             <include>MoviePanelThumbDimensions</include>
             <include>PosterThumbBG</include>
@@ -62,7 +104,7 @@
             <texture>$VAR[Overlay]</texture>
           </control>
         </itemlayout>
-        <focusedlayout condition="Container.content(MusicVideos) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)" height="350" width="290">
+        <focusedlayout condition="Container.Content(Movies) | container.content(TVshows) | container.content(seasons)" height="350" width="290">
           <control type="image">
             <include>MoviePanelThumbDimensions</include>
             <include>PosterThumbFO</include>
@@ -119,7 +161,7 @@
             <label>$INFO[ListItem.Label]</label>
           </control>
         </focusedlayout>
-        <itemlayout condition="![container.content(addons) | Container.content(MusicVideos) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)]" height="350" width="386">
+        <itemlayout condition="![container.content(addons) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)]" height="350" width="386">
           <control type="group">
             <posy>-10</posy>
             <control type="image">
@@ -173,7 +215,7 @@
             <label>$INFO[ListItem.Title]</label>
           </control>
         </itemlayout>
-        <focusedlayout condition="![container.content(addons) | Container.content(MusicVideos) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)]" height="350" width="386">
+        <focusedlayout condition="![container.content(addons) | Container.Content(Movies) | container.content(TVshows) | container.content(seasons)]" height="350" width="386">
           <control type="group">
             <posy>-10</posy>
             <control type="image">
@@ -283,7 +325,7 @@
           <label>$VAR[Plots]</label>
         </control>
         <control type="group" description="Flags">
-          <animation effect="slide" start="0,0" end="0,9" time="0" reversible="true" condition="![container.Content(Movies) | container.Content(MusicVideos)]">Conditional</animation>
+          <animation effect="slide" start="0,0" end="0,9" time="0" reversible="true" condition="!container.Content(Movies)">Conditional</animation>
           <posx>0</posx>
           <posy>615</posy>
           <include>MediaFlags</include>
@@ -296,95 +338,6 @@
           <font>Details</font>
           <label>$INFO[ListItem.Label2,$LOCALIZE[19114] : ]</label>
         </control>
-      </control>
-      <control type="scrollbar" id="60">
-        <animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
-        <animation effect="slide" start="-8,0" end="0,0" time="300">UnFocus</animation>
-        <posx>20r</posx>
-        <posy>360</posy>
-        <width>36</width>
-        <height>700</height>
-        <texturesliderbackground>-</texturesliderbackground>
-        <texturesliderbar>-</texturesliderbar>
-        <texturesliderbarfocus>-</texturesliderbarfocus>
-        <textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
-        <textureslidernibfocus border="18">OSD/ScrollbarNibFO.png</textureslidernibfocus>
-        <showonepage>false</showonepage>
-        <orientation>vertical</orientation>
-        <onleft>51</onleft>
-        <onright>9000</onright>
-      </control>
-    </control>
-  </include>
-  <include name="View_51_Panel_Music">
-    <control type="image" description="fa overlay">
-      <visible>Control.IsVisible(51)</visible>
-      <include>VignetteFade</include>
-      <posx>0</posx>
-      <posy>0</posy>
-      <width>1920</width>
-      <height>1080</height>
-      <texture>common/Vignette.png</texture>
-    </control>
-    <control type="group" description="Container and frame">
-      <visible>Control.IsVisible(51)</visible>
-      <include>ContentFade</include>
-      <control type="panel" id="51" description="Grid">
-        <viewtype label="Panel">Panel</viewtype>
-        <posx>60</posx>
-        <posy>342</posy>
-        <width>1800</width>
-        <height>720</height>
-        <orientation>vertical</orientation>
-        <onleft>9000</onleft>
-        <onright>60</onright>
-        <onup>51</onup>
-        <ondown>51</ondown>
-        <preloaditems>4</preloaditems>
-        <pagecontrol>60</pagecontrol>
-        <scrolltime>400</scrolltime>
-        <itemlayout height="360" width="360">
-          <control type="image">
-            <posx>36</posx>
-            <posy>12</posy>
-            <width>288</width>
-            <height>288</height>
-            <include>SquareThumbBG</include>
-          </control>
-          <control type="image">
-            <posx>36</posx>
-            <posy>12</posy>
-            <width>288</width>
-            <height>288</height>
-            <include>SquareThumb</include>
-          </control>
-        </itemlayout>
-        <focusedlayout height="360" width="360">
-          <control type="image">
-            <posx>36</posx>
-            <posy>12</posy>
-            <width>288</width>
-            <height>288</height>
-            <include>SquareThumbFO</include>
-          </control>
-          <control type="image">
-            <posx>36</posx>
-            <posy>12</posy>
-            <width>288</width>
-            <height>288</height>
-            <include>SquareThumb</include>
-          </control>
-          <control type="label">
-            <posx>10</posx>
-            <posy>309</posy>
-            <width>340</width>
-            <height>45</height>
-            <font>Details</font>
-            <textcolor>Highlight</textcolor>
-            <align>center</align>
-            <label>$INFO[ListItem.Label]</label>
-          </control>
-        </focusedlayout>
       </control>
       <control type="scrollbar" id="60">
         <animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>

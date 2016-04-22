@@ -230,6 +230,10 @@
               <label>$LOCALIZE[1]</label>
               <onclick>activatewindow(PicturesSettings)</onclick>
             </item>
+            <item id="11" description="PVR">
+              <label>$LOCALIZE[31500]</label>
+              <onclick>activateWindow(PVRSettings)</onclick>
+            </item>
             <item id="1" description="Addons">
               <label>$LOCALIZE[24001]</label>
               <onclick>ActivateWindow(AddonBrowser,root)</onclick>
@@ -241,10 +245,6 @@
             <item id="9" description="System">
               <label>$LOCALIZE[13000]</label>
               <onclick>activatewindow(SystemSettings)</onclick>
-            </item>
-            <item id="11" description="PVR">
-              <label>$LOCALIZE[31500]</label>
-              <onclick>activateWindow(PVRSettings)</onclick>
             </item>
             <item id="7" description="Plexbmc config">
               <visible>System.HasAddon(plugin.video.plexbmc)</visible>
@@ -457,12 +457,12 @@
             <item id="11" description="Movies entry points">
               <label>$LOCALIZE[31507]</label>
               <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
-              <onclick>ActivateWindow(1115)</onclick>
+              <onclick>Skin.SelectBool(342, 31502|MovieEntry.All, 136|MovieEntry.Playlists, 744|MovieEntry.Files, 15100|MovieEntry.Library)</onclick>
             </item>
-            <item id="12" description="TV entry points">
+            <item id="12" description="TV Show entry points">
               <label>$LOCALIZE[31508]</label>
-              <label2 fallback="31499">$VAR[TVEntryPointLabel2]</label2>
-              <onclick>ActivateWindow(1120)</onclick>
+              <label2 fallback="31499">$VAR[TVShowEntryPointLabel2]</label2>
+              <onclick>Skin.SelectBool(342, 31499|TVShowEntry.All, 136|TVShowEntry.Playlists, 744|TVShowEntry.Files, 15100|TVShowEntry.Library)</onclick>
             </item>
             <item id="13" description="Use artist view">
               <visible>Skin.HasSetting(ArtistView)</visible>
@@ -802,33 +802,19 @@
               <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.7.Background)]</thumb>
               <onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomHome.7)</onclick>
             </item>
-            <item id="30" description="Clips">
-              <visible>Skin.HasSetting(Clips.Show)</visible>
-              <label>[COLOR=Highlight]$LOCALIZE[31972][/COLOR]</label>
+            <item id="31" description="MusicVideos">
+              <visible>Skin.HasSetting(MusicVideos.Show)</visible>
+              <label>[COLOR=Highlight]$LOCALIZE[20389][/COLOR]</label>
               <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
-              <thumb fallback="special://skin/backgrounds/Clips.jpg">$INFO[Skin.String(Clips.Background)]</thumb>
-              <onclick>Skin.ToggleSetting(Clips.Show)</onclick>
+              <thumb fallback="special://skin/backgrounds/MusicVideos.jpg">$INFO[Skin.String(MusicVideos.Background)]</thumb>
+              <onclick>Skin.ToggleSetting(MusicVideos.Show)</onclick>
             </item>
-            <item id="30" description="Clips">
-              <visible>!Skin.HasSetting(Clips.Show)</visible>
-              <label>[COLOR=Grey]$LOCALIZE[31972][/COLOR]</label>
+            <item id="31" description="MusicVideos">
+              <visible>!Skin.HasSetting(MusicVideos.Show)</visible>
+              <label>[COLOR=Grey]$LOCALIZE[20389][/COLOR]</label>
               <label2>$LOCALIZE[1223]</label2>
-              <thumb fallback="special://skin/backgrounds/Clips.jpg">$INFO[Skin.String(Clips.Background)]</thumb>
-              <onclick>Skin.ToggleSetting(Clips.Show)</onclick>
-            </item>
-            <item id="31" description="Concerts">
-              <visible>Skin.HasSetting(Concerts.Show)</visible>
-              <label>[COLOR=Highlight]$LOCALIZE[31971][/COLOR]</label>
-              <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
-              <thumb fallback="special://skin/backgrounds/Concerts.jpg">$INFO[Skin.String(Concerts.Background)]</thumb>
-              <onclick>Skin.ToggleSetting(Concerts.Show)</onclick>
-            </item>
-            <item id="31" description="Concerts">
-              <visible>!Skin.HasSetting(Concerts.Show)</visible>
-              <label>[COLOR=Grey]$LOCALIZE[31971][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <thumb fallback="special://skin/backgrounds/Concerts.jpg">$INFO[Skin.String(Concerts.Background)]</thumb>
-              <onclick>Skin.ToggleSetting(Concerts.Show)</onclick>
+              <thumb fallback="special://skin/backgrounds/MusicVideos.jpg">$INFO[Skin.String(MusicVideos.Background)]</thumb>
+              <onclick>Skin.ToggleSetting(MusicVideos.Show)</onclick>
             </item>
             <item id="28" description="CustomHome.8">
               <visible>!String.IsEmpty(Skin.String(CustomHome.8.Path))</visible>
@@ -1024,19 +1010,12 @@
                 <icon>special://skin/backgrounds/Music.jpg</icon>
                 <thumb>$INFO[Skin.String(Music.Background)]</thumb>
               </item>
-              <item id="13">
-                <visible>Skin.HasSetting(Clips.Show)</visible>
-                <label>$LOCALIZE[31972]</label>
-                <onclick>Control.Move(9004,-1)</onclick>
-                <icon>special://skin/backgrounds/Clips.jpg</icon>
-                <thumb>$INFO[Skin.String(Clips.Background)]</thumb>
-              </item>
               <item id="14">
-                <visible>Skin.HasSetting(Concerts.Show)</visible>
-                <label>$LOCALIZE[31971]</label>
+                <visible>Skin.HasSetting(MusicVideos.Show)</visible>
+                <label>$LOCALIZE[20389]</label>
                 <onclick>Control.Move(9004,-1)</onclick>
-                <icon>special://skin/backgrounds/Concerts.jpg</icon>
-                <thumb>$INFO[Skin.String(Concerts.Background)]</thumb>
+                <icon>special://skin/backgrounds/MusicVideos.jpg</icon>
+                <thumb>$INFO[Skin.String(MusicVideos.Background)]</thumb>
               </item>
               <item id="5">
                 <visible>!Skin.HasSetting(plexbmc)</visible>
@@ -1285,8 +1264,7 @@
               <onclick condition="Container(9004).HasFocus(10)">Skin.SetImage(DVD.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(11)">Skin.SetImage(Quit.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(12)">Skin.SetImage(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(13)">Skin.SetImage(Clips.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.SetImage(Concerts.Background)</onclick>
+              <onclick condition="Container(9004).HasFocus(14)">Skin.SetImage(MusicVideos.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(21)">Skin.SetImage(CustomHome.1.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(22)">Skin.SetImage(CustomHome.2.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(23)">Skin.SetImage(CustomHome.3.Background)</onclick>
@@ -1329,8 +1307,7 @@
               <onclick condition="Container(9004).HasFocus(10)">Skin.SetPath(DVD.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(11)">Skin.SetPath(Quit.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(12)">Skin.SetPath(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(13)">Skin.SetPath(Clips.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.SetPath(Concerts.Background)</onclick>
+              <onclick condition="Container(9004).HasFocus(14)">Skin.SetPath(MusicVideos.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(21)">Skin.SetPath(CustomHome.1.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(22)">Skin.SetPath(CustomHome.2.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(23)">Skin.SetPath(CustomHome.3.Background)</onclick>
@@ -1373,8 +1350,7 @@
               <onclick condition="Container(9004).HasFocus(10)">Skin.Reset(DVD.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(11)">Skin.Reset(Quit.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(12)">Skin.Reset(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(13)">Skin.Reset(Clips.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.Reset(Concerts.Background)</onclick>
+              <onclick condition="Container(9004).HasFocus(14)">Skin.Reset(MusicVideos.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(21)">Skin.Reset(CustomHome.1.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(22)">Skin.Reset(CustomHome.2.Background)</onclick>
               <onclick condition="Container(9004).HasFocus(23)">Skin.Reset(CustomHome.3.Background)</onclick>
@@ -2031,19 +2007,6 @@
               <label2>$LOCALIZE[107]</label2>
               <onclick>Skin.ToggleSetting(Hide.LibraryUpdate.Button)</onclick>
             </item>
-            <!--<item id="5" description="Start playlist">
-              <visible>!Skin.HasSetting(start.playlist)</visible>
-              <label>31115</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(start.playlist)</onclick>
-			  <onclick>Skin.SetFile(start.playlist.path,,special://MusicPlaylists/)</onclick>
-            </item>
-            <item id="5" description="Start playlist">
-              <visible>Skin.HasSetting(start.playlist)</visible>
-              <label>31116</label>
-              <label2 fallback="107">$INFO[Skin.String(start.playlist.path)]</label2>
-              <onclick>Skin.ToggleSetting(start.playlist)</onclick>
-            </item>-->
           </content>
         </control>
         <!--9000 9-->
