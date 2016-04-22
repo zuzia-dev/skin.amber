@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+  <include name="HomeShelf">
+    <param name="xoffset"/>
+    <param name="yoffset"/>
+    <param name="shelfwidth"/>
+    <definition>
+      <control type="image" description="Single line shelf BG XBMC only">
+        <visible>!Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | [Control.IsVisible(311) + !Control.IsVisible(312)] | [!Control.IsVisible(311) + Control.IsVisible(312)] | [Control.IsVisible(411) + !Control.IsVisible(413)] | [!Control.IsVisible(411) + Control.IsVisible(413)] | [Control.IsVisible(511) + !Control.IsVisible(513)] | [!Control.IsVisible(511) + Control.IsVisible(513)] | [Control.IsVisible(514) + !Control.IsVisible(515)] | [!Control.IsVisible(514) + Control.IsVisible(515)]]</visible>
+        <posx>$PARAM[xoffset]</posx>
+        <posy>$PARAM[yoffset]</posy>
+        <width>$PARAM[shelfwidth]</width>
+        <height>390</height>
+        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+      </control>
+      <control type="image" description="Double line shelfBG 2 XBMC only">
+        <animation effect="slide" start="0,0" end="0,-162" time="0" delay="0" condition="true">conditional</animation>
+        <visible>!Skin.HasSetting(plexbmc) + [[Control.IsVisible(311) + Control.IsVisible(312)] | [Control.IsVisible(411) + Control.IsVisible(413)] | [Control.IsVisible(511) + Control.IsVisible(513)] | [Control.IsVisible(514) + Control.IsVisible(515)]]</visible>
+        <posx>$PARAM[xoffset]</posx>
+        <posy>$PARAM[yoffset]</posy>
+        <width>$PARAM[shelfwidth]</width>
+        <height>720</height>
+        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+      </control>
+      <control type="image" description="Single line shelf BG Plexbmc only">
+        <visible>Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [Integer.IsGreater(Container(311).NumItems,0) + !Integer.IsGreater(Container(312).NumItems,0)] | [!Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + !Integer.IsGreater(Container(413).NumItems,0)] | [!Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)] | Control.IsVisible(511) | Control.IsVisible(900) | Control.IsVisible(901)]</visible>
+        <posx>$PARAM[xoffset]</posx>
+        <posy>$PARAM[yoffset]</posy>
+        <width>$PARAM[shelfwidth]</width>
+        <height>390</height>
+        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+      </control>
+      <control type="image" description="Double line shelf BG 2 Plexbmc only">
+        <animation effect="slide" start="0,0" end="0,-162" time="0" delay="0" condition="true">conditional</animation>
+        <visible>Skin.HasSetting(plexbmc) + [[Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)]]</visible>
+        <posx>$PARAM[xoffset]</posx>
+        <posy>$PARAM[yoffset]</posy>
+        <width>$PARAM[shelfwidth]</width>
+        <height>720</height>
+        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+      </control>
+      <control type="group">
+        <animation effect="slide" start="0,0" end="0,-100" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
+        <include condition="!Skin.HasSetting(Hide.Favourites)">Favourite.List</include>
+        <include condition="PVR.HasTVChannels | PVR.HasRadioChannels">PVR.List</include>
+        <include condition="Skin.HasSetting(Shelf.Addons)">Addons.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Movies.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.MusicVideos.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Episodes.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Albums.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + [String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true) | String.IsEqual(Window(Home).Property(SkinWidgets_RandomItems),true)]">Recommended.And.Random.Movies.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.MusicVideos.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Episodes.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Albums.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + Skin.HasSetting(plexbmc)">Plexbmc_Shelf</include>
+      </control>
+    </definition>
+  </include>
+
   <include name="RecordingContentItem">
     <param name="recordingchannelicon" default="PVR.NextRecordingChannelIcon"/>
     <param name="recordingstatus" default="img/PVR-HasTimer.png"/>
@@ -103,7 +160,7 @@
       </control>
       <control type="label" description="Label">
         <visible>Control.HasFocus($PARAM[itemid])</visible>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+        <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
         <include>RecentlyAdded_Label</include>
         <label>$INFO[Container($PARAM[itemid]).ListItem.Label]</label>
       </control>
@@ -151,7 +208,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(311)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>RecentlyAdded_Label</include>
       <label>$INFO[Container(311).ListItem.Label]</label>
     </control>
@@ -183,7 +240,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(312)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>Recommended_Label</include>
       <label>$INFO[Container(312).ListItem.Label]</label>
     </control>
@@ -216,7 +273,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(514)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>RecentlyAdded_Label</include>
       <label>$INFO[Container(514).ListItem.Property(ShelfLabel)]</label>
     </control>
@@ -248,7 +305,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(515)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>Recommended_Label</include>
       <label>$INFO[Container(515).ListItem.Property(ShelfLabel)]</label>
     </control>
@@ -280,7 +337,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(411)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>RecentlyAdded_Label</include>
       <label>$INFO[Container(411).ListItem.Label]</label>
     </control>
@@ -312,7 +369,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(413)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>Recommended_Label</include>
       <label>$INFO[Container(413).ListItem.Label2,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container(413).ListItem.Label]</label>
     </control>
@@ -344,7 +401,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(511)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>RecentlyAdded_Label</include>
       <label>$INFO[Container(511).ListItem.Property(ShelfLabel)]</label>
     </control>
@@ -376,7 +433,7 @@
     </control>
     <control type="label" description="Label">
       <visible>Control.HasFocus(513)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+      <animation effect="slide" start="0,0" end="-518,0" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
       <include>Recommended_Label</include>
       <label>$INFO[Container(513).ListItem.Property(ShelfLabel)]</label>
     </control>
