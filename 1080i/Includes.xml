@@ -1198,6 +1198,7 @@
   </include>
 
   <include name="CodecInfo">
+    <animation effect="slide" start="0,0" end="0,88" time="0" delay="0" reversible="true" condition="Window.IsVisible(DialogSeekBar.xml)">Conditional</animation>
     <control type="image" description="Info Background">
       <visible>!VideoPlayer.Content(LiveTV)</visible>
       <posx>0</posx>
@@ -1724,18 +1725,15 @@
       </control>
     </control>
   </include>
-  <include name="MediaFlags">
-    <control type="grouplist" description="Flags">
-      <visible>!ListItem.IsFolder</visible>
-      <width min="90" max="650">auto</width>
-      <height>120</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>left</align>
+
+  <include name="MediaFlagItems">
+    <param name="itemwidth" default="90"/>
+    <param name="itemheight" default="45"/>
+    <definition>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
-        <height>45</height>
-        <width>90</width>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>Silver</colordiffuse>
@@ -1743,8 +1741,8 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
-        <height>45</height>
-        <width>90</width>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>Silver</colordiffuse>
@@ -1752,8 +1750,8 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
-        <height>45</height>
-        <width>90</width>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>Silver</colordiffuse>
@@ -1761,29 +1759,39 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
-        <height>45</height>
-        <width>90</width>
-        <posx>0</posx>
-        <posy>0</posy>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>Silver</colordiffuse>
         <texture>$INFO[ListItem.VideoResolution,badges/videoresolution/,.png]</texture>
       </control>
-			<control type="image">
-        <visible>Container.Content(Movies) | Container.Content(Episodes) | Container.Content(MusicVideos)</visible>
-				<visible>ListItem.IsStereoscopic</visible>
-        <height>45</height>
-        <width>90</width>
-        <posx>0</posx>
-        <posy>0</posy>
+      <control type="image">
+        <visible>ListItem.IsStereoscopic</visible>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>Silver</colordiffuse>
         <texture>badges/videocodec/3d.png</texture>
       </control>
+    </definition>
+  </include>
+
+  <include name="MediaFlags">
+    <control type="grouplist" description="Flags">
+      <visible>!ListItem.IsFolder</visible>
+      <width>650</width>
+      <height>120</height>
+      <itemgap>30</itemgap>
+      <orientation>horizontal</orientation>
+      <align>left</align>
+      <include content="MediaFlagItems">
+      </include>
     </control>
   </include>
+
+
   <include name="AlbumInfoContent">
     <item>
       <label>$LOCALIZE[557]:</label>
