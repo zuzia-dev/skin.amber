@@ -2012,4 +2012,51 @@
       </control>
     </definition>  
   </include>
+
+<include name="YesNoSettingItem">
+  <param name="itemid" />
+  <param name="itemlabel" />
+  <param name="itemvisibility" default="true"/>
+  <param name="skinsetting"/>
+  <definition>
+      <item id="$PARAM[itemid]">
+        <visible>Skin.HasSetting($PARAM[skinsetting])</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[107]</label2>
+        <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+      </item>
+      <item id="$PARAM[itemid]">
+        <visible>!Skin.HasSetting($PARAM[skinsetting])</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[106]</label2>
+        <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+      </item>
+    </definition>
+  </include>
+
+  <include name="PlexSettingItem">
+    <param name="itemid" />
+    <definition>
+      <item id="$PARAM[itemid]" description="Enabled">
+        <visible>!String.IsEmpty(Window(Home).Property(plexbmc.$PARAM[itemid].title)) + !Skin.HasSetting(hide.plexbmc.$PARAM[itemid].title)</visible>
+        <visible>![String.IsEqual(Window(Home).Property(plexbmc.$PARAM[itemid].shared),true)]</visible>
+        <label>$INFO[Window(Home).Property(plexbmc.$PARAM[itemid].title)]</label>
+        <label2>$LOCALIZE[449]</label2>
+        <onclick>Skin.ToggleSetting(hide.plexbmc.$PARAM[itemid].title)</onclick>
+      </item>
+      <item id="$PARAM[itemid]" description="Disabled">
+        <visible>!String.IsEmpty(Window(Home).Property(plexbmc.$PARAM[itemid].title)) + Skin.HasSetting(hide.plexbmc.$PARAM[itemid].title)</visible>
+        <visible>![String.IsEqual(Window(Home).Property(plexbmc.$PARAM[itemid].shared),true)]</visible>
+        <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.$PARAM[itemid].title)][/COLOR]</label>
+        <label2>$LOCALIZE[1223]</label2>
+        <onclick>Skin.ToggleSetting(hide.plexbmc.$PARAM[itemid].title)</onclick>
+      </item>
+    </definition>
+  </include>
 </includes>
+
+
+
+

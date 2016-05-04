@@ -218,11 +218,11 @@
               <label>$LOCALIZE[14207]</label>
               <onclick>activatewindow(InterfaceSettings)</onclick>
             </item>
-            <item id="3" description="Videos">
+            <item id="3" description="Player}">
               <label>$LOCALIZE[14201]</label>
               <onclick>activatewindow(PlayerSettings)</onclick>
             </item>
-            <item id="4" description="Music">
+            <item id="4" description="Library">
               <label>$LOCALIZE[14203]</label>
               <onclick>activatewindow(LibrarySettings)</onclick>
             </item>
@@ -404,59 +404,31 @@
             </control>
           </focusedlayout>
           <content>
-            <item id="0" description="Watched Marks">
-              <visible>Skin.HasSetting(Hide_Watched_Marks)</visible>
-              <label>$LOCALIZE[31981]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Hide_Watched_Marks)</onclick>
-            </item>
-            <item id="0" description="Watched Marks">
-              <visible>!Skin.HasSetting(Hide_Watched_Marks)</visible>
-              <label>$LOCALIZE[31981]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Hide_Watched_Marks)</onclick>
-            </item>
-            <item id="1" description="UnWatched Marks">
-              <visible>Skin.HasSetting(Hide_Unwatched_Marks)</visible>
-              <label>$LOCALIZE[31980]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Hide_Unwatched_Marks)</onclick>
-            </item>
-            <item id="1" description="UnWatched Marks">
-              <visible>!Skin.HasSetting(Hide_Unwatched_Marks)</visible>
-              <label>$LOCALIZE[31980]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Hide_Unwatched_Marks)</onclick>
-            </item>
-            <item id="2" description="AutoScroll">
-              <visible>Skin.HasSetting(AutoScroll)</visible>
-              <label>$LOCALIZE[20189]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(AutoScroll)</onclick>
-            </item>
-            <item id="2" description="AutoScroll">
-              <visible>!Skin.HasSetting(AutoScroll)</visible>
-              <label>$LOCALIZE[20189]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(AutoScroll)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="0"/>
+              <param name="itemlabel" value="$LOCALIZE[31981]"/>
+              <param name="skinsetting" value="Hide_Watched_Marks"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="1"/>
+              <param name="itemlabel" value="$LOCALIZE[31980]"/>
+              <param name="skinsetting" value="Hide_Unwatched_Marks"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="2"/>
+              <param name="itemlabel" value="$LOCALIZE[20189]"/>
+              <param name="skinsetting" value="AutoScroll"/>
+            </include>
             <item id="3" description="Lyrics">
               <label>$LOCALIZE[24020] $LOCALIZE[31132]</label>
               <label2>$INFO[Skin.String(LyricPath)]</label2>
               <onclick>Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
             </item>
-            <item id="5" description="Show player on home">
-              <visible>Skin.HasSetting(Show_Player)</visible>
-              <label>$LOCALIZE[31991]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Show_Player)</onclick>
-            </item>
-            <item id="5" description="Show player on home">
-              <visible>!Skin.HasSetting(Show_Player)</visible>
-              <label>$LOCALIZE[31991]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Show_Player)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="5"/>
+              <param name="itemlabel" value="$LOCALIZE[31991]"/>
+              <param name="skinsetting" value="Show_Player"/>
+            </include>
             <item id="11" description="Movies entry points">
               <label>$LOCALIZE[31507]</label>
               <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
@@ -477,54 +449,26 @@
               <label2 fallback="19019">$VAR[RadioEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(31509, 19019|RadioEntry.Channels, 22020|RadioEntry.Guide, 19163|RadioEntry.Recordings)</onclick>
             </item>
-            <item id="13" description="Use artist view">
-              <visible>Skin.HasSetting(ArtistView)</visible>
-              <label>$LOCALIZE[31960]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(ArtistView)</onclick>
-            </item>
-            <item id="13" description="Use artist view">
-              <visible>!Skin.HasSetting(ArtistView)</visible>
-              <label>$LOCALIZE[31960]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(ArtistView)</onclick>
-            </item>
-            <item id="15" description="Hide channel logos in PVR List/Timeline">
-              <visible>Skin.HasSetting(HideEPGLogos)</visible>
-              <label>$LOCALIZE[31997]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(HideEPGLogos)</onclick>
-            </item>
-            <item id="15" description="Hide channel logos in PVR List/Timeline">
-              <visible>!Skin.HasSetting(HideEPGLogos)</visible>
-              <label>$LOCALIZE[31997]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(HideEPGLogos)</onclick>
-            </item>
-            <item id="16" description="Show lock\master status in title bar">
-              <visible>Skin.HasSetting(ShowMasterLockTitle)</visible>
-              <label>$LOCALIZE[31998]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(ShowMasterLockTitle)</onclick>
-            </item>
-            <item id="16" description="Show lock\master status in title bar">
-              <visible>!Skin.HasSetting(ShowMasterLockTitle)</visible>
-              <label>$LOCALIZE[31998]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(ShowMasterLockTitle)</onclick>
-            </item>
-            <item id="17" description="Holiday">
-              <visible>Skin.HasSetting(holiday)</visible>
-              <label>$LOCALIZE[31996]</label>
-              <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
-              <onclick>Skin.ToggleSetting(holiday)</onclick>
-            </item>
-            <item id="17" description="Holiday">
-              <visible>!Skin.HasSetting(holiday)</visible>
-              <label>$LOCALIZE[31996]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(holiday)</onclick>
-            </item>
+           <include content="YesNoSettingItem">
+              <param name="itemid" value="13"/>
+              <param name="itemlabel" value="$LOCALIZE[31960]"/>
+              <param name="skinsetting" value="ArtistView"/>
+            </include>
+           <include content="YesNoSettingItem">
+              <param name="itemid" value="15"/>
+              <param name="itemlabel" value="$LOCALIZE[31997]"/>
+              <param name="skinsetting" value="HideEPGLogos"/>
+            </include>
+           <include content="YesNoSettingItem">
+              <param name="itemid" value="16"/>
+              <param name="itemlabel" value="$LOCALIZE[31998]"/>
+              <param name="skinsetting" value="ShowMasterLockTitle"/>
+            </include>
+           <include content="YesNoSettingItem">
+              <param name="itemid" value="17"/>
+              <param name="itemlabel" value="$LOCALIZE[31996]"/>
+              <param name="skinsetting" value="holiday"/>
+            </include>
             <item id="18" description="Reset Skin">
               <label>$LOCALIZE[31038]</label>
               <onclick>Skin.ResetSettings</onclick>
@@ -1450,47 +1394,26 @@
             </control>
           </focusedlayout>
           <content>
-            <item id="1" description="Enable Recently Added">
-              <visible>!Skin.HasSetting(Hide.RecentlyAdded)</visible>
-              <label>$LOCALIZE[31967]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Hide.RecentlyAdded)</onclick>
-            </item>
-            <item id="1" description="Enable Recently Added">
-              <visible>Skin.HasSetting(Hide.RecentlyAdded)</visible>
-              <label>$LOCALIZE[31967]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.Reset(Hide.RecentlyAdded)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="1"/>
+              <param name="itemlabel" value="$LOCALIZE[31967]"/>
+              <param name="skinsetting" value="Hide.RecentlyAdded"/>
+            </include>
             <item id="3" description="Configure service.skin.widgets">
               <visible>System.HasAddon(service.skin.widgets) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[31964]</label>
               <onclick>Addon.OpenSettings(service.skin.widgets)</onclick>
             </item>
-            <item id="4" description="Enable Favourites">
-              <visible>!Skin.HasSetting(Hide.Favourites)</visible>
-              <label>$LOCALIZE[1036]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Hide.Favourites)</onclick>
-            </item>
-            <item id="4" description="Enable Favourites">
-              <visible>Skin.HasSetting(Hide.Favourites)</visible>
-              <label>$LOCALIZE[1036]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.Reset(Hide.Favourites)</onclick>
-            </item>
-            <item id="5" description="Enable Addons">
-              <visible>!Skin.HasSetting(Shelf.Addons)</visible>
-              <label>$LOCALIZE[24001]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Shelf.Addons)</onclick>
-            </item>
-            <item id="5" description="Enable Addons">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
-              <label>$LOCALIZE[24001]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.Reset(Shelf.Addons)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="4"/>
+              <param name="itemlabel" value="$LOCALIZE[1036]"/>
+              <param name="skinsetting" value="Hide.Favourites"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="5"/>
+              <param name="itemlabel" value="$LOCALIZE[24001]"/>
+              <param name="skinsetting" value="Shelf.Addons"/>
+            </include>
             <item id="6" description="ADDONS">
               <visible>Skin.HasSetting(Shelf.Addons)</visible>
               <label>$LOCALIZE[24000] 1</label>
@@ -1522,31 +1445,31 @@
               <onclick>Skin.SetAddon(ShelfAddons.5.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
             <item id="11" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + !String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</visible>
+              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 6</label>
               <label2>$INFO[Skin.String(ShelfAddons.6.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.6.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
             <item id="12" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + !String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</visible>
+              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 7</label>
               <label2>$INFO[Skin.String(ShelfAddons.7.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.7.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
             <item id="13" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + !String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</visible>
+              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 8</label>
               <label2>$INFO[Skin.String(ShelfAddons.8.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.8.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
             <item id="14" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + !String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</visible>
+              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 9</label>
               <label2>$INFO[Skin.String(ShelfAddons.9.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.9.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
             <item id="15" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + !String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</visible>
+              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 10</label>
               <label2>$INFO[Skin.String(ShelfAddons.10.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.10.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
@@ -1645,54 +1568,26 @@
             </control>
           </focusedlayout>
           <content>
-            <item id="0" description="Horizontal">
-              <visible>Skin.HasSetting(VerticalHome)</visible>
-              <label>$LOCALIZE[31994]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(VerticalHome)</onclick>
-            </item>
-            <item id="0" description="Vertical">
-              <visible>!Skin.HasSetting(VerticalHome)</visible>
-              <label>$LOCALIZE[31994]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(VerticalHome)</onclick>
-            </item>
-            <item id="1" description="Default bg">
-              <visible>Skin.HasSetting(Home_DefaultBG)</visible>
-              <label>$LOCALIZE[31986]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Home_DefaultBG)</onclick>
-            </item>
-            <item id="1" description="Default bg">
-              <visible>!Skin.HasSetting(Home_DefaultBG)</visible>
-              <label>$LOCALIZE[31986]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Home_DefaultBG)</onclick>
-            </item>
-            <item id="2" description="Library stats">
-              <visible>Skin.HasSetting(Show_Library_Count)</visible>
-              <label>$LOCALIZE[31978]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Show_Library_Count)</onclick>
-            </item>
-            <item id="2" description="Library stats">
-              <visible>!Skin.HasSetting(Show_Library_Count)</visible>
-              <label>$LOCALIZE[31978]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Show_Library_Count)</onclick>
-            </item>
-            <item id="3" description="Static Vertical Home">
-              <visible>Skin.HasSetting(StaticVerticalHome)</visible>
-              <label>$LOCALIZE[31363]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(StaticVerticalHome)</onclick>
-            </item>
-            <item id="3" description="Static Vertical Home">
-              <visible>!Skin.HasSetting(StaticVerticalHome)</visible>
-              <label>$LOCALIZE[31363]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(StaticVerticalHome)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="0"/>
+              <param name="itemlabel" value="$LOCALIZE[31994]"/>
+              <param name="skinsetting" value="VerticalHome"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="1"/>
+              <param name="itemlabel" value="$LOCALIZE[31363]"/>
+              <param name="skinsetting" value="StaticVerticalHome"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="2"/>
+              <param name="itemlabel" value="$LOCALIZE[31986]"/>
+              <param name="skinsetting" value="Home_DefaultBG"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="3"/>
+              <param name="itemlabel" value="$LOCALIZE[31978]"/>
+              <param name="skinsetting" value="Show_Library_Count"/>
+            </include>
           </content>
         </control>
         <!-- 9000 7 -->
@@ -1792,76 +1687,36 @@
               <label2 fallback="31988">$VAR[QuitLabel2]</label2>
               <onclick>ActivateWindow(1114)</onclick>
             </item>
-            <item id="2" description="Quit">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>!Skin.HasSetting(QuitMenu_Hide_Quit)</visible>
-              <label>- $LOCALIZE[13009]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Quit)</onclick>
-            </item>
-            <item id="2" description="Quit">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>Skin.HasSetting(QuitMenu_Hide_Quit)</visible>
-              <label>- $LOCALIZE[13009]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Quit)</onclick>
-            </item>
-            <item id="3" description="Sleep">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>!Skin.HasSetting(QuitMenu_Hide_Sleep)</visible>
-              <label>- $LOCALIZE[13011]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Sleep)</onclick>
-            </item>
-            <item id="3" description="Sleep">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>Skin.HasSetting(QuitMenu_Hide_Sleep)</visible>
-              <label>- $LOCALIZE[13011]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Sleep)</onclick>
-            </item>
-            <item id="4" description="Shutdown">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>!Skin.HasSetting(QuitMenu_Hide_Shutdown)</visible>
-              <label>- $LOCALIZE[13005]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Shutdown)</onclick>
-            </item>
-            <item id="4" description="Shutdown">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>Skin.HasSetting(QuitMenu_Hide_Shutdown)</visible>
-              <label>- $LOCALIZE[13005]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Shutdown)</onclick>
-            </item>
-            <item id="5" description="Reboot">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>!Skin.HasSetting(QuitMenu_Hide_Reboot)</visible>
-              <label>- $LOCALIZE[13013]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Reboot)</onclick>
-            </item>
-            <item id="5" description="Shutdown">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>Skin.HasSetting(QuitMenu_Hide_Reboot)</visible>
-              <label>- $LOCALIZE[13013]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Hide_Reboot)</onclick>
-            </item>
-            <item id="6" description="Settings">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>Skin.HasSetting(QuitMenu_Show_Settings)</visible>
-              <label>- $LOCALIZE[5]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Show_Settings)</onclick>
-            </item>
-            <item id="6" description="Settings">
-              <visible>String.IsEmpty(Skin.String(shutdown))</visible>
-              <visible>!Skin.HasSetting(QuitMenu_Show_Settings)</visible>
-              <label>- $LOCALIZE[5]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(QuitMenu_Show_Settings)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="2"/>
+              <param name="itemlabel" value="- $LOCALIZE[13009]"/>
+              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
+              <param name="skinsetting" value="QuitMenu_Show_Quit"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="3"/>
+              <param name="itemlabel" value="- $LOCALIZE[13011]"/>
+              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
+              <param name="skinsetting" value="QuitMenu_Show_Sleep"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="4"/>
+              <param name="itemlabel" value="- $LOCALIZE[13005]"/>
+              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
+              <param name="skinsetting" value="QuitMenu_Show_Shutdown"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="5"/>
+              <param name="itemlabel" value="- $LOCALIZE[13013]"/>
+              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
+              <param name="skinsetting" value="QuitMenu_Show_Reboot"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="6"/>
+              <param name="itemlabel" value="- $LOCALIZE[5]"/>
+              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
+              <param name="skinsetting" value="QuitMenu_Show_Settings"/>
+            </include>
           </content>
         </control>
         <!-- 9000 8 -->
@@ -1956,58 +1811,27 @@
             </control>
           </focusedlayout>
           <content>
-            <item id="1" description="TVTunes">
-              <visible>!Skin.HasSetting(TVTunes.Enabled)</visible>
-              <label>$LOCALIZE[31984]</label>
-              <label2>$LOCALIZE[13106]</label2>
-              <onclick>Skin.ToggleSetting(TVTunes.Enabled)</onclick>
-            </item>
-            <item id="1" description="TVTunes">
-              <visible>Skin.HasSetting(TVTunes.Enabled)</visible>
-              <label>$LOCALIZE[31984]</label>
-              <label2>$LOCALIZE[305]</label2>
-              <onclick>Skin.ToggleSetting(TVTunes.Enabled)</onclick>
-            </item>
-            <item id="2" description="Artist slideshow">
-              <visible>System.HasAddon(script.artistslideshow)</visible>
-              <visible>!Skin.HasSetting(Use_Artist_Slideshow)</visible>
-              <label>$LOCALIZE[31969]</label>
-              <label2>$LOCALIZE[13106]</label2>
-              <onclick>Skin.ToggleSetting(Use_Artist_Slideshow)</onclick>
-            </item>
-            <item id="2" description="Artist slideshow">
-              <visible>System.HasAddon(script.artistslideshow)</visible>
-              <visible>Skin.HasSetting(Use_Artist_Slideshow)</visible>
-              <label>$LOCALIZE[31969]</label>
-              <label2>$LOCALIZE[305]</label2>
-              <onclick>Skin.ToggleSetting(Use_Artist_Slideshow)</onclick>
-            </item>
-            <item id="3" description="Dont wait for widgets">
-              <visible>!Skin.HasSetting(Hide.RecentlyAdded)</visible>
-              <visible>!Skin.HasSetting(Use.FastStart)</visible>
-              <label>$LOCALIZE[31977]</label>
-              <label2>$LOCALIZE[13106]</label2>
-              <onclick>Skin.ToggleSetting(Use.FastStart)</onclick>
-            </item>
-            <item id="3" description="Dont wait for widgets">
-              <visible>!Skin.HasSetting(Hide.RecentlyAdded)</visible>
-              <visible>Skin.HasSetting(Use.FastStart)</visible>
-              <label>$LOCALIZE[31977]</label>
-              <label2>$LOCALIZE[305]</label2>
-              <onclick>Skin.ToggleSetting(Use.FastStart)</onclick>
-            </item>
-            <item id="4" description="Hide Library update button">
-              <visible>!Skin.HasSetting(Hide.LibraryUpdate.Button)</visible>
-              <label>$LOCALIZE[31957]</label>
-              <label2>$LOCALIZE[106]</label2>
-              <onclick>Skin.ToggleSetting(Hide.LibraryUpdate.Button)</onclick>
-            </item>
-            <item id="4" description="Hide Library update button">
-              <visible>Skin.HasSetting(Hide.LibraryUpdate.Button)</visible>
-              <label>$LOCALIZE[31957]</label>
-              <label2>$LOCALIZE[107]</label2>
-              <onclick>Skin.ToggleSetting(Hide.LibraryUpdate.Button)</onclick>
-            </item>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="1"/>
+              <param name="itemlabel" value="$LOCALIZE[31984]"/>
+              <param name="skinsetting" value="TVTunes.Enabled"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="2"/>
+              <param name="itemlabel" value="$LOCALIZE[31969]"/>
+              <param name="skinsetting" value="Use_Artist_Slideshow"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="2"/>
+              <param name="itemlabel" value="$LOCALIZE[31977]"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+              <param name="skinsetting" value="Use.FastStart"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="4"/>
+              <param name="itemlabel" value="$LOCALIZE[31957]"/>
+              <param name="skinsetting" value="Hide.LibraryUpdate.Button"/>
+            </include>
           </content>
         </control>
         <!--9000 9-->
@@ -2102,286 +1926,66 @@
             </control>
           </focusedlayout>
           <content>
-            <item id="30" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.0.title)) + !Skin.HasSetting(hide.plexbmc.0.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.0.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.0.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.0.title)</onclick>
-            </item>
-            <item id="30" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.0.title)) + Skin.HasSetting(hide.plexbmc.0.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.0.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.0.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.0.title)</onclick>
-            </item>
-            <item id="31" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.1.title)) + !Skin.HasSetting(hide.plexbmc.1.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.1.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.1.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.1.title)</onclick>
-            </item>
-            <item id="31" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.1.title)) + Skin.HasSetting(hide.plexbmc.1.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.1.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.1.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.1.title)</onclick>
-            </item>
-            <item id="32" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.2.title)) + !Skin.HasSetting(hide.plexbmc.2.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.2.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.2.title)]</label>
-              <label2>$LOCALIZE[305]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.2.title)</onclick>
-            </item>
-            <item id="32" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.2.title)) + Skin.HasSetting(hide.plexbmc.2.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.2.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.2.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.2.title)</onclick>
-            </item>
-            <item id="33" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.3.title)) + !Skin.HasSetting(hide.plexbmc.3.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.3.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.3.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.3.title)</onclick>
-            </item>
-            <item id="33" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.3.title)) + Skin.HasSetting(hide.plexbmc.3.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.3.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.3.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.3.title)</onclick>
-            </item>
-            <item id="34" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.4.title)) + !Skin.HasSetting(hide.plexbmc.4.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.4.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.4.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.4.title)</onclick>
-            </item>
-            <item id="34" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.4.title)) + Skin.HasSetting(hide.plexbmc.4.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.4.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.4.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.4.title)</onclick>
-            </item>
-            <item id="35" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.5.title)) + !Skin.HasSetting(hide.plexbmc.5.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.5.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.5.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.5.title)</onclick>
-            </item>
-            <item id="35" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.5.title)) + Skin.HasSetting(hide.plexbmc.5.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.5.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.5.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.5.title)</onclick>
-            </item>
-            <item id="36" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.6.title)) + !Skin.HasSetting(hide.plexbmc.6.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.6.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.6.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.6.title)</onclick>
-            </item>
-            <item id="36" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.6.title)) + Skin.HasSetting(hide.plexbmc.6.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.6.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.6.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.6.title)</onclick>
-            </item>
-            <item id="37" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.7.title)) + !Skin.HasSetting(hide.plexbmc.7.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.7.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.7.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.7.title)</onclick>
-            </item>
-            <item id="37" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.7.title)) + Skin.HasSetting(hide.plexbmc.7.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.7.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.7.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.7.title)</onclick>
-            </item>
-            <item id="38" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.8.title)) + !Skin.HasSetting(hide.plexbmc.8.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.8.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.8.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.8.title)</onclick>
-            </item>
-            <item id="38" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.8.title)) + Skin.HasSetting(hide.plexbmc.8.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.8.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.8.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.8.title)</onclick>
-            </item>
-            <item id="39" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.9.title)) + !Skin.HasSetting(hide.plexbmc.9.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.9.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.9.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.9.title)</onclick>
-            </item>
-            <item id="39" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.9.title)) + Skin.HasSetting(hide.plexbmc.9.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.9.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.9.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.9.title)</onclick>
-            </item>
-            <item id="40" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.10.title)) + !Skin.HasSetting(hide.plexbmc.10.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.10.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.10.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.10.title)</onclick>
-            </item>
-            <item id="40" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.10.title)) + Skin.HasSetting(hide.plexbmc.10.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.10.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.10.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.10.title)</onclick>
-            </item>
-            <item id="41" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.11.title)) + !Skin.HasSetting(hide.plexbmc.11.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.11.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.11.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.11.title)</onclick>
-            </item>
-            <item id="41" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.11.title)) + Skin.HasSetting(hide.plexbmc.11.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.11.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.11.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.11.title)</onclick>
-            </item>
-            <item id="42" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.12.title)) + !Skin.HasSetting(hide.plexbmc.12.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.12.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.12.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.12.title)</onclick>
-            </item>
-            <item id="42" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.12.title)) + Skin.HasSetting(hide.plexbmc.12.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.12.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.12.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.12.title)</onclick>
-            </item>
-            <item id="43" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.13.title)) + !Skin.HasSetting(hide.plexbmc.13.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.13.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.13.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.13.title)</onclick>
-            </item>
-            <item id="43" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.13.title)) + Skin.HasSetting(hide.plexbmc.13.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.13.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.13.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.13.title)</onclick>
-            </item>
-            <item id="44" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.14.title)) + !Skin.HasSetting(hide.plexbmc.14.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.14.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.14.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.14.title)</onclick>
-            </item>
-            <item id="44" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.14.title)) + Skin.HasSetting(hide.plexbmc.14.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.14.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.14.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.14.title)</onclick>
-            </item>
-            <item id="45" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.15.title)) + !Skin.HasSetting(hide.plexbmc.15.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.15.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.15.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.15.title)</onclick>
-            </item>
-            <item id="45" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.15.title)) + Skin.HasSetting(hide.plexbmc.15.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.15.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.15.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.15.title)</onclick>
-            </item>
-            <item id="46" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.16.title)) + !Skin.HasSetting(hide.plexbmc.16.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.16.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.16.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.16.title)</onclick>
-            </item>
-            <item id="46" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.16.title)) + Skin.HasSetting(hide.plexbmc.16.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.16.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.16.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.16.title)</onclick>
-            </item>
-            <item id="47" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.17.title)) + !Skin.HasSetting(hide.plexbmc.17.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.17.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.17.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.17.title)</onclick>
-            </item>
-            <item id="47" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.17.title)) + Skin.HasSetting(hide.plexbmc.17.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.17.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.17.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.17.title)</onclick>
-            </item>
-            <item id="48" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.18.title)) + !Skin.HasSetting(hide.plexbmc.18.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.18.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.18.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.18.title)</onclick>
-            </item>
-            <item id="48" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.18.title)) + Skin.HasSetting(hide.plexbmc.18.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.18.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.18.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.18.title)</onclick>
-            </item>
-            <item id="49" description="Enabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.19.title)) + !Skin.HasSetting(hide.plexbmc.19.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.19.shared),t)]</visible>
-              <label>$INFO[Window(Home).Property(plexbmc.19.title)]</label>
-              <label2>$LOCALIZE[449]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.19.title)</onclick>
-            </item>
-            <item id="49" description="Disabled">
-              <visible>!String.IsEmpty(Window(Home).Property(plexbmc.19.title)) + Skin.HasSetting(hide.plexbmc.19.title)</visible>
-              <visible>![String.Contains(Window(Home).Property(plexbmc.19.shared),t)]</visible>
-              <label>[COLOR=Grey]$INFO[Window(Home).Property(plexbmc.19.title)][/COLOR]</label>
-              <label2>$LOCALIZE[1223]</label2>
-              <onclick>Skin.ToggleSetting(hide.plexbmc.19.title)</onclick>
-            </item>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="0"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="1"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="2"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="3"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="4"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="5"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="6"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="7"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="8"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="9"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="10"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="11"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="12"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="13"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="14"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="15"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="16"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="17"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="18"/>
+            </include>
+            <include content="PlexSettingItem">
+              <param name="itemid" value="19"/>
+            </include>
             <item id="50" description="Channels enabled">
               <visible>Skin.HasSetting(plexbmc) + !Skin.HasSetting(Channels.Hide)</visible>
               <label>$LOCALIZE[31975]</label>
