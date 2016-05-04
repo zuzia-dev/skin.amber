@@ -7,7 +7,7 @@
     <control type="group" description="Top Bar">
       <control type="image" description="Background">
        <animation effect="slide" start="0,0" end="0,30" time="0" reversible="true" condition="Player.ChapterCount + !VideoPlayer.Content(LiveTV)">Conditional</animation>
-		<posx>0</posx>
+        <posx>0</posx>
         <posy>-30</posy>
         <width>1920</width>
         <height>138</height>
@@ -34,10 +34,10 @@
         <aligny>center</aligny>
         <font>Details</font>
         <shadowcolor>Black</shadowcolor>
-		<scroll>false</scroll>
+        <scroll>false</scroll>
         <label>$INFO[Player.FinishTime][COLOR=Highlight] • [/COLOR]$LOCALIZE[19127]</label>
       </control>
-	  <control type="group">
+      <control type="group">
         <visible>Window.IsActive(DialogFullScreenInfo.xml) | [Player.Caching | Player.Paused | Player.Seeking | player.forwarding | player.rewinding | Player.DisplayAfterSeek | Window.IsActive(videoosd.xml)]</visible>
         <posy>10</posy>
         <control type="progress" description="Buffer Bar">
@@ -69,11 +69,10 @@
           <width>720</width>
           <height>18</height>
           <texturesliderbar>OSD/seekslider.png</texturesliderbar>
-        <textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
-        <textureslidernibfocus>OSD/ScrollbarNibFO.png</textureslidernibfocus>
-          <visible>Player.Seeking</visible>
+          <textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
+          <textureslidernibfocus>OSD/ScrollbarNibFO.png</textureslidernibfocus>
         </control>
-      <control type="label" description="Progress time label">
+        <control type="label" description="Progress time label">
           <posx>580</posx>
           <posy>-5</posy>
           <height>30</height>
@@ -107,30 +106,10 @@
         <include>SeekbarLabels</include>
         <label>$INFO[Player.CacheLevel,$LOCALIZE[15107] ,%]</label>
       </control>
-      <control type="label" description="2x RW FW label">
-        <visible>player.forwarding2x | player.rewinding2x</visible>
+      <control type="label" description="RW FW label">
+        <visible>player.forwarding | player.rewinding</visible>
         <include>SeekbarLabels</include>
-        <label>2 X</label>
-      </control>
-      <control type="label" description="4x RW FW label">
-        <visible>player.forwarding4x | player.rewinding4x</visible>
-        <include>SeekbarLabels</include>
-        <label>4 X</label>
-      </control>
-      <control type="label" description="8x RW FW label">
-        <visible>player.forwarding8x | player.rewinding8x</visible>
-        <include>SeekbarLabels</include>
-        <label>8 X</label>
-      </control>
-      <control type="label" description="16x RW FW label">
-        <visible>player.forwarding16x | player.rewinding16x</visible>
-        <include>SeekbarLabels</include>
-        <label>16 X</label>
-      </control>
-      <control type="label" description="32x RW FW label">
-        <visible>player.forwarding32x | player.rewinding32x</visible>
-        <include>SeekbarLabels</include>
-        <label>32 X</label>
+        <label>$VAR[ForwardRewindLabel]</label>
       </control>
       <control type="label" description="Seek time label">
         <include>SeekbarLabels</include>

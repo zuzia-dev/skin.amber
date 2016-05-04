@@ -7,7 +7,7 @@
       <posx>390</posx>
       <width>1140</width>
       <control type="label" description="Title shadow">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(Posters_Info)]]">Conditional</animation>
+        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]">Conditional</animation>
         <posx>-1</posx>
         <posy>1</posy>
         <width>1140</width>
@@ -20,7 +20,7 @@
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label" description="Title Label">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(Posters_Info)]]">Conditional</animation>
+        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]">Conditional</animation>
         <width>1140</width>
         <height>50</height>
         <align>center</align>
@@ -31,7 +31,7 @@
         <label>$INFO[ListItem.Label]</label>
       </control>
       <control type="label" description="Details">
-        <visible>Control.IsVisible(53) | [[Control.IsVisible(58) + !Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + !Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + !Skin.HasSetting(Posters_Info)]]</visible>
+        <visible>Control.IsVisible(53) | [[Control.IsVisible(58) + !Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + !Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + !Skin.HasSetting(59_Posters_Info)]]</visible>
         <posy>55</posy>
         <width>1140</width>
         <height>30</height>
@@ -194,7 +194,7 @@
         <texture border="0,30,0,30">OSD/OSDBackground.png</texture>
       </control>
       <control type="image">
-        <visible>Window.IsActive(MyPics.xml) | [String.IsEmpty(Window.Property(gallery)) + ![[Control.IsVisible(58) + Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(Posters_Info)]]]</visible>
+        <visible>Window.IsActive(MyPics.xml) | [String.IsEmpty(Window.Property(gallery)) + ![[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]]</visible>
         <animation effect="fade" start="100" end="0" time="100" delay="0">Hidden</animation>
         <animation effect="fade" start="0" end="100" time="200" delay="0">Visible</animation>
         <posx>0</posx>
@@ -204,7 +204,7 @@
         <texture>common/VignetteStage.png</texture>
       </control>
       <control type="image">
-        <visible>!Window.IsActive(MyPics.xml) + String.IsEmpty(Window.Property(gallery)) + [[Control.IsVisible(58) + Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(Posters_Info)]]</visible>
+        <visible>!Window.IsActive(MyPics.xml) + String.IsEmpty(Window.Property(gallery)) + [[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]</visible>
         <animation effect="fade" start="100" end="0" time="100" delay="0">Hidden</animation>
         <animation effect="fade" start="0" end="100" time="200" delay="0">Visible</animation>
         <posx>0</posx>
@@ -220,7 +220,7 @@
       <control type="fixedlist" id="59">
         <visible>[container.content(MusicVideos) + Window.IsActive(myvideonav.xml)] | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)</visible>
         <animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
-        <animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="Skin.HasSetting(Posters_Info)">Conditional</animation>
+        <animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="Skin.HasSetting(59_Posters_Info)">Conditional</animation>
         <posx>-120</posx>
         <posy>609</posy>
         <width>2160</width>
@@ -229,8 +229,8 @@
         <onright>59</onright>
         <onup condition="String.IsEmpty(Window.Property(gallery))">9000</onup>
         <onup condition="!String.IsEmpty(Window.Property(gallery))">ClearProperty(gallery)</onup>
-        <ondown condition="Skin.HasSetting(Posters_Gallery)">SetProperty(gallery, true)</ondown>
-        <ondown condition="!Skin.HasSetting(Posters_Gallery)">60</ondown>
+        <ondown condition="Skin.HasSetting(59_Posters_Gallery)">SetProperty(gallery, true)</ondown>
+        <ondown condition="!Skin.HasSetting(59_Posters_Gallery)">60</ondown>
         <viewtype label="20445">Fanart</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
@@ -391,8 +391,8 @@
       <control type="fixedlist" id="58">
         <visible>![[container.content(MusicVideos) + Window.IsActive(myvideonav.xml)] | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons) | container.content(episodes)]</visible>
         <animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
-        <animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="Skin.HasSetting(Music_Info)">Conditional</animation>
-        <!--<animation effect="slide" easing="out" start="0,0" end="0,60" time="350" delay="0" center="120,350" reversible="true" condition="Skin.HasSetting(Music_Info)">Conditional</animation>-->
+        <animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="Skin.HasSetting(58_Music_Info)">Conditional</animation>
+        <!--<animation effect="slide" easing="out" start="0,0" end="0,60" time="350" delay="0" center="120,350" reversible="true" condition="Skin.HasSetting(58_Music_Info)">Conditional</animation>-->
         <posx>-174</posx>
         <posy>480</posy>
         <width>2268</width>
@@ -401,8 +401,8 @@
         <onright>58</onright>
         <onup condition="!String.IsEmpty(Window.Property(gallery))">ClearProperty(gallery)</onup>
         <onup condition="String.IsEmpty(Window.Property(gallery))">9000</onup>
-        <ondown condition="[container.content(artists) | container.content(albums)] + Skin.HasSetting(Music_Gallery)">SetProperty(gallery, true)</ondown>
-        <ondown condition="![[container.content(artists) | container.content(albums)] + Skin.HasSetting(Music_Gallery)]">60</ondown>
+        <ondown condition="[container.content(artists) | container.content(albums)] + Skin.HasSetting(58_Music_Gallery)">SetProperty(gallery, true)</ondown>
+        <ondown condition="![[container.content(artists) | container.content(albums)] + Skin.HasSetting(58_Music_Gallery)]">60</ondown>
         <viewtype label="20445">Fanart</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
@@ -504,7 +504,7 @@
       <control type="fixedlist" id="57">
         <visible>container.content(episodes)</visible>
         <animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
-        <!--<animation effect="slide" easing="out" start="0,0" end="0,60" time="350" delay="0" center="120,350" reversible="true" condition="Skin.HasSetting(Episodes_Info)">Conditional</animation>-->
+        <!--<animation effect="slide" easing="out" start="0,0" end="0,60" time="350" delay="0" center="120,350" reversible="true" condition="Skin.HasSetting(57_Episodes_Info)">Conditional</animation>-->
         <posx>-75</posx>
         <posy>645</posy>
         <width>2070</width>
@@ -513,8 +513,8 @@
         <onright>57</onright>
         <onup condition="!String.IsEmpty(Window.Property(gallery))">ClearProperty(gallery)</onup>
         <onup condition="String.IsEmpty(Window.Property(gallery))">9000</onup>
-        <ondown condition="Skin.HasSetting(Episodes_Gallery)">SetProperty(gallery, true)</ondown>
-        <ondown condition="!Skin.HasSetting(Episodes_Gallery)">60</ondown>
+        <ondown condition="Skin.HasSetting(57_Episodes_Gallery)">SetProperty(gallery, true)</ondown>
+        <ondown condition="!Skin.HasSetting(57_Episodes_Gallery)">60</ondown>
         <viewtype label="20445">Fanart</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
@@ -683,7 +683,7 @@
     </control>
     <control type="group">
       <include>ContentFade</include>
-	  <visible>!Window.IsActive(MyPics.xml) + String.IsEmpty(Window.Property(gallery)) + [[Control.IsVisible(58) + Skin.HasSetting(Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(Posters_Info)]]</visible>
+	  <visible>!Window.IsActive(MyPics.xml) + String.IsEmpty(Window.Property(gallery)) + [[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]</visible>
       <animation effect="fade" delay="200" time="300">Visible</animation>
       <animation effect="fade" time="100">Hidden</animation>
       <control type="group" description="Media info">
