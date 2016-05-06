@@ -116,109 +116,95 @@
           <item id="9" description="Plexbmc addon specific">
             <visible>System.HasAddon(plugin.video.plexbmc) + Skin.HasSetting(plexbmc)</visible>
             <label>PleXBMC</label>
-            <!--Addon name-->
             <onclick>noop</onclick>
           </item>
         </content>
+      </control>
+      <control type="grouplist" id="500">
+        <visible>!Container(9000).HasFocus(4)</visible>
+        <posx>1534</posx>
+        <posy>210</posy>
+        <width>322</width>
+        <height>600</height>
+        <onup>500</onup>
+        <ondown>500</ondown>
+        <onleft condition="Container(9000).HasFocus(1)">9001</onleft>
+        <onleft condition="Container(9000).HasFocus(2)">9002</onleft>
+        <onleft condition="Container(9000).HasFocus(3)">9003</onleft>
+        <onleft condition="Container(9000).HasFocus(5)">9005</onleft>
+        <onleft condition="Container(9000).HasFocus(6)">9006</onleft>
+        <onleft condition="Container(9000).HasFocus(7)">9007</onleft>
+        <onleft condition="Container(9000).HasFocus(8)">9008</onleft>
+        <onleft condition="Container(9000).HasFocus(8)">9009</onleft>
+        <itemgap>0</itemgap>
+        <control type="button" id="501" description="System information">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[138]</label>
+          <onclick>activatewindow(systeminfo)</onclick>
+        </control>
+        <control type="button" id="502" description="Weather">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[8]</label>
+          <onclick>activatewindow(WeatherSettings)</onclick>
+        </control>
+        <control type="button" id="503" description="Profiles">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[14210]</label>
+          <onclick>ActivateWindow(Profiles)</onclick>
+        </control>
+        <control type="button" id="504" description="File manager">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[10003]</label>
+          <onclick>ActivateWindow(filemanager)</onclick>
+        </control>
+          <control type="button" id="505" description="Events">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[14111]</label>
+          <onclick>ActivateWindow(EventLog,events://,return)</onclick>
+          <visible>system.getbool(eventlog.enabled)</visible>
+        </control>
+        <control type="button" id="506" description="Launch OSMC settings">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[31294]</label>
+          <onclick>RunScript(service.osmc.settings)</onclick>
+          <visible>System.HasAddon(service.osmc.settings)</visible>
+        </control>          
+        <control type="button" id="507" description="Launch OpenELEC settings">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[31295]</label>
+          <onclick>RunScript(service.openelec.settings)</onclick>
+          <visible>System.HasAddon(service.openelec.settings)</visible>
+        </control>
+        <control type="button" id="508" description="Launch LibreELEC settings">
+          <font>ListDetails</font>
+          <width>322</width>
+          <label>$LOCALIZE[31296]</label>
+          <onclick>RunScript(service.libreelec.settings)</onclick>
+          <visible>System.HasAddon(service.libreelec.settings)</visible>
+        </control>
       </control>
       <control type="group" id="9010">
         <!--9000 1-->
         <control type="panel" id="9001">
           <visible>Container(9000).HasFocus(1)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
           <onright>500</onright>
           <onup>9001</onup>
           <ondown>9001</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>3</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>30</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>3</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>81</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <item id="2" description="Interface">
               <label>$LOCALIZE[14207]</label>
               <onclick>activatewindow(InterfaceSettings)</onclick>
             </item>
-            <item id="3" description="Player}">
+            <item id="3" description="Player">
               <label>$LOCALIZE[14201]</label>
               <onclick>activatewindow(PlayerSettings)</onclick>
             </item>
@@ -249,177 +235,39 @@
             </item>
           </content>
         </control>
-        <control type="grouplist" id="500">
-          <visible>Container(9000).HasFocus(1)</visible>
-          <posx>1534</posx>
-          <posy>210</posy>
-          <width>322</width>
-          <height>600</height>
-          <onup>500</onup>
-          <ondown>500</ondown>
-          <onleft>9001</onleft>
-          <itemgap>0</itemgap>
-          <control type="button" id="501" description="System information">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[138]</label>
-            <onclick>activatewindow(systeminfo)</onclick>
-          </control>
-          <control type="button" id="502" description="Weather">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[8]</label>
-            <onclick>activatewindow(WeatherSettings)</onclick>
-          </control>
-          <control type="button" id="503" description="Profiles">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[14210]</label>
-            <onclick>ActivateWindow(Profiles)</onclick>
-          </control>
-          <control type="button" id="504" description="File manager">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[10003]</label>
-            <onclick>ActivateWindow(filemanager)</onclick>
-          </control>
-            <control type="button" id="505" description="Events">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[14111]</label>
-            <onclick>ActivateWindow(EventLog,events://,return)</onclick>
-            <visible>system.getbool(eventlog.enabled)</visible>
-          </control>
-          <control type="button" id="506" description="Launch OSMC settings">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[31294]</label>
-            <onclick>RunScript(service.osmc.settings)</onclick>
-            <visible>System.HasAddon(service.osmc.settings)</visible>
-          </control>          
-          <control type="button" id="507" description="Launch OpenELEC settings">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[31295]</label>
-            <onclick>RunScript(service.openelec.settings)</onclick>
-            <visible>System.HasAddon(service.openelec.settings)</visible>
-          </control>
-          <control type="button" id="508" description="Launch LibreELEC settings">
-            <font>ListDetails</font>
-            <width>322</width>
-            <label>$LOCALIZE[31296]</label>
-            <onclick>RunScript(service.libreelec.settings)</onclick>
-            <visible>System.HasAddon(service.libreelec.settings)</visible>
-          </control>
-        </control>
         <!--9000 2-->
         <control type="panel" id="9002">
           <visible>Container(9000).HasFocus(2)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
-          <onright>60</onright>
+          <onright>500</onright>
           <onup>9002</onup>
           <ondown>9002</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="YesNoSettingItem">
               <param name="itemid" value="0"/>
               <param name="itemlabel" value="$LOCALIZE[31981]"/>
+              <param name="itemicon" value="OverlayWatched.png"/>
               <param name="skinsetting" value="Hide_Watched_Marks"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="1"/>
               <param name="itemlabel" value="$LOCALIZE[31980]"/>
+              <param name="itemicon" value="OverlayUnwatched.png"/>
               <param name="skinsetting" value="Hide_Unwatched_Marks"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="2"/>
+              <param name="itemlabel" value="$LOCALIZE[31972]"/>
+              <param name="itemicon" value="OverlayInProgress.png"/>
+              <param name="skinsetting" value="Hide_InProgress_Marks"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="3"/>
               <param name="itemlabel" value="$LOCALIZE[20189]"/>
               <param name="skinsetting" value="AutoScroll"/>
             </include>
-            <item id="3" description="Lyrics">
+            <item id="4" description="Lyrics">
               <label>$LOCALIZE[24020] $LOCALIZE[31132]</label>
               <label2>$INFO[Skin.String(LyricPath)]</label2>
               <onclick>Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
@@ -429,148 +277,37 @@
               <param name="itemlabel" value="$LOCALIZE[31991]"/>
               <param name="skinsetting" value="Show_Player"/>
             </include>
-            <item id="11" description="Movies entry points">
-              <label>$LOCALIZE[31507]</label>
-              <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
-              <onclick>Skin.SelectBool(20342, 31502|MovieEntry.All, 136|MovieEntry.Playlists, 744|MovieEntry.Files, 15100|MovieEntry.Library)</onclick>
-            </item>
-            <item id="12" description="TV Show entry points">
-              <label>$LOCALIZE[31508]</label>
-              <label2 fallback="31499">$VAR[TVShowEntryPointLabel2]</label2>
-              <onclick>Skin.SelectBool(20343, 31499|TVShowEntry.All, 136|TVShowEntry.Playlists, 744|TVShowEntry.Files, 15100|TVShowEntry.Library)</onclick>
-            </item>
-            <item id="19" description="TV entry points">
-              <label>$LOCALIZE[31511]</label>
-              <label2 fallback="19019">$VAR[TVEntryPointLabel2]</label2>
-              <onclick>Skin.SelectBool(31500, 19019|TVEntry.Channels, 22020|TVEntry.Guide, 19163|TVEntry.Recordings)</onclick>
-            </item>
-            <item id="20" description="Radio entry points">
-              <label>$LOCALIZE[31512]</label>
-              <label2 fallback="19019">$VAR[RadioEntryPointLabel2]</label2>
-              <onclick>Skin.SelectBool(31509, 19019|RadioEntry.Channels, 22020|RadioEntry.Guide, 19163|RadioEntry.Recordings)</onclick>
-            </item>
            <include content="YesNoSettingItem">
-              <param name="itemid" value="13"/>
-              <param name="itemlabel" value="$LOCALIZE[31960]"/>
-              <param name="skinsetting" value="ArtistView"/>
-            </include>
-           <include content="YesNoSettingItem">
-              <param name="itemid" value="15"/>
+              <param name="itemid" value="6"/>
               <param name="itemlabel" value="$LOCALIZE[31997]"/>
               <param name="skinsetting" value="HideEPGLogos"/>
             </include>
            <include content="YesNoSettingItem">
-              <param name="itemid" value="16"/>
+              <param name="itemid" value="7"/>
               <param name="itemlabel" value="$LOCALIZE[31998]"/>
               <param name="skinsetting" value="ShowMasterLockTitle"/>
             </include>
            <include content="YesNoSettingItem">
-              <param name="itemid" value="17"/>
+              <param name="itemid" value="8"/>
               <param name="itemlabel" value="$LOCALIZE[31996]"/>
               <param name="skinsetting" value="holiday"/>
             </include>
-            <item id="18" description="Reset Skin">
+            <item id="9" description="Reset Skin">
               <label>$LOCALIZE[31038]</label>
+              <icon>DefaultIconWarning.png</icon>
               <onclick>Skin.ResetSettings</onclick>
               <onclick>ReloadSkin()</onclick>
-              <icon>DefaultIconWarning.png</icon>
             </item>
           </content>
-        </control>
-        <control type="group">
-          <visible>Container(9000).HasFocus(2)</visible>
-          <control type="image" description="Watched marks">
-            <posx>1550</posx>
-            <posy>210</posy>
-            <width>26</width>
-            <height>60</height>
-            <aspectratio>keep</aspectratio>
-            <texture>OverlayWatched.png</texture>
-          </control>
-          <control type="image" description="UnWatched marks">
-            <posx>1550</posx>
-            <posy>270</posy>
-            <width>26</width>
-            <height>60</height>
-            <aspectratio>keep</aspectratio>
-            <texture>OverlayUnwatched.png</texture>
-          </control>
-          <control type="image" description="InProgress marks">
-            <posx>1590</posx>
-            <posy>270</posy>
-            <width>26</width>
-            <height>60</height>
-            <aspectratio>keep</aspectratio>
-            <texture>OverlayInProgress.png</texture>
-          </control>
         </control>
         <!-- 9000 3 -->
         <control type="panel" id="9003">
           <visible>Container(9000).HasFocus(3)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
           <onright>63</onright>
           <onup>9003</onup>
           <ondown>9003</ondown>
           <pagecontrol>63</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <align>right</align>
-              <scroll>false</scroll>
-              <label fallback="31993">$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <align>right</align>
-              <scroll>false</scroll>
-              <label fallback="31993">$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="CustomHomeSettingItem">
               <param name="itemid" value="21"/>
@@ -659,10 +396,10 @@
               <param name="area" value="Weather"/>
             </include>
             <item id="10" description="Settings">
-              <visible>!Skin.HasSetting(QuitMenu_Show_Settings)</visible>
+              <visible>!Skin.HasSetting(QuitMenu_Hide_Settings)</visible>
               <label>$LOCALIZE[5]</label>
               <label2>$LOCALIZE[31293]</label2>
-              <thumb fallback="special://skin/backgrounds/System.jpg">$INFO[Skin.String(Settings.Background)]</thumb>
+              <thumb fallback="special://skin/backgrounds/Settings.jpg">$INFO[Skin.String(Settings.Background)]</thumb>
               <onclick>Notification($LOCALIZE[416],,6,DefaultIconWarning.png)</onclick>
             </item>
             <include content="HomeSettingItem">
@@ -814,6 +551,7 @@
               </item>
               <item id="9">
                 <label>$LOCALIZE[5]</label>
+                <visible>!Skin.HasSetting(Settings.Hide)</visible>
                 <onclick>Control.Move(9004,-1)</onclick>
                 <icon>special://skin/backgrounds/Settings.jpg</icon>
                 <thumb>$INFO[Skin.String(Settings.Background)]</thumb>
@@ -1008,220 +746,59 @@
             <label fallback="571">$INFO[Container(9004).ListItem.Thumb]</label>
           </control>
         </control>
-        <control type="group">
+        <control type="grouplist" id="300">
+          <visible>Container(9000).HasFocus(4)</visible>
           <posx>1534</posx>
           <posy>210</posy>
-          <control type="group">
-            <visible>Container(9000).HasFocus(4)</visible>
-            <control type="button" id="300">
-              <description>Single Image button</description>
-              <posy>0</posy>
-              <width>322</width>
-              <label>$LOCALIZE[31113]</label>
-              <onclick condition="Container(9004).HasFocus(0)">Skin.SetImage(Default.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(1)">Skin.SetImage(Videos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(2)">Skin.SetImage(Movies.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(3)">Skin.SetImage(TVShows.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(4)">Skin.SetImage(Music.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(5)">Skin.SetImage(Pictures.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(6)">Skin.SetImage(Favourites.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(7)">Skin.SetImage(Weather.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(8)">Skin.SetImage(Addons.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(9)">Skin.SetImage(Settings.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(10)">Skin.SetImage(DVD.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(11)">Skin.SetImage(Quit.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(12)">Skin.SetImage(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.SetImage(MusicVideos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(21)">Skin.SetImage(CustomHome.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(22)">Skin.SetImage(CustomHome.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(23)">Skin.SetImage(CustomHome.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(24)">Skin.SetImage(CustomHome.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(25)">Skin.SetImage(CustomHome.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(26)">Skin.SetImage(CustomHome.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(27)">Skin.SetImage(CustomHome.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(28)">Skin.SetImage(CustomHome.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(29)">Skin.SetImage(CustomHome.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(60)">Skin.SetImage(Plexbmc.0.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(61)">Skin.SetImage(Plexbmc.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(62)">Skin.SetImage(Plexbmc.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(63)">Skin.SetImage(Plexbmc.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(64)">Skin.SetImage(Plexbmc.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(65)">Skin.SetImage(Plexbmc.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(66)">Skin.SetImage(Plexbmc.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(67)">Skin.SetImage(Plexbmc.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(68)">Skin.SetImage(Plexbmc.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(69)">Skin.SetImage(Plexbmc.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(70)">Skin.SetImage(Plexbmc.10.Background)</onclick>
-              <onleft>9004</onleft>
-              <onup>302</onup>
-              <ondown>301</ondown>
-            </control>
-            <control type="button" id="301">
-              <description>Multi Image button</description>
-              <posy>60</posy>
-              <width>322</width>
-              <label>$LOCALIZE[31114]</label>
-              <onclick condition="Container(9004).HasFocus(0)">Skin.SetPath(Default.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(1)">Skin.SetPath(Videos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(2)">Skin.SetPath(Movies.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(3)">Skin.SetPath(TVShows.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(4)">Skin.SetPath(Music.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(5)">Skin.SetPath(Pictures.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(6)">Skin.SetPath(Favourites.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(7)">Skin.SetPath(Weather.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(8)">Skin.SetPath(Addons.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(9)">Skin.SetPath(Settings.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(10)">Skin.SetPath(DVD.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(11)">Skin.SetPath(Quit.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(12)">Skin.SetPath(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.SetPath(MusicVideos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(21)">Skin.SetPath(CustomHome.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(22)">Skin.SetPath(CustomHome.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(23)">Skin.SetPath(CustomHome.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(24)">Skin.SetPath(CustomHome.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(25)">Skin.SetPath(CustomHome.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(26)">Skin.SetPath(CustomHome.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(27)">Skin.SetPath(CustomHome.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(28)">Skin.SetPath(CustomHome.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(29)">Skin.SetPath(CustomHome.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(60)">Skin.SetPath(Plexbmc.0.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(61)">Skin.SetPath(Plexbmc.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(62)">Skin.SetPath(Plexbmc.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(63)">Skin.SetPath(Plexbmc.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(64)">Skin.SetPath(Plexbmc.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(65)">Skin.SetPath(Plexbmc.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(66)">Skin.SetPath(Plexbmc.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(67)">Skin.SetPath(Plexbmc.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(68)">Skin.SetPath(Plexbmc.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(69)">Skin.SetPath(Plexbmc.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(70)">Skin.SetPath(Plexbmc.10.Background)</onclick>
-              <onleft>9004</onleft>
-              <onup>300</onup>
-              <ondown>302</ondown>
-            </control>
-            <control type="button" id="302">
-              <description>Default Image button</description>
-              <posy>120</posy>
-              <width>322</width>
-              <label>$LOCALIZE[571]</label>
-              <onclick condition="Container(9004).HasFocus(0)">Skin.Reset(Default.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(1)">Skin.Reset(Videos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(2)">Skin.Reset(Movies.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(3)">Skin.Reset(TVShows.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(4)">Skin.Reset(Music.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(5)">Skin.Reset(Pictures.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(6)">Skin.Reset(Favourites.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(7)">Skin.Reset(Weather.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(8)">Skin.Reset(Addons.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(9)">Skin.Reset(Settings.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(10)">Skin.Reset(DVD.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(11)">Skin.Reset(Quit.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(12)">Skin.Reset(Pvr.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(14)">Skin.Reset(MusicVideos.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(21)">Skin.Reset(CustomHome.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(22)">Skin.Reset(CustomHome.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(23)">Skin.Reset(CustomHome.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(24)">Skin.Reset(CustomHome.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(25)">Skin.Reset(CustomHome.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(26)">Skin.Reset(CustomHome.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(27)">Skin.Reset(CustomHome.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(28)">Skin.Reset(CustomHome.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(29)">Skin.Reset(CustomHome.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(60)">Skin.Reset(Plexbmc.0.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(61)">Skin.Reset(Plexbmc.1.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(62)">Skin.Reset(Plexbmc.2.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(63)">Skin.Reset(Plexbmc.3.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(64)">Skin.Reset(Plexbmc.4.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(65)">Skin.Reset(Plexbmc.5.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(66)">Skin.Reset(Plexbmc.6.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(67)">Skin.Reset(Plexbmc.7.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(68)">Skin.Reset(Plexbmc.8.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(69)">Skin.Reset(Plexbmc.9.Background)</onclick>
-              <onclick condition="Container(9004).HasFocus(70)">Skin.Reset(Plexbmc.10.Background)</onclick>
-              <onleft>9004</onleft>
-              <onup>301</onup>
-              <ondown>300</ondown>
-            </control>
+          <width>322</width>
+          <height>600</height>
+          <onleft>9004</onleft>
+          <onright>9000</onright>
+          <onup>300</onup>
+          <ondown>300</ondown>
+          <control type="button" id="301">
+            <description>Single Image button</description>
+            <label>$LOCALIZE[31113]</label>
+            <include content="SetBackgroundImage">
+              <param name="operation" value="SetImage"/>
+            </include>
+          </control>
+          <control type="button" id="302">
+            <description>Multi Image button</description>
+            <label>$LOCALIZE[31114]</label>
+            <include content="SetBackgroundImage">
+              <param name="operation" value="SetPath"/>
+            </include>
+          </control>
+          <control type="button" id="303">
+            <description>Default Image button</description>
+            <label>$LOCALIZE[571]</label>
+            <include content="SetBackgroundImage">
+              <param name="operation" value="Reset"/>
+            </include>
           </control>
         </control>
         <!--9000 5-->
         <control type="panel" id="9005">
           <visible>Container(9000).HasFocus(5)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
-          <onright>60</onright>
+          <onright>500</onright>
           <onup>9005</onup>
           <ondown>9005</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="YesNoSettingItem">
-              <param name="itemid" value="1"/>
+              <param name="itemid" value="0"/>
               <param name="itemlabel" value="$LOCALIZE[31967]"/>
               <param name="skinsetting" value="Hide.RecentlyAdded"/>
             </include>
-            <item id="3" description="Configure service.skin.widgets">
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="1"/>
+              <param name="itemlabel" value="$LOCALIZE[31977]"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+              <param name="skinsetting" value="Use.FastStart"/>
+            </include>
+            <item id="2" description="Configure service.skin.widgets">
               <visible>System.HasAddon(service.skin.widgets) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[31964]</label>
               <onclick>Addon.OpenSettings(service.skin.widgets)</onclick>
@@ -1301,94 +878,11 @@
         <!--9000 6-->
         <control type="panel" id="9006">
           <visible>Container(9000).HasFocus(6)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
-          <onright>60</onright>
+          <onright>500</onright>
           <onup>9006</onup>
           <ondown>9006</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <posx>81r</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="YesNoSettingItem">
               <param name="itemid" value="0"/>
@@ -1399,6 +893,7 @@
               <param name="itemid" value="1"/>
               <param name="itemlabel" value="$LOCALIZE[31363]"/>
               <param name="skinsetting" value="StaticVerticalHome"/>
+              <param name="itemvisibility" value="Skin.HasSetting(VerticalHome)"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="2"/>
@@ -1410,99 +905,46 @@
               <param name="itemlabel" value="$LOCALIZE[31978]"/>
               <param name="skinsetting" value="Show_Library_Count"/>
             </include>
+            <item id="4" description="Movies entry points">
+              <label>$LOCALIZE[31507]</label>
+              <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
+              <onclick>Skin.SelectBool(20342, 31502|MovieEntry.All, 20386|MovieEntry.RecentlyAdded, 136|MovieEntry.Playlists, 744|MovieEntry.Files, 15100|MovieEntry.Library)</onclick>
+            </item>
+            <item id="5" description="TV Show entry points">
+              <label>$LOCALIZE[31508]</label>
+              <label2 fallback="31499">$VAR[TVShowEntryPointLabel2]</label2>
+              <onclick>Skin.SelectBool(20343, 31499|TVShowEntry.All, 20387|TVShowEntry.RecentlyAdded, 136|TVShowEntry.Playlists, 744|TVShowEntry.Files, 15100|TVShowEntry.Library)</onclick>
+            </item>
+            <item id="6" description="TV entry points">
+              <label>$LOCALIZE[31511]</label>
+              <label2 fallback="19019">$VAR[TVEntryPointLabel2]</label2>
+              <onclick>Skin.SelectBool(31500, 19019|TVEntry.Channels, 22020|TVEntry.Guide, 19163|TVEntry.Recordings)</onclick>
+            </item>
+            <item id="7" description="Radio entry points">
+              <label>$LOCALIZE[31512]</label>
+              <label2 fallback="19019">$VAR[RadioEntryPointLabel2]</label2>
+              <onclick>Skin.SelectBool(31509, 19019|RadioEntry.Channels, 22020|RadioEntry.Guide, 19163|RadioEntry.Recordings)</onclick>
+            </item>
+           <include content="YesNoSettingItem">
+              <param name="itemid" value="8"/>
+              <param name="itemlabel" value="$LOCALIZE[31960]"/>
+              <param name="skinsetting" value="ArtistView"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="4"/>
+              <param name="itemlabel" value="$LOCALIZE[31957]"/>
+              <param name="skinsetting" value="Hide.LibraryUpdate.Button"/>
+            </include>
           </content>
         </control>
         <!-- 9000 7 -->
         <control type="panel" id="9007">
           <visible>Container(9000).HasFocus(7)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
           <onright>500</onright>
           <onup>9007</onup>
           <ondown>9007</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <item id="1" description="QuitAction">
               <label>$LOCALIZE[31989]</label>
@@ -1511,127 +953,44 @@
             </item>
             <include content="YesNoSettingItem">
               <param name="itemid" value="2"/>
-              <param name="itemlabel" value="- $LOCALIZE[13009]"/>
+              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13009]"/>
               <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Show_Quit"/>
+              <param name="skinsetting" value="QuitMenu_Hide_Quit"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="3"/>
-              <param name="itemlabel" value="- $LOCALIZE[13011]"/>
+              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13011]"/>
               <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Show_Sleep"/>
+              <param name="skinsetting" value="QuitMenu_Hide_Sleep"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="4"/>
-              <param name="itemlabel" value="- $LOCALIZE[13005]"/>
+              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13005]"/>
               <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Show_Shutdown"/>
+              <param name="skinsetting" value="QuitMenu_Hide_Shutdown"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="5"/>
-              <param name="itemlabel" value="- $LOCALIZE[13013]"/>
+              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13013]"/>
               <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Show_Reboot"/>
+              <param name="skinsetting" value="QuitMenu_Hide_Reboot"/>
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="6"/>
-              <param name="itemlabel" value="- $LOCALIZE[5]"/>
+              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[5]"/>
               <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Show_Settings"/>
+              <param name="skinsetting" value="QuitMenu_Hide_Settings"/>
             </include>
           </content>
         </control>
         <!-- 9000 8 -->
         <control type="panel" id="9008">
           <visible>Container(9000).HasFocus(8)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
           <onright>500</onright>
           <onup>9008</onup>
           <ondown>9008</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="YesNoSettingItem">
               <param name="itemid" value="1"/>
@@ -1643,110 +1002,16 @@
               <param name="itemlabel" value="$LOCALIZE[31969]"/>
               <param name="skinsetting" value="Use_Artist_Slideshow"/>
             </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="2"/>
-              <param name="itemlabel" value="$LOCALIZE[31977]"/>
-              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
-              <param name="skinsetting" value="Use.FastStart"/>
-            </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="4"/>
-              <param name="itemlabel" value="$LOCALIZE[31957]"/>
-              <param name="skinsetting" value="Hide.LibraryUpdate.Button"/>
-            </include>
           </content>
         </control>
         <!--9000 9-->
         <control type="panel" id="9001">
           <visible>Container(9000).HasFocus(9)</visible>
-          <posx>390</posx>
-          <posy>210</posy>
-          <width>1140</width>
-          <height>780</height>
-          <onleft>9000</onleft>
           <onright>500</onright>
           <onup>9001</onup>
           <ondown>9001</ondown>
           <pagecontrol>-</pagecontrol>
-          <scrolltime>280</scrolltime>
-          <itemlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="3">buttons/ButtonNF.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <aspectratio>keep</aspectratio>
-              <bordersize>6</bordersize>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </itemlayout>
-          <focusedlayout width="1140" height="60">
-            <control type="image">
-              <posx>0</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>1140</width>
-              <texture border="2">buttons/ButtonFO.png</texture>
-            </control>
-            <control type="label" description="Label 2">
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>600</width>
-              <font>ListDetails</font>
-              <haspath>true</haspath>
-              <align>right</align>
-              <scroll>false</scroll>
-              <textcolor>Highlight</textcolor>
-              <label>$INFO[ListItem.Label2]</label>
-            </control>
-            <control type="label" description="Main Label">
-              <posx>30</posx>
-              <posy>0</posy>
-              <height>60</height>
-              <width>930</width>
-              <scroll>false</scroll>
-              <label>$INFO[ListItem.Label]</label>
-            </control>
-            <control type="image" description="Icon">
-              <visible>!String.IsEmpty(ListItem.Icon)</visible>
-              <right>18</right>
-              <posy>0</posy>
-              <height>60</height>
-              <width>60</width>
-              <bordersize>6</bordersize>
-              <aspectratio>keep</aspectratio>
-              <texture>$INFO[ListItem.Icon]</texture>
-            </control>
-          </focusedlayout>
+          <include>SettingsListCommons</include>
           <content>
             <include content="PlexSettingItem">
               <param name="itemid" value="0"/>
@@ -1862,7 +1127,7 @@
       <showonepage>false</showonepage>
       <orientation>vertical</orientation>
       <onleft>9003</onleft>
-      <onright>9000</onright>
+      <onright>500</onright>
     </control>
     <control type="group" description="Holiday theme">
       <visible>Skin.HasSetting(holiday)</visible>

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<window type="buttonmenu" id="111">
+<window type="buttonMenu">
   <defaultcontrol always="true">9009</defaultcontrol>
-  <coordinates>
-    <system>1</system>
-    <posx>0</posx>
-    <posy>0</posy>
-  </coordinates>
   <onload condition="!Integer.IsGreater(Container(9009).NumItems,0)">close</onload>
   <controls>
     <control type="group" description="MENU">
@@ -115,14 +110,14 @@
             <icon>NoMasterFO.png</icon>
           </item>
           <item id="11" description="Quit">
-            <visible>!Skin.HasSetting(QuitMenu_Show_Quit)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Quit)</visible>
             <onclick>Quit()</onclick>
             <label>$LOCALIZE[13009]</label>
             <thumb>QuitNF.png</thumb>
             <icon>QuitFO.png</icon>
           </item>
           <item id="12" description="Sleep">
-            <visible>!Skin.HasSetting(QuitMenu_Show_Sleep)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Sleep)</visible>
             <visible>System.CanSuspend</visible>
             <onclick>Suspend()</onclick>
             <label>$LOCALIZE[13011]</label>
@@ -130,7 +125,7 @@
             <icon>SleepFO.png</icon>
           </item>
           <item id="15" description="Shutdown">
-            <visible>!Skin.HasSetting(QuitMenu_Show_Shutdown)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Shutdown)</visible>
             <visible>System.CanPowerDown</visible>
             <onclick>Powerdown()</onclick>
             <label>$LOCALIZE[13005]</label>
@@ -138,7 +133,7 @@
             <icon>ShutdownFO.png</icon>
           </item>
           <item id="14" description="Reboot">
-            <visible>Skin.HasSetting(QuitMenu_Show_Reboot)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Reboot)</visible>
             <visible>System.CanReboot</visible>
             <onclick>Reset()</onclick>
             <label>$LOCALIZE[13013]</label>
@@ -146,7 +141,7 @@
             <icon>RestartFO.png</icon>
           </item>
           <item id="16" description="Settings">
-            <visible>Skin.HasSetting(QuitMenu_Show_Settings)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Settings)</visible>
             <onclick>dialog.close(all,true)</onclick>
             <onclick>ActivateWindow(Settings,return)</onclick>
             <label>$LOCALIZE[5]</label>

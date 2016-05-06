@@ -4,11 +4,7 @@
 
 	  CUSTOM WINDOWS LIST
 		_1114 Quit * define Quit menu
-		_1115 CustomMoviesHomeButton.xml * define movies entry point
-		_1118 Custom_FullscreenMusic * start fullscreen audio playback
 		_1119 CustomAddons * browse addons united under the same roof
-		_1120 CustomTVHomeButton.xml * define tv entry point
-		_50 Custom_Debug dialog * my favourite one
 
    -->
   <include file="Includes_Variables.xml" />
@@ -862,7 +858,7 @@
       <onclick>ActivateWindow(Weather)</onclick>
     </item>
     <item id="10" description="Settings">
-      <visible>!Skin.HasSetting(QuitMenu_Show_Settings)</visible>
+      <visible>!Skin.HasSetting(Settings.Hide)</visible>
       <label>$LOCALIZE[5]</label>
       <thumb fallback="special://skin/backgrounds/Settings.jpg">$INFO[Skin.String(Settings.Background)]</thumb>
       <onclick>ActivateWindow(Settings)</onclick>
@@ -2013,9 +2009,98 @@
     </definition>  
   </include>
 
+  <include name="SettingsListCommons">
+    <posx>390</posx>
+    <posy>210</posy>
+    <width>1140</width>
+    <height>780</height>
+    <onleft>9000</onleft>
+    <scrolltime>280</scrolltime>
+    <itemlayout width="1140" height="60">
+      <control type="image">
+        <posx>0</posx>
+        <posy>0</posy>
+        <height>60</height>
+        <width>1140</width>
+        <texture border="3">buttons/ButtonNF.png</texture>
+      </control>
+      <control type="label" description="Main Label">
+        <posx>30</posx>
+        <posy>0</posy>
+        <height>60</height>
+        <width>930</width>
+        <scroll>false</scroll>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label" description="Label 2">
+        <animation effect="slide" start="0,0" end="-60,0" time="0" reversible="true" condition="![String.IsEmpty(ListItem.Icon) | Control.IsVisible(9003)]">Conditional</animation>
+        <right>18</right>
+        <posy>0</posy>
+        <height>60</height>
+        <width>600</width>
+        <font>ListDetails</font>
+        <haspath>true</haspath>
+        <align>right</align>
+        <scroll>false</scroll>
+        <textcolor>Highlight</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
+      </control>
+      <control type="image" description="Icon">
+        <visible>![String.IsEmpty(ListItem.Icon) | Control.IsVisible(9003)]</visible>
+        <right>10</right>
+        <posy>0</posy>
+        <height>60</height>
+        <width>60</width>
+        <aspectratio>keep</aspectratio>
+        <bordersize>6</bordersize>
+        <texture>$INFO[ListItem.Icon]</texture>
+      </control>
+    </itemlayout>
+    <focusedlayout width="1140" height="60">
+      <control type="image">
+        <posx>0</posx>
+        <posy>0</posy>
+        <height>60</height>
+        <width>1140</width>
+        <texture border="2">buttons/ButtonFO.png</texture>
+      </control>
+      <control type="label" description="Main Label">
+        <posx>30</posx>
+        <posy>0</posy>
+        <height>60</height>
+        <width>930</width>
+        <label>$INFO[ListItem.Label]</label>
+      </control>
+      <control type="label" description="Label 2">
+        <animation effect="slide" start="0,0" end="-60,0" time="0" reversible="true" condition="![String.IsEmpty(ListItem.Icon) | Control.IsVisible(9003)]">Conditional</animation>
+        <right>18</right>
+        <posy>0</posy>
+        <height>60</height>
+        <width>600</width>
+        <font>ListDetails</font>
+        <haspath>true</haspath>
+        <align>right</align>
+        <scroll>false</scroll>
+        <textcolor>Highlight</textcolor>
+        <label>$INFO[ListItem.Label2]</label>
+      </control>
+      <control type="image" description="Icon">
+        <visible>![String.IsEmpty(ListItem.Icon) | Control.IsVisible(9003)]</visible>
+        <right>10</right>
+        <posy>0</posy>
+        <height>60</height>
+        <width>60</width>
+        <bordersize>6</bordersize>
+        <aspectratio>keep</aspectratio>
+        <texture>$INFO[ListItem.Icon]</texture>
+      </control>
+    </focusedlayout>
+  </include>
+
   <include name="YesNoSettingItem">
     <param name="itemid" />
     <param name="itemlabel" />
+    <param name="itemicon"/>
     <param name="itemvisibility" default="true"/>
     <param name="skinsetting"/>
     <definition>
@@ -2024,6 +2109,7 @@
         <visible>$PARAM[itemvisibility]</visible>
         <label>$PARAM[itemlabel]</label>
         <label2>$LOCALIZE[107]</label2>
+        <icon>$PARAM[itemicon]</icon>
         <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
       </item>
       <item id="$PARAM[itemid]">
@@ -2031,6 +2117,7 @@
         <visible>$PARAM[itemvisibility]</visible>
         <label>$PARAM[itemlabel]</label>
         <label2>$LOCALIZE[106]</label2>
+        <icon>$PARAM[itemicon]</icon>
         <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
       </item>
     </definition>
@@ -2082,11 +2169,11 @@
     <param name="area" />
     <definition>
       <item id="$PARAM[itemid]">
-        <visible>!Skin.HasSetting(Pictures.Hide)</visible>
+        <visible>!Skin.HasSetting($PARAM[area].Hide)</visible>
         <label>[COLOR=Highlight]$PARAM[itemlabel][/COLOR]</label>
         <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
-        <thumb fallback="special://skin/backgrounds/Pictures.jpg">$INFO[Skin.String(Pictures.Background)]</thumb>
-        <onclick>Skin.ToggleSetting(Pictures.Hide)</onclick>
+        <thumb fallback="special://skin/backgrounds/$PARAM[area].jpg">$INFO[Skin.String($PARAM[area].Background)]</thumb>
+        <onclick>Skin.ToggleSetting($PARAM[area].Hide)</onclick>
       </item>
       <item id="$PARAM[itemid]">
         <visible>Skin.HasSetting($PARAM[area].Hide)</visible>
@@ -2098,6 +2185,45 @@
     </definition>
   </include>
 
+  <include name="SetBackgroundImage">
+    <param name="operation" />
+    <definition>
+      <onclick condition="Container(9004).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(3)">Skin.$PARAM[operation](TVShows.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(4)">Skin.$PARAM[operation](Music.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(5)">Skin.$PARAM[operation](Pictures.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(6)">Skin.$PARAM[operation](Favourites.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(7)">Skin.$PARAM[operation](Weather.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(8)">Skin.$PARAM[operation](Addons.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(9)">Skin.$PARAM[operation](Settings.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(10)">Skin.$PARAM[operation](DVD.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(11)">Skin.$PARAM[operation](Quit.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(12)">Skin.$PARAM[operation](Pvr.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(14)">Skin.$PARAM[operation](MusicVideos.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(21)">Skin.$PARAM[operation](CustomHome.1.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(22)">Skin.$PARAM[operation](CustomHome.2.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(23)">Skin.$PARAM[operation](CustomHome.3.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(24)">Skin.$PARAM[operation](CustomHome.4.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(25)">Skin.$PARAM[operation](CustomHome.5.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(26)">Skin.$PARAM[operation](CustomHome.6.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(27)">Skin.$PARAM[operation](CustomHome.7.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(28)">Skin.$PARAM[operation](CustomHome.8.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(29)">Skin.$PARAM[operation](CustomHome.9.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(60)">Skin.$PARAM[operation](Plexbmc.0.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(61)">Skin.$PARAM[operation](Plexbmc.1.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(62)">Skin.$PARAM[operation](Plexbmc.2.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(63)">Skin.$PARAM[operation](Plexbmc.3.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(64)">Skin.$PARAM[operation](Plexbmc.4.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(65)">Skin.$PARAM[operation](Plexbmc.5.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(66)">Skin.$PARAM[operation](Plexbmc.6.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(67)">Skin.$PARAM[operation](Plexbmc.7.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(68)">Skin.$PARAM[operation](Plexbmc.8.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(69)">Skin.$PARAM[operation](Plexbmc.9.Background)</onclick>
+      <onclick condition="Container(9004).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
+    </definition>
+  </include>
 </includes>
 
 
