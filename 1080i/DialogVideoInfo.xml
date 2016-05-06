@@ -34,7 +34,7 @@
       <texture>dialogs/InfoRightPanelTop2.png</texture>
     </control>
     <control type="image" description="Cover">
-      <visible>!Container.Content(episodes)</visible>
+      <visible>!String.IsEqual(ListItem.DBType,episode)</visible>
       <posx>0</posx>
       <posy>0</posy>
       <width>729</width>
@@ -45,7 +45,7 @@
     <control type="group" description="Posters">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -54,7 +54,7 @@
         <aspectratio>stretch</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -66,7 +66,7 @@
     <control type="group" description="Plexbmc Posters">
       <visible>Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -75,7 +75,7 @@
         <aspectratio>scale</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -127,7 +127,7 @@
           <posx>0</posx>
           <posy>30</posy>
           <control type="group">
-            <visible>![container.content(tvshows) | container.content(episodes) | container.content(musicvideos)]</visible>
+            <visible>![String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -196,7 +196,7 @@
             </control>
           </control>
           <control type="group" description="TV Shows">
-            <visible>Container.Content(TVShows)</visible>
+            <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -241,7 +241,7 @@
             </control>
           </control>
           <control type="group" description="Episodes">
-            <visible>container.content(episodes)</visible>
+            <visible>String.IsEqual(ListItem.DBType,episode)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -310,7 +310,7 @@
             </control>
           </control>
           <control type="group" description="Music Videos">
-            <visible>container.content(musicvideos)</visible>
+            <visible>String.IsEqual(ListItem.DBType,musicvideo)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -445,7 +445,7 @@
           <textcolor>White</textcolor>
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
-          <onclick>Dialog.Close(all,true)</onclick>
+          <onclick>Dialog.Close(MovieInformation)</onclick>
           <onclick>RunScript(script.cinemavision,experience)</onclick>
         </control>
         <control type="togglebutton" id="8" description="Play/browse to Show">
@@ -459,7 +459,7 @@
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
           <alttexturefocus>-</alttexturefocus>
-          <usealttexture>Container.Content(TVShows)</usealttexture>
+          <usealttexture>String.IsEqual(ListItem.DBType,tvshow)</usealttexture>
         </control>
         <control type="button" id="11" description="Trailer">
           <height>54</height>
@@ -516,7 +516,7 @@
           <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="100" description="TvTunes">
-          <visible>Container.Content(TVShows) + System.HasAddon(script.tvtunes) + Skin.HasSetting(TVTunes.Enabled)</visible>
+          <visible>String.IsEqual(ListItem.DBType,tvshow) + System.HasAddon(script.tvtunes) + Skin.HasSetting(TVTunes.Enabled)</visible>
           <height>54</height>
           <width>230</width>
           <align>center</align>
