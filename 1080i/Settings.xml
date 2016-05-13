@@ -3,7 +3,7 @@
   <defaultcontrol always="true">9000</defaultcontrol>
   <backgroundcolor>0</backgroundcolor>
   <controls>
-    <include>Settings_Art</include>
+    <include>Background</include>
     <include>Time</include>
     <control type="group" description="Content">
       <animation effect="fade" time="250" condition="!Window.Previous(SettingsCategory.xml)">WindowOpen</animation>
@@ -19,7 +19,7 @@
         <width>620</width>
         <height>72</height>
         <align>center</align>
-        <label>$LOCALIZE[5] - KODI</label>
+        <label>$LOCALIZE[5] - $LOCALIZE[31022]</label>
         <font>InfoTitle</font>
         <textcolor>Highlight</textcolor>
       </control>
@@ -82,7 +82,7 @@
         </focusedlayout>
         <content>
           <item id="1">
-            <label>$LOCALIZE[31004]</label>
+            <label>$LOCALIZE[31022]</label>
             <onclick>noop</onclick>
           </item>
           <item id="2" description="Options">
@@ -135,7 +135,7 @@
         <onleft condition="Container(9000).HasFocus(6)">9006</onleft>
         <onleft condition="Container(9000).HasFocus(7)">9007</onleft>
         <onleft condition="Container(9000).HasFocus(8)">9008</onleft>
-        <onleft condition="Container(9000).HasFocus(8)">9009</onleft>
+        <onleft condition="Container(9000).HasFocus(9)">9009</onleft>
         <itemgap>0</itemgap>
         <control type="button" id="501" description="System information">
           <font>ListDetails</font>
@@ -395,13 +395,11 @@
               <param name="itemlabel" value="$LOCALIZE[8]"/>
               <param name="area" value="Weather"/>
             </include>
-            <item id="10" description="Settings">
-              <visible>!Skin.HasSetting(QuitMenu_Hide_Settings)</visible>
-              <label>$LOCALIZE[5]</label>
-              <label2>$LOCALIZE[31293]</label2>
-              <thumb fallback="special://skin/backgrounds/Settings.jpg">$INFO[Skin.String(Settings.Background)]</thumb>
-              <onclick>Notification($LOCALIZE[416],,6,DefaultIconWarning.png)</onclick>
-            </item>
+            <include content="HomeSettingItem">
+              <param name="itemid" value="10"/>
+              <param name="itemlabel" value="$LOCALIZE[5]"/>
+              <param name="area" value="Settings"/>
+            </include>
             <include content="HomeSettingItem">
               <param name="itemid" value="11"/>
               <param name="itemlabel" value="$LOCALIZE[13009]"/>
@@ -571,11 +569,18 @@
                 <thumb>$INFO[Skin.String(Quit.Background)]</thumb>
               </item>
               <item id="12">
-                <visible>PVR.HasTVChannels | PVR.HasRadioChannels</visible>
+                <visible>PVR.HasTVChannels</visible>
                 <label>$LOCALIZE[31500]</label>
                 <onclick>Control.Move(9004,-1)</onclick>
                 <icon>special://skin/backgrounds/Pvr.jpg</icon>
                 <thumb>$INFO[Skin.String(Pvr.Background)]</thumb>
+              </item>
+              <item id="13">
+                <visible>PVR.HasRadioChannels</visible>
+                <label>$LOCALIZE[31509]</label>
+                <onclick>Control.Move(9004,-1)</onclick>
+                <icon>special://skin/backgrounds/Radio.jpg</icon>
+                <thumb>$INFO[Skin.String(Radio.Background)]</thumb>
               </item>
               <item id="21">
                 <visible>!String.IsEmpty(Skin.String(CustomHome.1.Path))</visible>
@@ -907,36 +912,46 @@
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="4"/>
+              <param name="itemlabel" value="$LOCALIZE[31953]"/>
+              <param name="skinsetting" value="Sub_FanArtBG"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="5"/>
+              <param name="itemlabel" value="$LOCALIZE[31952]"/>
+              <param name="skinsetting" value="MusicPlayingFanart"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="6"/>
               <param name="itemlabel" value="$LOCALIZE[31978]"/>
               <param name="skinsetting" value="Show_Library_Count"/>
             </include>
-            <item id="5" description="Movies entry points">
+            <item id="7" description="Movies entry points">
               <label>$LOCALIZE[31507]</label>
               <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(20342, 31502|MovieEntry.All, 20386|MovieEntry.RecentlyAdded, 136|MovieEntry.Playlists, 744|MovieEntry.Files, 15100|MovieEntry.Library)</onclick>
             </item>
-            <item id="6" description="TV Show entry points">
+            <item id="8" description="TV Show entry points">
               <label>$LOCALIZE[31508]</label>
               <label2 fallback="31499">$VAR[TVShowEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(20343, 31499|TVShowEntry.All, 20387|TVShowEntry.RecentlyAdded, 136|TVShowEntry.Playlists, 744|TVShowEntry.Files, 15100|TVShowEntry.Library)</onclick>
             </item>
-            <item id="7" description="TV entry points">
+            <item id="9" description="TV entry points">
               <label>$LOCALIZE[31511]</label>
               <label2 fallback="19019">$VAR[TVEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(31500, 19019|TVEntry.Channels, 22020|TVEntry.Guide, 19163|TVEntry.Recordings)</onclick>
             </item>
-            <item id="8" description="Radio entry points">
+            <item id="10" description="Radio entry points">
               <label>$LOCALIZE[31512]</label>
               <label2 fallback="19019">$VAR[RadioEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(31509, 19019|RadioEntry.Channels, 22020|RadioEntry.Guide, 19163|RadioEntry.Recordings)</onclick>
             </item>
            <include content="YesNoSettingItem">
-              <param name="itemid" value="9"/>
+              <param name="itemid" value="11"/>
               <param name="itemlabel" value="$LOCALIZE[31960]"/>
               <param name="skinsetting" value="ArtistView"/>
             </include>
             <include content="YesNoSettingItem">
-              <param name="itemid" value="10"/>
+              <param name="itemid" value="12"/>
               <param name="itemlabel" value="$LOCALIZE[31957]"/>
               <param name="skinsetting" value="Hide.LibraryUpdate.Button"/>
             </include>

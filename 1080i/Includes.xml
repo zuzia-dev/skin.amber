@@ -123,6 +123,27 @@
     <width>1920</width>
     <height>1080</height>
   </include>
+
+  <include name="BackgroundOverlay">
+    <param name="overlaywidth">1920</param>
+    <param name="overlayheight">1080</param>
+    <param name="overlaytop">0</param>
+    <param name="overlayleft">0</param>
+    <param name="parentid"/>
+    <definition>
+      <control type="image" description="background overlay">
+        <visible>Control.IsVisible($PARAM[parentid])</visible>
+        <include>VignetteFade</include>
+        <left>$PARAM[overlayleft]</left>
+        <top>$PARAM[overlayltop]</top>
+        <width>$PARAM[overlaywidth]</width>
+        <height>$PARAM[overlayheight]</height>
+        <texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture> 
+        <colordiffuse>cccebe9e</colordiffuse> 
+      </control>
+    </definition>
+  </include>
+
   <include name="Panel_Size">
     <posx>36</posx>
     <posy>54</posy>
@@ -224,6 +245,28 @@
       </control>
     </control>
   </include>
+  
+  <include name="Background">
+    <control type="multiimage">
+      <include>VignetteFade</include>
+      <visible>![Player.HasVideo + Skin.HasSetting(Show_Player)]</visible>
+      <include>Dimensions_Fullscreen</include>
+      <timeperimage>12000</timeperimage>
+      <fadetime>400</fadetime>
+      <imagepath background="true">$VAR[SubBackground]</imagepath>
+      <randomize>true</randomize>
+      <aspectratio aligny="top">scale</aspectratio>
+    </control>
+    <control type="visualisation">
+      <visible>Player.HasAudio + Skin.HasSetting(Show_Player) + String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+      <include>Dimensions_Fullscreen</include>
+    </control>
+    <control type="videowindow">
+      <visible>Player.HasVideo + Skin.HasSetting(Show_Player)</visible>
+      <include>Dimensions_Fullscreen</include>
+    </control>
+  </include>
+
   <include name="SeekbarLabels">
     <posx>40</posx>
     <posy>0</posy>
@@ -674,52 +717,6 @@
     <fadetime>400</fadetime>
     <aspectratio>scale</aspectratio>
   </include>
-  <include name="Default_Art">
-    <control type="multiimage">
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Default.Art]</imagepath>
-    </control>
-  </include>
-  <include name="Settings_Art">
-    <control type="multiimage">
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Settings.Art]</imagepath>
-    </control>
-  </include>
-  <include name="Pvr_Art">
-    <control type="multiimage">
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Pvr.Art]</imagepath>
-    </control>
-    <control type="image" description="fa overlay"> 
-      <posx>0</posx> 
-      <posy>65</posy> 
-      <width>1920</width> 
-      <height>1015</height> 
-      <texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture> 
-      <colordiffuse>FF9e9e9e</colordiffuse> 
-    </control> 
-  </include>
-  <include name="Weather_Art">
-    <control type="multiimage">
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Weather.Art]</imagepath>
-    </control>
-  </include>
-  <include name="Pictures_Art">
-    <control type="multiimage">
-      <visible>![Control.IsVisible(52) | Control.IsVisible(53) | Control.IsVisible(55)]</visible>
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Pictures.Art]</imagepath>
-    </control>
-  </include>
-  <include name="Fanart_Art">
-    <control type="multiimage" description="FA fullscreen">
-      <visible>![Control.IsVisible(52) | Control.IsVisible(55) | Control.IsVisible(53)]</visible>
-      <include>BG.Defaults</include>
-      <imagepath background="true">$VAR[Fanart.Art]</imagepath>
-    </control>
-  </include>
   <include name="Home.Main.Menu.Items">
     <include condition="Skin.HasSetting(plexbmc)">Plexbmc.Home.Main.Menu.Items</include>
     <item id="21" description="Custom1">
@@ -732,7 +729,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Pictures.Hide)</visible>
       <label>$LOCALIZE[1]</label>
-      <thumb fallback="special://skin/backgrounds/Pictures.jpg">$INFO[Skin.String(Pictures.Background)]</thumb>
+      <thumb>$VAR[Pictures.Art]</thumb>
       <onclick>ActivateWindow(Pictures,root)</onclick>
     </item>
     <item id="22" description="Custom2">
@@ -744,7 +741,7 @@
     <item id="2" description="Addons">
       <visible>!Skin.HasSetting(Addons.Hide)</visible>
       <label>$LOCALIZE[24001]</label>
-      <thumb fallback="special://skin/backgrounds/Addons.jpg">$INFO[Skin.String(Addons.Background)]</thumb>
+      <thumb>$VAR[Addons.Art]</thumb>
       <onclick>ActivateWindow(1119)</onclick>
     </item>
     <item id="23" description="Custom3">
@@ -757,7 +754,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Videos.Hide)</visible>
       <label>$LOCALIZE[3]</label>
-      <thumb fallback="special://skin/backgrounds/Videos.jpg">$INFO[Skin.String(Videos.Background)]</thumb>
+      <thumb>$VAR[Videos.Art]</thumb>
       <onclick>ActivateWindow(Videos,root)</onclick>
     </item>
     <item id="24" description="Custom.4">
@@ -770,7 +767,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Movies.Hide) + Library.HasContent(Movies)</visible>
       <label fallback="20342">$VAR[MovieEntryPointLabel2]</label>
-      <thumb fallback="special://skin/backgrounds/Movies.jpg">$INFO[Skin.String(Movies.Background)]</thumb>
+      <thumb>$VAR[Movies.Art]</thumb>
       <onclick>$VAR[MovieEntryPoint]</onclick>
     </item>
     <item id="25" description="Custom.5">
@@ -783,7 +780,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(TVShows.Hide) + Library.HasContent(TVShows)</visible>
       <label fallback="20343">$VAR[TVShowEntryPointLabel2]</label>
-      <thumb fallback="special://skin/backgrounds/TVShows.jpg">$INFO[Skin.String(TVShows.Background)]</thumb>
+      <thumb>$VAR[TVShows.Art]</thumb>
       <onclick>$VAR[TVShowEntryPoint]</onclick>
     </item>
     <item id="26" description="Custom.6">
@@ -796,7 +793,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Music.Hide)</visible>
       <label>$LOCALIZE[2]</label>
-      <thumb fallback="special://skin/backgrounds/Music.jpg">$INFO[Skin.String(Music.Background)]</thumb>
+      <thumb>$VAR[Music.Art]</thumb>
       <onclick condition="Library.HasContent(Music) + !Skin.HasSetting(ArtistView)">ActivateWindow(Music,Albums,return)</onclick>
       <onclick condition="Library.HasContent(Music) + Skin.HasSetting(ArtistView)">ActivateWindow(Music,Artists,return)</onclick>
       <onclick condition="!Library.HasContent(Music)">ActivateWindow(Music,Files,return)</onclick>
@@ -811,7 +808,7 @@
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>Skin.HasSetting(MusicVideos.Show)</visible>
       <label>$LOCALIZE[20389]</label>
-      <thumb fallback="special://skin/backgrounds/MusicVideos.jpg">$INFO[Skin.String(MusicVideos.Background)]</thumb>
+      <thumb>$VAR[MusicVideos.Art]</thumb>
       <onclick>ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
     </item>
     <item id="28" description="Custom.8">
@@ -823,19 +820,19 @@
     <item id="300" description="Live TV">
       <visible>PVR.HasTVChannels</visible>
       <label>$LOCALIZE[31500]</label>
-      <thumb fallback="special://skin/backgrounds/Pvr.jpg">$INFO[Skin.String(Pvr.Background)]</thumb>
+      <thumb>$VAR[Pvr.Art]</thumb>
       <onclick>$VAR[TVEntryPoint]</onclick>
     </item>
     <item id="301" description="Live Radio">
       <visible>PVR.HasRadioChannels</visible>
       <label>$LOCALIZE[31509]</label>
-      <thumb fallback="special://skin/backgrounds/Pvr.jpg">$INFO[Skin.String(Pvr.Background)]</thumb>
+      <thumb>$VAR[Radio.Art]</thumb>
       <onclick>$VAR[RadioEntryPoint]</onclick>
     </item>
     <item id="7" description="Favorites">
       <visible>!Skin.HasSetting(Favourites.Hide)</visible>
       <label>$LOCALIZE[1036]</label>
-      <thumb fallback="special://skin/backgrounds/Favourites.jpg">$INFO[Skin.String(Favourites.Background)]</thumb>
+      <thumb>$VAR[Favourites.Art]</thumb>
       <onclick>ActivateWindow(Favourites)</onclick>
     </item>
     <item id="29" description="Custom.9">
@@ -847,26 +844,26 @@
     <item id="8" description="DVD">
       <visible>System.HasMediaDVD + !Skin.HasSetting(DVD.Hide)</visible>
       <label>$LOCALIZE[427]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(DVD.Background)]</thumb>
+      <thumb>$VAR[DVD.Art]</thumb>
       <onclick condition="System.HasMediaDvd">PlayDVD()</onclick>
       <onclick condition="!System.HasMediaDvd">Notification($LOCALIZE[164],$LOCALIZE[219],5,DefaultIconWarning.png)</onclick>
     </item>
     <item id="15" description="Weather">
       <visible>!Skin.HasSetting(Weather.Hide)</visible>
       <label>$LOCALIZE[8]</label>
-      <thumb fallback="special://skin/backgrounds/Weather.jpg">$INFO[Skin.String(Weather.Background)]</thumb>
+      <thumb>$VAR[Weather.Art]</thumb>
       <onclick>ActivateWindow(Weather)</onclick>
     </item>
     <item id="10" description="Settings">
       <visible>!Skin.HasSetting(Settings.Hide)</visible>
       <label>$LOCALIZE[5]</label>
-      <thumb fallback="special://skin/backgrounds/Settings.jpg">$INFO[Skin.String(Settings.Background)]</thumb>
+      <thumb>$VAR[Settings.Art]</thumb>
       <onclick>ActivateWindow(Settings)</onclick>
     </item>
     <item id="11" description="Quit">
       <visible>!Skin.HasSetting(Quit.Hide)</visible>
       <label fallback="13009">$VAR[QuitLabel2]</label>
-      <thumb fallback="special://skin/backgrounds/Quit.jpg">$INFO[Skin.String(Quit.Background)]</thumb>
+      <thumb>$VAR[Quit.Art]</thumb>
       <onclick>$VAR[QuitAction]</onclick>
     </item>
   </include>
@@ -2224,6 +2221,7 @@
       <onclick condition="Container(9004).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
     </definition>
   </include>
+
 </includes>
 
 

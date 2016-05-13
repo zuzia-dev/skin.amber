@@ -16,10 +16,15 @@
     <value condition="Window.IsActive(musicplaylist)">$LOCALIZE[10517]</value>
   </variable>
 
-  <variable name="MusicInfoHeader" description="Header for MyPlaylist window">
+  <variable name="MusicInfoHeader" description="Header for MusicInfo window">
     <value condition="Container.Content(Artists)">$LOCALIZE[21891]: [COLOR=White]$INFO[ListItem.Artist][/COLOR]</value>
     <value condition="Container.Content(Albums)">$LOCALIZE[10523]: [COLOR=White]$INFO[ListItem.Album][/COLOR]</value>
     <value condition="Container.Content(Songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
+  </variable>
+
+  <variable name="PVRChannelManagerHeader" description="Header for PVRChannelManager window">
+    <value condition="String.IsEmpty(Window.Property(IsRadio))">$LOCALIZE[19199] - $LOCALIZE[19023]</value>
+    <value>$LOCALIZE[19199] - $LOCALIZE[19024]</value>
   </variable>
 
   <variable name="MasterModeLabel">
@@ -168,6 +173,15 @@
     <value>$LOCALIZE[13113]</value>
   </variable>
 
+  <variable name="MusicRepeat" description="Image to display in MusicOSD">
+    <value condition="Control.HasFocus(606) + Playlist.IsRepeatOne">OSD/OSDRepeatOneFO.png</value>
+    <value condition="!Control.HasFocus(606) + Playlist.IsRepeatOne">OSD/OSDRepeatOneNF.png</value>
+    <value condition="Control.HasFocus(606) + Playlist.IsRepeat">OSD/OSDRepeatAllFO.png</value>
+    <value condition="!Control.HasFocus(606) + Playlist.IsRepeat">OSD/OSDRepeatAllNF.png</value>
+    <value condition="Control.HasFocus(606) + ![Playlist.IsRepeatOne | Playlist.IsRepeat]">OSD/OSD/OSDRepeatFO.png</value>
+    <value condition="!Control.HasFocus(606) + [Playlist.IsRepeatOne | Playlist.IsRepeat]">OSD/OSD/OSDRepeatNF.png</value>
+  </variable>
+
   <variable name="PVROverlay" description="PVR Overlay image">
     <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
     <value condition="ListItem.HasTimer">img/PVR-HasTimer.png</value>
@@ -188,7 +202,7 @@
     <value>$INFO[ListItem.Label2]</value>
   </variable>
 
-  <variable name="Fanart_Details" description="Shown Above Plots and descriptions">
+  <variable name="Item_Details" description="Shown Above Plots and descriptions">
     <value condition="Container.Content(images)">$INFO[ListItem.Date,, • ]$INFO[ListItem.Size]</value>
     <value condition="Container.content(Albums)">$INFO[ListItem.Artist]</value>
     <value condition="Container.Content(Episodes)">$INFO[ListItem.Premiered,,  • ]$INFO[ListItem.Duration,, $LOCALIZE[12391]]$INFO[ListItem.Rating,  • ]</value>
@@ -217,32 +231,98 @@
     <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
   </variable>
 
-  <variable name="Settings.Art" description="Calculate BG to show">
-    <value condition="!String.IsEmpty(Skin.String(Settings.Background))">$INFO[Skin.String(Settings.Background)]</value>
-    <value>special://skin/backgrounds/Settings.jpg</value>
+  <variable name="TVShows.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(TVShows.Background))">$INFO[Skin.String(TVShows.Background)]</value>
+    <value>special://skin/backgrounds/TVShows.jpg</value>
+  </variable>
+  <variable name="Movies.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Movies.Background))">$INFO[Skin.String(Movies.Background)]</value>
+    <value>special://skin/backgrounds/Movies.jpg</value>
+  </variable>
+  <variable name="MusicVideos.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(MusicVideos.Background))">$INFO[Skin.String(MusicVideos.Background)]</value>
+    <value>special://skin/backgrounds/MusicVideos.jpg</value>
+  </variable>
+  <variable name="Videos.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Videos.Background))">$INFO[Skin.String(Videos.Background)]</value>
+    <value>special://skin/backgrounds/Videos.jpg</value>
+  </variable>
+  <variable name="Music.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Music.Background))">$INFO[Skin.String(Music.Background)]</value>
+    <value>special://skin/backgrounds/Music.jpg</value>
+  </variable>
+  <variable name="Pictures.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Pictures.Background))">$INFO[Skin.String(Pictures.Background)]</value>
+    <value>special://skin/backgrounds/Pictures.jpg</value>
   </variable>
   <variable name="Weather.Art" description="Calculate BG to show">
     <value condition="!String.IsEmpty(Skin.String(Weather.Background))">$INFO[Skin.String(Weather.Background)]</value>
     <value>special://skin/backgrounds/Weather.jpg</value>
   </variable>
+  <variable name="Favourites.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Favourites.Background))">$INFO[Skin.String(Favourites.Background)]</value>
+    <value>special://skin/backgrounds/Favourites.jpg</value>
+  </variable>
+  <variable name="Addons.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Addons.Background))">$INFO[Skin.String(Addons.Background)]</value>
+    <value>special://skin/backgrounds/Addons.jpg</value>
+  </variable>
+  <variable name="Settings.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Settings.Background))">$INFO[Skin.String(Settings.Background)]</value>
+    <value>special://skin/backgrounds/Settings.jpg</value>
+  </variable>
   <variable name="Pvr.Art" description="Calculate BG to show">
     <value condition="!String.IsEmpty(Skin.String(Pvr.Background))">$INFO[Skin.String(Pvr.Background)]</value>
-    <value>special://skin/backgrounds/default</value>
+    <value>special://skin/backgrounds/Pvr.jpg</value>
   </variable>
-  <variable name="Pictures.Art" description="Calculate BG to show">
-    <value condition="!container.content(addons) + !String.IsEmpty(ListItem.thumb)">$INFO[ListItem.thumb]</value>
-    <value condition="!String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
-    <value>special://skin/backgrounds/default/</value>
+  <variable name="Radio.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Radio.Background))">$INFO[Skin.String(Radio.Background)]</value>
+    <value>special://skin/backgrounds/Radio.jpg</value>
   </variable>
-  <variable name="Fanart.Art" description="Calculate BG to show">
+  <variable name="Quit.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(Quit.Background))">$INFO[Skin.String(Quit.Background)]</value>
+    <value>special://skin/backgrounds/Quit.jpg</value>
+  </variable>
+  <variable name="DVD.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(DVD.Background))">$INFO[Skin.String(DVD.Background)]</value>
+    <value>special://skin/backgrounds/Videos.jpg</value>
+  </variable>
+
+  <variable name="Fanart.Art">
+    <value condition="Window.IsActive(pictures) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value condition="Window.IsActive(pictures) + !String.Contains(ListItem.Icon,Default)">$INFO[ListItem.Icon]</value>
+    <value condition="!String.IsEmpty(Container.Art(tvshow.fanart))">$INFO[Container.Art(tvshow.fanart)]</value>
+    <value condition="!String.IsEmpty(Container.Art(artist.fanart))">$INFO[Container.Art(artist.fanart)]</value>
+    <value condition="!String.IsEmpty(Container.Art(fanart))">$INFO[Container.Art(fanart)]</value>
     <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-    <value condition="!String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
-    <value>special://skin/backgrounds/default/</value>
-  </variable>  
-  <variable name="Default.Art" description="Calculate BG to show">
-    <value condition="!String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
+    <value>$VAR[SubDefaultBackground]</value>
+  </variable>
+
+  <variable name="SubBackground">
+    <value condition="!Skin.HasSetting(Sub_FanArtBG)">$VAR[SubDefaultBackground]</value>
+    <value>$VAR[Fanart.Art]</value>
+  </variable>
+
+  <variable name="SubDefaultBackground">
+    <value condition="Skin.HasSetting(Home_DefaultBG) + !String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
+    <value condition="Skin.HasSetting(Home_DefaultBG)">special://skin/backgrounds/default/</value>
+    <value condition="Window.IsActive(MyVideoNav.xml) + [Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes)]">$VAR[TVShows.Art]</value>
+    <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(Movies)">$VAR[Movies.Art]</value>
+    <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(MusicVideos)">$VAR[MusicVideos.Art]</value>
+    <value condition="Window.IsActive(MyVideoNav.xml) | Window.IsActive(videoplaylist)">$VAR[Videos.Art]</value>
+    <value condition="Window.IsActive(MyMusicNav.xml) | Window.IsActive(musicplaylist)">$VAR[Music.Art]</value>
+    <value condition="Window.IsActive(videoplaylist)">$LOCALIZE[10522]</value>
+    <value condition="Window.IsActive(musicplaylist)">$LOCALIZE[10517]</value>
+    <value condition="Window.IsActive(MyPics.xml)">$VAR[Pictures.Art]</value>
+    <value condition="Window.IsActive(DialogFavourites.xml)">$VAR[Favourites.Art]</value>
+    <value condition="Window.IsActive(MyWeather.xml)">$VAR[Weather.Art]</value>
+    <value condition="Window.IsActive(MyPrograms.xml) | Window.IsActive(CustomAddons.xml)">$VAR[Addons.Art]</value>
+    <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml) | Windows.IsActive(SettingsProfile.xml) | Window.IsActive(SettingsScreenCalibration.xml) | Window.IsActive(SettingsSystemInfo.xml) | Window.IsActive(EventLog.xml)">$VAR[Settings.Art]</value>
+    <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + String.IsEmpty(Window.Property(IsRadio))">$VAR[Pvr.Art]</value>
+    <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + !String.IsEmpty(Window.Property(IsRadio))">$VAR[Radio.Art]</value>
     <value>special://skin/backgrounds/default/</value>
   </variable>
+
   <variable name="HomeBackground">
     <value condition="Control.HasFocus(311) + Skin.HasSetting(Home_FanArtBG) + !String.IsEmpty(Container(311).ListItem.Property(FanArt))">$INFO[Container(311).ListItem.Property(FanArt)]</value>
     <value condition="Control.HasFocus(312) + Skin.HasSetting(Home_FanArtBG) + !String.IsEmpty(Container(312).ListItem.Property(FanArt))">$INFO[Container(312).ListItem.Property(FanArt)]</value>
@@ -277,5 +357,7 @@
   </variable>
 
   <expression name="SettingsAddon1to5Visibility">!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</expression>
+
+  <expression name="PVRWindow">Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)</expression>
 
 </includes>
