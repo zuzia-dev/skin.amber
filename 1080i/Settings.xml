@@ -272,11 +272,6 @@
               <label2>$INFO[Skin.String(LyricPath)]</label2>
               <onclick>Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
             </item>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="5"/>
-              <param name="itemlabel" value="$LOCALIZE[31991]"/>
-              <param name="skinsetting" value="Show_Player"/>
-            </include>
            <include content="YesNoSettingItem">
               <param name="itemid" value="6"/>
               <param name="itemlabel" value="$LOCALIZE[31997]"/>
@@ -307,7 +302,9 @@
           <onup>9003</onup>
           <ondown>9003</ondown>
           <pagecontrol>63</pagecontrol>
-          <include>SettingsListCommons</include>
+          <include content="SettingsListCommons">
+            <param name="showicon">false</param>
+          </include>
           <content>
             <include content="CustomHomeSettingItem">
               <param name="itemid" value="21"/>
@@ -395,11 +392,11 @@
               <param name="itemlabel" value="$LOCALIZE[8]"/>
               <param name="area" value="Weather"/>
             </include>
-            <include content="HomeSettingItem">
-              <param name="itemid" value="10"/>
-              <param name="itemlabel" value="$LOCALIZE[5]"/>
-              <param name="area" value="Settings"/>
-            </include>
+            <item id="10" description="Settings Availability">
+              <label>$LOCALIZE[5]</label>
+              <label2 fallback="31031">$VAR[SettingsLocationPointLabel2]</label2>
+              <onclick>Skin.SelectBool(31030, 31031|SettingsLocation.All, 31032|SettingsLocation.Home, 31033|SettingsLocation.Quit)</onclick>
+            </item>
             <include content="HomeSettingItem">
               <param name="itemid" value="11"/>
               <param name="itemlabel" value="$LOCALIZE[13009]"/>
@@ -922,36 +919,41 @@
             </include>
             <include content="YesNoSettingItem">
               <param name="itemid" value="6"/>
+              <param name="itemlabel" value="$LOCALIZE[31991]"/>
+              <param name="skinsetting" value="Show_Player"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="7"/>
               <param name="itemlabel" value="$LOCALIZE[31978]"/>
               <param name="skinsetting" value="Show_Library_Count"/>
             </include>
-            <item id="7" description="Movies entry points">
+            <item id="8" description="Movies entry points">
               <label>$LOCALIZE[31507]</label>
               <label2 fallback="31502">$VAR[MovieEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(20342, 31502|MovieEntry.All, 20386|MovieEntry.RecentlyAdded, 136|MovieEntry.Playlists, 744|MovieEntry.Files, 15100|MovieEntry.Library)</onclick>
             </item>
-            <item id="8" description="TV Show entry points">
+            <item id="9" description="TV Show entry points">
               <label>$LOCALIZE[31508]</label>
               <label2 fallback="31499">$VAR[TVShowEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(20343, 31499|TVShowEntry.All, 20387|TVShowEntry.RecentlyAdded, 136|TVShowEntry.Playlists, 744|TVShowEntry.Files, 15100|TVShowEntry.Library)</onclick>
             </item>
-            <item id="9" description="TV entry points">
+            <item id="10" description="TV entry points">
               <label>$LOCALIZE[31511]</label>
               <label2 fallback="19019">$VAR[TVEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(31500, 19019|TVEntry.Channels, 22020|TVEntry.Guide, 19163|TVEntry.Recordings)</onclick>
             </item>
-            <item id="10" description="Radio entry points">
+            <item id="11" description="Radio entry points">
               <label>$LOCALIZE[31512]</label>
               <label2 fallback="19019">$VAR[RadioEntryPointLabel2]</label2>
               <onclick>Skin.SelectBool(31509, 19019|RadioEntry.Channels, 22020|RadioEntry.Guide, 19163|RadioEntry.Recordings)</onclick>
             </item>
            <include content="YesNoSettingItem">
-              <param name="itemid" value="11"/>
+              <param name="itemid" value="12"/>
               <param name="itemlabel" value="$LOCALIZE[31960]"/>
               <param name="skinsetting" value="ArtistView"/>
             </include>
             <include content="YesNoSettingItem">
-              <param name="itemid" value="12"/>
+              <param name="itemid" value="13"/>
               <param name="itemlabel" value="$LOCALIZE[31957]"/>
               <param name="skinsetting" value="Hide.LibraryUpdate.Button"/>
             </include>

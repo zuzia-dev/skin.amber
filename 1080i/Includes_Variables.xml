@@ -168,6 +168,11 @@
     <value condition="Skin.HasSetting(RadioEntry.Recordings)">$LOCALIZE[19163]</value>
   </variable>
 
+  <variable name="SettingsLocationPointLabel2" description="Label2 for skin settings location item">
+    <value condition="Skin.HasSetting(SettingsLocation.Home)">$LOCALIZE[31032]</value>
+    <value condition="Skin.HasSetting(SettingsLocation.Quit)">$LOCALIZE[31033]</value>
+  </variable>
+
   <variable name="MusicPlayingFanartLabel2" description="Label2 for music playing FA">
     <value condition="Skin.HasSetting(MusicPlayingFanart)">$LOCALIZE[449]</value>
     <value>$LOCALIZE[13113]</value>
@@ -279,13 +284,13 @@
     <value condition="!String.IsEmpty(Skin.String(Radio.Background))">$INFO[Skin.String(Radio.Background)]</value>
     <value>special://skin/backgrounds/Radio.jpg</value>
   </variable>
+  <variable name="DVD.Art" description="Calculate BG to show">
+    <value condition="!String.IsEmpty(Skin.String(DVD.Background))">$INFO[Skin.String(DVD.Background)]</value>
+    <value>special://skin/backgrounds/DVD.jpg</value>
+  </variable>
   <variable name="Quit.Art" description="Calculate BG to show">
     <value condition="!String.IsEmpty(Skin.String(Quit.Background))">$INFO[Skin.String(Quit.Background)]</value>
     <value>special://skin/backgrounds/Quit.jpg</value>
-  </variable>
-  <variable name="DVD.Art" description="Calculate BG to show">
-    <value condition="!String.IsEmpty(Skin.String(DVD.Background))">$INFO[Skin.String(DVD.Background)]</value>
-    <value>special://skin/backgrounds/Videos.jpg</value>
   </variable>
 
   <variable name="Fanart.Art">
@@ -316,7 +321,7 @@
     <value condition="Window.IsActive(MyPics.xml)">$VAR[Pictures.Art]</value>
     <value condition="Window.IsActive(DialogFavourites.xml)">$VAR[Favourites.Art]</value>
     <value condition="Window.IsActive(MyWeather.xml)">$VAR[Weather.Art]</value>
-    <value condition="Window.IsActive(MyPrograms.xml) | Window.IsActive(CustomAddons.xml)">$VAR[Addons.Art]</value>
+    <value condition="Window.IsActive(MyPrograms.xml) | Window.IsActive(AddonBrowser.xml) | Window.IsActive(CustomAddons.xml)">$VAR[Addons.Art]</value>
     <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml) | Windows.IsActive(SettingsProfile.xml) | Window.IsActive(SettingsScreenCalibration.xml) | Window.IsActive(SettingsSystemInfo.xml) | Window.IsActive(EventLog.xml)">$VAR[Settings.Art]</value>
     <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + String.IsEmpty(Window.Property(IsRadio))">$VAR[Pvr.Art]</value>
     <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + !String.IsEmpty(Window.Property(IsRadio))">$VAR[Radio.Art]</value>
@@ -357,7 +362,5 @@
   </variable>
 
   <expression name="SettingsAddon1to5Visibility">!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</expression>
-
-  <expression name="PVRWindow">Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)</expression>
 
 </includes>
