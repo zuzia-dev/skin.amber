@@ -2302,6 +2302,8 @@
     <param name="bordersizeRB"/>
     <param name="iconimage">$INFO[ListItem.Icon]</param>
     <param name="fallbackicon">DefaultThumb.png</param>
+    <param name="overlaylabel"></param>
+    <param name="overlaylabelvisiblity">false</param>
     <definition>
       <control type="image">
         <left>$PARAM[shadowoffset]</left>
@@ -2318,40 +2320,39 @@
         <top>$PARAM[iconoffset]</top>
         <width>$PARAM[iconwidth]</width>
         <height>$PARAM[iconheight]</height>
-
-      <control type="image">
-        <visible>$PARAM[isFocused]</visible>
-        <aspectratio>keep</aspectratio>
-        <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-        <bordertexture colordiffuse="Highlight" border="8">thumbs/SquareBG_FO3.png</bordertexture>
-        <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
+        <control type="image">
+          <visible>$PARAM[isFocused]</visible>
+          <aspectratio>keep</aspectratio>
+          <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
+          <bordertexture colordiffuse="Highlight" border="8">thumbs/SquareBG_FO3.png</bordertexture>
+          <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
+        </control>
+        <control type="image">
+          <visible>!$PARAM[isFocused]</visible>
+          <aspectratio>keep</aspectratio>
+          <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
+          <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
+          <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
+          <colordiffuse>eeeeeeee</colordiffuse>
+        </control>
+        <include content="GenericThumbLabelTemplate">
+          <param name="isFocused">$PARAM[isFocused]</param>
+          <param name="yoffset">85r</param>
+          <param name="xoffset">$PARAM[iconoffset]</param>
+          <param name="labelwidth">$PARAM[iconwidth]</param>
+          <param name="labelvisibility">$PARAM[overlaylabelvisiblity]</param>
+          <param name="labeltext">$PARAM[overlaylabel]</param>
+          <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeRB],0</param>
+        </include>
+        <control type="image" description="Watched Overlay">
+          <left>70r</left>
+          <top>80r</top>
+          <width>33</width>
+          <height>33</height>
+          <texture>$VAR[Overlay]</texture>
+          <aspectratio>keep</aspectratio>
+        </control>    
       </control>
-      <control type="image">
-        <visible>!$PARAM[isFocused]</visible>
-        <aspectratio>keep</aspectratio>
-        <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-        <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-        <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
-        <colordiffuse>eeeeeeee</colordiffuse>
-      </control>
-      <include content="GenericThumbLabelTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="yoffset">85r</param>
-        <param name="xoffset">$PARAM[iconoffset]</param>
-        <param name="labelwidth">$PARAM[iconwidth]</param>
-        <param name="labelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
-        <param name="labeltext">$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</param>
-        <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeRB],0</param>
-      </include>
-      <control type="image" description="Watched Overlay">
-        <left>70r</left>
-        <top>80r</top>
-        <width>33</width>
-        <height>33</height>
-        <texture>$VAR[Overlay]</texture>
-        <aspectratio>keep</aspectratio>
-      </control>    
-    </control>
     </definition>
   </include>
 
@@ -2377,6 +2378,21 @@
         <param name="isFocused">$PARAM[isFocused]</param>
         <param name="iconwidth">232.5</param>
         <param name="iconheight">258.5</param>
+        <param name="iconoffset">0</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+      </include>
+    </definition>
+  </include>
+
+  <include name="GenericThumbIconShelf">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">228</param>
+        <param name="iconheight">228</param>
         <param name="iconoffset">0</param>
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
@@ -2415,6 +2431,21 @@
     </definition>
   </include>
 
+  <include name="GenericPosterIconShelf">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">228</param>
+        <param name="iconheight">315</param>
+        <param name="iconoffset">0</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+      </include>
+    </definition>
+  </include>
+
   <include name="GenericEpisodeIconBig">
     <param name="isFocused">false</param>
     <definition>
@@ -2426,7 +2457,9 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">16</param>
         <param name="bordersizeRB">24</param>
-      </include>
+        <param name="overlaylabelvisiblity">String.IsEqual(ListItem.DBType,episode)</param>
+        <param name="overlaylabel">$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</param>
+        </include>
     </definition>
   </include>
 
@@ -2441,10 +2474,28 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
         <param name="bordersizeRB">20</param>
+        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
+        <param name="overlaylabel">$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</param>
       </include>
     </definition>
   </include>
-
+  
+  <include name="GenericEpisodeIconShelf">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">228</param>
+        <param name="iconheight">315</param>
+        <param name="iconoffset">0</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+        <param name="overlaylabelvisiblity">true</param>
+        <param name="overlaylabel">$INFO[ListItem.Property(SeasonEpisode)]</param>
+      </include>
+    </definition>
+  </include>
   <include name="GenericBannerIconBig">
     <param name="isFocused">false</param>
     <definition>
