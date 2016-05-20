@@ -836,7 +836,7 @@
     </item>
     <item id="14" description="MusicVideos">
       <visible>!Skin.HasSetting(plexbmc)</visible>
-      <visible>Skin.HasSetting(MusicVideos.Show)</visible>
+      <visible>!Skin.HasSetting(MusicVideos.Hide)</visible>
       <label>$LOCALIZE[20389]</label>
       <thumb>$VAR[MusicVideos.Art]</thumb>
       <onclick>ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
@@ -1995,12 +1995,13 @@
     <param name="height" default="342"/>
     <param name="width" default="608"/>
     <param name="labeltop" default="280"/>
+    <param name="itemicon">$INFO[ListItem.Icon]</param>
     <definition>
       <control type="group" description="Video Window Grouo">
         <include>VisibleFadeEffect</include>
         <left>$PARAM[left]</left>
         <top>$PARAM[top]</top>
-        <visible>Player.HasVideo</visible> 
+        <visible>Player.HasVideo + !Show_Player</visible> 
         <control type="image" description="video window background"> 
           <left>0</left> 
           <top>0</top> 
@@ -2034,8 +2035,18 @@
           <label>$INFO[Player.Title]</label> 
         </control>
       </control>
+      <control type="image" description="TV Logo">
+        <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
+        <left>$PARAM[left]</left>
+        <top>$PARAM[top]</top>
+        <width>$PARAM[width]</width> 
+        <height>$PARAM[height]</height> 
+        <texture>$PARAM[itemicon]</texture>
+        <aspectratio>keep</aspectratio>
+      </control>
     </definition>  
   </include>
+
 
   <include name="SettingsListCommons">
     <param name="showicon">true</param>

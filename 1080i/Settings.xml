@@ -510,7 +510,7 @@
                 <thumb>$INFO[Skin.String(Music.Background)]</thumb>
               </item>
               <item id="14">
-                <visible>Skin.HasSetting(MusicVideos.Show)</visible>
+                <visible>!Skin.HasSetting(MusicVideos.Hide)</visible>
                 <label>$LOCALIZE[20389]</label>
                 <onclick>Control.Move(9004,-1)</onclick>
                 <icon>special://skin/backgrounds/MusicVideos.jpg</icon>
@@ -744,7 +744,7 @@
             <width>1060</width>
             <height>50</height>
             <align>center</align>
-            <haspath>yes</haspath>
+            <haspath>true</haspath>
             <label fallback="571">$INFO[Container(9004).ListItem.Thumb]</label>
           </control>
         </control>
@@ -791,7 +791,7 @@
           <content>
             <include content="YesNoSettingItem">
               <param name="itemid" value="0"/>
-              <param name="itemlabel" value="$LOCALIZE[31967]"/>
+              <param name="itemlabel" value="$LOCALIZE[31920]"/>
               <param name="skinsetting" value="Hide.RecentlyAdded"/>
             </include>
             <include content="YesNoSettingItem">
@@ -806,71 +806,109 @@
               <onclick>Addon.OpenSettings(service.skin.widgets)</onclick>
             </item>
             <include content="YesNoSettingItem">
-              <param name="itemid" value="4"/>
-              <param name="itemlabel" value="$LOCALIZE[1036]"/>
-              <param name="skinsetting" value="Hide.Favourites"/>
+              <param name="itemid" value="3"/>
+              <param name="itemlabel" value="$LOCALIZE[31921]"/>
+              <param name="skinsetting" value="Hide.Movies.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
             </include>
             <include content="YesNoSettingItem">
-              <param name="itemid" value="5"/>
-              <param name="itemlabel" value="$LOCALIZE[24001]"/>
-              <param name="skinsetting" value="Shelf.Addons"/>
+              <param name="itemid" value="4"/>
+              <param name="itemlabel" value="$LOCALIZE[31922]"/>
+              <param name="skinsetting" value="Hide.TVShow.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
             </include>
-            <item id="6" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="6"/>
+              <param name="itemlabel" value="$LOCALIZE[31923]"/>
+              <param name="skinsetting" value="Hide.Music.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="7"/>
+              <param name="itemlabel" value="$LOCALIZE[31924]"/>
+              <param name="skinsetting" value="Hide.MusicVideos.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="8"/>
+              <param name="itemlabel" value="$LOCALIZE[31927]"/>
+              <param name="skinsetting" value="Hide.Weather.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="9"/>
+              <param name="itemlabel" value="$LOCALIZE[31928]"/>
+              <param name="skinsetting" value="Hide.PVR.Shelf"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="10"/>
+              <param name="itemlabel" value="$LOCALIZE[31926]"/>
+              <param name="skinsetting" value="Hide.Favourites"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <include content="YesNoSettingItem">
+              <param name="itemid" value="11"/>
+              <param name="itemlabel" value="$LOCALIZE[31925]"/>
+              <param name="skinsetting" value="Shelf.Addons"/>
+              <param name="itemvisibility" value="!Skin.HasSetting(Hide.RecentlyAdded)"/>
+            </include>
+            <item id="26" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[24000] 1</label>
               <label2>$INFO[Skin.String(ShelfAddons.1.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.1.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="7" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
+            <item id="27" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[24000] 2</label>
               <label2>$INFO[Skin.String(ShelfAddons.2.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.2.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="8" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
+            <item id="28" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[24000] 3</label>
               <label2>$INFO[Skin.String(ShelfAddons.3.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.3.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="9" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
+            <item id="29" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[24000] 4</label>
               <label2>$INFO[Skin.String(ShelfAddons.4.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.4.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="10" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons)</visible>
+            <item id="30" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded)</visible>
               <label>$LOCALIZE[24000] 5</label>
               <label2>$INFO[Skin.String(ShelfAddons.5.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.5.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="11" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
+            <item id="31" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 6</label>
               <label2>$INFO[Skin.String(ShelfAddons.6.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.6.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="12" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
+            <item id="32" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 7</label>
               <label2>$INFO[Skin.String(ShelfAddons.7.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.7.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="13" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
+            <item id="33" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 8</label>
               <label2>$INFO[Skin.String(ShelfAddons.8.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.8.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="14" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
+            <item id="34" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 9</label>
               <label2>$INFO[Skin.String(ShelfAddons.9.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.9.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>
             </item>
-            <item id="15" description="ADDONS">
-              <visible>Skin.HasSetting(Shelf.Addons) + $EXP[SettingsAddon1to5Visibility]</visible>
+            <item id="35" description="ADDONS">
+              <visible>!Skin.HasSetting(Shelf.Addons) + !Skin.HasSetting(Hide.RecentlyAdded) + $EXP[SettingsAddon1to5Visibility]</visible>
               <label>$LOCALIZE[24000] 10</label>
               <label2>$INFO[Skin.String(ShelfAddons.10.Label)]</label2>
               <onclick>Skin.SetAddon(ShelfAddons.10.Label,xbmc.addon.video,xbmc.addon.audio,xbmc.addon.image,xbmc.addon.executable)</onclick>

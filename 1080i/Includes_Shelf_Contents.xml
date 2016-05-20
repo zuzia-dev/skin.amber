@@ -65,17 +65,18 @@
       </control>
       <control type="group">
         <animation effect="slide" start="0,0" end="0,-100" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
-        <include condition="!Skin.HasSetting(Hide.Favourites)">Favourite.List</include>
-        <include condition="PVR.HasTVChannels | PVR.HasRadioChannels">PVR.List</include>
-        <include condition="Skin.HasSetting(Shelf.Addons)">Addons.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Movies.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.MusicVideos.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Episodes.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Albums.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + [String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true) | String.IsEqual(Window(Home).Property(SkinWidgets_RandomItems),true)]">Recommended.And.Random.Movies.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.MusicVideos.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Episodes.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Albums.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.Favourites)">Favourite.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.PVR.Shelf)  + [PVR.HasTVChannels | PVR.HasRadioChannels]">PVR.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.Weather.Shelf)  + !String.IsEmpty(Weather.Plugin)">Weather.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Shelf.Addons)">Addons.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Movies.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Movies.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Movies.Shelf) + !Skin.HasSetting(plexbmc) + [String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true) | String.IsEqual(Window(Home).Property(SkinWidgets_RandomItems),true)]">Recommended.And.Random.Movies.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.TVShows.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Episodes.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.TVShows.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Episodes.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Music.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Albums.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Music.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Albums.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.MusicVideos.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.MusicVideos.List</include>
+        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.MusicVideos.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.MusicVideos.List</include>
         <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + Skin.HasSetting(plexbmc)">Plexbmc_Shelf</include>
       </control>
     </definition>
@@ -166,6 +167,105 @@
         <param name="recordingtitle" value="PVR.NowRecordingTitle"/>
         <param name="recordingchannel" value="PVR.NowRecordingChannel"/>
       </include>        
+    </control>
+  </include>
+
+
+  <include name="Weather.List">
+   <control type="group" description="Weather on Horizontal home screen">
+      <visible>!Skin.HasSetting(VerticalHome)</visible>
+      <include>WeatherAni0</include>
+      <top>1090</top>
+      <left>960</left>
+      <control type="image">
+        <left>-310</left>
+        <top>0</top>
+        <width>310</width>
+        <height>90</height>
+        <texture border="100,0,0,0">common/TimePanel.png</texture>
+      </control>
+      <control type="image">
+        <left>0</left>
+        <top>0</top>
+        <width>310</width>
+        <height>90</height>
+        <texture flipx="true" border="0,0,100,0">common/TimePanel.png</texture>
+      </control>
+      <control type="grouplist">
+        <left>-310</left>
+        <top>45</top>
+        <width>610</width>
+        <height>90</height>
+        <orientation>horizontal</orientation>
+        <align>center</align>
+        <itemgap>10</itemgap>
+        <control type="label">
+          <description>location label</description>
+          <width min="10" max="250">auto</width>
+          <height>40</height>
+          <font>font22</font>
+          <textcolor>Highlight</textcolor>
+          <label>$INFO[Window(Weather).Property(Location)]</label>
+        </control>          
+        <control type="image">
+          <description>Weather image</description>
+          <top>5</top>
+          <width>45</width>
+          <height>45</height>
+          <aspectratio aligny="center">keep</aspectratio>
+          <texture>$INFO[Weather.Conditions]</texture>
+        </control>
+        <control type="label">
+          <description>Conditions Label</description>
+          <width min="10" max="250">auto</width>
+          <height>40</height>
+          <font>font22</font>
+          <label>$INFO[Window(Weather).Property(Current.Condition), , ][B]$INFO[Window(Weather).Property(Current.Temperature)]$INFO[System.TemperatureUnits][/B]</label>
+        </control>
+      </control>
+    </control>
+    <control type="group" description="Weather on Vertical home screen">
+      <left>1100</left>
+      <top>71</top>
+      <visible>Skin.HasSetting(VerticalHome)</visible>
+      <include>WeatherAni0</include>
+      <control type="image" description="BG">
+        <left>0</left>
+        <top>0</top>
+        <width>820</width>
+        <height>88</height>
+        <texture>img/gradient.png</texture>
+      </control>
+      <control type="image">
+        <description>Weather image</description>
+        <left>720</left>
+        <top>0</top>
+        <width>80</width>
+        <height>84</height>
+        <aspectratio aligny="center">keep</aspectratio>
+        <texture>$INFO[Weather.Conditions]</texture>
+      </control>
+      <control type="label">
+        <description>location label</description>
+        <left>120</left>
+        <top>0</top>
+        <width>580</width>
+        <height>40</height>
+        <align>right</align>
+        <aligny>center</aligny>
+        <textcolor>Highlight</textcolor>
+        <label>$INFO[Window(Weather).Property(Location)]</label>
+      </control>
+      <control type="label">
+        <description>Conditions Label</description>
+        <left>120</left>
+        <top>45</top>
+        <width>580</width>
+        <height>30</height>
+        <align>right</align>
+        <aligny>center</aligny>
+        <label>$INFO[Window(Weather).Property(Current.Condition), ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Weather).Property(Current.Temperature)]$INFO[System.TemperatureUnits]</label>
+      </control>
     </control>
   </include>
 
