@@ -169,7 +169,7 @@
     </control>
   </include>
 
-  <include name="FavouriteAddonItem">
+  <include name="AddonItem">
     <param name="parentitemid" default=""/>
     <param name="itemid" default=""/>
     <param name="itemvisible" default=""/>
@@ -206,16 +206,54 @@
     </definition>
   </include>
 
+  <include name="FavouriteItem">
+    <param name="parentitemid" default=""/>
+    <param name="itemid" default=""/>
+    <param name="itemvisible" default=""/>
+    <param name="itemcontent" default=""/>
+    <definition>
+      <control type="label" description="Header">
+        <visible>Control.IsVisible($PARAM[itemid])</visible>
+        <include>RecentlyAdded_Header</include>
+        <label>$INFO[Container($PARAM[itemid]).ListItem.Property(ItemType)]</label>
+      </control>
+      <control type="label" description="Label">
+        <visible>Control.HasFocus($PARAM[itemid])</visible>
+        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
+        <include>RecentlyAdded_Label</include>
+        <label>$INFO[Container($PARAM[itemid]).ListItem.Label]</label>
+      </control>
+      <control type="fixedlist" id="$PARAM[itemid]" description="Favourites">
+        <visible>$PARAM[itemvisible]</visible>
+        <visible>Container(300).HasFocus($PARAM[parentitemid])</visible>
+        <onright>$PARAM[itemid]</onright>
+        <onup>300</onup>
+        <ondown>300</ondown>
+        <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+        <onleft condition="!Skin.HasSetting(VerticalHome)">$PARAM[itemid]</onleft>
+        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
+        <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
+        <include content="Shelf_Favourites">
+          <param name="id1" value="$PARAM[itemid]"/>
+        </include>
+        <content>
+          <include>$PARAM[itemcontent]</include>
+        </content>
+      </control>
+    </definition>
+  </include>
+
   <include name="Favourite.List">
-    <include content="FavouriteAddonItem">
+    <include content="FavouriteItem">
       <param name="parentitemid" value="7"/>
       <param name="itemid" value="111"/>
       <param name="itemvisible" value="!String.IsEmpty(Window(Home).Property(favourite.1.path))"/>
       <param name="itemcontent" value="FavouriteContent"/>
     </include>
   </include>
+
   <include name="Addons.List">
-    <include content="FavouriteAddonItem">
+    <include content="AddonItem">
       <param name="parentitemid" value="2"/>
       <param name="itemid" value="211"/>
       <param name="itemvisible" value="!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.5.Label))"/>
@@ -240,6 +278,7 @@
       <visible>Container(300).HasFocus(4)</visible>
       <onright>311</onright>
       <onup>300</onup>
+      <onback>300</onback>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">311</onleft>
       <ondown condition="Control.IsVisible(312)">312</ondown>
@@ -275,6 +314,7 @@
       <onup condition="Control.IsVisible(311)">311</onup>
       <onup condition="!Control.IsVisible(311)">300</onup>
       <ondown>300</ondown>
+      <onback>300</onback>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">312</onleft>
       <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
@@ -307,6 +347,7 @@
       <visible>Container(300).HasFocus(14)</visible>
       <onright>514</onright>
       <onup>300</onup>
+      <onback>300</onback>
       <ondown condition="Control.IsVisible(515)">515</ondown>
       <ondown condition="!Control.IsVisible(515)">300</ondown>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
@@ -344,6 +385,7 @@
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">515</onleft>
       <ondown>300</ondown>
+      <onback>300</onback>
       <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
       <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
       <include content="Shelf_Albums">
@@ -373,6 +415,7 @@
       <visible>Container(300).HasFocus(5)</visible>
       <onright>411</onright>
       <onup>300</onup>
+      <onback>300</onback>
       <ondown condition="Control.IsVisible(413)">413</ondown>
       <ondown condition="!Control.IsVisible(413)">300</ondown>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
@@ -408,6 +451,7 @@
       <onup condition="Control.IsVisible(411)">411</onup>
       <onup condition="!Control.IsVisible(411)">300</onup>
       <ondown>300</ondown>
+      <onback>300</onback>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">413</onleft>
       <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
@@ -439,6 +483,7 @@
       <visible>Container(300).HasFocus(6)</visible>
       <onright>511</onright>
       <onup>300</onup>
+      <onback>300</onback>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">511</onleft>
       <ondown condition="Control.IsVisible(513)">513</ondown>
@@ -474,6 +519,7 @@
       <onup condition="Control.IsVisible(511)">511</onup>
       <onup condition="!Control.IsVisible(511)">300</onup>
       <ondown>300</ondown>
+      <onback>300</onback>
       <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
       <onleft condition="!Skin.HasSetting(VerticalHome)">513</onleft>
       <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
@@ -497,7 +543,7 @@
         <label>$INFO[Window(Home).Property(favourite.$PARAM[itemid].name)]</label>
         <thumb>$INFO[Window(Home).Property(favourite.$PARAM[itemid].thumb)]</thumb>
         <property name="ItemType">$LOCALIZE[1036]</property>
-        <onclick>Window(Home).Property(favourite.$PARAM[itemid].path)</onclick>
+        <onclick>$INFO[Window(Home).Property(favourite.$PARAM[itemid].path)]</onclick>
       </item>
     </definition>
   </include>
@@ -1116,12 +1162,12 @@
       <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="Skin.HasSetting(plexbmc) + Integer.IsGreater(Container($PARAM[id1]).NumItems,0)">Conditional</animation>
       <include>VisibleFadeEffectDelayShelf</include>
       <itemlayout height="315" width="228.5">
-        <include content="GenericThumb">
+        <include content="GenericMusic">
           <param name="size">Shelf</param>
         </include>
       </itemlayout>
       <focusedlayout height="315" width="228.5">
-        <include content="GenericThumb">
+        <include content="GenericMusic">
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
@@ -1140,6 +1186,24 @@
       </itemlayout>
       <focusedlayout height="315" width="228.5">
         <include content="GenericThumb">
+          <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
+          <param name="size">Shelf</param>
+        </include>
+      </focusedlayout> 
+    </definition>
+  </include>
+
+  <include name="Shelf_Favourites">
+    <param name="id1"/>
+    <definition>
+      <include>VisibleFadeEffectDelayShelf</include>
+      <itemlayout height="315" width="228.5">
+        <include content="GenericFavourite">
+          <param name="size">Shelf</param>
+        </include>
+      </itemlayout>
+      <focusedlayout height="315" width="228.5">
+        <include content="GenericFavourite">
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>

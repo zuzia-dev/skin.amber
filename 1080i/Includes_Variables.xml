@@ -60,7 +60,8 @@
   <variable name="Banner" description="TV Banners">
     <value condition="!String.IsEmpty(ListItem.Art(banner))">$INFO[ListItem.Art(banner)]</value>
     <value condition="Skin.HasSetting(plexbmc)">$INFO[ListItem.Property(banner)]</value>
-    <value>$INFO[ListItem.Art(thumb)]</value>
+    <value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
+    <value>DefaultBanner.png</value>
   </variable>
 
   <variable name="Poster" description="Poster">
@@ -87,6 +88,7 @@
     <value condition="Skin.hassetting(plexbmc) + !Window.IsActive(Home) + !String.IsEmpty(Window.Property(heading))">$INFO[Window.Property(heading),,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window.Property(heading2),,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
     <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml)">$LOCALIZE[5]</value>
     <value condition="Window.IsActive(AddonBrowser.xml) + String.IsEmpty(Container.FolderName)">$LOCALIZE[31291]</value>
+    <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(episodes)">$INFO[Container.ShowTitle]$INFO[Container.FolderName,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems,[COLOR=Highlight]  •  [/COLOR]]</value>
     <value condition="Window.IsActive(MyVideoPlaylist.xml)">$LOCALIZE[20012]</value>
     <value condition="Window.IsActive(MyMusicPlaylist.xml)">$LOCALIZE[20011]</value>
     <value condition="Window.IsActive(DialogVideoInfo.xml)">$LOCALIZE[20159]</value>
@@ -220,20 +222,42 @@
     <value>$INFO[ListItem.Label2]</value>
   </variable>
 
+  <variable name="panelheading">
+    <value condition="Container.Content(Movies)">[B]$INFO[Listitem.Title,, ][/B]$INFO[ListItem.Year,(,)]</value>
+    <value>$INFO[Listitem.Title]</value>
+  </variable>
+
+  <variable name="panelsubheading">
+    <value condition="Container.Content(Movies)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
+    <value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes), $LOCALIZE[20360] ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
+    <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[20360]]</value>
+    <value condition="Container.Content(Episodes)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Year, • ]$INFO[ListItem.Rating, • ]$INFO[ListItem.MPAA, • ]</value>
+    <value condition="Container.Content(albums)">$INFO[Listitem.AlbumArtist]</value>
+    <value>$INFO[Listitem.Title]</value>
+  </variable>
+
   <variable name="Plots" description="Plots and descriptions">
     <value condition="Container.content(addons) + !String.IsEmpty(ListItem.AddonDescription)">$INFO[ListItem.AddonDescription]</value>
     <value condition="ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
     <value condition="ListItem.IsCollection">$LOCALIZE[20457]</value>
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Plot) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Plot]</value>
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot) + !String.IsEmpty(ListItem.Title)">$INFO[Container.ShowPlot]</value>
-    <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
-    <value condition="String.IsEqual(ListItem.DBType,album) + String.IsEmpty(ListItem.Property(Album_Description))">$LOCALIZE[414]</value>
-    <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Description))">$INFO[ListItem.Property(Artist_Description)]</value>
+    <value condition="String.IsEqual(ListItem.DBType,album)">$INFO[ListItem.Property(album_mood)]</value>
+    <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(album_description))">$INFO[ListItem.Property(album_description)]</value>
+    <value condition="String.IsEqual(ListItem.DBType,album) + String.IsEmpty(ListItem.Property(album_description))">$LOCALIZE[414]</value>
+    <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(artist_description))">$INFO[ListItem.Property(artist_description)]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureDesc)">$INFO[ListItem.PictureDesc]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureComment)">$INFO[ListItem.PictureComment]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureKeywords)">$INFO[ListItem.PictureKeywords]</value>
     <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR][CR]   $LOCALIZE[416]</value>
     <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
+  </variable>
+
+  <variable name="panelfooter">
+    <value condition="Container.Content(Movies)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Director,[COLOR=orange]$LOCALIZE[20339]:[/COLOR] ]</value>
+    <value condition="Container.Content(TVShows)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
+    <value condition="Container.Content(Seasons)">$INFO[Listitem.Genre][CR][CAPITALIZE]$INFO[Listitem.Episode,[COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
+    <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
   </variable>
 
   <variable name="TVShows.Art" description="Calculate BG to show">

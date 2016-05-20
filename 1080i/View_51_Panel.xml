@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-  <include name="EpisodePanelThumbDimensions">
-    <posx>9</posx>
-    <posy>45</posy>
-    <width>345</width>
-    <height>238</height>
-  </include>
-  <include name="PanelSquareThumbDimensions">
-    <posx>15</posx>
-    <posy>42</posy>
-    <width>260</width>
-    <height>260</height>
-  </include>
-  <include name="MoviePanelThumbDimensions">
-    <posx>15</posx>
-    <posy>15</posy>
-    <width>210</width>
-    <height>312</height>
-  </include>
   <include name="View_51_Panel">
     <include content="BackgroundOverlay">
       <param name="parentid" value="51"/>
@@ -28,7 +10,7 @@
       <visible>Control.IsVisible(51)</visible>
       <include>ContentFade</include>
       <control type="panel" id="51" description="Grid">
-        <viewtype label="Panel">Panel</viewtype>
+        <viewtype label="Panel">info</viewtype>
         <posx>960</posx>
         <posy>351</posy>
         <width>930</width>
@@ -70,74 +52,16 @@
           <param name="viewid">51</param>
         </include>
       </control>
-      <control type="group" description="51 MediaInfo">
-        <visible>Window.IsActive(MyVideoNav.xml)</visible>
-        <posx>30</posx>
-        <posy>375</posy>
-        <control type="label" description="Title Label">
-          <visible>!Container.Content(episodes)</visible>
-          <posy>0</posy>
-          <width>630</width>
-          <height>60</height>
-          <font>InfoTitle</font>
-          <textcolor>Highlight</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-        </control>
-        <control type="label" description="Title Label">
-          <visible>Container.Content(episodes)</visible>
-          <posy>24</posy>
-          <width>630</width>
-          <height>60</height>
-          <font>InfoTitle</font>
-          <textcolor>Highlight</textcolor>
-          <label>$INFO[ListItem.Label]</label>
-          <wrapmultiline>true</wrapmultiline>
-        </control>
-        <control type="label" description="Details">
-          <posy>87</posy>
-          <height>33</height>
-          <width>630</width>
-          <font>Details</font>
-          <label>$INFO[ListItem.Genre]</label>
-        </control>
-        <control type="label" description="Details">
-          <posy>135</posy>
-          <height>33</height>
-          <width>630</width>
-          <font>Details</font>
-          <label>$VAR[Details]</label>
-        </control>
-        <control type="textbox" description="Plot51">
-          <visible>Container.content(seasons) | Container.Content(Tvshows)</visible>
-          <posx>0</posx>
-          <posy>191</posy>
-          <width>630</width>
-          <height>462</height>
-          <label>$VAR[Plots]</label>
-        </control>
-        <control type="textbox" description="Plot51">
-          <visible>![container.content(seasons) | Container.Content(Tvshows)]</visible>
-          <posx>0</posx>
-          <posy>191</posy>
-          <width>630</width>
-          <height>382</height>
-          <label>$VAR[Plots]</label>
-        </control>
-        <control type="group" description="Flags">
-          <animation effect="slide" start="0,0" end="0,9" time="0" reversible="true" condition="!container.Content(Movies)">Conditional</animation>
-          <posx>0</posx>
-          <posy>615</posy>
-          <include>MediaFlags</include>
-        </control>
-        <control type="label" description="Addon version">
-          <visible>Container.Content(addons)</visible>
-          <posy>624</posy>
-          <width>800</width>
-          <height>33</height>
-          <font>Details</font>
-          <label>$INFO[ListItem.Label2,$LOCALIZE[19114] : ]</label>
-        </control>
-      </control>
+      <include content="PanelTemplate">
+        <param name="top">345</param>
+        <param name="height">365</param>
+        <param name="heading">$VAR[panelheading]</param>
+        <param name="subheading">$VAR[panelsubheading]</param>
+        <param name="plot">$VAR[Plots]</param>
+        <param name="footer">$VAR[panelfooter]</param>
+        <param name="visibility">true</param>
+      </include>
+
       <control type="scrollbar" id="60">
         <animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
         <animation effect="slide" start="-8,0" end="0,0" time="300">UnFocus</animation>
