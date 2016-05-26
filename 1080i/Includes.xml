@@ -272,6 +272,7 @@
     <shadowcolor>Black</shadowcolor>
     <animation effect="fade" time="50">VisibleChange</animation>
   </include>
+  
   <include name="Stars">
     <visible>!String.IsEmpty(ListItem.UserRating)</visible>
     <height>54</height>
@@ -280,6 +281,7 @@
     <colordiffuse>Silver</colordiffuse>
     <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
   </include>
+
   <include name="ListWatchedOverlay">
     <control type="image">
       <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
@@ -310,6 +312,7 @@
       </control>
     </control>
   </include>
+  
   <include name="EpisodeThumb">
     <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
     <aspectratio aligny="top">scale</aspectratio>
@@ -496,7 +499,6 @@
       <label>$LOCALIZE[535]</label>
     </control>
     <control type="radiobutton" id="9147" description="View 52 BigList">
-      <visible>Container.Content(Movies) | Container.Content(TVShows) | Container.Content(episodes) | Container.Content(musicvideos) | container.content(songs) | Container.Content(albums) | Container.Content(artists) | Container.Content(images)</visible>
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(52)</onclick>
       <selected>Control.IsVisible(52)</selected>
@@ -1754,9 +1756,13 @@
     <param name="itemwidth" default="90"/>
     <param name="itemheight" default="45"/>
     <param name="diffuse">Silver</param>
+    <param name="showvideobadge">true</param>
+    <param name="showaudiobadge">true</param>
+    <param name="showratingbadge">true</param>
     <definition>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
+        <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1766,6 +1772,7 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
+        <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1775,6 +1782,7 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
+        <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1784,6 +1792,7 @@
       </control>
       <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
+        <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1791,8 +1800,9 @@
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
         <texture>$INFO[ListItem.VideoResolution,badges/videoresolution/,.png]</texture>
       </control>
-      <control type="image" id="1">
+      <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoAspect)</visible>
+        <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1802,6 +1812,7 @@
       </control>
       <control type="image">
         <visible>ListItem.IsStereoscopic</visible>
+        <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
@@ -1809,12 +1820,21 @@
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
         <texture>badges/videocodec/3d.png</texture>
       </control>
+      <control type="image" description="Stars">
+        <visible>$PARAM[showratingbadge]</visible>
+        <width>$PARAM[itemwidth]</width>
+        <height>$PARAM[itemheight]</height>
+        <bordersize>3</bordersize>
+        <aspectratio>keep</aspectratio>
+        <texture>$VAR[ratingbadge]</texture>
+        <colordiffuse>$PARAM[diffuse]</colordiffuse>
+      </control>
     </definition>
   </include>
 
   <include name="MediaFlags">
     <control type="grouplist" description="Flags">
-      <visible>!ListItem.IsFolder</visible>
+      <visible>!ListItem.IsParentFolder</visible>
       <width>650</width>
       <height>120</height>
       <itemgap>30</itemgap>
@@ -2820,6 +2840,7 @@
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
           <aligny>center</aligny>
+          <autoscroll>false</autoscroll>
         </control>
         <control type="textbox">
           <visible>$PARAM[isFocused]</visible>
@@ -3152,21 +3173,26 @@
   </include>
 
 <include name="PanelTemplate">
+  <param name="lowpanel">false</param>
   <param name="top"></param>
+  <param name="left">60</param>
   <param name="height"></param>
+  <param name="width">870</param>
   <param name="heading"></param>
   <param name="subheading"></param>
   <param name="plot"></param>
   <param name="footer"></param>
   <param name="visibility"></param>
+  <param name="showfooter">true</param>
   <definition>
-    <control type="group" description="55 MediaInfo NO Small Fanart">
+    <control type="group" description="Media Info Panel">
       <visible>$PARAM[visibility]</visible>
-      <posx>60</posx>
+      <posx>$PARAM[left]</posx>
       <posy>$PARAM[top]</posy>
       <control type="label" description="Title Label">
+        <visible>!$PARAM[lowpanel]</visible>
         <posy>0</posy>
-        <width>870</width>
+        <width>$PARAM[width]</width>
         <height>80</height>
         <aligny>center</aligny>
         <textcolor>Highlight</textcolor>
@@ -3174,39 +3200,72 @@
         <wrapmultiline>true</wrapmultiline>
         <label>$PARAM[heading]</label>
       </control>
-      <control type="label" description="Subheading">
-        <posy>104</posy>
+      <control type="label" description="Title Label">
+        <visible>$PARAM[lowpanel]</visible>
+        <posy>0</posy>
+        <width>$PARAM[width]</width>
         <height>40</height>
-        <width>870</width>
+        <aligny>center</aligny>
+        <textcolor>Highlight</textcolor>
+        <font>InfoTitle</font>
+        <label>$PARAM[heading]</label>
+      </control>
+      <control type="label" description="Subheading">
+        <visible>!$PARAM[lowpanel]</visible>
+        <posy>98</posy>
+        <height>40</height>
+        <width>$PARAM[width]</width>
+        <font>font32_title</font>
+        <label>[B]$PARAM[subheading][/B]</label>
+        <aligny>center</aligny>
+        <wrapmultiline>true</wrapmultiline>
+      </control>
+      <control type="label" description="Subheading">
+        <visible>$PARAM[lowpanel]</visible>
+        <posy>50</posy>
+        <height>40</height>
+        <width>$PARAM[width]</width>
         <font>font32_title</font>
         <label>[B]$PARAM[subheading][/B]</label>
         <aligny>center</aligny>
         <wrapmultiline>true</wrapmultiline>
       </control>
       <control type="textbox" description="Plot">
+        <visible>!$PARAM[lowpanel]</visible>
         <posx>0</posx>
         <posy>167</posy>
-        <width>870</width>
+        <width>$PARAM[width]</width>
+        <height>$PARAM[height]</height>
+        <align>left</align>
+        <label>$PARAM[plot]</label>
+        <font>font32_title</font>
+      </control>
+      <control type="textbox" description="Plot">
+        <visible>$PARAM[lowpanel]</visible>
+        <posx>0</posx>
+        <posy>100</posy>
+        <width>$PARAM[width]</width>
         <height>$PARAM[height]</height>
         <align>left</align>
         <label>$PARAM[plot]</label>
         <font>font32_title</font>
       </control>
     </control>
-      <control type="label" description="Footer">
-        <left>60</left>
-        <posy>900</posy>
-        <width>870</width>
-        <height>80</height>
-        <font>font32_title</font>
-        <label>$PARAM[footer]</label>
-        <wrapmultiline>true</wrapmultiline>
-      </control>
+    <control type="label" description="Footer">
+      <visible>$PARAM[showfooter]</visible>
+      <posx>$PARAM[left]</posx>
+      <posy>900</posy>
+      <width>$PARAM[width]</width>
+      <height>80</height>
+      <font>font32_title</font>
+      <label>$PARAM[footer]</label>
+      <wrapmultiline>true</wrapmultiline>
+    </control>
     <control type="grouplist" description="Left Flags">
       <include>ContentFade</include>
-      <left>60</left>
-      <top>990</top>
-      <width>870</width>
+      <posx>$PARAM[left]</posx>
+      <top>1010</top>
+      <width>$PARAM[width]</width>
       <height>60</height>
       <itemgap>30</itemgap>
       <orientation>horizontal</orientation>
@@ -3217,9 +3276,9 @@
     </control>  
     <control type="grouplist" description="Right Flags">
       <include>ContentFade</include>
-      <left>60</left>
-      <top>995</top>
-      <width>930</width>
+      <posx>$PARAM[left]</posx>
+      <top>1010</top>
+      <width>$PARAM[width]</width>
       <height>45</height>
       <itemgap>30</itemgap>
       <orientation>horizontal</orientation>

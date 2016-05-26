@@ -37,6 +37,15 @@
     <value>$INFO[ListItem.Icon]</value>
   </variable>
 
+  <variable name="MediaListLabel">
+    <value>$INFO[ListItem.Label]</value>
+  </variable>
+
+  <variable name="MediaListLabel2">
+    <value condition="Container.Content(albums) | Container.Content(songs)">$INFO[ListItem.artist]</value>
+    <value></value>
+  </variable>
+
   <variable name="Overlay" description="Overlay image">
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(IsResumable)">$INFO[ListItem.Overlay]</value>
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(overlay)">$INFO[ListItem.property(overlay)]</value>
@@ -194,6 +203,11 @@
     <value condition="ListItem.HasTimer">img/PVR-HasTimer.png</value>
   </variable>
 
+  <variable name="ratingbadge">
+    <value condition="!String.IsEmpty(ListItem.UserRating)">$INFO[ListItem.UserRating,badges/ratings/rating,.png]</value>
+    <value condition="String.IsEmpty(ListItem.UserRating) + !ListItem.IsParentFolder">badges/ratings/ratingNR.png</value>
+  </variable>
+
   <variable name="Details" description="Shown Above Plots and descriptions">
     <value condition="Container.Content(images)">$INFO[ListItem.Date,, • ]$INFO[ListItem.Size]</value>
     <value condition="Container.content(Albums)">$INFO[ListItem.Artist]</value>
@@ -223,16 +237,19 @@
   </variable>
 
   <variable name="panelheading">
+    <value condition="ListItem.IsParentFolder">..</value>
     <value condition="Container.Content(Movies)">[B]$INFO[Listitem.Title,, ][/B]$INFO[ListItem.Year,(,)]</value>
-    <value>$INFO[Listitem.Title]</value>
+    <value>$INFO[Listitem.label]</value>
   </variable>
 
   <variable name="panelsubheading">
     <value condition="Container.Content(Movies)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
     <value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes), $LOCALIZE[20360] ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
     <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[20360]]</value>
-    <value condition="Container.Content(Episodes)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Year, • ]$INFO[ListItem.Rating, • ]$INFO[ListItem.MPAA, • ]</value>
+    <value condition="Container.Content(Episodes)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Premiered , • ]$VAR[episoderating]$INFO[ListItem.MPAA, • ]</value>
     <value condition="Container.Content(albums)">$INFO[Listitem.AlbumArtist]</value>
+    <value condition="Container.Content(songs)">$INFO[Listitem.Artist,, • ]$INFO[Listitem.Duration]</value>
+    <value condition="Container.Content(images) + !ListItem.IsFolder">$INFO[Listitem.Size]$INFO[ListItem.PictureDateTime, • ,]</value>
     <value>$INFO[Listitem.Title]</value>
   </variable>
 
@@ -249,7 +266,7 @@
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureDesc)">$INFO[ListItem.PictureDesc]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureComment)">$INFO[ListItem.PictureComment]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureKeywords)">$INFO[ListItem.PictureKeywords]</value>
-    <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR][CR]   $LOCALIZE[416]</value>
+    <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR]   $LOCALIZE[416]</value>
     <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
   </variable>
 
@@ -258,6 +275,11 @@
     <value condition="Container.Content(TVShows)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
     <value condition="Container.Content(Seasons)">$INFO[Listitem.Genre][CR][CAPITALIZE]$INFO[Listitem.Episode,[COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
     <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
+  </variable>
+
+  <variable name="episoderating">
+    <value condition="Skin.HasSetting(EpisodeRating.Hide)"></value>
+    <value condition="!Skin.HasSetting(EpisodeRating.Hide)">$INFO[ListItem.Rating, • ]</value>
   </variable>
 
   <variable name="TVShows.Art" description="Calculate BG to show">
