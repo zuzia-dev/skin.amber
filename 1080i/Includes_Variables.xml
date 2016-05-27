@@ -38,6 +38,8 @@
   </variable>
 
   <variable name="MediaListLabel">
+    <value condition="Listitem.IsParentFolder">..</value>
+    <value condition="Container.Content(songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
     <value>$INFO[ListItem.Label]</value>
   </variable>
 
@@ -61,11 +63,6 @@
     <value>-</value>
   </variable>
   
-  <variable name="PVRRecordingsTitle">
-    <value condition="ListItem.IsFolder + Integer.IsGreater(Container(80).NumItems,0)">$INFO[ListItem.label] $INFO[Container(80).NumItems,[B](,)[/B]]</value>
-    <value>$INFO[ListItem.label]</value>
-  </variable>
-
   <variable name="Banner" description="TV Banners">
     <value condition="!String.IsEmpty(ListItem.Art(banner))">$INFO[ListItem.Art(banner)]</value>
     <value condition="Skin.HasSetting(plexbmc)">$INFO[ListItem.Property(banner)]</value>
@@ -205,7 +202,7 @@
 
   <variable name="ratingbadge">
     <value condition="!String.IsEmpty(ListItem.UserRating)">$INFO[ListItem.UserRating,badges/ratings/rating,.png]</value>
-    <value condition="String.IsEmpty(ListItem.UserRating) + !ListItem.IsParentFolder">badges/ratings/ratingNR.png</value>
+    <value condition="String.IsEmpty(ListItem.UserRating) + !String.IsEmpty(ListItem.dbtype)">badges/ratings/ratingNR.png</value>
   </variable>
 
   <variable name="Details" description="Shown Above Plots and descriptions">
@@ -223,22 +220,12 @@
     <value>$INFO[ListItem.Label2]</value>
   </variable>
 
-  <variable name="Item_Details" description="Shown Above Plots and descriptions">
-    <value condition="Container.Content(images)">$INFO[ListItem.Date,, • ]$INFO[ListItem.Size]</value>
-    <value condition="Container.content(Albums)">$INFO[ListItem.Artist]</value>
-    <value condition="Container.Content(Episodes)">$INFO[ListItem.Premiered,,  • ]$INFO[ListItem.Duration,, $LOCALIZE[12391]]$INFO[ListItem.Rating,  • ]</value>
-    <value condition="Container.Content(Addons)">$INFO[ListItem.AddonCreator]</value>
-    <value condition="Container.Content(songs)">$INFO[ListItem.Duration]</value>
-    <value condition="Container.Content(MusicVideos)">$INFO[ListItem.Year,, • ]$INFO[ListItem.Duration,, $LOCALIZE[31297]]</value>
-    <value condition="Container.Content(Movies)">$INFO[ListItem.Year,, • ]$INFO[ListItem.Duration,, $LOCALIZE[31297]]$INFO[ListItem.Rating, • ]</value>
-    <value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes), $LOCALIZE[20360] ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
-    <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[20360]]</value>
-    <value>$INFO[ListItem.Label2]</value>
-  </variable>
-
   <variable name="panelheading">
     <value condition="ListItem.IsParentFolder">..</value>
     <value condition="Container.Content(Movies)">[B]$INFO[Listitem.Title,, ][/B]$INFO[ListItem.Year,(,)]</value>
+    <value condition="Container.Content(songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
+    <value condition="Window.IsActive(MyPVRChannels.xml)">$INFO[Listitem.Title]</value>
+    <value condition="Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + Integer.IsGreater(Container(80).NumItems,0)">$INFO[ListItem.label] $INFO[Container(80).NumItems,[B](,)[/B]]</value>
     <value>$INFO[Listitem.label]</value>
   </variable>
 
@@ -250,6 +237,8 @@
     <value condition="Container.Content(albums)">$INFO[Listitem.AlbumArtist]</value>
     <value condition="Container.Content(songs)">$INFO[Listitem.Artist,, • ]$INFO[Listitem.Duration]</value>
     <value condition="Container.Content(images) + !ListItem.IsFolder">$INFO[Listitem.Size]$INFO[ListItem.PictureDateTime, • ,]</value>
+    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] </value>
+    <value condition="Window.IsActive(MyPVRRecordings.xml)">$INFO[ListItem.Duration,[COLOR=Grey]$LOCALIZE[2050]: [/COLOR]]</value>
     <value>$INFO[Listitem.Title]</value>
   </variable>
 
@@ -271,10 +260,11 @@
   </variable>
 
   <variable name="panelfooter">
-    <value condition="Container.Content(Movies)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Director,[COLOR=orange]$LOCALIZE[20339]:[/COLOR] ]</value>
-    <value condition="Container.Content(TVShows)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
+    <value condition="Container.Content(Movies)">$INFO[Listitem.Genre]</value>
+    <value condition="Container.Content(TVShows)">$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE][CR]$INFO[Listitem.Genre]</value>
     <value condition="Container.Content(Seasons)">$INFO[Listitem.Genre][CR][CAPITALIZE]$INFO[Listitem.Episode,[COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
     <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
+    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
   </variable>
 
   <variable name="episoderating">

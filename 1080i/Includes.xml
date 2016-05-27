@@ -272,15 +272,6 @@
     <shadowcolor>Black</shadowcolor>
     <animation effect="fade" time="50">VisibleChange</animation>
   </include>
-  
-  <include name="Stars">
-    <visible>!String.IsEmpty(ListItem.UserRating)</visible>
-    <height>54</height>
-    <width>174</width>
-    <aspectratio align="left">keep</aspectratio>
-    <colordiffuse>Silver</colordiffuse>
-    <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
-  </include>
 
   <include name="ListWatchedOverlay">
     <control type="image">
@@ -317,10 +308,6 @@
     <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
     <aspectratio aligny="top">scale</aspectratio>
   </include>
-  <include name="EpisodeThumbBG">
-    <bordersize>-6</bordersize>
-    <texture border="8">thumbs/EpisodeBG_NF2.png</texture>
-  </include>
   <include name="SquareThumb">
     <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
     <aspectratio aligny="top">stretch</aspectratio>
@@ -332,10 +319,6 @@
   <include name="PosterThumb">
     <texture background="true">$VAR[Poster]</texture>
     <aspectratio aligny="top">stretch</aspectratio>
-  </include>
-  <include name="PosterThumbBG">
-    <bordersize>-6</bordersize>
-    <texture border="8">thumbs/PosterBG_NF2.png</texture>
   </include>
   <include name="FullscreenInfoLabelMain">
     <posx>300</posx>
@@ -492,58 +475,21 @@
       <include>9000ViewButtons</include>
       <label>$LOCALIZE[582]</label>
     </control>
+
     <control type="radiobutton" id="9145" description="View 50 List">
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(50)</onclick>
       <selected>Control.IsVisible(50)</selected>
       <label>$LOCALIZE[535]</label>
     </control>
+
     <control type="radiobutton" id="9147" description="View 52 BigList">
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(52)</onclick>
       <selected>Control.IsVisible(52)</selected>
       <label>$LOCALIZE[537]</label>
     </control>
-    <control type="radiobutton" id="9148" description="View 52 Movies">
-      <visible>Control.IsVisible(52) + Container.Content(Movies)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(52_Movies_UseFanart)</onclick>
-      <selected>Skin.HasSetting(52_Movies_UseFanart)</selected>
-      <label>- $LOCALIZE[20445]</label>
-    </control>
-    <control type="radiobutton" id="9149" description="View 52 TV">
-      <visible>Control.IsVisible(52) + Container.Content(TVShows)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(52_TV_UseFanart)</onclick>
-      <selected>Skin.HasSetting(52_TV_UseFanart)</selected>
-      <label>- $LOCALIZE[20445]</label>
-    </control>
-    <control type="radiobutton" id="9150" description="View 52 Episodes">
-      <visible>Control.IsVisible(52) + Container.Content(Episodes)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(52_Episodes_UseFanart)</onclick>
-      <selected>Skin.HasSetting(52_Episodes_UseFanart)</selected>
-      <label>- $LOCALIZE[20445]</label>
-    </control>
-    <control type="radiobutton" id="9151" description="View 52 Albums">
-      <visible>Control.IsVisible(52) + Container.Content(Albums)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(52_Albums_UseFanart)</onclick>
-      <selected>Skin.HasSetting(52_Albums_UseFanart)</selected>
-      <label>- $LOCALIZE[20445]</label>
-    </control>
-    <control type="radiobutton" id="9152" description="View 52 Artists">
-      <visible>Control.IsVisible(52) + Container.Content(artists)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(52_Artists_UseFanart)</onclick>
-      <selected>Skin.HasSetting(52_Artists_UseFanart)</selected>
-      <label>- $LOCALIZE[20445]</label>
-    </control>
+
     <control type="radiobutton" id="9154" description="View 54 LowList">
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(54)</onclick>
@@ -570,6 +516,7 @@
     <include content="StandardViewSwitches">
       <param name="viewid">55</param>
     </include>
+
     <control type="radiobutton" id="9153" description="View 51 Panel">
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(51)</onclick>
@@ -579,6 +526,7 @@
     <include content="StandardViewSwitches">
       <param name="viewid">51</param>
     </include>
+
     <control type="radiobutton" id="9161" description="View 57 EPISODES">
       <visible>container.content(episodes)</visible>
       <include>9000ViewButtons</include>
@@ -1771,6 +1719,17 @@
         <texture>$INFO[ListItem.AudioCodec,badges/audiocodec/,.png]</texture>
       </control>
       <control type="image">
+        <visible>!String.IsEmpty(ListItem.FileExtension)</visible>
+        <visible>Container.Content(songs)</visible>
+        <visible>$PARAM[showaudiobadge]</visible>
+        <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
+        <bordersize>3</bordersize>
+        <aspectratio>keep</aspectratio>
+        <colordiffuse>$PARAM[diffuse]</colordiffuse>
+        <texture>$INFO[ListItem.FileExtension,badges/audiocodec/,.png]</texture>
+      </control>
+      <control type="image">
         <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
         <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
@@ -1779,7 +1738,7 @@
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
         <texture>$INFO[ListItem.AudioChannels,badges/audiochannels/channels,.png]</texture>
-      </control>
+      </control>      
       <control type="image">
         <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
         <visible>$PARAM[showvideobadge]</visible>
@@ -1844,7 +1803,6 @@
       </include>
     </control>
   </include>
-
 
   <include name="AlbumInfoContent">
     <item>
@@ -2011,62 +1969,74 @@
 
   <include name="MiniVideoWindow">
     <param name="left" default="60"/>
-    <param name="top" default="100"/>
-    <param name="height" default="342"/>
-    <param name="width" default="608"/>
-    <param name="labeltop" default="280"/>
+    <param name="top" default="60"/>
+    <param name="height" default="382"/>
+    <param name="width" default="860"/>
+    <param name="labeltop" default="310"/>
     <param name="itemicon">$INFO[ListItem.Icon]</param>
     <definition>
-      <control type="group" description="Video Window Grouo">
+      <control type="group" description="">
         <include>VisibleFadeEffect</include>
         <left>$PARAM[left]</left>
         <top>$PARAM[top]</top>
-        <visible>Player.HasVideo + !Show_Player</visible> 
-        <control type="image" description="video window background"> 
-          <left>0</left> 
-          <top>0</top> 
-          <width>$PARAM[width]</width> 
-          <height>$PARAM[height]</height> 
-          <texture>img/BlackDot.png</texture> 
-        </control> 
-        <control type="videowindow" description="Current Video"> 
-          <left>0</left> 
-          <top>0</top> 
-          <width>$PARAM[width]</width> 
-          <height>$PARAM[height]</height> 
-        </control> 
-        <control type="image" description="Current video label background"> 
-          <left>0</left> 
-          <top>$PARAM[labeltop]</top> 
-          <width>$PARAM[width]</width> 
-          <height>40</height> 
-          <texture>img/BlackDot.png</texture> 
-          <colordiffuse>DDFFFFFF</colordiffuse> 
-        </control> 
-        <control type="textbox" description="Current video label"> 
-          <left>0</left> 
-          <top>$PARAM[labeltop]</top> 
-          <width>$PARAM[width]</width> 
-          <height>40</height> 
-          <font>Details</font> 
-          <align>center</align> 
-          <textcolor>White</textcolor> 
-          <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll> 
-          <label>$INFO[Player.Title]</label> 
+        <control type="group" description="Video Window Grouo">
+          <visible>Player.HasVideo + !Show_Player</visible> 
+          <control type="image" description="video window background"> 
+            <left>0</left> 
+            <top>0</top> 
+            <width>$PARAM[width]</width> 
+            <height>$PARAM[height]</height> 
+            <texture>img/BlackDot.png</texture> 
+          </control> 
+          <control type="videowindow" description="Current Video"> 
+            <left>0</left> 
+            <top>0</top> 
+            <width>$PARAM[width]</width> 
+            <height>$PARAM[height]</height> 
+          </control> 
+          <control type="image" description="Current video label background"> 
+            <left>0</left> 
+            <top>$PARAM[labeltop]</top> 
+            <width>$PARAM[width]</width> 
+            <height>45</height> 
+            <texture>img/BlackDot.png</texture> 
+            <colordiffuse>DDFFFFFF</colordiffuse> 
+          </control> 
+          <control type="textbox" description="Current video label"> 
+            <left>0</left> 
+            <top>$PARAM[labeltop]</top> 
+            <width>$PARAM[width]</width> 
+            <height>40</height> 
+            <font>Details</font> 
+            <align>center</align> 
+            <textcolor>White</textcolor> 
+            <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll> 
+            <label>$INFO[Player.Title]</label> 
+          </control>
         </control>
-      </control>
-      <control type="image" description="TV Logo">
-        <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
-        <left>$PARAM[left]</left>
-        <top>$PARAM[top]</top>
-        <width>$PARAM[width]</width> 
-        <height>$PARAM[height]</height> 
-        <texture>$PARAM[itemicon]</texture>
-        <aspectratio>keep</aspectratio>
+        <control type="group" description="Video Window Grouo">
+          <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
+          <control type="image" description="TV Logo shadow">
+            <left>8</left>
+            <top>8</top>
+            <width>$PARAM[width]</width> 
+            <height>$PARAM[height]</height> 
+            <texture>$PARAM[itemicon]</texture>
+            <aspectratio>keep</aspectratio>
+            <colordiffuse>HeavyShadow</colordiffuse>
+          </control>
+          <control type="image" description="TV Logo">
+            <left>0</left>
+            <top>0</top>
+            <width>$PARAM[width]</width> 
+            <height>$PARAM[height]</height> 
+            <texture>$PARAM[itemicon]</texture>
+            <aspectratio>keep</aspectratio>
+          </control>
+        </control>
       </control>
     </definition>  
   </include>
-
 
   <include name="SettingsListCommons">
     <param name="showicon">true</param>
@@ -2372,8 +2342,8 @@
         </include>
         <control type="image" description="Watched Overlay">
           <visible>!$PARAM[isFocused]</visible>
-          <left>70r</left>
-          <top>70r</top>
+          <left>60r</left>
+          <top>60r</top>
           <width>33</width>
           <height>33</height>
           <texture>$VAR[Overlay]</texture>
@@ -2381,8 +2351,8 @@
         </control>    
         <control type="image" description="Watched Overlay">
           <visible>$PARAM[isFocused]</visible>
-          <left>70r</left>
-          <top>70r</top>
+          <left>60r</left>
+          <top>60r</top>
           <width>33</width>
           <height>33</height>
           <texture>$VAR[Overlay]</texture>
@@ -2407,6 +2377,7 @@
         <param name="belowtextboxvisibility">true</param>
         <param name="belowtextbox">$INFO[ListItem.Label]</param>
         <param name="belowtextboxwidth">272</param>
+        <param name="aspect">keep</param>
       </include>
     </definition>
   </include>
@@ -2425,6 +2396,7 @@
         <param name="belowtextboxvisibility">true</param>
         <param name="belowtextbox">$INFO[ListItem.Label]</param>
         <param name="belowtextboxwidth">208</param>
+        <param name="aspect">keep</param>
       </include>
     </definition>
   </include>
@@ -2752,6 +2724,7 @@
           <textcolor>Highlight</textcolor>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
+          <scrollspeed>25</scrollspeed>
         </control>
       </control>
     </definition>
@@ -2801,6 +2774,7 @@
           <textcolor>Highlight</textcolor>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
+          <scrollspeed>25</scrollspeed>
         </control>
       </control>
     </definition>
@@ -3026,21 +3000,21 @@
   <include name="ImageLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="342" width="310">
+      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
         <include content="GenericThumb">
         </include>
       </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="342" width="310">
+      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
         </include>
       </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="256.5" width="232.5">
+      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="size">Small</param>
         </include>
       </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="25.5" width="232.5">
+      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
@@ -3078,21 +3052,21 @@
   <include name="GenericLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="370" width="310">
+      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
         <include content="GenericThumb">
         </include>
       </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="370" width="310">
+      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
         </include>
       </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="370" width="232.5">
+      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="size">Small</param>
         </include>
       </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="370" width="232.5">
+      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
@@ -3118,7 +3092,7 @@
         <shadowcolor>-</shadowcolor>
         <font>InfoTitle</font>
         <scroll>false</scroll>
-        <label>$INFO[ListItem.Label]</label>
+        <label>$VAR[panelheading]</label>
       </control>
       <control type="label" description="Title Label">
         <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]">Conditional</animation>
@@ -3129,7 +3103,7 @@
         <shadowcolor>-</shadowcolor>
         <font>InfoTitle</font>
         <scroll>false</scroll>
-        <label>$INFO[ListItem.Label]</label>
+        <label>$VAR[panelheading]</label>
       </control>
       <control type="label" description="Details">
         <visible>Control.IsVisible(53) | [[Control.IsVisible(58) + !Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + !Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + !Skin.HasSetting(59_Posters_Info)]]</visible>
@@ -3138,160 +3112,127 @@
         <height>30</height>
         <align>center</align>
         <shadowcolor>Black</shadowcolor>
-        <label>$VAR[Item_Details]</label>
+        <label>$VAR[panelsubheading]</label>
       </control>
     </control>
     <control type="grouplist" description="Left Flags">
       <include>ContentFade</include>
       <left>30</left>
-      <top>1025</top>
-      <width>auto</width>
+      <top>1020</top>
+      <width>1000</width>
       <height>45</height>
       <itemgap>30</itemgap>
       <orientation>horizontal</orientation>
       <align>left</align>
       <include content="MediaFlagItems">
+        <param name="showvideobadge">true</param>
+        <param name="showaudiobadge">false</param>
+        <param name="showratingbadge">false</param>
       </include>
     </control>
     <control type="grouplist" description="Right Flags">
       <include>ContentFade</include>
-      <left>1540</left>
-      <top>1025</top>
-      <width>auto</width>
+      <left>890</left>
+      <top>1020</top>
+      <width>1000</width>
       <height>45</height>
       <itemgap>30</itemgap>
       <orientation>horizontal</orientation>
       <align>right</align>
-      <control type="image" description="Stars">
-        <width>315</width>
-        <height>35</height>
-        <aspectratio>keep</aspectratio>
-        <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
-        <colordiffuse>Silver</colordiffuse>
-      </control>
+      <include content="MediaFlagItems">
+        <param name="showvideobadge">false</param>
+        <param name="showaudiobadge">true</param>
+        <param name="showratingbadge">true</param>
+      </include>
     </control>
   </include>
 
-<include name="PanelTemplate">
-  <param name="lowpanel">false</param>
-  <param name="top"></param>
-  <param name="left">60</param>
-  <param name="height"></param>
-  <param name="width">870</param>
-  <param name="heading"></param>
-  <param name="subheading"></param>
-  <param name="plot"></param>
-  <param name="footer"></param>
-  <param name="visibility"></param>
-  <param name="showfooter">true</param>
-  <definition>
-    <control type="group" description="Media Info Panel">
-      <visible>$PARAM[visibility]</visible>
-      <posx>$PARAM[left]</posx>
-      <posy>$PARAM[top]</posy>
-      <control type="label" description="Title Label">
-        <visible>!$PARAM[lowpanel]</visible>
-        <posy>0</posy>
+  <include name="PanelTemplate">
+    <param name="lowpanel">false</param>
+    <param name="top"></param>
+    <param name="left">60</param>
+    <param name="height"></param>
+    <param name="width">870</param>
+    <param name="heading"></param>
+    <param name="subheading"></param>
+    <param name="plot"></param>
+    <param name="footer"></param>
+    <param name="visibility"></param>
+    <param name="showfooter">true</param>
+    <param name="showflags">true</param>
+    <definition>
+      <control type="grouplist" description="Media Info Panel">
+        <visible>$PARAM[visibility]</visible>
+        <posx>$PARAM[left]</posx>
+        <posy>$PARAM[top]</posy>
         <width>$PARAM[width]</width>
-        <height>80</height>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <font>InfoTitle</font>
-        <wrapmultiline>true</wrapmultiline>
-        <label>$PARAM[heading]</label>
+        <orientation>vertical</orientation>
+        <control type="label" description="Title Label">
+          <visible>!$PARAM[lowpanel]</visible>
+          <width>$PARAM[width]</width>
+          <height>80</height>
+          <aligny>center</aligny>
+          <textcolor>Highlight</textcolor>
+          <font>InfoTitle</font>
+          <wrapmultiline>true</wrapmultiline>
+          <label>$PARAM[heading]</label>
+        </control>
+        <control type="label" description="Title Label">
+          <visible>$PARAM[lowpanel]</visible>
+          <width>$PARAM[width]</width>
+          <height>60</height>
+          <aligny>center</aligny>
+          <textcolor>Highlight</textcolor>
+          <font>InfoTitle</font>
+          <label>$PARAM[heading]</label>
+        </control>
+        <control type="label" description="Subheading">
+          <visible>!$PARAM[lowpanel]</visible>
+          <height>60</height>
+          <width>$PARAM[width]</width>
+          <font>font32_title</font>
+          <label>[B]$PARAM[subheading][/B]</label>
+          <aligny>center</aligny>
+          <wrapmultiline>true</wrapmultiline>
+        </control>
+        <control type="label" description="Subheading">
+          <visible>$PARAM[lowpanel]</visible>
+          <height>60</height>
+          <width>$PARAM[width]</width>
+          <font>font32_title</font>
+          <label>[B]$PARAM[subheading][/B]</label>
+          <aligny>center</aligny>
+          <wrapmultiline>true</wrapmultiline>
+        </control>
+        <control type="textbox" description="Plot">
+          <width>$PARAM[width]</width>
+          <height>$PARAM[height]</height>
+          <align>justify</align>
+          <label>$PARAM[plot]</label>
+          <font>font32_title</font>
+        </control>
+        <control type="label" description="Footer">
+          <visible>$PARAM[showfooter]</visible>
+          <width>$PARAM[width]</width>
+          <height>90</height>
+          <font>font32_title</font>
+          <label>$PARAM[footer]</label>
+          <wrapmultiline>true</wrapmultiline>
+        </control>
+        <control type="grouplist" description="Flags">
+          <visible>$PARAM[showflags]</visible>
+          <include>ContentFade</include>
+          <width>$PARAM[width]</width>
+          <height>90</height>
+          <itemgap>20</itemgap>
+          <orientation>horizontal</orientation>
+          <align>left</align>
+          <include content="MediaFlagItems">
+            <param name="diffuse">White</param>
+          </include>
+        </control>  
       </control>
-      <control type="label" description="Title Label">
-        <visible>$PARAM[lowpanel]</visible>
-        <posy>0</posy>
-        <width>$PARAM[width]</width>
-        <height>40</height>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <font>InfoTitle</font>
-        <label>$PARAM[heading]</label>
-      </control>
-      <control type="label" description="Subheading">
-        <visible>!$PARAM[lowpanel]</visible>
-        <posy>98</posy>
-        <height>40</height>
-        <width>$PARAM[width]</width>
-        <font>font32_title</font>
-        <label>[B]$PARAM[subheading][/B]</label>
-        <aligny>center</aligny>
-        <wrapmultiline>true</wrapmultiline>
-      </control>
-      <control type="label" description="Subheading">
-        <visible>$PARAM[lowpanel]</visible>
-        <posy>50</posy>
-        <height>40</height>
-        <width>$PARAM[width]</width>
-        <font>font32_title</font>
-        <label>[B]$PARAM[subheading][/B]</label>
-        <aligny>center</aligny>
-        <wrapmultiline>true</wrapmultiline>
-      </control>
-      <control type="textbox" description="Plot">
-        <visible>!$PARAM[lowpanel]</visible>
-        <posx>0</posx>
-        <posy>167</posy>
-        <width>$PARAM[width]</width>
-        <height>$PARAM[height]</height>
-        <align>left</align>
-        <label>$PARAM[plot]</label>
-        <font>font32_title</font>
-      </control>
-      <control type="textbox" description="Plot">
-        <visible>$PARAM[lowpanel]</visible>
-        <posx>0</posx>
-        <posy>100</posy>
-        <width>$PARAM[width]</width>
-        <height>$PARAM[height]</height>
-        <align>left</align>
-        <label>$PARAM[plot]</label>
-        <font>font32_title</font>
-      </control>
-    </control>
-    <control type="label" description="Footer">
-      <visible>$PARAM[showfooter]</visible>
-      <posx>$PARAM[left]</posx>
-      <posy>900</posy>
-      <width>$PARAM[width]</width>
-      <height>80</height>
-      <font>font32_title</font>
-      <label>$PARAM[footer]</label>
-      <wrapmultiline>true</wrapmultiline>
-    </control>
-    <control type="grouplist" description="Left Flags">
-      <include>ContentFade</include>
-      <posx>$PARAM[left]</posx>
-      <top>1010</top>
-      <width>$PARAM[width]</width>
-      <height>60</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>left</align>
-      <include content="MediaFlagItems">
-        <param name="diffuse">White</param>
-      </include>
-    </control>  
-    <control type="grouplist" description="Right Flags">
-      <include>ContentFade</include>
-      <posx>$PARAM[left]</posx>
-      <top>1010</top>
-      <width>$PARAM[width]</width>
-      <height>45</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>right</align>
-      <control type="image" description="Stars">
-        <width>315</width>
-        <height>45</height>
-        <aspectratio>keep</aspectratio>
-        <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
-        <colordiffuse>White</colordiffuse>
-      </control>
-    </control>
-  </definition>
-</include>
+    </definition>
+  </include>
 
 </includes>
