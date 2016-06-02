@@ -253,7 +253,7 @@
       <aspectratio aligny="center" align="center">scale</aspectratio>
     </control>
     <control type="visualisation">
-      <visible>Player.HasAudio + Skin.HasSetting(Show_Player) + String.IsEmpty(Window(videolibrary).Property(PlayingBackgroundMedia))</visible>
+      <visible>Player.HasAudio + Skin.HasSetting(Show_Player) + String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))</visible>
       <include>Dimensions_Fullscreen</include>
     </control>
     <control type="videowindow">
@@ -532,7 +532,7 @@
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(57)</onclick>
       <selected>Control.IsVisible(57)</selected>
-      <label>$LOCALIZE[20445]</label>
+      <label>$LOCALIZE[31004]</label>
     </control>
     <control type="radiobutton" id="9162" description="View 57 Enable gallery for EPISODES">
       <visible>Control.IsVisible(57) + container.content(episodes)</visible>
@@ -550,12 +550,13 @@
       <selected>Skin.HasSetting(57_Episodes_Info)</selected>
       <label>- $LOCALIZE[31968]</label>
     </control>
+
     <control type="radiobutton" id="9164" description="View 58 SQUARES">
       <visible>![container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons) | container.content(episodes)]</visible>
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(58)</onclick>
       <selected>Control.IsVisible(58)</selected>
-      <label>$LOCALIZE[20445]</label>
+      <label>$LOCALIZE[31004]</label>
     </control>
     <control type="radiobutton" id="9165" description="View 58 Enable gallery for MUSIC">
       <visible>Control.IsVisible(58) + [container.content(albums) | container.content(artists)]</visible>
@@ -573,12 +574,13 @@
       <selected>Skin.HasSetting(58_Music_Info)</selected>
       <label>- $LOCALIZE[31968]</label>
     </control>
+
     <control type="radiobutton" id="9167" description="View 59 POSTERS">
       <visible>container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)</visible>
       <include>9000ViewButtons</include>
       <onclick>Container.SetViewMode(59)</onclick>
       <selected>Control.IsVisible(59)</selected>
-      <label>$LOCALIZE[20445]</label>
+      <label>$LOCALIZE[31004]</label>
     </control>
     <control type="radiobutton" id="9168" description="View 59 Enable gallery for POSTERS">
       <visible>Control.IsVisible(59) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
@@ -746,7 +748,7 @@
     <item id="4" description="Movies">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Movies.Hide) + Library.HasContent(Movies)</visible>
-      <label fallback="20342">$VAR[MovieEntryPointLabel2]</label>
+      <label>$LOCALIZE[20342]</label>
       <thumb>$VAR[Movies.Art]</thumb>
       <onclick>$VAR[MovieEntryPoint]</onclick>
     </item>
@@ -759,7 +761,7 @@
     <item id="5" description="TVShows">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(TVShows.Hide) + Library.HasContent(TVShows)</visible>
-      <label fallback="20343">$VAR[TVShowEntryPointLabel2]</label>
+      <label>$LOCALIZE[20343]</label>
       <thumb>$VAR[TVShows.Art]</thumb>
       <onclick>$VAR[TVShowEntryPoint]</onclick>
     </item>
@@ -774,9 +776,7 @@
       <visible>!Skin.HasSetting(Music.Hide)</visible>
       <label>$LOCALIZE[2]</label>
       <thumb>$VAR[Music.Art]</thumb>
-      <onclick condition="Library.HasContent(Music) + !Skin.HasSetting(ArtistView)">ActivateWindow(Music,Albums,return)</onclick>
-      <onclick condition="Library.HasContent(Music) + Skin.HasSetting(ArtistView)">ActivateWindow(Music,Artists,return)</onclick>
-      <onclick condition="!Library.HasContent(Music)">ActivateWindow(Music,Files,return)</onclick>
+      <onclick>$VAR[MusicEntryPoint]</onclick>
     </item>
     <item id="27" description="Custom.7">
       <visible>!String.IsEmpty(Skin.String(CustomHome.7.Path))</visible>
@@ -1303,6 +1303,7 @@
       </control>
     </control>
   </include>
+
   <include name="Holiday">
     <control type="group">
       <visible>Skin.HasSetting(holiday)</visible>
