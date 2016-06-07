@@ -68,6 +68,7 @@
     <animation type="WindowClose">
       <effect type="fade" start="100" end="0" time="100" />
     </animation>
+    <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
   </include>
   <include name="WeatherAni1">
     <animation type="WindowOpen">
@@ -76,6 +77,7 @@
     <animation type="WindowClose">
       <effect type="fade" start="100" end="0" time="100" delay="150" />
     </animation>
+    <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
   </include>
   <include name="WeatherAni2">
     <animation type="WindowOpen">
@@ -84,6 +86,7 @@
     <animation type="WindowClose">
       <effect type="fade" start="100" end="0" time="100" delay="300" />
     </animation>
+    <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
   </include>
   <include name="WeatherAni3">
     <animation type="WindowOpen">
@@ -91,6 +94,47 @@
     </animation>
     <animation type="WindowClose">
       <effect type="fade" start="100" end="0" time="100" delay="450" />
+    </animation>
+    <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
+  </include>
+  <include name="WeatherAni4">
+    <animation type="WindowOpen">
+      <effect type="fade" start="80" end="100" time="200" delay="600" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="100" delay="600" />
+    </animation>
+  </include>
+  <include name="WeatherAni5">
+    <animation type="WindowOpen">
+      <effect type="fade" start="80" end="100" time="200" delay="750" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="100" delay="750" />
+    </animation>
+  </include>
+  <include name="WeatherAni6">
+    <animation type="WindowOpen">
+      <effect type="fade" start="80" end="100" time="200" delay="900" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="100" delay="900" />
+    </animation>
+  </include>
+  <include name="WeatherAni7">
+    <animation type="WindowOpen">
+      <effect type="fade" start="80" end="100" time="200" delay="1050" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="100" delay="1050" />
+    </animation>
+  </include>
+  <include name="WeatherAni8">
+    <animation type="WindowOpen">
+      <effect type="fade" start="80" end="100" time="200" delay="1200" />
+    </animation>
+    <animation type="WindowClose">
+      <effect type="fade" start="100" end="0" time="100" delay="1200" />
     </animation>
   </include>
   <include name="Icon_Fade">
@@ -878,6 +922,11 @@
       <label>$LOCALIZE[31020]</label>
       <onclick>ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
     </item>
+    <item id="34" description="Movies InProgress">
+      <visible>Container(300).HasFocus(4) + Library.HasContent(Movies)</visible>
+      <label>$LOCALIZE[575]</label>
+      <onclick>ActivateWindow(Videos,special://skin/xsp/movies_inprogress.xsp,return)</onclick>
+    </item>
     <item id="35" description="Movie Genres">
       <visible>Container(300).HasFocus(4) + Library.HasContent(Movies)</visible>
       <label>$LOCALIZE[135]</label>
@@ -1071,10 +1120,11 @@
   </include>
   <include name="WeatherItemBG">
     <param name="xoffset" default="0"/>
-    <param name="yoffset" default="500"/>
+    <param name="yoffset" default="550"/>
     <param name="imgwidth" default="294"/>
     <param name="delayms" default="0"/>
     <param name="bgimage" default="WeatherSmall.png"/>
+    <param name="8day">false</param>
     <definition>
       <control type="image" description="Current">
         <animation type="WindowOpen">
@@ -1085,6 +1135,7 @@
           <effect type="zoom" start="100" end="90" center="auto" time="100"  delay="$PARAM[delayms]" />
           <effect type="fade" start="100" end="0" time="100"  delay="$PARAM[delayms]" />
         </animation>
+        <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast) + !$PARAM[8day]">Conditional</animation>
         <posx>$PARAM[xoffset]</posx>
         <posy>$PARAM[yoffset]</posy>
         <width>$PARAM[imgwidth]</width>
@@ -1095,14 +1146,14 @@
   </include>
   <include name="WeatherItem">
     <param name="xoffset" default="0"/>
-    <param name="yoffset" default="0"/>
+    <param name="yoffset" default="50"/>
     <param name="dayid"/>
     <definition>
-      <control type="group" description="Day0">
+      <control type="group" description="Day">
         <include>WeatherAni$PARAM[dayid]</include>
         <posx>$PARAM[xoffset]</posx>
         <posy>$PARAM[yoffset]</posy>
-        <control type="label" description="Day 0 label">
+        <control type="label" description="Day label">
           <posx>555</posx>
           <posy>523</posy>
           <height>60</height>
@@ -1118,6 +1169,7 @@
           <height>150</height>
           <width>140</width>
           <font>MainMenu</font>
+          <textcolor>Red</textcolor>
           <align>center</align>
           <shadowcolor>ShadowDark</shadowcolor>
           <label>$INFO[Window.Property(Day$PARAM[dayid].HighTemp)]</label>
@@ -1128,6 +1180,7 @@
           <height>150</height>
           <width>140</width>
           <font>MainMenu</font>
+          <textcolor>Blue</textcolor>
           <align>center</align>
           <shadowcolor>ShadowDark</shadowcolor>
           <label>$INFO[Window.Property(Day$PARAM[dayid].LowTemp)]</label>
@@ -2529,8 +2582,8 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">16</param>
         <param name="bordersizeRB">24</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,season)</param>
-        <param name="overlaylabel">[B]$INFO[ListItem.Label][/B]</param>
+        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</param>
+        <param name="overlaylabel">$VAR[PosterLabel]</param>
       </include>
     </definition>
   </include>
@@ -3183,7 +3236,7 @@
           <height>$PARAM[height]</height>
           <align>justify</align>
           <label>$PARAM[plot]</label>
-          <font>font32_title</font>
+          <font>InfoPlot</font>
         </control>
         <control type="label" description="Footer">
           <visible>$PARAM[showfooter]</visible>

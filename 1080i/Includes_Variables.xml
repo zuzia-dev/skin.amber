@@ -53,6 +53,11 @@
     <value condition="Control.HasFocus(21)">$INFO[Container(21).ListItem.Property(Description)]</value>
   </variable>
 
+  <variable name="PosterLabel">
+    <value condition="String.IsEqual(ListItem.DBType,season)">[B]$INFO[ListItem.Label][/B]</value>
+    <value condition="String.IsEqual(ListItem.DBType,episode)">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</value>
+  </variable>
+
   <variable name="Overlay" description="Overlay image">
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(IsResumable)">$INFO[ListItem.Overlay]</value>
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(overlay)">$INFO[ListItem.property(overlay)]</value>
@@ -291,10 +296,10 @@
   </variable>
 
   <variable name="panelfooter">
-    <value condition="Container.Content(Movies)">$INFO[Listitem.Genre]</value>
-    <value condition="Container.Content(TVShows)">$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE][CR]$INFO[Listitem.Genre]</value>
-    <value condition="Container.Content(Seasons)">$INFO[Listitem.Genre][CR][CAPITALIZE]$INFO[Listitem.Episode,[COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
-    <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
+    <value condition="Container.Content(Movies)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]]</value>
+    <value condition="Container.Content(TVShows)">$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE][CR]$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]]</value>
+    <value condition="Container.Content(Seasons)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]][CR][CAPITALIZE]$INFO[Listitem.Episode,[COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE]</value>
+    <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
     <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
   </variable>
 

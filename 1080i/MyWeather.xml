@@ -57,13 +57,13 @@
       <include content="WeatherItemBG">
         <param name="xoffset" value="1560"/>
         <param name="delayms" value="450"/>
-      </include>      
+      </include>
     </control>
     <control type="group" description="Current">
       <include>WeatherAni0</include>
       <control type="label" description="Current conditions">
         <posx>80</posx>
-        <posy>522</posy>
+        <posy>572</posy>
         <width>380</width>
         <shadowcolor>ShadowDark</shadowcolor>
         <font>WeatherTitle</font>
@@ -73,14 +73,14 @@
       </control>
       <control type="image" id="35" description="Current weather icon">
         <posx>75</posx>
-        <posy>605</posy>
+        <posy>655</posy>
         <height>130</height>
         <width>150</width>
         <texture>-</texture>
       </control>
       <control type="label" id="34" description="Current weather outlook">
         <posx>75</posx>
-        <posy>730</posy>
+        <posy>780</posy>
         <height>50</height>
         <width>150</width>
         <align>center</align>
@@ -89,7 +89,7 @@
       </control>
       <control type="group" description="Current Details">
         <posx>90</posx>
-        <posy>615</posy>
+        <posy>665</posy>
         <control type="grouplist">
           <posx>0</posx>
           <posy>0</posy>
@@ -136,26 +136,68 @@
         </control>
       </control>
     </control>
-    <include content="WeatherItem">
-      <param name="xoffset" value="0"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="0"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="340"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="1"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="680"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="2"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="1020"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="3"/>
-    </include>
+    <control type="group">
+      <include content="WeatherItem">
+        <param name="xoffset" value="0"/>
+        <param name="dayid" value="0"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="340"/>
+        <param name="dayid" value="1"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="680"/>
+        <param name="dayid" value="2"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="1020"/>
+        <param name="dayid" value="3"/>
+      </include>
+    </control>
+
+    <control type="group">
+      <visible>Skin.HasSetting(Weather8DayForecast)</visible>
+      <animation effect="fade" start="0" end="100" time="200">visible</animation>
+      <animation effect="fade" start="100" end="0" time="200">hidden</animation>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="540"/>
+        <param name="delayms" value="600"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="880"/>
+        <param name="delayms" value="750"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="1220"/>
+        <param name="delayms" value="900"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="1560"/>
+        <param name="delayms" value="1050"/>
+        <param name="8day">true</param>
+      </include>
+
+      <include content="WeatherItem">
+        <param name="xoffset" value="0"/>
+        <param name="dayid" value="4"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="340"/>
+        <param name="dayid" value="5"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="680"/>
+        <param name="dayid" value="6"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="1020"/>
+        <param name="dayid" value="7"/>
+      </include>
+    </control>
+
     <control type="group" description="Side menu 9000 group">
       <include>9000Commons</include>
       <control type="grouplist" id="9000">
@@ -190,6 +232,13 @@
           <include>9000SysButtons</include>
           <label>$LOCALIZE[5]</label>
           <onclick>ActivateWindow(MyWeatherSettings)</onclick>
+        </control>
+        <control type="togglebutton" id="5" description="Location">
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31018]</label>
+          <altlabel>$LOCALIZE[31019]</altlabel>
+          <onclick>Skin.ToggleSetting(Weather8DayForecast)</onclick>
+          <usealttexture>Skin.HasSetting(Weather8DayForecast)</usealttexture>
         </control>
         <control type="button" id="3" description="Location">
           <include>9000SysButtons</include>
