@@ -1027,8 +1027,8 @@
     </item>
     <item id="42" description="Appearance">
       <visible>Container(300).HasFocus(10)</visible>
-      <label>$LOCALIZE[480]</label>
-      <onclick>activatewindow(AppearanceSettings)</onclick>
+      <label>$LOCALIZE[14207]</label>
+      <onclick>activatewindow(InterfaceSettings)</onclick>
     </item>
     <item id="43" description="System">
       <visible>Container(300).HasFocus(10)</visible>
@@ -2896,21 +2896,21 @@
   <include name="PosterLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)]" height="437" width="310">
+      <itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
         <include content="GenericPoster">
         </include>
       </itemlayout>
-      <focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)]" height="437" width="310">
+      <focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
         <include content="GenericPoster">
           <param name="isFocused">true</param>
         </include>
       </focusedlayout>
-      <itemlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)]" height="326" width="232.5">
+      <itemlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
         <include content="GenericPoster">
           <param name="size">Small</param>
         </include>
       </itemlayout>
-      <focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)]" height="326" width="232.5">
+      <focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
         <include content="GenericPoster">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
@@ -2922,21 +2922,21 @@
   <include name="EpisodeLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
+      <itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
         <include content="GenericEpisode">
         </include>
       </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
+      <focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
         <include content="GenericEpisode">
           <param name="isFocused">true</param>
         </include>
       </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
+      <itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
         <include content="GenericEpisode">
           <param name="size">Small</param>
         </include>
       </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
+      <focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
         <include content="GenericEpisode">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
