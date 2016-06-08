@@ -22,31 +22,50 @@
       <include>9000Commons</include>
       <control type="grouplist" id="9000">
         <include>9000GrouplistParameters</include>
-        <control type="button" id="3" description="Sort">
-          <include>9000SysButtons</include>
+        <control type="label" id="9180" description="Spacer">
+          <height>36</height>
+          <textcolor>Highlight</textcolor>
+          <align>left</align>
+          <textoffsetx>10</textoffsetx>
+          <include>9000ViewButtons</include>
+          <label></label>
         </control>
-        <control type="togglebutton" id="4" description="Sort direction">
-          <include>9000SysButtons</include>
-          <label>$LOCALIZE[21429]:  $LOCALIZE[21430]</label>
-          <altlabel>$LOCALIZE[21429]:  $LOCALIZE[21431]</altlabel>
+        <control type="label" id="9181">
+          <textcolor>Highlight</textcolor>
+          <align>left</align>
+          <textoffsetx>10</textoffsetx>
+          <include>9000ViewButtons</include>
+          <label>$LOCALIZE[31026]</label>
         </control>
-        <control type="button" id="8" description="Search">
-          <include>9000SysButtons</include>
-          <label>$LOCALIZE[137]</label>
-        </control>
-        <control type="radiobutton" id="16" description="PartyMode">
-          <include>9000SysButtons</include>
-          <label>$LOCALIZE[589]</label>
-        </control>
-        <control type="togglebutton" id="20" description="Library update">
+        <control type="togglebutton" id="619">
           <include>9000SysButtons</include>
           <label>$LOCALIZE[653]</label>
+          <onclick>UpdateLibrary(music)</onclick>
+          <visible>!Container.Content(addons)</visible>
           <altlabel>$LOCALIZE[13353]</altlabel>
+          <usealttexture>library.isscanningmusic</usealttexture>
         </control>
-          <control type="button" id="698" description="Playlist">
+        <control type="radiobutton" id="16">
+          <label>$LOCALIZE[589]</label>
           <include>9000SysButtons</include>
-          <label>$LOCALIZE[20011]</label>
+        </control>
+        <control type="button" id="612">
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[559]</label>
           <onclick>ActivateWindow(musicplaylist)</onclick>
+          <visible>Integer.IsGreater(Playlist.Length(music),0)</visible>
+        </control>
+        <control type="button" id="621">
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[21452]</label>
+          <onclick>ActivateWindow(addonbrowser,addons://more/audio/,return)</onclick>
+          <visible>Container.Content(addons)</visible>
+        </control>
+        <control type="button" id="624">
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[10140]</label>
+          <onclick>Addon.OpenSettings($INFO[Container.PluginName])</onclick>
+          <visible>!String.IsEmpty(Container.PluginName)</visible>
         </control>
         <control type="button" id="699" description="Playing">
           <enable>Player.HasMedia</enable>
