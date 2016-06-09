@@ -169,8 +169,8 @@
 
   <include name="BackgroundOverlay">
     <param name="overlaywidth">1920</param>
-    <param name="overlayheight">1063</param>
-    <param name="overlaytop">17</param>
+    <param name="overlayheight">1120</param>
+    <param name="overlaytop">-40</param>
     <param name="overlayleft">0</param>
     <param name="parentid"/>
     <definition>
@@ -199,87 +199,93 @@
       <top>0</top>
       <left>0</left>
       <width>1920</width>
-      <control type="image">
-        <visible>!Window.IsActive(home) | [Player.HasAudio + Window.IsActive(home)] | Window.IsActive(favourites)</visible>
-        <include>VisibleFadeEffect</include>
-        <posx>0</posx>
-        <posy>0</posy>
-        <width>1920</width>
-        <height>48</height>
-        <texture>common/TopStripe.png</texture>
-      </control>
-      <control type="image">
-        <visible>!Player.HasAudio + Window.IsActive(home) + !Window.IsActive(favourites) </visible>
-        <include>VisibleFadeEffect</include>
-        <posx>630r</posx>
-        <posy>0</posy>
-        <width>630</width>
-        <height>90</height>
-        <texture border="100,0,0,0" flipy="true">common/TimePanel.png</texture>
-      </control>
-      <control type="label">
-        <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))]</visible>
-        <include>VisibleFadeEffect</include>
-        <posx>30</posx>
-        <posy>0</posy>
-        <width>1200</width>
-        <height>35</height>
-        <font>Details</font>
-        <label>$VAR[GlobalHeadings]</label>
+      <control type="group">
+        <visible>Window.Is(home) | [!Window.IsActive(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
+        <control type="image">
+          <visible>!Window.IsActive(home) | [Player.HasAudio + Window.IsActive(home)] | Window.IsActive(favourites)</visible>
+          <include>VisibleFadeEffect</include>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>1920</width>
+          <height>48</height>
+          <texture>common/TopStripe.png</texture>
+        </control>
+        <control type="image">
+          <visible>!Player.HasAudio + Window.Is(home)</visible>
+          <include>VisibleFadeEffect</include>
+          <posx>630r</posx>
+          <posy>0</posy>
+          <width>630</width>
+          <height>90</height>
+          <texture border="100,0,0,0" flipy="true">common/TimePanel.png</texture>
+        </control>
       </control>
       <control type="group">
-        <visible>Player.HasAudio + String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))</visible>
-        <include>VisibleFadeEffect</include>
-        <control type="image" description="Speaker">
-          <posx>12</posx>
-          <posy>6</posy>
-          <width>30</width>
-          <height>27</height>
-          <aspectratio>keep</aspectratio>
-          <texture>img/NowPlayingFO.png</texture>
-          <colordiffuse>Highlight</colordiffuse>
-        </control>
+        <visible>Window.Is(home) | [!Window.IsActive(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
         <control type="label">
+          <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))]</visible>
           <include>VisibleFadeEffect</include>
-          <posx>60</posx>
+          <posx>30</posx>
           <posy>0</posy>
           <width>1200</width>
           <height>35</height>
           <font>Details</font>
-          <label>$INFO[MusicPlayer.Artist,,[COLOR=Highlight]  •  [/COLOR]]$INFO[MusicPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[MusicPlayer.TimeSpeed]$INFO[MusicPlayer.Duration, - ][/COLOR]</label>
+          <label>$VAR[GlobalHeadings]</label>
         </control>
-      </control>
-      <control type="grouplist">
-        <left>1200</left>
-        <top>-3</top>
-        <height>40</height>
-        <itemgap>10</itemgap>
-        <orientation>horizontal</orientation>
-        <align>right</align>
-        <width>700</width>
-        <usecontrolcoords>true</usecontrolcoords>
-        <control type="togglebutton">
-          <visible>Skin.HasSetting(ShowMasterLockTitle) + System.HasLocks</visible>
-          <top>9</top>
-          <width>25</width>
-          <height>25</height>
-          <texturefocus>NoMasterNF.png</texturefocus>
-          <texturenofocus>NoMasterNF.png</texturenofocus>
-          <alttexturefocus>MasteFO.png</alttexturefocus>
-          <alttexturenofocus>MasterFO.png</alttexturenofocus>
-          <usealttexture>System.IsMaster</usealttexture>
-          <onclick>mastermode</onclick>
-          <aligny>center</aligny>
+        <control type="group">
+          <visible>Player.HasAudio + String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))</visible>
+          <include>VisibleFadeEffect</include>
+          <control type="image" description="Speaker">
+            <posx>12</posx>
+            <posy>6</posy>
+            <width>30</width>
+            <height>27</height>
+            <aspectratio>keep</aspectratio>
+            <texture>img/NowPlayingFO.png</texture>
+            <colordiffuse>Highlight</colordiffuse>
+          </control>
+          <control type="label">
+            <include>VisibleFadeEffect</include>
+            <posx>60</posx>
+            <posy>0</posy>
+            <width>1200</width>
+            <height>35</height>
+            <font>Details</font>
+            <label>$INFO[MusicPlayer.Artist,,[COLOR=Highlight]  •  [/COLOR]]$INFO[MusicPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[MusicPlayer.TimeSpeed]$INFO[MusicPlayer.Duration, - ][/COLOR]</label>
+          </control>
         </control>
-        <control type="label">
-          <width>auto</width>
-          <align>right</align>
-          <aligny>center</aligny>
-          <font>Details</font>
-          <textcolor>White</textcolor>
-          <shadowcolor>ShadowDark</shadowcolor>
-          <label>$VAR[Time]</label>
+        <control type="grouplist">
+          <left>1200</left>
+          <top>-3</top>
           <height>40</height>
+          <itemgap>10</itemgap>
+          <orientation>horizontal</orientation>
+          <align>right</align>
+          <width>700</width>
+          <usecontrolcoords>true</usecontrolcoords>
+          <control type="togglebutton">
+            <visible>Skin.HasSetting(ShowMasterLockTitle) + System.HasLocks</visible>
+            <top>9</top>
+            <width>25</width>
+            <height>25</height>
+            <texturefocus>NoMasterNF.png</texturefocus>
+            <texturenofocus>NoMasterNF.png</texturenofocus>
+            <alttexturefocus>MasteFO.png</alttexturefocus>
+            <alttexturenofocus>MasterFO.png</alttexturenofocus>
+            <usealttexture>System.IsMaster</usealttexture>
+            <onclick>mastermode</onclick>
+            <aligny>center</aligny>
+          </control>
+          <control type="label">
+            <width>auto</width>
+            <align>right</align>
+            <aligny>center</aligny>
+            <font>Details</font>
+            <textcolor>White</textcolor>
+            <shadowcolor>ShadowDark</shadowcolor>
+            <label>$VAR[Time]</label>
+            <height>40</height>
+          </control>
         </control>
       </control>
     </control>
@@ -1172,7 +1178,7 @@
           <posy>745</posy>
           <height>120</height>
           <width>260</width>
-          <texture>$INFO[Window.Property(Day$PARAM[dayid].OutlookIcon)]</texture>
+          <texture>$VAR[WeatherIconPath]$INFO[Window.Property(Day$PARAM[dayid].FanartCode),,.png]</texture>
           <aspectratio>keep</aspectratio>
         </control>
         <control type="label" description="Conditions">
@@ -2149,6 +2155,30 @@
     </definition>
   </include>
 
+  <include name="CustomImageResourceSettingItem">
+    <param name="itemid" />
+    <param name="itemlabel" />
+    <param name="itemlabel2">$LOCALIZE[16018]</param>
+    <param name="itemvisibility" default="true"/>
+    <param name="resourcetype"/>
+    <definition>
+      <item id="$PARAM[itemid]">
+        <visible>!String.IsEmpty(Skin.String($PARAM[resourcetype]Resource.path))</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$INFO[Skin.String($PARAM[resourcetype]Resource.name)]</label2>
+        <onclick>RunScript(script.image.resource.select,property=$PARAM[resourcetype]Resource&amp;type=resource.images.$PARAM[resourcetype])</onclick>
+      </item>
+      <item id="$PARAM[itemid]">
+        <visible>String.IsEmpty(Skin.String($PARAM[resourcetype]Resource.path))</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$PARAM[itemlabel2]</label2>
+        <onclick>RunScript(script.image.resource.select,property=$PARAM[resourcetype]Resource&amp;type=resource.images.$PARAM[resourcetype])</onclick>
+      </item>
+    </definition>
+  </include>
+
   <include name="YesNoSettingItem">
     <param name="itemid" />
     <param name="itemlabel" />
@@ -2379,6 +2409,23 @@
           <aspectratio>keep</aspectratio>
         </control>    
       </control>
+    </definition>
+  </include>
+
+  <include name="GenericLabelIcon">
+    <param name="isFocused">false</param>
+    <definition>
+        <include content="GenericBelowTextboxTemplate">
+          <param name="isFocused">$PARAM[isFocused]</param>
+          <param name="yoffset">0</param>
+          <param name="xoffset">0</param>
+          <param name="labelwidth">310</param>
+          <param name="labelvisibility">true</param>
+          <param name="labeltext">$INFO[ListItem.Label]</param>
+          <param name="labelalign">center</param>
+          <param name="textboxwidth">302</param>
+          <param name="bordersize">4</param>
+        </include>
     </definition>
   </include>
 
@@ -2805,11 +2852,23 @@
         <top>$PARAM[yoffset]</top>
         <left>$PARAM[xoffset]</left>
         <control type="image">
+          <visible>!$PARAM[isFocused]</visible>
           <posx>0</posx>
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
           <texture>img/WhiteRoundedT.png</texture>
+          <bordersize>4,0,4,0</bordersize>
+          <aspectratio>stretch</aspectratio>
+        </control>
+        <control type="image">
+          <visible>$PARAM[isFocused]</visible>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>$PARAM[labelwidth]</width>
+          <height>74</height>
+          <texture>img/WhiteRoundedT.png</texture>
+          <colordiffuse>Highlight</colordiffuse>
           <bordersize>4,0,4,0</bordersize>
           <aspectratio>stretch</aspectratio>
         </control>
@@ -2834,11 +2893,20 @@
           <font>shelf_label</font>
           <textcolor>Highlight</textcolor>
           <autoscroll time="2000" delay="2000" repeat="3000">true</autoscroll>
-          <label>$PARAM[labeltext]</label>
+          <label>[B]$PARAM[labeltext][/B]</label>
           <align>$PARAM[labelalign]</align>
           <aligny>center</aligny>
         </control>
       </control>
+    </definition>
+  </include>
+
+  <include name="GenericLabel">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericLabelIcon">
+        <param name="isFocused">$PARAM[isFocused]</param>
+      </include>
     </definition>
   </include>
 
@@ -2923,6 +2991,21 @@
         <include content="GenericBanner">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
+        </include>
+      </focusedlayout>
+    </definition>
+  </include>
+
+  <include name="LabelLayout">
+    <param name="viewid"/>
+    <definition>
+      <itemlayout condition="Container.Content() | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
+        <include content="GenericLabel">
+        </include>
+      </itemlayout>
+      <focusedlayout condition="Container.Content() | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
+        <include content="GenericLabel">
+          <param name="isFocused">true</param>
         </include>
       </focusedlayout>
     </definition>
