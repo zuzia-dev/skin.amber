@@ -400,7 +400,10 @@
       <height>1080</height>
       <texture border="0,0,30,0">common/ViewMenu.png</texture>
     </control>
-    <control type="button" id="3">
+  </include>
+
+  <include name="9000NavCommons" description="Regular BG">
+      <control type="button" id="3">
       <description>Viewtype Toggle</description>
       <left>-3000</left>
       <top>-3000</top>
@@ -423,6 +426,7 @@
       <font>-</font>
     </control>
   </include>
+
 
 <include name="StandardViewSwitches">
   <param name="viewid"/>
@@ -2801,11 +2805,23 @@
         <top>$PARAM[yoffset]</top>
         <left>$PARAM[xoffset]</left>
         <control type="image">
+          <visible>!$PARAM[isFocused]</visible>
           <posx>0</posx>
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <texture>img/WhiteRoundedT.png</texture>
+          <bordersize>$PARAM[bordersize]</bordersize>
+          <aspectratio>stretch</aspectratio>
+        </control>
+        <control type="image">
+          <visible>$PARAM[isFocused]</visible>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>$PARAM[labelwidth]</width>
+          <height>45</height>
+          <texture>img/WhiteRoundedST2.png</texture>
+          <colordiffuse>Highlight</colordiffuse>
           <bordersize>$PARAM[bordersize]</bordersize>
           <aspectratio>stretch</aspectratio>
         </control>
@@ -2827,7 +2843,8 @@
           <height>45</height>
           <textoffsetx>32</textoffsetx>
           <font>shelf_label</font>
-          <textcolor>Highlight</textcolor>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
           <scrollspeed>25</scrollspeed>
@@ -2867,7 +2884,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
-          <texture>img/WhiteRoundedT.png</texture>
+          <texture>img/WhiteRoundedST2.png</texture>
           <colordiffuse>Highlight</colordiffuse>
           <bordersize>4,0,4,0</bordersize>
           <aspectratio>stretch</aspectratio>
@@ -2891,9 +2908,10 @@
           <width>$PARAM[textboxwidth]</width>
           <height>64</height>
           <font>shelf_label</font>
-          <textcolor>Highlight</textcolor>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <autoscroll time="2000" delay="2000" repeat="3000">true</autoscroll>
-          <label>[B]$PARAM[labeltext][/B]</label>
+          <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
           <aligny>center</aligny>
         </control>
