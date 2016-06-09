@@ -2159,11 +2159,27 @@
     </definition>
   </include>
 
+  <include name="InstallAddonItem">
+    <param name="itemid" />
+    <param name="itemlabel" />
+    <param name="itemvisibility">true</param>
+    <param name="addonpath"/>
+    <definition>
+      <item id="$PARAM[itemid]">
+        <visible>!System.HasAddon($PARAM[addonpath])</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <onclick>InstallAddon($PARAM[addonpath])</onclick>
+      </item>
+    </definition>
+  </include>
+
+
   <include name="CustomImageResourceSettingItem">
     <param name="itemid" />
     <param name="itemlabel" />
     <param name="itemlabel2">$LOCALIZE[16018]</param>
-    <param name="itemvisibility" default="true"/>
+    <param name="itemvisibility">true</param>
     <param name="resourcetype"/>
     <definition>
       <item id="$PARAM[itemid]">
@@ -3017,11 +3033,11 @@
   <include name="LabelLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="Container.Content() | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
+      <itemlayout condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
         <include content="GenericLabel">
         </include>
       </itemlayout>
-      <focusedlayout condition="Container.Content() | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
+      <focusedlayout condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
         <include content="GenericLabel">
           <param name="isFocused">true</param>
         </include>
@@ -3136,21 +3152,21 @@
   <include name="AddonLayout">
     <param name="viewid"/>
     <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="342" width="310">
+      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
         <include content="GenericThumb">
         </include>
       </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="342" width="310">
+      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
         </include>
       </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="256.5" width="232.5">
+      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="size">Small</param>
         </include>
       </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="25.5" width="232.5">
+      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
         <include content="GenericThumb">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
