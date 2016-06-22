@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
-  <include name="Horizontal_Shelf_Commons">
-    <left>48</left>
-    <top>384</top>
-    <width>1824</width>
-    <height>345</height>
-    <onup>9001</onup>
-    <movement>6</movement>
-    <orientation>horizontal</orientation>  
-  </include>
-  <include name="Vertical_Shelf_Commons">
-    <left>440</left>
-    <top>384</top>
-    <width>1468</width>
-    <height>327</height>
-    <onleft>300</onleft>
-    <onback>300</onback>
-    <movement>5</movement>
-    <orientation>horizontal</orientation>  
-  </include>
-  <include name="Horizontal_Label_Commons">
-    <animation effect="slide" start="0,0" end="-438,0" time="0" condition="true">conditional</animation>
-  </include>
-
   <include name="HomeShelf">
     <param name="xoffset"/>
     <param name="yoffset"/>
@@ -55,20 +32,29 @@
           <param name="selectionlistlabel1">Added</param>
           <param name="selectionlistlabel2">video</param>
           <param name="selectionlistlabel3">audio</param>
+          <param name="selectionlistlabel4">image</param>
+          <param name="selectionlistlabel5">programs</param>
           <param name="selectionlistvisible1">true</param>
           <param name="selectionlistvisible2">true</param>
           <param name="selectionlistvisible3">true</param>
+          <param name="selectionlistvisible4">true</param>
+          <param name="selectionlistvisible5">true</param>
           <param name="listitemtype1">Shelf_Addons</param>
           <param name="listitemtype2">Shelf_Addons</param>
           <param name="listitemtype3">Shelf_Addons</param>
+          <param name="listitemtype4">Shelf_Addons</param>
+          <param name="listitemtype5">Shelf_Addons</param>
           <param name="listitemlabel1">MoviesLabel</param>
           <param name="listitemlabel2">MoviesLabel</param>
           <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemlabel4">MoviesLabel</param>
+          <param name="listitemlabel5">MoviesLabel</param>
           <param name="listitemcontenttype1">Include</param>
           <param name="listitemcontent1">AddonContent</param>
           <param name="listitemcontent2">addons://sources/video/</param>
           <param name="listitemcontent3">addons://sources/audio/</param>
-          <param name="listitemcontent4">addons://sources/audio/</param>
+          <param name="listitemcontent4">addons://sources/image/</param>
+          <param name="listitemcontent5">addons://sources/executable/</param>
         </include>
         <include content="ShelfList">
           <param name="parentitemid">7</param>
@@ -114,9 +100,10 @@
           <param name="listitemtype1">Shelf_Posters</param>
           <param name="listitemtype2">Shelf_Posters</param>
           <param name="listitemtype3">Shelf_Posters</param>
-          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel1">TVShowLabel</param>
           <param name="listitemlabel2">MoviesLabel</param>
           <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemtarget1">videos</param>
           <param name="listitemcontent1">special://skin/xsp/tvshows_unwatched.xsp</param>
           <param name="listitemcontent2">special://skin/xsp/episodes_recentlyadded.xsp</param>
           <param name="listitemcontent3">special://skin/xsp/episodes_inprogress.xsp</param>
@@ -141,6 +128,10 @@
           <param name="listitemlabel2">MoviesLabel</param>
           <param name="listitemlabel3">MoviesLabel</param>
           <param name="listitemlabel4">MoviesLabel</param>
+          <param name="listitemtarget1">music</param>
+          <param name="listitemtarget2">music</param>
+          <param name="listitemtarget3">music</param>
+          <param name="listitemtarget4">music</param>
           <param name="listitemcontent1">special://skin/xsp/albums_recentlyadded.xsp</param>
           <param name="listitemcontent2">special://skin/xsp/mostplayed_albums.xsp</param>
           <param name="listitemcontent3">special://skin/xsp/albums_random.xsp</param>
@@ -191,7 +182,7 @@
           <param name="listitemlabel2">MoviesLabel</param>
           <param name="listitemsortby1">lastplayed</param>
           <param name="listitemcontent1">pvr://channels/tv/All channels/</param>
-          <param name="listitemcontent2">plugin://script.skin.helper.service/?action=pvrrecordings&amp;limit=24&amp;reload=$INFO[Window(Home).Property(widgetreload2)]</param>
+          <param name="listitemcontent2">plugin://script.skin.helper.service/?action=pvrrecordings&amp;limit=50&amp;reload=$INFO[Window(Home).Property(widgetreload2)]</param>
         </include>
         <include content="ShelfList">
           <param name="parentitemid">13</param>
@@ -395,6 +386,14 @@
       </control>
     </control>
   </include>
+  
+  <include name="Vertical_SubShelf_Commons">
+    <width>1458</width>
+  </include>
+
+  <include name="Horizontal_SubShelf_Commons">
+    <width>1888</width>
+  </include>
 
   <include name="ShelfSubList">
     <param name="itemid"/>
@@ -404,11 +403,12 @@
     <param name="listitemcontenttype"/>
     <param name="listitemsortby"/>
     <param name="listitemsortorder"/>
+    <param name="listitemlimit"/>
     <param name="listitemtarget"/>
     <param name="listiteminclude"/>
     <param name="listitemlabel"/>
     <definition>
-      <control type="panel" id="$PARAM[selectionlistid]$PARAM[itemid]" description="Movies XBMC">
+      <control type="panel" id="$PARAM[selectionlistid]$PARAM[itemid]">
         <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
         <onright>$PARAM[selectionlistid]$PARAM[itemid]</onright>
         <onup>$PARAM[selectionlistid]</onup>
@@ -418,8 +418,9 @@
         <ondown>300</ondown>
         <left>16</left>
         <top>43</top>
-        <width>1458</width>
         <height>654</height>
+        <include condition="Skin.HasSetting(VerticalHome)">Vertical_SubShelf_Commons</include>
+        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_SubShelf_Commons</include>
         <onleft>300</onleft>
         <onback>300</onback>
         <orientation>horizontal</orientation>  
@@ -431,6 +432,7 @@
         <include content="ShelfContentType_$PARAM[listitemcontenttype]">
           <param name="listitemsortby">$PARAM[listitemsortby]</param>
           <param name="listitemsortorder">$PARAM[listitemsortorder]</param>
+          <param name="listitemlimit">$PARAM[listitemlimit]</param>
           <param name="listitemtarget">$PARAM[listitemtarget]</param>
           <param name="listitemcontent">$PARAM[listitemcontent]</param>
         </include>
@@ -478,10 +480,11 @@
   <include name="ShelfContentType_Path">
     <param name="listitemsortby"></param>
     <param name="listitemsortorder"></param>
+    <param name="listitemlimit"></param>
     <param name="listitemtarget"></param>
     <param name="listitemcontent"></param>
     <definition>
-      <content sortby="$PARAM[listitemsortby]" sortorder="$PARAM[listitemsortorder]" target="$PARAM[listitemtarget]">$PARAM[listitemcontent]</content>
+      <content sortby="$PARAM[listitemsortby]" sortorder="$PARAM[listitemsortorder]" limit="$PARAM[listitemlimit]" target="$PARAM[listitemtarget]">$PARAM[listitemcontent]</content>
     </definition>
   </include>
 
@@ -529,6 +532,11 @@
     <param name="listitemsortorder3">descending</param>
     <param name="listitemsortorder4">descending</param>
     <param name="listitemsortorder5">descending</param>
+    <param name="listitemlimit1">18</param>
+    <param name="listitemlimit2">18</param>
+    <param name="listitemlimit3">18</param>
+    <param name="listitemlimit4">18</param>
+    <param name="listitemlimit5">18</param>
     <param name="listitemtarget1">video</param>
     <param name="listitemtarget2">video</param>
     <param name="listitemtarget3">video</param>
@@ -536,20 +544,22 @@
     <param name="listitemtarget5">video</param>
     <definition>
       <control type="group">
+        <animation effect="slide" start="0,0" end="-430,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>          
         <posx>430</posx>
         <posy>183</posy>
         <visible>Container(300).HasFocus($PARAM[parentitemid])</visible>
         <visible>Integer.IsGreater(Container($PARAM[selectionlistid]).NumItems,0)</visible>
         <visible>$PARAM[shelfvisible]</visible>
         <control type="image">
-          <width>1490</width>
+          <width>1920</width>
           <height>716</height>
           <texture border="392,40,0,40">home/ShelfBackground.png</texture>
         </control>
         <control type="fixedlist" id="$PARAM[selectionlistid]" description="Selection List">
           <top>-12</top>
           <height>45</height>
-          <width>1400</width>
+          <include condition="Skin.HasSetting(VerticalHome)">Vertical_SubShelf_Commons</include>
+          <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_SubShelf_Commons</include>
           <onup>300</onup>
           <ondown>$PARAM[selectionlistid]6</ondown>
           <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
@@ -622,6 +632,7 @@
             <param name="listitemcontenttype">$PARAM[listitemcontenttype1]</param>
             <param name="listitemsortby">$PARAM[listitemsortby1]</param>
             <param name="listitemsortorder">$PARAM[listitemsortorder1]</param>
+            <param name="listitemlimit">$PARAM[listitemlimit1]</param>
             <param name="listitemtarget">$PARAM[listitemtarget1]</param>
             <param name="listitemlabel">$PARAM[listitemlabel1]</param>
           </include>
@@ -634,6 +645,7 @@
             <param name="listitemcontenttype">$PARAM[listitemcontenttype2]</param>
             <param name="listitemsortby">$PARAM[listitemsortby2]</param>
             <param name="listitemsortorder">$PARAM[listitemsortorder2]</param>
+            <param name="listitemlimit">$PARAM[listitemlimit2]</param>
             <param name="listitemtarget">$PARAM[listitemtarget2]</param>
             <param name="listitemlabel">$PARAM[listitemlabel2]</param>
           </include>
@@ -646,6 +658,7 @@
             <param name="listitemcontenttype">$PARAM[listitemcontenttype3]</param>
             <param name="listitemsortby">$PARAM[listitemsortby3]</param>
             <param name="listitemsortorder">$PARAM[listitemsortorder3]</param>
+            <param name="listitemlimit">$PARAM[listitemlimit3]</param>
             <param name="listitemtarget">$PARAM[listitemtarget3]</param>
             <param name="listitemlabel">$PARAM[listitemlabel3]</param>
           </include>
@@ -658,6 +671,7 @@
             <param name="listitemcontenttype">$PARAM[listitemcontenttype4]</param>
             <param name="listitemsortby">$PARAM[listitemsortby4]</param>
             <param name="listitemsortorder">$PARAM[listitemsortorder4]</param>
+            <param name="listitemlimit">$PARAM[listitemlimit4]</param>
             <param name="listitemtarget">$PARAM[listitemtarget4]</param>
             <param name="listitemlabel">$PARAM[listitemlabel4]</param>
           </include>
@@ -670,6 +684,7 @@
             <param name="listitemcontenttype">$PARAM[listitemcontenttype5]</param>
             <param name="listitemsortby">$PARAM[listitemsortby5]</param>
             <param name="listitemsortorder">$PARAM[listitemsortorder5]</param>
+            <param name="listitemlimit">$PARAM[listitemlimit5]</param>
             <param name="listitemtarget">$PARAM[listitemtarget5]</param>
            <param name="listitemlabel">$PARAM[listitemlabel5]</param>
           </include>
@@ -683,6 +698,13 @@
     <param name="containerid"></param>
     <definition>
         <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Year, (,)][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Duration, • , $LOCALIZE[12391]]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
+    </definition>
+  </include>
+
+  <include name="TVShowLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Year, (,)][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Property(TotalEpisodes), • ,]$INFO[Container($PARAM[containerid]).ListItem.Property(UnWatchedEpisodes), (,)]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
     </definition>
   </include>
 
