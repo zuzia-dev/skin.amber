@@ -29,23 +29,6 @@
     <param name="yoffset"/>
     <param name="shelfwidth"/>
     <definition>
-      <control type="image" description="Single line shelf BG XBMC only">
-        <visible>!Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | [Control.IsVisible(311) + !Control.IsVisible(312)] | [!Control.IsVisible(311) + Control.IsVisible(312)] | [Control.IsVisible(411) + !Control.IsVisible(413)] | [!Control.IsVisible(411) + Control.IsVisible(413)] | [Control.IsVisible(511) + !Control.IsVisible(513)] | [!Control.IsVisible(511) + Control.IsVisible(513)] | [Control.IsVisible(514) + !Control.IsVisible(515)] | [!Control.IsVisible(514) + Control.IsVisible(515)]]</visible>
-        <posx>$PARAM[xoffset]</posx>
-        <posy>$PARAM[yoffset]</posy>
-        <width>$PARAM[shelfwidth]</width>
-        <height>398</height>
-        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
-      </control>
-      <control type="image" description="Double line shelfBG 2 XBMC only">
-        <animation effect="slide" start="0,0" end="0,-162" time="0" delay="0" condition="true">conditional</animation>
-        <visible>!Skin.HasSetting(plexbmc) + [[Control.IsVisible(311) + Control.IsVisible(312)] | [Control.IsVisible(411) + Control.IsVisible(413)] | [Control.IsVisible(511) + Control.IsVisible(513)] | [Control.IsVisible(514) + Control.IsVisible(515)]]</visible>
-        <posx>$PARAM[xoffset]</posx>
-        <posy>$PARAM[yoffset]</posy>
-        <width>$PARAM[shelfwidth]</width>
-        <height>720</height>
-        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
-      </control>
       <control type="image" description="Single line shelf BG Plexbmc only">
         <visible>Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [Integer.IsGreater(Container(311).NumItems,0) + !Integer.IsGreater(Container(312).NumItems,0)] | [!Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + !Integer.IsGreater(Container(413).NumItems,0)] | [!Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)] | Control.IsVisible(511) | Control.IsVisible(900) | Control.IsVisible(901)]</visible>
         <posx>$PARAM[xoffset]</posx>
@@ -65,18 +48,154 @@
       </control>
       <control type="group">
         <animation effect="slide" start="0,0" end="0,-100" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.Favourites)">Favourite.List</include>
+        <include content="ShelfList">
+          <param name="parentitemid">2</param>
+          <param name="shelfvisible">!Skin.HasSetting(Shelf.Addons)</param>
+          <param name="selectionlistid">200</param>
+          <param name="selectionlistlabel1">Added</param>
+          <param name="selectionlistlabel2">video</param>
+          <param name="selectionlistlabel3">audio</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="selectionlistvisible3">true</param>
+          <param name="listitemtype1">Shelf_Addons</param>
+          <param name="listitemtype2">Shelf_Addons</param>
+          <param name="listitemtype3">Shelf_Addons</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemcontenttype1">Include</param>
+          <param name="listitemcontent1">AddonContent</param>
+          <param name="listitemcontent2">addons://sources/video/</param>
+          <param name="listitemcontent3">addons://sources/audio/</param>
+          <param name="listitemcontent4">addons://sources/audio/</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">7</param>
+          <param name="shelfvisible">!Skin.HasSetting(Shelf.Favourites)</param>
+          <param name="selectionlistid">700</param>
+          <param name="selectionlistlabel1">Added</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="listitemtype1">Shelf_Addons</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemcontenttype1">Include</param>
+          <param name="listitemcontent1">FavouriteContent</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">4</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.Movies.Shelf)</param>
+          <param name="selectionlistid">400</param>
+          <param name="selectionlistlabel1">Recently Added</param>
+          <param name="selectionlistlabel2">Random</param>
+          <param name="selectionlistlabel3">In Progress</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="selectionlistvisible3">true</param>
+          <param name="listitemtype1">Shelf_Posters</param>
+          <param name="listitemtype2">Shelf_Posters</param>
+          <param name="listitemtype3">Shelf_Posters</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemcontent1">special://skin/xsp/movies_recentlyadded.xsp</param>
+          <param name="listitemcontent2">special://skin/xsp/movies_random.xsp</param>
+          <param name="listitemcontent3">special://skin/xsp/movies_inprogress.xsp</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">5</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.TVShows.Shelf)</param>
+          <param name="selectionlistid">500</param>
+          <param name="selectionlistlabel1">tv shows unwatched</param>
+          <param name="selectionlistlabel2">recently added</param>
+          <param name="selectionlistlabel3">In Progress</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="selectionlistvisible3">true</param>
+          <param name="listitemtype1">Shelf_Posters</param>
+          <param name="listitemtype2">Shelf_Posters</param>
+          <param name="listitemtype3">Shelf_Posters</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemcontent1">special://skin/xsp/tvshows_unwatched.xsp</param>
+          <param name="listitemcontent2">special://skin/xsp/episodes_recentlyadded.xsp</param>
+          <param name="listitemcontent3">special://skin/xsp/episodes_inprogress.xsp</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">6</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.Music.Shelf)</param>
+          <param name="selectionlistid">600</param>
+          <param name="selectionlistlabel1">recent albums</param>
+          <param name="selectionlistlabel2">most played albums</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="listitemtype1">Shelf_Albums</param>
+          <param name="listitemtype2">Shelf_Albums</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemcontent1">special://skin/xsp/albums_recentlyadded.xsp</param>
+          <param name="listitemcontent2">special://skin/xsp/mostplayed_albums.xsp</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">7</param>
+          <param name="shelfvisible">!Skin.HasSetting(Shelf.Favourites)</param>
+          <param name="selectionlistid">800</param>
+          <param name="selectionlistlabel1">Added</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="listitemtype1">Shelf_Favourites</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemcontenttype1">Include</param>
+          <param name="listitemcontent1">FavouriteContent</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">14</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.MusicVideos.Shelf)</param>
+          <param name="selectionlistid">1400</param>
+          <param name="selectionlistlabel1">recent</param>
+          <param name="selectionlistlabel2">random</param>
+          <param name="selectionlistlabel3">unwatched</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="selectionlistvisible3">true</param>
+          <param name="listitemtype1">Shelf_Albums</param>
+          <param name="listitemtype2">Shelf_Albums</param>
+          <param name="listitemtype3">Shelf_Albums</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemlabel3">MoviesLabel</param>
+          <param name="listitemcontent1">special://skin/xsp/musicvideos_recentlyadded.xsp</param>
+          <param name="listitemcontent2">special://skin/xsp/musicvideos_random.xsp</param>
+          <param name="listitemcontent3">special://skin/xsp/musicvideos_unwatched.xsp</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">12</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.PVR.Shelf)</param>
+          <param name="selectionlistid">1200</param>
+          <param name="selectionlistlabel1">recent channels</param>
+          <param name="selectionlistlabel2">recent recordings</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="selectionlistvisible2">true</param>
+          <param name="listitemtype1">Shelf_Channel</param>
+          <param name="listitemtype2">Shelf_Recording</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemsortby1">lastplayed</param>
+          <param name="listitemcontent1">pvr://channels/tv/All channels/</param>
+          <param name="listitemcontent2">plugin://script.skin.helper.service/?action=pvrrecordings&amp;limit=24&amp;reload=$INFO[Window(Home).Property(widgetreload2)]</param>
+        </include>
+        <include content="ShelfList">
+          <param name="parentitemid">13</param>
+          <param name="shelfvisible">!Skin.HasSetting(Hide.PVR.Shelf)</param>
+          <param name="selectionlistid">1300</param>
+          <param name="selectionlistlabel1">recent channels</param>
+          <param name="selectionlistvisible1">true</param>
+          <param name="listitemtype1">Shelf_Channel</param>
+          <param name="listitemlabel1">MoviesLabel</param>
+          <param name="listitemsortby1">lastplayed</param>
+          <param name="listitemcontent1">pvr://channels/radio/All channels/</param>
+        </include>
         <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.PVR.Shelf)  + [PVR.HasTVChannels | PVR.HasRadioChannels]">PVR.List</include>
         <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Hide.Weather.Shelf)  + !String.IsEmpty(Weather.Plugin)">Weather.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + !Skin.HasSetting(Shelf.Addons)">Addons.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Movies.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Movies.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Movies.Shelf) + !Skin.HasSetting(plexbmc) + [String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true) | String.IsEqual(Window(Home).Property(SkinWidgets_RandomItems),true)]">Recommended.And.Random.Movies.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.TVShows.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Episodes.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.TVShows.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Episodes.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Music.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.Albums.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.Music.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.Albums.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.MusicVideos.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_RecentItems),true)">Recent.MusicVideos.List</include>
-        <include condition="!Skin.HasSetting(Hide.RecentlyAdded)+ !Skin.HasSetting(Hide.MusicVideos.Shelf) + !Skin.HasSetting(plexbmc) + String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">Recommended.MusicVideos.List</include>
         <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + Skin.HasSetting(plexbmc)">Plexbmc_Shelf</include>
       </control>
     </definition>
@@ -267,370 +386,294 @@
     </control>
   </include>
 
-  <include name="AddonItem">
-    <param name="parentitemid" default=""/>
-    <param name="itemid" default=""/>
-    <param name="itemvisible" default=""/>
-    <param name="itemcontent" default=""/>
+  <include name="ShelfSubList">
+    <param name="itemid"/>
+    <param name="selectionlistid"/>
+    <param name="listitemtype"/>
+    <param name="listitemcontent"/>
+    <param name="listitemcontenttype"/>
+    <param name="listitemsortby"/>
+    <param name="listitemsortorder"/>
+    <param name="listitemtarget"/>
+    <param name="listiteminclude"/>
+    <param name="listitemlabel"/>
     <definition>
-      <control type="label" description="Header">
-        <visible>Control.IsVisible($PARAM[itemid])</visible>
-        <include>RecentlyAdded_Header</include>
-        <label>$INFO[Container($PARAM[itemid]).ListItem.Property(ItemType)]</label>
-      </control>
-      <control type="label" description="Label">
-        <visible>Control.HasFocus($PARAM[itemid])</visible>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-        <include>RecentlyAdded_Label</include>
-        <label>$INFO[Container($PARAM[itemid]).ListItem.Label]</label>
-      </control>
-      <control type="fixedlist" id="$PARAM[itemid]" description="Favourites">
-        <visible>$PARAM[itemvisible]</visible>
-        <visible>Container(300).HasFocus($PARAM[parentitemid])</visible>
-        <onright>$PARAM[itemid]</onright>
-        <onup>300</onup>
-        <ondown>300</ondown>
+      <control type="panel" id="$PARAM[selectionlistid]$PARAM[itemid]" description="Movies XBMC">
+        <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
+        <onright>$PARAM[selectionlistid]$PARAM[itemid]</onright>
+        <onup>$PARAM[selectionlistid]</onup>
+        <onback>300</onback>
         <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-        <onleft condition="!Skin.HasSetting(VerticalHome)">$PARAM[itemid]</onleft>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-        <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-        <include content="Shelf_Addons">
-          <param name="id1" value="$PARAM[itemid]"/>
+        <onleft condition="!Skin.HasSetting(VerticalHome)">$PARAM[selectionlistid]$PARAM[itemid]</onleft>
+        <ondown>300</ondown>
+        <left>16</left>
+        <top>43</top>
+        <width>1458</width>
+        <height>654</height>
+        <onleft>300</onleft>
+        <onback>300</onback>
+        <orientation>horizontal</orientation>  
+        <include content="$PARAM[listitemtype]">
+          <param name="id1" value="$PARAM[selectionlistid]$PARAM[itemid]"/>
+          <param name="id2" value="312"/>
+          <param name="offset" value="-162"/>
         </include>
-        <content>
-          <include>$PARAM[itemcontent]</include>
-        </content>
+        <include content="ShelfContentType_$PARAM[listitemcontenttype]">
+          <param name="listitemsortby">$PARAM[listitemsortby]</param>
+          <param name="listitemsortorder">$PARAM[listitemsortorder]</param>
+          <param name="listitemtarget">$PARAM[listitemtarget]</param>
+          <param name="listitemcontent">$PARAM[listitemcontent]</param>
+        </include>
+      </control>
+      <control type="label">
+        <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
+        <visible>Integer.IsEqual(Container($PARAM[selectionlistid]$PARAM[itemid]).NumItems,0)</visible>
+        <left>16</left>
+        <top>43</top>
+        <width>1458</width>
+        <height>654</height>
+        <label>No content found</label>
+        <font>MainMenuVertical</font>
+        <aligny>center</aligny>
+        <align>center</align>
+      </control>
+      <control type="label">
+        <visible>Control.HasFocus($PARAM[selectionlistid]$PARAM[itemid])</visible>
+        <width>1200</width>
+        <height>45</height>
+        <top>672</top>
+        <include content="$PARAM[listitemlabel]">
+          <param name="containerid">$PARAM[selectionlistid]$PARAM[itemid]</param>
+        </include>
+        <font>Shelf_Title</font>
+        <textcolor>Highlight</textcolor>
+        <aligny>center</aligny>
+        <textoffsetx>16</textoffsetx>
       </control>
     </definition>
   </include>
 
-  <include name="FavouriteItem">
-    <param name="parentitemid" default=""/>
-    <param name="itemid" default=""/>
-    <param name="itemvisible" default=""/>
-    <param name="itemcontent" default=""/>
+  <include name="ShelfContentType_Include">
+    <param name="listitemsortby"></param>
+    <param name="listitemsortorder"></param>
+    <param name="listitemtarget"></param>
+    <param name="listitemcontent"></param>
     <definition>
-      <control type="label" description="Header">
-        <visible>Control.IsVisible($PARAM[itemid])</visible>
-        <include>RecentlyAdded_Header</include>
-        <label>$INFO[Container($PARAM[itemid]).ListItem.Property(ItemType)]</label>
-      </control>
-      <control type="label" description="Label">
-        <visible>Control.HasFocus($PARAM[itemid])</visible>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-        <include>RecentlyAdded_Label</include>
-        <label>$INFO[Container($PARAM[itemid]).ListItem.Label]</label>
-      </control>
-      <control type="fixedlist" id="$PARAM[itemid]" description="Favourites">
-        <visible>$PARAM[itemvisible]</visible>
+      <content>
+        <include>$PARAM[listitemcontent]</include>
+      </content>
+    </definition>
+  </include>
+
+  <include name="ShelfContentType_Path">
+    <param name="listitemsortby"></param>
+    <param name="listitemsortorder"></param>
+    <param name="listitemtarget"></param>
+    <param name="listitemcontent"></param>
+    <definition>
+      <content sortby="$PARAM[listitemsortby]" sortorder="$PARAM[listitemsortorder]" target="$PARAM[listitemtarget]">$PARAM[listitemcontent]</content>
+    </definition>
+  </include>
+
+  <include name="ShelfList">
+    <param name="parentitemid"/>
+    <param name="shelfvisible"/>
+    <param name="selectionlistid"/>
+    <param name="selectionlistlabel1"/>
+    <param name="selectionlistlabel2"/>
+    <param name="selectionlistlabel3"/>
+    <param name="selectionlistlabel4"/>
+    <param name="selectionlistlabel5"/>
+    <param name="selectionlistvisible1">false</param>
+    <param name="selectionlistvisible2">false</param>
+    <param name="selectionlistvisible3">false</param>
+    <param name="selectionlistvisible4">false</param>
+    <param name="selectionlistvisible5">false</param>
+    <param name="listitemtype1"/>
+    <param name="listitemtype2"/>
+    <param name="listitemtype3"/>
+    <param name="listitemtype4"/>
+    <param name="listitemtype5"/>
+    <param name="listitemlabel1"/>
+    <param name="listitemlabel2"/>
+    <param name="listitemlabel3"/>
+    <param name="listitemlabel4"/>
+    <param name="listitemlabel5"/>
+    <param name="listitemcontent1"/>
+    <param name="listitemcontent2"/>
+    <param name="listitemcontent3"/>
+    <param name="listitemcontent4"/>
+    <param name="listitemcontent5"/>
+    <param name="listitemcontenttype1">Path</param>
+    <param name="listitemcontenttype2">Path</param>
+    <param name="listitemcontenttype3">Path</param>
+    <param name="listitemcontenttype4">Path</param>>
+    <param name="listitemcontenttype5">Path</param>
+    <param name="listitemsortby1"/>
+    <param name="listitemsortby2"/>
+    <param name="listitemsortby3"/>
+    <param name="listitemsortby4"/>
+    <param name="listitemsortby5"/>
+    <param name="listitemsortorder1">descending</param>
+    <param name="listitemsortorder2">descending</param>
+    <param name="listitemsortorder3">descending</param>
+    <param name="listitemsortorder4">descending</param>
+    <param name="listitemsortorder5">descending</param>
+    <param name="listitemtarget1">video</param>
+    <param name="listitemtarget2">video</param>
+    <param name="listitemtarget3">video</param>
+    <param name="listitemtarget4">video</param>
+    <param name="listitemtarget5">video</param>
+    <definition>
+      <control type="group">
+        <posx>430</posx>
+        <posy>183</posy>
         <visible>Container(300).HasFocus($PARAM[parentitemid])</visible>
-        <onright>$PARAM[itemid]</onright>
-        <onup>300</onup>
-        <ondown>300</ondown>
-        <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-        <onleft condition="!Skin.HasSetting(VerticalHome)">$PARAM[itemid]</onleft>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-        <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-        <include content="Shelf_Favourites">
-          <param name="id1" value="$PARAM[itemid]"/>
-        </include>
-        <content>
-          <include>$PARAM[itemcontent]</include>
-        </content>
+        <visible>Integer.IsGreater(Container($PARAM[selectionlistid]).NumItems,0)</visible>
+        <visible>$PARAM[shelfvisible]</visible>
+        <control type="image">
+          <width>1490</width>
+          <height>716</height>
+          <texture border="392,40,0,40">home/ShelfBackground.png</texture>
+        </control>
+        <control type="fixedlist" id="$PARAM[selectionlistid]" description="Selection List">
+          <top>-12</top>
+          <height>45</height>
+          <width>1400</width>
+          <onup>300</onup>
+          <ondown>$PARAM[selectionlistid]6</ondown>
+          <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+          <onleft condition="!Skin.HasSetting(VerticalHome)">$PARAM[selectionlistid]</onleft>
+          <onright>$PARAM[selectionlistid]</onright>
+          <onback>300</onback>
+          <orientation>horizontal</orientation>
+          <itemlayout height="45" width="390">
+            <control type="label">
+              <label>$INFO[ListItem.Label]</label>
+              <textoffsetx>16</textoffsetx>
+              <font>Shelf_Title</font> 
+              <aligny>center</aligny>
+              <textcolor>Grey3</textcolor>         
+            </control>
+          </itemlayout>
+          <focusedlayout height="45" width="390">
+            <control type="label">
+              <visible>control.hasfocus($PARAM[selectionlistid])</visible>
+              <label>$INFO[ListItem.Label]</label>
+              <font>Shelf_Title</font>
+              <textcolor>Highlight</textcolor>          
+              <aligny>center</aligny>         
+              <textoffsetx>16</textoffsetx>
+            </control>
+            <control type="label">
+              <visible>!control.hasfocus($PARAM[selectionlistid])</visible>
+              <label>$INFO[ListItem.Label]</label>
+              <font>Shelf_Title</font>
+              <textcolor>Grey2</textcolor>          
+              <aligny>center</aligny>         
+              <textoffsetx>16</textoffsetx>
+            </control>
+          </focusedlayout>
+          <content>
+            <item id="1">
+              <visible>$PARAM[selectionlistvisible1]</visible>
+              <label>$PARAM[selectionlistlabel1]</label>
+              <onclick>noop</onclick>
+            </item>
+            <item id="2">
+              <visible>$PARAM[selectionlistvisible2]</visible>
+              <label>$PARAM[selectionlistlabel2]</label>
+              <onclick>noop</onclick>
+            </item>
+            <item id="3">
+              <visible>$PARAM[selectionlistvisible3]</visible>
+              <label>$PARAM[selectionlistlabel3]</label>
+              <onclick>noop</onclick>
+            </item>
+            <item id="4">
+              <visible>$PARAM[selectionlistvisible4]</visible>
+              <label>$PARAM[selectionlistlabel4]</label>
+              <onclick>noop</onclick>
+            </item>
+            <item id="5">
+              <visible>$PARAM[selectionlistvisible5]</visible>
+              <label>$PARAM[selectionlistlabel5]</label>
+              <onclick>noop</onclick>
+            </item>
+          </content>
+        </control>
+        <control type="group" id="$PARAM[selectionlistid]6">
+
+          <include content="ShelfSubList">
+            <param name="itemid">1</param>
+            <param name="selectionlistid">$PARAM[selectionlistid]</param>
+            <param name="listitemtype">$PARAM[listitemtype1]</param>
+            <param name="listitemcontent">$PARAM[listitemcontent1]</param>
+            <param name="listitemcontenttype">$PARAM[listitemcontenttype1]</param>
+            <param name="listitemsortby">$PARAM[listitemsortby1]</param>
+            <param name="listitemsortorder">$PARAM[listitemsortorder1]</param>
+            <param name="listitemtarget">$PARAM[listitemtarget1]</param>
+            <param name="listitemlabel">$PARAM[listitemlabel1]</param>
+          </include>
+
+          <include content="ShelfSubList">
+            <param name="itemid">2</param>
+            <param name="selectionlistid">$PARAM[selectionlistid]</param>
+            <param name="listitemtype">$PARAM[listitemtype2]</param>
+            <param name="listitemcontent">$PARAM[listitemcontent2]</param>
+            <param name="listitemcontenttype">$PARAM[listitemcontenttype2]</param>
+            <param name="listitemsortby">$PARAM[listitemsortby2]</param>
+            <param name="listitemsortorder">$PARAM[listitemsortorder2]</param>
+            <param name="listitemtarget">$PARAM[listitemtarget2]</param>
+            <param name="listitemlabel">$PARAM[listitemlabel2]</param>
+          </include>
+
+          <include content="ShelfSubList">
+            <param name="itemid">3</param>
+            <param name="selectionlistid">$PARAM[selectionlistid]</param>
+            <param name="listitemtype">$PARAM[listitemtype3]</param>
+            <param name="listitemcontent">$PARAM[listitemcontent3]</param>
+            <param name="listitemcontenttype">$PARAM[listitemcontenttype3]</param>
+            <param name="listitemsortby">$PARAM[listitemsortby3]</param>
+            <param name="listitemsortorder">$PARAM[listitemsortorder3]</param>
+            <param name="listitemtarget">$PARAM[listitemtarget3]</param>
+            <param name="listitemlabel">$PARAM[listitemlabel3]</param>
+          </include>
+
+          <include content="ShelfSubList">
+            <param name="itemid">4</param>
+            <param name="selectionlistid">$PARAM[selectionlistid]</param>
+            <param name="listitemtype">$PARAM[listitemtype4]</param>
+            <param name="listitemcontent">$PARAM[listitemcontent4]</param>
+            <param name="listitemcontenttype">$PARAM[listitemcontenttype4]</param>
+            <param name="listitemsortby">$PARAM[listitemsortby4]</param>
+            <param name="listitemsortorder">$PARAM[listitemsortorder4]</param>
+            <param name="listitemtarget">$PARAM[listitemtarget4]</param>
+            <param name="listitemlabel">$PARAM[listitemlabel4]</param>
+          </include>
+
+          <include content="ShelfSubList">
+            <param name="itemid">5</param>
+            <param name="selectionlistid">$PARAM[selectionlistid]</param>
+            <param name="listitemtype">$PARAM[listitemtype5]</param>
+            <param name="listitemcontent">$PARAM[listitemcontent5]</param>
+            <param name="listitemcontenttype">$PARAM[listitemcontenttype5]</param>
+            <param name="listitemsortby">$PARAM[listitemsortby5]</param>
+            <param name="listitemsortorder">$PARAM[listitemsortorder5]</param>
+            <param name="listitemtarget">$PARAM[listitemtarget5]</param>
+           <param name="listitemlabel">$PARAM[listitemlabel5]</param>
+          </include>
+
+        </control>
       </control>
     </definition>
   </include>
 
-  <include name="Favourite.List">
-    <include content="FavouriteItem">
-      <param name="parentitemid" value="7"/>
-      <param name="itemid" value="111"/>
-      <param name="itemvisible" value="!String.IsEmpty(Window(Home).Property(favourite.1.path))"/>
-      <param name="itemcontent" value="FavouriteContent"/>
-    </include>
-  </include>
-
-  <include name="Addons.List">
-    <include content="AddonItem">
-      <param name="parentitemid" value="2"/>
-      <param name="itemid" value="211"/>
-      <param name="itemvisible" value="!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) | !String.IsEmpty(Skin.String(ShelfAddons.5.Label))"/>
-      <param name="itemcontent" value="AddonContent"/>
-    </include>
-  </include>
-
-  <include name="Recent.Movies.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(311)</visible>
-      <include>RecentlyAdded_Header</include>
-      <label>$INFO[Container(311).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(311)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>RecentlyAdded_Label</include>
-      <label>$INFO[Container(311).ListItem.Label]</label>
-    </control>
-    <control type="fixedlist" id="311" description="Movies XBMC">
-      <visible>!String.IsEmpty(Window(Home).Property(RecentMovie.1.Title))</visible>
-      <visible>Container(300).HasFocus(4)</visible>
-      <onright>311</onright>
-      <onup>300</onup>
-      <onback>300</onback>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">311</onleft>
-      <ondown condition="Control.IsVisible(312)">312</ondown>
-      <ondown condition="!Control.IsVisible(312)">300</ondown>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Posters">
-        <param name="id1" value="311"/>
-        <param name="id2" value="312"/>
-        <param name="offset" value="-162"/>
-      </include>
-      <content>
-        <include>RecentMovieContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recommended.And.Random.Movies.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(312)</visible>
-      <include>Recommended_Header</include>
-      <label>$INFO[Container(312).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(312)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>Recommended_Label</include>
-      <label>$INFO[Container(312).ListItem.Label]</label>
-    </control>
-    <control type="fixedlist" id="312" description="TOP Shortcuts">
-      <visible>![String.IsEmpty(Window(Home).Property(RecommendedMovie.1.Title)) + String.IsEmpty(Window(Home).Property(RandomMovie.1.Title))]</visible>
-      <visible>Container(300).HasFocus(4)</visible>
-      <onright>312</onright>
-      <onup condition="Control.IsVisible(311)">311</onup>
-      <onup condition="!Control.IsVisible(311)">300</onup>
-      <ondown>300</ondown>
-      <onback>300</onback>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">312</onleft>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Posters">
-        <param name="id1" value="312"/>
-        <param name="id2" value="311"/>
-        <param name="offset" value="162"/>
-      </include>
-      <content>
-        <include condition="String.IsEqual(Window(Home).Property(SkinWidgets_Recommended),true)">RecommendedMovieContent</include>
-        <include condition="String.IsEqual(Window(Home).Property(SkinWidgets_RandomItems),true)">RandomMovieContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recent.MusicVideos.List">
-    <control type="label" description="Header recent MusicVideos">
-      <visible>Control.IsVisible(514)</visible>
-      <include>RecentlyAdded_Header</include>
-      <label>$INFO[Container(514).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(514)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>RecentlyAdded_Label</include>
-      <label>$INFO[Container(514).ListItem.Property(ShelfLabel)]</label>
-    </control>
-    <control type="fixedlist" id="514" description="Recent MusicVideos">
-      <visible>!String.IsEmpty(Window(Home).Property(RecentMusicVideo.1.Title))</visible>
-      <visible>Container(300).HasFocus(14)</visible>
-      <onright>514</onright>
-      <onup>300</onup>
-      <onback>300</onback>
-      <ondown condition="Control.IsVisible(515)">515</ondown>
-      <ondown condition="!Control.IsVisible(515)">300</ondown>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">514</onleft>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Albums">
-        <param name="id1" value="514"/>
-        <param name="id2" value="515"/>
-        <param name="offset" value="-162"/>
-      </include>
-      <content>
-        <include>RecentMusicVideoContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recommended.MusicVideos.List">
-    <control type="label" description="Header recommended MusicVideos">
-      <visible>Control.IsVisible(515)</visible>
-      <include>Recommended_Header</include>
-      <label>$INFO[Container(515).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(515)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>Recommended_Label</include>
-      <label>$INFO[Container(515).ListItem.Property(ShelfLabel)]</label>
-    </control>
-    <control type="fixedlist" id="515" description="Recommended MusicVideos">
-      <visible>!String.IsEmpty(Window(Home).Property(RecommendedMusicVideo.1.Title))</visible>
-      <visible>Container(300).HasFocus(14)</visible>
-      <onright>515</onright>
-      <onup condition="Control.IsVisible(514)">514</onup>
-      <onup condition="!Control.IsVisible(514)">300</onup>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">515</onleft>
-      <ondown>300</ondown>
-      <onback>300</onback>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Albums">
-        <param name="id1" value="515"/>
-        <param name="id2" value="514"/>
-        <param name="offset" value="162"/>
-      </include>
-      <content>
-        <include>RecommendedMusicVideoContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recent.Episodes.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(411)</visible>
-      <include>RecentlyAdded_Header</include>
-      <label>$INFO[Container(411).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(411)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>RecentlyAdded_Label</include>
-      <label>$INFO[Container(411).ListItem.Label]</label>
-    </control>
-    <control type="fixedlist" id="411" description="TV Shows XBMC">
-      <visible>!String.IsEmpty(Window(Home).Property(RecentEpisode.1.Title))</visible>
-      <visible>Container(300).HasFocus(5)</visible>
-      <onright>411</onright>
-      <onup>300</onup>
-      <onback>300</onback>
-      <ondown condition="Control.IsVisible(413)">413</ondown>
-      <ondown condition="!Control.IsVisible(413)">300</ondown>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">411</onleft>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Episodes">
-        <param name="id1" value="411"/>
-        <param name="id2" value="413"/>
-        <param name="offset" value="-162"/>
-      </include>
-      <content>
-        <include>RecentEpisodeContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recommended.Episodes.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(413)</visible>
-      <include>Recommended_Header</include>
-      <label>$INFO[Container(413).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(413)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>Recommended_Label</include>
-      <label>$INFO[Container(413).ListItem.Label2,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container(413).ListItem.Label]</label>
-    </control>
-    <control type="fixedlist" id="413" description="TV Shows XBMC Widgets">
-      <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.1.Title))</visible>
-      <visible>Container(300).HasFocus(5)</visible>
-      <onright>413</onright>
-      <onup condition="Control.IsVisible(411)">411</onup>
-      <onup condition="!Control.IsVisible(411)">300</onup>
-      <ondown>300</ondown>
-      <onback>300</onback>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">413</onleft>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Episodes">
-        <param name="id1" value="413"/>
-        <param name="id2" value="411"/>
-        <param name="offset" value="162"/>
-      </include>     
-      <content>
-        <include>RecommendedEpisodeContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recent.Albums.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(511)</visible>
-      <include>RecentlyAdded_Header</include>
-      <label>$INFO[Container(511).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(511)</visible>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>RecentlyAdded_Label</include>
-      <label>$INFO[Container(511).ListItem.Property(ShelfLabel)]</label>
-    </control>
-    <control type="fixedlist" id="511" description="TOP Shortcuts">
-      <visible>!String.IsEmpty(Window(Home).Property(RecentAlbum.1.Title))</visible>
-      <visible>Container(300).HasFocus(6)</visible>
-      <onright>511</onright>
-      <onup>300</onup>
-      <onback>300</onback>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">511</onleft>
-      <ondown condition="Control.IsVisible(513)">513</ondown>
-      <ondown condition="!Control.IsVisible(513)">300</ondown>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Albums">
-        <param name="id1" value="511"/>
-        <param name="id2" value="513"/>
-        <param name="offset" value="-162"/>
-      </include>
-      <content>
-        <include>RecentAlbumContent</include>
-      </content>
-    </control>
-  </include>
-  <include name="Recommended.Albums.List">
-    <control type="label" description="Header">
-      <visible>Control.IsVisible(513)</visible>
-      <include>Recommended_Header</include>
-      <label>$INFO[Container(513).ListItem.Property(ItemType)]</label>
-    </control>
-    <control type="label" description="Label">
-      <visible>Control.HasFocus(513)</visible>
-        <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Label_Commons</include>
-      <include>Recommended_Label</include>
-      <label>$INFO[Container(513).ListItem.Property(ShelfLabel)]</label>
-    </control>
-    <control type="fixedlist" id="513" description="TOP Shortcuts">
-      <visible>![Skin.HasSetting(Hide.RecentlyAdded) | String.IsEmpty(Window(Home).Property(RecommendedAlbum.1.Title))]</visible>
-      <visible>Container(300).HasFocus(6)</visible>
-      <onright>513</onright>
-      <onup condition="Control.IsVisible(511)">511</onup>
-      <onup condition="!Control.IsVisible(511)">300</onup>
-      <ondown>300</ondown>
-      <onback>300</onback>
-      <onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
-      <onleft condition="!Skin.HasSetting(VerticalHome)">513</onleft>
-      <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Shelf_Commons</include>
-      <include condition="Skin.HasSetting(VerticalHome)">Vertical_Shelf_Commons</include>
-      <include content="Shelf_Albums">
-        <param name="id1" value="513"/>
-        <param name="id2" value="511"/>
-        <param name="offset" value="162"/>
-      </include>
-      <content>
-        <include>RecommendedAlbumContent</include>
-      </content>
-    </control>
+  <include name="MoviesLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Year, (,)][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Duration, • , $LOCALIZE[12391]]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
+    </definition>
   </include>
 
   <include name="FavouriteContentItem">
@@ -640,7 +683,6 @@
         <visible>!String.IsEmpty(Window(Home).Property(favourite.$PARAM[itemid].path))</visible>
         <label>$INFO[Window(Home).Property(favourite.$PARAM[itemid].name)]</label>
         <thumb>$INFO[Window(Home).Property(favourite.$PARAM[itemid].thumb)]</thumb>
-        <property name="ItemType">$LOCALIZE[1036]</property>
         <onclick>$INFO[Window(Home).Property(favourite.$PARAM[itemid].path)]</onclick>
       </item>
     </definition>
@@ -685,7 +727,6 @@
         <visible>!String.IsEmpty(Skin.String(ShelfAddons.$PARAM[itemid].Label))</visible>
         <label>$INFO[system.addontitle(Skin.String(ShelfAddons.$PARAM[itemid].Label))]</label>
         <thumb>$INFO[system.addonicon(Skin.String(ShelfAddons.$PARAM[itemid].Label))]</thumb>
-        <property name="ItemType">$LOCALIZE[24001]</property>
         <onclick>RunAddon($INFO[Skin.String(ShelfAddons.$PARAM[itemid].Label)])</onclick>
       </item>
     </definition>
@@ -719,443 +760,6 @@
       <param name="itemid" value="9"/>
     </include>
     <include content="AddonContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecentMovieContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecentMovie.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Year), • ]$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Runtime), • , $LOCALIZE[12391]]$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Rating), • ][/COLOR]</label>
-        <property name="Widgets">true</property>
-        <property name="InProgress">$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Resume)]</property>
-        <property name="Watched">$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Watched)]</property>
-        <property name="FanArt">$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Art(fanart))]</property>
-        <thumb>$INFO[Window(Home).Property(RecentMovie.$PARAM[itemid].Art(poster))]</thumb>
-        <property name="ItemType">$LOCALIZE[31961]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecentMovie.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecentMovieContent">
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecentMovieContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecommendedMovieContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecommendedMovie.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Year), • ]$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Runtime), • , $LOCALIZE[12391]]$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Rating), • ][/COLOR]</label>
-        <property name="Widgets">true</property>
-        <property name="InProgress">$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Resume)]</property>
-        <property name="Watched">$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Watched)]</property>
-        <property name="FanArt">$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Art(fanart))]</property>
-        <thumb>$INFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].Art(poster))]</thumb>
-        <property name="ItemType">$LOCALIZE[31966]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedMovie.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecommendedMovieContent">
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecommendedMovieContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RandomMovieContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RandomMovie.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Year), • ]$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Runtime), • , $LOCALIZE[12391]]$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Rating), • ][/COLOR]</label>
-        <property name="Widgets">true</property>
-        <property name="InProgress">$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Resume)]</property>
-        <property name="Watched">$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Watched)]</property>
-        <property name="FanArt">$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Art(fanart))]</property>
-        <thumb>$INFO[Window(Home).Property(RandomMovie.$PARAM[itemid].Art(poster))]</thumb>
-        <property name="ItemType">$LOCALIZE[31987]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RandomMovie.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RandomMovieContent">
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RandomMovieContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-   <include name="RecentEpisodeContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecentEpisode.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].TVshowTitle), • ]$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].EpisodeNo), • ]$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].Runtime), • , $LOCALIZE[12391]][/COLOR]</label>
-        <property name="SeasonEpisode">$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].EpisodeNo)]</property>
-        <property name="FanArt">$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].Art(tvshow.fanart))]</property>
-        <thumb>$INFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].Art(tvshow.poster))]</thumb>
-        <property name="ItemType">$LOCALIZE[31961]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecentEpisode.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecentEpisodeContent">
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecentEpisodeContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecommendedEpisodeContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].TVshowTitle), • ]$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].EpisodeNo), • ]$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].Runtime), • , $LOCALIZE[12391]][/COLOR]</label>
-        <property name="SeasonEpisode">$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].EpisodeNo)]</property>
-        <property name="FanArt">$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].Art(tvshow.fanart))]</property>
-        <thumb>$INFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].Art(tvshow.poster))]</thumb>
-        <property name="ItemType">$LOCALIZE[31966]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecommendedEpisodeContent">
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecommendedEpisodeContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecentAlbumContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecentAlbum.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Artist)]</label>
-        <label2>$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Title)]</label2>
-        <thumb>$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Thumb)]</thumb>
-        <property name="FanArt">$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Fanart)]</property>
-        <property name="ShelfLabel">$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Artist), • ]$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Year), • ][/COLOR]</property>
-        <property name="ItemType">$LOCALIZE[31961]</property>
-        <onclick>PlayList.Clear</onclick>
-        <onclick>$INFO[Window(Home).Property(RecentAlbum.$PARAM[itemid].Play)]</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecentAlbumContent">
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecentAlbumContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecommendedAlbumContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Artist)]</label>
-        <label2>$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Title)]</label2>
-        <thumb>$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Thumb)]</thumb>
-        <property name="FanArt">$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Fanart)]</property>
-        <property name="ShelfLabel">$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Artist), • ]$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Year), • ][/COLOR]</property>
-        <property name="ItemType">$LOCALIZE[31966]</property>
-        <onclick>PlayList.Clear</onclick>
-        <onclick>$INFO[Window(Home).Property(RecommendedAlbum.$PARAM[itemid].Play)]</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecommendedAlbumContent">
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecommendedAlbumContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecentMusicVideoContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-        <visible>!String.IsEmpty(Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Artist)]</label>
-        <label2>$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Title)]</label2>
-        <thumb>$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Thumb)]</thumb>
-        <property name="FanArt">$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Fanart)]</property>
-        <property name="ShelfLabel">$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Artist), • ]$INFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].Year), • ][/COLOR]</property>      
-        <property name="ItemType">$LOCALIZE[31961]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecentMusicVideo.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecentMusicVideoContent">
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecentMusicVideoContentItem">
-      <param name="itemid" value="10"/>
-    </include>
-  </include>
-
-  <include name="RecommendedMusicVideoContentItem">
-    <param name="itemid" default=""/>
-    <definition>
-      <item id="$PARAM[itemid]">
-      <visible>!String.IsEmpty(Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Title))</visible>
-        <label>$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Artist)]</label>
-        <label2>$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Title)]</label2>
-        <thumb>$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Thumb)]</thumb>
-        <property name="FanArt">$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Fanart)]</property>
-        <property name="ShelfLabel">$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Title)][COLOR=White]$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Artist), • ]$INFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].Year), • ][/COLOR]</property>      
-        <property name="ItemType">$LOCALIZE[31961]</property>
-        <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].File)])</onclick>
-      <property name="ItemType">$LOCALIZE[31966]</property>
-      <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedMusicVideo.$PARAM[itemid].File)])</onclick>
-      </item>
-    </definition>
-  </include>
-  <include name="RecommendedMusicVideoContent">
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="1"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="2"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="3"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="4"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="5"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="6"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="7"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="8"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
-      <param name="itemid" value="9"/>
-    </include>
-    <include content="RecommendedMusicVideoContentItem">
       <param name="itemid" value="10"/>
     </include>
   </include>
@@ -1308,4 +912,42 @@
       </focusedlayout> 
     </definition>
   </include>
+ 
+  <include name="Shelf_Channel">
+    <param name="id1"/>
+    <definition>
+      <include>VisibleFadeEffectDelayShelf</include>
+      <itemlayout height="315" width="228.5">
+        <include content="GenericChannel">
+          <param name="size">Shelf</param>
+        </include>
+      </itemlayout>
+      <focusedlayout height="315" width="228.5">
+        <include content="GenericChannel">
+          <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
+          <param name="size">Shelf</param>
+        </include>
+      </focusedlayout> 
+    </definition>
+  </include>
+
+  <include name="Shelf_Recording">
+    <param name="id1"/>
+    <definition>
+      <include>VisibleFadeEffectDelayShelf</include>
+      <itemlayout height="315" width="228.5">
+        <include content="GenericRecording">
+          <param name="size">Shelf</param>
+        </include>
+      </itemlayout>
+      <focusedlayout height="315" width="228.5">
+        <include content="GenericRecording">
+          <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
+          <param name="size">Shelf</param>
+        </include>
+      </focusedlayout> 
+    </definition>
+  </include>
+
+
 </includes>

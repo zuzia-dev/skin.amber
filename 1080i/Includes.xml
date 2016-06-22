@@ -817,13 +817,13 @@
       <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.8.Background)]</thumb>
       <onclick>$INFO[Skin.String(CustomHome.8.Path)]</onclick>
     </item>
-    <item id="300" description="Live TV">
+    <item id="12" description="Live TV">
       <visible>PVR.HasTVChannels</visible>
       <label>$LOCALIZE[31500]</label>
       <thumb>$VAR[Pvr.Art]</thumb>
       <onclick>$VAR[TVEntryPoint]</onclick>
     </item>
-    <item id="301" description="Live Radio">
+    <item id="13" description="Live Radio">
       <visible>PVR.HasRadioChannels</visible>
       <label>$LOCALIZE[31509]</label>
       <thumb>$VAR[Radio.Art]</thumb>
@@ -985,40 +985,40 @@
       <onclick>ActivateWindow(Music,top100,return)</onclick>
     </item>
     <item id="100" description="TV/Radio Channels">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[19019]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVChannels)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioChannels)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVChannels)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioChannels)</onclick>
     </item>
     <item id="101" description="TV/Radio Timeline">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[22020]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVGuide)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioGuide)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVGuide)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioGuide)</onclick>
     </item>
     <item id="102" description="TV/Radio Recordings">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[19163]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVRecordings)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioRecordings)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVRecordings)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioRecordings)</onclick>
     </item>
     <item id="103" description="TV/Radio Timer Rules">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[19138]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVTimerRules)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioTimerRules)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVTimerRules)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioTimerRules)</onclick>
     </item>    
     <item id="104" description="TV/Radio Timers">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[19040]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVTimers)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioTimers)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVTimers)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioTimers)</onclick>
     </item>
     <item id="105" description="TV/Radio Search">
-      <visible>Container(300).HasFocus(300) | Container(300).HasFocus(301)</visible>
+      <visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
       <label>$LOCALIZE[137]</label>
-      <onclick condition="Container(300).HasFocus(300)">ActivateWindow(TVSearch)</onclick>      
-      <onclick condition="Container(300).HasFocus(301)">ActivateWindow(RadioSearch)</onclick>
+      <onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVSearch)</onclick>      
+      <onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioSearch)</onclick>
     </item>
     <item id="6" description="Playlists">
       <visible>Container(300).HasFocus(3) | Container(300).HasFocus(4) | Container(300).HasFocus(5) | Container(300).HasFocus(6) | Container(300).HasFocus(14)</visible>
@@ -2344,6 +2344,10 @@
     <param name="belowlabel"></param>
     <param name="belowlabelvisibility">false</param>
     <param name="belowlabelalign">center</param>
+    <param name="belowdoublelabel1"></param>
+    <param name="belowdoublelabel2"></param>
+    <param name="belowdoublelabelvisibility">false</param>
+    <param name="belowdoublelabelalign">center</param>
     <param name="belowtextbox"></param>
     <param name="belowtextboxvisibility">false</param>
     <param name="belowtextboxalign">center</param>
@@ -2396,6 +2400,17 @@
           <param name="labelvisibility">$PARAM[belowlabelvisibility]</param>
           <param name="labeltext">$PARAM[belowlabel]</param>
           <param name="labelalign">$PARAM[belowlabelalign]</param>
+          <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeLT],0</param>
+        </include>
+        <include content="GenericBelowDoubleLabelTemplate">
+          <param name="isFocused">$PARAM[isFocused]</param>
+          <param name="yoffset">-8r</param>
+          <param name="xoffset">0</param>
+          <param name="labelwidth">$PARAM[iconwidth]</param>
+          <param name="labelvisibility">$PARAM[belowdoublelabelvisibility]</param>
+          <param name="labeltext1">$PARAM[belowdoublelabel1]</param>
+          <param name="labeltext2">$PARAM[belowdoublelabel2]</param>
+          <param name="labelalign">$PARAM[belowdoublelabelalign]</param>
           <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeLT],0</param>
         </include>
         <include content="GenericBelowTextboxTemplate">
@@ -2565,6 +2580,44 @@
     </definition>
   </include>
 
+  <include name="GenericChannelIconShelf">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">228</param>
+        <param name="iconheight">228</param>
+        <param name="aspect">keep</param>
+        <param name="iconoffset">0</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+        <param name="belowdoublelabelvisibility">true</param>
+        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+        <param name="belowdoublelabel2">$INFO[ListItem.Title]</param>
+      </include>
+    </definition>
+  </include>
+
+  <include name="GenericRecordingIconShelf">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">228</param>
+        <param name="iconheight">228</param>
+        <param name="aspect">keep</param>
+        <param name="iconoffset">0</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+        <param name="belowdoublelabelvisibility">true</param>
+        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+        <param name="belowdoublelabel2">$INFO[ListItem.Date]</param>
+      </include>
+    </definition>
+  </include>
+
   <include name="GenericMusicIconBig">
     <param name="isFocused">false</param>
     <definition>
@@ -2663,6 +2716,7 @@
         <param name="iconwidth">228</param>
         <param name="iconheight">315</param>
         <param name="iconoffset">0</param>
+        <param name="iconimage">$VAR[Poster]</param>
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
         <param name="bordersizeRB">20</param>
@@ -2784,7 +2838,7 @@
           <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <textoffsetx>32</textoffsetx>
+          <textoffsetx>24</textoffsetx>
           <font>shelf_label</font>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
@@ -2795,7 +2849,7 @@
           <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <textoffsetx>32</textoffsetx>
+          <textoffsetx>24</textoffsetx>
           <font>shelf_label</font>
           <textcolor>Highlight</textcolor>
           <label>$PARAM[labeltext]</label>
@@ -2846,8 +2900,8 @@
           <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <textoffsetx>32</textoffsetx>
           <font>shelf_label</font>
+          <textoffsetx>24</textoffsetx>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
           <scroll>false</scroll>
@@ -2857,8 +2911,8 @@
           <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <textoffsetx>32</textoffsetx>
           <font>shelf_label</font>
+          <textoffsetx>24</textoffsetx>
           <textcolor>Black</textcolor>
           <shadowcolor></shadowcolor>
           <label>$PARAM[labeltext]</label>
@@ -2935,6 +2989,97 @@
     </definition>
   </include>
 
+  <include name="GenericBelowDoubleLabelTemplate">
+    <param name="isFocused">false</param>
+    <param name="yoffset"/>
+    <param name="xoffset"/>
+    <param name="labelwidth"/>
+    <param name="labelvisibility">false</param>
+    <param name="labeltext1"/>
+    <param name="labeltext2"/>
+    <param name="labelalign">center</param>
+    <param name="textboxwidth"/>
+    <param name="bordersize"/>
+    <definition>
+      <control type="group">
+        <visible>$PARAM[labelvisibility]</visible>
+        <top>$PARAM[yoffset]</top>
+        <left>$PARAM[xoffset]</left>
+        <control type="image">
+          <visible>!$PARAM[isFocused]</visible>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>$PARAM[labelwidth]</width>
+          <height>74</height>
+          <texture>img/WhiteRoundedT.png</texture>
+          <bordersize>$PARAM[bordersize]</bordersize>
+          <aspectratio>stretch</aspectratio>
+        </control>
+        <control type="image">
+          <visible>$PARAM[isFocused]</visible>
+          <posx>0</posx>
+          <posy>0</posy>
+          <width>$PARAM[labelwidth]</width>
+          <height>74</height>
+          <texture>img/WhiteRoundedST2.png</texture>
+          <colordiffuse>Highlight</colordiffuse>
+          <bordersize>$PARAM[bordersize]</bordersize>
+          <aspectratio>stretch</aspectratio>
+        </control>
+        <control type="label">
+          <visible>!$PARAM[isFocused]</visible>
+          <left>0</left>
+          <width>$PARAM[labelwidth]</width>
+          <height>35</height>
+          <font>shelf_label</font>
+          <textoffsetx>24</textoffsetx>
+          <label>$PARAM[labeltext1]</label>
+          <align>$PARAM[labelalign]</align>
+          <scroll>false</scroll>
+        </control>
+        <control type="label">
+          <visible>!$PARAM[isFocused]</visible>
+          <left>0</left>
+          <top>34</top>
+          <width>$PARAM[labelwidth]</width>
+          <height>35</height>
+          <textoffsetx>24</textoffsetx>
+          <font>shelf_label</font>
+          <label>$PARAM[labeltext2]</label>
+          <align>$PARAM[labelalign]</align>
+          <scroll>false</scroll>
+        </control>
+        <control type="label">
+          <visible>$PARAM[isFocused]</visible>
+          <left>0</left>
+          <width>$PARAM[labelwidth]</width>
+          <height>35</height>
+          <font>shelf_label</font>
+          <textoffsetx>24</textoffsetx>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
+          <label>$PARAM[labeltext1]</label>
+          <align>$PARAM[labelalign]</align>
+          <scrollspeed>25</scrollspeed>
+        </control>
+        <control type="label">
+          <visible>$PARAM[isFocused]</visible>
+          <left>0</left>
+          <top>34</top>
+          <width>$PARAM[labelwidth]</width>
+          <height>35</height>
+          <font>shelf_label</font>
+          <textoffsetx>24</textoffsetx>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
+          <label>$PARAM[labeltext2]</label>
+          <align>$PARAM[labelalign]</align>
+          <scrollspeed>25</scrollspeed>
+        </control>
+      </control>
+    </definition>
+  </include>
+
   <include name="GenericLabel">
     <param name="isFocused">false</param>
     <definition>
@@ -2969,6 +3114,26 @@
     <param name="size">Big</param>
     <definition>
       <include content="GenericFavouriteIcon$PARAM[size]">
+        <param name="isFocused">$PARAM[isFocused]</param>
+      </include>
+    </definition>
+  </include>
+
+  <include name="GenericChannel">
+    <param name="isFocused">false</param>
+    <param name="size">Big</param>
+    <definition>
+      <include content="GenericChannelIcon$PARAM[size]">
+        <param name="isFocused">$PARAM[isFocused]</param>
+      </include>
+    </definition>
+  </include>
+
+  <include name="GenericRecording">
+    <param name="isFocused">false</param>
+    <param name="size">Big</param>
+    <definition>
+      <include content="GenericRecordingIcon$PARAM[size]">
         <param name="isFocused">$PARAM[isFocused]</param>
       </include>
     </definition>
