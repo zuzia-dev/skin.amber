@@ -55,6 +55,10 @@
           <param name="listitemcontent3">addons://sources/audio/</param>
           <param name="listitemcontent4">addons://sources/image/</param>
           <param name="listitemcontent5">addons://sources/executable/</param>
+          <param name="listitemtarget2">programs</param>
+          <param name="listitemtarget3">programs</param>
+          <param name="listitemtarget4">programs</param>
+          <param name="listitemtarget5">programs</param>
         </include>
         <include content="ShelfList">
           <param name="parentitemid">7</param>
@@ -115,27 +119,33 @@
           <param name="selectionlistlabel1">recent albums</param>
           <param name="selectionlistlabel2">most played albums</param>
           <param name="selectionlistlabel3">random albums</param>
-          <param name="selectionlistlabel4">random artsists</param>
+          <param name="selectionlistlabel4">most played songs</param>
+          <param name="selectionlistlabel5">random artsists</param>
           <param name="selectionlistvisible1">true</param>
           <param name="selectionlistvisible2">true</param>
           <param name="selectionlistvisible3">true</param>
           <param name="selectionlistvisible4">true</param>
+          <param name="selectionlistvisible5">true</param>
           <param name="listitemtype1">Shelf_Albums</param>
           <param name="listitemtype2">Shelf_Albums</param>
           <param name="listitemtype3">Shelf_Albums</param>
           <param name="listitemtype4">Shelf_Albums</param>
-          <param name="listitemlabel1">MoviesLabel</param>
-          <param name="listitemlabel2">MoviesLabel</param>
-          <param name="listitemlabel3">MoviesLabel</param>
-          <param name="listitemlabel4">MoviesLabel</param>
+          <param name="listitemtype5">Shelf_Albums</param>
+          <param name="listitemlabel1">AlbumLabel</param>
+          <param name="listitemlabel2">AlbumLabel</param>
+          <param name="listitemlabel3">AlbumLabel</param>
+          <param name="listitemlabel4">SongLabel</param>
+          <param name="listitemlabel5">MoviesLabel</param>
           <param name="listitemtarget1">music</param>
           <param name="listitemtarget2">music</param>
           <param name="listitemtarget3">music</param>
           <param name="listitemtarget4">music</param>
+          <param name="listitemtarget5">music</param>
           <param name="listitemcontent1">special://skin/xsp/albums_recentlyadded.xsp</param>
           <param name="listitemcontent2">special://skin/xsp/mostplayed_albums.xsp</param>
           <param name="listitemcontent3">special://skin/xsp/albums_random.xsp</param>
-          <param name="listitemcontent4">special://skin/xsp/artists_random.xsp</param>
+          <param name="listitemcontent4">special://skin/xsp/mostplayed_songs.xsp</param>
+          <param name="listitemcontent5">special://skin/xsp/artists_random.xsp</param>
         </include>
         <include content="ShelfList">
           <param name="parentitemid">7</param>
@@ -178,8 +188,8 @@
           <param name="selectionlistvisible2">true</param>
           <param name="listitemtype1">Shelf_Channel</param>
           <param name="listitemtype2">Shelf_Recording</param>
-          <param name="listitemlabel1">MoviesLabel</param>
-          <param name="listitemlabel2">MoviesLabel</param>
+          <param name="listitemlabel1">ChannelLabel</param>
+          <param name="listitemlabel2">RecordingLabel</param>
           <param name="listitemsortby1">lastplayed</param>
           <param name="listitemcontent1">pvr://channels/tv/All channels/</param>
           <param name="listitemcontent2">plugin://script.skin.helper.service/?action=pvrrecordings&amp;limit=50&amp;reload=$INFO[Window(Home).Property(widgetreload2)]</param>
@@ -191,6 +201,7 @@
           <param name="selectionlistlabel1">recent channels</param>
           <param name="selectionlistvisible1">true</param>
           <param name="listitemtype1">Shelf_Channel</param>
+          <param name="listitemlabel1">ChannelLabel</param>
           <param name="listitemlabel1">MoviesLabel</param>
           <param name="listitemsortby1">lastplayed</param>
           <param name="listitemcontent1">pvr://channels/radio/All channels/</param>
@@ -438,6 +449,7 @@
         </include>
       </control>
       <control type="label">
+        <animation effect="fade" start="0" end="100" time="500" delay="500">Visible</animation>
         <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
         <visible>Integer.IsEqual(Container($PARAM[selectionlistid]$PARAM[itemid]).NumItems,0)</visible>
         <left>16</left>
@@ -705,6 +717,34 @@
     <param name="containerid"></param>
     <definition>
         <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Year, (,)][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Property(TotalEpisodes), • ,]$INFO[Container($PARAM[containerid]).ListItem.Property(UnWatchedEpisodes), (,)]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
+    </definition>
+  </include>
+
+  <include name="AlbumLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Artist, • ,]$INFO[Container($PARAM[containerid]).ListItem.Year, • ,]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
+    </definition>
+  </include>
+
+  <include name="SongLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Artist, • ,]$INFO[Container($PARAM[containerid]).ListItem.Year, • ,]$INFO[Container($PARAM[containerid]).ListItem.Duration, • ,]$INFO[Container($PARAM[containerid]).ListItem.Rating, • ][/COLOR]</label>
+    </definition>
+  </include>
+
+  <include name="ChannelLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.StartTime, • [B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Title, ,]$INFO[Container($PARAM[containerid]).ListItem.NextStartTime, • [B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.NextTitle, ,][/COLOR]</label>
+    </definition>
+  </include>
+
+  <include name="RecordingLabel">
+    <param name="containerid"></param>
+    <definition>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Label,[B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.EpisodeName, • ,]$INFO[Container($PARAM[containerid]).ListItem.Date, • ,]$INFO[Container($PARAM[containerid]).ListItem.Duration, • , $LOCALIZE[12391]][/COLOR]</label>
     </definition>
   </include>
 
