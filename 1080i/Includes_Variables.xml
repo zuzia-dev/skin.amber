@@ -290,7 +290,8 @@
 
   <variable name="panelheading">
     <value condition="ListItem.IsParentFolder">..</value>
-    <value condition="Container.Content(Movies)">[B]$INFO[Listitem.Title,, ][/B]$INFO[ListItem.Year,(,)]</value>
+    <value condition="String.IsEqual(ListItem.DBType,set)">[B]$INFO[Listitem.Title,, ][/B]$INFO[Window(Home).Property(SkinHelper.MovieSet.Year),(,)]</value>
+    <value condition="String.IsEqual(ListItem.DBType,movie)">[B]$INFO[Listitem.Title,, ][/B]$INFO[ListItem.Year,(,)]</value>
     <value condition="Container.Content(songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
     <value condition="Window.IsActive(MyPVRChannels.xml)">$INFO[Listitem.Title]</value>
     <value condition="Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + Integer.IsGreater(Container(80).NumItems,0)">$INFO[ListItem.label] $INFO[Container(80).NumItems,[B](,)[/B]]</value>
@@ -298,7 +299,8 @@
   </variable>
 
   <variable name="panelsubheading">
-    <value condition="Container.Content(Movies)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
+    <value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
+    <value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Count),total: ]$INFO[Window(Home).Property(SkinHelper.MovieSet.UnWatchedCount),[COLOR=Highlight] • [/COLOR]unwatched: ,]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
     <value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes), $LOCALIZE[20360] ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
     <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[20360]]</value>
     <value condition="Container.Content(Episodes)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Premiered , • ]$VAR[episoderating]$INFO[ListItem.MPAA, • ]</value>
@@ -314,7 +316,7 @@
   <variable name="Plots" description="Plots and descriptions">
     <value condition="Container.content(addons) + !String.IsEmpty(ListItem.AddonDescription)">$INFO[ListItem.AddonDescription]</value>
     <value condition="ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
-    <value condition="ListItem.IsCollection">$LOCALIZE[20457]</value>
+    <value condition="ListItem.IsCollection + String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Title)]</value>
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Plot) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Plot]</value>
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot) + !String.IsEmpty(ListItem.Title)">$INFO[Container.ShowPlot]</value>
     <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
@@ -407,6 +409,7 @@
     <value condition="!String.IsEmpty(Container.Art(artist.fanart))">$INFO[Container.Art(artist.fanart)]</value>
     <value condition="!String.IsEmpty(Container.Art(fanart))">$INFO[Container.Art(fanart)]</value>
     <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value condition="!String.IsEmpty(ListItem.Property(FanArt))">$INFO[ListItem.Property(FanArt)]</value>
     <value>$VAR[SubDefaultBackground]</value>
   </variable>
 

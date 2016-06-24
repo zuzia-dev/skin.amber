@@ -6,27 +6,10 @@
     <param name="yoffset"/>
     <param name="shelfwidth"/>
     <definition>
-      <control type="image" description="Single line shelf BG Plexbmc only">
-        <visible>Skin.HasSetting(plexbmc) + [Control.IsVisible(111) | Control.IsVisible(211) | Control.IsVisible(212) | [Integer.IsGreater(Container(311).NumItems,0) + !Integer.IsGreater(Container(312).NumItems,0)] | [!Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + !Integer.IsGreater(Container(413).NumItems,0)] | [!Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)] | Control.IsVisible(511) | Control.IsVisible(900) | Control.IsVisible(901)]</visible>
-        <posx>$PARAM[xoffset]</posx>
-        <posy>$PARAM[yoffset]</posy>
-        <width>$PARAM[shelfwidth]</width>
-        <height>398</height>
-        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
-      </control>
-      <control type="image" description="Double line shelf BG 2 Plexbmc only">
-        <animation effect="slide" start="0,0" end="0,-162" time="0" delay="0" condition="true">conditional</animation>
-        <visible>Skin.HasSetting(plexbmc) + [[Integer.IsGreater(Container(311).NumItems,0) + Integer.IsGreater(Container(312).NumItems,0)] | [Integer.IsGreater(Container(411).NumItems,0) + Integer.IsGreater(Container(413).NumItems,0)]]</visible>
-        <posx>$PARAM[xoffset]</posx>
-        <posy>$PARAM[yoffset]</posy>
-        <width>$PARAM[shelfwidth]</width>
-        <height>720</height>
-        <texture border="0,40,0,40">home/OverlayRA2T.png</texture>
-      </control>
       <control type="group">
         <animation effect="slide" start="0,0" end="0,-100" time="0" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
         <include content="ShelfList">
-          <param name="parentitemid">2</param>
+          <param name="menuvisibility">Container(300).HasFocus(2)</param>
           <param name="shelfvisible">!Skin.HasSetting(Shelf.Addons)</param>
           <param name="selectionlistid">200</param>
           <param name="selectionlistlabel1">Added</param>
@@ -61,7 +44,7 @@
           <param name="listitemtarget5">programs</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">4</param>
+          <param name="menuvisibility">Container(300).HasFocus(4)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.Movies.Shelf)</param>
           <param name="selectionlistid">400</param>
           <param name="selectionlistlabel1">Recently Added</param>
@@ -81,7 +64,7 @@
           <param name="listitemcontent3">special://skin/xsp/movies_inprogress.xsp</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">5</param>
+          <param name="menuvisibility">Container(300).HasFocus(5)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.TVShows.Shelf)</param>
           <param name="selectionlistid">500</param>
           <param name="selectionlistlabel1">tv shows unwatched</param>
@@ -102,7 +85,7 @@
           <param name="listitemcontent3">special://skin/xsp/episodes_inprogress.xsp</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">6</param>
+          <param name="menuvisibility">Container(300).HasFocus(6)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.Music.Shelf)</param>
           <param name="selectionlistid">600</param>
           <param name="selectionlistlabel1">recent albums</param>
@@ -137,7 +120,7 @@
           <param name="listitemcontent5">special://skin/xsp/artists_random.xsp</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">7</param>
+          <param name="menuvisibility">Container(300).HasFocus(7)</param>
           <param name="shelfvisible">!Skin.HasSetting(Shelf.Favourites)</param>
           <param name="selectionlistid">800</param>
           <param name="selectionlistlabel1">Added</param>
@@ -148,7 +131,7 @@
           <param name="listitemcontent1">FavouriteContent</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">14</param>
+          <param name="menuvisibility">Container(300).HasFocus(14)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.MusicVideos.Shelf)</param>
           <param name="selectionlistid">1400</param>
           <param name="selectionlistlabel1">recent</param>
@@ -168,7 +151,7 @@
           <param name="listitemcontent3">special://skin/xsp/musicvideos_unwatched.xsp</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">12</param>
+          <param name="menuvisibility">Container(300).HasFocus(12)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.PVR.Shelf)</param>
           <param name="selectionlistid">1200</param>
           <param name="selectionlistlabel1">recent channels</param>
@@ -184,7 +167,7 @@
           <param name="listitemcontent2">plugin://script.skin.helper.service/?action=pvrrecordings&amp;limit=50&amp;reload=$INFO[Window(Home).Property(widgetreload2)]</param>
         </include>
         <include content="ShelfList">
-          <param name="parentitemid">13</param>
+          <param name="menuvisibility">Container(300).HasFocus(13)</param>
           <param name="shelfvisible">!Skin.HasSetting(Hide.PVR.Shelf)</param>
           <param name="selectionlistid">1300</param>
           <param name="selectionlistlabel1">recent channels</param>
@@ -489,7 +472,7 @@
   </include>
 
   <include name="ShelfList">
-    <param name="parentitemid"/>
+    <param name="menuvisibility"/>
     <param name="shelfvisible"/>
     <param name="selectionlistid"/>
     <param name="selectionlistlabel1"/>
@@ -547,7 +530,7 @@
         <animation effect="slide" start="0,0" end="-430,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>          
         <posx>430</posx>
         <posy>183</posy>
-        <visible>Container(300).HasFocus($PARAM[parentitemid])</visible>
+        <visible>$PARAM[menuvisibility]</visible>
         <visible>Integer.IsGreater(Container($PARAM[selectionlistid]).NumItems,0)</visible>
         <visible>$PARAM[shelfvisible]</visible>
         <control type="image">
@@ -871,12 +854,7 @@
   
   <include name="Shelf_Posters">
     <param name="id1"/>
-    <param name="id2"/>
-    <param name="offset"/>
     <definition>  
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible($PARAM[id1]) + Control.IsVisible($PARAM[id2])]">Conditional</animation>
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="Skin.HasSetting(plexbmc) + Integer.IsGreater(Container($PARAM[id1]
-        ).NumItems,0)">Conditional</animation>
       <include>VisibleFadeEffectDelayShelf</include>
       <itemlayout height="315" width="228.5">
         <include content="GenericPoster">
@@ -894,12 +872,7 @@
 
   <include name="Shelf_Episodes">
     <param name="id1"/>
-    <param name="id2"/>
-    <param name="offset"/>
     <definition>  
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible($PARAM[id1]) + Control.IsVisible($PARAM[id2])]">Conditional</animation>
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="Skin.HasSetting(plexbmc) + Integer.IsGreater(Container($PARAM[id1]
-        ).NumItems,0)">Conditional</animation>
       <include>VisibleFadeEffectDelayShelf</include>
       <itemlayout height="315" width="228.5">
         <include content="GenericEpisode">
@@ -917,11 +890,7 @@
   
   <include name="Shelf_Albums">
     <param name="id1"/>
-    <param name="id2"/>
-    <param name="offset"/>
     <definition>
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible($PARAM[id1]) + Control.IsVisible($PARAM[id2])]">Conditional</animation>
-      <animation effect="slide" start="0,0" end="0,$PARAM[offset]" time="0" condition="Skin.HasSetting(plexbmc) + Integer.IsGreater(Container($PARAM[id1]).NumItems,0)">Conditional</animation>
       <include>VisibleFadeEffectDelayShelf</include>
       <itemlayout height="315" width="228.5">
         <include content="GenericMusic">
