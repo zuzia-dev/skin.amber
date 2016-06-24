@@ -18,7 +18,7 @@
         <visible>true</visible>
       </control>
       <control type="multiimage" description="Slideshow">
-        <visible>Skin.HasSetting(MusicPlayingFanart) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
+        <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
         <include>Dimensions_Fullscreen</include>
         <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
         <aspectratio aligny="top">scale</aspectratio>
@@ -44,8 +44,8 @@
         </animation>
       </control>
       <control type="image" description="Info BG">
-        <visible>Skin.HasSetting(MusicPlayingFanart) + [Player.ShowInfo | Window.IsActive(MusicOSD) | !Visualisation.Enabled] + ![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(122)]</visible>
-		<posx>0</posx>
+        <visible>Skin.HasSetting(MusicPlayingFanart) + [Player.ShowInfo | Window.IsActive(MusicOSD) | !Visualisation.Enabled] + ![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(visualisationpresetlist)]</visible>
+        <posx>0</posx>
         <posy>270</posy>
         <width>1920</width>
         <height>810</height>
@@ -56,7 +56,7 @@
         <animation effect="fade" time="200">Hidden</animation>
       </control>
       <control type="group" description="INFO grouped for visibility sake">
-        <visible>[Player.ShowInfo | Window.IsActive(MusicOSD) | !Visualisation.Enabled] + ![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(122)]</visible>
+        <visible>[Player.ShowInfo | Window.IsActive(MusicOSD) | !Visualisation.Enabled] + ![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(visualisationpresetlist)]</visible>
         <animation effect="fade" time="500">Visible</animation>
         <animation effect="fade" time="200">Hidden</animation>
         <control type="group" description="Info panel LEFT">
@@ -66,15 +66,15 @@
             <effect type="zoom" tween="quadratic" start="0" end="100" time="800" center="640,360" />
             <effect type="fade" start="0" end="100" time="800" center="640,360" />
           </animation>
-          <animation type="Conditional" condition="String.IsEqual(Control.GetLabel(23),100)" reversible="false">
+          <animation type="Conditional" condition="Integer.IsEqual(Control.GetLabel(23),100)" reversible="false">
             <effect type="zoom" tween="quadratic" easing="in" start="100" end="260" time="300" center="640,360" />
             <effect type="fade" start="100" end="0" easing="out" time="300" />
           </animation>
-          <animation type="Conditional" condition="Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)" reversible="false">
+          <animation type="Conditional" condition="Integer.IsGreater(Control.GetLabel(23),30) + Integer.IsLess(Control.GetLabel(23),60)" reversible="false">
             <effect type="rotatey" tween="quadratic" start="0" end="180" time="1000" center="960,540" />
             <effect type="fade" start="100" end="0" time="400" center="640,360" />
           </animation>
-          <animation type="Conditional" condition="![Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)]" reversible="false">
+          <animation type="Conditional" condition="![Integer.IsGreater(Control.GetLabel(23),30) + Integer.Isless(Control.GetLabel(23),60)]" reversible="false">
             <effect type="rotatey" tween="quadratic" start="180" end="0" time="1000" center="960,540" />
             <effect type="fade" start="0" end="100" delay="300" time="700" center="640,360" />
           </animation>
@@ -150,7 +150,7 @@
               <shadowcolor>Shadow</shadowcolor>
               <animation effect="fade" time="200">VisibleChange</animation>
               <label>$INFO[MusicPlayer.PlaylistPosition] / $INFO[MusicPlayer.PlaylistLength]</label>
-              <font>Year</font>
+              <font>font32_title</font>
             </control>
             <control type="label">
               <posx>0</posx>
@@ -158,7 +158,7 @@
               <height>30</height>
               <width>500</width>
               <align>left</align>
-              <font>Volume</font>
+              <font>MainLabelBigTitle</font>
               <label>$INFO[MusicPlayer.TimeSpeed] . $INFO[MusicPlayer.Duration]</label>
               <textcolor>Grey2</textcolor>
             </control>
@@ -181,7 +181,7 @@
         <control type="group" description="Info panel RIGHT">
           <animation condition="Window.IsActive(MusicOSD.xml)" effect="slide" start="0,0" end="0,-105" time="400">Conditional</animation>
           <posy>165</posy>
-          <visible>Integer.IsGreater(Control.GetLabel(23),30) + !Integer.IsGreater(Control.GetLabel(23),60)</visible>
+          <visible>Integer.IsGreater(Control.GetLabel(23),30) + Integer.IsLess(Control.GetLabel(23),60)</visible>
           <animation type="Visible">
             <effect type="rotatey" tween="quadratic" start="-180" end="0" time="1000" center="960," />
             <effect type="fade" start="0" end="100" delay="300" time="700" center="640,360" />
@@ -262,7 +262,7 @@
               <shadowcolor>Shadow</shadowcolor>
               <animation effect="fade" time="200">VisibleChange</animation>
               <label>$INFO[MusicPlayer.PlaylistPosition] / $INFO[MusicPlayer.PlaylistLength]</label>
-              <font>Year</font>
+              <font>font32_title</font>
             </control>
             <control type="label">
               <posx>0</posx>
@@ -270,7 +270,7 @@
               <height>30</height>
               <width>500</width>
               <align>right</align>
-              <font>Volume</font>
+              <font>MainLabelBigTitle</font>
               <label>$INFO[MusicPlayer.TimeSpeed] . $INFO[MusicPlayer.Duration]</label>
               <textcolor>Grey2</textcolor>
             </control>
@@ -294,7 +294,7 @@
     </control>
     <control type="group">
       <posy>1020</posy>
-      <visible>Integer.IsGreater(Control.GetLabel(23),95) | !Integer.IsGreater(Control.GetLabel(23),5)</visible>
+      <visible>Integer.IsLess(Control.GetLabel(23),5) | Integer.IsGreater(Control.GetLabel(23),95)</visible>
       <animation effect="fade" time="800">VisibleChange</animation>
       <animation condition="Window.IsActive(MusicOSD.xml)" effect="slide" start="0,0" end="0,-105" time="400">Conditional</animation>
       <control type="label" description="Previous">

@@ -34,7 +34,7 @@
       <texture>dialogs/InfoRightPanelTop2.png</texture>
     </control>
     <control type="image" description="Cover">
-      <visible>!Container.Content(episodes)</visible>
+      <visible>!String.IsEqual(ListItem.DBType,episode)</visible>
       <posx>0</posx>
       <posy>0</posy>
       <width>729</width>
@@ -45,7 +45,7 @@
     <control type="group" description="Posters">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -54,7 +54,7 @@
         <aspectratio>stretch</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(tvshow.poster))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -66,7 +66,7 @@
     <control type="group" description="Plexbmc Posters">
       <visible>Skin.HasSetting(plexbmc)</visible>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + !String.IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -75,7 +75,7 @@
         <aspectratio>scale</aspectratio>
       </control>
       <control type="image" description="Episodes Season Poster">
-        <visible>Container.Content(episodes) + String.IsEmpty(ListItem.Property(seasonThumb))</visible>
+        <visible>String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Property(seasonThumb))</visible>
         <posx>0</posx>
         <posy>0</posy>
         <width>729</width>
@@ -101,7 +101,7 @@
           <posy>980</posy>
           <width>999</width>
           <height>40</height>
-          <font>InfoPath</font>
+          <font>font22</font>
           <textcolor>Grey</textcolor>
           <align>left</align>
           <haspath>true</haspath>
@@ -127,7 +127,7 @@
           <posx>0</posx>
           <posy>30</posy>
           <control type="group">
-            <visible>![container.content(tvshows) | container.content(episodes) | String.StartsWith(Container.FolderPath,videodb://musicvideos/)]</visible>
+            <visible>![String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)]</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -196,7 +196,7 @@
             </control>
           </control>
           <control type="group" description="TV Shows">
-            <visible>Container.Content(TVShows)</visible>
+            <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -241,7 +241,7 @@
             </control>
           </control>
           <control type="group" description="Episodes">
-            <visible>container.content(episodes)</visible>
+            <visible>String.IsEqual(ListItem.DBType,episode)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -310,7 +310,7 @@
             </control>
           </control>
           <control type="group" description="Music Videos">
-            <visible>String.StartsWith(Container.FolderPath,videodb://musicvideos/)</visible>
+            <visible>String.IsEqual(ListItem.DBType,musicvideo)</visible>
             <include>VisibleFadeEffectDelay</include>
             <control type="panel" id="9009">
               <include>List_9009_Commons</include>
@@ -404,71 +404,15 @@
         <control type="grouplist" description="Flags">
           <posx>0</posx>
           <posy>928</posy>
-          <width min="90" max="900">auto</width>
+          <width>900</width>
           <height>45</height>
           <itemgap>30</itemgap>
           <orientation>horizontal</orientation>
           <align>left</align>
-          <control type="button">
-            <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
-            <height>36</height>
-            <width>102</width>
-            <posx>0</posx>
-            <posy>0</posy>
-            <font>Flags</font>
-            <align>center</align>
-            <textoffsetx>0</textoffsetx>
-            <colordiffuse>Silver</colordiffuse>
-            <texturenofocus>badges/video/ResFrame.png</texturenofocus>
-            <texturefocus>badges/video/ResFrame.png</texturefocus>
-            <label>$INFO[ListItem.VideoResolution]</label>
-          </control>
-          <control type="image">
-            <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
-            <height>36</height>
-            <width>102</width>
-            <aspectratio>keep</aspectratio>
-            <colordiffuse>Silver</colordiffuse>
-            <texture>$INFO[ListItem.VideoCodec,badges/video/,.png]</texture>
-          </control>
-          <control type="image">
-            <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
-            <height>36</height>
-            <width>102</width>
-            <aspectratio>keep</aspectratio>
-            <colordiffuse>Silver</colordiffuse>
-            <texture>$INFO[ListItem.AudioChannels,badges/channels,.png]</texture>
-          </control>
-          <control type="image">
-            <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
-            <height>36</height>
-            <width>102</width>
-            <aspectratio>keep</aspectratio>
-            <colordiffuse>Silver</colordiffuse>
-            <texture>$INFO[ListItem.AudioCodec,badges/audio/,.png]</texture>
-          </control>
-          <control type="button">
-            <visible>!String.IsEmpty(ListItem.VideoAspect)</visible>
-            <height>36</height>
-            <width>102</width>
-            <posx>0</posx>
-            <posy>0</posy>
-            <font>Flags</font>
-            <align>center</align>
-            <textoffsetx>0</textoffsetx>
-            <colordiffuse>Silver</colordiffuse>
-            <texturenofocus>badges/video/FlagFrame.png</texturenofocus>
-            <texturefocus>badges/video/FlagFrame.png</texturefocus>
-            <label>$INFO[ListItem.VideoAspect]</label>
-          </control>
-          <control type="image">
-            <visible>ListItem.IsStereoscopic</visible>
-            <height>36</height>
-            <width>102</width>
-            <aspectratio>keep</aspectratio>
-            <colordiffuse>Silver</colordiffuse>
-            <texture>badges/video/3d.png</texture>
-          </control>
+          <include content="MediaFlagItems">
+            <param name="itemheight" value="36"/>
+            <param name="itemwidth" value="102"/>
+          </include>
         </control>
         <control type="image" description="Line Split">
           <posx>0</posx>
@@ -492,7 +436,7 @@
         <align>center</align>
         <orientation>horizontal</orientation>
         <control type="button" id="299" description="Cinema">
-          <visible>Container.Content(Movies) + system.hasaddon(script.cinema.experience)</visible>
+          <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
           <height>54</height>
           <width>250</width>
           <align>center</align>
@@ -501,9 +445,8 @@
           <textcolor>White</textcolor>
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
-          <onclick>Dialog.Close(all,true)</onclick>
-          <onclick>Playlist.Clear</onclick>
-          <onclick>RunScript(script.cinema.experience)</onclick>
+          <onclick>Dialog.Close(MovieInformation)</onclick>
+          <onclick>RunScript(script.cinemavision,experience)</onclick>
         </control>
         <control type="togglebutton" id="8" description="Play/browse to Show">
           <height>54</height>
@@ -516,7 +459,7 @@
           <focusedcolor>Highlight</focusedcolor>
           <texturefocus>-</texturefocus>
           <alttexturefocus>-</alttexturefocus>
-          <usealttexture>Container.Content(TVShows)</usealttexture>
+          <usealttexture>String.IsEqual(ListItem.DBType,tvshow)</usealttexture>
         </control>
         <control type="button" id="11" description="Trailer">
           <height>54</height>
@@ -573,7 +516,7 @@
           <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="100" description="TvTunes">
-          <visible>Container.Content(TVShows) + System.HasAddon(script.tvtunes) + Skin.HasSetting(TVTunes.Enabled)</visible>
+          <visible>String.IsEqual(ListItem.DBType,tvshow) + System.HasAddon(script.tvtunes) + Skin.HasSetting(TVTunes.Enabled)</visible>
           <height>54</height>
           <width>230</width>
           <align>center</align>
@@ -582,7 +525,7 @@
           <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[31956]</label>
           <texturefocus>-</texturefocus>
-          <onclick>XBMC.RunScript(script.tvtunes,mode=solo)</onclick>
+          <onclick>RunScript(script.tvtunes,mode=solo)</onclick>
         </control>
       </control>
       <control type="image" description="Line Split">
@@ -650,7 +593,6 @@
         <width>249</width>
         <height>360</height>
         <texture>$INFO[Container(50).ListItem.Thumb]</texture>
-        <include>ThumbBorder</include>
         <aspectratio aligny="top">scale</aspectratio>
       </control>
     </control>
@@ -662,7 +604,6 @@
       <width>999</width>
       <height>340</height>
       <texture>$INFO[ListItem.Art(thumb)]</texture>
-      <include>ThumbBorder</include>
       <aspectratio>keep</aspectratio>
     </control>
     <control type="image" description="Current FA">
@@ -673,7 +614,6 @@
       <width>999</width>
       <height>340</height>
       <texture>$INFO[ListItem.Art(fanart)]</texture>
-      <include>ThumbBorder</include>
       <aspectratio>keep</aspectratio>
     </control>
   </controls>

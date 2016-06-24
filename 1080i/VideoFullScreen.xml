@@ -73,7 +73,7 @@
 				<visible>VideoPlayer.Content(LiveTV)</visible>
 			</control>
 			<control type="label" id="1">
-				<description>LiveTV Info labelChannel</description>
+				<description>Movie Info Studio</description>
 				<posx>30</posx>
 				<posy>50</posy>
 				<width>900</width>
@@ -132,30 +132,17 @@
 					<description>Video Resolution Image</description>
 					<width>85</width>
 					<aspectratio align="center" aligny="center">keep</aspectratio>
-					<texture>$INFO[VideoPlayer.VideoResolution,badges/video/,.png]</texture>
-					<colordiffuse>grey</colordiffuse>
+					<texture>$INFO[VideoPlayer.VideoResolution,badges/videoresolution/,.png]</texture>
+					<colordiffuse>silver</colordiffuse>
 					<visible>!Player.ChannelPreviewActive</visible>
 				</control>
-				<control type="group" id="1">
+				<control type="image" id="1">
+					<description>Video Aspect Image</description>
 					<width>85</width>
-					<height>35</height>
-					<control type="image" id="1">
-						<description>Video Aspect Image</description>			
-						<align>center</align>
-						<aspectratio>keep</aspectratio>
-						<texture>badges/video/FlagFrame.png</texture>
-						<colordiffuse>grey</colordiffuse>
-						<visible>!Player.ChannelPreviewActive</visible>
-					</control>
-					<control type="label" id="1">
-						<description>Video Aspect Image</description>
-						<font>Flags</font>
-						<align>center</align>
-						<aligny>bottom</aligny>
-						<label>$INFO[VideoPlayer.VideoAspect]</label>
-						<textcolor>grey</textcolor>
-						<visible>!Player.ChannelPreviewActive</visible>
-					</control>
+					<aspectratio align="center" aligny="center">keep</aspectratio>
+					<texture>$INFO[VideoPlayer.VideoAspect,badges/aspectratio/,.png]</texture>
+					<colordiffuse>silver</colordiffuse>
+					<visible>!Player.ChannelPreviewActive</visible>
 				</control>
 				<control type="image" id="1">
 					<description>ADSP Master Mode Image</description>
@@ -168,8 +155,8 @@
 					<description>Audio Codec Image</description>
 					<width>85</width>
 					<aspectratio align="center">keep</aspectratio>
-					<texture>$INFO[VideoPlayer.AudioCodec,badges/audio/,.png]</texture>
-					<colordiffuse>grey</colordiffuse>
+					<texture>$INFO[VideoPlayer.AudioCodec,badges/audiocodec/,.png]</texture>
+					<colordiffuse>silver</colordiffuse>
 					<visible>String.IsEmpty(ADSP.MasterOverrideIcon) + !Player.ChannelPreviewActive</visible>
 				</control>
 				<control type="image" id="1">
@@ -183,8 +170,8 @@
 					<description>Audio Channels Image</description>
 					<width>85</width>
 					<aspectratio align="center">keep</aspectratio>
-					<texture>$INFO[VideoPlayer.AudioChannels,badges/channels,.png]</texture>
-					<colordiffuse>grey</colordiffuse>
+					<texture>$INFO[VideoPlayer.AudioChannels,badges/audiochannels/channels,.png]</texture>
+					<colordiffuse>silver</colordiffuse>
 					<visible>!Player.ChannelPreviewActive</visible>
 				</control>
 			</control>
@@ -252,19 +239,11 @@
 				<visible>VideoPlayer.Content(Movies)</visible>
 			</control>
 		</control>
-    <control type="group">
+    <control type="group" id="0">
       <posx>0</posx>
       <posy>0</posy>
       <include>OSDFade</include>
       <include>CodecInfo</include>
-      <visible>!Window.IsVisible(DialogSeekBar.xml)</visible>
-    </control>
-    <control type="group">
-      <posx>0</posx>
-      <posy>88</posy>
-      <include>OSDFade</include>
-      <include>CodecInfo</include>
-      <visible>Window.IsVisible(DialogSeekBar.xml)</visible>
     </control>
   </controls>
 </window>

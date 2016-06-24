@@ -64,60 +64,13 @@
             <posy>3</posy>
             <width>90</width>
             <height>98</height>
-            <texture>OSD/OSDRepeatNF.png</texture>
-            <visible>!Playlist.IsRepeat + !Playlist.IsRepeatOne</visible>
-            <visible>!Control.HasFocus(606)</visible>
-          </control>
-          <control type="image">
-            <posx>0</posx>
-            <posy>3</posy>
-            <width>90</width>
-            <height>98</height>
-            <texture>OSD/OSDRepeatFO.png</texture>
-            <visible>!Playlist.IsRepeat + !Playlist.IsRepeatOne</visible>
-            <visible>Control.HasFocus(606)</visible>
-          </control>
-          <control type="image">
-            <posx>0</posx>
-            <posy>3</posy>
-            <width>90</width>
-            <height>98</height>
-            <texture>OSD/OSDRepeatOneNF.png</texture>
-            <visible>Playlist.IsRepeatOne</visible>
-            <visible>!Control.HasFocus(606)</visible>
-          </control>
-          <control type="image">
-            <posx>0</posx>
-            <posy>3</posy>
-            <width>90</width>
-            <height>98</height>
-            <texture>OSD/OSDRepeatOneFO.png</texture>
-            <visible>Playlist.IsRepeatOne</visible>
-            <visible>Control.HasFocus(606)</visible>
-          </control>
-          <control type="image">
-            <posx>0</posx>
-            <posy>3</posy>
-            <width>90</width>
-            <height>98</height>
-            <texture>OSD/OSDRepeatAllNF.png</texture>
-            <visible>Playlist.IsRepeat</visible>
-            <visible>!Control.HasFocus(606)</visible>
-          </control>
-          <control type="image">
-            <posx>0</posx>
-            <posy>3</posy>
-            <width>90</width>
-            <height>98</height>
-            <texture>OSD/OSDRepeatAllFO.png</texture>
-            <visible>Playlist.IsRepeat</visible>
-            <visible>Control.HasFocus(606)</visible>
+            <texture>$VAR[MusicRepeat]</texture>
           </control>
         </control>
         <control type="button" id="601">
           <width>90</width>
           <height>98</height>
-          <label>31354</label>
+          <label>$LOCALIZE[31354]</label>
           <font>-</font>
           <texturefocus>OSD/OSDRWFO.png</texturefocus>
           <texturenofocus>OSD/OSDRWNF.png</texturenofocus>
@@ -191,7 +144,7 @@
         <control type="button" id="604">
           <width>90</width>
           <height>98</height>
-          <label>31353</label>
+          <label>$LOCALIZE[31353]</label>
           <font>-</font>
           <texturefocus>OSD/OSDFWFO.png</texturefocus>
           <texturenofocus>OSD/OSDFWNF.png</texturenofocus>
@@ -267,15 +220,28 @@
           <label>$LOCALIZE[24013]</label>
           <onclick>Close</onclick>
           <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
-          <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">XBMC.RunScript($INFO[Skin.String(LyricPath)])</onclick>
+          <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
         </control>
-		    <control type="button" id="555" description="Playlist">
+        <control type="button" id="555" description="Playlist">
           <width>525</width>
           <label>$LOCALIZE[559]</label>
           <onclick>Close</onclick>
           <onclick>ActivateWindow(MusicPlaylist)</onclick>
         </control>
-        <control type="button" id="556" description="Fanart">
+        <control type="button" id="556" description="dsp settings">
+          <width>525</width>
+          <label>$LOCALIZE[15047]</label>
+          <onclick>ActivateWindow(OSDAudioDSPSettings)</onclick>
+          <visible>system.getbool(audiooutput.dspaddonsenabled)</visible>
+        </control>
+        <control type="button" id="557" description="dsp manager">
+          <width>525</width>
+          <label>$LOCALIZE[15020]</label>
+          <onclick>Close</onclick>
+          <onclick>ActivateWindow(AudioDSPManager)</onclick>
+          <visible>system.getbool(audiooutput.dspaddonsenabled)</visible>
+        </control>
+        <control type="button" id="558" description="Fanart">
           <width>525</width>
           <label>$LOCALIZE[20445]</label>
           <label2>[COLOR=Grey2]$VAR[MusicPlayingFanartLabel2][/COLOR]</label2>
@@ -294,14 +260,9 @@
         <control type="button" id="20" description="Visualisation Presets">
           <width>525</width>
           <label>$LOCALIZE[31048]</label>
-          <onclick>ActivateWindow(122)</onclick>
-          <enable>Visualisation.HasPresets</enable>
+          <onclick>ActivateWindow(visualisationpresetlist)</onclick>
+          <visible>Visualisation.HasPresets</visible>
           <animation effect="fade" start="100" end="50" time="100" condition="!Visualisation.HasPresets">Conditional</animation>
-        </control>
-        <control type="button" id="301" description="CodecInfo">
-          <width>525</width>
-          <label>$LOCALIZE[21446]</label>
-          <onclick>CodecInfo</onclick>
         </control>
       </control>
     </control>

@@ -3,7 +3,10 @@
 	<defaultcontrol>10</defaultcontrol>
 	<views>10</views>
 	<controls>
-		<include>Pvr_Art</include> 
+    <include>Background</include>
+    <include content="BackgroundOverlay">
+      <param name="parentid" value="50"/>
+    </include>
 		<include>Time</include>
 		<control type="group" id="50">
 			<include>OpenClose</include>
@@ -12,22 +15,14 @@
 		<control type="group" description="EPG Timeline Info">
 			<visible>Control.IsVisible(10)</visible>
 			<include>VisibleFadeEffect</include>
-      		<include content="MiniVideoWindow">
-      			<param name="top">75</param>
-			    <param name="left">85</param>
-			    <param name="width">368</param>
-			    <param name="height">207</param>
-			    <param name="labeltop">150</param>
-      		</include>
-			<control type="image" description="TV Logo">
-				<visible>!Player.HasVideo</visible>
-				<posx>85</posx>
-				<posy>75</posy>
-				<width>368</width>
-				<height>207</height>
-				<texture>$INFO[Container(10).ListItem.Icon]</texture>
-				<aspectratio>keep</aspectratio>
-			</control>
+			<include content="MiniVideoWindow">
+				<param name="top">75</param>
+				<param name="left">85</param>
+				<param name="width">368</param>
+				<param name="height">207</param>
+				<param name="labeltop">150</param>
+				<param name="itemicon">$INFO[Container(10).ListItem.Icon]</param>
+			</include>
 			<control type="group">
 				<posx>490</posx>
 				<posy>100</posy>

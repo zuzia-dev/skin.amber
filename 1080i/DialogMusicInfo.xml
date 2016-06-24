@@ -86,30 +86,30 @@
           </control>
         </focusedlayout>
         <content>
-          <include condition="container.content(Artists)">ArtistInfoContent</include>
-          <include condition="container.content(Albums)">AlbumInfoContent</include>
-          <include condition="container.content(Songs)">SongInfoContent</include>
+          <include condition="String.IsEqual(ListItem.DBType,artist)">ArtistInfoContent</include>
+          <include condition="String.IsEqual(ListItem.DBType,album)">AlbumInfoContent</include>
+          <include condition="String.IsEqual(ListItem.DBType,song)">SongInfoContent</include>
         </content>
       </control>
       <control type="label" description="location">
-        <visible>!container.content(artists)</visible>
+        <visible>!String.IsEqual(ListItem.DBType,artist)</visible>
         <posx>22</posx>
         <posy>650</posy>
         <width>909</width>
         <height>60</height>
         <textoffsetx>30</textoffsetx>
-        <font>ItemCount</font>
+        <font>font22</font>
         <textcolor>Grey</textcolor>
         <label>$INFO[ListItem.Path]</label>
       </control>
       <control type="label" description="Type">
-        <visible>container.content(songs)</visible>
+        <visible>String.IsEqual(ListItem.DBType,song)</visible>
         <posx>1240</posx>
         <posy>650</posy>
         <width>100</width>
         <height>60</height>
         <align>right</align>
-        <font>ItemCount</font>
+        <font>font22</font>
         <textcolor>Grey</textcolor>
         <textoffsetx>0</textoffsetx>
         <label>$INFO[ListItem.FileExtension]</label>
@@ -129,7 +129,7 @@
         <width>315</width>
         <height>54</height>
         <aspectratio>keep</aspectratio>
-        <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
+        <texture>$VAR[ratingbadge]</texture>
       </control>
       <control type="grouplist" id="9000">
         <left>1294</left>

@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<window type="buttonmenu" id="111">
+<window type="buttonMenu">
   <defaultcontrol always="true">9009</defaultcontrol>
-  <coordinates>
-    <system>1</system>
-    <posx>0</posx>
-    <posy>0</posy>
-  </coordinates>
   <onload condition="!Integer.IsGreater(Container(9009).NumItems,0)">close</onload>
   <controls>
     <control type="group" description="MENU">
@@ -146,7 +141,7 @@
             <icon>RestartFO.png</icon>
           </item>
           <item id="16" description="Settings">
-            <visible>Skin.HasSetting(QuitMenu_Show_Settings)</visible>
+            <visible>!Skin.HasSetting(QuitMenu_Hide_Settings) | [Skin.HasSetting(QuitMenu_Hide_Settings) + Skin.HasSetting(SettingsLocation.Quit)]</visible>
             <onclick>dialog.close(all,true)</onclick>
             <onclick>ActivateWindow(Settings,return)</onclick>
             <label>$LOCALIZE[5]</label>
