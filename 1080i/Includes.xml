@@ -352,17 +352,7 @@
       </control>
     </control>
   </include>
-  
-  <include name="FullscreenInfoLabelMain">
-    <posx>300</posx>
-    <posy>0</posy>
-    <width>1200</width>
-    <scroll>false</scroll>
-    <align>left</align>
-    <font>InfoTitle</font>
-    <textcolor>White2</textcolor>
-    <animation effect="fade" time="200">VisibleChange</animation>
-  </include>
+
   <include name="9000ViewButtons">
     <height>54</height>
     <width>500</width>
@@ -1736,20 +1726,20 @@
     <param name="diffuse">Silver</param>
     <param name="showvideobadge">true</param>
     <param name="showaudiobadge">true</param>
-    <param name="showratingbadge">true</param>
+    <param name="type">ListItem</param>
     <definition>
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
+        <visible>!String.IsEmpty($PARAM[type].AudioCodec)</visible>
         <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.AudioCodec,badges/audiocodec/,.png]</texture>
+        <texture>$INFO[$PARAM[type].AudioCodec,badges/audiocodec/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.FileExtension)</visible>
+        <visible>!String.IsEmpty($PARAM[type].FileExtension)</visible>
         <visible>Container.Content(songs)</visible>
         <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
@@ -1757,50 +1747,50 @@
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.FileExtension,badges/audiocodec/,.png]</texture>
+        <texture>$INFO[$PARAM[type].FileExtension,badges/audiocodec/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
+        <visible>!String.IsEmpty($PARAM[type].AudioChannels)</visible>
         <visible>$PARAM[showaudiobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.AudioChannels,badges/audiochannels/channels,.png]</texture>
+        <texture>$INFO[$PARAM[type].AudioChannels,badges/audiochannels/channels,.png]</texture>
       </control>      
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
+        <visible>!String.IsEmpty($PARAM[type].VideoCodec)</visible>
         <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.VideoCodec,badges/videocodec/,.png]</texture>
+        <texture>$INFO[$PARAM[type].VideoCodec,badges/videocodec/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
+        <visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
         <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.VideoResolution,badges/videoresolution/,.png]</texture>
+        <texture>$INFO[$PARAM[type].VideoResolution,badges/videoresolution/,.png]</texture>
       </control>
       <control type="image">
-        <visible>!String.IsEmpty(ListItem.VideoAspect)</visible>
+        <visible>!String.IsEmpty($PARAM[type].VideoAspect)</visible>
         <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[ListItem.VideoAspect,badges/aspectratio/,.png]</texture>
+        <texture>$INFO[$PARAM[type].VideoAspect,badges/aspectratio/,.png]</texture>
       </control>
       <control type="image">
-        <visible>ListItem.IsStereoscopic</visible>
+        <visible>$PARAM[type].IsStereoscopic</visible>
         <visible>$PARAM[showvideobadge]</visible>
         <height>$PARAM[itemheight]</height>
         <width>$PARAM[itemwidth]</width>
@@ -1819,19 +1809,6 @@
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
       </control>
     </definition>
-  </include>
-
-  <include name="MediaFlags">
-    <control type="grouplist" description="Flags">
-      <visible>!ListItem.IsParentFolder</visible>
-      <width>650</width>
-      <height>120</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>left</align>
-      <include content="MediaFlagItems">
-      </include>
-    </control>
   </include>
 
   <include name="AlbumInfoContent">
@@ -2036,10 +2013,10 @@
             <left>0</left> 
             <top>$PARAM[labeltop]</top> 
             <width>$PARAM[width]</width> 
-            <height>40</height> 
+            <height>45</height> 
             <font>Details</font> 
             <align>center</align> 
-            <textcolor>White</textcolor> 
+            <textcolor>White</textcolor>
             <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll> 
             <label>$INFO[Player.Title]</label> 
           </control>
