@@ -421,6 +421,7 @@
       </control>
       <control type="label">
         <animation effect="fade" start="0" end="100" time="500" delay="500">Visible</animation>
+        <animation effect="slide" start="0,0" end="215,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
         <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
         <visible>Integer.IsEqual(Container($PARAM[selectionlistid]$PARAM[itemid]).NumItems,0)</visible>
         <left>16</left>
@@ -527,7 +528,7 @@
     <param name="listitemtarget5">video</param>
     <definition>
       <control type="group">
-        <animation effect="slide" start="0,0" end="-430,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>          
+        <animation effect="slide" start="0,0" end="-430,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
         <posx>430</posx>
         <posy>183</posy>
         <visible>$PARAM[menuvisibility]</visible>
@@ -556,7 +557,7 @@
               <textoffsetx>16</textoffsetx>
               <font>Shelf_Title</font> 
               <aligny>center</aligny>
-              <textcolor>Grey3</textcolor>         
+              <textcolor>Grey3</textcolor>
             </control>
           </itemlayout>
           <focusedlayout height="45" width="390">
@@ -564,16 +565,16 @@
               <visible>control.hasfocus($PARAM[selectionlistid])</visible>
               <label>$INFO[ListItem.Label]</label>
               <font>Shelf_Title</font>
-              <textcolor>Highlight</textcolor>          
-              <aligny>center</aligny>         
+              <textcolor>Highlight</textcolor>
+              <aligny>center</aligny>
               <textoffsetx>16</textoffsetx>
             </control>
             <control type="label">
               <visible>!control.hasfocus($PARAM[selectionlistid])</visible>
               <label>$INFO[ListItem.Label]</label>
               <font>Shelf_Title</font>
-              <textcolor>Grey2</textcolor>          
-              <aligny>center</aligny>         
+              <textcolor>Grey2</textcolor>
+              <aligny>center</aligny>
               <textoffsetx>16</textoffsetx>
             </control>
           </focusedlayout>
@@ -807,51 +808,6 @@
     </include>
   </include>
 
-  <include name="RecentlyAdded_Header">
-    <animation effect="slide" start="0,0" end="0,-162" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible(312) | Control.IsVisible(413) | Control.IsVisible(513) | Control.IsVisible(515)]">Conditional</animation>
-    <animation effect="slide" start="0,0" end="0,-162" time="0" condition="Skin.HasSetting(plexbmc) + [Integer.IsGreater(Container(312).NumItems,0) | Integer.IsGreater(Container(413).NumItems,0)]">Conditional</animation>
-    <align>right</align>
-    <posx>20r</posx>
-    <posy>339</posy>
-    <height>45</height>
-    <width>400</width>
-    <textcolor>Highlight</textcolor>
-    <font>Shelf_Title</font>
-  </include>
-  <include name="Recommended_Header">
-    <animation effect="slide" start="0,0" end="0,522" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible(311) | Control.IsVisible(411) |  Control.IsVisible(511) | Control.IsVisible(514)]">Conditional</animation>
-    <animation effect="slide" start="0,0" end="0,522" time="0" condition="Skin.HasSetting(plexbmc) + [Integer.IsGreater(Container(311).NumItems,0) | Integer.IsGreater(Container(411).NumItems,0) | Integer.IsGreater(Container(511).NumItems,0)]">Conditional</animation>
-    <align>right</align>
-    <posx>20r</posx>
-    <posy>339</posy>
-    <height>45</height>
-    <width>400</width>
-    <textcolor>Highlight</textcolor>
-    <font>Shelf_Title</font>
-  </include>
-  <include name="RecentlyAdded_Label">
-    <animation effect="slide" start="0,0" end="0,-162" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible(312) | Control.IsVisible(413) | Control.IsVisible(513) | Control.IsVisible(515)]">Conditional</animation>
-    <animation effect="slide" start="0,0" end="0,-162" time="0" condition="Skin.HasSetting(plexbmc) + [Integer.IsGreater(Container(312).NumItems,0) | Integer.IsGreater(Container(413).NumItems,0)]">Conditional</animation>
-    <posx>458</posx>
-    <posy>339</posy>
-    <height>45</height>
-    <width>1080</width>
-    <align>left</align>
-    <textcolor>Highlight</textcolor>
-    <font>Shelf_Title</font>
-  </include>
-  <include name="Recommended_Label">
-    <animation effect="slide" start="0,0" end="0,522" time="0" condition="!Skin.HasSetting(plexbmc) + [Control.IsVisible(311) | Control.IsVisible(411) | Control.IsVisible(511) | Control.IsVisible(514)]">Conditional</animation>
-    <animation effect="slide" start="0,0" end="0,522" time="0" condition="Skin.HasSetting(plexbmc) + [Integer.IsGreater(Container(311).NumItems,0) | Integer.IsGreater(Container(411).NumItems,0) | Integer.IsGreater(Container(511).NumItems,0) | Integer.IsGreater(Container(900).NumItems,0)]">Conditional</animation>
-    <posx>458</posx>
-    <posy>339</posy>
-    <height>45</height>
-    <width>1080</width>
-    <align>left</align>
-    <textcolor>Highlight</textcolor>
-    <font>Shelf_Title</font>
-  </include>
-  
   <include name="Shelf_Posters">
     <param name="id1"/>
     <definition>  
@@ -866,7 +822,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout>    
+      </focusedlayout>
     </definition>
   </include>
 
@@ -884,7 +840,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout>    
+      </focusedlayout>
     </definition>
   </include>
   
@@ -902,7 +858,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout> 
+      </focusedlayout>
     </definition>
   </include>
 
@@ -920,7 +876,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout> 
+      </focusedlayout>
     </definition>
   </include>
 
@@ -938,7 +894,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout> 
+      </focusedlayout>
     </definition>
   </include>
  
@@ -956,7 +912,7 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout> 
+      </focusedlayout>
     </definition>
   </include>
 
@@ -974,9 +930,8 @@
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
-      </focusedlayout> 
+      </focusedlayout>
     </definition>
   </include>
-
 
 </includes>

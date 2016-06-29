@@ -6,9 +6,17 @@
     <value>$INFO[System.Time]</value>
   </variable>
 
-  <variable name="ChapterLabel" description="Chapter label in DialogSeekBar">
-    <value condition="Player.ChapterCount + !String.IsEmpty(Player.ChapterName)">$INFO[Player.ChapterName][COLOR=Highlight] • [/COLOR]$INFO[Player.Chapter]$INFO[Player.ChapterCount, / ]</value>
-    <value condition="Player.ChapterCount">$LOCALIZE[21396][COLOR=Highlight] • [/COLOR]$INFO[Player.Chapter]$INFO[Player.ChapterCount, / ]</value>
+  <variable name="VideoTopHeading">
+    <value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Studio]</value>
+    <value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
+    <value condition="VideoPlayer.Content(MusicVideos)">$INFO[VideoPlayer.Artist] $INFO[VideoPlayer.Album, - ]</value>
+    <value condition="VideoPlayer.Content(LiveTV)">$INFO[VideoPlayer.ChannelNumberLabel,[COLOR=orange],[/COLOR]] $INFO[VideoPlayer.ChannelName,  •  ,]$INFO[VideoPlayer.ChannelGroup,  •  (,)]</value>
+  </variable>
+
+  <variable name="VideoBottomHeading">
+    <value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Year,[COLOR=orange]$LOCALIZE[345]:[/COLOR] ]$INFO[VideoPlayer.Director, • [COLOR=orange]$LOCALIZE[20339]:[/COLOR] ]</value>
+    <value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[VideoPlayer.Episode, • [COLOR=orange]$LOCALIZE[20359]:[/COLOR] ]</value>
+    <value condition="VideoPlayer.Content(LiveTV)">$INFO[VideoPlayer.NextTitle,[COLOR=orange]$LOCALIZE[19031]:[/COLOR] ]</value>
   </variable>
 
   <variable name="PlaylistHeader" description="Header for MyPlaylist window">
@@ -470,9 +478,12 @@
   </variable>
 
   <variable name="SeekLabel">
-    <value condition="!String.IsEmpty(Player.SeekStepSize) + ![player.forwarding | player.rewinding]">$LOCALIZE[773][COLOR=Grey2] $INFO[Player.SeekStepSize][/COLOR]</value>
-    <value condition="Player.DisplayAfterSeek + ![player.forwarding | player.rewinding]">$LOCALIZE[773][COLOR=Grey2] $INFO[Player.SeekOffset][/COLOR]</value>
-    <value condition="!Player.DisplayAfterSeek + Player.Seeking">$LOCALIZE[773]</value>
+    <value condition="![Player.Caching | Player.Seeking | player.forwarding | player.rewinding | Player.DisplayAfterSeek] + Player.Paused">$LOCALIZE[112]</value>
+    <value condition="!String.IsEmpty(Player.SeekStepSize) + ![player.forwarding | player.rewinding]">$INFO[Player.SeekStepSize,[COLOR=Highlight]$LOCALIZE[773]:[/COLOR] ]</value>
+    <value condition="Player.DisplayAfterSeek + ![player.forwarding | player.rewinding]">$INFO[Player.SeekOffset,[COLOR=Highlight]$LOCALIZE[773]:[/COLOR] ]</value>
+    <value condition="[Player.Paused + Player.Caching] + !Player.Seeking">$INFO[Player.CacheLevel,$LOCALIZE[15107] ,%]</value>
+    <value condition="Player.Forwarding">[COLOR=Highlight]$VAR[ForwardRewindLabel][/COLOR] $LOCALIZE[31036]</value>
+    <value condition="Player.Rewinding">[COLOR=Highlight]$VAR[ForwardRewindLabel][/COLOR] $LOCALIZE[31037]</value>
   </variable>
 
   <variable name="ForwardRewindLabel">
