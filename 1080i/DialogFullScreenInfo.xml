@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog">
+  <defaultcontrol always="true">601</defaultcontrol>
   <include>OSDFade</include>
   <controls>
     <control type="group">
@@ -13,42 +14,38 @@
         <colordiffuse>FFE2E2E2</colordiffuse>
       </control>
       <control type="group" description="Thumb">
-        <top>-6</top>
-      <control type="image" id="1">
-        <left>555r</left>
-        <top>682r</top>
-        <width>525</width>
-        <height>652</height>
-        <texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
-        <aspectratio align="center" aligny="bottom">keep</aspectratio>
-      </control>
+        <control type="image">
+          <left>555r</left>
+          <top>682r</top>
+          <width>525</width>
+          <height>652</height>
+          <texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
+          <aspectratio align="center" aligny="bottom">keep</aspectratio>
+        </control>
         <control type="group">
-          <left>-260</left>
-          <top>52</top>
+          <left>30</left>
+          <top>40</top>
           <control type="label" description="Main label">
-            <posx>300</posx>
-            <width>1100</width>
+            <width>1305</width>
             <scroll>false</scroll>
             <align>left</align>
             <font>MainLabelBigTitle</font>
             <textcolor>Highlight</textcolor>
             <animation effect="fade" time="200">VisibleChange</animation>
-            <wrapmultiline>true</wrapmultiline>
             <label>$VAR[FullScreenTitle]</label>
           </control>
           <control type="textbox">
-            <left>300</left>
-            <top>75</top>
-            <width>1310</width>
-            <height>125</height>
+            <top>65</top>
+            <width>1305</width>
+            <height>165</height>
             <align>justify</align>
-            <label>$INFO[VideoPlayer.Plot]</label>
+            <label>$VAR[DialogFullScreenPlot]</label>
+            <autoscroll delay="5000" time="5000" repeat="10000">true</autoscroll>
             <font>InfoPlot</font>
           </control>
           <control type="grouplist" description="Flags">
-            <left>303</left>
-            <top>231</top>
-            <width>900</width>
+            <top>250</top>
+            <width>1305</width>
             <height>45</height>
             <itemgap>30</itemgap>
             <orientation>horizontal</orientation>
@@ -56,6 +53,49 @@
             <include content="MediaFlagItems">
               <param name="type">videoplayer</param>
             </include>
+          </control>
+          <control type="grouplist" description="Flags">
+            <top>245</top>
+            <width>1305</width>
+            <height>45</height>
+            <itemgap>20</itemgap>
+            <orientation>horizontal</orientation>
+            <align>right</align>
+            <control type="button" id="601">
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>$VAR[DialogFullScreenBtn601]</label>
+            </control>
+            <control type="button" id="602">
+              <visible>Videoplayer.content(livetv)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Next</label>
+            </control>
+            <control type="button" id="603">
+              <visible>!String.IsEmpty(VideoPlayer.CastAndRole)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Cast</label>
+            </control>
+            <control type="button" id="604">
+              <visible>VideoPlayer.Content(LiveTV) + system.getbool(pvrplayback.signalquality)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Signal</label>
+            </control>
           </control>
         </control>
       </control>
