@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
   <defaultcontrol always="true">50</defaultcontrol>
-  <animation delay="600" effect="fade" time="250">WindowClose</animation>
   <controls>
     <include>Background</include>
     <include>Time</include>
@@ -57,13 +56,14 @@
       <include content="WeatherItemBG">
         <param name="xoffset" value="1560"/>
         <param name="delayms" value="450"/>
-      </include>      
+      </include>
     </control>
     <control type="group" description="Current">
       <include>WeatherAni0</include>
+      <posx>75</posx>
+      <posy>572</posy>
       <control type="label" description="Current conditions">
-        <posx>80</posx>
-        <posy>522</posy>
+        <posx>5</posx>
         <width>380</width>
         <shadowcolor>ShadowDark</shadowcolor>
         <font>WeatherTitle</font>
@@ -71,91 +71,129 @@
         <align>center</align>
         <label>$LOCALIZE[143] $INFO[Window.Property(Current.Temperature)]$INFO[System.TemperatureUnits]</label>
       </control>
-      <control type="image" id="35" description="Current weather icon">
-        <posx>75</posx>
-        <posy>605</posy>
+      <control type="image" id="305" description="Current weather icon">
+        <posy>83</posy>
         <height>130</height>
         <width>150</width>
-        <texture>-</texture>
+        <texture>$VAR[WeatherIconPath]$INFO[Window.Property(Current.FanartCode),,.png]</texture>
       </control>
-      <control type="label" id="34" description="Current weather outlook">
-        <posx>75</posx>
-        <posy>730</posy>
-        <height>50</height>
+      <control type="label" id="304" description="Current weather outlook">
+        <posy>208</posy>
+        <height>70</height>
         <width>150</width>
         <align>center</align>
-        <font>ListDetails</font>
+        <aligny>top</aligny>
         <shadowcolor>ShadowDark</shadowcolor>
+        <wrapmultiline>true</wrapmultiline>
+        <label>$INFO[Window.Property(Current.Condition)]</label>
       </control>
-      <control type="group" description="Current Details">
-        <posx>90</posx>
-        <posy>615</posy>
-        <control type="grouplist">
-          <posx>0</posx>
-          <posy>0</posy>
-          <width>375</width>
-          <height>300</height>
-          <control type="label" description="Feels like label">
-            <height>50</height>
-            <align>right</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>$LOCALIZE[402]: $INFO[Window.Property(Current.FeelsLike)]$INFO[System.TemperatureUnits]</label>
-          </control>
-          <control type="label" description="Current dew label">
-            <height>50</height>
-            <align>right</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>$LOCALIZE[405]: $INFO[Window.Property(Current.DewPoint)]$INFO[System.TemperatureUnits]</label>
-          </control>
-          <control type="label" description="Current humidity label">
-            <height>50</height>
-            <align>right</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>$LOCALIZE[406]: $INFO[Window.Property(Current.Humidity)]</label>
-          </control>
-          <control type="label" description="Current uv label">
-            <height>50</height>
-            <align>right</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>$LOCALIZE[403]: $INFO[Window.Property(Current.UVIndex)]</label>
-            <visible>!String.IsEmpty(Window.Property(Current.UVIndex))</visible>
-          </control>        
-          <control type="label" description="Current uv label spacer">
-            <height>50</height>
-            <align>right</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>-</label>
-            <visible>String.IsEmpty(Window.Property(Current.UVIndex))</visible>
-          </control>
-          <control type="label" description="Current wind label">
-            <height>80</height>
-            <align>center</align>
-            <shadowcolor>ShadowDark</shadowcolor>
-            <label>$LOCALIZE[404]:[CR]$INFO[Window.Property(Current.Wind)]</label>
-          </control>
+      <control type="grouplist">
+        <posx>15</posx>
+        <posy>93</posy>
+        <width>375</width>
+        <height>300</height>
+        <control type="label" description="Feels like label">
+          <height>50</height>
+          <align>right</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>$LOCALIZE[402]: $INFO[Window.Property(Current.FeelsLike)]$INFO[System.TemperatureUnits]</label>
+        </control>
+        <control type="label" description="Current dew label">
+          <height>50</height>
+          <align>right</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>$LOCALIZE[405]: $INFO[Window.Property(Current.DewPoint)]$INFO[System.TemperatureUnits]</label>
+        </control>
+        <control type="label" description="Current humidity label">
+          <height>50</height>
+          <align>right</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>$LOCALIZE[406]: $INFO[Window.Property(Current.Humidity)]</label>
+        </control>
+        <control type="label" description="Current uv label">
+          <height>50</height>
+          <align>right</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>$LOCALIZE[403]: $INFO[Window.Property(Current.UVIndex)]</label>
+          <visible>!String.IsEmpty(Window.Property(Current.UVIndex))</visible>
+        </control>        
+        <control type="label" description="Current uv label spacer">
+          <height>50</height>
+          <align>right</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>-</label>
+          <visible>String.IsEmpty(Window.Property(Current.UVIndex))</visible>
+        </control>
+        <control type="label" description="Current wind label">
+          <height>80</height>
+          <align>center</align>
+          <shadowcolor>ShadowDark</shadowcolor>
+          <label>$LOCALIZE[404]:[CR]$INFO[Window.Property(Current.Wind)]</label>
         </control>
       </control>
     </control>
-    <include content="WeatherItem">
-      <param name="xoffset" value="0"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="0"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="340"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="1"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="680"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="2"/>
-    </include>
-        <include content="WeatherItem">
-      <param name="xoffset" value="1020"/>
-      <param name="yoffset" value="0"/>
-      <param name="dayid" value="3"/>
-    </include>
+    <control type="group">
+      <include content="WeatherItem">
+        <param name="xoffset" value="0"/>
+        <param name="dayid" value="0"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="340"/>
+        <param name="dayid" value="1"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="680"/>
+        <param name="dayid" value="2"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="1020"/>
+        <param name="dayid" value="3"/>
+      </include>
+    </control>
+
+    <control type="group">
+      <visible>Skin.HasSetting(Weather8DayForecast)</visible>
+      <animation effect="fade" start="0" end="100" time="200">visible</animation>
+      <animation effect="fade" start="100" end="0" time="200">hidden</animation>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="540"/>
+        <param name="delayms" value="600"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="880"/>
+        <param name="delayms" value="750"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="1220"/>
+        <param name="delayms" value="900"/>
+        <param name="8day">true</param>
+      </include>
+      <include content="WeatherItemBG">
+        <param name="xoffset" value="1560"/>
+        <param name="delayms" value="1050"/>
+        <param name="8day">true</param>
+      </include>
+
+      <include content="WeatherItem">
+        <param name="xoffset" value="0"/>
+        <param name="dayid" value="4"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="340"/>
+        <param name="dayid" value="5"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="680"/>
+        <param name="dayid" value="6"/>
+      </include>
+      <include content="WeatherItem">
+        <param name="xoffset" value="1020"/>
+        <param name="dayid" value="7"/>
+      </include>
+    </control>
+
     <control type="group" description="Side menu 9000 group">
       <include>9000Commons</include>
       <control type="grouplist" id="9000">
@@ -164,7 +202,7 @@
         <width>500</width>
         <height>1120</height>
         <itemgap>0</itemgap>
-        <onleft>9001</onleft>
+        <onleft>50</onleft>
         <onright>50</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
@@ -191,10 +229,23 @@
           <label>$LOCALIZE[5]</label>
           <onclick>ActivateWindow(MyWeatherSettings)</onclick>
         </control>
+        <control type="togglebutton" id="5" description="Location">
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31018]</label>
+          <altlabel>$LOCALIZE[31019]</altlabel>
+          <onclick>Skin.ToggleSetting(Weather8DayForecast)</onclick>
+          <usealttexture>Skin.HasSetting(Weather8DayForecast)</usealttexture>
+        </control>
         <control type="button" id="3" description="Location">
           <include>9000SysButtons</include>
           <label>$INFO[Window(Weather).Property(Location)]</label>
           <onclick>Weather.LocationNext</onclick>
+        </control>
+        <control type="button" id="6" description="Icons">
+          <visible>System.HasAddon(script.image.resource.select)</visible>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31940]</label>
+          <onclick>RunScript(script.image.resource.select,property=weathericonsResource&amp;type=resource.images.weathericons)</onclick>
         </control>
       </control>
     </control>

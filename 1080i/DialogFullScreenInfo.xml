@@ -1,56 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog">
+  <defaultcontrol always="true">601</defaultcontrol>
   <include>OSDFade</include>
   <controls>
     <control type="group">
-      <posy>720</posy>
+      <top>720</top>
       <control type="image" description="Background">
-        <posx>0</posx>
-        <posy>0</posy>
+        <left>0</left>
+        <top>0</top>
         <width>1920</width>
         <height>361</height>
         <texture border="0,30,0,30">OSD/OSDBackground.png</texture>
         <colordiffuse>FFE2E2E2</colordiffuse>
       </control>
       <control type="group" description="Thumb">
-        <posy>-6</posy>
         <control type="image">
-          <posx>390r</posx>
-          <posy>90</posy>
-          <width>350</width>
-          <height>248</height>
-          <texture diffuse="thumbs/SquareDiffuse.png" fallback="thumbs/SquareBG_NF.png">$INFO[VideoPlayer.Cover]</texture>
-          <aspectratio aligny="center" align="right">keep</aspectratio>
+          <left>555r</left>
+          <top>682r</top>
+          <width>525</width>
+          <height>652</height>
+          <texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
+          <aspectratio align="center" aligny="bottom">keep</aspectratio>
         </control>
         <control type="group">
-          <posx>-260</posx>
-          <posy>72</posy>
+          <left>30</left>
+          <top>40</top>
           <control type="label" description="Main label">
-            <include>FullscreenInfoLabelMain</include>
-            <wrapmultiline>true</wrapmultiline>
-            <label>$INFO[VideoPlayer.TVShowTitle,,[COLOR=Highlight]  •  [/COLOR]]$INFO[VideoPlayer.Season,$LOCALIZE[31973],.]$INFO[VideoPlayer.Episode,,[COLOR=Highlight]  •  [/COLOR]]$INFO[VideoPlayer.ChannelNumberLabel,,.]$INFO[VideoPlayer.ChannelName,,: ]$INFO[VideoPlayer.Artist,, - ]$INFO[VideoPlayer.Album,, - ]$INFO[VideoPlayer.Title]</label>
+            <width>1305</width>
+            <scroll>false</scroll>
+            <align>left</align>
+            <font>MainLabelBigTitle</font>
+            <textcolor>Highlight</textcolor>
+            <animation effect="fade" time="200">VisibleChange</animation>
+            <label>$VAR[FullScreenTitle]</label>
           </control>
           <control type="textbox">
-            <posx>300</posx>
-            <posy>75</posy>
-            <width>1410</width>
-            <height>125</height>
+            <top>65</top>
+            <width>1305</width>
+            <height>165</height>
             <align>justify</align>
-            <label>$INFO[VideoPlayer.Plot]</label>
+            <label>$VAR[DialogFullScreenPlot]</label>
+            <autoscroll delay="5000" time="5000" repeat="10000">true</autoscroll>
             <font>InfoPlot</font>
           </control>
           <control type="grouplist" description="Flags">
-            <posx>303</posx>
-            <posy>231</posy>
-            <width min="90" max="900">auto</width>
+            <top>250</top>
+            <width>1305</width>
             <height>45</height>
             <itemgap>30</itemgap>
             <orientation>horizontal</orientation>
             <align>left</align>
             <include content="MediaFlagItems">
-              <param name="itemheight" value="36"/>
-              <param name="itemwidth" value="102"/>
+              <param name="type">videoplayer</param>
             </include>
+          </control>
+          <control type="grouplist" description="Flags">
+            <top>245</top>
+            <width>1305</width>
+            <height>45</height>
+            <itemgap>20</itemgap>
+            <orientation>horizontal</orientation>
+            <align>right</align>
+            <control type="button" id="601">
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>$VAR[DialogFullScreenBtn601]</label>
+            </control>
+            <control type="button" id="602">
+              <visible>Videoplayer.content(livetv)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Next</label>
+            </control>
+            <control type="button" id="603">
+              <visible>!String.IsEmpty(VideoPlayer.CastAndRole)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Cast</label>
+            </control>
+            <control type="button" id="604">
+              <visible>VideoPlayer.Content(LiveTV) + system.getbool(pvrplayback.signalquality)</visible>
+              <width>180</width>
+              <height>45</height>
+              <align>center</align>
+              <aligny>center</aligny>
+            <font>InfoPlot</font>
+              <label>Signal</label>
+            </control>
           </control>
         </control>
       </control>
