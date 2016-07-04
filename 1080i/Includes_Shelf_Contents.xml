@@ -376,6 +376,24 @@
   <include name="Horizontal_SubShelf_Commons">
     <width>1888</width>
   </include>
+  
+  <include name="Single_SubShelf_Height">
+    <height>354</height>
+  </include>
+
+  <include name="Double_SubShelf_Height">
+    <height>654</height>
+  </include>
+
+  <include name="Single_SubShelf_BGHeight">
+    <height>416</height>
+  </include>
+
+  <include name="Double_SubShelf_BGHeight">
+    <height>716</height>
+  </include>
+
+Skin.HasSetting(Shelf.DoubleHeight)
 
   <include name="ShelfSubList">
     <param name="itemid"/>
@@ -400,7 +418,8 @@
         <ondown>300</ondown>
         <left>16</left>
         <top>43</top>
-        <height>354</height>
+        <include condition="Skin.HasSetting(Shelf.DoubleHeight)">Double_SubShelf_Height</include>
+        <include condition="!Skin.HasSetting(Shelf.DoubleHeight)">Single_SubShelf_Height</include>
         <include condition="Skin.HasSetting(VerticalHome)">Vertical_SubShelf_Commons</include>
         <include condition="!Skin.HasSetting(VerticalHome)">Horizontal_SubShelf_Commons</include>
         <onleft>300</onleft>
@@ -408,8 +427,6 @@
         <orientation>horizontal</orientation>  
         <include content="$PARAM[listitemtype]">
           <param name="id1" value="$PARAM[selectionlistid]$PARAM[itemid]"/>
-          <param name="id2" value="312"/>
-          <param name="offset" value="-162"/>
         </include>
         <include content="ShelfContentType_$PARAM[listitemcontenttype]">
           <param name="listitemsortby">$PARAM[listitemsortby]</param>
@@ -421,6 +438,7 @@
       </control>
       <control type="label">
         <animation effect="fade" start="0" end="100" time="500" delay="500">Visible</animation>
+        <animation effect="slide" start="0,0" end="0,300" time="0" delay="0" reversible="true" condition="Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
         <animation effect="slide" start="0,0" end="215,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
         <visible>Container($PARAM[selectionlistid]).HasFocus($PARAM[itemid])</visible>
         <visible>Integer.IsEqual(Container($PARAM[selectionlistid]$PARAM[itemid]).NumItems,0)</visible>
@@ -434,6 +452,7 @@
         <align>center</align>
       </control>
       <control type="label">
+        <animation effect="slide" start="0,0" end="0,300" time="0" delay="0" reversible="true" condition="Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
         <visible>Control.HasFocus($PARAM[selectionlistid]$PARAM[itemid])</visible>
         <width>1200</width>
         <height>45</height>
@@ -516,11 +535,11 @@
     <param name="listitemsortorder3">descending</param>
     <param name="listitemsortorder4">descending</param>
     <param name="listitemsortorder5">descending</param>
-    <param name="listitemlimit1">10</param>
-    <param name="listitemlimit2">10</param>
-    <param name="listitemlimit3">10</param>
-    <param name="listitemlimit4">10</param>
-    <param name="listitemlimit5">10</param>
+    <param name="listitemlimit1">$VAR[ShelfSize]</param>
+    <param name="listitemlimit2">$VAR[ShelfSize]</param>
+    <param name="listitemlimit3">$VAR[ShelfSize]</param>
+    <param name="listitemlimit4">$VAR[ShelfSize]</param>
+    <param name="listitemlimit5">$VAR[ShelfSize]</param>
     <param name="listitemtarget1">video</param>
     <param name="listitemtarget2">video</param>
     <param name="listitemtarget3">video</param>
@@ -529,14 +548,16 @@
     <definition>
       <control type="group">
         <animation effect="slide" start="0,0" end="-430,0" time="0" delay="0" reversible="true" condition="!Skin.HasSetting(VerticalHome)">conditional</animation>
-        <posx>430</posx>
-        <posy>283</posy>
+        <animation effect="slide" start="0,0" end="0,-100" time="0" delay="0" reversible="true" condition="Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
+        <left>430</left>
+        <top>283</top>
         <visible>$PARAM[menuvisibility]</visible>
         <visible>Integer.IsGreater(Container($PARAM[selectionlistid]).NumItems,0)</visible>
         <visible>$PARAM[shelfvisible]</visible>
         <control type="image">
           <width>1920</width>
-          <height>416</height>
+          <include condition="Skin.HasSetting(Shelf.DoubleHeight)">Double_SubShelf_BGHeight</include>
+          <include condition="!Skin.HasSetting(Shelf.DoubleHeight)">Single_SubShelf_BGHeight</include>
           <texture border="392,40,0,40">home/ShelfBackground.png</texture>
         </control>
         <control type="fixedlist" id="$PARAM[selectionlistid]" description="Selection List">
