@@ -270,8 +270,8 @@
             <height>25</height>
             <texturefocus>NoMasterNF.png</texturefocus>
             <texturenofocus>NoMasterNF.png</texturenofocus>
-            <alttexturefocus>MasteFO.png</alttexturefocus>
-            <alttexturenofocus>MasterFO.png</alttexturenofocus>
+            <alttexturefocus colordiffuse="Highlight">MasterNF.png</alttexturefocus>
+            <alttexturenofocus colordiffuse="Highlight">MasterNF.png</alttexturenofocus>
             <usealttexture>System.IsMaster</usealttexture>
             <onclick>mastermode</onclick>
             <aligny>center</aligny>
@@ -355,10 +355,11 @@
 
   <include name="9000ViewButtons">
     <height>54</height>
-    <width>500</width>
+    <width>484</width>
     <font>Details</font>
     <textoffsetx>30</textoffsetx>
     <disabledcolor>Grey</disabledcolor>
+    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
     <textureradiofocus>img/ArrowRightFO.png</textureradiofocus>
     <textureradionofocus>-</textureradionofocus>
     <radiowidth>15</radiowidth>
@@ -367,11 +368,12 @@
   </include>
   <include name="9000SysButtons">
     <height>54</height>
-    <width>500</width>
+    <width>484</width>
     <font>Details</font>
     <radioposx>390</radioposx>
     <textoffsetx>30</textoffsetx>
     <disabledcolor>Grey</disabledcolor>
+    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
   </include>
   <include name="9000Commons" description="Regular BG">
     <visible allowhiddenfocus="true">ControlGroup(9000).HasFocus()</visible>
@@ -505,7 +507,7 @@
 </include>
 
   <include name="9000GrouplistParameters">
-    <posx>-499</posx>
+    <posx>-491</posx>
     <posy>60</posy>
     <width>500</width>
     <height>1120</height>
@@ -614,6 +616,7 @@
       <textwidth>395</textwidth>
       <include>9000SysButtons</include>
       <label>$LOCALIZE[137]</label>
+      <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
     </control>
     <control type="radiobutton" id="199">
       <visible>Container.CanFilterAdvanced</visible>
@@ -1968,13 +1971,15 @@
           <posy>0</posy>
           <height>60</height>
           <width>1140</width>
-          <texture border="2">buttons/ButtonFO.png</texture>
+          <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
           <posy>0</posy>
           <height>60</height>
           <width>930</width>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
         <control type="label" description="Label 2">
@@ -1987,7 +1992,8 @@
           <haspath>true</haspath>
           <align>right</align>
           <scroll>false</scroll>
-          <textcolor>Highlight</textcolor>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <label>$INFO[ListItem.Label2]</label>
         </control>
         <control type="image" description="Icon">
@@ -2096,8 +2102,8 @@
     <definition>
       <item id="$PARAM[itemid]">
         <visible>!String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
-        <label>[COLOR=Highlight]$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)][/COLOR]</label>
-        <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
+        <label>$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)]</label>
+        <label2>$LOCALIZE[305]</label2>
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
       </item>
@@ -2117,8 +2123,8 @@
     <definition>
       <item id="$PARAM[itemid]">
         <visible>!Skin.HasSetting($PARAM[area].Hide)</visible>
-        <label>[COLOR=Highlight]$PARAM[itemlabel][/COLOR]</label>
-        <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[305]</label2>
         <thumb fallback="special://skin/backgrounds/$PARAM[area].jpg">$INFO[Skin.String($PARAM[area].Background)]</thumb>
         <onclick>Skin.ToggleSetting($PARAM[area].Hide)</onclick>
       </item>
@@ -2135,6 +2141,7 @@
   <include name="SetBackgroundImage">
     <param name="operation"/>
     <definition>
+      <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
       <onclick condition="Container(9004).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
       <onclick condition="Container(9004).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
       <onclick condition="Container(9004).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
