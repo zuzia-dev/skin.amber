@@ -11,6 +11,11 @@
     <value>$INFO[ListItem.Comment]$INFO[ListItem.Date,  •  ]</value>
   </variable>
 
+  <variable name="TVSearchStatus">
+    <value condition="ListItem.IsRecording">$LOCALIZE[19043]</value>
+    <value condition="ListItem.HasTimer">$LOCALIZE[31510]</value>
+  </variable>
+
   <variable name="VideoTopHeading">
     <value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Studio]</value>
     <value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
@@ -359,7 +364,7 @@
     <value condition="Container.Content(artists)">$INFO[Listitem.Property(Artist_Born),[COLOR=orange]$LOCALIZE[21893]: [/COLOR]]$INFO[Listitem.Property(Artist_Formed),[COLOR=orange]$LOCALIZE[21894]: [/COLOR]]</value>
     <value condition="Container.Content(images) + !ListItem.IsFolder">$INFO[Listitem.Size]$INFO[ListItem.PictureDateTime, • ,]</value>
     <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] </value>
-    <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[ListItem.ChannelName]</value>
+    <value condition="Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml)">$INFO[ListItem.Date] $INFO[ListItem.ChannelName,  •  ]</value>
     <value condition="Window.IsActive(MyPVRRecordings.xml)">$INFO[ListItem.Duration,[COLOR=Grey]$LOCALIZE[2050]: [/COLOR]]</value>
     <value>$INFO[Listitem.Title]</value>
   </variable>
@@ -380,8 +385,9 @@
     <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR]   $LOCALIZE[416]</value>
     <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR]   $LOCALIZE[416]</value>
     <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[ListItem.Comment][CR]$INFO[ListItem.Date]</value>
+    <value>$INFO[ListItem.Plot]</value>
   </variable>
-$INFO[ListItem.Comment]$INFO[ListItem.Date,  •  ]
+
   <variable name="panelfooter">
     <value condition="Container.Content(Movies)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]]</value>
     <value condition="Container.Content(TVShows)">$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[33054]:[/COLOR] ][CAPITALIZE]$INFO[Listitem.Episode, • [COLOR=orange]$LOCALIZE[36907]:[/COLOR] ][/CAPITALIZE][CR]$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]]</value>
