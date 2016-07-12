@@ -47,10 +47,27 @@
               <height>120</height>
               <texture border="3">list/ListNF.png</texture>
             </control>
-            <control type="label">
+            <control type="image" description="Thumb">
               <posx>20</posx>
+              <posy>12</posy>
+              <width>100</width>
+              <height>100</height>
+              <texture>$INFO[ListItem.Icon]</texture>
+              <aspectratio>keep</aspectratio>
+              <colordiffuse>HeavyShadow</colordiffuse>
+            </control>
+            <control type="image" description="Thumb">
+              <posx>16</posx>
+              <posy>8</posy>
+              <width>100</width>
+              <height>100</height>
+              <texture>$INFO[ListItem.Icon]</texture>
+              <aspectratio>keep</aspectratio>
+            </control>
+            <control type="label">
+              <posx>132</posx>
               <posy>5</posy>
-              <width>800</width>
+              <width>600</width>
               <height>60</height>
               <label>$INFO[ListItem.Label]</label>
             </control>
@@ -69,20 +86,54 @@
           </itemlayout>
           <focusedlayout width="1010" height="120">
             <control type="image">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>1010</width>
+              <height>120</height>
+              <texture border="3">list/ListNF.png</texture>
+            </control>
+            <control type="image">
               <visible>Control.HasFocus(6)</visible>
               <include>VisibleFadeEffect</include>
               <posx>0</posx>
               <posy>0</posy>
               <width>1010</width>
               <height>120</height>
-              <texture border="2">buttons/ButtonFO.png</texture>
+              <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+            </control>
+            <control type="image" description="Thumb">
+              <posx>20</posx>
+              <posy>12</posy>
+              <width>100</width>
+              <height>100</height>
+              <texture>$INFO[ListItem.Icon]</texture>
+              <aspectratio>keep</aspectratio>
+              <colordiffuse>HeavyShadow</colordiffuse>
+            </control>
+            <control type="image" description="Thumb">
+              <posx>16</posx>
+              <posy>8</posy>
+              <width>100</width>
+              <height>100</height>
+              <texture>$INFO[ListItem.Icon]</texture>
+              <aspectratio>keep</aspectratio>
             </control>
             <control type="label">
-              <posx>20</posx>
+              <visible>Control.HasFocus(6)</visible>
+              <posx>132</posx>
               <posy>5</posy>
-              <width>800</width>
+              <width>600</width>
               <height>60</height>
-              <textcolor>White2</textcolor>
+              <textcolor>Black</textcolor>
+              <shadowcolor></shadowcolor>
+              <label>$INFO[ListItem.Label]</label>
+            </control>
+            <control type="label">
+              <visible>!Control.HasFocus(6)</visible>
+              <posx>132</posx>
+              <posy>5</posy>
+              <width>600</width>
+              <height>60</height>
               <label>$INFO[ListItem.Label]</label>
             </control>
             <control type="label">
@@ -91,53 +142,12 @@
               <width>950</width>
               <height>60</height>
               <align>left</align>
-              <textcolor>Grey2</textcolor>
-              <selectedcolor>Grey2</selectedcolor>
-              <shadowcolor>ShadowDark</shadowcolor>
+              <textcolor>Black</textcolor>
+              <shadowcolor></shadowcolor>
               <font>ListDetails</font>
-              <label>$INFO[ListItem.Property(Addon.Summary)]</label>
+              <label>$INFO[ListItem.Property(AddonSummary)]</label>
             </control>
           </focusedlayout>
-        </control>
-        <control type="image" description="Thumb">
-          <visible>Control.HasFocus(6)</visible>
-          <posx>22</posx>
-          <posy>40</posy>
-          <width>220</width>
-          <height>220</height>
-          <texture>$INFO[Container(6).ListItem.Icon]</texture>
-          <aspectratio>keep</aspectratio>
-          <colordiffuse>HeavyShadow</colordiffuse>
-        </control>
-        <control type="image" description="Thumb">
-          <visible>Control.HasFocus(6)</visible>
-          <posx>16</posx>
-          <posy>34</posy>
-          <width>220</width>
-          <height>220</height>
-          <texture>$INFO[Container(6).ListItem.Icon]</texture>
-          <aspectratio>keep</aspectratio>
-        </control>
-        <control type="label" description="Author">
-          <visible>Control.HasFocus(6) + !String.IsEmpty(Container(6).ListItem.AddonCreator)</visible>
-          <posx>18</posx>
-          <posy>339</posy>
-          <width>220</width>
-          <height>150</height>
-          <wrapmultiline>true</wrapmultiline>
-          <align>center</align>
-          <font>ListDetails</font>
-          <label>$INFO[Container(6).ListItem.AddonCreator,$LOCALIZE[21863]: ]</label>
-        </control>
-				<control type="label" description="Author">
-          <visible>Control.HasFocus(6) + !String.IsEmpty(Container(6).ListItem.AddonVersion)</visible>
-          <posx>18</posx>
-          <posy>220</posy>
-          <width>220</width>
-          <height>150</height>
-          <align>center</align>
-          <font>ListDetails</font>
-          <label>$INFO[Container(6).ListItem.AddonVersion,$LOCALIZE[24051] ]</label>
         </control>
       </control>
       <control type="group" description="Group 3 Plain list">
@@ -166,7 +176,7 @@
               <width>810</width>
               <height>60</height>
               <textoffsetx>30</textoffsetx>
-              <info>ListItem.Label</info>
+              <label>$INFO[ListItem.Label]</label>
             </control>
           </itemlayout>
           <focusedlayout width="1010" height="60">
@@ -177,13 +187,15 @@
               <posy>0</posy>
               <width>1010</width>
               <height>60</height>
-              <texture border="2">buttons/ButtonFO.png</texture>
+              <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
             </control>
             <control type="label">
               <width>810</width>
               <height>60</height>
               <textoffsetx>30</textoffsetx>
-              <info>ListItem.Label</info>
+              <textcolor>Black</textcolor>
+              <shadowcolor></shadowcolor>
+              <label>$INFO[ListItem.Label]</label>
             </control>
           </focusedlayout>
         </control>
@@ -207,11 +219,13 @@
         <top>540</top>
         <onleft>3</onleft>
         <onright>3</onright>
+        <itemgap>0</itemgap>
         <control type="button" id="5" description="Get more button">
           <width>254</width>
           <label>-</label>
           <align>right</align>
           <height>60</height>
+          <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
         </control>
         <control type="button" id="7">
           <description>Cancel button</description>
@@ -219,6 +233,7 @@
           <height>60</height>
           <label>-</label>
           <align>right</align>
+          <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
         </control>
       </control>
     </control>
