@@ -107,14 +107,6 @@
           <haspath>true</haspath>
           <info>ListItem.Path</info>
         </control>
-        <control type="image" description="Stars rating">
-          <posx>860</posx>
-          <posy>-37</posy>
-          <height>54</height>
-          <width>139</width>
-          <aspectratio aligny="center" align="right">keep</aspectratio>
-          <texture>$INFO[ListItem.UserRating,badges/ratings/rating,.png]</texture>
-        </control>
         <control type="image" description="Line Split">
           <posx>0</posx>
           <posy>23</posy>
@@ -374,7 +366,7 @@
           </control>
         </control>
         <control type="textbox" description="Plot">
-          <visible>![Control.HasFocus(9012) | Control.HasFocus(50) | Control.HasFocus(10) | Control.HasFocus(12)]</visible>
+          <visible>![Control.HasFocus(9012) | Control.HasFocus(50) | Control.HasFocus(10)]</visible>
           <include>VisibleFadeEffectDelay</include>
           <posx>0</posx>
           <posy>500</posy>
@@ -387,7 +379,7 @@
         </control>
         <control type="image" description="Line Split">
           <posx>0</posx>
-          <posy>426</posy>
+          <posy>424</posy>
           <width>999</width>
           <height>1</height>
           <texture>img/LineL.png</texture>
@@ -403,14 +395,14 @@
         </control>
         <control type="grouplist" description="Flags">
           <posx>0</posx>
-          <posy>928</posy>
+          <posy>926</posy>
           <width>900</width>
           <height>45</height>
           <itemgap>30</itemgap>
           <orientation>horizontal</orientation>
           <align>left</align>
           <include content="MediaFlagItems">
-            <param name="itemheight" value="36"/>
+            <param name="itemheight" value="45"/>
             <param name="itemwidth" value="102"/>
           </include>
         </control>
@@ -427,7 +419,7 @@
     <control type="group" description="Options">
       <posy>0</posy>
       <posx>810</posx>
-      <control type="grouplist">
+      <control type="grouplist" id="9000">
         <posx>0</posx>
         <posy>485</posy>
         <width>999</width>
@@ -435,16 +427,14 @@
         <itemgap>0</itemgap>
         <align>center</align>
         <orientation>horizontal</orientation>
+        <itemgap>2</itemgap>
         <control type="button" id="299" description="Cinema">
           <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
           <height>54</height>
-          <width>250</width>
+          <width>230</width>
           <align>center</align>
           <font>Details</font>
           <label>$LOCALIZE[31005]</label>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
-          <texturefocus>-</texturefocus>
           <onclick>Dialog.Close(MovieInformation)</onclick>
           <onclick>RunScript(script.cinemavision,experience)</onclick>
         </control>
@@ -455,10 +445,8 @@
           <font>Details</font>
           <label>$LOCALIZE[208]</label>
           <altlabel>$LOCALIZE[1024]</altlabel>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
-          <texturefocus>-</texturefocus>
-          <alttexturefocus>-</alttexturefocus>
+          <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
+          <alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
           <usealttexture>String.IsEqual(ListItem.DBType,tvshow)</usealttexture>
         </control>
         <control type="button" id="11" description="Trailer">
@@ -467,9 +455,6 @@
           <font>Details</font>
           <align>center</align>
           <label>$LOCALIZE[20410]</label>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
-          <texturefocus>-</texturefocus>
           <visible>!String.IsEmpty(ListItem.Trailer)</visible>
           <pulseonselect>true</pulseonselect>
         </control>
@@ -479,41 +464,29 @@
           <ondown>50</ondown>
           <align>center</align>
           <font>Details</font>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[344]</label>
           <onclick>Control.SetFocus(50)</onclick>
-          <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="6" description="Refresh">
           <height>54</height>
           <width>230</width>
           <align>center</align>
           <font>Details</font>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[184]</label>
-          <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="7" description="Set my Rating">
           <height>54</height>
           <width>230</width>
           <align>center</align>
           <font>Details</font>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[38023]</label>
-          <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="10" description="Get Art">
           <height>54</height>
           <width>230</width>
           <align>center</align>
           <font>Details</font>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[13511]</label>
-          <texturefocus>-</texturefocus>
         </control>
         <control type="button" id="100" description="TvTunes">
           <visible>String.IsEqual(ListItem.DBType,tvshow) + System.HasAddon(script.tvtunes) + Skin.HasSetting(TVTunes.Enabled)</visible>
@@ -521,10 +494,7 @@
           <width>230</width>
           <align>center</align>
           <font>Details</font>
-          <textcolor>White</textcolor>
-          <focusedcolor>Highlight</focusedcolor>
           <label>$LOCALIZE[31956]</label>
-          <texturefocus>-</texturefocus>
           <onclick>RunScript(script.tvtunes,mode=solo)</onclick>
         </control>
       </control>
@@ -545,9 +515,9 @@
         <posy>580</posy>
         <width>700</width>
         <height>360</height>
-        <onleft>8</onleft>
-        <onright>8</onright>
-        <onup>8</onup>
+        <onleft>9000</onleft>
+        <onright>9000</onright>
+        <onup>9000</onup>
         <ondown>50</ondown>
         <viewtype label="">list</viewtype>
         <scrolltime>200</scrolltime>
@@ -571,7 +541,7 @@
             <posy>0</posy>
             <width>700</width>
             <height>40</height>
-            <texture border="2">buttons/ButtonFO.png</texture>
+            <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
             <visible>Control.HasFocus(50)</visible>
           </control>
           <control type="label">
@@ -582,7 +552,8 @@
             <font>InfoPlot</font>
             <align>left</align>
             <aligny>center</aligny>
-            <selectedcolor>white</selectedcolor>
+            <textcolor>Black</textcolor>
+            <shadowcolor>-</shadowcolor>
             <label>$INFO[ListItem.Label]$INFO[ListItem.Label2, $LOCALIZE[20347] ,]</label>
           </control>
         </focusedlayout>
@@ -594,6 +565,7 @@
         <height>360</height>
         <texture>$INFO[Container(50).ListItem.Thumb]</texture>
         <aspectratio aligny="top">scale</aspectratio>
+        <visible>Control.HasFocus(50)</visible>
       </control>
     </control>
     <control type="image" description="Current thumb">
@@ -604,16 +576,6 @@
       <width>999</width>
       <height>340</height>
       <texture>$INFO[ListItem.Art(thumb)]</texture>
-      <aspectratio>keep</aspectratio>
-    </control>
-    <control type="image" description="Current FA">
-      <visible>Control.HasFocus(12)</visible>
-      <include>VisibleFadeEffectDelay</include>
-      <posx>813</posx>
-      <posy>590</posy>
-      <width>999</width>
-      <height>340</height>
-      <texture>$INFO[ListItem.Art(fanart)]</texture>
       <aspectratio>keep</aspectratio>
     </control>
   </controls>
