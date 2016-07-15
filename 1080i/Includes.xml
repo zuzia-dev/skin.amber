@@ -323,34 +323,47 @@
   </include>
 
   <include name="ListWatchedOverlay">
-    <control type="image">
-      <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
-      <posx>52r</posx>
-      <posy>0</posy>
-      <width>30</width>
-      <height>72</height>
-      <texture>$VAR[Overlay]</texture>
-      <aspectratio aligny="center">keep</aspectratio>
-    </control>
-    <control type="group">
-      <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
-      <control type="image" description="Label2 BG">
-        <posx>84r</posx>
-        <posy>15</posy>
-        <width>60</width>
-        <height>42</height>
-        <texture border="3">img/WhiteRoundedT.png</texture>
-      </control>
-      <control type="label" description="l2">
-        <right>3</right>
+    <param name="isFocused">false</param>
+    <definition>
+      <control type="image">
+        <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
+        <posx>52r</posx>
+        <posy>0</posy>
+        <width>30</width>
         <height>72</height>
-        <width>100</width>
-        <font>ListDetails</font>
-        <align>center</align>
-        <textcolor>Highlight</textcolor>
-        <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+        <texture>$VAR[Overlay]</texture>
+        <aspectratio aligny="center">keep</aspectratio>
       </control>
-    </control>
+      <control type="group">
+        <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
+        <control type="image" description="Label2 BG">
+          <visible>$PARAM[isFocused]</visible>
+          <posx>84r</posx>
+          <posy>15</posy>
+          <width>60</width>
+          <height>42</height>
+          <texture border="3">img/WhiteRoundedST2.png</texture>
+          <colordiffuse>Black</colordiffuse>
+        </control>
+        <control type="image" description="Label2 BG">
+          <visible>!$PARAM[isFocused]</visible>
+          <posx>84r</posx>
+          <posy>15</posy>
+          <width>60</width>
+          <height>42</height>
+          <texture border="3">img/WhiteRoundedT.png</texture>
+        </control>
+        <control type="label" description="l2">
+          <right>3</right>
+          <height>72</height>
+          <width>100</width>
+          <font>ListDetails</font>
+          <align>center</align>
+          <textcolor>Highlight</textcolor>
+          <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+        </control>
+      </control>
+    </definition>
   </include>
 
   <include name="9000ViewButtons">
@@ -643,6 +656,7 @@
       <onclick>Filter</onclick>
     </control>
   </include>
+
   <include name="KeyboardButtons">
     <align>center</align>
     <aligny>center</aligny>
@@ -677,7 +691,6 @@
     <radioposy>0</radioposy>
     <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
   </include>
-
 
   <include name="List_9009_Commons" description="Video Info metadata container">
     <posx>0</posx>
@@ -740,6 +753,7 @@
       </control>
     </focusedlayout>
   </include>
+  
   <include name="BG.Defaults">
     <posx>0</posx>
     <posy>0</posy>
