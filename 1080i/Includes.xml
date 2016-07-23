@@ -270,8 +270,8 @@
             <height>25</height>
             <texturefocus>NoMasterNF.png</texturefocus>
             <texturenofocus>NoMasterNF.png</texturenofocus>
-            <alttexturefocus>MasteFO.png</alttexturefocus>
-            <alttexturenofocus>MasterFO.png</alttexturenofocus>
+            <alttexturefocus colordiffuse="Highlight">MasterNF.png</alttexturefocus>
+            <alttexturenofocus colordiffuse="Highlight">MasterNF.png</alttexturenofocus>
             <usealttexture>System.IsMaster</usealttexture>
             <onclick>mastermode</onclick>
             <aligny>center</aligny>
@@ -323,55 +323,64 @@
   </include>
 
   <include name="ListWatchedOverlay">
-    <control type="image">
-      <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
-      <posx>52r</posx>
-      <posy>0</posy>
-      <width>30</width>
-      <height>72</height>
-      <texture>$VAR[Overlay]</texture>
-      <aspectratio aligny="center">keep</aspectratio>
-    </control>
-    <control type="group">
-      <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
-      <control type="image" description="Label2 BG">
-        <posx>84r</posx>
-        <posy>15</posy>
-        <width>60</width>
-        <height>42</height>
-        <texture border="3">img/WhiteRoundedT.png</texture>
-      </control>
-      <control type="label" description="l2">
-        <right>3</right>
+    <param name="isFocused">false</param>
+    <definition>
+      <control type="image">
+        <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
+        <posx>52r</posx>
+        <posy>0</posy>
+        <width>30</width>
         <height>72</height>
-        <width>100</width>
-        <font>ListDetails</font>
-        <align>center</align>
-        <textcolor>Highlight</textcolor>
-        <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+        <texture>$VAR[Overlay]</texture>
+        <aspectratio aligny="center">keep</aspectratio>
       </control>
-    </control>
+      <control type="group">
+        <visible>[Container.content(tvshows) | container.content(seasons)] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)</visible>
+        <control type="image" description="Label2 BG">
+          <visible>$PARAM[isFocused]</visible>
+          <posx>84r</posx>
+          <posy>15</posy>
+          <width>60</width>
+          <height>42</height>
+          <texture border="3">img/WhiteRoundedST2.png</texture>
+          <colordiffuse>Black</colordiffuse>
+        </control>
+        <control type="image" description="Label2 BG">
+          <visible>!$PARAM[isFocused]</visible>
+          <posx>84r</posx>
+          <posy>15</posy>
+          <width>60</width>
+          <height>42</height>
+          <texture border="3">img/WhiteRoundedT.png</texture>
+        </control>
+        <control type="label" description="l2">
+          <right>3</right>
+          <height>72</height>
+          <width>100</width>
+          <font>ListDetails</font>
+          <align>center</align>
+          <textcolor>Highlight</textcolor>
+          <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+        </control>
+      </control>
+    </definition>
   </include>
 
   <include name="9000ViewButtons">
     <height>54</height>
-    <width>500</width>
+    <width>484</width>
     <font>Details</font>
     <textoffsetx>30</textoffsetx>
     <disabledcolor>Grey</disabledcolor>
-    <textureradiofocus>img/ArrowRightFO.png</textureradiofocus>
-    <textureradionofocus>-</textureradionofocus>
-    <radiowidth>15</radiowidth>
-    <radioheight>60</radioheight>
-    <radioposx>5</radioposx>
   </include>
   <include name="9000SysButtons">
     <height>54</height>
-    <width>500</width>
+    <width>484</width>
     <font>Details</font>
     <radioposx>390</radioposx>
     <textoffsetx>30</textoffsetx>
     <disabledcolor>Grey</disabledcolor>
+    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
   </include>
   <include name="9000Commons" description="Regular BG">
     <visible allowhiddenfocus="true">ControlGroup(9000).HasFocus()</visible>
@@ -505,16 +514,32 @@
 </include>
 
   <include name="9000GrouplistParameters">
-    <posx>-499</posx>
+    <posx>-491</posx>
     <posy>60</posy>
     <width>500</width>
     <height>1120</height>
     <itemgap>0</itemgap>
     <onleft>9001</onleft>
-    <onright>50</onright>
+    <onright condition="Control.IsVisible(50)">Control.SetFocus(50)</onright>
+    <onright condition="Control.IsVisible(51)">Control.SetFocus(51)</onright>
+    <onright condition="Control.IsVisible(52)">Control.SetFocus(52)</onright>
+    <onright condition="Control.IsVisible(53)">Control.SetFocus(53)</onright>
+    <onright condition="Control.IsVisible(54)">Control.SetFocus(54)</onright>
+    <onright condition="Control.IsVisible(55)">Control.SetFocus(55)</onright>
+    <onright condition="Control.IsVisible(57)">Control.SetFocus(57)</onright>
+    <onright condition="Control.IsVisible(58)">Control.SetFocus(58)</onright>
+    <onright condition="Control.IsVisible(59)">Control.SetFocus(59)</onright>
     <onup>9000</onup>
     <ondown>9000</ondown>
-    <onback>50</onback>
+    <onback condition="Control.IsVisible(50)">Control.SetFocus(50)</onback>
+    <onback condition="Control.IsVisible(51)">Control.SetFocus(51)</onback>
+    <onback condition="Control.IsVisible(52)">Control.SetFocus(52)</onback>
+    <onback condition="Control.IsVisible(53)">Control.SetFocus(53)</onback>
+    <onback condition="Control.IsVisible(54)">Control.SetFocus(54)</onback>
+    <onback condition="Control.IsVisible(55)">Control.SetFocus(55)</onback>
+    <onback condition="Control.IsVisible(57)">Control.SetFocus(57)</onback>
+    <onback condition="Control.IsVisible(58)">Control.SetFocus(58)</onback>
+    <onback condition="Control.IsVisible(59)">Control.SetFocus(59)</onback>
     <scrolltime>200</scrolltime>
     <orientation>vertical</orientation>
     <control type="label" id="9140">
@@ -525,7 +550,7 @@
       <label>$LOCALIZE[582]</label>
     </control>
     <control type="button" id="6051">
-      <include>9000ViewButtons</include>
+      <include>9000SysButtons</include>
       <label>$LOCALIZE[31023]</label>
       <label2>$INFO[Container.Viewmode]</label2>
       <enable>Integer.IsGreater(Container.ViewCount,1)</enable>
@@ -614,6 +639,7 @@
       <textwidth>395</textwidth>
       <include>9000SysButtons</include>
       <label>$LOCALIZE[137]</label>
+      <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
     </control>
     <control type="radiobutton" id="199">
       <visible>Container.CanFilterAdvanced</visible>
@@ -624,20 +650,42 @@
       <onclick>Filter</onclick>
     </control>
   </include>
+
   <include name="KeyboardButtons">
     <align>center</align>
     <aligny>center</aligny>
     <textoffsetx>0</textoffsetx>
-    <width>87</width>
-    <height>87</height>
+    <width>80</width>
+    <height>80</height>
     <font>Keyboard</font>
-    <focusedcolor>Highlight</focusedcolor>
+    <focusedcolor>Black</focusedcolor>
+    <shadowcolor></shadowcolor>
     <textoffsety>-3</textoffsety>
-    <texturefocus border="16,0,16,0">common/KeyButtonFO.png</texturefocus>
-    <texturenofocus border="16,0,16,0">common/KeyButtonNF.png</texturenofocus>
-    <alttexturefocus border="16,0,16,0">common/KeyButtonFO.png</alttexturefocus>
-    <alttexturenofocus border="16,0,16,0">common/KeyButtonNF.png</alttexturenofocus>
+    <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+    <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
+    <alttexturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</alttexturefocus>
+    <alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
   </include>
+
+  <include name="OSDButtons">
+    <textureradioonfocus colordiffuse="Black">$PARAM[icon]</textureradioonfocus>
+    <textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
+    <textureradioofffocus colordiffuse="Black">$PARAM[icon]</textureradioofffocus>
+    <textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
+    <textureradioondisabled colordiffuse="Disabled">$PARAM[icon]</textureradioondisabled>
+    <textureradiooffdisabled colordiffuse="Disabled">$PARAM[icon]</textureradiooffdisabled>
+    <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+    <width>64</width>
+    <height>64</height>
+    <radiowidth>64</radiowidth>
+    <radioheight>64</radioheight>
+    <font>-</font>
+    <texturenofocus>-</texturenofocus>
+    <radioposx>0.1</radioposx>
+    <radioposy>0</radioposy>
+    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+  </include>
+
   <include name="List_9009_Commons" description="Video Info metadata container">
     <posx>0</posx>
     <posy>0</posy>
@@ -699,6 +747,7 @@
       </control>
     </focusedlayout>
   </include>
+  
   <include name="BG.Defaults">
     <posx>0</posx>
     <posy>0</posy>
@@ -1668,11 +1717,11 @@
       </control>
       <control type="image" description="Stars">
         <visible>$PARAM[showratingbadge]</visible>
-        <width>$PARAM[itemwidth]</width>
         <height>$PARAM[itemheight]</height>
+        <width>$PARAM[itemwidth]</width>
         <bordersize>3</bordersize>
         <aspectratio>keep</aspectratio>
-        <texture>$VAR[ratingbadge]</texture>
+        <texture>$VAR[$PARAM[type].ratingbadge]</texture>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
       </control>
     </definition>
@@ -1967,13 +2016,15 @@
           <posy>0</posy>
           <height>60</height>
           <width>1140</width>
-          <texture border="2">buttons/ButtonFO.png</texture>
+          <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
           <posy>0</posy>
           <height>60</height>
           <width>930</width>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <label>$INFO[ListItem.Label]</label>
         </control>
         <control type="label" description="Label 2">
@@ -1986,7 +2037,8 @@
           <haspath>true</haspath>
           <align>right</align>
           <scroll>false</scroll>
-          <textcolor>Highlight</textcolor>
+          <textcolor>Black</textcolor>
+          <shadowcolor></shadowcolor>
           <label>$INFO[ListItem.Label2]</label>
         </control>
         <control type="image" description="Icon">
@@ -2095,8 +2147,8 @@
     <definition>
       <item id="$PARAM[itemid]">
         <visible>!String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
-        <label>[COLOR=Highlight]$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)][/COLOR]</label>
-        <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
+        <label>$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)]</label>
+        <label2>$LOCALIZE[305]</label2>
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
       </item>
@@ -2116,8 +2168,8 @@
     <definition>
       <item id="$PARAM[itemid]">
         <visible>!Skin.HasSetting($PARAM[area].Hide)</visible>
-        <label>[COLOR=Highlight]$PARAM[itemlabel][/COLOR]</label>
-        <label2>[COLOR=Highlight]$LOCALIZE[305][/COLOR]</label2>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[305]</label2>
         <thumb fallback="special://skin/backgrounds/$PARAM[area].jpg">$INFO[Skin.String($PARAM[area].Background)]</thumb>
         <onclick>Skin.ToggleSetting($PARAM[area].Hide)</onclick>
       </item>
@@ -2134,6 +2186,7 @@
   <include name="SetBackgroundImage">
     <param name="operation"/>
     <definition>
+      <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
       <onclick condition="Container(9004).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
       <onclick condition="Container(9004).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
       <onclick condition="Container(9004).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
@@ -2215,7 +2268,7 @@
         <control type="image">
           <visible>$PARAM[isFocused]</visible>
           <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-          <bordertexture colordiffuse="Highlight" border="8">thumbs/SquareBG_FO3.png</bordertexture>
+          <bordertexture colordiffuse="Highlight" border="8">thumbs/IconBorder_FO.png</bordertexture>
           <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
           <aspectratio>$PARAM[aspect]</aspectratio>
         </control>
@@ -2228,7 +2281,7 @@
         </control>
         <include content="GenericThumbLabelTemplate">
           <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">75r</param>
+          <param name="yoffset">65r</param>
           <param name="xoffset">$PARAM[iconoffset]</param>
           <param name="labelwidth">$PARAM[iconwidth]</param>
           <param name="labelvisibility">$PARAM[overlaylabelvisibility]</param>
@@ -2564,6 +2617,8 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
         <param name="bordersizeRB">20</param>
+        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
+        <param name="overlaylabel">[B]$INFO[ListItem.Season,$LOCALIZE[31954]]$INFO[ListItem.Episode,$LOCALIZE[31973]][/B]</param>
       </include>
     </definition>
   </include>
@@ -2724,7 +2779,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <texture>img/WhiteRoundedT.png</texture>
+          <texture border="4">img/WhiteRoundedT.png</texture>
           <bordersize>$PARAM[bordersize]</bordersize>
           <aspectratio>stretch</aspectratio>
         </control>
@@ -2734,7 +2789,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
-          <texture>img/WhiteRoundedST2.png</texture>
+          <texture border="4">img/WhiteRoundedST2.png</texture>
           <colordiffuse>Highlight</colordiffuse>
           <bordersize>$PARAM[bordersize]</bordersize>
           <aspectratio>stretch</aspectratio>
@@ -2788,7 +2843,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
-          <texture>img/WhiteRoundedT.png</texture>
+          <texture border="4">img/WhiteRoundedT.png</texture>
           <bordersize>4,0,4,0</bordersize>
           <aspectratio>stretch</aspectratio>
         </control>
@@ -2798,7 +2853,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
-          <texture>img/WhiteRoundedST2.png</texture>
+          <texture border="4">img/WhiteRoundedST2.png</texture>
           <colordiffuse>Highlight</colordiffuse>
           <bordersize>4,0,4,0</bordersize>
           <aspectratio>stretch</aspectratio>
@@ -2855,7 +2910,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
-          <texture>img/WhiteRoundedT.png</texture>
+          <texture border="4">img/WhiteRoundedT.png</texture>
           <bordersize>$PARAM[bordersize]</bordersize>
           <aspectratio>stretch</aspectratio>
         </control>
@@ -2865,7 +2920,7 @@
           <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
-          <texture>img/WhiteRoundedST2.png</texture>
+          <texture border="4">img/WhiteRoundedST2.png</texture>
           <colordiffuse>Highlight</colordiffuse>
           <bordersize>$PARAM[bordersize]</bordersize>
           <aspectratio>stretch</aspectratio>
