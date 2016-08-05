@@ -383,7 +383,7 @@
     <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
   </include>
   <include name="9000Commons" description="Regular BG">
-    <visible allowhiddenfocus="true">ControlGroup(9000).HasFocus()</visible>
+    <visible allowhiddenfocus="true">ControlGroup(8999).HasFocus()</visible>
     <animation type="Visible">
       <effect type="fade" start="0" end="100" time="250" />
       <effect type="slide" tween="circle" easing="out" start="0,0" end="500,0" time="350" />
@@ -424,8 +424,122 @@
       <label>-</label>
       <font>-</font>
     </control>
+    <control type="group" id="9601" description="ViewsPopOut">
+      <visible allowhiddenfocus="true">ControlGroup(9601).HasFocus()</visible>
+      <include>VisibleFadeEffect</include>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>154</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
+      </control>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>208</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
+      </control>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>262</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
+      </control>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>316</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
+      </control>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>370</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
+      </control>
+      <control type="image">
+        <posx>0</posx>
+        <posy>92</posy>
+        <width>300</width>
+        <height>424</height>
+        <texture border="45">dialogs/TinyDialog.png</texture>
+        <visible>Integer.IsEqual(Container(9600).NumItems,7)</visible>
+      </control>
+      <control type="grouplist" id="9600">
+        <posx>26</posx>
+        <posy>116</posy>
+        <width>248</width>
+        <height>400</height>
+        <itemgap>0</itemgap>
+        <onleft>9000</onleft>
+        <onright>50</onright>
+        <onup>9600</onup>
+        <ondown>9600</ondown>
+        <onback>9000</onback>
+        <scrolltime>200</scrolltime>
+        <orientation>vertical</orientation>
+        <control type="button" id="9650">
+          <description>Set View 50</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[535]</label>
+          <onclick>Container.SetViewMode(50)</onclick>
+          <visible>!Skin.HasSetting(hide.listview)</visible>
+        </control>
+        <control type="button" id="9651">
+          <description>Set View 51</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31963]</label>
+          <onclick>Container.SetViewMode(51)</onclick>
+          <visible>!Skin.HasSetting(hide.panelview)</visible>
+        </control>
+        <control type="button" id="9652">
+          <description>Set View 52</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31999]</label>
+          <onclick>Container.SetViewMode(52)</onclick>
+          <visible>!Skin.HasSetting(hide.biglistview)</visible>
+        </control>
+        <control type="button" id="9653">
+          <description>Set View 53</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[536]</label>
+          <onclick>Container.SetViewMode(53)</onclick>
+          <visible>!Skin.HasSetting(hide.iconsview)</visible>
+        </control>
+        <control type="button" id="9654">
+          <description>Set View 54</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31962]</label>
+          <onclick>Container.SetViewMode(54)</onclick>
+          <visible>!Skin.HasSetting(hide.lowlistview)</visible>
+        </control>
+        <control type="button" id="9655">
+          <description>Set View 55</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[31958]</label>
+          <onclick>Container.SetViewMode(55)</onclick>
+          <visible>!Skin.HasSetting(hide.bigpanelview)</visible>
+        </control>
+        <control type="button" id="9656">
+          <description>Set View 56</description>
+          <include>9000SysButtons</include>
+          <label>$LOCALIZE[20445]</label>
+          <onclick>Container.SetViewMode(56)</onclick>
+          <visible>!Skin.HasSetting(hide.fanartview)</visible>
+        </control>
+      </control>
+    </control>
   </include>
-
 
 <include name="StandardViewSwitches">
   <param name="viewid"/>
@@ -520,28 +634,13 @@
     <height>1120</height>
     <itemgap>0</itemgap>
     <onleft>9001</onleft>
-    <onright condition="Control.IsVisible(50)">Control.SetFocus(50)</onright>
-    <onright condition="Control.IsVisible(51)">Control.SetFocus(51)</onright>
-    <onright condition="Control.IsVisible(52)">Control.SetFocus(52)</onright>
-    <onright condition="Control.IsVisible(53)">Control.SetFocus(53)</onright>
-    <onright condition="Control.IsVisible(54)">Control.SetFocus(54)</onright>
-    <onright condition="Control.IsVisible(55)">Control.SetFocus(55)</onright>
-    <onright condition="Control.IsVisible(57)">Control.SetFocus(57)</onright>
-    <onright condition="Control.IsVisible(58)">Control.SetFocus(58)</onright>
-    <onright condition="Control.IsVisible(59)">Control.SetFocus(59)</onright>
+    <onright>50</onright>
     <onup>9000</onup>
     <ondown>9000</ondown>
-    <onback condition="Control.IsVisible(50)">Control.SetFocus(50)</onback>
-    <onback condition="Control.IsVisible(51)">Control.SetFocus(51)</onback>
-    <onback condition="Control.IsVisible(52)">Control.SetFocus(52)</onback>
-    <onback condition="Control.IsVisible(53)">Control.SetFocus(53)</onback>
-    <onback condition="Control.IsVisible(54)">Control.SetFocus(54)</onback>
-    <onback condition="Control.IsVisible(55)">Control.SetFocus(55)</onback>
-    <onback condition="Control.IsVisible(57)">Control.SetFocus(57)</onback>
-    <onback condition="Control.IsVisible(58)">Control.SetFocus(58)</onback>
-    <onback condition="Control.IsVisible(59)">Control.SetFocus(59)</onback>
+    <onback>50</onback>
     <scrolltime>200</scrolltime>
     <orientation>vertical</orientation>
+    <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
     <control type="label" id="9140">
       <textcolor>Highlight</textcolor>
       <textoffsetx>10</textoffsetx>
@@ -553,8 +652,8 @@
       <include>9000SysButtons</include>
       <label>$LOCALIZE[31023]</label>
       <label2>$INFO[Container.Viewmode]</label2>
-      <enable>Integer.IsGreater(Container.ViewCount,1)</enable>
-      <onclick>Container.NextViewMode</onclick>
+      <enable>Integer.IsGreater(Container(9600).NumItems,1)</enable>
+      <onclick>Control.SetFocus(9600)</onclick>
     </control>
 
     <include content="StandardViewSwitches">

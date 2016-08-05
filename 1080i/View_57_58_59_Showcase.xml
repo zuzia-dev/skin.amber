@@ -111,7 +111,7 @@
       </control>
     </control>
     <control type="group" description="Showcase 59 Movies TV Seasons">
-      <visible>Control.IsVisible(59)</visible>
+      <visible>Control.IsVisible(59) + !Skin.HasSetting(hide.fanartview)</visible>
       <include>ContentFade</include>
       <control type="fixedlist" id="59">
         <visible>[container.content(MusicVideos) + Window.IsActive(myvideonav.xml)] | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)</visible>
@@ -127,7 +127,7 @@
         <onup condition="!String.IsEmpty(Window.Property(gallery))">ClearProperty(gallery)</onup>
         <ondown condition="Skin.HasSetting(59_Posters_Gallery)">SetProperty(gallery, true)</ondown>
         <ondown condition="!Skin.HasSetting(59_Posters_Gallery)">60</ondown>
-        <viewtype label="20445">bigwrap</viewtype>
+        <viewtype label="$LOCALIZE[20445]">bigwrap</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
         <scrolltime>250</scrolltime>
@@ -282,6 +282,7 @@
       <visible>Control.IsVisible(58)</visible>
       <include>ContentFade</include>
       <control type="fixedlist" id="58">
+        <visible>!Skin.HasSetting(hide.fanartview)</visible>
         <visible>![[container.content(MusicVideos) + Window.IsActive(myvideonav.xml)] | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons) | container.content(episodes)]</visible>
         <animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
         <animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="Skin.HasSetting(58_Music_Info)">Conditional</animation>
@@ -295,7 +296,7 @@
         <onup condition="String.IsEmpty(Window.Property(gallery))">9000</onup>
         <ondown condition="[container.content(artists) | container.content(albums)] + Skin.HasSetting(58_Music_Gallery)">SetProperty(gallery, true)</ondown>
         <ondown condition="![[container.content(artists) | container.content(albums)] + Skin.HasSetting(58_Music_Gallery)]">60</ondown>
-        <viewtype label="20445">bigwrap</viewtype>
+        <viewtype label="$LOCALIZE[20445]">bigwrap</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
         <scrolltime>250</scrolltime>
@@ -393,6 +394,7 @@
       <visible>Control.IsVisible(57)</visible>
       <include>ContentFade</include>
       <control type="fixedlist" id="57">
+        <visible>!Skin.HasSetting(hide.fanartview)</visible>
         <visible>container.content(episodes)</visible>
         <animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
         <posx>-75</posx>
@@ -405,7 +407,7 @@
         <onup condition="String.IsEmpty(Window.Property(gallery))">9000</onup>
         <ondown condition="Skin.HasSetting(57_Episodes_Gallery)">SetProperty(gallery, true)</ondown>
         <ondown condition="!Skin.HasSetting(57_Episodes_Gallery)">60</ondown>
-        <viewtype label="20445">bigwrap</viewtype>
+        <viewtype label="$LOCALIZE[20445]">bigwrap</viewtype>
         <pagecontrol>60</pagecontrol>
         <orientation>horizontal</orientation>
         <scrolltime>250</scrolltime>
