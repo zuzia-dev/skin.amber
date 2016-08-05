@@ -19,7 +19,7 @@
   <include file="View_53_Icons.xml" />
   <include file="View_54_LowList.xml" />
   <include file="View_55_BigPanel.xml" />
-  <include file="View_57_58_59_Showcase.xml" />
+  <include file="View_56_Fanart.xml" />
   <include file="View_PVR.xml" />
   <include name="ContentFade">
     <animation effect="fade" start="0" end="100" time="500" delay="0">WindowOpen</animation>
@@ -668,56 +668,57 @@
       <param name="viewid">51</param>
     </include>
 
-    <control type="radiobutton" id="9162" description="View 57 Enable gallery for EPISODES">
-      <visible>Control.IsVisible(57) + container.content(episodes)</visible>
-      <font>ListDetails</font>
-      <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(57_Episodes_Gallery)</onclick>
-      <selected>Skin.HasSetting(57_Episodes_Gallery)</selected>
-      <label>- $LOCALIZE[31970]</label>
-    </control>
     <control type="radiobutton" id="9163" description="View 57 Enable info for EPISODES">
-      <visible>Control.IsVisible(57) + container.content(episodes)</visible>
+      <visible>Control.IsVisible(56)+ container.content(episodes)</visible>
       <font>ListDetails</font>
       <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(57_Episodes_Info)</onclick>
-      <selected>Skin.HasSetting(57_Episodes_Info)</selected>
+      <onclick>Skin.ToggleSetting(56_Episodes_Info)</onclick>
+      <selected>Skin.HasSetting(56_Episodes_Info)</selected>
       <label>- $LOCALIZE[31968]</label>
     </control>
-
-    <control type="radiobutton" id="9165" description="View 58 Enable gallery for MUSIC">
-      <visible>Control.IsVisible(58) + [container.content(albums) | container.content(artists)]</visible>
+    <control type="radiobutton" id="9162" description="View 57 Enable gallery for EPISODES">
+      <visible>Control.IsVisible(56) + container.content(episodes)</visible>
       <font>ListDetails</font>
       <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(58_Music_Gallery)</onclick>
-      <selected>Skin.HasSetting(58_Music_Gallery)</selected>
+      <onclick>Skin.ToggleSetting(56_Episodes_Gallery)</onclick>
+      <selected>Skin.HasSetting(56_Episodes_Gallery)</selected>
       <label>- $LOCALIZE[31970]</label>
     </control>
+
     <control type="radiobutton" id="9166" description="View 58 Enable Info for MUSIC">
-      <visible>Control.IsVisible(58) + [container.content(albums) | container.content(artists)]</visible>
+      <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
       <font>ListDetails</font>
       <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(58_Music_Info)</onclick>
-      <selected>Skin.HasSetting(58_Music_Info)</selected>
+      <onclick>Skin.ToggleSetting(56_Music_Info)</onclick>
+      <selected>Skin.HasSetting(56_Music_Info)</selected>
       <label>- $LOCALIZE[31968]</label>
     </control>
-
-    <control type="radiobutton" id="9168" description="View 59 Enable gallery for POSTERS">
-      <visible>Control.IsVisible(59) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
+    <control type="radiobutton" id="9165" description="View 58 Enable gallery for MUSIC">
+      <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
       <font>ListDetails</font>
       <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(59_Posters_Gallery)</onclick>
-      <selected>Skin.HasSetting(59_Posters_Gallery)</selected>
+      <onclick>Skin.ToggleSetting(56_Music_Gallery)</onclick>
+      <selected>Skin.HasSetting(56_Music_Gallery)</selected>
       <label>- $LOCALIZE[31970]</label>
     </control>
+
     <control type="radiobutton" id="9169" description="View 59 Enable Info for POSTERS">
-      <visible>Control.IsVisible(59) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
+      <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
       <font>ListDetails</font>
       <include>9000SysButtons</include>
-      <onclick>Skin.ToggleSetting(59_Posters_Info)</onclick>
-      <selected>Skin.HasSetting(59_Posters_Info)</selected>
+      <onclick>Skin.ToggleSetting(56_Posters_Info)</onclick>
+      <selected>Skin.HasSetting(56_Posters_Info)</selected>
       <label>- $LOCALIZE[31968]</label>
     </control>
+    <control type="radiobutton" id="9168" description="View 59 Enable gallery for POSTERS">
+      <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
+      <font>ListDetails</font>
+      <include>9000SysButtons</include>
+      <onclick>Skin.ToggleSetting(56_Posters_Gallery)</onclick>
+      <selected>Skin.HasSetting(56_Posters_Gallery)</selected>
+      <label>- $LOCALIZE[31970]</label>
+    </control>
+
     <control type="button" id="6053">
       <include>9000SysButtons</include>
       <label>$LOCALIZE[31024]</label>
@@ -3371,7 +3372,7 @@
       <posx>390</posx>
       <width>1140</width>
       <control type="label" description="Title shadow">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]">Conditional</animation>
+        <animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
         <left>4</left>
         <top>4</top>
         <width>1140</width>
@@ -3384,7 +3385,7 @@
         <label>$VAR[panelheading]</label>
       </control>
       <control type="label" description="Title Label">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="[[Control.IsVisible(58) + Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + Skin.HasSetting(59_Posters_Info)]]">Conditional</animation>
+        <animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
         <width>1140</width>
         <height>50</height>
         <align>center</align>
@@ -3395,7 +3396,7 @@
         <label>$VAR[panelheading]</label>
       </control>
       <control type="label" description="Details">
-        <visible>Control.IsVisible(53) | [[Control.IsVisible(58) + !Skin.HasSetting(58_Music_Info)] | [Control.IsVisible(57) + !Skin.HasSetting(57_Episodes_Info)] | [Control.IsVisible(59) + !Skin.HasSetting(59_Posters_Info)]]</visible>
+        <visible>Control.IsVisible(53) | [Control.IsVisible(56) + ![$EXP[56_FanartViewInfo]]]</visible>
         <posy>59</posy>
         <width>1140</width>
         <height>30</height>
