@@ -1200,25 +1200,15 @@
       <onclick condition="!Container(300).HasFocus(6)">UpdateLibrary(video)</onclick>
       <onclick condition="Container(300).HasFocus(6)">UpdateLibrary(music)</onclick>
     </item>
-    <item id="41" description="Add-ons">
+    <item id="41" description="Amber Settings">
       <visible>Container(300).HasFocus(10)</visible>
-      <label>$LOCALIZE[24001]</label>
-      <onclick>ActivateWindow(AddonBrowser,root)</onclick>
+      <label>$LOCALIZE[31028]</label>
+      <onclick>activatewindow(SkinSettings)</onclick>
     </item>
     <item id="42" description="Appearance">
       <visible>Container(300).HasFocus(10)</visible>
       <label>$LOCALIZE[14207]</label>
       <onclick>activatewindow(InterfaceSettings)</onclick>
-    </item>
-    <item id="43" description="System">
-      <visible>Container(300).HasFocus(10)</visible>
-      <label>$LOCALIZE[13000]</label>
-      <onclick>ActivateWindow(SystemSettings)</onclick>
-    </item>
-    <item id="44" description="System information">
-      <visible>Container(300).HasFocus(10)</visible>
-      <label>$LOCALIZE[130]</label>
-      <onclick>ActivateWindow(SystemInfo)</onclick>
     </item>
     <item id="50" description="Reload skin">
       <visible>Container(300).HasFocus(10)</visible>
@@ -2063,26 +2053,27 @@
 
   <include name="SettingsListCommons">
     <param name="showicon">true</param>
+    <param name="listwidth">1360</param>
     <definition>
-      <posx>390</posx>
-      <posy>210</posy>
-      <width>1140</width>
-      <height>780</height>
+      <posx>480</posx>
+      <posy>120</posy>
+      <width>$PARAM[listwidth]</width>
+      <height>860</height>
       <onleft>9000</onleft>
       <scrolltime>280</scrolltime>
-      <itemlayout width="1140" height="60">
+      <itemlayout width="$PARAM[listwidth]" height="60">
         <control type="image">
           <posx>0</posx>
           <posy>0</posy>
           <height>60</height>
-          <width>1140</width>
+          <width>$PARAM[listwidth]</width>
           <texture border="3">buttons/ButtonNF.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
           <posy>0</posy>
           <height>60</height>
-          <width>930</width>
+          <width>$PARAM[listwidth]</width>
           <scroll>false</scroll>
           <label>$INFO[ListItem.Label]</label>
         </control>
@@ -2091,7 +2082,7 @@
           <right>18</right>
           <posy>0</posy>
           <height>60</height>
-          <width>600</width>
+          <width>400</width>
           <font>ListDetails</font>
           <haspath>true</haspath>
           <align>right</align>
@@ -2110,19 +2101,19 @@
           <texture>$INFO[ListItem.Icon]</texture>
         </control>
       </itemlayout>
-      <focusedlayout width="1140" height="60">
+      <focusedlayout width="$PARAM[listwidth]" height="60">
         <control type="image">
           <posx>0</posx>
           <posy>0</posy>
           <height>60</height>
-          <width>1140</width>
+          <width>$PARAM[listwidth]</width>
           <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
           <posy>0</posy>
           <height>60</height>
-          <width>930</width>
+          <width>$PARAM[listwidth]</width>
           <textcolor>Black</textcolor>
           <shadowcolor></shadowcolor>
           <label>$INFO[ListItem.Label]</label>
@@ -2132,7 +2123,7 @@
           <right>18</right>
           <posy>0</posy>
           <height>60</height>
-          <width>600</width>
+          <width>400</width>
           <font>ListDetails</font>
           <haspath>true</haspath>
           <align>right</align>
@@ -2286,41 +2277,40 @@
   <include name="SetBackgroundImage">
     <param name="operation"/>
     <definition>
-      <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-      <onclick condition="Container(9004).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(3)">Skin.$PARAM[operation](TVShows.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(4)">Skin.$PARAM[operation](Music.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(5)">Skin.$PARAM[operation](Pictures.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(6)">Skin.$PARAM[operation](Favourites.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(7)">Skin.$PARAM[operation](Weather.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(8)">Skin.$PARAM[operation](Addons.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(9)">Skin.$PARAM[operation](Settings.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(10)">Skin.$PARAM[operation](DVD.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(11)">Skin.$PARAM[operation](Quit.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(12)">Skin.$PARAM[operation](Pvr.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(14)">Skin.$PARAM[operation](MusicVideos.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(21)">Skin.$PARAM[operation](CustomHome.1.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(22)">Skin.$PARAM[operation](CustomHome.2.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(23)">Skin.$PARAM[operation](CustomHome.3.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(24)">Skin.$PARAM[operation](CustomHome.4.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(25)">Skin.$PARAM[operation](CustomHome.5.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(26)">Skin.$PARAM[operation](CustomHome.6.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(27)">Skin.$PARAM[operation](CustomHome.7.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(28)">Skin.$PARAM[operation](CustomHome.8.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(29)">Skin.$PARAM[operation](CustomHome.9.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(60)">Skin.$PARAM[operation](Plexbmc.0.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(61)">Skin.$PARAM[operation](Plexbmc.1.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(62)">Skin.$PARAM[operation](Plexbmc.2.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(63)">Skin.$PARAM[operation](Plexbmc.3.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(64)">Skin.$PARAM[operation](Plexbmc.4.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(65)">Skin.$PARAM[operation](Plexbmc.5.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(66)">Skin.$PARAM[operation](Plexbmc.6.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(67)">Skin.$PARAM[operation](Plexbmc.7.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(68)">Skin.$PARAM[operation](Plexbmc.8.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(69)">Skin.$PARAM[operation](Plexbmc.9.Background)</onclick>
-      <onclick condition="Container(9004).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(3)">Skin.$PARAM[operation](TVShows.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(4)">Skin.$PARAM[operation](Music.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(5)">Skin.$PARAM[operation](Pictures.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(6)">Skin.$PARAM[operation](Favourites.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(7)">Skin.$PARAM[operation](Weather.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(8)">Skin.$PARAM[operation](Addons.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(9)">Skin.$PARAM[operation](Settings.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(10)">Skin.$PARAM[operation](DVD.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(11)">Skin.$PARAM[operation](Quit.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(12)">Skin.$PARAM[operation](Pvr.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(14)">Skin.$PARAM[operation](MusicVideos.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(21)">Skin.$PARAM[operation](CustomHome.1.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(22)">Skin.$PARAM[operation](CustomHome.2.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(23)">Skin.$PARAM[operation](CustomHome.3.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(24)">Skin.$PARAM[operation](CustomHome.4.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(25)">Skin.$PARAM[operation](CustomHome.5.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(26)">Skin.$PARAM[operation](CustomHome.6.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(27)">Skin.$PARAM[operation](CustomHome.7.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(28)">Skin.$PARAM[operation](CustomHome.8.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(29)">Skin.$PARAM[operation](CustomHome.9.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(60)">Skin.$PARAM[operation](Plexbmc.0.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(61)">Skin.$PARAM[operation](Plexbmc.1.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(62)">Skin.$PARAM[operation](Plexbmc.2.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(63)">Skin.$PARAM[operation](Plexbmc.3.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(64)">Skin.$PARAM[operation](Plexbmc.4.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(65)">Skin.$PARAM[operation](Plexbmc.5.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(66)">Skin.$PARAM[operation](Plexbmc.6.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(67)">Skin.$PARAM[operation](Plexbmc.7.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(68)">Skin.$PARAM[operation](Plexbmc.8.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(69)">Skin.$PARAM[operation](Plexbmc.9.Background)</onclick>
+      <onclick condition="Container(9104).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
     </definition>
   </include>
 
