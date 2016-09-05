@@ -38,10 +38,12 @@
   </variable>
 
   <variable name="DialogFullScreenPlot">
-    <value condition="Control.HasFocus(601)">$INFO[VideoPlayer.Plot]</value>
-    <value condition="Control.HasFocus(602)">$INFO[VideoPlayer.NextPlot]</value>
+    <value condition="Control.HasFocus(601) + !String.IsEmpty(VideoPlayer.Plot)">$INFO[VideoPlayer.Plot]</value>
+    <value condition="Control.HasFocus(601) + !String.IsEmpty(VideoPlayer.PlotOutline)">$INFO[VideoPlayer.PlotOutline]</value>
+    <value condition="Control.HasFocus(602) + !String.IsEmpty(VideoPlayer.NextPlot)">$INFO[VideoPlayer.NextPlot]</value>
+    <value condition="Control.HasFocus(602) + !String.IsEmpty(VideoPlayer.NextPlotOutline)">$INFO[VideoPlayer.NextPlotOutline]</value>
     <value condition="Control.HasFocus(603)">$INFO[VideoPlayer.CastAndRole]</value>
-    <value condition="Control.HasFocus(604)">$INFO[PVR.ActStreamClient,[B]$LOCALIZE[19012]:[/B] ][CR]$INFO[PVR.ActStreamSignal,[B]$LOCALIZE[19008]:[/B] ][CR]$INFO[PVR.ActStreamSNR,[B]$LOCALIZE[19009]:[/B] ][CR]$INFO[PVR.ActStreamEncryptionName,[B]$LOCALIZE[19015]:[/B] ][CR]$INFO[PVR.ActStreamBER,[B]$LOCALIZE[19010]:[/B] ][CR]$INFO[PVR.ActStreamUNC,[B]$LOCALIZE[19011]:[/B] ][CR]$INFO[PVR.ActStreamDevice,[B]$LOCALIZE[19006]:[/B] ][CR]$INFO[PVR.ActStreamStatus,[B]$LOCALIZE[19007]:[/B] ]</value>
+    <value condition="Control.HasFocus(604)">$INFO[PVR.ActStreamClient,[B]$LOCALIZE[19012]:[/B] ][CR]$INFO[PVR.ActStreamSignal,[B]$LOCALIZE[19008]:[/B] ][CR]$INFO[PVR.ActStreamSNR,[B]$LOCALIZE[19009]:[/B] ]</value>
   </variable>
 
   <variable name="DialogFullScreenBtn601">
@@ -358,7 +360,7 @@
 
   <variable name="panelsubheading">
     <value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating,[COLOR=Highlight] • [/COLOR]]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
-    <value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Count),total: ]$INFO[Window(Home).Property(SkinHelper.MovieSet.UnWatchedCount),[COLOR=Highlight] • [/COLOR]unwatched: ,]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
+    <value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Count),$LOCALIZE[20161]: ]$INFO[Window(Home).Property(SkinHelper.MovieSet.UnWatchedCount),[COLOR=Highlight] • [/COLOR]$LOCALIZE[16101]: ,]$INFO[ListItem.MPAA,[COLOR=Highlight] • [/COLOR]]</value>
     <value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes), $LOCALIZE[20360] ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
     <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),, $LOCALIZE[20360]]</value>
     <value condition="Container.Content(Episodes)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Premiered , • ]$VAR[episoderating]$INFO[ListItem.MPAA, • ]</value>
@@ -374,21 +376,26 @@
 
   <variable name="Plots" description="Plots and descriptions">
     <value condition="Container.content(addons) + !String.IsEmpty(ListItem.AddonDescription)">$INFO[ListItem.AddonDescription]</value>
-    <value condition="ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
-    <value condition="ListItem.IsCollection + String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Title)]</value>
-    <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Plot) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Plot]</value>
-    <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot) + !String.IsEmpty(ListItem.Title)">$INFO[Container.ShowPlot]</value>
+
+    <value condition="String.IsEqual(ListItem.DBType,set)">$INFO[Window(Home).Property(SkinHelper.MovieSet.Title)]</value>
+
+    <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot)">$INFO[Container.ShowPlot]</value>
+
     <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
     <value condition="String.IsEqual(ListItem.DBType,album) + String.IsEmpty(ListItem.Property(Album_Description))">$LOCALIZE[414]</value>
     <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Description))">$INFO[ListItem.Property(Artist_Description)]</value>
     <value condition="String.IsEqual(ListItem.DBType,artist) + String.IsEmpty(ListItem.Property(Artist_Description))">$LOCALIZE[547]</value>
+
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureDesc)">$INFO[ListItem.PictureDesc]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureComment)">$INFO[ListItem.PictureComment]</value>
     <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureKeywords)">$INFO[ListItem.PictureKeywords]</value>
     <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR]   $LOCALIZE[416]</value>
     <value condition="Container.Content(images)">[COLOR=Grey]$LOCALIZE[21821]:[/COLOR][CR]   $LOCALIZE[416]</value>
+
     <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[ListItem.Comment][CR]$INFO[ListItem.Date]</value>
-    <value>$INFO[ListItem.Plot]</value>
+
+    <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
+    <value condition="!String.IsEmpty(ListItem.PlotOutline)">$INFO[ListItem.PlotOutline]</value>
   </variable>
 
   <variable name="panelfooter">
