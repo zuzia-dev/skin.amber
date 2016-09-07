@@ -813,7 +813,7 @@
         <font>Details</font>
         <align>right</align>
         <aligny>center</aligny>
-        <textcolor>Grey2</textcolor>
+        <textcolor>Highlight</textcolor>
         <selectedcolor>selected</selectedcolor>
         <info>ListItem.Label</info>
         <scroll>false</scroll>
@@ -841,7 +841,7 @@
         <font>Details</font>
         <align>right</align>
         <aligny>center</aligny>
-        <textcolor>Grey2</textcolor>
+        <textcolor>Highlight</textcolor>
         <selectedcolor>selected</selectedcolor>
         <info>ListItem.Label</info>
       </control>
@@ -2463,6 +2463,26 @@
     </definition>
   </include>
 
+  <include name="GenericActorIconBig">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">232.5</param>
+        <param name="iconheight">326</param>
+        <param name="iconoffset">0</param>
+        <param name="iconimage">$INFO[ListItem.Thumb]</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+        <param name="belowdoublelabelvisibility">true</param>
+        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+        <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
+        <param name="aspect">scale</param>
+      </include>
+    </definition>
+  </include>
+
   <include name="GenericThumbIconBig">
     <param name="isFocused">false</param>
     <definition>
@@ -2918,7 +2938,7 @@
           <shadowcolor></shadowcolor>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
+          <scroll>true</scroll>
         </control>
       </control>
     </definition>
@@ -2981,7 +3001,6 @@
           <font>shelf_label</font>
           <textcolor>Black</textcolor>
           <shadowcolor></shadowcolor>
-          <autoscroll>false</autoscroll>
           <label>$PARAM[labeltext]</label>
           <align>$PARAM[labelalign]</align>
           <aligny>center</aligny>
@@ -3061,7 +3080,7 @@
           <shadowcolor></shadowcolor>
           <label>$PARAM[labeltext1]</label>
           <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
+          <scroll>true</scroll>
         </control>
         <control type="label">
           <visible>$PARAM[isFocused]</visible>
@@ -3075,7 +3094,7 @@
           <shadowcolor></shadowcolor>
           <label>$PARAM[labeltext2]</label>
           <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
+          <scroll>true</scroll>
         </control>
       </control>
     </definition>
@@ -3085,6 +3104,16 @@
     <param name="isFocused">false</param>
     <definition>
       <include content="GenericLabelIcon">
+        <param name="isFocused">$PARAM[isFocused]</param>
+      </include>
+    </definition>
+  </include>
+
+  <include name="GenericActor">
+    <param name="isFocused">false</param>
+    <param name="size">Big</param>
+    <definition>
+      <include content="GenericActorIcon$PARAM[size]">
         <param name="isFocused">$PARAM[isFocused]</param>
       </include>
     </definition>
@@ -3206,6 +3235,21 @@
       <focusedlayout condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
         <include content="GenericLabel">
           <param name="isFocused">true</param>
+        </include>
+      </focusedlayout>
+    </definition>
+  </include>
+
+  <include name="ActorLayout">
+    <param name="viewid"/>
+    <definition>
+      <itemlayout height="410" width="232.5">
+        <include content="GenericActor">
+        </include>
+      </itemlayout>
+      <focusedlayout height="410" width="232.5">
+        <include content="GenericActor">
+          <param name="isFocused">Control.HasFocus(50)</param>
         </include>
       </focusedlayout>
     </definition>
