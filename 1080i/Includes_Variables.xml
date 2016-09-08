@@ -37,6 +37,11 @@
     <value>$INFO[VideoPlayer.Title,[B],[/B]]</value>
   </variable>
 
+  <variable name="VisualisationName">
+    <value condition="!String.IsEmpty(Visualisation.Name)">$INFO[Visualisation.Name]</value>
+    <value  condition="String.IsEmpty(Visualisation.Name)">$LOCALIZE[16018]</value>
+  </variable>
+
   <variable name="DialogVideoInfoPoster">
     <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(seasonThumb)) + Skin.HasSetting(plexbmc)">$INFO[ListItem.Property(seasonThumb)]</value>
     <value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Property(seasonThumb)) + Skin.HasSetting(plexbmc)">$INFO[ListItem.Thumb]</value>
@@ -570,7 +575,7 @@
   </variable>
 
   <variable name="SeekLabel">
-    <value condition="!String.IsEmpty(Player.SeekStepSize)">>$INFO[Player.SeekStepSize,[COLOR=Highlight]$LOCALIZE[773]:[/COLOR] ]</value>
+    <value condition="!String.IsEmpty(Player.SeekStepSize)">$INFO[Player.SeekStepSize,[COLOR=Highlight]$LOCALIZE[773]:[/COLOR] ]</value>
     <value condition="Player.Caching">$INFO[Player.CacheLevel,$LOCALIZE[15107] ,%]</value>
     <value condition="Player.Paused">$LOCALIZE[112]</value>
     <value condition="Player.Forwarding">[COLOR=Highlight]$VAR[ForwardRewindLabel][/COLOR] $LOCALIZE[31353]</value>
