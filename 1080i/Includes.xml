@@ -1216,7 +1216,7 @@
       <onclick condition="Container(300).HasFocus(14)">ActivateWindow(Videos,MusicVideos)</onclick>
     </item>
     <item id="25" description="Files">
-      <visible>Container(300).HasFocus(3) | Container(300).HasFocus(5) | Container(300).HasFocus(6) | Container(300).HasFocus(14)</visible>
+      <visible>Container(300).HasFocus(3) | Container(300).HasFocus(4) | Container(300).HasFocus(5) | Container(300).HasFocus(6) | Container(300).HasFocus(14)</visible>
       <label>$LOCALIZE[744]</label>
       <onclick condition="!Container(300).HasFocus(6)">ActivateWindow(Videos,Files,return)</onclick>
       <onclick condition="Container(300).HasFocus(6)">ActivateWindow(Music,Files,return)</onclick>
@@ -2253,6 +2253,34 @@
     </definition>
   </include>
 
+  <include name="YesNoSettingItemAddon">
+    <param name="itemid" />
+    <param name="itemlabel" />
+    <param name="itemicon"/>
+    <param name="itemvisibility" default="true"/>
+    <param name="skinsetting"/>
+    <param name="addonpath"/>
+    <definition>
+      <item id="$PARAM[itemid]">
+        <visible>Skin.HasSetting($PARAM[skinsetting])</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[107]</label2>
+        <icon>$PARAM[itemicon]</icon>
+        <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+      </item>
+      <item id="$PARAM[itemid]">
+        <visible>!Skin.HasSetting($PARAM[skinsetting]) | !System.HasAddon($PARAM[addonpath])</visible>
+        <visible>$PARAM[itemvisibility]</visible>
+        <label>$PARAM[itemlabel]</label>
+        <label2>$LOCALIZE[106]</label2>
+        <icon>$PARAM[itemicon]</icon>
+        <onclick condition="!System.HasAddon($PARAM[addonpath])">InstallAddon($PARAM[addonpath])</onclick>
+        <onclick condition="System.HasAddon($PARAM[addonpath])">Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+      </item>
+    </definition>
+  </include>
+
   <include name="PlexSettingItem">
     <param name="itemid" />
     <definition>
@@ -2282,13 +2310,15 @@
         <label>$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)]</label>
         <label2>$LOCALIZE[305]</label2>
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
-        <onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
+        <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
+        <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
       </item>
       <item id="$PARAM[itemid]">
         <visible>String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
         <label>$LOCALIZE[504]</label>
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
-        <onclick>RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
+        <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
+        <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
       </item>
     </definition>
   </include>
