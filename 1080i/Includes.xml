@@ -200,9 +200,8 @@
       <left>0</left>
       <width>1920</width>
       <control type="group">
-        <visible>Window.Is(home) | [!Window.IsActive(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
+        <visible>Window.Is(home) | [!Window.Is(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
         <control type="image">
-          <visible>!Window.IsActive(home) | [Player.HasAudio + Window.IsActive(home)] | Window.IsActive(favourites)</visible>
           <include>VisibleFadeEffect</include>
           <posx>0</posx>
           <posy>0</posy>
@@ -210,19 +209,6 @@
           <height>48</height>
           <texture>common/TopStripe.png</texture>
         </control>
-        <control type="image">
-          <visible>!Player.HasAudio + Window.Is(home)</visible>
-        <animation effect="slide" start="0,0" end="90,0" time="0" delay="0" reversible="true" condition="Skin.HasSetting(Hide.WeatherTitleBar) | String.IsEmpty(Weather.Plugin) | String.IsEqual(Weather.Location,$LOCALIZE[503])">conditional</animation> 
-          <include>VisibleFadeEffect</include>
-          <posx>700r</posx>
-          <posy>0</posy>
-          <width>700</width>
-          <height>90</height>
-          <texture border="100,0,0,0" flipy="true">common/TimePanel.png</texture>
-        </control>
-      </control>
-      <control type="group">
-        <visible>Window.Is(home) | [!Window.IsActive(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
         <control type="label">
           <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))]</visible>
           <include>VisibleFadeEffect</include>
@@ -256,13 +242,13 @@
           </control>
         </control>
         <control type="grouplist">
-          <left>1200</left>
+          <left>1100</left>
           <top>-3</top>
           <height>40</height>
           <itemgap>10</itemgap>
           <orientation>horizontal</orientation>
           <align>right</align>
-          <width>700</width>
+          <width>800</width>
           <usecontrolcoords>true</usecontrolcoords>
           <control type="image">
             <visible>!Skin.HasSetting(Hide.WeatherTitleBar) + !String.IsEmpty(Weather.Plugin)</visible>
@@ -1021,6 +1007,12 @@
       <onclick condition="System.HasMediaDvd">PlayDVD()</onclick>
       <onclick condition="!System.HasMediaDvd">Notification($LOCALIZE[164],$LOCALIZE[219],5,DefaultIconWarning.png)</onclick>
     </item>
+    <item id="100" description="Search">
+      <visible>System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)</visible>
+      <label>$LOCALIZE[137]</label>
+      <thumb>$VAR[Settings.Art]</thumb>
+      <onclick>RunScript(script.globalsearch)</onclick>
+    </item>
     <item id="15" description="Weather">
       <visible>!Skin.HasSetting(Weather.Hide)</visible>
       <label>$LOCALIZE[8]</label>
@@ -1202,9 +1194,13 @@
     <item id="10" description="Search">
       <visible>[Container(300).HasFocus(3) + Library.HasContent(Video)] | [Container(300).HasFocus(4) + Library.HasContent(Movies)] | [Container(300).HasFocus(5)  + Library.HasContent(TVShows)] | [Container(300).HasFocus(14) + Library.HasContent(MusicVideos)] | [Container(300).HasFocus(6) + Library.HasContent(Music)]</visible>
       <label>$LOCALIZE[137]</label>
-      <onclick condition="!Container(300).HasFocus(6)">ActivateWindow(Videos,root)</onclick>
-      <onclick condition="Container(300).HasFocus(6)">ActivateWindow(Music,root)</onclick>
-      <onclick>SendClick(8)</onclick>
+      <onclick condition="!Container(300).HasFocus(6) + ![System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)]">ActivateWindow(Videos,root)</onclick>
+      <onclick condition="Container(300).HasFocus(6) + ![System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)]">ActivateWindow(Music,root)</onclick>
+      <onclick condition="![System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)]">SendClick(8)</onclick>
+      <onclick condition="Container(300).HasFocus(4) + System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)">RunScript(script.globalsearch,movies=true)</onclick>
+      <onclick condition="Container(300).HasFocus(5) + System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)">RunScript(script.globalsearch,tvshows=true&episodes=true)</onclick>
+      <onclick condition="Container(300).HasFocus(6) + System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)">RunScript(script.globalsearch,artists=true&albums=true&songs=true)</onclick>
+      <onclick condition="Container(300).HasFocus(14) + System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)">RunScript(script.globalsearch,artists=musicvideos)</onclick>
     </item>
     <item id="9" description="Browse">
       <visible>[Container(300).HasFocus(3) + Library.HasContent(Video)] | [Container(300).HasFocus(4) + Library.HasContent(Movies)] | [Container(300).HasFocus(5)  + Library.HasContent(TVShows)] | [Container(300).HasFocus(14) + Library.HasContent(MusicVideos)] | [Container(300).HasFocus(6) + Library.HasContent(Music)]</visible>
@@ -1233,6 +1229,41 @@
       <label>$LOCALIZE[653]</label>
       <onclick condition="!Container(300).HasFocus(6)">UpdateLibrary(video)</onclick>
       <onclick condition="Container(300).HasFocus(6)">UpdateLibrary(music)</onclick>
+    </item>
+    <item id="100" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(movies)</visible>
+      <label>$LOCALIZE[20342]</label>
+      <onclick>RunScript(script.globalsearch,movies=true)</onclick>
+    </item>
+    <item id="101" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(tvshows)</visible>
+      <label>$LOCALIZE[20343]</label>
+      <onclick>RunScript(script.globalsearch,tvshows=true)</onclick>
+    </item>
+    <item id="102" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(tvshows)</visible>
+      <label>$LOCALIZE[20360]</label>
+      <onclick>RunScript(script.globalsearch,episodes=true)</onclick>
+    </item>
+    <item id="103" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(musicvideos)</visible>
+      <label>$LOCALIZE[20389]</label>
+      <onclick>RunScript(script.globalsearch,musicvideos=true)</onclick>
+    </item>
+    <item id="104" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+      <label>$LOCALIZE[133]</label>
+      <onclick>RunScript(script.globalsearch,artists=true)</onclick>
+    </item>
+    <item id="105" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+      <label>$LOCALIZE[132]</label>
+      <onclick>RunScript(script.globalsearch,albums=true)</onclick>
+    </item>
+    <item id="106" description="Search subitems">
+      <visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+      <label>$LOCALIZE[134]</label>
+      <onclick>RunScript(script.globalsearch,songs=true)</onclick>
     </item>
     <item id="41" description="Amber Settings">
       <visible>Container(300).HasFocus(10)</visible>
@@ -2262,7 +2293,7 @@
     <param name="addonpath"/>
     <definition>
       <item id="$PARAM[itemid]">
-        <visible>Skin.HasSetting($PARAM[skinsetting])</visible>
+        <visible>Skin.HasSetting($PARAM[skinsetting]) + System.HasAddon($PARAM[addonpath])</visible>
         <visible>$PARAM[itemvisibility]</visible>
         <label>$PARAM[itemlabel]</label>
         <label2>$LOCALIZE[107]</label2>
