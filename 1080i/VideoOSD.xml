@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-  <defaultcontrol always="false">101</defaultcontrol>
+  <defaultcontrol always="true">101</defaultcontrol>
   <onload>Dialog.Close(fullscreeninfo)</onload>
   <onload condition="!VideoPlayer.Content(LiveTV)">SetFocus(602)</onload>
   <include>OSDFade</include>
-  <coordinates>
-    <left>0</left>
-    <top>0</top>
-  </coordinates>  
   <controls>
     <control type="group">
-      <visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(OSDAudioDSPSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide)]</visible>
+      <visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(OSDAudioDSPSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
       <control type="slider" id="87">
         <description>Seek Slider</description>
         <posx>-123</posx>
@@ -41,6 +37,7 @@
           </include>
           <onup>1200</onup>
           <ondown>101</ondown>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="656">
           <include content="OSDButtons">
@@ -49,6 +46,7 @@
           <onup>1110</onup>
           <ondown>101</ondown>
           <onclick>ShowSubtitles</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="606">
           <include content="OSDButtons">
@@ -59,6 +57,7 @@
           <onclick>ActivateWindow(PVROSDChannels)</onclick>
           <onclick>Dialog.Close(VideoOSD)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="607">
           <include content="OSDButtons">
@@ -69,6 +68,7 @@
           <onclick>ActivateWindow(PVROSDGuide)</onclick>
           <onclick>Dialog.Close(VideoOSD)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="650">
           <include content="OSDButtons">
@@ -79,6 +79,7 @@
           <onclick>Dialog.Close(VideoOSD)</onclick>
           <onclick>ActivateWindow(Teletext)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="660">
           <include content="OSDButtons">
@@ -88,6 +89,7 @@
           <ondown>101</ondown>
           <onclick>ActivateWindow(VideoBookmarks)</onclick>
           <visible>!VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="701">
           <include content="OSDButtons">
@@ -96,6 +98,7 @@
           <onup>87</onup>
           <ondown>101</ondown>
           <onclick>Skin.ToggleSetting(OSDInfo)</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="659">
           <include content="OSDButtons">
@@ -103,6 +106,7 @@
           </include>
           <onup>1010</onup>
           <ondown>101</ondown>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
       </control>
       <control type="grouplist" id="101">
@@ -124,6 +128,7 @@
           <ondown>Close</ondown>
           <onclick>PlayerControl(Previous)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="301">
           <include content="OSDButtons">
@@ -133,6 +138,7 @@
           <ondown>Close</ondown>
           <onclick>PlayerControl(Next)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="600">
           <include content="OSDButtons">
@@ -142,6 +148,7 @@
           <ondown>Close</ondown>
           <onclick>PlayerControl(Previous)</onclick>
           <visible>!VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="601">
           <include content="OSDButtons">
@@ -151,6 +158,7 @@
           <ondown>Close</ondown>
           <enable>Player.SeekEnabled</enable>
           <onclick>PlayerControl(Rewind)</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="602">
           <textureradioonfocus colordiffuse="Black">OSD/OSDPlayNF.png</textureradioonfocus>
@@ -162,8 +170,8 @@
           <height>64</height>
           <radiowidth>64</radiowidth>
           <radioheight>64</radioheight>
-          <font>-</font>
-          <texturenofocus>-</texturenofocus>
+          <font></font>
+          <texturenofocus></texturenofocus>
           <radioposx>0.1</radioposx>
           <radioposy>0</radioposy>
           <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
@@ -178,6 +186,7 @@
           <onup>100</onup>
           <ondown>Close</ondown>
           <onclick>PlayerControl(Stop)</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="604">
           <include content="OSDButtons">
@@ -187,6 +196,7 @@
           <ondown>Close</ondown>
           <enable>Player.SeekEnabled</enable>
           <onclick>PlayerControl(Forward)</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="605">
           <include content="OSDButtons">
@@ -196,6 +206,7 @@
           <ondown>Close</ondown>
           <onclick>PlayerControl(Next)</onclick>
           <visible>!VideoPlayer.Content(LiveTV)</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="togglebutton" id="661">
           <include content="OSDButtons">
@@ -205,6 +216,7 @@
           <ondown>Close</ondown>
           <onclick>PlayerControl(ShowVideoMenu)</onclick>
           <visible>!VideoPlayer.Content(LiveTV) + VideoPlayer.HasMenu</visible>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="700">
           <visible>Player.CanRecord</visible>
@@ -215,6 +227,7 @@
           <onup>100</onup>
           <ondown>Close</ondown>
           <onclick>PlayerControl(Record)</onclick>
+          <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
       </control>
       <control type="group" id="1000">
@@ -251,6 +264,14 @@
             <onclick>ActivateWindow(osdvideosettings)</onclick>
             <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
           </control>
+          <control type="button" id="1015">
+            <width>470</width>
+            <font>Details</font>
+            <label>$LOCALIZE[36560]</label>
+            <onclick>ActivateWindow(osdcmssettings)</onclick>
+            <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+            <visible>System.HasCMS</visible>
+          </control>
           <control type="button" id="1013">
             <width>470</width>
             <font>Details</font>
@@ -263,7 +284,7 @@
             <width>470</width>
             <font>Details</font>
             <label>$LOCALIZE[31133]</label>
-            <label2>$INFO[VideoPlayer.AudioLanguage,[COLOR=Selected],[/COLOR]]</label2>
+            <label2>$INFO[VideoPlayer.AudioLanguage,[COLOR=Hghlight],[/COLOR]]</label2>
             <onclick>AudioNextLanguage</onclick>
             <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
           </control>
