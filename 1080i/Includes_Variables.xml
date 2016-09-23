@@ -115,7 +115,6 @@
 
   <variable name="MediaListLabel2">
     <value condition="Container.Content(albums) | Container.Content(songs)">$INFO[ListItem.artist]</value>
-    <value></value>
   </variable>
 
   <variable name="AudioDSPItemDescription">
@@ -138,7 +137,7 @@
     <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(ListItem.Overlay) + String.IsEqual(ListItem.Overlay,OverlayUnWatched.png)">$INFO[ListItem.Overlay]</value>
     <value></value>
   </variable>
-  
+
   <variable name="Banner" description="TV Banners">
     <value condition="ListItem.IsParentFolder">DefaultBannerBack.png</value>
     <value condition="!String.IsEmpty(ListItem.Art(banner))">$INFO[ListItem.Art(banner)]</value>
@@ -237,8 +236,8 @@
     <value condition="Window.IsActive(RadioSearch)">$LOCALIZE[19021] / $LOCALIZE[137]</value>
 
      <value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
-</variable>
-
+  </variable>
+  
   <variable name="CurrentBackgroundSetting">
     <value condition="!String.IsEmpty(Container(9004).ListItem.Thumb)">$INFO[Container(9104).ListItem.Thumb]</value>
     <value>$LOCALIZE[571]</value>
@@ -361,7 +360,7 @@
     <value condition="!String.IsEmpty(ListItem.UserRating)">$INFO[ListItem.UserRating,badges/ratings/rating,.png]</value>
     <value condition="String.IsEmpty(ListItem.UserRating) + !String.IsEmpty(ListItem.dbtype)">badges/ratings/ratingNR.png</value>
   </variable>
-  
+
   <variable name="VideoPlayer.ratingbadge">
     <value condition="!String.IsEmpty(VideoPlayer.UserRating)">$INFO[VideoPlayer.UserRating,badges/ratings/rating,.png]</value>
   </variable>
@@ -369,21 +368,6 @@
   <variable name="VideoHWDecoder">
     <value condition="Player.Process(videohwdecoder)">HW</value>
     <value>SW</value>
-  </variable>
-
-  <variable name="Details" description="Shown Above Plots and descriptions">
-    <value condition="Container.Content(images)">$INFO[ListItem.Date,, • ]$INFO[ListItem.Size]</value>
-    <value condition="Container.content(Albums)">$INFO[ListItem.Artist]</value>
-    <value condition="Container.Content(Episodes)">$INFO[ListItem.Premiered,,  • ]$INFO[ListItem.Duration,, $LOCALIZE[12391]]$INFO[ListItem.Rating,  • ]</value>
-    <value condition="Container.Content(Addons)">$INFO[ListItem.AddonCreator,$LOCALIZE[21863] : ]</value>
-    <value condition="Container.Content(songs) + !String.IsEmpty(ListItem.Album)">[COLOR=Grey]$LOCALIZE[558]:[/COLOR] $INFO[ListItem.Album]</value>
-    <value condition="Container.Content(Artists) + !String.IsEmpty(ListItem.Property(artist_genre))">$INFO[ListItem.Property(artist_genre),[COLOR=Grey]$LOCALIZE[515]: [/COLOR]]</value>
-    <value condition="Container.Content(Artists) + !String.IsEmpty(ListItem.Property(artist_style))">$INFO[ListItem.Property(artist_style),[COLOR=Grey]$LOCALIZE[176]: [/COLOR]]</value>
-    <value condition="Container.Content(MusicVideos)">$INFO[ListItem.Year,, • ]$INFO[ListItem.Duration,, $LOCALIZE[31297]]</value>
-    <value condition="Container.Content(Movies)">$INFO[ListItem.Year]$INFO[ListItem.Duration, • , $LOCALIZE[31297]]$INFO[ListItem.Rating, • ]$INFO[ListItem.MPAA, • ]</value>
-		<value condition="Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.MPAA,, • ]$INFO[ListItem.Property(TotalEpisodes),$LOCALIZE[20360] • ] [COLOR=Highlight]$INFO[ListItem.Property(UnWatchedEpisodes), (,) ][/COLOR]</value>
-    <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + [Container.Content(Seasons) | Container.Content(TVShows)]">$INFO[ListItem.Year,, • ]$INFO[ListItem.MPAA,, • ]$INFO[ListItem.Property(TotalEpisodes),$LOCALIZE[20360] • ]</value>
-    <value>$INFO[ListItem.Label2]</value>
   </variable>
 
   <variable name="panelheading">
@@ -616,18 +600,22 @@
     <value condition="Control.IsVisible(180)">$INFO[Container(100).ListItem.Property(Comment)]</value>
   </variable>
 
+  <variable name="NextUpCountdownType">
+    <value condition="Window.IsActive(script-nextup-notification-NextUpInfo.xml)">$LOCALIZE[31298]</value>
+    <value condition="Window.IsActive(script-nextup-notification-StillWatchingInfo.xml)">$LOCALIZE[31299]</value>
+  </variable>
+
   <variable name="NextUpCountdown">
-    <value condition="Integer.IsGreaterOrEqual(Player.TimeRemaining(ss),10)">$INFO[Player.TimeRemaining(ss),Starting in ,s...]</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),09)">Starting in 9s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),08)">Starting in 8s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),07)">Starting in 7s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),06)">Starting in 6s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),05)">Starting in 5s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),04)">Starting in 4s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),03)">Starting in 3s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),02)">Starting in 2s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),01)">Starting in 1s...</value>
-    <value condition="String.IsEqual(Player.TimeRemaining(ss),00)">Starting now</value>
+    <value condition="Integer.IsGreaterOrEqual(Player.TimeRemaining(ss),10)">$VAR[NextUpCountdownType]$INFO[Player.TimeRemaining(ss), ,s...]</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),09)">$VAR[NextUpCountdownType] 9s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),08)">$VAR[NextUpCountdownType] 8s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),07)">$VAR[NextUpCountdownType] 7s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),06)">$VAR[NextUpCountdownType] 6s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),05)">$VAR[NextUpCountdownType] 5s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),04)">$VAR[NextUpCountdownType] 4s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),03)">$VAR[NextUpCountdownType] 3s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),02)">$VAR[NextUpCountdownType] 2s...</value>
+    <value condition="String.IsEqual(Player.TimeRemaining(ss),01)">$VAR[NextUpCountdownType] 1s...</value>
   </variable>
 
   <expression name="SettingsAddon1to5Visibility">!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</expression>
