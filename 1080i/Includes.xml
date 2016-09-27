@@ -867,7 +867,7 @@
       </control>
     </focusedlayout>
   </include>
-  
+
   <include name="BG.Defaults">
     <posx>0</posx>
     <posy>0</posy>
@@ -878,14 +878,34 @@
     <fadetime>400</fadetime>
     <aspectratio>scale</aspectratio>
   </include>
+
+  <include name="Home.Main.Menu.Custom.Item">
+    <param name="item"/>
+    <param name="customid"/>
+    <definition>
+      <item id="$PARAM[itemid]" description="Custom1">
+        <visible>!String.IsEmpty(Skin.String(CustomHome.$PARAM[customid].Path))</visible>
+        <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
+        <label>$INFO[Skin.String(CustomHome.$PARAM[customid].Label)]</label>
+        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customid].Background)]</thumb>
+        <onclick>$INFO[Skin.String(CustomHome.$PARAM[customid].Path)]</onclick>
+      </item>
+      <item id="$PARAM[itemid]" description="Custom1">
+        <visible>!String.IsEmpty(Skin.String(CustomHome2.$PARAM[customid].Path))</visible>
+        <visible>System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)</visible>
+        <label>$INFO[Skin.String(CustomHome2.$PARAM[customid].Label)]</label>
+        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customid].Background)]</thumb>
+        <onclick>$INFO[Skin.String(CustomHome2.$PARAM[customid].Path)]</onclick>
+      </item>
+    </definition>
+  </include>
+
   <include name="Home.Main.Menu.Items">
     <include condition="Skin.HasSetting(plexbmc)">Plexbmc.Home.Main.Menu.Items</include>
-    <item id="21" description="Custom1">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.1.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.1.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.1.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.1.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">21</param>
+      <param name="customid">1</param>
+    </include>
     <item id="1" description="Pictures">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Pictures.Hide)</visible>
@@ -893,24 +913,20 @@
       <thumb>$VAR[Pictures.Art]</thumb>
       <onclick>ActivateWindow(Pictures,root)</onclick>
     </item>
-    <item id="22" description="Custom2">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.2.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.2.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.2.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.2.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">22</param>
+      <param name="customid">2</param>
+    </include>
     <item id="2" description="Addons">
       <visible>!Skin.HasSetting(Addons.Hide)</visible>
       <label>$LOCALIZE[24001]</label>
       <thumb>$VAR[Addons.Art]</thumb>
       <onclick>ActivateWindow(1119)</onclick>
     </item>
-    <item id="23" description="Custom3">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.3.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.3.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.3.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.3.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">23</param>
+      <param name="customid">3</param>
+    </include>
     <item id="3" description="Videos">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Videos.Hide)</visible>
@@ -918,12 +934,10 @@
       <thumb>$VAR[Videos.Art]</thumb>
       <onclick>ActivateWindow(Videos,root)</onclick>
     </item>
-    <item id="24" description="Custom.4">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.4.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.4.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.4.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.4.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">24</param>
+      <param name="customid">4</param>
+    </include>
     <item id="4" description="Movies">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Movies.Hide)</visible>
@@ -931,12 +945,10 @@
       <thumb>$VAR[Movies.Art]</thumb>
       <onclick>$VAR[MovieEntryPoint]</onclick>
     </item>
-    <item id="25" description="Custom.5">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.5.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.5.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.5.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.5.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">25</param>
+      <param name="customid">5</param>
+    </include>
     <item id="5" description="TVShows">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(TVShows.Hide)</visible>
@@ -944,12 +956,10 @@
       <thumb>$VAR[TVShows.Art]</thumb>
       <onclick>$VAR[TVShowEntryPoint]</onclick>
     </item>
-    <item id="26" description="Custom.6">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.6.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.6.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.6.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.6.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">26</param>
+      <param name="customid">6</param>
+    </include>
     <item id="6" description="Music">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(Music.Hide)</visible>
@@ -957,12 +967,10 @@
       <thumb>$VAR[Music.Art]</thumb>
       <onclick>$VAR[MusicEntryPoint]</onclick>
     </item>
-    <item id="27" description="Custom.7">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.7.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.7.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.7.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.7.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">27</param>
+      <param name="customid">7</param>
+    </include>
     <item id="14" description="MusicVideos">
       <visible>!Skin.HasSetting(plexbmc)</visible>
       <visible>!Skin.HasSetting(MusicVideos.Hide)</visible>
@@ -970,12 +978,10 @@
       <thumb>$VAR[MusicVideos.Art]</thumb>
       <onclick>ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
     </item>
-    <item id="28" description="Custom.8">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.8.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.8.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.8.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.8.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">28</param>
+      <param name="customid">8</param>
+    </include>
     <item id="12" description="Live TV">
       <visible>PVR.HasTVChannels</visible>
       <label>$LOCALIZE[31500]</label>
@@ -994,12 +1000,10 @@
       <thumb>$VAR[Favourites.Art]</thumb>
       <onclick>ActivateWindow(Favourites)</onclick>
     </item>
-    <item id="29" description="Custom.9">
-      <visible>!String.IsEmpty(Skin.String(CustomHome.9.Path))</visible>
-      <label>$INFO[Skin.String(CustomHome.9.Label)]</label>
-      <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.9.Background)]</thumb>
-      <onclick>$INFO[Skin.String(CustomHome.9.Path)]</onclick>
-    </item>
+    <include content="Home.Main.Menu.Custom.Item">
+      <param name="itemid">29</param>
+      <param name="customid">9</param>
+    </include>
     <item id="8" description="DVD">
       <visible>System.HasMediaDVD + !Skin.HasSetting(DVD.Hide)</visible>
       <label>$LOCALIZE[427]</label>
@@ -1032,6 +1036,7 @@
       <onclick>$VAR[QuitAction]</onclick>
     </item>
   </include>
+
   <include name="Home.Submenu.Items">
     <item id="1" description="DVD eject">
       <visible>Container(300).HasFocus(8)</visible>
@@ -2343,6 +2348,7 @@
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
         <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
+        <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
       </item>
       <item id="$PARAM[itemid]">
         <visible>String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
@@ -2350,6 +2356,22 @@
         <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
         <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
+        <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
+      </item>
+      <item id="$PARAM[itemid]">
+        <visible>!String.IsEmpty(Skin.String(CustomHome2.$PARAM[customhomeid].Path))</visible>
+        <label>$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Label)]</label>
+        <label2>$LOCALIZE[305]</label2>
+        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
+        <onclick>RunScript(script.skinshortcuts,type=shortcuts&amp;custom=True&amp;showNone=True&amp;skinLabel=CustomHome2.$PARAM[customhomeid].Label&amp;skinAction=CustomHome2.$PARAM[customhomeid].Path)</onclick>
+        <visible>System.HasAddon(script.skinshortcuts)  + Skin.HasSetting(Enable.SkinShortcuts)</visible>
+      </item>
+      <item id="$PARAM[itemid]">
+        <visible>String.IsEmpty(Skin.String(CustomHome2.$PARAM[customhomeid].Path))</visible>
+        <label>$LOCALIZE[504]</label>
+        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
+        <onclick>RunScript(script.skinshortcuts,type=shortcuts&amp;custom=True&amp;showNone=True&amp;skinLabel=CustomHome2.$PARAM[customhomeid].Label&amp;skinAction=CustomHome2.$PARAM[customhomeid].Path)</onclick>
+        <visible>System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)</visible>
       </item>
     </definition>
   </include>
