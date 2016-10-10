@@ -901,14 +901,14 @@
         <visible>!String.IsEmpty(Skin.String(CustomHome.$PARAM[customid].Path))</visible>
         <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
         <label>$INFO[Skin.String(CustomHome.$PARAM[customid].Label)]</label>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customid].Background)]</thumb>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customid].Background)]</thumb>
         <onclick>$INFO[Skin.String(CustomHome.$PARAM[customid].Path)]</onclick>
       </item>
       <item id="$PARAM[itemid]" description="Custom1">
         <visible>!String.IsEmpty(Skin.String(CustomHome2.$PARAM[customid].Path))</visible>
         <visible>System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)</visible>
         <label>$INFO[Skin.String(CustomHome2.$PARAM[customid].Label)]</label>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customid].Background)]</thumb>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customid].Background)]</thumb>
         <onclick>$INFO[Skin.String(CustomHome2.$PARAM[customid].Path)]</onclick>
       </item>
     </definition>
@@ -2124,11 +2124,12 @@
   <include name="SettingsListCommons">
     <param name="showicon">true</param>
     <param name="listwidth">1360</param>
+    <param name="listheight">860</param>
     <definition>
       <posx>480</posx>
       <posy>120</posy>
       <width>$PARAM[listwidth]</width>
-      <height>860</height>
+      <height>$PARAM[listheight]</height>
       <onleft>9000</onleft>
       <scrolltime>280</scrolltime>
       <itemlayout width="$PARAM[listwidth]" height="60">
@@ -2262,6 +2263,7 @@
     <param name="itemicon"/>
     <param name="itemvisibility" default="true"/>
     <param name="skinsetting"/>
+    <param name="area"/>
     <definition>
       <item id="$PARAM[itemid]">
         <visible>Skin.HasSetting($PARAM[skinsetting])</visible>
@@ -2269,6 +2271,7 @@
         <label>$PARAM[itemlabel]</label>
         <label2>$LOCALIZE[107]</label2>
         <icon>$PARAM[itemicon]</icon>
+        <property name="area">$PARAM[area]</property>
         <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
       </item>
       <item id="$PARAM[itemid]">
@@ -2277,6 +2280,7 @@
         <label>$PARAM[itemlabel]</label>
         <label2>$LOCALIZE[106]</label2>
         <icon>$PARAM[itemicon]</icon>
+        <property name="area">$PARAM[area]</property>
         <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
       </item>
     </definition>
@@ -2338,15 +2342,15 @@
         <visible>!String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
         <label>$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Label)]</label>
         <label2>$LOCALIZE[305]</label2>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
         <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
         <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
       </item>
       <item id="$PARAM[itemid]">
         <visible>String.IsEmpty(Skin.String(CustomHome.$PARAM[customhomeid].Path))</visible>
-        <label>$LOCALIZE[504]</label>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
+        <label>[COLOR=Grey]$LOCALIZE[504][/COLOR]</label>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome.$PARAM[customhomeid].Background)]</thumb>
         <onclick condition="System.HasAddon(script.favourites)">RunScript(script.favourites,changetitle=true&amp;property=CustomHome.$PARAM[customhomeid])</onclick>
         <onclick condition="!System.HasAddon(script.favourites)">InstallAddon(script.favourites)</onclick>
         <visible>!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)</visible>
@@ -2355,14 +2359,14 @@
         <visible>!String.IsEmpty(Skin.String(CustomHome2.$PARAM[customhomeid].Path))</visible>
         <label>$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Label)]</label>
         <label2>$LOCALIZE[305]</label2>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
         <onclick>RunScript(script.skinshortcuts,type=shortcuts&amp;custom=True&amp;showNone=True&amp;skinLabel=CustomHome2.$PARAM[customhomeid].Label&amp;skinAction=CustomHome2.$PARAM[customhomeid].Path)</onclick>
         <visible>System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)</visible>
       </item>
       <item id="$PARAM[itemid]">
         <visible>String.IsEmpty(Skin.String(CustomHome2.$PARAM[customhomeid].Path))</visible>
-        <label>$LOCALIZE[504]</label>
-        <thumb fallback="special://skin/backgrounds/default/default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
+        <label>[COLOR=Grey]$LOCALIZE[504][/COLOR]</label>
+        <thumb fallback="special://skin/backgrounds/Default.jpg">$INFO[Skin.String(CustomHome2.$PARAM[customhomeid].Background)]</thumb>
         <onclick>RunScript(script.skinshortcuts,type=shortcuts&amp;custom=True&amp;showNone=True&amp;skinLabel=CustomHome2.$PARAM[customhomeid].Label&amp;skinAction=CustomHome2.$PARAM[customhomeid].Path)</onclick>
         <visible>System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)</visible>
       </item>
@@ -2394,49 +2398,54 @@
   <include name="SetBackgroundImage">
     <param name="operation"/>
     <definition>
-      <onclick condition="Container(9104).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(1)">Skin.$PARAM[operation](Videos.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(2)">Skin.$PARAM[operation](Movies.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(3)">Skin.$PARAM[operation](TVShows.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(4)">Skin.$PARAM[operation](Music.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(5)">Skin.$PARAM[operation](Pictures.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(6)">Skin.$PARAM[operation](Favourites.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(7)">Skin.$PARAM[operation](Weather.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(8)">Skin.$PARAM[operation](Addons.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(9)">Skin.$PARAM[operation](Settings.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(10)">Skin.$PARAM[operation](DVD.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(11)">Skin.$PARAM[operation](Quit.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(12)">Skin.$PARAM[operation](Pvr.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(14)">Skin.$PARAM[operation](MusicVideos.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(21) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.1.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(22) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.2.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(23) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.3.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(24) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.4.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(25) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.5.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(26) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.6.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(27) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.7.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(28) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.8.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(29) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.9.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(21) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.1.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(22) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.2.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(23) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.3.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(24) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.4.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(25) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.5.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(26) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.6.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(27) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.7.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(28) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.8.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(29) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.9.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(60)">Skin.$PARAM[operation](Plexbmc.0.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(61)">Skin.$PARAM[operation](Plexbmc.1.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(62)">Skin.$PARAM[operation](Plexbmc.2.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(63)">Skin.$PARAM[operation](Plexbmc.3.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(64)">Skin.$PARAM[operation](Plexbmc.4.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(65)">Skin.$PARAM[operation](Plexbmc.5.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(66)">Skin.$PARAM[operation](Plexbmc.6.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(67)">Skin.$PARAM[operation](Plexbmc.7.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(68)">Skin.$PARAM[operation](Plexbmc.8.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(69)">Skin.$PARAM[operation](Plexbmc.9.Background)</onclick>
-      <onclick condition="Container(9104).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
+      <width>192</width>
+      <align>center</align>
+      <height>60</height>
+      <onclick condition="Container(9103).HasFocus(0)">Skin.$PARAM[operation](Default.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(1)">Skin.$PARAM[operation](Pictures.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(2)">Skin.$PARAM[operation](Addons.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(3)">Skin.$PARAM[operation](Videos.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(4)">Skin.$PARAM[operation](Movies.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(5)">Skin.$PARAM[operation](TVShows.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(6)">Skin.$PARAM[operation](Music.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(7)">Skin.$PARAM[operation](MusicVideos.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(8)">Skin.$PARAM[operation](TV.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(9)">Skin.$PARAM[operation](Radio.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(10)">Skin.$PARAM[operation](Favourites.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(11)">Skin.$PARAM[operation](Weather.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(12)">Skin.$PARAM[operation](DVD.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(13)">Skin.$PARAM[operation](Settings.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(14)">Skin.$PARAM[operation](Quit.Background)</onclick>
+
+      <onclick condition="Container(9103).HasFocus(21) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.1.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(22) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.2.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(23) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.3.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(24) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.4.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(25) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.5.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(26) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.6.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(27) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.7.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(28) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.8.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(29) + [!System.HasAddon(script.skinshortcuts) | !Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome.9.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(21) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.1.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(22) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.2.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(23) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.3.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(24) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.4.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(25) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.5.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(26) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.6.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(27) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.7.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(28) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.8.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(29) + [System.HasAddon(script.skinshortcuts) + Skin.HasSetting(Enable.SkinShortcuts)]">Skin.$PARAM[operation](CustomHome2.9.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(60)">Skin.$PARAM[operation](Plexbmc.0.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(61)">Skin.$PARAM[operation](Plexbmc.1.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(62)">Skin.$PARAM[operation](Plexbmc.2.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(63)">Skin.$PARAM[operation](Plexbmc.3.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(64)">Skin.$PARAM[operation](Plexbmc.4.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(65)">Skin.$PARAM[operation](Plexbmc.5.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(66)">Skin.$PARAM[operation](Plexbmc.6.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(67)">Skin.$PARAM[operation](Plexbmc.7.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(68)">Skin.$PARAM[operation](Plexbmc.8.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(69)">Skin.$PARAM[operation](Plexbmc.9.Background)</onclick>
+      <onclick condition="Container(9103).HasFocus(70)">Skin.$PARAM[operation](Plexbmc.10.Background)</onclick>
     </definition>
   </include>
 
