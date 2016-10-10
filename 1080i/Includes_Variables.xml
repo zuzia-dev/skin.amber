@@ -81,6 +81,11 @@
     <value condition="Window.IsActive(musicplaylist)">$LOCALIZE[10517]</value>
   </variable>
 
+  <variable name="PVRChannelsOSDHeader" description="Header for PVRChannelsOSD dialog">
+    <value condition="!pvr.IsPlayingRadio">$LOCALIZE[19023] • $INFO[VideoPlayer.ChannelGroup]</value>
+    <value condition="pvr.IsPlayingRadio">$LOCALIZE[19024] • $INFO[MusicPlayer.ChannelGroup]</value>
+  </variable>
+
   <variable name="VideoPlayerTitle">
     <value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Title,[B],[/B]]$INFO[VideoPlayer.Year, (,)]</value>
     <value>$INFO[VideoPlayer.Title,[B],[/B]]</value>
@@ -239,7 +244,7 @@
   </variable>
   
   <variable name="CurrentBackgroundSetting">
-    <value condition="!String.IsEmpty(Container(9004).ListItem.Thumb)">$INFO[Container(9104).ListItem.Thumb]</value>
+    <value condition="!String.IsEmpty(Container(9103).ListItem.Thumb)">$INFO[Container(9103).ListItem.Thumb]</value>
     <value>$LOCALIZE[571]</value>
   </variable>
 
@@ -390,9 +395,9 @@
     <value condition="Container.Content(songs)">$INFO[Listitem.Artist,, • ]$INFO[Listitem.Duration]</value>
     <value condition="Container.Content(artists)">$INFO[Listitem.Property(Artist_Born),[COLOR=orange]$LOCALIZE[21893]: [/COLOR]]$INFO[Listitem.Property(Artist_Formed),[COLOR=orange]$LOCALIZE[21894]: [/COLOR]]</value>
     <value condition="Container.Content(images) + !ListItem.IsFolder">$INFO[Listitem.Size]$INFO[ListItem.PictureDateTime, • ,]</value>
-    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] </value>
+    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] </value>
     <value condition="Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml)">$INFO[ListItem.Date] $INFO[ListItem.ChannelName,  •  ]</value>
-    <value condition="Window.IsActive(MyPVRRecordings.xml)">$INFO[ListItem.Duration,[COLOR=Grey]$LOCALIZE[2050]: [/COLOR]]</value>
+    <value condition="Window.IsActive(MyPVRRecordings.xml)">$INFO[ListItem.Duration,[COLOR=Grey3]$LOCALIZE[2050]: [/COLOR]]</value>
     <value>$INFO[Listitem.Title]</value>
   </variable>
 
@@ -427,7 +432,7 @@
     <value condition="Container.Content(Episodes)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]][CR]$INFO[Listitem.Season,[COLOR=orange]$LOCALIZE[20373]:[/COLOR] ]$INFO[Listitem.Episode, • [COLOR=orange][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] ]</value>
     <value condition="Container.Content(Albums)">$INFO[Listitem.Genre,[COLOR=orange]$LOCALIZE[515]: [/COLOR]][CR]$INFO[Listitem.Year,[COLOR=orange]$LOCALIZE[562]:[/COLOR] ]$INFO[Listitem.Property(Album_Label), • [COLOR=orange]$LOCALIZE[21899]:[/COLOR] ]</value>
     <value condition="Container.Content(Artists)">$INFO[Listitem.Property(Artist_Genre),[COLOR=orange]$LOCALIZE[515]: [/COLOR]][CR]$INFO[Listitem.Property(Artist_YearsActive),[COLOR=orange]$LOCALIZE[21898]:[/COLOR] ]</value>
-    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
+    <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
     <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[PVR.NextTimer]</value>
   </variable>
 
@@ -511,7 +516,7 @@
 
   <variable name="SubDefaultBackground">
     <value condition="Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
-    <value condition="Skin.HasSetting(Sub_DefaultBG)">special://skin/backgrounds/default/</value>
+    <value condition="Skin.HasSetting(Sub_DefaultBG)">special://skin/backgrounds/Default.jpg</value>
     <value condition="Window.IsActive(MyVideoNav.xml) + [Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes)]">$VAR[TVShows.Art]</value>
     <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(Movies)">$VAR[Movies.Art]</value>
     <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(MusicVideos)">$VAR[MusicVideos.Art]</value>
@@ -526,7 +531,7 @@
     <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml) | Windows.IsActive(SettingsProfile.xml) | Window.IsActive(SettingsScreenCalibration.xml) | Window.IsActive(SettingsSystemInfo.xml) | Window.IsActive(EventLog.xml)) | Window.IsActive(SkinSettings.xml)">$VAR[Settings.Art]</value>
     <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + String.IsEmpty(Window.Property(IsRadio))">$VAR[Pvr.Art]</value>
     <value condition="[Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRTimers.xml)] + !String.IsEmpty(Window.Property(IsRadio))">$VAR[Radio.Art]</value>
-    <value>special://skin/backgrounds/default/</value>
+    <value>special://skin/backgrounds/Default.jpg</value>
   </variable>
 
   <variable name="HomeBackground">
@@ -552,7 +557,7 @@
     <value condition="Control.HasFocus(6005) + Skin.HasSetting(Home_FanArtBG) + !String.IsEmpty(Container(6005).ListItem.Art(fanart))">$INFO[Container(6005).ListItem.Art(fanart)]</value>
     <value condition="Control.HasFocus(12002) + Skin.HasSetting(Home_FanArtBG) + !String.IsEmpty(Container(12002).ListItem.Art(fanart))">$INFO[Container(12002).ListItem.Art(fanart)]</value>
     <value condition="Skin.HasSetting(Home_DefaultBG) + !String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
-    <value condition="Skin.HasSetting(Home_DefaultBG)">special://skin/backgrounds/default/</value>
+    <value condition="Skin.HasSetting(Home_DefaultBG)">special://skin/backgrounds/Default.jpg</value>
     <value>$INFO[Container(300).ListItem.Icon]</value>
   </variable>
 
