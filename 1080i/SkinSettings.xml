@@ -107,10 +107,6 @@
             <label>$LOCALIZE[31053]</label>
             <onclick>noop</onclick>
           </item>
-          <item id="7" description="Quit menu">
-            <label>$LOCALIZE[31990]</label>
-            <onclick>noop</onclick>
-          </item>
           <item id="8" description="Advanced">
             <label>$LOCALIZE[31985]</label>
             <onclick>noop</onclick>
@@ -413,6 +409,7 @@
               <pagecontrol></pagecontrol>
               <include content="SettingsListCommons">
                 <param name="listwidth">590</param>
+                <param name="listheight">330</param>
                 <param name="showicon">false</param>
               </include>
               <content>
@@ -542,6 +539,42 @@
                   <param name="itemlabel" value="$LOCALIZE[31115]"/>
                   <param name="skinsetting" value="Quit.Hide"/>
                   <param name="itemvisibility" value="Container(9103).HasFocus(14)"/>
+                </include>
+                <item id="141" description="QuitAction">
+                  <label>$LOCALIZE[31989]</label>
+                  <label2 fallback="31988">$VAR[QuitLabel2]</label2>
+                  <onclick>ActivateWindow(1114)</onclick>
+                  <visible>Container(9103).HasFocus(14)</visible>
+                </item>
+                <include content="YesNoSettingItem">
+                  <param name="itemid" value="142"/>
+                  <param name="itemlabel" value="$LOCALIZE[31955] $LOCALIZE[13009]"/>
+                  <param name="itemvisibility" value="Container(9103).HasFocus(14) + String.IsEmpty(Skin.String(shutdown))"/>
+                  <param name="skinsetting" value="QuitMenu_Hide_Quit"/>
+                </include>
+                <include content="YesNoSettingItem">
+                  <param name="itemid" value="143"/>
+                  <param name="itemlabel" value="$LOCALIZE[31955] $LOCALIZE[13011]"/>
+                  <param name="itemvisibility" value="Container(9103).HasFocus(14) + String.IsEmpty(Skin.String(shutdown))"/>
+                  <param name="skinsetting" value="QuitMenu_Hide_Sleep"/>
+                </include>
+                <include content="YesNoSettingItem">
+                  <param name="itemid" value="144"/>
+                  <param name="itemlabel" value="$LOCALIZE[31955] $LOCALIZE[13005]"/>
+                  <param name="itemvisibility" value="Container(9103).HasFocus(14) + String.IsEmpty(Skin.String(shutdown))"/>
+                  <param name="skinsetting" value="QuitMenu_Hide_Shutdown"/>
+                </include>
+                <include content="YesNoSettingItem">
+                  <param name="itemid" value="145"/>
+                  <param name="itemlabel" value="$LOCALIZE[31955] $LOCALIZE[13013]"/>
+                  <param name="itemvisibility" value="Container(9103).HasFocus(14) + String.IsEmpty(Skin.String(shutdown))"/>
+                  <param name="skinsetting" value="QuitMenu_Hide_Reboot"/>
+                </include>
+                <include content="YesNoSettingItem">
+                  <param name="itemid" value="146"/>
+                  <param name="itemlabel" value="$LOCALIZE[31955] $LOCALIZE[5]"/>
+                  <param name="itemvisibility" value="Container(9103).HasFocus(14) + String.IsEmpty(Skin.String(shutdown))"/>
+                  <param name="skinsetting" value="QuitMenu_Hide_Settings"/>
                 </include>
               </content>
             </control>
@@ -788,51 +821,7 @@
         <!--9000 6-->
 
         <!-- 9000 7 -->
-        <control type="panel" id="9107">
-          <visible>Container(9000).HasFocus(7)</visible>
-          <onright>500</onright>
-          <onup>9007</onup>
-          <ondown>9007</ondown>
-          <pagecontrol></pagecontrol>
-          <include>SettingsListCommons</include>
-          <content>
-            <item id="1" description="QuitAction">
-              <label>$LOCALIZE[31989]</label>
-              <label2 fallback="31988">$VAR[QuitLabel2]</label2>
-              <onclick>ActivateWindow(1114)</onclick>
-            </item>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="2"/>
-              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13009]"/>
-              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Hide_Quit"/>
-            </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="3"/>
-              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13011]"/>
-              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Hide_Sleep"/>
-            </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="4"/>
-              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13005]"/>
-              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Hide_Shutdown"/>
-            </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="5"/>
-              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[13013]"/>
-              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Hide_Reboot"/>
-            </include>
-            <include content="YesNoSettingItem">
-              <param name="itemid" value="6"/>
-              <param name="itemlabel" value="- $LOCALIZE[31955] $LOCALIZE[5]"/>
-              <param name="itemvisibility" value="String.IsEmpty(Skin.String(shutdown))"/>
-              <param name="skinsetting" value="QuitMenu_Hide_Settings"/>
-            </include>
-          </content>
-        </control>
+
         <!-- 9000 8 -->
         <control type="panel" id="9108">
           <visible>Container(9000).HasFocus(8)</visible>
