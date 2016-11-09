@@ -17,6 +17,15 @@
         <align>center</align>
       </control>
       <control type="image">
+        <posx>1589</posx>
+        <posy>188</posy>
+        <width>210</width>
+        <height>210</height>
+        <aspectratio>stretch</aspectratio>
+        <texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+        <colordiffuse>HeavyShadow</colordiffuse>
+      </control>
+      <control type="image">
         <posx>1581</posx>
         <posy>180</posy>
         <width>210</width>
@@ -27,70 +36,81 @@
       <control type="group">
         <posx>387</posx>
         <posy>195</posy>
-        <control type="label" description="Type label">
-          <posx>270</posx>
-          <posy>25</posy>
-          <width>345</width>
-          <height>38</height>
-          <label>$LOCALIZE[146]</label>
-          <align>right</align>
-        </control>
-        <control type="label" description="Type val">
-          <posx>300</posx>
-          <posy>25</posy>
-          <width>870</width>
-          <height>38</height>
-          <label fallback="416">$INFO[ListItem.AddonType]</label>
-          <scroll>true</scroll>
-        </control>
-        <control type="label" description="Creator label">
-          <posx>270</posx>
-          <posy>70</posy>
-          <width>345</width>
-          <height>38</height>
-          <label>$LOCALIZE[21863]:</label>
-          <align>right</align>
-        </control>
-        <control type="label" description="creator val">
-          <posx>300</posx>
-          <posy>70</posy>
-          <width>870</width>
-          <height>38</height>
-          <label fallback="416">$INFO[ListItem.AddonCreator]</label>
-          <scroll>true</scroll>
-        </control>
-        <control type="label" description="Version label">
-          <posx>270</posx>
-          <posy>115</posy>
-          <width>345</width>
-          <height>38</height>
-          <label>$LOCALIZE[24051]</label>
-          <align>right</align>
-        </control>
-        <control type="label" description="version val">
-          <posx>300</posx>
-          <posy>115</posy>
-          <width>870</width>
-          <height>38</height>
-          <label fallback="416">$INFO[ListItem.AddonVersion]</label>
-          <scroll>true</scroll>
-        </control>
-        <control type="label" description="summary">
-          <posx>270</posx>
-          <posy>160</posy>
-          <width>345</width>
-          <height>38</height>
-          <label>$LOCALIZE[20037]:</label>
-          <align>right</align>
-        </control>
-        <control type="fadelabel" description="summary val">
-          <posx>300</posx>
-          <posy>160</posy>
-          <width>870</width>
-          <height>38</height>
-          <label fallback="416">$INFO[ListItem.AddonSummary]</label>
-          <scrollout>false</scrollout>
-          <pauseatend>2000</pauseatend>
+        <control type="list">
+          <top>0</top>
+          <left>30</left>
+          <width>1380</width>
+          <height>300</height>
+          <onleft>noop</onleft>
+          <onright>noop</onright>
+          <onup>noop</onup>
+          <ondown>noop</ondown>
+          <pagecontrol></pagecontrol>
+          <scrolltime>200</scrolltime>
+          <itemlayout height="45" width="1380">
+            <control type="label" description="Type label">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>250</width>
+              <height>38</height>
+              <label>$INFO[ListItem.label]</label>
+              <textcolor>Highlight</textcolor>
+              <align>right</align>
+            </control>
+            <control type="label" description="Type val">
+              <posx>265</posx>
+              <posy>0</posy>
+              <width>870</width>
+              <height>38</height>
+              <label>$INFO[ListItem.label2]</label>
+              <scroll>true</scroll>
+            </control>
+          </itemlayout>
+          <focusedlayout height="45" width="870">
+            <control type="label" description="Type label">
+              <posx>0</posx>
+              <posy>0</posy>
+              <width>250</width>
+              <height>38</height>
+              <label>$INFO[ListItem.label]</label>
+              <textcolor>Highlight</textcolor>
+              <align>right</align>
+            </control>
+            <control type="label" description="Type val">
+              <posx>265</posx>
+              <posy>0</posy>
+              <width>870</width>
+              <height>38</height>
+              <label>$INFO[ListItem.label2]</label>
+              <scroll>true</scroll>
+            </control>
+          </focusedlayout>
+          <content>
+            <item>
+              <label>$LOCALIZE[146]</label>
+              <label2>$INFO[ListItem.AddonType]</label2>
+              <onclick>noop</onclick>
+              <visible>!String.IsEmpty(ListItem.AddonType)</visible>
+            </item>
+            <item>
+              <label>$LOCALIZE[21863]:</label>
+              <label2>$INFO[ListItem.AddonCreator]</label2>
+              <onclick>noop</onclick>
+              <visible>!String.IsEmpty(ListItem.AddonCreator)</visible>
+            </item>
+            <item>
+              <label>$LOCALIZE[24051]</label>
+              <label2>$INFO[ListItem.AddonVersion]</label2>
+              <onclick>noop</onclick>
+              <visible>!String.IsEmpty(ListItem.AddonVersion)</visible>
+            </item>
+            <item>
+              <label>$LOCALIZE[20037]:</label>
+              <label2>$INFO[ListItem.AddonSummary]</label2>
+              <onclick>noop</onclick>
+              <visible>!String.IsEmpty(ListItem.AddonSummary)</visible>
+            </item>
+          </content>
         </control>
         <control type="image">
           <posx>0</posx>
@@ -104,7 +124,7 @@
           <posy>255</posy>
           <width>450</width>
           <height>38</height>
-          <label>$LOCALIZE[21821]</label>
+          <label>[COLOR=Highlight]$LOCALIZE[21821][/COLOR]</label>
           <align>left</align>
           <aligny>center</aligny>
         </control>
@@ -113,7 +133,7 @@
             <posx>30</posx>
             <posy>310</posy>
             <width>1380</width>
-            <height>354</height>
+            <height>254</height>
             <font>InfoPlot</font>
             <align>justify</align>
             <label>$INFO[ListItem.AddonDescription]</label>
@@ -121,7 +141,7 @@
           <control type="label" description="Disclaimer">
             <visible>String.IsEmpty(ListItem.AddonBroken)</visible>
             <posx>30</posx>
-            <posy>735</posy>
+            <posy>535</posy>
             <width>1380</width>
             <height>60</height>
             <font>Details</font>
@@ -142,14 +162,27 @@
           </control>
         </control>
       </control>
+      <control type="panel" id="50">
+        <left>410</left>
+        <top>760</top>
+        <width>1380</width>
+        <height>300</height>
+        <ondown>9000</ondown>
+        <onleft>9000</onleft>
+        <onup>9000</onup>
+        <orientation>horizontal</orientation>
+        <include content="AddonLayout">
+          <param name="viewid">50</param>
+        </include>
+      </control>
       <control type="grouplist" id="9000">
         <posx>63</posx>
         <posy>180</posy>
         <width>324</width>
         <height>780</height>
         <itemgap>0</itemgap>
-        <onleft>60</onleft>
-        <onright>60</onright>
+        <onleft>noop</onleft>
+        <onright>50</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
         <control type="button" id="12" description="launch">
