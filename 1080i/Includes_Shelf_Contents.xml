@@ -556,7 +556,7 @@
           <include content="CurrentPVRStatus">
             <param name="top">60</param>
             <param name="left">0</param>
-            <param name="headerlabel">$LOCALIZE[19158]:</param>
+            <param name="headerlabel">$LOCALIZE[19158]</param>
             <param name="timelabel">Pvr.RadioNowRecordingDateTime</param>
             <param name="channellabel">Pvr.RadioNowRecordingChannel</param>
             <param name="titlelabel">Pvr.RadioNowRecordingTitle</param>
@@ -569,7 +569,7 @@
          <include content="CurrentPVRStatus">
             <param name="top">60</param>
             <param name="left">1320</param>
-            <param name="headerlabel">$LOCALIZE[19157]:</param>
+            <param name="headerlabel">$LOCALIZE[19157]</param>
             <param name="timelabel">Pvr.RadioNextRecordingDateTime</param>
             <param name="channellabel">Pvr.RadioNextRecordingChannel</param>
             <param name="titlelabel">Pvr.RadioNextRecordingTitle</param>
@@ -615,10 +615,10 @@
         <top>30</top>
         <width>420</width>
         <height>30</height>
-        <label>$INFO[$PARAM[timelabel],$LOCALIZE[19126] - ]</label>
         <font>ListDetails</font>
         <align>left</align>
         <aligny>center</aligny>
+        <label>[B]$INFO[$PARAM[titlelabel]][/B] ($INFO[$PARAM[channellabel]])</label>
         <scroll>true</scroll>
       </control>
       <control type="label" description="Next Recording title Channel">
@@ -630,7 +630,7 @@
         <aligny>center</aligny>
         <font>ListDetails</font>
         <textcolor>White</textcolor>
-        <label>[B]$INFO[$PARAM[titlelabel]][/B] ($INFO[$PARAM[channellabel]])</label>
+        <label>$INFO[$PARAM[timelabel],$LOCALIZE[19126] - ]</label>
       </control>
       <control type="image">
         <include>VisibleFadeEffect</include>
@@ -743,14 +743,13 @@
   <include name="WeatherLabel">
     <param name="containerid"></param>
     <definition>
-        <label>$INFO[Container($PARAM[containerid]).ListItem.Property(LongDay),[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Property(ShortDate), [B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Property(Time), [B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Property(Outlook), • ,][/COLOR]</label>
+        <label>$INFO[Container($PARAM[containerid]).ListItem.Property(LongDay),[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Property(Time),[B],[/B]]$INFO[Container($PARAM[containerid]).ListItem.Property(ShortDate), • [B],[/B]][COLOR=White]$INFO[Container($PARAM[containerid]).ListItem.Property(Outlook), • ,][/COLOR]</label>
     </definition>
   </include>
 
   <include name="WeatherContent.HourlyItem">
     <item>
-      <label>$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)][CR]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].ShortDate)]</label>
-      <label2>[B]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Precipitation), • ][/B]</label2>
+      <label>$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)] • $INFO[Window(weather).Property(Hourly.$PARAM[itemid].ShortDate)][CR][B]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Precipitation), • ][/B]</label>
       <property name="Time">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)]</property>
       <property name="Temperature">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]</property>
       <property name="Outlook">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Outlook)]</property>
@@ -765,8 +764,7 @@
 
   <include name="WeatherContent.DailyItem">
     <item>
-      <label>$INFO[Window(weather).Property(Daily.$PARAM[itemid].LongDay)][CR]$INFO[Window(weather).Property(Daily.$PARAM[itemid].ShortDate)]</label>
-      <label2>[B][COLOR=Blue]$INFO[Window(weather).Property(Daily.$PARAM[itemid].LowTemperature)][/COLOR] • [COLOR=Red]$INFO[Window(weather).Property(Daily.$PARAM[itemid].HighTemperature)][/COLOR][/B]</label2>
+      <label>$INFO[Window(weather).Property(Daily.$PARAM[itemid].ShortDay)] • $INFO[Window(weather).Property(Daily.$PARAM[itemid].ShortDate)][CR][B][COLOR=Blue]$INFO[Window(weather).Property(Daily.$PARAM[itemid].LowTemperature)][/COLOR] • [COLOR=Red]$INFO[Window(weather).Property(Daily.$PARAM[itemid].HighTemperature)][/COLOR][/B]</label>
       <property name="LongDay">$INFO[Window(weather).Property(Daily.$PARAM[itemid].LongDay)]</property>
       <property name="TempDay">$INFO[Window(weather).Property(Daily.$PARAM[itemid].TempDay)]</property>
       <property name="Cloudiness">$INFO[Window(weather).Property(Daily.$PARAM[itemid].Cloudiness)]</property>
