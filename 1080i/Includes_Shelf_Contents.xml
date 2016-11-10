@@ -325,7 +325,6 @@
     <param name="shelfwidth"/>
     <definition>
       <control type="group">
-        <animation effect="slide" start="0,0" end="0,-100" time="0" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
         <include content="ShelfList">
           <param name="menuvisibility">Container(300).HasFocus(2)</param>
           <param name="shelfvisible">![Skin.HasSetting(Shelf.Addons) | Skin.HasSetting(Hide.RecentlyAdded)]</param>
@@ -506,7 +505,134 @@
           <param name="listitemcontent1">pvr://channels/radio/*?=lastplayed</param>
           <param name="listitemcontent2">pvr://recordings/radio/active?view=flat</param>
         </include>
+        <control type="group">
+          <visible>Container(300).HasFocus(12) + PVR.IsRecordingTV + !Skin.HasSetting(Hide.TV.Widget.NowRecording)</visible>
+          <animation effect="slide" start="0,0" end="430,0" time="0" condition="Skin.HasSetting(VerticalHome)">conditional</animation>
+          <animation effect="slide" start="0,0" end="0,50" time="0" condition="!Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
+          <include content="CurrentPVRStatus">
+            <param name="top">60</param>
+            <param name="left">0</param>
+            <param name="headerlabel">$LOCALIZE[19158]:</param>
+            <param name="timelabel">Pvr.TVNowRecordingDateTime</param>
+            <param name="channellabel">Pvr.TVNowRecordingChannel</param>
+            <param name="titlelabel">Pvr.TVNowRecordingTitle</param>
+            <param name="channelicon">Pvr.TVNowRecordingChannelIcon</param>
+          </include>
+        </control>
+        <control type="group">
+         <visible>Container(300).HasFocus(12) + PVR.HasNonRecordingTVTimer + !Skin.HasSetting(Hide.TV.Widget.NextRecording)</visible>
+          <animation effect="slide" start="0,0" end="0,50" time="0" condition="!Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
+         <include content="CurrentPVRStatus">
+            <param name="top">60</param>
+            <param name="left">1320</param>
+            <param name="headerlabel">$LOCALIZE[19157]:</param>
+            <param name="timelabel">Pvr.TVNextRecordingDateTime</param>
+            <param name="channellabel">Pvr.TVNextRecordingChannel</param>
+            <param name="titlelabel">Pvr.TVNextRecordingTitle</param>
+            <param name="channelicon">Pvr.TVNextRecordingChannelIcon</param>
+          </include>
+        </control>
+        <control type="group">
+          <visible>Container(300).HasFocus(13) + PVR.IsRecordingRadio + !Skin.HasSetting(Hide.Radio.Widget.NowRecording)</visible>
+          <animation effect="slide" start="0,0" end="430,0" time="0" condition="Skin.HasSetting(VerticalHome)">conditional</animation>
+          <animation effect="slide" start="0,0" end="0,50" time="0" condition="!Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
+          <include content="CurrentPVRStatus">
+            <param name="top">60</param>
+            <param name="left">0</param>
+            <param name="headerlabel">$LOCALIZE[19158]:</param>
+            <param name="timelabel">Pvr.RadioNowRecordingDateTime</param>
+            <param name="channellabel">Pvr.RadioNowRecordingChannel</param>
+            <param name="titlelabel">Pvr.RadioNowRecordingTitle</param>
+            <param name="channelicon">Pvr.RadioNowRecordingChannelIcon</param>
+          </include>
+        </control>
+        <control type="group">
+         <visible>Container(300).HasFocus(13) + PVR.HasNonRecordingRadioTimer + !Skin.HasSetting(Hide.Radio.Widget.NextRecording)</visible>
+          <animation effect="slide" start="0,0" end="0,50" time="0" condition="!Skin.HasSetting(Shelf.DoubleHeight)">conditional</animation>
+         <include content="CurrentPVRStatus">
+            <param name="top">60</param>
+            <param name="left">1320</param>
+            <param name="headerlabel">$LOCALIZE[19157]:</param>
+            <param name="timelabel">Pvr.RadioNextRecordingDateTime</param>
+            <param name="channellabel">Pvr.RadioNextRecordingChannel</param>
+            <param name="titlelabel">Pvr.RadioNextRecordingTitle</param>
+            <param name="channelicon">Pvr.RadioNextRecordingChannelIcon</param>
+          </include>
+        </control>
         <include condition="!Skin.HasSetting(Hide.RecentlyAdded) + Skin.HasSetting(plexbmc)">Plexbmc_Shelf</include>
+      </control>
+    </definition>
+  </include>
+
+  <include name="CurrentPVRStatus">
+    <param name="top">60</param>
+    <param name="left">1320</param>
+    <param name="headerlabel"></param>
+    <param name="timelabel"></param>
+    <param name="channellabel"></param>
+    <param name="titlelabel"></param>
+    <param name="channelicon"></param>
+    <definition>
+      <top>$PARAM[top]</top>
+      <left>$PARAM[left]</left>
+      <control type="image">
+        <include>VisibleFadeEffect</include>
+        <width>600</width>
+        <height>102</height>
+        <texture border="4" colordiffuse="FF1c1c1c">img/WhiteRoundedST2.png</texture>
+      </control>
+      <control type="label">
+        <description>Next Timer Header label</description>
+        <left>16</left>
+        <height>30</height>
+        <width>310</width>
+        <label>$PARAM[headerlabel]</label>
+        <textcolor>Highlight</textcolor>
+        <font>ListDetails</font>
+        <align>left</align>
+        <aligny>center</aligny>
+      </control>
+      <control type="label" description="next recording time">
+        <description>NextRecordingDateTime</description>
+        <left>16</left>
+        <top>30</top>
+        <width>420</width>
+        <height>30</height>
+        <label>$INFO[$PARAM[timelabel],$LOCALIZE[19126] - ]</label>
+        <font>ListDetails</font>
+        <align>left</align>
+        <aligny>center</aligny>
+        <scroll>true</scroll>
+      </control>
+      <control type="label" description="Next Recording title Channel">
+        <left>16</left>
+        <top>64</top>
+        <width>800 </width>
+        <height>30</height>
+        <align>left</align>
+        <aligny>center</aligny>
+        <font>ListDetails</font>
+        <textcolor>White</textcolor>
+        <label>[B]$INFO[$PARAM[titlelabel]][/B] ($INFO[$PARAM[channellabel]])</label>
+      </control>
+      <control type="image">
+        <include>VisibleFadeEffect</include>
+        <posx>444</posx>
+        <posy>8</posy>
+        <width>155</width>
+        <height>88</height>
+        <texture>$INFO[$PARAM[channelicon]]</texture>
+        <aspectratio>keep</aspectratio>
+        <colordiffuse>HeavyShadow</colordiffuse>
+      </control>
+      <control type="image">
+        <include>VisibleFadeEffect</include>
+        <left>440</left>
+        <top>4</top>
+        <width>155</width>
+        <height>88</height>
+        <texture>$INFO[$PARAM[channelicon]]</texture>
+        <aspectratio>keep</aspectratio>
       </control>
     </definition>
   </include>
