@@ -749,15 +749,15 @@
 
   <include name="WeatherContent.HourlyItem">
     <item>
-      <label>$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)][CR]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]</label>
-      <property name="LongDay">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].LongDay)]</property>
+      <label>$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)][CR]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].ShortDate)]</label>
+      <label2>[B]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Precipitation), • ][/B]</label2>
       <property name="Time">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Time)]</property>
       <property name="Temperature">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Temperature)]</property>
       <property name="Outlook">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Outlook)]</property>
       <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].Cloudiness)]</property>
       <property name="ShortDate">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].ShortDate)]</property>
       <property name="FanartCode">$INFO[Window(weather).Property(Hourly.$PARAM[itemid].FanartCode)]</property>
-      <thumb>resource://resource.images.weathericons.default/$INFO[Window(weather).Property(Hourly.$PARAM[itemid].OutlookIcon)]</thumb>
+      <thumb>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.$PARAM[itemid].FanartCode),,.png]</thumb>
       <onclick>noop</onclick>
       <visible>!String.IsEmpty(Window(weather).Property(Hourly.$PARAM[itemid].Outlook))</visible>
     </item>
@@ -765,14 +765,15 @@
 
   <include name="WeatherContent.DailyItem">
     <item>
-      <label>$INFO[Window(weather).Property(Daily.$PARAM[itemid].LongDay)][CR][B][COLOR=Blue]$INFO[Window(weather).Property(Daily.$PARAM[itemid].LowTemperature)][/COLOR] • [COLOR=Red]$INFO[Window(weather).Property(Daily.$PARAM[itemid].HighTemperature)][/COLOR][/B]</label>
+      <label>$INFO[Window(weather).Property(Daily.$PARAM[itemid].LongDay)][CR]$INFO[Window(weather).Property(Daily.$PARAM[itemid].ShortDate)]</label>
+      <label2>[B][COLOR=Blue]$INFO[Window(weather).Property(Daily.$PARAM[itemid].LowTemperature)][/COLOR] • [COLOR=Red]$INFO[Window(weather).Property(Daily.$PARAM[itemid].HighTemperature)][/COLOR][/B]</label2>
       <property name="LongDay">$INFO[Window(weather).Property(Daily.$PARAM[itemid].LongDay)]</property>
       <property name="TempDay">$INFO[Window(weather).Property(Daily.$PARAM[itemid].TempDay)]</property>
       <property name="Cloudiness">$INFO[Window(weather).Property(Daily.$PARAM[itemid].Cloudiness)]</property>
       <property name="Outlook">$INFO[Window(weather).Property(Daily.$PARAM[itemid].Outlook)]</property>
       <property name="ShortDate">$INFO[Window(weather).Property(Daily.$PARAM[itemid].ShortDate)]</property>
       <property name="FanartCode">$INFO[Window(weather).Property(Daily.$PARAM[itemid].FanartCode)]</property>
-      <thumb>resource://resource.images.weathericons.default/$INFO[Window(weather).Property(Daily.$PARAM[itemid].OutlookIcon)]</thumb>
+      <thumb>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.$PARAM[itemid].FanartCode),,.png]</thumb>
       <onclick>noop</onclick>
       <visible>!String.IsEmpty(Window(weather).Property(Daily.$PARAM[itemid].Outlook))</visible>
     </item>
@@ -809,6 +810,18 @@
     <include content="WeatherContent.DailyItem">
       <param name="itemid" value="10"/>
     </include>
+    <include content="WeatherContent.DailyItem">
+      <param name="itemid" value="11"/>
+    </include>
+    <include content="WeatherContent.DailyItem">
+      <param name="itemid" value="12"/>
+    </include>
+    <include content="WeatherContent.DailyItem">
+      <param name="itemid" value="13"/>
+    </include>
+    <include content="WeatherContent.DailyItem">
+      <param name="itemid" value="14"/>
+    </include>
   </include>
 
   <include name="WeatherContent.Hourly">
@@ -841,6 +854,18 @@
     </include>
     <include content="WeatherContent.HourlyItem">
       <param name="itemid" value="10"/>
+    </include>
+    <include content="WeatherContent.HourlyItem">
+      <param name="itemid" value="11"/>
+    </include>
+    <include content="WeatherContent.HourlyItem">
+      <param name="itemid" value="12"/>
+    </include>
+    <include content="WeatherContent.HourlyItem">
+      <param name="itemid" value="13"/>
+    </include>
+    <include content="WeatherContent.HourlyItem">
+      <param name="itemid" value="14"/>
     </include>
   </include>
 
@@ -984,7 +1009,7 @@
     </definition>
   </include>
 
-  <include name="Shelf_Weather">
+  <include name="Shelf_Addons">
     <param name="id1"/>
     <definition>
       <include>VisibleFadeEffectDelayShelf</include>
@@ -1002,17 +1027,17 @@
     </definition>
   </include>
 
-  <include name="Shelf_Addons">
+  <include name="Shelf_Weather">
     <param name="id1"/>
     <definition>
       <include>VisibleFadeEffectDelayShelf</include>
       <itemlayout height="315" width="228.5">
-        <include content="GenericThumb">
+        <include content="GenericWeather">
           <param name="size">Shelf</param>
         </include>
       </itemlayout>
       <focusedlayout height="315" width="228.5">
-        <include content="GenericThumb">
+        <include content="GenericWeather">
           <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
           <param name="size">Shelf</param>
         </include>
