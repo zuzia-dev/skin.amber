@@ -5,8 +5,6 @@
   <defaultcontrol></defaultcontrol>
   <controls>
     <control type="visualisation" description="Visualisation">
-      <posx>0</posx>
-      <posy>0</posy>
       <width>1920</width>
       <height>1080</height>
       <visible>Player.HasAudio</visible>
@@ -44,7 +42,6 @@
       </animation>
     </control>
     <control type="image">
-      <posx>0</posx>
       <posy>110</posy>
       <width>1920</width>
       <height>735</height>
@@ -57,7 +54,6 @@
       <control type="group">
         <animation effect="fade" time="200">VisibleChange</animation>
         <control type="image" description="Background">
-          <posx>0</posx>
           <posy>-30</posy>
           <width>1920</width>
           <height>188</height>
@@ -155,30 +151,20 @@
         <include>OSDFade</include>
         <animation effect="fade" time="200">VisibleChange</animation>
         <control type="image">
-          <posx>0</posx>
-          <posy>0</posy>
           <width>1920</width>
           <height>260</height>
           <texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
           <colordiffuse>FFE2E2E2</colordiffuse>
         </control>
-        <control type="image">
-          <posx>539r</posx>
-          <posy>666r</posy>
-          <width>509</width>
-          <height>636</height>
-          <texture>$INFO[MusicPlayer.Cover]</texture>
-          <aspectratio align="center" aligny="bottom">keep</aspectratio>
-          <colordiffuse>HeavyShadow</colordiffuse>
-        </control>
-        <control type="image">
-          <posx>555r</posx>
-          <posy>682r</posy>
-          <width>509</width>
-          <height>636</height>
-          <texture>$INFO[MusicPlayer.Cover]</texture>
-          <aspectratio align="center" aligny="bottom">keep</aspectratio>
-        </control>
+        <include content="ShadowedImage">
+          <param name="top">682r</param>
+          <param name="left">555r</param>
+          <param name="width">509</param>
+          <param name="height">636</param>
+          <param name="shadowoffset">16</param>
+          <param name="texture">$INFO[MusicPlayer.Cover]</param>
+          <param name="aligny">bottom</param>
+        </include>
         <control type="label">
           <posx>30</posx>
           <posy>50</posy>

@@ -5,16 +5,12 @@
   <animation effect="fade" time="150">WindowClose</animation>
   <controls>
     <control type="image">
-      <posx>0</posx>
-      <posy>0</posy>
       <width>1920</width>
       <height>1080</height>
       <texture>img/BlackDot.png</texture>
       <aspectratio>scale</aspectratio>
     </control>
     <control type="image">
-      <posx>0</posx>
-      <posy>0</posy>
       <width>1920</width>
       <height>1080</height>
       <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
@@ -23,23 +19,14 @@
     <include content="BackgroundOverlay">
       <param name="parentid" value="9000"/>
     </include>
-    <control type="image" description="Cover">
-      <posx>40</posx>
-      <posy>40</posy>
-      <width>679</width>
-      <height>1020</height>
-      <texture background="true">$VAR[DialogVideoInfoPoster]</texture>
-      <aspectratio>keep</aspectratio>
-      <colordiffuse>HeavyShadow</colordiffuse>
-    </control>
-    <control type="image" description="Cover">
-      <posx>24</posx>
-      <posy>24</posy>
-      <width>679</width>
-      <height>1020</height>
-      <texture background="true">$VAR[DialogVideoInfoPoster]</texture>
-      <aspectratio >keep</aspectratio>
-    </control>
+    <include content="ShadowedImage">
+      <param name="top">24</param>
+      <param name="left">24</param>
+      <param name="width">679</param>
+      <param name="height">1020</param>
+      <param name="shadowoffset">16</param>
+      <param name="texture">$VAR[DialogVideoInfoPoster]</param>
+    </include>
     <control type="group" description="Media Info">
       <control type="group" description="top">
         <posx>810</posx>
@@ -64,7 +51,6 @@
           <label>$INFO[ListItem.Path]</label>
         </control>
         <control type="image" description="Line Split">
-          <posx>0</posx>
           <posy>23</posy>
           <width>999</width>
           <height>1</height>
@@ -72,7 +58,6 @@
           <aspectratio>stretch</aspectratio>
         </control>
         <control type="group" description="List Info">
-          <posx>0</posx>
           <posy>30</posy>
           <control type="group">
             <include>VisibleFadeEffectDelay</include>
@@ -188,7 +173,6 @@
         <control type="textbox" description="Plot">
           <visible>![Control.HasFocus(9012) | Control.HasFocus(50) | Control.HasFocus(10)]</visible>
           <include>VisibleFadeEffectDelay</include>
-          <posx>0</posx>
           <posy>500</posy>
           <width>999</width>
           <height>388</height>
@@ -197,7 +181,6 @@
           <label>$VAR[Plots]</label>
         </control>
         <control type="image" description="Line Split">
-          <posx>0</posx>
           <posy>424</posy>
           <width>999</width>
           <height>1</height>
@@ -205,7 +188,6 @@
           <aspectratio>stretch</aspectratio>
         </control>
         <control type="image" description="Line Split">
-          <posx>0</posx>
           <posy>917</posy>
           <width>999</width>
           <height>1</height>
@@ -213,7 +195,6 @@
           <aspectratio>stretch</aspectratio>
         </control>
         <control type="grouplist" description="Flags">
-          <posx>0</posx>
           <posy>926</posy>
           <width>900</width>
           <height>45</height>
@@ -226,7 +207,6 @@
           </include>
         </control>
         <control type="image" description="Line Split">
-          <posx>0</posx>
           <posy>973</posy>
           <width>999</width>
           <height>1</height>
@@ -236,17 +216,13 @@
       </control>
     </control>
     <control type="group" description="Options">
-      <posy>0</posy>
       <posx>810</posx>
       <control type="grouplist" id="9000">
-        <posx>0</posx>
         <posy>485</posy>
         <width>1050</width>
         <height>54</height>
-        <itemgap>0</itemgap>
         <align>center</align>
         <orientation>horizontal</orientation>
-        <itemgap>2</itemgap>
         <control type="button" id="299" description="Cinema">
           <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
           <height>54</height>
@@ -310,7 +286,6 @@
         </control>
       </control>
       <control type="image" description="Line Split">
-        <posx>0</posx>
         <posy>537</posy>
         <width>999</width>
         <height>1</height>

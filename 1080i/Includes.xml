@@ -144,28 +144,58 @@
     <animation effect="fade" time="100">Hidden</animation>
   </include>
   <include name="HiddenButton">
-    <posx>-30</posx>
-    <posy>-30</posy>
+    <left>-3000</left>
+    <top>-3000</top>
     <width>1</width>
     <height>1</height>
-    <label></label>
-    <texturenofocus></texturenofocus>
     <texturefocus></texturefocus>
+    <texturenofocus></texturenofocus>
+    <label></label>
+    <font></font>
   </include>
   <include name="DimBG">
     <control type="image">
-      <posx>0</posx>
-      <posy>0</posy>
       <width>1920</width>
       <height>1080</height>
       <texture>img/BlackDotT.png</texture>
     </control>
   </include>
   <include name="Dimensions_Fullscreen">
-    <posx>0</posx>
-    <posy>0</posy>
     <width>1920</width>
     <height>1080</height>
+  </include>
+
+  <include name="ShadowedImage">
+    <param name="top">0</param>
+    <param name="left">0</param>
+    <param name="width"/>
+    <param name="height"/>
+    <param name="shadowoffset">8</param>
+    <param name="shadowcolor">HeavyShadow</param>
+    <param name="texture">$INFO[ListItem.Icon]</param>
+    <param name="aspect">keep</param>
+    <param name="align">center</param>
+    <param name="aligny">center</param>
+    <definition>
+      <control type="group">
+        <top>$PARAM[top]</top>
+        <left>$PARAM[left]</left>
+        <control type="image" description="Icon Shadow">
+          <top>$PARAM[shadowoffset]</top>
+          <left>$PARAM[shadowoffset]</left>
+          <width>$PARAM[width]</width>
+          <height>$PARAM[height]</height>
+          <texture colordiffuse="$PARAM[shadowcolor]">$PARAM[texture]</texture>
+          <aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
+        </control>
+        <control type="image" description="Icon">
+          <width>$PARAM[width]</width>
+          <height>$PARAM[height]</height>
+          <texture>$PARAM[texture]</texture>
+          <aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
+        </control>
+      </control>
+    </definition>
   </include>
 
   <include name="BackgroundOverlay">
@@ -197,15 +227,11 @@
 
   <include name="Time">
     <control type="group">
-      <top>0</top>
-      <left>0</left>
       <width>1920</width>
       <control type="group">
         <visible>Window.Is(home) | [!Window.Is(home) + !Skin.HasSetting(Hide.TopBar.Sub)]</visible>
         <control type="image">
           <include>VisibleFadeEffect</include>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>1920</width>
           <height>48</height>
           <texture>common/TopStripe.png</texture>
@@ -214,7 +240,6 @@
           <visible>!Player.HasAudio | [Player.HasAudio + !String.IsEmpty(Window(videos).Property(PlayingBackgroundMedia))]</visible>
           <include>VisibleFadeEffect</include>
           <posx>30</posx>
-          <posy>0</posy>
           <width>1200</width>
           <height>35</height>
           <font>Details</font>
@@ -223,7 +248,6 @@
         <control type="rss" description="RSS Feed">
           <visible>Window.Is(home) + system.getbool(lookandfeel.enablerssfeeds)</visible>
           <posx>30</posx>
-          <posy>0</posy>
           <width>1100</width>
           <height>35</height>
           <font>Details</font>
@@ -248,7 +272,6 @@
           <control type="label">
             <include>VisibleFadeEffect</include>
             <posx>60</posx>
-            <posy>0</posy>
             <width>1200</width>
             <height>35</height>
             <font>Details</font>
@@ -343,7 +366,6 @@
 
   <include name="SeekbarLabels">
     <posx>40</posx>
-    <posy>0</posy>
     <height>40</height>
     <width>1840</width>
     <align>center</align>
@@ -358,7 +380,6 @@
       <control type="image">
         <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
         <posx>52r</posx>
-        <posy>0</posy>
         <width>30</width>
         <height>72</height>
         <texture>$VAR[Overlay]</texture>
@@ -436,7 +457,6 @@
     </animation>
     <control type="image">
       <posx>-500</posx>
-      <posy>0</posy>
       <width>510</width>
       <height>1080</height>
       <texture border="0,0,30,0">common/ViewMenu.png</texture>
@@ -470,7 +490,6 @@
       <visible allowhiddenfocus="true">ControlGroup(9601).HasFocus()</visible>
       <include>VisibleFadeEffect</include>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>154</height>
@@ -478,7 +497,6 @@
         <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
       </control>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>208</height>
@@ -486,7 +504,6 @@
         <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
       </control>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>262</height>
@@ -494,7 +511,6 @@
         <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
       </control>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>316</height>
@@ -502,7 +518,6 @@
         <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
       </control>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>370</height>
@@ -510,7 +525,6 @@
         <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
       </control>
       <control type="image">
-        <posx>0</posx>
         <posy>92</posy>
         <width>300</width>
         <height>424</height>
@@ -522,7 +536,6 @@
         <posy>116</posy>
         <width>248</width>
         <height>400</height>
-        <itemgap>0</itemgap>
         <onleft>9000</onleft>
         <onright>50</onright>
         <onup>9600</onup>
@@ -602,7 +615,7 @@
       <selected>Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons)</selected>
       <textoffsetx>16</textoffsetx>
       <label>- $LOCALIZE[1438]</label>
-    </control>    
+    </control>
     <control type="radiobutton" id="9$PARAM[viewid]3" description="View Seasons Small icons">
       <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Seasons)</visible>
       <font>ListDetails</font>
@@ -674,7 +687,6 @@
     <posy>60</posy>
     <width>500</width>
     <height>1120</height>
-    <itemgap>0</itemgap>
     <onleft>9001</onleft>
     <onright>50</onright>
     <onup>9000</onup>
@@ -829,15 +841,11 @@
   </include>
 
   <include name="List_9009_Commons" description="Video Info metadata container">
-    <posx>0</posx>
-    <posy>0</posy>
     <width>999</width>
     <height>504</height>
     <pagecontrol></pagecontrol>
     <itemlayout height="42" width="999">
       <control type="label">
-        <posx>0</posx>
-        <posy>0</posy>
         <width>250</width>
         <height>45</height>
         <font>Details</font>
@@ -850,7 +858,6 @@
       </control>
       <control type="label">
         <posx>260</posx>
-        <posy>0</posy>
         <width>739</width>
         <height>45</height>
         <font>Details</font>
@@ -864,8 +871,6 @@
     </itemlayout>
     <focusedlayout height="42" width="999">
       <control type="label">
-        <posx>0</posx>
-        <posy>0</posy>
         <width>250</width>
         <height>45</height>
         <font>Details</font>
@@ -877,7 +882,6 @@
       </control>
       <control type="label">
         <posx>260</posx>
-        <posy>0</posy>
         <width>739</width>
         <height>45</height>
         <font>Details</font>
@@ -891,8 +895,6 @@
   </include>
 
   <include name="BG.Defaults">
-    <posx>0</posx>
-    <posy>0</posy>
     <width>1920</width>
     <height>1080</height>
     <timeperimage>9000</timeperimage>
@@ -1915,59 +1917,41 @@
         <left>$PARAM[left]</left>
         <top>$PARAM[top]</top>
         <control type="group" description="Video Window Grouo">
-          <visible>Player.HasVideo + !Show_Player</visible> 
-          <control type="image" description="video window background"> 
-            <left>0</left> 
-            <top>0</top> 
-            <width>$PARAM[width]</width> 
-            <height>$PARAM[height]</height> 
-            <texture>img/BlackDot.png</texture> 
-          </control> 
-          <control type="videowindow" description="Current Video"> 
-            <left>0</left> 
-            <top>0</top> 
-            <width>$PARAM[width]</width> 
-            <height>$PARAM[height]</height> 
-          </control> 
-          <control type="image" description="Current video label background"> 
-            <left>0</left> 
-            <top>$PARAM[labeltop]</top> 
-            <width>$PARAM[width]</width> 
-            <height>45</height> 
-            <texture>img/BlackDot.png</texture> 
-            <colordiffuse>DDFFFFFF</colordiffuse> 
-          </control> 
-          <control type="textbox" description="Current video label"> 
-            <left>0</left> 
-            <top>$PARAM[labeltop]</top> 
-            <width>$PARAM[width]</width> 
-            <height>45</height> 
-            <font>Details</font> 
-            <align>center</align> 
+          <visible>Player.HasVideo + !Show_Player</visible>
+          <control type="image" description="video window background">
+            <width>$PARAM[width]</width>
+            <height>$PARAM[height]</height>
+            <texture>img/BlackDot.png</texture>
+          </control>
+          <control type="videowindow" description="Current Video">
+            <width>$PARAM[width]</width>
+            <height>$PARAM[height]</height>
+          </control>
+          <control type="image" description="Current video label background">
+            <top>$PARAM[labeltop]</top>
+            <width>$PARAM[width]</width>
+            <height>45</height>
+            <texture>img/BlackDot.png</texture>
+            <colordiffuse>DDFFFFFF</colordiffuse>
+          </control>
+          <control type="textbox" description="Current video label">
+            <top>$PARAM[labeltop]</top>
+            <width>$PARAM[width]</width>
+            <height>45</height>
+            <font>Details</font>
+            <align>center</align>
             <textcolor>White</textcolor>
-            <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll> 
-            <label>$INFO[Player.Title]</label> 
+            <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll>
+            <label>$INFO[Player.Title]</label>
           </control>
         </control>
         <control type="group" description="Video Window Grouo">
           <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
-          <control type="image" description="TV Logo shadow">
-            <left>8</left>
-            <top>8</top>
-            <width>$PARAM[width]</width> 
-            <height>$PARAM[height]</height> 
-            <texture>$PARAM[itemicon]</texture>
-            <aspectratio>keep</aspectratio>
-            <colordiffuse>HeavyShadow</colordiffuse>
-          </control>
-          <control type="image" description="TV Logo">
-            <left>0</left>
-            <top>0</top>
-            <width>$PARAM[width]</width> 
-            <height>$PARAM[height]</height> 
-            <texture>$PARAM[itemicon]</texture>
-            <aspectratio>keep</aspectratio>
-          </control>
+          <include content="ShadowedImage">
+            <param name="width">$PARAM[width]</param>
+            <param name="height">$PARAM[height]</param>
+            <param name="texture">$PARAM[itemicon]</param>
+          </include>
         </control>
       </control>
     </definition>  
@@ -1986,15 +1970,12 @@
       <scrolltime>280</scrolltime>
       <itemlayout width="$PARAM[listwidth]" height="60">
         <control type="image">
-          <posx>0</posx>
-          <posy>0</posy>
           <height>60</height>
           <width>$PARAM[listwidth]</width>
           <texture border="3">buttons/ButtonNF.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
-          <posy>0</posy>
           <height>60</height>
           <width>$PARAM[listwidth]</width>
           <scroll>false</scroll>
@@ -2003,7 +1984,6 @@
         <control type="label" description="Label 2">
           <animation effect="slide" start="0,0" end="-60,0" time="0" reversible="true" condition="!String.IsEmpty(ListItem.Icon) + $PARAM[showicon]">Conditional</animation>
           <right>18</right>
-          <posy>0</posy>
           <height>60</height>
           <width>400</width>
           <font>ListDetails</font>
@@ -2016,7 +1996,6 @@
         <control type="image" description="Icon">
           <visible>!String.IsEmpty(ListItem.Icon) + $PARAM[showicon]</visible>
           <right>10</right>
-          <posy>0</posy>
           <height>60</height>
           <width>60</width>
           <aspectratio>keep</aspectratio>
@@ -2026,15 +2005,12 @@
       </itemlayout>
       <focusedlayout width="$PARAM[listwidth]" height="60">
         <control type="image">
-          <posx>0</posx>
-          <posy>0</posy>
           <height>60</height>
           <width>$PARAM[listwidth]</width>
           <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
         </control>
         <control type="label" description="Main Label">
           <posx>30</posx>
-          <posy>0</posy>
           <height>60</height>
           <width>$PARAM[listwidth]</width>
           <textcolor>Black</textcolor>
@@ -2044,7 +2020,6 @@
         <control type="label" description="Label 2">
           <animation effect="slide" start="0,0" end="-60,0" time="0" reversible="true" condition="!String.IsEmpty(ListItem.Icon) + $PARAM[showicon]">Conditional</animation>
           <right>18</right>
-          <posy>0</posy>
           <height>60</height>
           <width>400</width>
           <font>ListDetails</font>
@@ -2058,7 +2033,6 @@
         <control type="image" description="Icon">
           <visible>!String.IsEmpty(ListItem.Icon) + $PARAM[showicon]</visible>
           <right>10</right>
-          <posy>0</posy>
           <height>60</height>
           <width>60</width>
           <bordersize>6</bordersize>
@@ -2840,8 +2814,6 @@
         <top>$PARAM[yoffset]</top>
         <left>$PARAM[xoffset]</left>
         <control type="image">
-          <left>0</left>
-          <top>0</top>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <aspectratio>stretch</aspectratio>
@@ -2850,7 +2822,6 @@
         </control>
         <control type="label">
           <visible>!$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <textoffsetx>24</textoffsetx>
@@ -2861,7 +2832,6 @@
         </control>
         <control type="label">
           <visible>$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <textoffsetx>24</textoffsetx>
@@ -2891,8 +2861,6 @@
         <left>$PARAM[xoffset]</left>
         <control type="image">
           <visible>!$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <texture border="4">img/WhiteRoundedT.png</texture>
@@ -2901,8 +2869,6 @@
         </control>
         <control type="image">
           <visible>$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <texture border="4">img/WhiteRoundedST2.png</texture>
@@ -2912,7 +2878,6 @@
         </control>
         <control type="label">
           <visible>!$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <font>shelf_label</font>
@@ -2923,7 +2888,6 @@
         </control>
         <control type="label">
           <visible>$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>45</height>
           <font>shelf_label</font>
@@ -2955,8 +2919,6 @@
         <left>$PARAM[xoffset]</left>
         <control type="image">
           <visible>!$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
           <texture border="4">img/WhiteRoundedT.png</texture>
@@ -2965,8 +2927,6 @@
         </control>
         <control type="image">
           <visible>$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
           <texture border="4">img/WhiteRoundedST2.png</texture>
@@ -3021,8 +2981,6 @@
         <left>$PARAM[xoffset]</left>
         <control type="image">
           <visible>!$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
           <texture border="4">img/WhiteRoundedT.png</texture>
@@ -3031,8 +2989,6 @@
         </control>
         <control type="image">
           <visible>$PARAM[isFocused]</visible>
-          <posx>0</posx>
-          <posy>0</posy>
           <width>$PARAM[labelwidth]</width>
           <height>74</height>
           <texture border="4">img/WhiteRoundedST2.png</texture>
@@ -3042,7 +2998,6 @@
         </control>
         <control type="label">
           <visible>!$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>35</height>
           <font>shelf_label</font>
@@ -3053,7 +3008,6 @@
         </control>
         <control type="label">
           <visible>!$PARAM[isFocused]</visible>
-          <left>0</left>
           <top>34</top>
           <width>$PARAM[labelwidth]</width>
           <height>35</height>
@@ -3065,7 +3019,6 @@
         </control>
         <control type="label">
           <visible>$PARAM[isFocused]</visible>
-          <left>0</left>
           <width>$PARAM[labelwidth]</width>
           <height>35</height>
           <font>shelf_label</font>
@@ -3078,7 +3031,6 @@
         </control>
         <control type="label">
           <visible>$PARAM[isFocused]</visible>
-          <left>0</left>
           <top>34</top>
           <width>$PARAM[labelwidth]</width>
           <height>35</height>
@@ -3570,7 +3522,7 @@
           <include content="MediaFlagItems">
             <param name="diffuse">White</param>
           </include>
-        </control>  
+        </control>
       </control>
     </definition>
   </include>
