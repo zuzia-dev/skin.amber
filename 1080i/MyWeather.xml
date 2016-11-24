@@ -12,29 +12,6 @@
       <onup>9000</onup>
       <ondown>9000</ondown>
     </control>
-    <control type="image" description="Footer BG">
-      <posx>-100</posx>
-      <posy>990</posy>
-      <width>2020</width>
-      <height>90</height>
-      <texture border="100,0,0,0">common/TimePanel.png</texture>
-    </control>
-    <control type="label" description="Location">
-      <posx>60r</posx>
-      <posy>1036</posy>
-      <width>675</width>
-      <height>40</height>
-      <shadowcolor>ShadowDark</shadowcolor>
-      <label>$INFO[Window.Property(WeatherProvider)]</label>
-      <align>right</align>
-    </control>
-    <control type="label" id="11" description="Refresh">
-      <posx>60</posx>
-      <posy>1036</posy>
-      <width>380</width>
-      <height>40</height>
-      <shadowcolor>ShadowDark</shadowcolor>
-    </control>
     <control type="group" description="BG container">
       <include content="WeatherItemBG">
         <param name="xoffset" value="60"/>
@@ -215,6 +192,15 @@
           <include>9000ViewButtons</include>
           <label>$INFO[Window.Property(WeatherProvider)]</label>
         </control>
+        <control type="label" description="Refresh">
+          <height>90</height>
+          <textoffsetx>10</textoffsetx>
+          <align>center</align>
+          <textcolor>Highlight</textcolor>
+          <include>9000ViewButtons</include>
+          <label>$INFO[Control.GetLabel(11),$LOCALIZE[12014]:[CR]]</label>
+          <wrapmultiline>true</wrapmultiline>
+        </control>
         <control type="label" id="9003" description="Spacer">
           <font></font>
           <include>9000ViewButtons</include>
@@ -248,6 +234,9 @@
           <onclick condition="!System.HasAddon(script.image.resource.select)">InstallAddon(script.image.resource.select)</onclick>
         </control>
       </control>
+    </control>
+    <control type="label" id="11" description="Refresh">
+      <include>HiddenButton</include>
     </control>
   </controls>
 </window>
