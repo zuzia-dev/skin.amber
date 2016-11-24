@@ -3448,12 +3448,17 @@
     <param name="heading"></param>
     <param name="subheading"></param>
     <param name="plot"></param>
+    <param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
+    <param name="subcontent_path">$INFO[ListItem.Path]</param>
+    <param name="subcontent_visible">listitem.iscollection</param>
+    <param name="subcontent_image_visible">true</param>
+    <param name="subcontent_image_texture">$VAR[Overlay]</param>
     <param name="footer"></param>
     <param name="visibility"></param>
     <param name="showfooter">true</param>
     <param name="showflags">true</param>
     <definition>
-      <control type="grouplist" description="Media Info Panel">
+      <control type="grouplist" id="4000" description="Media Info Panel">
         <visible>$PARAM[visibility]</visible>
         <posx>$PARAM[left]</posx>
         <posy>$PARAM[top]</posy>
@@ -3496,12 +3501,53 @@
           <aligny>center</aligny>
           <wrapmultiline>true</wrapmultiline>
         </control>
-        <control type="textbox" description="Plot">
+        <control type="group">
           <width>$PARAM[width]</width>
           <height>$PARAM[height]</height>
-          <align>justify</align>
-          <label>$PARAM[plot]</label>
-          <font>InfoPlot</font>
+          <control type="textbox" id="4001">
+            <align>justify</align>
+            <label>$PARAM[plot]</label>
+            <font>InfoPlot</font>
+          </control>
+          <control type="panel" id="4002">
+            <visible>$PARAM[subcontent_visible]</visible>
+            <visible>!ListItem.IsParentFolder</visible>
+            <orientation>vertical</orientation>
+            <scrolltime tween="sine" easing="out">50</scrolltime>
+            <autoscroll>true</autoscroll>
+            <focusedlayout height="40" width="$PARAM[width]">
+            </focusedlayout>
+            <itemlayout height="40" width="$PARAM[width]">
+              <control type="image">
+                <top>5</top>
+                <width>30</width>
+                <height>30</height>
+                <visible>$PARAM[subcontent_image_visible]</visible>
+                <texture>$PARAM[subcontent_image_texture]</texture>
+              </control>
+              <control type="label">
+                <left>40</left>
+                <height>40</height>
+                <width>$PARAM[width]</width>
+                <aligny>center</aligny>
+                <label>$PARAM[subcontent_label]</label>
+                <font>ListDetails</font>
+                <scrollspeed>25</scrollspeed>
+                <visible>$PARAM[subcontent_image_visible]</visible>
+              </control>
+              <control type="label">
+                <left>0</left>
+                <height>40</height>
+                <width>$PARAM[width]</width>
+                <aligny>center</aligny>
+                <label>$PARAM[subcontent_label]</label>
+                <font>ListDetails</font>
+                <scrollspeed>25</scrollspeed>
+                <visible>!$PARAM[subcontent_image_visible]</visible>
+              </control>
+            </itemlayout>
+            <content sortby="date" sortorder="ascending">$PARAM[subcontent_path]</content>
+          </control>
         </control>
         <control type="label" description="Footer">
           <visible>$PARAM[showfooter]</visible>
