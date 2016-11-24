@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
   <include name="View_50_List">
-    <itemlayout height="72" width="670">
-      <control type="image">
-        <height>73</height>
-        <width>670</width>
-        <texture flipy="true" border="3">list/ListNF.png</texture>
-      </control>
-      <control type="label">
-        <posx>25</posx>
-        <width>540</width>
-        <height>72</height>
-        <scroll>false</scroll>
-        <label>$VAR[MediaListLabel]</label>
-      </control>
-      <control type="label">
-        <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation> 
-        <right>70</right>
-        <width>670</width>
-        <height>72</height>
-        <scroll>false</scroll>
-        <font>ListDetails</font>
-        <textcolor>Grey</textcolor>
-        <align>right</align>
-        <label>$VAR[MediaListLabel2]</label>
-      </control>
-      <include>ListWatchedOverlay</include>
-    </itemlayout>
-    <focusedlayout height="72" width="670">
-      <control type="image">
-        <posy>1</posy>
-        <width>670</width>
-        <height>69</height>
-        <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
-      </control>
-      <control type="label">
-        <posx>25</posx>
-        <width>540</width>
-        <height>72</height>
-        <scroll>false</scroll>
-        <textcolor>Black</textcolor>
-        <shadowcolor></shadowcolor>
-        <label>$VAR[MediaListLabel]</label>
-      </control>
-      <control type="label">
-        <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation>
-        <right>70</right>
-        <width>670</width>
-        <height>72</height>
-        <scroll>false</scroll>
-        <font>ListDetails</font>
-        <textcolor>Black</textcolor>
-        <shadowcolor></shadowcolor>
-        <align>right</align>
-        <label>$VAR[MediaListLabel2]</label>
-      </control>
-      <include content ="ListWatchedOverlay">
-        <param name="isFocused">true</param>
-      </include>
-    </focusedlayout>
+    <param name="width">640</param>
+    <definition>
+      <itemlayout height="72" width="$PARAM[width]">
+        <control type="image">
+          <height>72</height>
+          <width>$PARAM[width]</width>
+          <texture flipy="true" border="3">list/ListNF.png</texture>
+        </control>
+        <control type="label">
+          <posx>25</posx>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <scroll>false</scroll>
+          <label>$VAR[MediaListLabel]</label>
+        </control>
+        <control type="label">
+          <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation> 
+          <right>70</right>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <scroll>false</scroll>
+          <font>ListDetails</font>
+          <textcolor>Grey</textcolor>
+          <align>right</align>
+          <label>$VAR[MediaListLabel2]</label>
+        </control>
+        <include>ListWatchedOverlay</include>
+      </itemlayout>
+      <focusedlayout height="72" width="$PARAM[width]">
+        <control type="image">
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+        </control>
+        <control type="label">
+          <posx>25</posx>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <scroll>false</scroll>
+          <textcolor>Black</textcolor>
+          <selectedcolor>Black</selectedcolor>
+          <shadowcolor></shadowcolor>
+          <label>$VAR[MediaListLabel]</label>
+        </control>
+        <control type="label">
+          <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation>
+          <right>70</right>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <scroll>false</scroll>
+          <font>ListDetails</font>
+          <textcolor>Black</textcolor>
+          <selectedcolor>Black</selectedcolor>
+          <shadowcolor></shadowcolor>
+          <align>right</align>
+          <label>$VAR[MediaListLabel2]</label>
+        </control>
+        <include content ="ListWatchedOverlay">
+          <param name="isFocused">true</param>
+        </include>
+      </focusedlayout>
+    </definition>
   </include>
   <include name="View_50">
     <control type="group">
@@ -73,7 +77,7 @@
         <viewtype label="$LOCALIZE[535]">list</viewtype>
         <posx>1250</posx>
         <posy>351</posy>
-        <width>670</width>
+        <width>640</width>
         <height>700</height>
         <pagecontrol>60</pagecontrol>
         <onleft>9000</onleft>
@@ -83,6 +87,25 @@
         <preloaditems>4</preloaditems>
         <visible>!Skin.HasSetting(hide.listview)</visible>
         <include>View_50_List</include>
+        <visible>Container.content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows)</visible>
+      </control>
+      <control type="list" id="50">
+        <viewtype label="$LOCALIZE[535]">list</viewtype>
+        <posx>555</posx>
+        <posy>351</posy>
+        <width>1365</width>
+        <height>700</height>
+        <pagecontrol>60</pagecontrol>
+        <onleft>9000</onleft>
+        <onright>60</onright>
+        <onup>50</onup>
+        <ondown>50</ondown>
+        <preloaditems>4</preloaditems>
+        <visible>!Skin.HasSetting(hide.listview)</visible>
+        <include content="View_50_List">
+          <param name="width">1335</param>
+        </include>
+        <visible>![Container.content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows)]</visible>
       </control>
       <control type="scrollbar" id="60">
         <animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
@@ -110,16 +133,30 @@
         <param name="subheading">$VAR[panelsubheading]</param>
         <param name="plot">$VAR[Plots]</param>
         <param name="footer">$VAR[panelfooter]</param>
-        <param name="visibility">true</param>
+        <param name="visibility">Container.content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows)</param>
       </include>
       <control type="group" description="50 MediaInfo">
         <posx>30</posx>
         <posy>351</posy>
+        <width>490</width>
+        <control type="label">
+          <height>45</height>
+          <align>center</align>
+          <label>$VAR[listmediaheader]</label>
+          <textcolor>Highlight</textcolor>
+        </control>
         <include content="ShadowedImage">
           <param name="width">490</param>
           <param name="height">700</param>
           <param name="texture">$VAR[Poster]</param>
         </include>
+        <control type="label">
+          <top>650</top>
+          <height>45</height>
+          <align>center</align>
+          <label>$VAR[listmediafooter]</label>
+          <textcolor>Highlight</textcolor>
+        </control>
       </control>
     </control>
   </include>

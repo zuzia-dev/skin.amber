@@ -211,7 +211,7 @@
 
   <variable name="MediaListLabel">
     <value condition="Listitem.IsParentFolder">..</value>
-    <value condition="Container.Content(songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
+    <value condition="Container.Content(songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$INFO[ListItem.Duration, • (,)]</value>
     <value>$INFO[ListItem.Label]</value>
   </variable>
 
@@ -546,8 +546,14 @@
     <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[PVR.NextTimer]</value>
   </variable>
 
+  <variable name="listmediaheader">
+    <value condition="Container.Content(songs)">$INFO[Listitem.Album]</value>
+  </variable>
+  <variable name="listmediafooter">
+    <value condition="Container.Content(songs)">$INFO[Listitem.AlbumArtist]</value>
+  </variable>
+
   <variable name="episoderating">
-    <value condition="Skin.HasSetting(EpisodeRating.Hide)"></value>
     <value condition="!Skin.HasSetting(EpisodeRating.Hide)">$INFO[ListItem.Rating, • ]</value>
   </variable>
 
