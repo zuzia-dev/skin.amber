@@ -230,6 +230,7 @@
   </variable>
 
   <variable name="Overlay" description="Overlay image">
+    <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(IsResumable)">$INFO[ListItem.Overlay]</value>
     <value condition="Skin.HasSetting(plexbmc) + ListItem.property(overlay)">$INFO[ListItem.property(overlay)]</value>
     <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">OverlayInProgress.png</value>
@@ -511,6 +512,7 @@
 
   <variable name="Plots" description="Plots and descriptions">
     <value condition="ListItem.IsParentFolder"> </value>
+    <value condition="Window.IsVisible(MyPVRRecordings.xml) + Control.IsVisible(80)"> </value>
     <value condition="Container.content(addons) + !String.IsEmpty(ListItem.AddonDescription)">$INFO[ListItem.AddonDescription]</value>
 
     <value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinHelper.MovieSet.Title))">$INFO[Window(Home).Property(SkinHelper.MovieSet.Title)]</value>
