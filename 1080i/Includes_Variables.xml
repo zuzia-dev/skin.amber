@@ -310,6 +310,17 @@
     <value condition="Library.HasContent(music) + Container(300).HasFocus(6)">$LOCALIZE[134]$INFO[Window(Home).Property(Music.SongsCount), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[132]$INFO[Window(Home).Property(Music.AlbumsCount), ]</value>
   </variable>
 
+  <variable name="TopBarMedia">
+    <value condition="Player.HasAudio">$INFO[MusicPlayer.Artist,,[COLOR=Highlight]  •  [/COLOR]]$INFO[MusicPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[MusicPlayer.TimeSpeed]$INFO[MusicPlayer.Duration, / ][/COLOR]</value>
+    <value condition="Player.HasVideo + !VideoPlayer.Content(livetv)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
+    <value condition="Player.HasVideo + VideoPlayer.Content(livetv)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.ChannelName,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
+  </variable>
+
+  <variable name="TopBarMediaIcon">
+    <value condition="!Player.Paused">OSD/OSDPlayNF.png</value>
+    <value>OSD/OSDPauseNF.png</value>
+  </variable>
+
   <variable name="GlobalHeadings" description="Global Headings">
     <value condition="Window.IsActive(DialogFavourites.xml)">$LOCALIZE[1036]</value>
     <value condition="Skin.hassetting(plexbmc) + !Window.IsActive(Home) + !String.IsEmpty(Window.Property(heading))">$INFO[Window.Property(heading),,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window.Property(heading2),,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
