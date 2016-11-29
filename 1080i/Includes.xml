@@ -3415,6 +3415,8 @@
     <param name="plot"></param>
     <param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
     <param name="subcontent_path">$INFO[ListItem.Path]</param>
+    <param name="subcontent_sortby">year</param>
+    <param name="subcontent_sortorder">descending</param>
     <param name="subcontent_visible">listitem.iscollection</param>
     <param name="subcontent_image_visible">true</param>
     <param name="subcontent_image_texture">$VAR[Overlay]</param>
@@ -3478,8 +3480,6 @@
             <visible>$PARAM[subcontent_visible]</visible>
             <visible>!ListItem.IsParentFolder</visible>
             <orientation>vertical</orientation>
-            <scrolltime tween="sine" easing="out">50</scrolltime>
-            <autoscroll>true</autoscroll>
             <focusedlayout height="40" width="$PARAM[width]">
             </focusedlayout>
             <itemlayout height="40" width="$PARAM[width]">
@@ -3511,7 +3511,7 @@
                 <visible>!$PARAM[subcontent_image_visible]</visible>
               </control>
             </itemlayout>
-            <content sortby="date" sortorder="ascending">$PARAM[subcontent_path]</content>
+            <content sortby="$PARAM[subcontent_sortby]" sortorder="$PARAM[subcontent_order]">$PARAM[subcontent_path]</content>
           </control>
         </control>
         <control type="label" description="Footer">
