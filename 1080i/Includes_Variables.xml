@@ -227,6 +227,13 @@
   <variable name="PosterLabel">
     <value condition="String.IsEqual(ListItem.DBType,season)">[B]$INFO[ListItem.Label][/B]</value>
     <value condition="String.IsEqual(ListItem.DBType,episode)">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</value>
+    <value condition="String.IsEmpty(ListItem.DBType)">[B]$INFO[ListItem.Label][/B]</value>
+  </variable>
+
+  <variable name="EpisodeLabel">
+    <value condition="String.IsEqual(ListItem.DBType,season)">[B]$INFO[ListItem.Label][/B]</value>
+    <value condition="String.IsEqual(ListItem.DBType,episode)">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</value>
+    <value condition="String.IsEmpty(ListItem.DBType)">[B]$INFO[ListItem.Label][/B]</value>
   </variable>
 
   <variable name="Overlay" description="Overlay image">
@@ -287,12 +294,14 @@
   </variable>
 
   <variable name="Square" description="Square">
-    <value condition="ListItem.IsParentFolder">DefaultThumbBack.png</value>
+    <value condition="ListItem.IsParentFolder">DefaultSquareBack.png</value>
     <value condition="Container.content(studios)">$VAR[Studios]</value>
     <value condition="Container.content(genres) + Window.IsActive(MyVideoNav.xml)">$VAR[MovieGenres]</value>
     <value condition="Container.content(genres) + Window.IsActive(MyMusicNav.xml)">$VAR[MusicGenres]</value>
+    <value condition="!String.IsEmpty(ListItem.Thumb)">$INFO[ListItem.thumb]</value>
     <value condition="!String.IsEmpty(ListItem.Icon)">$INFO[ListItem.Icon]</value>
-    <value>DefaultThumb.png</value>
+    <value condition="Window.IsActive(MyPrograms.xml)">DefaultAddon.png</value>
+    <value>DefaultSquare.png</value>
  </variable>
 
   <variable name="Episode" description="Episode">

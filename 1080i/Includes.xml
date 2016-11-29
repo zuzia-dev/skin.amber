@@ -2284,11 +2284,12 @@
     <param name="bordersizeLT"/>
     <param name="bordersizeRB"/>
     <param name="iconimage">$INFO[ListItem.Icon]</param>
-    <param name="fallbackicon">DefaultSquare.png</param>
+    <param name="fallbackicon"></param>
     <param name="aspect">scale</param>
     <param name="overlaylabel"></param>
     <param name="overlaylabelvisibility">false</param>
     <param name="overlaylabelalign">left</param>
+    <param name="overlaylabelyoffset">65r</param>
     <param name="belowlabel"></param>
     <param name="belowlabelvisibility">false</param>
     <param name="belowlabelalign">center</param>
@@ -2332,7 +2333,7 @@
         </control>
         <include content="GenericThumbLabelTemplate">
           <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">65r</param>
+          <param name="yoffset">$PARAM[overlaylabelyoffset]</param>
           <param name="xoffset">$PARAM[iconoffset]</param>
           <param name="labelwidth">$PARAM[iconwidth]</param>
           <param name="labelvisibility">$PARAM[overlaylabelvisibility]</param>
@@ -2395,23 +2396,6 @@
     </definition>
   </include>
 
-  <include name="GenericLabelIcon">
-    <param name="isFocused">false</param>
-    <definition>
-        <include content="GenericBelowTextboxTemplate">
-          <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">0</param>
-          <param name="xoffset">0</param>
-          <param name="labelwidth">310</param>
-          <param name="labelvisibility">true</param>
-          <param name="labeltext">$INFO[ListItem.Label]</param>
-          <param name="labelalign">center</param>
-          <param name="textboxwidth">302</param>
-          <param name="bordersize">4</param>
-        </include>
-    </definition>
-  </include>
-
   <include name="GenericActorIconBig">
     <param name="isFocused">false</param>
     <definition>
@@ -2421,6 +2405,7 @@
         <param name="iconheight">326</param>
         <param name="iconoffset">0</param>
         <param name="iconimage">$INFO[ListItem.Thumb]</param>
+        <param name="fallbackicon">DefaultActorPoster.png</param>
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
         <param name="bordersizeRB">20</param>
@@ -2671,8 +2656,10 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">16</param>
         <param name="bordersizeRB">24</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</param>
+        <param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
         <param name="overlaylabel">$VAR[PosterLabel]</param>
+        <param name="overlaylabelalign">center</param>
+        <param name="overlaylabelyoffset">90r</param>
       </include>
     </definition>
   </include>
@@ -2689,8 +2676,10 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">12</param>
         <param name="bordersizeRB">20</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,season)</param>
-        <param name="overlaylabel">[B]$INFO[ListItem.Label][/B]</param>
+        <param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
+        <param name="overlaylabel">$VAR[PosterLabel]</param>
+        <param name="overlaylabelalign">center</param>
+        <param name="overlaylabelyoffset">80r</param>
       </include>
     </definition>
   </include>
@@ -2725,8 +2714,8 @@
         <param name="shadowoffset">8</param>
         <param name="bordersizeLT">16</param>
         <param name="bordersizeRB">24</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
-        <param name="overlaylabel">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</param>
+        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)</param>
+        <param name="overlaylabel">$VAR[EpisodeLabel]</param>
         </include>
     </definition>
   </include>
@@ -3046,15 +3035,6 @@
     </definition>
   </include>
 
-  <include name="GenericLabel">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericLabelIcon">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
   <include name="GenericActor">
     <param name="isFocused">false</param>
     <param name="size">Big</param>
@@ -3176,21 +3156,6 @@
         <include content="GenericBanner">
           <param name="isFocused">true</param>
           <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="LabelLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
-        <include content="GenericLabel">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]" height="90" width="310">
-        <include content="GenericLabel">
-          <param name="isFocused">true</param>
         </include>
       </focusedlayout>
     </definition>
