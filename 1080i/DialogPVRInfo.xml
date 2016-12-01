@@ -7,9 +7,9 @@
     <control type="group" description="Content">
       <include>DialogOpenClose</include>
       <control type="image">
-        <posx>190</posx>
+        <posx>90</posx>
         <posy>12</posy>
-        <width>1540</width>
+        <width>1740</width>
         <height>1008</height>
         <texture>dialogs/DialogBG.png</texture>
       </control>
@@ -23,29 +23,17 @@
         <label>$INFO[ListItem.Title]</label>
         <align>center</align>
       </control>
-      <control type="image" description="thumb">
-        <posx>424</posx>
-        <posy>188</posy>
-        <width>400</width>
-        <height>260</height>
-        <texture fallback="DefaultThumb.png">$INFO[ListItem.Icon]</texture>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>HeavyShadow</colordiffuse>
-      </control>
-      <control type="image" description="thumb">
-        <posx>416</posx>
-        <posy>180</posy>
-        <width>400</width>
-        <height>260</height>
-        <texture fallback="DefaultThumb.png">$INFO[ListItem.Icon]</texture>
-        <aspectratio>keep</aspectratio>
-      </control>
+      <include content="ShadowedImage">
+        <param name="top">180</param>
+        <param name="left">416</param>
+        <param name="width">400</param>
+        <param name="height">260</param>
+      </include>
       <control type="group">
         <posx>600</posx>
         <posy>180</posy>
         <control type="label" description="Start date">
           <posx>300</posx>
-          <posy>0</posy>
           <width>700</width>
           <textcolor>White2</textcolor>
           <label>[COLOR=Grey2]$LOCALIZE[552]:[/COLOR]$INFO[ListItem.StartDate,  ]</label>
@@ -95,9 +83,9 @@
         <label fallback="161">$VAR[Plots]</label>
       </control>
       <control type="grouplist" id="9000">
-        <posx>290</posx>
+        <posx>190</posx>
         <posy>900</posy>
-        <width>1340</width>
+        <width>1540</width>
         <height>60</height>
         <itemgap>8</itemgap>
         <align>center</align>
@@ -131,6 +119,13 @@
           <description>Record</description>
           <width>300</width>
           <label></label>
+          <align>center</align>
+          <visible>Window.IsActive(PVRGuideInfo)</visible>
+        </control>
+        <control type="button" id="9">
+          <description>Add timer</description>
+          <width>300</width>
+          <label>$LOCALIZE[19061]</label>
           <align>center</align>
           <visible>Window.IsActive(PVRGuideInfo)</visible>
         </control>
