@@ -29,11 +29,11 @@
     </include>
     <control type="group" description="Media Info">
       <control type="group" description="top">
-        <posx>810</posx>
+        <posx>800</posx>
         <posy>60</posy>
         <control type="label" description="Main Label">
           <posy>-45</posy>
-          <width>900</width>
+          <width>1050</width>
           <height>60</height>
           <font>InfoTitle</font>
           <textcolor>Highlight</textcolor>
@@ -42,7 +42,7 @@
         </control>
         <control type="label" description="Path Label">
           <posy>980</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>40</height>
           <font>font22</font>
           <textcolor>Grey</textcolor>
@@ -52,7 +52,7 @@
         </control>
         <control type="image" description="Line Split">
           <posy>23</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>1</height>
           <texture>img/LineL.png</texture>
           <aspectratio>stretch</aspectratio>
@@ -174,7 +174,7 @@
           <visible>![Control.HasFocus(9012) | Control.HasFocus(50) | Control.HasFocus(10)]</visible>
           <include>VisibleFadeEffectDelay</include>
           <posy>500</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>388</height>
           <align>justify</align>
           <font>InfoPlot</font>
@@ -182,21 +182,21 @@
         </control>
         <control type="image" description="Line Split">
           <posy>424</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>1</height>
           <texture>img/LineL.png</texture>
           <aspectratio>stretch</aspectratio>
         </control>
         <control type="image" description="Line Split">
           <posy>917</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>1</height>
           <texture>img/LineL.png</texture>
           <aspectratio>stretch</aspectratio>
         </control>
         <control type="grouplist" description="Flags">
           <posy>926</posy>
-          <width>900</width>
+          <width>1050</width>
           <height>45</height>
           <itemgap>30</itemgap>
           <orientation>horizontal</orientation>
@@ -208,7 +208,7 @@
         </control>
         <control type="image" description="Line Split">
           <posy>973</posy>
-          <width>999</width>
+          <width>1050</width>
           <height>1</height>
           <texture>img/LineL.png</texture>
           <aspectratio>stretch</aspectratio>
@@ -216,26 +216,16 @@
       </control>
     </control>
     <control type="group" description="Options">
-      <posx>810</posx>
+      <posx>800</posx>
       <control type="grouplist" id="9000">
         <posy>485</posy>
         <width>1050</width>
         <height>54</height>
         <align>center</align>
         <orientation>horizontal</orientation>
-        <control type="button" id="299" description="Cinema">
-          <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
-          <height>54</height>
-          <width>230</width>
-          <align>center</align>
-          <font>Details</font>
-          <label>$LOCALIZE[31005]</label>
-          <onclick>Dialog.Close(MovieInformation)</onclick>
-          <onclick>RunScript(script.cinemavision,experience)</onclick>
-        </control>
         <control type="togglebutton" id="8" description="Play/browse to Show">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <align>center</align>
           <font>Details</font>
           <label>$LOCALIZE[208]</label>
@@ -246,16 +236,25 @@
         </control>
         <control type="button" id="11" description="Trailer">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <font>Details</font>
           <align>center</align>
           <label>$LOCALIZE[20410]</label>
-          <visible>!String.IsEmpty(ListItem.Trailer)</visible>
-          <pulseonselect>true</pulseonselect>
+          <visible>!String.IsEmpty(ListItem.Trailer) + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+        </control>
+        <control type="button" id="299" description="Cinema">
+          <visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
+          <height>54</height>
+          <width min="230">auto</width>
+          <align>center</align>
+          <font>Details</font>
+          <label>$LOCALIZE[31005]</label>
+          <onclick>Dialog.Close(MovieInformation)</onclick>
+          <onclick>RunScript(script.cinemavision,experience)</onclick>
         </control>
         <control type="button" id="9012" description="Actors">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <ondown>50</ondown>
           <align>center</align>
           <font>Details</font>
@@ -263,23 +262,33 @@
           <onclick>Control.SetFocus(50)</onclick>
           <visible>Integer.IsGreater(Container(50).NumItems,0)</visible>
         </control>
+        <control type="button" id="13" description="Director">
+          <height>54</height>
+          <width min="230">auto</width>
+          <ondown>50</ondown>
+          <align>center</align>
+          <font>Details</font>
+          <label>$LOCALIZE[31129]</label>
+          <visible>!String.IsEmpty(ListItem.Director)</visible>
+        </control>
         <control type="button" id="6" description="Refresh">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <align>center</align>
           <font>Details</font>
           <label>$LOCALIZE[184]</label>
+          <visible>Control.IsEnabled(6)</visible>
         </control>
         <control type="button" id="7" description="Set my Rating">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <align>center</align>
           <font>Details</font>
           <label>$LOCALIZE[38023]</label>
         </control>
         <control type="button" id="10" description="Get Art">
           <height>54</height>
-          <width>230</width>
+          <width min="230">auto</width>
           <align>center</align>
           <font>Details</font>
           <label>$LOCALIZE[13511]</label>
@@ -287,7 +296,7 @@
       </control>
       <control type="image" description="Line Split">
         <posy>537</posy>
-        <width>999</width>
+        <width>1050</width>
         <height>1</height>
         <texture>img/LineL.png</texture>
         <aspectratio>stretch</aspectratio>
