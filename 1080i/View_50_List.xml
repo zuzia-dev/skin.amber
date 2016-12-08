@@ -11,22 +11,34 @@
           <texture flipy="true" border="3">list/ListNF.png</texture>
         </control>
         <control type="label">
-          <posx>25</posx>
+          <posx>0</posx>
           <width>$PARAM[width]</width>
           <height>72</height>
           <scroll>false</scroll>
+          <textoffsetx>16</textoffsetx>
           <label>$VAR[MediaListLabel]</label>
         </control>
         <control type="label">
-          <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation> 
-          <right>70</right>
           <width>$PARAM[width]</width>
           <height>72</height>
           <scroll>false</scroll>
+          <textoffsetx>16</textoffsetx>
           <font>ListDetails</font>
           <textcolor>Grey</textcolor>
           <align>right</align>
           <label>$VAR[MediaListLabel2]</label>
+        </control>
+        <control type="label" description ="Workaround label spacing for watched overlay">
+          <visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <textoffsetx>16</textoffsetx>
+          <font>ListDetails</font>
+          <textcolor>0000000</textcolor>
+          <selectedcolor></selectedcolor>
+          <shadowcolor></shadowcolor>
+          <align>right</align>
+          <label>KJIJA</label>
         </control>
         <include>ListWatchedOverlay</include>
       </itemlayout>
@@ -38,27 +50,39 @@
           <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
         </control>
         <control type="label">
-          <posx>25</posx>
+          <posx>0</posx>
           <width>$PARAM[width]</width>
           <height>72</height>
-          <scroll>false</scroll>
+          <scroll>true</scroll>
+          <textoffsetx>16</textoffsetx>
           <textcolor>Black</textcolor>
           <selectedcolor>Black</selectedcolor>
           <shadowcolor></shadowcolor>
           <label>$VAR[MediaListLabel]</label>
         </control>
         <control type="label">
-          <animation effect="slide" start="0,0" end="50,0" time="0" delay="0" reversible="true" condition="![Container.Content(TvShows) | Container.Content(Seasons) | Container.Content(Episodes) | Container.Content(Movies) | Container.Content(MusicVideos)]">conditional</animation>
-          <right>70</right>
           <width>$PARAM[width]</width>
           <height>72</height>
-          <scroll>false</scroll>
+          <scroll>true</scroll>
+          <textoffsetx>16</textoffsetx>
           <font>ListDetails</font>
           <textcolor>Black</textcolor>
           <selectedcolor>Black</selectedcolor>
           <shadowcolor></shadowcolor>
           <align>right</align>
           <label>$VAR[MediaListLabel2]</label>
+        </control>
+        <control type="label" description ="Workaround label spacing for watched overlay">
+          <visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+          <width>$PARAM[width]</width>
+          <height>72</height>
+          <textoffsetx>16</textoffsetx>
+          <font>ListDetails</font>
+          <textcolor>0000000</textcolor>
+          <selectedcolor></selectedcolor>
+          <shadowcolor></shadowcolor>
+          <align>right</align>
+          <label>KJIJA</label>
         </control>
         <include content ="ListWatchedOverlay">
           <param name="isFocused">true</param>
