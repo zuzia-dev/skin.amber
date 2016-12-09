@@ -841,55 +841,42 @@
   </include>
 
   <include name="List_9009_Commons" description="Video Info metadata container">
-    <width>999</width>
-    <height>380</height>
+    <posy>30</posy>
+    <left>640</left>
+    <width>540</width>
+    <height>430</height>
+    <ondown>9000</ondown>
+    <onup>9000</onup>
+    <onleft>9000</onleft>
+    <onright>9000</onright>
     <pagecontrol></pagecontrol>
-    <itemlayout height="42" width="999">
+    <itemlayout height="42" width="530">
       <control type="label">
-        <width>230</width>
-        <height>45</height>
-        <font>Details</font>
-        <align>right</align>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <selectedcolor>selected</selectedcolor>
-        <label>$INFO[ListItem.Label]</label>
-        <scroll>false</scroll>
-      </control>
-      <control type="label">
-        <posx>240</posx>
-        <width>739</width>
-        <height>45</height>
+        <height>42</height>
         <font>Details</font>
         <align>left</align>
         <aligny>center</aligny>
-        <textcolor>Silver</textcolor>
-        <selectedcolor>White2</selectedcolor>
-        <label>$INFO[ListItem.Label2]</label>
+        <textcolor>Grey2</textcolor>
+        <selectedcolor>selected</selectedcolor>
+        <label>$INFO[ListItem.Label,[COLOR=Highlight],[/COLOR] ]$INFO[ListItem.Label2]</label>
+        <textoffsetx>8</textoffsetx>
         <scroll>false</scroll>
       </control>
     </itemlayout>
-    <focusedlayout height="42" width="999">
-      <control type="label">
-        <width>230</width>
-        <height>45</height>
-        <font>Details</font>
-        <align>right</align>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <selectedcolor>selected</selectedcolor>
-        <label>$INFO[ListItem.Label]</label>
+    <focusedlayout height="42" width="550">
+      <control type="image">
+        <texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
       </control>
       <control type="label">
-        <posx>240</posx>
-        <width>739</width>
-        <height>45</height>
+        <height>42</height>
         <font>Details</font>
         <align>left</align>
         <aligny>center</aligny>
-        <textcolor>Silver</textcolor>
-        <selectedcolor>White2</selectedcolor>
-        <label>$INFO[ListItem.Label2]</label>
+        <textcolor>Black</textcolor>
+        <selectedcolor>Black</selectedcolor>
+        <shadowcolor></shadowcolor>
+        <textoffsetx>8</textoffsetx>
+        <label>$INFO[ListItem.Label,, ]$INFO[ListItem.Label2]</label>
       </control>
     </focusedlayout>
   </include>
@@ -1649,6 +1636,7 @@
     <param name="diffuse">Silver</param>
     <param name="showvideobadge">true</param>
     <param name="showaudiobadge">true</param>
+    <param name="showratingbadge">true</param>
     <param name="type">ListItem</param>
     <definition>
       <control type="image">
@@ -1684,7 +1672,7 @@
         <aspectratio>keep</aspectratio>
         <colordiffuse>$PARAM[diffuse]</colordiffuse>
         <texture>$INFO[$PARAM[type].AudioChannels,badges/audiochannels/channels,.png]</texture>
-      </control>      
+      </control>
       <control type="image">
         <visible>!String.IsEmpty($PARAM[type].VideoCodec)</visible>
         <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
