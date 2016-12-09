@@ -191,7 +191,7 @@
   <variable name="MusicInfoHeader" description="Header for MusicInfo window">
     <value condition="Container.Content(Artists)">$LOCALIZE[21891]: [COLOR=White]$INFO[ListItem.Artist][/COLOR]</value>
     <value condition="Container.Content(Albums)">$LOCALIZE[10523]: [COLOR=White]$INFO[ListItem.Album][/COLOR]</value>
-    <value condition="Container.Content(Songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
+    <value condition="Container.Content(Songs)">$LOCALIZE[658]: [COLOR=White]$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title][/COLOR]</value>
   </variable>
 
   <variable name="PVRChannelManagerHeader" description="Header for PVRChannelManager window">
@@ -533,6 +533,8 @@
 
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot)">$INFO[Container.ShowPlot]</value>
 
+    <value condition="String.IsEqual(ListItem.DbType,song) + !String.IsEmpty(ListItem.ContributorAndRole)">$INFO[ListItem.ContributorAndRole]</value>
+    <value condition="String.IsEqual(ListItem.DbType,song)">$INFO[ListItem.Comment]</value>
     <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
     <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Description))">$INFO[ListItem.Property(Artist_Description)]</value>
 
@@ -623,6 +625,11 @@
   <variable name="Quit.Art" description="Calculate BG to show">
     <value condition="!String.IsEmpty(Skin.String(Quit.Background))">$INFO[Skin.String(Quit.Background)]</value>
     <value>special://skin/backgrounds/Quit.jpg</value>
+  </variable>
+
+  <variable name="MusicInfoBackground">
+    <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value>$VAR[Music.Art]</value>
   </variable>
 
   <variable name="Fanart.Art">
