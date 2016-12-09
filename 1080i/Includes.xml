@@ -1917,36 +1917,14 @@
         <left>$PARAM[left]</left>
         <top>$PARAM[top]</top>
         <control type="group" description="Video Window Grouo">
-          <visible>Player.HasVideo + !Show_Player</visible>
-          <control type="image" description="video window background">
-            <width>$PARAM[width]</width>
-            <height>$PARAM[height]</height>
-            <texture>img/BlackDot.png</texture>
-          </control>
+          <visible>Player.HasVideo + !Skin.HasSetting(Show_Player)</visible>
           <control type="videowindow" description="Current Video">
             <width>$PARAM[width]</width>
             <height>$PARAM[height]</height>
           </control>
-          <control type="image" description="Current video label background">
-            <top>$PARAM[labeltop]</top>
-            <width>$PARAM[width]</width>
-            <height>45</height>
-            <texture>img/BlackDot.png</texture>
-            <colordiffuse>DDFFFFFF</colordiffuse>
-          </control>
-          <control type="textbox" description="Current video label">
-            <top>$PARAM[labeltop]</top>
-            <width>$PARAM[width]</width>
-            <height>45</height>
-            <font>Details</font>
-            <align>center</align>
-            <textcolor>White</textcolor>
-            <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll>
-            <label>$INFO[Player.Title]</label>
-          </control>
         </control>
-        <control type="group" description="Video Window Grouo">
-          <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
+        <control type="group" description="Icon Group">
+          <visible>!Player.HasVideo | ![Player.HasVideo + !Skin.HasSetting(Show_Player)]</visible>
           <include content="ShadowedImage">
             <param name="width">$PARAM[width]</param>
             <param name="height">$PARAM[height]</param>
@@ -1954,7 +1932,7 @@
           </include>
         </control>
       </control>
-    </definition>  
+    </definition>
   </include>
 
   <include name="SettingsListCommons">
