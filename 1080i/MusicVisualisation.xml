@@ -165,13 +165,14 @@
           <param name="texture">$INFO[MusicPlayer.Cover]</param>
           <param name="aligny">bottom</param>
         </include>
-        <control type="image" description="Icon">
-          <animation effect="fade" delay="100" start="0" end="100" time="500" condition="Window.IsVisible(script-cu-lrclyrics-main.xml)">Conditional</animation>
+        <control type="image" description="Dim icon for lyrics visibility if active">
+          <visible>Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
           <top>682r</top>
           <left>555r</left>
           <width>509</width>
           <height>636</height>
-          <texture>img/OverlayStripe.png</texture>
+          <texture>$INFO[MusicPlayer.Cover]</texture>
+          <colordiffuse>HeavyShadow</colordiffuse>
           <aspectratio align="center" aligny="bottom">keep</aspectratio>
         </control>
         <control type="label">
@@ -225,9 +226,9 @@
         </control>
         <control type="grouplist">
           <left>30</left>
-          <top>110</top>
-          <width>905</width>
-          <height>40</height>
+          <top>100</top>
+          <width>1205</width>
+          <height>60</height>
           <orientation>horizontal</orientation>
           <control type="image">
             <width>40</width>
@@ -241,8 +242,8 @@
             <visible>MusicPlayer.Content(LiveTV) + Player.Recording</visible>
           </control>
           <control type="label">
-            <width>840</width>
-            <height>40</height>
+            <width>1140</width>
+            <height>60</height>
             <font>MainLabelBigTitle</font>
             <label>$INFO[MusicPlayer.TrackNumber,,: ]$INFO[Player.Title]</label>
             <textcolor>Highlight</textcolor>
@@ -252,7 +253,7 @@
         </control>
         <control type="label">
           <posx>30</posx>
-          <posy>170</posy>
+          <posy>176</posy>
           <width>740</width>
           <height>40</height>
           <align>left</align>
@@ -260,6 +261,19 @@
           <font>InfoTitle</font>
           <scroll>true</scroll>
           <textcolor>grey</textcolor>
+          <visible>Window.IsVisible(MusicOSD)</visible>
+        </control>
+        <control type="label">
+          <posx>30</posx>
+          <posy>176</posy>
+          <width>1205</width>
+          <height>40</height>
+          <align>left</align>
+          <label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year, (,) ]</label>
+          <font>InfoTitle</font>
+          <scroll>true</scroll>
+          <textcolor>grey</textcolor>
+          <visible>!Window.IsVisible(MusicOSD)</visible>
         </control>
       </control>
     </control>
