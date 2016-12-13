@@ -14,6 +14,7 @@
   <include file="Includes_Horizontal_Home.xml" />
   <include file="Includes_Vertical_Home.xml" />
   <include file="Includes_Shelf_Contents.xml" />
+  <include file="Includes_Media.xml" />
   <include file="View_50_List.xml" />
   <include file="View_51_Panel.xml" />
   <include file="View_52_BigList.xml" />
@@ -372,61 +373,6 @@
     <font>Details</font>
     <shadowcolor>Black</shadowcolor>
     <animation effect="fade" time="50">VisibleChange</animation>
-  </include>
-
-  <include name="ListWatchedOverlay">
-    <param name="isFocused">false</param>
-    <definition>
-      <control type="image">
-        <visible>![Container.Content(tvshows) | container.content(seasons)]</visible>
-        <posx>52r</posx>
-        <width>30</width>
-        <height>72</height>
-        <texture>$VAR[Overlay]</texture>
-        <aspectratio aligny="center">keep</aspectratio>
-      </control>
-      <control type="group">
-        <visible>!ListItem.IsParentFolder + [Container.content(tvshows) | container.content(seasons)]</visible>
-        <control type="image" description="Label2 BG">
-          <visible>$PARAM[isFocused]</visible>
-          <posx>84r</posx>
-          <posy>15</posy>
-          <width>60</width>
-          <height>42</height>
-          <texture border="3">img/WhiteRoundedT.png</texture>
-          <colordiffuse>Black</colordiffuse>
-        </control>
-        <control type="image" description="Label2 BG">
-          <visible>!$PARAM[isFocused]</visible>
-          <posx>84r</posx>
-          <posy>15</posy>
-          <width>60</width>
-          <height>42</height>
-          <texture border="3">img/WhiteRoundedT.png</texture>
-        </control>
-        <control type="label" description="l2">
-          <visible>$PARAM[isFocused]</visible>
-          <right>3</right>
-          <height>72</height>
-          <width>100</width>
-          <font>ListDetails</font>
-          <align>center</align>
-          <textcolor>Black</textcolor>
-          <shadowcolor></shadowcolor>
-          <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
-        </control>
-        <control type="label" description="l2">
-          <visible>!$PARAM[isFocused]</visible>
-          <right>3</right>
-          <height>72</height>
-          <width>100</width>
-          <font>ListDetails</font>
-          <align>center</align>
-          <textcolor>Highlight</textcolor>
-          <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
-        </control>
-      </control>
-    </definition>
   </include>
 
   <include name="9000ViewButtons">
@@ -841,55 +787,42 @@
   </include>
 
   <include name="List_9009_Commons" description="Video Info metadata container">
-    <width>999</width>
-    <height>504</height>
+    <posy>35</posy>
+    <left>640</left>
+    <width>540</width>
+    <height>430</height>
+    <ondown>9000</ondown>
+    <onup>9000</onup>
+    <onleft>9000</onleft>
+    <onright>9000</onright>
     <pagecontrol></pagecontrol>
-    <itemlayout height="42" width="999">
+    <itemlayout height="47" width="530">
       <control type="label">
-        <width>250</width>
-        <height>45</height>
-        <font>Details</font>
-        <align>right</align>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <selectedcolor>selected</selectedcolor>
-        <info>ListItem.Label</info>
-        <scroll>false</scroll>
-      </control>
-      <control type="label">
-        <posx>260</posx>
-        <width>739</width>
         <height>45</height>
         <font>Details</font>
         <align>left</align>
         <aligny>center</aligny>
-        <textcolor>Silver</textcolor>
-        <selectedcolor>White2</selectedcolor>
-        <info>ListItem.Label2</info>
+        <textcolor>Grey2</textcolor>
+        <selectedcolor>selected</selectedcolor>
+        <label>$INFO[ListItem.Label,[COLOR=Highlight],[/COLOR] ]$INFO[ListItem.Label2]</label>
+        <textoffsetx>8</textoffsetx>
         <scroll>false</scroll>
       </control>
     </itemlayout>
-    <focusedlayout height="42" width="999">
-      <control type="label">
-        <width>250</width>
-        <height>45</height>
-        <font>Details</font>
-        <align>right</align>
-        <aligny>center</aligny>
-        <textcolor>Highlight</textcolor>
-        <selectedcolor>selected</selectedcolor>
-        <info>ListItem.Label</info>
+    <focusedlayout height="47" width="530">
+      <control type="image">
+        <texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
       </control>
       <control type="label">
-        <posx>260</posx>
-        <width>739</width>
         <height>45</height>
         <font>Details</font>
         <align>left</align>
         <aligny>center</aligny>
-        <textcolor>Silver</textcolor>
-        <selectedcolor>White2</selectedcolor>
-        <info>ListItem.Label2</info>
+        <textcolor>Black</textcolor>
+        <selectedcolor>Black</selectedcolor>
+        <shadowcolor></shadowcolor>
+        <textoffsetx>8</textoffsetx>
+        <label>$INFO[ListItem.Label,, ]$INFO[ListItem.Label2]</label>
       </control>
     </focusedlayout>
   </include>
@@ -1087,6 +1020,11 @@
       <visible>Container(300).HasFocus(2)</visible>
       <label>$LOCALIZE[1]</label>
       <onclick>ActivateWindow(Pictures,Addons,return)</onclick>
+    </item>
+    <item id="6" description="Add-on Browser">
+      <visible>Container(300).HasFocus(2)</visible>
+      <label>$LOCALIZE[10040]</label>
+      <onclick>ActivateWindow(AddonBrowser,root)</onclick>
     </item>
     <item id="8" description="RecentlyAddedEpisodes">
       <visible>Container(300).HasFocus(5) + Library.HasContent(TVShows)</visible>
@@ -1343,6 +1281,7 @@
       </control>
     </definition>
   </include>
+
   <include name="WeatherItem">
     <param name="xoffset" default="0"/>
     <param name="yoffset" default="50"/>
@@ -1407,503 +1346,6 @@
     </definition>
   </include>
 
-  <include name="HolidaySub">
-    <param name="type">snow</param>
-    <param name="texture1">1</param>
-    <param name="texture2">2</param>
-    <param name="texture3">3</param>
-    <param name="texture4">1</param>
-    <param name="texture5">2</param>
-    <param name="texture6">3</param>
-    <param name="rotate">20</param>
-    <definition>
-      <control type="group">
-        <posx>-100</posx>
-        <animation effect="rotate" end="$PARAM[rotate]" time="9000" delay="300" condition="true">Conditional</animation>
-        <control type="image">
-          <posx>40</posx>
-          <posy>-180</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,820" time="11000" delay="1600" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-40,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-        <control type="image">
-          <posx>100</posx>
-          <posy>-100</posy>
-          <width>18</width>
-          <height>18</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="0" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>200</posx>
-          <posy>-40</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>260</posx>
-          <posy>-80</posy>
-          <width>15</width>
-          <height>15</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="13000" delay="2200" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>390</posx>
-          <posy>-210</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture5].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="13000" delay="600" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-      </control>
-      <control type="group">
-        <posx>100</posx>
-        <animation effect="rotate" start="20" end="40" time="9000" delay="800" condition="true">Conditional</animation>
-        <control type="image">
-          <posx>80</posx>
-          <posy>-100</posy>
-          <width>20</width>
-          <height>20</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture6].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,820" time="8000" delay="1000" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>240</posx>
-          <posy>-40</posy>
-          <width>15</width>
-          <height>15</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="1800" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>390</posx>
-          <posy>-210</posy>
-          <width>10</width>
-          <height>10</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1500" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-      </control>
-      <control type="group">
-        <posx>600</posx>
-        <posy>-200</posy>
-        <animation effect="rotate" end="15" time="7000" delay="500" condition="true">Conditional</animation>
-        <control type="image">
-          <posx>20</posx>
-          <posy>-60</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>100</posx>
-          <posy>-190</posy>
-          <width>18</width>
-          <height>18</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="9000" delay="2000" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-50,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>260</posx>
-          <posy>-80</posy>
-          <width>15</width>
-          <height>15</height>
-          <texture>holiday/$PARAM[type]PARAM[texture5].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="8000" delay="2300" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>330</posx>
-          <posy>-110</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture6].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="11000" delay="1600" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-40,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-        <control type="image">
-          <posx>390</posx>
-          <posy>-110</posy>
-          <width>10</width>
-          <height>10</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,820" time="12000" delay="2200" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="-20,0" end="50,0" time="3300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-      </control>
-      <control type="group">
-        <posx>900</posx>
-        <animation effect="rotate" start="15" end="30" time="12000" delay="300" condition="true">Conditional</animation>
-        <control type="image">
-          <posx>100</posx>
-          <posy>-200</posy>
-          <width>20</width>
-          <height>20</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="3000" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>200</posx>
-          <posy>-40</posy>
-          <width>12</width>
-          <height>12</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1120" time="13000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>260</posx>
-          <posy>-80</posy>
-          <width>15</width>
-          <height>15</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,820" time="8000" delay="3300" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
-        </control>
-        <control type="image">
-          <posx>390</posx>
-          <posy>-110</posy>
-          <width>10</width>
-          <height>10</height>
-          <texture>holiday/$PARAM[type]$PARAM[texture5].png</texture>
-          <aspectratio scalediffuse="false">keep</aspectratio>
-          <animation effect="slide" start="0,0" end="0,1020" time="12000" delay="3500" reversible="false" loop="true" condition="true">Conditional</animation>
-          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
-          <colordiffuse>C2FFFFFF</colordiffuse>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="Holiday">
-    <control type="group">
-      <visible>Skin.HasSetting(holiday)</visible>
-      <include content="HolidaySub">
-        <param name="type">snow</param>
-        <param name="texture1">1</param>
-        <param name="texture2">2</param>
-        <param name="texture3">3</param>
-        <param name="texture4">1</param>
-        <param name="texture5">2</param>
-        <param name="texture6">3</param>
-      </include>
-    </control>
-    <control type="group">
-      <posx>900</posx>
-      <posy>40</posy>
-      <visible>Skin.HasSetting(holiday)</visible>
-      <include content="HolidaySub">
-        <param name="type">snow</param>
-        <param name="texture1">2</param>
-        <param name="texture2">3</param>
-        <param name="texture3">1</param>
-        <param name="texture4">3</param>
-        <param name="texture5">1</param>
-        <param name="texture6">2</param>
-        <param name="rotate">30</param>
-      </include>
-    </control>
-  </include>
-
-  <include name="MediaFlagItems">
-    <param name="itemwidth" default="90"/>
-    <param name="itemheight" default="45"/>
-    <param name="diffuse">Silver</param>
-    <param name="showvideobadge">true</param>
-    <param name="showaudiobadge">true</param>
-    <param name="type">ListItem</param>
-    <definition>
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].AudioCodec)</visible>
-        <visible>$PARAM[showaudiobadge]</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].AudioCodec,badges/audiocodec/,.png]</texture>
-      </control>
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].FileExtension)</visible>
-        <visible>Container.Content(songs)</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <visible>$PARAM[showaudiobadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].FileExtension,badges/audiocodec/,.png]</texture>
-      </control>
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].AudioChannels)</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <visible>$PARAM[showaudiobadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].AudioChannels,badges/audiochannels/channels,.png]</texture>
-      </control>      
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].VideoCodec)</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <visible>$PARAM[showvideobadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].VideoCodec,badges/videocodec/,.png]</texture>
-      </control>
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <visible>$PARAM[showvideobadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].VideoResolution,badges/videoresolution/,.png]</texture>
-      </control>
-      <control type="image">
-        <visible>!String.IsEmpty($PARAM[type].VideoAspect)</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <visible>$PARAM[showvideobadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>$INFO[$PARAM[type].VideoAspect,badges/aspectratio/,.png]</texture>
-      </control>
-      <control type="image">
-        <visible>$PARAM[type].IsStereoscopic</visible>
-        <visible>$PARAM[showvideobadge]</visible>
-        <visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-        <texture>badges/videocodec/3d.png</texture>
-      </control>
-      <control type="image" description="Stars">
-        <visible>$PARAM[showratingbadge]</visible>
-        <height>$PARAM[itemheight]</height>
-        <width>$PARAM[itemwidth]</width>
-        <bordersize>3</bordersize>
-        <aspectratio>keep</aspectratio>
-        <texture>$VAR[$PARAM[type].ratingbadge]</texture>
-        <colordiffuse>$PARAM[diffuse]</colordiffuse>
-      </control>
-    </definition>
-  </include>
-
-  <include name="AlbumInfoContent">
-    <item>
-      <label>$LOCALIZE[557]:</label>
-      <label2>$INFO[ListItem.Artist]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Artist)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[515]:</label>
-      <label2>$INFO[ListItem.Genre]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Genre)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[38018]:</label>
-      <label2>$INFO[ListItem.UserRating]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.UserRating)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[563]:</label>
-      <label2>$INFO[ListItem.RatingAndVotes]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[175]:</label>
-      <label2>$INFO[ListItem.Property(Album_Mood)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Album_Mood))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[176]:</label>
-      <label2>$INFO[ListItem.Property(Album_Style)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Album_Style))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21895]:</label>
-      <label2>$INFO[ListItem.Property(Album_Theme)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Album_Theme))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[146]</label>
-      <label2>$INFO[ListItem.Property(Album_Type)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Album_Type))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21899]:</label>
-      <label2>$INFO[ListItem.Property(Album_Label)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[562]:</label>
-      <label2>$INFO[ListItem.Year]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Year)</visible>
-    </item>
-  </include>
-  <include name="ArtistInfoContent">
-    <item>
-      <label>$LOCALIZE[21893]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Born)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Born))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21894]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Formed)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Formed))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[515]:</label>
-      <label2>$INFO[ListItem.Genre]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Genre)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[175]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Mood)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[176]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Style)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Style))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21892]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Instrument)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Instrument))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21897]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Died)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Died))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21896]:</label>
-      <label2>$INFO[ListItem.Property(Artist_Disbanded)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[21898]:</label>
-      <label2>$INFO[ListItem.Property(Artist_YearsActive)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
-    </item>
-  </include>
-  <include name="SongInfoContent">
-    <item>
-      <label>$LOCALIZE[557]:</label>
-      <label2>$INFO[ListItem.Artist]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Artist)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[558]:</label>
-      <label2>$INFO[ListItem.Album]$INFO[listitem.discnumber, - $LOCALIZE[427] ]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Album)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[515]:</label>
-      <label2>$INFO[ListItem.Genre]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Genre)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[38018]:</label>
-      <label2>$INFO[ListItem.UserRating]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.UserRating)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[563]:</label>
-      <label2>$INFO[ListItem.RatingAndVotes]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[562]:</label>
-      <label2>$INFO[ListItem.Property(ListItem.Year)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(ListItem.Year))</visible>
-    </item>
-    <item>
-      <label>$LOCALIZE[554]:</label>
-      <label2>$INFO[ListItem.Property(ListItem.TrackNumber)]</label2>
-      <onclick>noop</onclick>
-      <visible>!String.IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
-    </item>
-  </include>
-
   <include name="MiniVideoWindow">
     <param name="left" default="60"/>
     <param name="top" default="60"/>
@@ -1917,36 +1359,14 @@
         <left>$PARAM[left]</left>
         <top>$PARAM[top]</top>
         <control type="group" description="Video Window Grouo">
-          <visible>Player.HasVideo + !Show_Player</visible>
-          <control type="image" description="video window background">
-            <width>$PARAM[width]</width>
-            <height>$PARAM[height]</height>
-            <texture>img/BlackDot.png</texture>
-          </control>
+          <visible>Player.HasVideo + !Skin.HasSetting(Show_Player)</visible>
           <control type="videowindow" description="Current Video">
             <width>$PARAM[width]</width>
             <height>$PARAM[height]</height>
           </control>
-          <control type="image" description="Current video label background">
-            <top>$PARAM[labeltop]</top>
-            <width>$PARAM[width]</width>
-            <height>45</height>
-            <texture>img/BlackDot.png</texture>
-            <colordiffuse>DDFFFFFF</colordiffuse>
-          </control>
-          <control type="textbox" description="Current video label">
-            <top>$PARAM[labeltop]</top>
-            <width>$PARAM[width]</width>
-            <height>45</height>
-            <font>Details</font>
-            <align>center</align>
-            <textcolor>White</textcolor>
-            <autoscroll delay="3000" time="3000" repeat="3000">true</autoscroll>
-            <label>$INFO[Player.Title]</label>
-          </control>
         </control>
-        <control type="group" description="Video Window Grouo">
-          <visible>!Player.HasVideo | ![Player.HasVideo + !Show_Player]</visible>
+        <control type="group" description="Icon Group">
+          <visible>!Player.HasVideo | ![Player.HasVideo + !Skin.HasSetting(Show_Player)]</visible>
           <include content="ShadowedImage">
             <param name="width">$PARAM[width]</param>
             <param name="height">$PARAM[height]</param>
@@ -1954,7 +1374,7 @@
           </include>
         </control>
       </control>
-    </definition>  
+    </definition>
   </include>
 
   <include name="SettingsListCommons">
@@ -2275,1135 +1695,6 @@
     </definition>
   </include>
 
-  <include name="GenericThumbIconTemplate">
-    <param name="isFocused">false</param>
-    <param name="iconwidth"/>
-    <param name="iconheight"/>
-    <param name="iconoffset"/>
-    <param name="shadowoffset"/>
-    <param name="bordersizeLT"/>
-    <param name="bordersizeRB"/>
-    <param name="iconimage">$INFO[ListItem.Icon]</param>
-    <param name="fallbackicon"></param>
-    <param name="aspect">scale</param>
-    <param name="overlaylabel"></param>
-    <param name="overlaylabelvisibility">false</param>
-    <param name="overlaylabelalign">left</param>
-    <param name="overlaylabelyoffset">65r</param>
-    <param name="belowlabel"></param>
-    <param name="belowlabelvisibility">false</param>
-    <param name="belowlabelalign">center</param>
-    <param name="belowdoublelabel1"></param>
-    <param name="belowdoublelabel2"></param>
-    <param name="belowdoublelabelvisibility">false</param>
-    <param name="belowdoublelabelalign">center</param>
-    <param name="belowtextbox"></param>
-    <param name="belowtextboxvisibility">false</param>
-    <param name="belowtextboxalign">center</param>
-    <param name="belowtextboxwidth"></param>
-    <definition>
-      <control type="image">
-        <left>$PARAM[shadowoffset]</left>
-        <top>$PARAM[shadowoffset]</top>
-        <width>$PARAM[iconwidth]</width>
-        <height>$PARAM[iconheight]</height>
-        <aspectratio>$PARAM[aspect]</aspectratio>
-        <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-        <colordiffuse>HeavyShadow</colordiffuse>
-        <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
-      </control>
-      <control type="group">
-        <left>$PARAM[iconoffset]</left>
-        <top>$PARAM[iconoffset]</top>
-        <width>$PARAM[iconwidth]</width>
-        <height>$PARAM[iconheight]</height>
-        <control type="image">
-          <visible>$PARAM[isFocused]</visible>
-          <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-          <bordertexture colordiffuse="Highlight" border="8">thumbs/IconBorder_FO.png</bordertexture>
-          <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
-          <aspectratio>$PARAM[aspect]</aspectratio>
-        </control>
-        <control type="image">
-          <visible>!$PARAM[isFocused]</visible>
-          <texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-          <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
-          <aspectratio>$PARAM[aspect]</aspectratio>
-          <colordiffuse>eeeeeeee</colordiffuse>
-        </control>
-        <include content="GenericThumbLabelTemplate">
-          <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">$PARAM[overlaylabelyoffset]</param>
-          <param name="xoffset">$PARAM[iconoffset]</param>
-          <param name="labelwidth">$PARAM[iconwidth]</param>
-          <param name="labelvisibility">$PARAM[overlaylabelvisibility]</param>
-          <param name="labeltext">$PARAM[overlaylabel]</param>
-          <param name="labelalign">$PARAM[overlaylabelalign]</param>
-          <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeRB],0</param>
-        </include>
-        <include content="GenericBelowLabelTemplate">
-          <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">-8r</param>
-          <param name="xoffset">0</param>
-          <param name="labelwidth">$PARAM[iconwidth]</param>
-          <param name="labelvisibility">$PARAM[belowlabelvisibility]</param>
-          <param name="labeltext">$PARAM[belowlabel]</param>
-          <param name="labelalign">$PARAM[belowlabelalign]</param>
-          <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeLT],0</param>
-        </include>
-        <include content="GenericBelowDoubleLabelTemplate">
-          <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">-8r</param>
-          <param name="xoffset">0</param>
-          <param name="labelwidth">$PARAM[iconwidth]</param>
-          <param name="labelvisibility">$PARAM[belowdoublelabelvisibility]</param>
-          <param name="labeltext1">$PARAM[belowdoublelabel1]</param>
-          <param name="labeltext2">$PARAM[belowdoublelabel2]</param>
-          <param name="labelalign">$PARAM[belowdoublelabelalign]</param>
-          <param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeLT],0</param>
-        </include>
-        <include content="GenericBelowTextboxTemplate">
-          <param name="isFocused">$PARAM[isFocused]</param>
-          <param name="yoffset">-8r</param>
-          <param name="xoffset">0</param>
-          <param name="labelwidth">$PARAM[iconwidth]</param>
-          <param name="labelvisibility">$PARAM[belowtextboxvisibility]</param>
-          <param name="labeltext">$PARAM[belowtextbox]</param>
-          <param name="labelalign">$PARAM[belowtextboxalign]</param>
-          <param name="textboxwidth">$PARAM[belowtextboxwidth]</param>
-          <param name="bordersize">$PARAM[bordersizeLT]</param>
-        </include>
-        <control type="image" description="Watched Overlay">
-          <visible>!$PARAM[isFocused]</visible>
-          <left>60r</left>
-          <top>60r</top>
-          <width>33</width>
-          <height>33</height>
-          <texture>$VAR[Overlay]</texture>
-          <aspectratio>keep</aspectratio>
-        </control>
-        <control type="image" description="Watched Overlay">
-          <visible>$PARAM[isFocused]</visible>
-          <left>60r</left>
-          <top>60r</top>
-          <width>33</width>
-          <height>33</height>
-          <texture>$VAR[Overlay]</texture>
-          <colordiffuse>Highlight</colordiffuse>
-          <aspectratio>keep</aspectratio>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="GenericActorIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">326</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$INFO[ListItem.Thumb]</param>
-        <param name="fallbackicon">DefaultActorPoster.png</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowdoublelabelvisibility">true</param>
-        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-        <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
-        <param name="aspect">scale</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericThumbIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">310</param>
-        <param name="iconheight">310</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">272</param>
-        <param name="aspect">keep</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericThumbIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">232.5</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">208</param>
-        <param name="aspect">keep</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericThumbIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">204</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="WeatherThumbIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">204</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericFavouriteIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">310</param>
-        <param name="iconheight">310</param>
-        <param name="iconoffset">0</param>
-        <param name="aspect">keep</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">272</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericFavouriteIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">232.5</param>
-        <param name="iconoffset">0</param>
-        <param name="aspect">keep</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">208</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericFavouriteIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="aspect">keep</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label]</param>
-        <param name="belowtextboxwidth">204</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericChannelIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="aspect">keep</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowdoublelabelvisibility">true</param>
-        <param name="belowdoublelabel1">$INFO[ListItem.StartTime] $INFO[ListItem.Title]</param>
-        <param name="belowdoublelabel2">$INFO[ListItem.NextStartTime] $INFO[ListItem.NextTitle]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericRecordingIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="aspect">keep</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowdoublelabelvisibility">true</param>
-        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-        <param name="belowdoublelabel2">$INFO[ListItem.Date]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericMusicIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">310</param>
-        <param name="iconheight">310</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="belowlabelvisibility">true</param>
-        <param name="belowlabel">$INFO[ListItem.Label]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericMusicIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">232.5</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Square]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowlabelvisibility">true</param>
-        <param name="belowlabel">$INFO[ListItem.Label]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericMusicIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">228</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="belowtextboxvisibility">true</param>
-        <param name="belowtextbox">$INFO[ListItem.Label][CR]$INFO[ListItem.Label2]</param>
-        <param name="belowtextboxwidth">204</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericPosterIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">310</param>
-        <param name="iconheight">437</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Poster]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
-        <param name="overlaylabel">$VAR[PosterLabel]</param>
-        <param name="overlaylabelalign">center</param>
-        <param name="overlaylabelyoffset">90r</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericPosterIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">326</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Poster]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
-        <param name="overlaylabel">$VAR[PosterLabel]</param>
-        <param name="overlaylabelalign">center</param>
-        <param name="overlaylabelyoffset">80r</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericPosterIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">315</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Poster]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
-        <param name="overlaylabel">[B]$INFO[ListItem.Season,$LOCALIZE[31954]]$INFO[ListItem.Episode,$LOCALIZE[31973]][/B]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericEpisodeIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">310</param>
-        <param name="iconheight">226</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Episode]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)</param>
-        <param name="overlaylabel">$VAR[EpisodeLabel]</param>
-        </include>
-    </definition>
-  </include>
-
-  <include name="GenericEpisodeIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">232.5</param>
-        <param name="iconheight">170</param>
-        <param name="iconoffset">0</param>
-        <param name="iconimage">$VAR[Episode]</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="overlaylabelvisibility">String.IsEqual(ListItem.DBType,episode)</param>
-        <param name="overlaylabel">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</param>
-      </include>
-    </definition>
-  </include>
-  
-  <include name="GenericEpisodeIconShelf">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">228</param>
-        <param name="iconheight">315</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="overlaylabelvisibility">true</param>
-        <param name="overlaylabel">$INFO[ListItem.Property(SeasonEpisode)]</param>
-        <param name="overlaylabelalign">center</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericBannerIconBig">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">930</param>
-        <param name="iconheight">204</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">16</param>
-        <param name="bordersizeRB">24</param>
-        <param name="iconimage">$VAR[Banner]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericBannerIconSmall">
-    <param name="isFocused">false</param>
-    <definition>
-      <include content="GenericThumbIconTemplate">
-        <param name="isFocused">$PARAM[isFocused]</param>
-        <param name="iconwidth">465</param>
-        <param name="iconheight">112</param>
-        <param name="iconoffset">0</param>
-        <param name="shadowoffset">8</param>
-        <param name="bordersizeLT">12</param>
-        <param name="bordersizeRB">20</param>
-        <param name="iconimage">$VAR[Banner]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericThumbLabelTemplate">
-    <param name="isFocused">false</param>
-    <param name="yoffset"/>
-    <param name="xoffset"/>
-    <param name="labelwidth"/>
-    <param name="labelvisibility"/>
-    <param name="labeltext"/>
-    <param name="labelalign"/>
-    <param name="bordersize"/>
-    <definition>
-      <control type="group">
-        <visible>$PARAM[labelvisibility]</visible>
-        <top>$PARAM[yoffset]</top>
-        <left>$PARAM[xoffset]</left>
-        <control type="image">
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <aspectratio>stretch</aspectratio>
-          <texture>img/OverlayStripe.png</texture>
-          <bordersize>$PARAM[bordersize]</bordersize>
-        </control>
-        <control type="label">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <textoffsetx>24</textoffsetx>
-          <font>shelf_label</font>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
-        </control>
-        <control type="label">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <textoffsetx>24</textoffsetx>
-          <font>shelf_label</font>
-          <textcolor>Highlight</textcolor>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="GenericBelowLabelTemplate">
-    <param name="isFocused">false</param>
-    <param name="yoffset"/>
-    <param name="xoffset"/>
-    <param name="labelwidth"/>
-    <param name="labelvisibility"/>
-    <param name="labeltext"/>
-    <param name="labelalign"/>
-    <param name="bordersize"/>
-    <definition>
-      <control type="group">
-        <visible>$PARAM[labelvisibility]</visible>
-        <top>$PARAM[yoffset]</top>
-        <left>$PARAM[xoffset]</left>
-        <control type="image">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <texture border="4">img/WhiteRoundedT.png</texture>
-          <bordersize>$PARAM[bordersize]</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="image">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <texture border="4">img/WhiteRoundedST2.png</texture>
-          <colordiffuse>Highlight</colordiffuse>
-          <bordersize>$PARAM[bordersize]</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="label">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <font>shelf_label</font>
-          <textoffsetx>24</textoffsetx>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
-        </control>
-        <control type="label">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>45</height>
-          <font>shelf_label</font>
-          <textoffsetx>24</textoffsetx>
-          <textcolor>Black</textcolor>
-          <shadowcolor></shadowcolor>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>true</scroll>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="GenericBelowTextboxTemplate">
-    <param name="isFocused">false</param>
-    <param name="yoffset"/>
-    <param name="xoffset"/>
-    <param name="labelwidth"/>
-    <param name="labelvisibility">false</param>
-    <param name="labeltext"/>
-    <param name="labelalign">center</param>
-    <param name="textboxwidth"/>
-    <param name="bordersize"/>
-    <definition>
-      <control type="group">
-        <visible>$PARAM[labelvisibility]</visible>
-        <top>$PARAM[yoffset]</top>
-        <left>$PARAM[xoffset]</left>
-        <control type="image">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>74</height>
-          <texture border="4">img/WhiteRoundedT.png</texture>
-          <bordersize>4,0,4,0</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="image">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>74</height>
-          <texture border="4">img/WhiteRoundedST2.png</texture>
-          <colordiffuse>Highlight</colordiffuse>
-          <bordersize>4,0,4,0</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="textbox">
-          <visible>!$PARAM[isFocused]</visible>
-          <top>4</top>
-          <left>$PARAM[bordersize]</left>
-          <width>$PARAM[textboxwidth]</width>
-          <height>64</height>
-          <font>shelf_label</font>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <aligny>center</aligny>
-          <autoscroll>false</autoscroll>
-        </control>
-        <control type="textbox">
-          <visible>$PARAM[isFocused]</visible>
-          <top>4</top>
-          <left>$PARAM[bordersize]</left>
-          <width>$PARAM[textboxwidth]</width>
-          <height>64</height>
-          <font>shelf_label</font>
-          <textcolor>Black</textcolor>
-          <shadowcolor></shadowcolor>
-          <label>$PARAM[labeltext]</label>
-          <align>$PARAM[labelalign]</align>
-          <aligny>center</aligny>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="GenericBelowDoubleLabelTemplate">
-    <param name="isFocused">false</param>
-    <param name="yoffset"/>
-    <param name="xoffset"/>
-    <param name="labelwidth"/>
-    <param name="labelvisibility">false</param>
-    <param name="labeltext1"/>
-    <param name="labeltext2"/>
-    <param name="labelalign">center</param>
-    <param name="textboxwidth"/>
-    <param name="bordersize"/>
-    <definition>
-      <control type="group">
-        <visible>$PARAM[labelvisibility]</visible>
-        <top>$PARAM[yoffset]</top>
-        <left>$PARAM[xoffset]</left>
-        <control type="image">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>74</height>
-          <texture border="4">img/WhiteRoundedT.png</texture>
-          <bordersize>$PARAM[bordersize]</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="image">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>74</height>
-          <texture border="4">img/WhiteRoundedST2.png</texture>
-          <colordiffuse>Highlight</colordiffuse>
-          <bordersize>$PARAM[bordersize]</bordersize>
-          <aspectratio>stretch</aspectratio>
-        </control>
-        <control type="label">
-          <visible>!$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>35</height>
-          <font>shelf_label</font>
-          <textoffsetx>24</textoffsetx>
-          <label>$PARAM[labeltext1]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
-        </control>
-        <control type="label">
-          <visible>!$PARAM[isFocused]</visible>
-          <top>34</top>
-          <width>$PARAM[labelwidth]</width>
-          <height>35</height>
-          <textoffsetx>24</textoffsetx>
-          <font>shelf_label</font>
-          <label>$PARAM[labeltext2]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>false</scroll>
-        </control>
-        <control type="label">
-          <visible>$PARAM[isFocused]</visible>
-          <width>$PARAM[labelwidth]</width>
-          <height>35</height>
-          <font>shelf_label</font>
-          <textoffsetx>24</textoffsetx>
-          <textcolor>Black</textcolor>
-          <shadowcolor></shadowcolor>
-          <label>$PARAM[labeltext1]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>true</scroll>
-        </control>
-        <control type="label">
-          <visible>$PARAM[isFocused]</visible>
-          <top>34</top>
-          <width>$PARAM[labelwidth]</width>
-          <height>35</height>
-          <font>shelf_label</font>
-          <textoffsetx>24</textoffsetx>
-          <textcolor>Black</textcolor>
-          <shadowcolor></shadowcolor>
-          <label>$PARAM[labeltext2]</label>
-          <align>$PARAM[labelalign]</align>
-          <scroll>true</scroll>
-        </control>
-      </control>
-    </definition>
-  </include>
-
-  <include name="GenericActor">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericActorIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericMusic">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericMusicIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericThumb">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericThumbIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericWeather">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="WeatherThumbIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericFavourite">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericFavouriteIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericChannel">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericChannelIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericRecording">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericRecordingIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericPoster">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericPosterIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericEpisode">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericEpisodeIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="GenericBanner">
-    <param name="isFocused">false</param>
-    <param name="size">Big</param>
-    <definition>
-      <include content="GenericBannerIcon$PARAM[size]">
-        <param name="isFocused">$PARAM[isFocused]</param>
-      </include>
-    </definition>
-  </include>
-
-  <include name="BannerLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="204" width="930">
-        <include content="GenericBanner">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="204" width="930">
-        <include content="GenericBanner">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="112" width="465">
-        <include content="GenericBanner">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="112" width="465">
-        <include content="GenericBanner">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="ActorLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout height="410" width="232.5">
-        <include content="GenericActor">
-        </include>
-      </itemlayout>
-      <focusedlayout height="410" width="232.5">
-        <include content="GenericActor">
-          <param name="isFocused">Control.HasFocus(50)</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="PosterLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
-        <include content="GenericPoster">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
-        <include content="GenericPoster">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
-        <include content="GenericPoster">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
-        <include content="GenericPoster">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="EpisodeLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
-        <include content="GenericEpisode">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
-        <include content="GenericEpisode">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
-        <include content="GenericEpisode">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
-        <include content="GenericEpisode">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="MusicLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="372" width="310">
-        <include content="GenericMusic">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="372" width="310">
-        <include content="GenericMusic">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="294" width="232.5">
-        <include content="GenericMusic">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="294" width="232.5">
-        <include content="GenericMusic">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="ImageLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
-        <include content="GenericThumb">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="AddonLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
-        <include content="GenericThumb">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="GenericLayout">
-    <param name="viewid"/>
-    <definition>
-      <itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
-        <include content="GenericThumb">
-        </include>
-      </itemlayout>
-      <focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-        </include>
-      </focusedlayout>
-      <itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="size">Small</param>
-        </include>
-      </itemlayout>
-      <focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
-        <include content="GenericThumb">
-          <param name="isFocused">true</param>
-          <param name="size">Small</param>
-        </include>
-      </focusedlayout>
-    </definition>
-  </include>
-
-  <include name="FooterInfo">
-    <control type="group" description="Media Info Lite">
-      <include>ContentFade</include>
-      <posy>967</posy>
-      <posx>390</posx>
-      <width>1140</width>
-      <control type="label" description="Title shadow">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
-        <left>4</left>
-        <top>4</top>
-        <width>1140</width>
-        <height>50</height>
-        <align>center</align>
-        <textcolor>Black</textcolor>
-        <shadowcolor></shadowcolor>
-        <font>InfoTitle</font>
-        <scroll>false</scroll>
-        <label>$VAR[panelheading]</label>
-      </control>
-      <control type="label" description="Title Label">
-        <animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
-        <width>1140</width>
-        <height>50</height>
-        <align>center</align>
-        <textcolor>White2</textcolor>
-        <shadowcolor></shadowcolor>
-        <font>InfoTitle</font>
-        <scroll>false</scroll>
-        <label>$VAR[panelheading]</label>
-      </control>
-      <control type="label" description="Details">
-        <visible>Control.IsVisible(53) | [Control.IsVisible(56) + ![$EXP[56_FanartViewInfo]]]</visible>
-        <posy>59</posy>
-        <width>1140</width>
-        <height>30</height>
-        <align>center</align>
-        <shadowcolor>Black</shadowcolor>
-        <label>$VAR[panelsubheading]</label>
-      </control>
-    </control>
-    <control type="grouplist" description="Left Flags">
-      <include>ContentFade</include>
-      <left>30</left>
-      <top>1020</top>
-      <width>1000</width>
-      <height>45</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>left</align>
-      <include content="MediaFlagItems">
-        <param name="showvideobadge">true</param>
-        <param name="showaudiobadge">false</param>
-        <param name="showratingbadge">false</param>
-      </include>
-    </control>
-    <control type="grouplist" description="Right Flags">
-      <include>ContentFade</include>
-      <left>890</left>
-      <top>1020</top>
-      <width>1000</width>
-      <height>45</height>
-      <itemgap>30</itemgap>
-      <orientation>horizontal</orientation>
-      <align>right</align>
-      <include content="MediaFlagItems">
-        <param name="showvideobadge">false</param>
-        <param name="showaudiobadge">true</param>
-        <param name="showratingbadge">true</param>
-      </include>
-    </control>
-  </include>
-
   <include name="PanelTemplate">
     <param name="lowpanel">false</param>
     <param name="top"></param>
@@ -3536,6 +1827,242 @@
         </control>
       </control>
     </definition>
+  </include>
+
+  <include name="HolidaySub">
+    <param name="type">snow</param>
+    <param name="texture1">1</param>
+    <param name="texture2">2</param>
+    <param name="texture3">3</param>
+    <param name="texture4">1</param>
+    <param name="texture5">2</param>
+    <param name="texture6">3</param>
+    <param name="rotate">20</param>
+    <definition>
+      <control type="group">
+        <posx>-100</posx>
+        <animation effect="rotate" end="$PARAM[rotate]" time="9000" delay="300" condition="true">Conditional</animation>
+        <control type="image">
+          <posx>40</posx>
+          <posy>-180</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,820" time="11000" delay="1600" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-40,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+        <control type="image">
+          <posx>100</posx>
+          <posy>-100</posy>
+          <width>18</width>
+          <height>18</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="0" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>200</posx>
+          <posy>-40</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>260</posx>
+          <posy>-80</posy>
+          <width>15</width>
+          <height>15</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="13000" delay="2200" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>390</posx>
+          <posy>-210</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture5].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="13000" delay="600" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+      </control>
+      <control type="group">
+        <posx>100</posx>
+        <animation effect="rotate" start="20" end="40" time="9000" delay="800" condition="true">Conditional</animation>
+        <control type="image">
+          <posx>80</posx>
+          <posy>-100</posy>
+          <width>20</width>
+          <height>20</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture6].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,820" time="8000" delay="1000" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>240</posx>
+          <posy>-40</posy>
+          <width>15</width>
+          <height>15</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="1800" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>390</posx>
+          <posy>-210</posy>
+          <width>10</width>
+          <height>10</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1500" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+      </control>
+      <control type="group">
+        <posx>600</posx>
+        <posy>-200</posy>
+        <animation effect="rotate" end="15" time="7000" delay="500" condition="true">Conditional</animation>
+        <control type="image">
+          <posx>20</posx>
+          <posy>-60</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="12000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>100</posx>
+          <posy>-190</posy>
+          <width>18</width>
+          <height>18</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="9000" delay="2000" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-50,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>260</posx>
+          <posy>-80</posy>
+          <width>15</width>
+          <height>15</height>
+          <texture>holiday/$PARAM[type]PARAM[texture5].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="8000" delay="2300" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>330</posx>
+          <posy>-110</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture6].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="11000" delay="1600" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-40,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+        <control type="image">
+          <posx>390</posx>
+          <posy>-110</posy>
+          <width>10</width>
+          <height>10</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture1].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,820" time="12000" delay="2200" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="-20,0" end="50,0" time="3300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+      </control>
+      <control type="group">
+        <posx>900</posx>
+        <animation effect="rotate" start="15" end="30" time="12000" delay="300" condition="true">Conditional</animation>
+        <control type="image">
+          <posx>100</posx>
+          <posy>-200</posy>
+          <width>20</width>
+          <height>20</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture2].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="8000" delay="3000" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-20,0" time="3200" delay="300" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>200</posx>
+          <posy>-40</posy>
+          <width>12</width>
+          <height>12</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture3].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1120" time="13000" delay="1300" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="50,0" end="-10,0" time="4300" delay="220" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>260</posx>
+          <posy>-80</posy>
+          <width>15</width>
+          <height>15</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture4].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,820" time="8000" delay="3300" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="40,0" end="-30,0" time="4000" delay="200" reversible="false" condition="true">Conditional</animation>
+        </control>
+        <control type="image">
+          <posx>390</posx>
+          <posy>-110</posy>
+          <width>10</width>
+          <height>10</height>
+          <texture>holiday/$PARAM[type]$PARAM[texture5].png</texture>
+          <aspectratio scalediffuse="false">keep</aspectratio>
+          <animation effect="slide" start="0,0" end="0,1020" time="12000" delay="3500" reversible="false" loop="true" condition="true">Conditional</animation>
+          <animation effect="slide" start="20,0" end="-60,0" time="5300" delay="300" reversible="false" condition="true">Conditional</animation>
+          <colordiffuse>C2FFFFFF</colordiffuse>
+        </control>
+      </control>
+    </definition>
+  </include>
+
+  <include name="Holiday">
+    <control type="group">
+      <visible>Skin.HasSetting(holiday)</visible>
+      <include content="HolidaySub">
+        <param name="type">snow</param>
+        <param name="texture1">1</param>
+        <param name="texture2">2</param>
+        <param name="texture3">3</param>
+        <param name="texture4">1</param>
+        <param name="texture5">2</param>
+        <param name="texture6">3</param>
+      </include>
+    </control>
+    <control type="group">
+      <posx>900</posx>
+      <posy>40</posy>
+      <visible>Skin.HasSetting(holiday)</visible>
+      <include content="HolidaySub">
+        <param name="type">snow</param>
+        <param name="texture1">2</param>
+        <param name="texture2">3</param>
+        <param name="texture3">1</param>
+        <param name="texture4">3</param>
+        <param name="texture5">1</param>
+        <param name="texture6">2</param>
+        <param name="rotate">30</param>
+      </include>
+    </control>
   </include>
 
 </includes>

@@ -191,7 +191,7 @@
   <variable name="MusicInfoHeader" description="Header for MusicInfo window">
     <value condition="Container.Content(Artists)">$LOCALIZE[21891]: [COLOR=White]$INFO[ListItem.Artist][/COLOR]</value>
     <value condition="Container.Content(Albums)">$LOCALIZE[10523]: [COLOR=White]$INFO[ListItem.Album][/COLOR]</value>
-    <value condition="Container.Content(Songs)">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]</value>
+    <value condition="Container.Content(Songs)">$LOCALIZE[658]: [COLOR=White]$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title][/COLOR]</value>
   </variable>
 
   <variable name="PVRChannelManagerHeader" description="Header for PVRChannelManager window">
@@ -319,13 +319,13 @@
   </variable> 
 
   <variable name="LibraryStats" description="Home page library statistics">
-    <value condition="Integer.IsGreater(Window(Home).Property(MusicVideos.Unwatched),0) + Library.HasContent(musicvideos) + Container(300).HasFocus(14)">$LOCALIZE[20389]$INFO[Window(Home).Property(MusicVideos.Count), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[16101]$INFO[Window(Home).Property(MusicVideos.Unwatched), ]</value>
-    <value condition="!Integer.IsGreater(Window(Home).Property(MusicVideos.Unwatched),0) + Library.HasContent(musicvideos) + Container(300).HasFocus(14)">$LOCALIZE[20389]$INFO[Window(Home).Property(MusicVideos.Count), ,[COLOR=Highlight]  •  [/COLOR]]</value>
-    <value condition="Integer.IsGreater(Window(Home).Property(Movies.Unwatched),0) + Library.HasContent(movies) + Container(300).HasFocus(4)">$LOCALIZE[20342]$INFO[Window(Home).Property(Movies.Count), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[16101]$INFO[Window(Home).Property(Movies.Unwatched), ]</value>
-    <value condition="!Integer.IsGreater(Window(Home).Property(Movies.Unwatched),0) + Library.HasContent(movies) + Container(300).HasFocus(4)">$LOCALIZE[20342]$INFO[Window(Home).Property(Movies.Count), ,[COLOR=Highlight]  •  [/COLOR]]</value>
-    <value condition="Integer.IsGreater(Window(Home).Property(Episodes.Unwatched),0) + Library.HasContent(tvshows) + Container(300).HasFocus(5)">$LOCALIZE[20360]$INFO[Window(Home).Property(Episodes.Count), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[16101]$INFO[Window(Home).Property(Episodes.Unwatched), ]</value>
-    <value condition="!Integer.IsGreater(Window(Home).Property(Episodes.Unwatched),0) + Library.HasContent(tvshows) + Container(300).HasFocus(5)">$LOCALIZE[20343]$INFO[Window(Home).Property(TVShows.Count), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[20360]$INFO[Window(Home).Property(Episodes.Count), ,[COLOR=Highlight]  •  [/COLOR]]</value>
-    <value condition="Library.HasContent(music) + Container(300).HasFocus(6)">$LOCALIZE[134]$INFO[Window(Home).Property(Music.SongsCount), ,[COLOR=Highlight]  •  [/COLOR]]$LOCALIZE[132]$INFO[Window(Home).Property(Music.AlbumsCount), ]</value>
+    <value condition="Integer.IsGreater(Window(Home).Property(MusicVideos.Unwatched),0) + Library.HasContent(musicvideos) + Container(300).HasFocus(14)">$INFO[Window(Home).Property(MusicVideos.Count),$LOCALIZE[20389]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(MusicVideos.Unwatched),$LOCALIZE[16101]: ]</value>
+    <value condition="!Integer.IsGreater(Window(Home).Property(MusicVideos.Unwatched),0) + Library.HasContent(musicvideos) + Container(300).HasFocus(14)">$INFO[Window(Home).Property(MusicVideos.Count),$LOCALIZE[20389]: ]</value>
+    <value condition="Integer.IsGreater(Window(Home).Property(Movies.Unwatched),0) + Library.HasContent(movies) + Container(300).HasFocus(4)">$INFO[Window(Home).Property(Movies.Count),$LOCALIZE[20342]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(Movies.Unwatched),$LOCALIZE[16101]: ]</value>
+    <value condition="!Integer.IsGreater(Window(Home).Property(Movies.Unwatched),0) + Library.HasContent(movies) + Container(300).HasFocus(4)">$INFO[Window(Home).Property(Movies.Count),$LOCALIZE[20342]: ]</value>
+    <value condition="Integer.IsGreater(Window(Home).Property(Episodes.Unwatched),0) + Library.HasContent(tvshows) + Container(300).HasFocus(5)">$INFO[Window(Home).Property(Episodes.Count),$LOCALIZE[20360]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(Episodes.Unwatched),$LOCALIZE[16101]: ]</value>
+    <value condition="!Integer.IsGreater(Window(Home).Property(Episodes.Unwatched),0) + Library.HasContent(tvshows) + Container(300).HasFocus(5)">$INFO[Window(Home).Property(TVShows.Count),$LOCALIZE[20343]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(Episodes.Count),$LOCALIZE[20360]: ]</value>
+    <value condition="Library.HasContent(music) + Container(300).HasFocus(6)">$INFO[Window(Home).Property(Music.AlbumsCount),$LOCALIZE[132]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(Music.SongsCount),$LOCALIZE[134]: ]</value>
   </variable>
 
   <variable name="TopBarMedia">
@@ -533,12 +533,13 @@
 
     <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(Container.ShowPlot)">$INFO[Container.ShowPlot]</value>
 
+    <value condition="String.IsEqual(ListItem.DbType,song) + !String.IsEmpty(ListItem.ContributorAndRole)">$INFO[ListItem.ContributorAndRole]</value>
+    <value condition="String.IsEqual(ListItem.DbType,song)">$INFO[ListItem.Comment]</value>
     <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
     <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Property(Artist_Description))">$INFO[ListItem.Property(Artist_Description)]</value>
 
-    <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureDesc)">$INFO[ListItem.PictureDesc]</value>
-    <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureComment)">$INFO[ListItem.PictureComment]</value>
-    <value condition="Container.Content(images) + !String.IsEmpty(ListItem.PictureKeywords)">$INFO[ListItem.PictureKeywords]</value>
+    <value condition="Container.Content(images) + !ListItem.IsParentFolder + ListItem.IsFolder">$LOCALIZE[19055]</value>
+    <value condition="Container.Content(images)">$INFO[ListItem.PictureDatetime,[COLOR=Highlight]$LOCALIZE[21820]: [/COLOR],[CR]]$INFO[ListItem.PictureResolution,[COLOR=Highlight]$LOCALIZE[21805]: [/COLOR],[CR]]$INFO[ListItem.PictureAperture,[COLOR=Highlight]$LOCALIZE[21826]: [/COLOR],[CR]]$INFO[ListItem.PictureAuthor,[COLOR=Highlight]$LOCALIZE[21863]: [/COLOR],[CR]]$INFO[ListItem.PictureByline,[COLOR=Highlight]$LOCALIZE[21867]: [/COLOR],[CR]]$INFO[ListItem.PictureBylineTitle,[COLOR=Highlight]$LOCALIZE[21868]: [/COLOR],[CR]]$INFO[ListItem.PictureCamMake,[COLOR=Highlight]$LOCALIZE[31106]: [/COLOR],[CR]]$INFO[ListItem.PictureCamModel,[COLOR=Highlight]$LOCALIZE[21823]: [/COLOR],[CR]]$INFO[ListItem.PictureCaption,[COLOR=Highlight]$LOCALIZE[21862]: [/COLOR],[CR]]$INFO[ListItem.PictureCategory,[COLOR=Highlight]$LOCALIZE[21866]: [/COLOR],[CR]]$INFO[ListItem.PictureCCDWidth,[COLOR=Highlight]$LOCALIZE[21839]: [/COLOR],[CR]]$INFO[ListItem.PictureCopyrightNotice,[COLOR=Highlight]$LOCALIZE[21871]: [/COLOR],[CR]]$INFO[ListItem.PictureCountry,[COLOR=Highlight]$LOCALIZE[21875]: [/COLOR],[CR]]$INFO[ListItem.PictureCountryCode,[COLOR=Highlight]$LOCALIZE[21879]: [/COLOR],[CR]]$INFO[ListItem.PictureCredit,[COLOR=Highlight]$LOCALIZE[21869]: [/COLOR],[CR]]$INFO[ListItem.PictureDesc,[COLOR=Highlight]$LOCALIZE[21821]: [/COLOR],[CR]]$INFO[ListItem.PictureDigitalZoom,[COLOR=Highlight]$LOCALIZE[21838]: [/COLOR],[CR]]$INFO[ListItem.PictureExpMode,[COLOR=Highlight]$LOCALIZE[21832]: [/COLOR],[CR]]$INFO[ListItem.PictureExposure,[COLOR=Highlight]$LOCALIZE[21829]: [/COLOR],[CR]]$INFO[ListItem.PictureExposureBias,[COLOR=Highlight]$LOCALIZE[21830]: [/COLOR],[CR]]$INFO[ListItem.PictureExpTime,[COLOR=Highlight]$LOCALIZE[21829]: [/COLOR],[CR]]$INFO[ListItem.PictureFlashUsed,[COLOR=Highlight]$LOCALIZE[21833]: [/COLOR],[CR]]$INFO[ListItem.PictureFocalLen,[COLOR=Highlight]$LOCALIZE[21827]: [/COLOR],[CR]]$INFO[ListItem.PictureFocusDist,[COLOR=Highlight]$LOCALIZE[21828]: [/COLOR],[CR]]$INFO[ListItem.PictureGPSLat,[COLOR=Highlight]$LOCALIZE[21840]: [/COLOR],[CR]]$INFO[ListItem.PictureGPSLon,[COLOR=Highlight]$LOCALIZE[21841]: [/COLOR],[CR]]$INFO[ListItem.PictureGPSAlt,[COLOR=Highlight]$LOCALIZE[21842]: [/COLOR],[CR]]$INFO[ListItem.PictureHeadline,[COLOR=Highlight]$LOCALIZE[21864]: [/COLOR],[CR]]$INFO[ListItem.PictureImageType,[COLOR=Highlight]$LOCALIZE[21858]: [/COLOR],[CR]]$INFO[ListItem.PictureISO,[COLOR=Highlight]$LOCALIZE[21837]: [/COLOR],[CR]]$INFO[ListItem.PictureKeywords,[COLOR=Highlight]$LOCALIZE[21861]: [/COLOR],[CR]]$INFO[ListItem.PictureOrientation,[COLOR=Highlight]$LOCALIZE[21843]: [/COLOR],[CR]]$INFO[ListItem.PictureProcess,[COLOR=Highlight]$LOCALIZE[21808]: [/COLOR],[CR]]</value>
 
     <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[ListItem.Comment][CR]$INFO[ListItem.Date]</value>
 
@@ -623,6 +624,26 @@
   <variable name="Quit.Art" description="Calculate BG to show">
     <value condition="!String.IsEmpty(Skin.String(Quit.Background))">$INFO[Skin.String(Quit.Background)]</value>
     <value>special://skin/backgrounds/Quit.jpg</value>
+  </variable>
+
+  <variable name="MusicInfoBackground">
+    <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value>$VAR[Music.Art]</value>
+  </variable>
+
+  <variable name="AddonInfoBackground">
+    <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value>$VAR[Addons.Art]</value>
+  </variable>
+
+  <variable name="PictureInfoBackground">
+    <value condition="!String.IsEmpty(ListItem.FolderPath)">$INFO[ListItem.FolderPath]</value>
+    <value>$VAR[Addons.Art]</value>
+  </variable>
+
+  <variable name="TVInfoBackground">
+    <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+    <value>$VAR[Pvr.Art]</value>
   </variable>
 
   <variable name="Fanart.Art">
