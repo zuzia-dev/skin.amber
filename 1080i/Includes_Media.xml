@@ -651,6 +651,23 @@
     </definition>
   </include>
 
+  <include name="GenericScreenshotIconBig">
+    <param name="isFocused">false</param>
+    <definition>
+      <include content="GenericThumbIconTemplate">
+        <param name="isFocused">$PARAM[isFocused]</param>
+        <param name="iconwidth">551</param>
+        <param name="iconheight">310</param>
+        <param name="iconoffset">0</param>
+        <param name="iconimage">$INFO[ListItem.Thumb]</param>
+        <param name="shadowoffset">8</param>
+        <param name="bordersizeLT">12</param>
+        <param name="bordersizeRB">20</param>
+        <param name="aspect">scale</param>
+      </include>
+    </definition>
+  </include>
+
   <include name="GenericThumbIconBig">
     <param name="isFocused">false</param>
     <definition>
@@ -1050,6 +1067,16 @@
     </definition>
   </include>
 
+  <include name="GenericScreenshot">
+    <param name="isFocused">false</param>
+    <param name="size">Big</param>
+    <definition>
+      <include content="GenericScreenshotIcon$PARAM[size]">
+        <param name="isFocused">$PARAM[isFocused]</param>
+      </include>
+    </definition>
+  </include>
+
   <include name="GenericMusic">
     <param name="isFocused">false</param>
     <param name="size">Big</param>
@@ -1176,6 +1203,21 @@
       <focusedlayout height="410" width="232.5">
         <include content="GenericActor">
           <param name="isFocused">Control.HasFocus(50)</param>
+        </include>
+      </focusedlayout>
+    </definition>
+  </include>
+
+  <include name="ScreenshotLayout">
+    <param name="viewid"/>
+    <definition>
+      <itemlayout height="310" width="551">
+        <include content="GenericScreenshot">
+        </include>
+      </itemlayout>
+      <focusedlayout height="310" width="551">
+        <include content="GenericScreenshot">
+          <param name="isFocused">true</param>
         </include>
       </focusedlayout>
     </definition>
