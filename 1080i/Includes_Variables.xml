@@ -318,6 +318,15 @@
     <value></value>
   </variable>
 
+  <variable name="AddonOverlay" description="Overlay image">
+    <value condition="!String.IsEmpty(ListItem.AddonBroken)">QuitNF.png</value>
+    <value condition="ListItem.Property(addon.downloading)">OverlayInProgress.png</value>
+    <value condition="ListItem.Property(addon.isinstalled) + !ListItem.Property(addon.isenabled)">QuitNF.png</value>
+    <value condition="ListItem.Property(addon.hasupdate)">RestartNF.png</value>
+    <value condition="ListItem.Property(addon.isinstalled)">OverlayWatched.png</value>
+    <value condition="!ListItem.IsParentFolder">OverlayUnwatched.png</value>
+  </variable>
+
   <variable name="Studios">
     <value condition="!IsEmpty(Skin.String(studiosResource.path)) + SubString(Skin.String(studiosResource.path),coloured)">resource://resource.images.studios.coloured/$INFO[Listitem.Label,,.png]</value>
     <value condition="!IsEmpty(Skin.String(studiosResource.path)) + SubString(Skin.String(studiosResource.path),white)">resource://resource.images.studios.white/$INFO[Listitem.Label,,.png]</value>
