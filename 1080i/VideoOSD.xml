@@ -6,7 +6,7 @@
   <include>OSDFade</include>
   <controls>
     <control type="group">
-      <visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(OSDAudioDSPSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
+      <visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
       <control type="slider">
         <description>Seek Slider</description>
         <posx>30</posx>
@@ -65,7 +65,7 @@
           </include>
           <onup>87</onup>
           <ondown>101</ondown>
-          <onclick>ActivateWindow(PVROSDGuide)</onclick>
+          <onclick>ActivateWindow(PVRChannelGuide)</onclick>
           <onclick>Dialog.Close(VideoOSD)</onclick>
           <visible>VideoPlayer.Content(LiveTV)</visible>
           <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
@@ -218,14 +218,14 @@
           <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
         <control type="radiobutton" id="700">
-          <visible>Player.CanRecord</visible>
+          <visible>PVR.CanRecordPlayingChannel</visible>
           <visible>VideoPlayer.Content(LiveTV)</visible>
           <include content="OSDButtons">
             <param name="icon">OSD/OSDRecordNF.png</param>
           </include>
           <onup>100</onup>
           <ondown>Close</ondown>
-          <onclick>PlayerControl(Record)</onclick>
+          <onclick>PVR.ToggleRecordPlayingChannel</onclick>
           <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
         </control>
       </control>
@@ -270,15 +270,7 @@
             <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
             <visible>System.HasCMS</visible>
           </control>
-          <control type="button" id="1013">
-            <height>80</height>
-            <width>470</width>
-            <font>Details</font>
-            <label>$LOCALIZE[15020]</label>
-            <onclick>ActivateWindow(AudioDSPManager)</onclick>
-            <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
-            <visible>ADSP.HasModes</visible>
-          </control>
+
           <control type="button" id="1014">
             <height>80</height>
             <width>470</width>
