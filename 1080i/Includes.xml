@@ -1018,6 +1018,15 @@
 			<thumb>$VAR[Quit.Art]</thumb>
 			<onclick>$VAR[QuitAction]</onclick>
 		</item>
+		
+		<item id="16" description="Games">
+			<visible>!Skin.HasSetting(plexbmc)</visible>
+			<visible>!Skin.HasSetting(Games.Hide)</visible>
+			<label>$LOCALIZE[15016]</label>
+			<thumb>$VAR[Pictures.Art]</thumb>
+			<onclick>ActivateWindow(Games,root)</onclick>
+		</item>
+		
 	</include>
 
 	<include name="Home.Submenu.Items">
@@ -1047,6 +1056,11 @@
 			<label>$LOCALIZE[1]</label>
 			<onclick>ActivateWindow(Pictures,Addons,return)</onclick>
 		</item>
+		<item id="60" description="Game apps">
+			<visible>Container(300).HasFocus(2)</visible>
+			<label>$LOCALIZE[15016]</label>
+			<onclick>ActivateWindow(Games,Addons,return)</onclick>
+		</item>		
 		<item id="6" description="Add-on Browser">
 			<visible>Container(300).HasFocus(2)</visible>
 			<label>$LOCALIZE[10040]</label>
@@ -1142,37 +1156,37 @@
 			<label>$LOCALIZE[271]</label>
 			<onclick>ActivateWindow(Music,top100,return)</onclick>
 		</item>
-		<item id="100" description="TV/Radio Channels">
+		<item id="120" description="TV/Radio Channels">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[19019]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVChannels)</onclick>      
 			<onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioChannels)</onclick>
 		</item>
-		<item id="101" description="TV/Radio Timeline">
+		<item id="121" description="TV/Radio Timeline">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[22020]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVGuide)</onclick>      
 			<onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioGuide)</onclick>
 		</item>
-		<item id="102" description="TV/Radio Recordings">
+		<item id="122" description="TV/Radio Recordings">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[19163]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVRecordings)</onclick>      
 			<onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioRecordings)</onclick>
 		</item>
-		<item id="103" description="TV/Radio Timer Rules">
+		<item id="123" description="TV/Radio Timer Rules">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[19138]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVTimerRules)</onclick>      
 			<onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioTimerRules)</onclick>
 		</item>    
-		<item id="104" description="TV/Radio Timers">
+		<item id="124" description="TV/Radio Timers">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[19040]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVTimers)</onclick>      
 			<onclick condition="Container(300).HasFocus(13)">ActivateWindow(RadioTimers)</onclick>
 		</item>
-		<item id="105" description="TV/Radio Search">
+		<item id="125" description="TV/Radio Search">
 			<visible>Container(300).HasFocus(12) | Container(300).HasFocus(13)</visible>
 			<label>$LOCALIZE[137]</label>
 			<onclick condition="Container(300).HasFocus(12)">ActivateWindow(TVSearch)</onclick>      
@@ -1278,6 +1292,16 @@
 			<label>$LOCALIZE[20183]</label>
 			<onclick>ReloadSkin()</onclick>
 		</item>
+		<item id="51" description="Debug Info">
+			<visible>Container(300).HasFocus(10)</visible>
+			<label>Debug Info</label>
+			<onclick>Skin.ToggleSetting(DebugInfo)</onclick>
+		</item>
+		<item id="52" description="Debug Grid">
+			<visible>Container(300).HasFocus(10)</visible>
+			<label>Debug Grid</label>
+			<onclick>Skin.ToggleSetting(DebugGrid)</onclick>
+		</item>		
 		<include condition="System.HasAddon(plugin.video.plexbmc)">Plexbmc.Submenu.Items</include>
 	</include>
 
