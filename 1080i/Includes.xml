@@ -17,6 +17,7 @@
 	<include file="Includes_Vertical_Home.xml" />
 	<include file="Includes_Shelf_Contents.xml" />
 	<include file="Includes_Media.xml" />
+	<include file="Includes_DialogSelect.xml" />
 	<include file="View_50_List.xml" />
 	<include file="View_51_Panel.xml" />
 	<include file="View_52_BigList.xml" />
@@ -833,17 +834,18 @@
 
 	<include name="Library_Count">
 		<control type="group" description="Library stats">
-			<animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240" condition="![[[Container(300).HasFocus(13) | Container(300).HasFocus(14)] + Library.HasContent(MusicVideos)] | Container(300).HasFocus(4) | Container(300).HasFocus(5) | [Container(300).HasFocus(6) + Library.HasContent(music)]]">Conditional</animation>
+		    <visible>[Container(300).HasFocus(4) + Library.HasContent(movies)] | [Container(300).HasFocus(5) + Library.HasContent(tvshows)] | [Container(300).HasFocus(6) + Library.HasContent(music)] | [Container(300).HasFocus(14) + Library.HasContent(musicvideos)]</visible>
+			<animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<control type="image">
 				<posx>630r</posx>
-				<posy>990</posy>
+				<posy>805</posy>
 				<width>630</width>
 				<height>90</height>
 				<texture border="100,0,0,0">common/TimePanel.png</texture>
 			</control>
 			<control type="label">
 				<posx>20r</posx>
-				<posy>1033</posy>
+				<posy>848</posy>
 				<height>50</height>
 				<width>490</width>
 				<font>ListDetails</font>
