@@ -832,7 +832,7 @@
 		</focusedlayout>
 	</include>
 
-	<include name="Library_Count">
+<!--	<include name="Library_Count">
 		<control type="group" description="Library stats">
 		    <visible>[Container(300).HasFocus(4) + Library.HasContent(movies)] | [Container(300).HasFocus(5) + Library.HasContent(tvshows)] | [Container(300).HasFocus(6) + Library.HasContent(music)] | [Container(300).HasFocus(14) + Library.HasContent(musicvideos)]</visible>
 			<animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
@@ -854,7 +854,8 @@
 				<shadowcolor>ShadowDark</shadowcolor>
 			</control>
 		</control>
-	</include>
+	</include> -->
+
 
 	<include name="BG.Defaults">
 		<width>1920</width>
@@ -892,6 +893,13 @@
 			<param name="itemid">21</param>
 			<param name="customid">1</param>
 		</include>
+		<item id="16" description="Games">
+			<visible>!Skin.HasSetting(plexbmc)</visible>
+			<visible>!Skin.HasSetting(Games.Hide)</visible>
+			<label>$LOCALIZE[15016]</label>
+			<thumb>$VAR[Games.Art]</thumb>
+			<onclick>ActivateWindow(Games,root)</onclick>
+		</item>
 		<item id="1" description="Pictures">
 			<visible>!Skin.HasSetting(plexbmc)</visible>
 			<visible>!Skin.HasSetting(Pictures.Hide)</visible>
@@ -1021,15 +1029,6 @@
 			<thumb>$VAR[Quit.Art]</thumb>
 			<onclick>$VAR[QuitAction]</onclick>
 		</item>
-		
-		<item id="16" description="Games">
-			<visible>!Skin.HasSetting(plexbmc)</visible>
-			<visible>!Skin.HasSetting(Games.Hide)</visible>
-			<label>$LOCALIZE[15016]</label>
-			<thumb>$VAR[Pictures.Art]</thumb>
-			<onclick>ActivateWindow(Games,root)</onclick>
-		</item>
-		
 	</include>
 
 	<include name="Home.Submenu.Items">
@@ -1758,12 +1757,12 @@
 		<param name="width">870</param>
 		<param name="heading"></param>
 		<param name="subheading"></param>
-		<param name="plot"></param>
+		<param name="plot">ListItem.Plot</param>
 		<param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
 		<param name="subcontent_path">$INFO[ListItem.Path]</param>
 		<param name="subcontent_sortby">year</param>
 		<param name="subcontent_sortorder">descending</param>
-		<param name="subcontent_visible">listitem.iscollection</param>
+		<param name="subcontent_visible">ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)</param>
 		<param name="subcontent_image_visible">true</param>
 		<param name="subcontent_image_texture">$VAR[Overlay]</param>
 		<param name="footer"></param>
