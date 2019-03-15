@@ -6,9 +6,10 @@
 		_1114 Custom_Quit * define Quit menu
     _1118 Custom_FullscreenMusic * go straight to visualisation when playing music
     _1119 CustomAddons * browse addons united under the same roof
+	_11120 CustomGameSettings * Game Settings from the Game OSD
 
    -->
-	<include file="Custom_Overlay.xml" /> 
+	 
 	<include file="Includes_Variables.xml" />
 	<include file="defaults.xml" />
 	<include file="Includes_Plexbmc.xml" />
@@ -26,6 +27,7 @@
 	<include file="View_55_BigPanel.xml" />
 	<include file="View_56_Fanart.xml" />
 	<include file="View_PVR.xml" />
+	
 	<include name="ContentFade">
 		<animation effect="fade" start="0" end="100" time="500" delay="0">WindowOpen</animation>
 		<animation effect="fade" start="100" end="0" time="200" delay="0">WindowClose</animation>
@@ -177,6 +179,7 @@
 		<param name="shadowoffset">8</param>
 		<param name="shadowcolor">HeavyShadow</param>
 		<param name="texture">$INFO[ListItem.Icon]</param>
+		<param name="fallback"/>
 		<param name="aspect">keep</param>
 		<param name="align">center</param>
 		<param name="aligny">center</param>
@@ -189,13 +192,13 @@
 					<left>$PARAM[shadowoffset]</left>
 					<width>$PARAM[width]</width>
 					<height>$PARAM[height]</height>
-					<texture colordiffuse="$PARAM[shadowcolor]">$PARAM[texture]</texture>
+					<texture colordiffuse="$PARAM[shadowcolor]" fallback="$PARAM[fallback]">$PARAM[texture]</texture>
 					<aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
 				</control>
 				<control type="image" description="Icon">
 					<width>$PARAM[width]</width>
 					<height>$PARAM[height]</height>
-					<texture>$PARAM[texture]</texture>
+					<texture fallback="$PARAM[fallback]">$PARAM[texture]</texture>
 					<aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
 				</control>
 			</control>
@@ -2118,87 +2121,5 @@
 			</include>
 		</control>
 	</include>
-
-<!-- TEMPORARY: COpied from Estuary to test GameOSD -->
-
-	<include name="DialogBackgroundCommons">
-		<control type="image">
-			<left>-2000</left>
-			<top>-2000</top>
-			<width>6000</width>
-			<height>6000</height>
-			<animation effect="fade" time="300">VisibleChange</animation>
-			<animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
-			<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
-			<texture colordiffuse="C2FFFFFF">colors/black.png</texture>
-			<visible>$PARAM[darken_bg]</visible>
-		</control>
-		<control type="button">
-			<left>-2000</left>
-			<top>-2000</top>
-			<width>6000</width>
-			<height>6000</height>
-			<texturefocus />
-			<texturenofocus />
-			<onclick>Action(close)</onclick>
-		</control>
-		<control type="group">
-			<width>$PARAM[width]</width>
-			<height>$PARAM[height]</height>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texture colordiffuse="dialog_tint">colors/white.png</texture>
-			</control>
-			<control type="image">
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<height>70</height>
-				<texture colordiffuse="button_focus" border="2">colors/white70.png</texture>
-			</control>
-			<control type="label" id="$PARAM[header_id]">
-				<left>40</left>
-				<top>0</top>
-				<right>100</right>
-				<height>70</height>
-				<font>InfoTitle</font>
-				<label>$PARAM[header_label]</label>
-				<aligny>center</aligny>
-				<shadowcolor>black</shadowcolor>
-			</control>
-			<control type="button" id="22002">
-				<description>button overlay to avoid closing in dialog area</description>
-				<left>0</left>
-				<top>0</top>
-				<right>0</right>
-				<bottom>0</bottom>
-				<texturefocus />
-				<texturenofocus />
-				<onclick>noop</onclick>
-			</control>
-			<control type="radiobutton">
-				<right>10</right>
-				<top>11</top>
-				<width>48</width>
-				<height>48</height>
-				<radiowidth>48</radiowidth>
-				<radioheight>48</radioheight>
-				<texturefocus />
-				<texturenofocus />
-				<label></label>
-				<textureradioofffocus colordiffuse="EEFFFFFF">dialogs/close.png</textureradioofffocus>
-				<textureradiooffnofocus colordiffuse="EEFFFFFF">icons/logo.png</textureradiooffnofocus>
-				<textureradioonfocus colordiffuse="EEFFFFFF">dialogs/close.png</textureradioonfocus>
-				<textureradioonnofocus colordiffuse="EEFFFFFF">icons/logo.png</textureradioonnofocus>
-				<onclick>Action(close)</onclick>
-			</control>
-		</control>
-	</include>
-
-
-
 
 </includes>

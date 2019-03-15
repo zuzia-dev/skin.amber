@@ -363,6 +363,17 @@
 		<value>$VAR[Square]</value>
 	</variable>
 
+	<variable name="FallbackImage" description="Fallback Image">
+		<value condition="ListItem.IsParentFolder">DefaultSquareBack.png</value>
+		<value condition="Container.content(studios)">DefaultStudios.png</value>
+		<value condition="Container.content(actors)">DefaultActor.png</value>
+		<value condition="Container.content(years)">DefaultYear.png</value>
+		<value condition="Container.content(directors)">DefaultDirector.png</value>
+		<value condition="Container.content(genres) + Window.IsActive(MyVideoNav.xml)">DefaultGenre.png</value>
+		<value condition="Container.content(genres) + Window.IsActive(MyMusicNav.xml)">DefaultMusicGenres.png</value>
+		<value>DefaultSquare.png</value>
+	</variable>
+
 	<variable name="Banner" description="TV Banners">
 		<value condition="ListItem.IsParentFolder">DefaultBannerBack.png</value>
 		<value condition="!String.IsEmpty(ListItem.Art(banner))">$INFO[ListItem.Art(banner)]</value>
@@ -599,7 +610,7 @@
 	</variable>
 
 	<variable name="panelsubheading">
-		<value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating, • ]$INFO[ListItem.MPAA, • ]</value>
+	    <value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.Duration,,$LOCALIZE[31297]]$INFO[ListItem.Rating, • ]$INFO[ListItem.MPAA, • ]</value>
 		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[20457]</value>
 		<value condition="String.IsEqual(ListItem.DBType,video)">$INFO[ListItem.Label2,$LOCALIZE[180]: ]</value>
 		<value condition="Container.Content(Seasons) | Container.Content(TVShows)">$INFO[ListItem.Year,, • ]$INFO[ListItem.Property(TotalEpisodes),$LOCALIZE[20360] , • ]$INFO[ListItem.Property(UnWatchedEpisodes),  $LOCALIZE[16101]  ]</value>
