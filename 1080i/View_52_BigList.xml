@@ -79,7 +79,8 @@
 				<shadowcolor></shadowcolor>
 				<label>$VAR[panelsubheading]</label>
 			</control>
-			<control type="group" description="Left Flags">
+
+		    <control type="group" description="Left Flags">
 				<visible>!$PARAM[isfocused]</visible>
 				<posx>$PARAM[left]</posx>
 				<posy>53</posy>
@@ -102,7 +103,8 @@
 					<param name="showratingbadge">[String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,song) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,movie)]</param>
 					<param name="diffuse">Black</param>
 				</include>
-			</control>
+			</control> -->
+			
 			<control type="textbox">
 				<visible>$PARAM[isfocused]</visible>
 				<posx>$PARAM[left]</posx>
@@ -140,6 +142,7 @@
 			</control>
 		</definition>
 	</include>
+	
 	<include name="View_52_BigList">
 		<include content="BackgroundOverlay">
 			<param name="parentid" value="52"/>
@@ -160,7 +163,7 @@
 				<ondown>52</ondown>
 				<preloaditems>4</preloaditems>
 				<visible>!Skin.HasSetting(hide.biglistview)</visible>
-				<itemlayout height="192" width="1860" condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]">
+				<itemlayout height="192" width="1860" condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]">
 					<include content="52_layout">
 						<param name="left">16</param>
 						<param name="width">1700</param>
@@ -169,7 +172,7 @@
 						<param name="isfocused">false</param>
 					</include>
 				</itemlayout>
-				<focusedlayout height="192" width="1860" condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]">
+				<focusedlayout height="192" width="1860" condition="Container.Content() | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | [Container.Content(genres) + Window.IsActive(MyVideoNav.xml) + String.IsEmpty(skin.string(moviegenreiconsResource.path))] | [Container.Content(genres) + Window.IsActive(MyMusicNav.xml) + String.IsEmpty(skin.string(musicgenreiconsResource.path))] | [Container.Content(studios) + String.IsEmpty(skin.string(studiosResource.path))]">
 					<include content="52_layout">
 						<param name="left">16</param>
 						<param name="width">1700</param>
@@ -178,7 +181,7 @@
 						<param name="isfocused">true</param>
 					</include>
 				</focusedlayout>
-				<itemlayout height="192" width="1860" condition="Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)">
+				<itemlayout height="192" width="1860" condition="Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(sets)">
 					<include content="52_layout">
 						<param name="left">145</param>
 						<param name="width">1640</param>
@@ -186,7 +189,7 @@
 						<param name="isfocused">false</param>
 					</include>
 				</itemlayout>
-				<focusedlayout height="192" width="1860" condition="Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)">
+				<focusedlayout height="192" width="1860" condition="Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(sets)">
 					<include content="52_layout">
 						<param name="left">145</param>
 						<param name="width">1640</param>
@@ -232,7 +235,7 @@
 				</focusedlayout>
 				<itemlayout height="192" width="1860" condition="Container.Content(images)">
 					<include content="52_layout">
-						<param name="left">205</param>
+						<param name="left">255</param>
 						<param name="width">1560</param>
 						<param name="imgalign">center</param>
 						<param name="isfocused">false</param>
@@ -240,7 +243,7 @@
 				</itemlayout>
 				<focusedlayout height="192" width="1860" condition="Container.Content(images)">
 					<include content="52_layout">
-						<param name="left">205</param>
+						<param name="left">255</param>
 						<param name="width">1560</param>
 						<param name="imgalign">center</param>
 						<param name="isfocused">true</param>
