@@ -236,6 +236,28 @@
 				<font>Details</font>
 				<label>$LOCALIZE[20413]</label>
 			</control>
+			<control type="button" id="297" description="AB: Choose Art">
+				<height>90</height>
+				<width min="220">auto</width>
+				<align>center</align>
+				<font>Details</font>
+				<label>$LOCALIZE[32005]</label>
+				<visible>[String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,song)] + system.hasaddon(script.artwork.beef)</visible>
+				<onclick condition="String.IsEqual(ListItem.DBType,artist)">XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=artist, dbid=$INFO[ListItem.DBID])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBType,album)">XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=album, dbid=$INFO[ListItem.DBID])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBType,song)">XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=song, dbid=$INFO[ListItem.DBID])</onclick>
+			</control>
+			<control type="button" id="298" description="AB: All Art">
+				<height>90</height>
+				<width min="220">auto</width>
+				<align>center</align>
+				<font>Details</font>
+				<label>$LOCALIZE[32006]</label>
+				<visible>[String.IsEqual(ListItem.DBType,artist) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,song)] + system.hasaddon(script.artwork.beef)</visible>
+				<onclick condition="String.IsEqual(ListItem.DBType,artist)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=artist, dbid=$INFO[ListItem.DBID])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBType,album)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=album, dbid=$INFO[ListItem.DBID])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBType,song)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=song, dbid=$INFO[ListItem.DBID])</onclick>				
+			</control>			
 		</control>
 		<control type="panel" id="50">
 			<include>VisibleFadeEffectDelay</include>
