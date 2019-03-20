@@ -9,40 +9,22 @@
 			</include>
 			<visible>Control.IsVisible(50)</visible>
 			<include>ContentFade</include>
+
 			<control type="list" id="50">
-				<viewtype label="$LOCALIZE[535]">list</viewtype>
-				<posx>1250</posx>
-				<posy>351</posy>
-				<width>640</width>
-				<height>700</height>
+				<viewtype label="535">List</viewtype>
+				<posx>710</posx>
+				<posy>406</posy>
+				<width>1210</width>
+				<height>648</height>
 				<pagecontrol>60</pagecontrol>
 				<onleft>9000</onleft>
 				<onright>60</onright>
 				<onup>50</onup>
 				<ondown>50</ondown>
 				<preloaditems>4</preloaditems>
-				<visible>!Skin.HasSetting(hide.listview)</visible>
-				<include>View_50_List</include>
-				<visible>Container.content(files) | Container.content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(images) | Container.Content(games) | Container.Content() | Container.content(actors) | Container.Content(directors) | Container.Content(genres) | Container.Content(countries) | Container.Content(tags) |  Container.Content(years) | Container.Content(studios) | Container.Content(playlists) | Container.Content(songs)</visible>
+				<include>List_Layout</include>
 			</control>
-			<control type="list" id="50">
-				<viewtype label="$LOCALIZE[535]">list</viewtype>
-				<posx>555</posx>
-				<posy>351</posy>
-				<width>1365</width>
-				<height>700</height>
-				<pagecontrol>60</pagecontrol>
-				<onleft>9000</onleft>
-				<onright>60</onright>
-				<onup>50</onup>
-				<ondown>50</ondown>
-				<preloaditems>4</preloaditems>
-				<visible>!Skin.HasSetting(hide.listview)</visible>
-				<include content="View_50_List">
-					<param name="width">1335</param>
-				</include>
-				<visible>![Container.content(files) | Container.content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(images) | Container.Content(games) | Container.Content() | Container.content(actors) | Container.Content(directors) | Container.Content(genres) | Container.Content(countries) | Container.Content(tags) |  Container.Content(years) | Container.Content(studios) | Container.Content(playlists) | Container.Content(songs)]</visible>
-			</control>
+
 			<control type="scrollbar" id="60">
 				<animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
 				<animation effect="slide" start="-8,0" end="0,0" time="300">UnFocus</animation>
@@ -139,4 +121,175 @@
 			</control>
 		</control>
 	</include>
+
+	<include name="List_Layout">
+	    <param name="id">50</param>
+		<definition>
+		
+		    <itemlayout condition="![String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons) | Container.Content(seasons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="72" width="1210">
+			    <control type="image">
+				    <posx>0</posx>
+				    <posy>0</posy>
+				    <height>73</height>
+				    <width>1210</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>900</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <label>$VAR[MediaListLabel]</label>				
+			    </control>
+			    <control type="label">
+    				<right>90</right>
+				    <posy>0</posy>
+				    <width>400</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <font>ListDetails</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+			    </control>
+			    <include>ListWatchedOverlay</include>
+		    </itemlayout>
+		    <focusedlayout condition="![String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons) | Container.Content(seasons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="72" width="1210">
+			    <control type="image">
+    				<posx>0</posx>
+				    <posy>1</posy>
+					<height>72</height>
+				    <width>1210</width>
+					<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>900</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[MediaListLabel]</label>
+				</control>
+    			<control type="label">
+	    			<right>90</right>
+		    		<posy>0</posy>
+			    	<width>400</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>ListDetails</font>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+				</include>
+			</focusedlayout>
+			
+		    <itemlayout condition="Container.Content(seasons) | Container.content(MusicVideos) | Container.Content(movies) | container.content(tvshows) | Container.Content(episodes) | Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)" height="72" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>570</posx>
+				    <width>640</width>
+				    <height>72</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label" description="Main Label">
+    				<posx>589</posx>
+				    <height>72</height>
+				    <width>520</width>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <label>$VAR[MediaListLabel]</label>
+				</control>
+			    <control type="label">
+    				<right>90</right>
+				    <posy>0</posy>
+				    <width>400</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <font>ListDetails</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+			    </control>
+			    <control type="label" description ="Workaround label spacing for watched overlay">
+    				<visible>Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos)  | Container.Content(sets) | Container.Content(addons)</visible>
+				    <width>1210</width>
+				    <height>72</height>
+				    <textoffsetx>16</textoffsetx>
+				    <font>ListDetails</font>
+				    <textcolor>0000000</textcolor>
+				    <selectedcolor></selectedcolor>
+				    <shadowcolor></shadowcolor>
+				    <align>right</align>
+				    <label>KJIJA</label>
+			    </control>
+			    <include>ListWatchedOverlay</include>
+		    </itemlayout>
+		    <focusedlayout condition="Container.Content(seasons) | Container.content(MusicVideos) | Container.Content(movies) | container.content(tvshows) | Container.Content(episodes) | Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)" height="72" width="1210">
+			    <control type="image" description="BG">
+    				<posx>570</posx>
+					<posy>0</posy>
+					<height>72</height>
+					<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label" description="Main Label">
+    				<posx>589</posx>
+				    <height>72</height>
+				    <width>520</width>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[MediaListLabel]</label>
+				</control>
+    			<control type="label">
+	    			<right>90</right>
+		    		<posy>0</posy>
+			    	<width>400</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>ListDetails</font>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+			    </control>
+				<control type="label" description ="Workaround label spacing for watched overlay">
+					<visible>Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)] | Container.Content(musicvideos) | Container.Content(sets) | Container.Content(addons)</visible>
+					<width>1210</width>
+					<height>72</height>
+					<textoffsetx>16</textoffsetx>
+					<font>ListDetails</font>
+					<textcolor>0000000</textcolor>
+					<selectedcolor></selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>KJIJA</label>
+				</control>			
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+				</include>
+			</focusedlayout>
+			
+		</definition>
+	</include>	
+
 </includes>
