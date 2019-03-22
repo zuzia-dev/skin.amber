@@ -220,6 +220,16 @@
 				<label>$LOCALIZE[20410]</label>
 				<visible>!String.IsEmpty(ListItem.Trailer) + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
 			</control>
+            <control type="button" id="1227" description="Special Features">
+                <height>90</height>
+                <width min="220">auto</width>
+                <font>Details</font>
+                <align>center</align>
+                <label>$LOCALIZE[32007]</label>
+                <onclick>Action(close)</onclick>
+                <onclick>RunScript(plugin.video.specialfeatures,listitem)</onclick>
+                <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true)</visible>
+            </control>			
 			<control type="button" id="299" description="Cinema">
 				<height>90</height>
 				<visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
