@@ -844,14 +844,14 @@
 			<animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<control type="image">
 				<posx>630r</posx>
-				<posy>805</posy>
+				<posy>754</posy>
 				<width>630</width>
 				<height>90</height>
 				<texture border="100,0,0,0">common/TimePanel.png</texture>
 			</control>
 			<control type="label">
 				<posx>20r</posx>
-				<posy>848</posy>
+				<posy>797</posy>
 				<height>50</height>
 				<width>490</width>
 				<font>ListDetails</font>
@@ -2181,6 +2181,24 @@
 		</definition>
 	</include>	
 	
+	<include name="TVGuideFanart">
+	    <param name="TVGuideDayID" />
+		<definition>
+			<control type="image">
+			    <posx>0</posx>
+			    <posy>0</posy>
+			    <include>Dimensions_Fullscreen</include>
+			    <aspectratio>scale</aspectratio>
+			    <texture background="true">$INFO[Container($PARAM[TVGuideDayID]).ListItem.Property(Fanart)]</texture>
+			    <visible>Control.HasFocus($PARAM[TVGuideDayID])</visible>
+			    <fadetime>600</fadetime>
+			    <animation effect="fade" time="600">Visible</animation>
+			    <animation effect="fade" time="600">Hidden</animation>
+			</control>		
+		</definition>
+	</include>
+	
+	
 	<include name="TVNextAiredPanelLayout">
 		<left>500</left>
 		<top>120</top>
@@ -2204,7 +2222,7 @@
 				<top>260</top>
 				<width>425</width>
 				<height>45</height>
-				<label>$INFO[ListItem.TvshowTitle]</label>
+				<label>$INFO[ListItem.Label]</label>
 				<textoffsetx>15</textoffsetx>
 				<font>InfoTitle</font>
 				<textcolor>Highlight</textcolor>
@@ -2235,15 +2253,6 @@
 				<autoscroll>false</autoscroll>
 				<shadowcolor />
 			</control>
-<!--			<control type="textbox">
-				<left>20</left>
-				<top>480</top>
-				<width>425</width>
-				<height>185</height>
-				<label>$LOCALIZE[32010]:[CR][COLOR Grey2]$INFO[ListItem.Property(LatestDate),[B], [/B][CR]]$INFO[ListItem.Property(LatestTitle)][/COLOR]</label>
-				<autoscroll>false</autoscroll>
-				<shadowcolor />
-			</control> -->
 			<control type="label">
 				<top>650</top>
 				<width>445</width>
@@ -2299,7 +2308,7 @@
 				<top>260</top>
 				<width>425</width>
 				<height>45</height>
-				<label>[B]$INFO[ListItem.TvshowTitle][/B]</label>
+				<label>[B]$INFO[ListItem.Label][/B]</label>
 				<textoffsetx>15</textoffsetx>
 				<font>InfoTitle</font>
 				<textcolor>Black</textcolor>
@@ -2332,16 +2341,6 @@
 				<shadowcolor />
 				<textcolor>Black</textcolor>
 			</control>
-<!--			<control type="textbox">
-				<left>20</left>
-				<top>480</top>
-				<width>425</width>
-				<height>185</height>
-				<label>$LOCALIZE[32010]:[CR][COLOR white]$INFO[ListItem.Property(LatestDate),[B], [/B][CR]]$INFO[ListItem.Property(LatestTitle)][/COLOR]</label>
-				<autoscroll>false</autoscroll>
-				<shadowcolor />
-				<textcolor>Black</textcolor>
-			</control> -->
 			<control type="label">
 				<top>650</top>
 				<width>445</width>
