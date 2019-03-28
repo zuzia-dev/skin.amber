@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	<include name="View_54_LowList">
-		<control type="group" description="Content">
+		<control type="group">
 			<include content="BackgroundOverlay">
 				<param name="overlayheight" value="517"/>
 				<param name="overlaytop" value="563"/>
@@ -10,21 +10,38 @@
 			<visible>Control.IsVisible(54)</visible>
 			<include>ContentFade</include>
 			<control type="list" id="54">
+                <viewtype label="$LOCALIZE[31962]">List</viewtype>
+				<visible>!Skin.HasSetting(hide.lowlistview)</visible>
 				<posx>710</posx>
 				<posy>705</posy>
 				<width>1210</width>
 				<height>359</height>
+				<pagecontrol>64</pagecontrol>				
 				<onleft>9000</onleft>
 				<onright>64</onright>
 				<onup>54</onup>
 				<ondown>54</ondown>
-				
-				<pagecontrol>64</pagecontrol>
-				<viewtype label="$LOCALIZE[31962]">Low List</viewtype>
 				<preloaditems>4</preloaditems>
-				<visible>!Skin.HasSetting(hide.lowlistview)</visible>
-				<include>List_Layout</include>
-
+				<include content="List_Layout">
+				    <param name="id">54</param>
+				</include>
+			</control>
+			<control type="scrollbar" id="64">
+				<animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
+				<animation effect="slide" start="-8,0" end="0,0" time="300">UnFocus</animation>
+				<posx>20r</posx>
+				<posy>600</posy>
+				<height>450</height>
+				<width>36</width>
+				<texturesliderbackground></texturesliderbackground>
+				<texturesliderbar></texturesliderbar>
+				<texturesliderbarfocus></texturesliderbarfocus>
+				<textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
+				<textureslidernibfocus border="18">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+				<showonepage>false</showonepage>
+				<orientation>vertical</orientation>
+				<onleft>54</onleft>
+				<onright>9000</onright>
 			</control>
 			
 			<include content="PanelTemplate">
@@ -65,7 +82,7 @@
 				<param name="subcontent_path">$INFO[ListItem.FolderPath]</param>
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Artist_Description))</param>
 				<param name="subcontent_image_visible">false</param>
-				<param name="footer"></param>
+				<param name="showfooter">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
 				<param name="visibility">Container.Content(artists)</param>
 			</include>
@@ -78,8 +95,10 @@
 				<param name="heading">$VAR[panelheading]</param>
 				<param name="subheading">$VAR[panelsubheading]</param>
 				<param name="plot">$VAR[Plots]</param>
-				<param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Duration, • (,)]</param>
+				<param name="subcontent_label">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$INFO[ListItem.Duration,  (,)]</param>
 				<param name="subcontent_path">$INFO[ListItem.FolderPath]</param>
+				<param name="subcontent_sortby" value="track" />
+				<param name="subcontent_sortorder" value="ascending" />
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
 				<param name="subcontent_image_visible">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
@@ -99,6 +118,7 @@
 					<param name="width">295</param>
 					<param name="height">450</param>
 					<param name="texture">$VAR[ThumbType]</param>
+					<param name="fallback">$VAR[FallbackImage]</param>
 				</include>
 				<control type="label">
 					<top>400</top>
@@ -108,23 +128,7 @@
 					<textcolor>Highlight</textcolor>
 				</control>
 			</control>
-			<control type="scrollbar" id="64">
-				<animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
-				<animation effect="slide" start="-8,0" end="0,0" time="300">UnFocus</animation>
-				<posx>20r</posx>
-				<posy>600</posy>
-				<height>450</height>
-				<width>36</width>
-				<texturesliderbackground></texturesliderbackground>
-				<texturesliderbar></texturesliderbar>
-				<texturesliderbarfocus></texturesliderbarfocus>
-				<textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
-				<textureslidernibfocus border="18">OSD/ScrollbarNibFO.png</textureslidernibfocus>
-				<showonepage>false</showonepage>
-				<orientation>vertical</orientation>
-				<onleft>54</onleft>
-				<onright>noop</onright>
-			</control>
+
 		</control>
 	</include>
 </includes>
