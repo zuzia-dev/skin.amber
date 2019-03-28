@@ -1054,6 +1054,15 @@
 		<value condition="String.IsEmpty(ListItem.Property(Art(landscape)))">$INFO[ListItem.Property(Art(fanart))]</value>
 	</variable>
 
+   <variable name="SeasonEpisodeLabel">
+        <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + [String.IsEmpty(ListItem.Season) | String.Contains(ListItem.Episode,S)]">$INFO[ListItem.Episode]</value>
+		<value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + Integer.IsLess(ListItem.Episode,10) + Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S0,]$INFO[ListItem.Episode,E0,]</value>
+        <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + Integer.IsLess(ListItem.Episode,10) + !Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode,E0,]</value>
+        <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + !Integer.IsLess(ListItem.Episode,10) + Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S0,]$INFO[ListItem.Episode,E,]</value>
+        <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + !Integer.IsLess(ListItem.Episode,10) + !Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode,E,]</value>
+    </variable>
+
+
 	<expression name="SettingsAddon1to5Visibility">!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</expression>
 
 	<expression name="56_FanartViewInfo">[[container.content(albums) | container.content(artists)] + Skin.HasSetting(56_Music_Info)] | [container.content(episodes) + Skin.HasSetting(56_Episodes_Info)] | [[container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Info)]</expression>
