@@ -51,7 +51,7 @@
 				<param name="subheading">$VAR[panelsubheading]</param>
 				<param name="plot">$VAR[Plots]</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(addons) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(tvshows) | Container.Content(images) | Container.Content(games)</param>
+				<param name="visibility">Container.content(addons) | Container.Content(episodes) | Container.Content(movies) | Container.Content(musicvideos) | Container.Content(seasons) | Container.Content(tvshows) | Container.Content(images) | Container.Content(games) | ListItem.IsParentFolder</param>
 			</include>
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -61,7 +61,7 @@
 				<param name="heading">$VAR[panelheading]</param>
 				<param name="subheading">$VAR[panelsubheading]</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.Content(sets)</param>
+				<param name="visibility">Container.Content(sets) | ListItem.IsParentFolder</param>
 			</include>
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -76,7 +76,7 @@
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Artist_Description))</param>
 				<param name="subcontent_image_visible">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.Content(artists)</param>
+				<param name="visibility">Container.Content(artists) | ListItem.IsParentFolder</param>
 			</include>
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -93,7 +93,7 @@
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
 				<param name="subcontent_image_visible">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.Content(albums)</param>
+				<param name="visibility">Container.Content(albums) | ListItem.IsParentFolder</param>
 			</include>
 			<control type="group" description="50 MediaInfo">
 				<posx>30</posx>
@@ -109,7 +109,6 @@
 					<param name="width">490</param>
 					<param name="height">700</param>
 					<param name="texture">$VAR[ThumbType]</param>
-					<param name="fallback">$VAR[FallbackImage]</param>
 				</include>
 				<control type="label">
 					<top>650</top>
@@ -125,7 +124,71 @@
 	<include name="List_Layout">
 	    <param name="id">50</param>
 		<definition>
-		
+
+		    <itemlayout condition="[Container.Content(seasons) | Container.content(MusicVideos) | Container.Content(movies) | container.content(tvshows) | Container.Content(episodes) | Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)] + ListItem.IsParentFolder" height="72" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>570</posx>
+				    <width>640</width>
+				    <height>72</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label" description="Main Label">
+    				<posx>589</posx>
+				    <height>72</height>
+				    <width>500</width>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <label>$VAR[MediaListLabel]</label>
+				</control>
+			    <control type="label">
+    				<right>50</right>
+				    <posy>0</posy>
+				    <width>500</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+				    <textoffsetx>16</textoffsetx>
+				    <font>ListDetails</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+			    </control>
+		    </itemlayout>
+		    <focusedlayout condition="[Container.Content(seasons) | Container.content(MusicVideos) | Container.Content(movies) | container.content(tvshows) | Container.Content(episodes) | Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)] + ListItem.IsParentFolder" height="72" width="1210">
+			    <control type="image" description="BG">
+    				<posx>570</posx>
+					<posy>0</posy>
+					<height>72</height>
+					<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label" description="Main Label">
+    				<posx>589</posx>
+				    <height>72</height>
+				    <width>480</width>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[MediaListLabel]</label>
+				</control>
+    			<control type="label">
+	    			<right>50</right>
+		    		<posy>0</posy>
+			    	<width>500</width>
+				    <height>72</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>ListDetails</font>
+					<textcolor>Black</textcolor>
+					<selectedcolor>Black</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+			    </control>
+			</focusedlayout>
+            
 		    <itemlayout condition="![String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons) | Container.Content(seasons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="72" width="1210">
 			    <control type="image">
 				    <posx>0</posx>
