@@ -1801,6 +1801,8 @@
 		<param name="width">870</param>
 		<param name="heading"></param>
 		<param name="subheading"></param>
+        <param name="subheading2"></param>
+        <param name="subheading2_visible">false</param>
 		<param name="plot">$INFO[ListItem.Plot]</param>
 		<param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
 		<param name="subcontent_path">$INFO[ListItem.Path]</param>
@@ -1824,7 +1826,7 @@
 				<control type="label" description="Title Label">
 					<visible>!$PARAM[lowpanel]</visible>
 					<width>$PARAM[width]</width>
-					<height>80</height>
+					<height>60</height>
 					<aligny>center</aligny>
 					<textcolor>Highlight</textcolor>
 					<font>InfoTitle</font>
@@ -1834,7 +1836,7 @@
 				<control type="label" description="Title Label">
 					<visible>$PARAM[lowpanel]</visible>
 					<width>$PARAM[width]</width>
-					<height>60</height>
+					<height>40</height>
 					<aligny>center</aligny>
 					<textcolor>Highlight</textcolor>
 					<font>InfoTitle</font>
@@ -1851,19 +1853,37 @@
 				</control>
 				<control type="label" description="Subheading">
 					<visible>$PARAM[lowpanel]</visible>
-					<height>40</height>
+					<height>30</height>
 					<width>$PARAM[width]</width>
 					<font>font24_title</font>
 					<label>[B]$PARAM[subheading][/B]</label>
 					<aligny>center</aligny>
 					<wrapmultiline>true</wrapmultiline>
 				</control>
+				<control type="label" description="Subheading2">
+					<visible>!$PARAM[lowpanel] + $PARAM[subheading2_visible]</visible>
+					<height>60</height>
+					<width>$PARAM[width]</width>
+					<font>ListDetails</font>
+					<label>[B]$PARAM[subheading2][/B]</label>
+					<aligny>center</aligny>
+					<wrapmultiline>true</wrapmultiline>
+				</control>
+				<control type="label" description="Subheading2">
+					<visible>$PARAM[lowpanel] + $PARAM[subheading2_visible]</visible>
+					<height>30</height>
+					<width>$PARAM[width]</width>
+					<font>ListDetails</font>
+					<label>[B]$PARAM[subheading2][/B]</label>
+					<aligny>center</aligny>
+					<wrapmultiline>true</wrapmultiline>
+				</control>                
 				<control type="group">
 					<width>$PARAM[width]</width>
 					<height>$PARAM[height]</height>
 					<control type="textbox" id="4001">
 						<align>justify</align>
-						<label>$PARAM[plot]</label>
+						<label>[CR]$PARAM[plot]</label>
 						<font>InfoPlot</font>
 						<autoscroll delay="3000" time="1000" repeat="10000"></autoscroll>
 					</control>
@@ -1908,7 +1928,7 @@
 				<control type="label" description="Footer">
 					<visible>$PARAM[showfooter]</visible>
 					<width>$PARAM[width]</width>
-					<height>110</height>
+					<height>130</height>
 					<font>font24_title</font>
 					<label>$PARAM[footer]</label>
 					<wrapmultiline>true</wrapmultiline>
