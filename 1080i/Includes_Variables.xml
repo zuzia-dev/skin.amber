@@ -278,7 +278,7 @@
 		<value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Studio]</value>
 		<value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.TVShowTitle]</value>
 		<value condition="VideoPlayer.Content(MusicVideos)">$INFO[VideoPlayer.Artist] $INFO[VideoPlayer.Album, - ]</value>
-		<value condition="VideoPlayer.Content(LiveTV)">$INFO[VideoPlayer.ChannelNumberLabel,[COLOR=Highlight],[/COLOR]] $INFO[VideoPlayer.ChannelName,  •  ,]$INFO[VideoPlayer.ChannelGroup,  •  (,)]</value>
+		<value condition="VideoPlayer.Content(TV)">$INFO[VideoPlayer.ChannelNumberLabel,[COLOR=Highlight],[/COLOR]] $INFO[VideoPlayer.ChannelName,  •  ,]$INFO[VideoPlayer.ChannelGroup,  •  (,)]</value>
 	</variable>
 
 	<variable name="ShelfSize">
@@ -288,8 +288,8 @@
 
 	<variable name="FullScreenTitle">
 		<value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Title,[B],[/B]]$INFO[VideoPlayer.Year, (,)]</value>
-		<value condition="VideoPlayer.Content(LiveTV) + Control.HasFocus(601)" >$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ]</value>
-		<value condition="VideoPlayer.Content(LiveTV) + Control.HasFocus(602)" >$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ]</value>
+		<value condition="VideoPlayer.Content(TV) + Control.HasFocus(601)" >$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ]</value>
+		<value condition="VideoPlayer.Content(TV) + Control.HasFocus(602)" >$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ]</value>
 		<value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.TVShowTitle,,[COLOR=Highlight]  •  [/COLOR]]$INFO[VideoPlayer.Season,$LOCALIZE[31973],.]$INFO[VideoPlayer.Episode,,[COLOR=Highlight]  •  [/COLOR]]$INFO[VideoPlayer.Title]</value>
 		<value condition="VideoPlayer.Content(MusicVideos)">$INFO[VideoPlayer.Artist,, - ]$INFO[VideoPlayer.Album,, - ]$INFO[VideoPlayer.Title]</value>
 		<value>$INFO[VideoPlayer.Title,[B],[/B]]</value>
@@ -319,7 +319,7 @@
 	</variable>
 
 	<variable name="DialogFullScreenBtn601">
-		<value condition="Videoplayer.Content(LiveTV)">$LOCALIZE[19030]</value>
+		<value condition="Videoplayer.Content(TV)">$LOCALIZE[19030]</value>
 		<value>$LOCALIZE[207]</value>
 	</variable>
 
@@ -331,7 +331,7 @@
 	<variable name="VideoBottomHeading">
 		<value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Director,[COLOR=Highlight]$LOCALIZE[20339]:[/COLOR] ]</value>
 		<value condition="VideoPlayer.Content(Episodes)">$INFO[VideoPlayer.Season,[COLOR=Highlight]$LOCALIZE[20373]:[/COLOR] ]$INFO[VideoPlayer.Episode, • [COLOR=Highlight]$LOCALIZE[20359]:[/COLOR] ]</value>
-		<value condition="VideoPlayer.Content(LiveTV)">$INFO[VideoPlayer.NextTitle,[COLOR=Highlight]$LOCALIZE[19031]:[/COLOR] ]</value>
+		<value condition="VideoPlayer.Content(TV)">$INFO[VideoPlayer.NextTitle,[COLOR=Highlight]$LOCALIZE[19031]:[/COLOR] ]</value>
 	</variable>
 
 	<variable name="PlaylistHeader" description="Header for MyPlaylist window">
@@ -507,8 +507,8 @@
 
 	<variable name="TopBarMedia">
 		<value condition="Player.HasAudio">$INFO[MusicPlayer.Artist,,[COLOR=Highlight]  •  [/COLOR]]$INFO[MusicPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[MusicPlayer.TimeSpeed]$INFO[MusicPlayer.Duration, / ][/COLOR]</value>
-		<value condition="Player.HasVideo + !VideoPlayer.Content(livetv)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
-		<value condition="Player.HasVideo + VideoPlayer.Content(livetv)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.ChannelName,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
+		<value condition="Player.HasVideo + !VideoPlayer.Content(TV)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR]][COLOR=Grey3]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
+		<value condition="Player.HasVideo + VideoPlayer.Content(TV)">$INFO[VideoPlayer.Title,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.ChannelName,,[COLOR=Highlight]  •  [/COLOR][COLOR=Grey3]]$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ][/COLOR]</value>
 	</variable>
 
 	<variable name="TopBarMediaIcon">
@@ -623,13 +623,13 @@
 		<value condition="Skin.HasSetting(MusicEntry.Genres)">$LOCALIZE[135]</value>
 	</variable>
 
-	<variable name="TVEntryPoint" description="Action for TV home button">
+	<variable name="TVEntryPoint" description="Action for Live TV home button">
 		<value condition="Skin.HasSetting(TVEntry.Guide)">ActivateWindow(TVGuide)</value>
 		<value condition="Skin.HasSetting(TVEntry.Recordings)">ActivateWindow(TVRecordings)</value>
 		<value>ActivateWindow(TVChannels)</value>
 	</variable>
 
-	<variable name="TVEntryPointLabel2" description="Label2 for skin settings TV function item">
+	<variable name="TVEntryPointLabel2" description="Label2 for skin settings Live TV function item">
 		<value condition="Skin.HasSetting(TVEntry.Guide)">$LOCALIZE[22020]</value>
 		<value condition="Skin.HasSetting(TVEntry.Recordings)">$LOCALIZE[19163]</value>
 	</variable>
@@ -798,8 +798,8 @@
 		<value>special://skin/backgrounds/Settings.jpg</value>
 	</variable>
 	<variable name="Pvr.Art" description="Calculate BG to show">
-		<value condition="!String.IsEmpty(Skin.String(Pvr.Background))">$INFO[Skin.String(Pvr.Background)]</value>
-		<value>special://skin/backgrounds/Pvr.jpg</value>
+		<value condition="!String.IsEmpty(Skin.String(TV.Background))">$INFO[Skin.String(TV.Background)]</value>
+		<value>special://skin/backgrounds/TV.jpg</value>
 	</variable>
 	<variable name="Radio.Art" description="Calculate BG to show">
 		<value condition="!String.IsEmpty(Skin.String(Radio.Background))">$INFO[Skin.String(Radio.Background)]</value>
