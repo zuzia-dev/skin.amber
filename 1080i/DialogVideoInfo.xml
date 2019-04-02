@@ -101,13 +101,15 @@
 						<item>
 							<label>$LOCALIZE[20339]:</label>
 							<label2>$INFO[ListItem.Director]</label2>
-							<onclick>SendClick(13)</onclick>
+							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SendClick(13)</onclick>
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[ListItem.Director])</onclick>
 							<visible>!String.IsEmpty(ListItem.Director)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[20417]:</label>
 							<label2>$INFO[ListItem.Writer]</label2>
-							<onclick>noop</onclick>
+							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">noop</onclick>
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[ListItem.Writer])</onclick>
 							<visible>!String.IsEmpty(ListItem.Writer)</visible>
 						</item>
 						<item>
@@ -229,7 +231,17 @@
                 <onclick>Action(close)</onclick>
                 <onclick>RunScript(plugin.video.specialfeatures,listitem)</onclick>
                 <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true)</visible>
-            </control>			
+            </control>
+            <control type="button" id="1228" description="Extended Info">
+                <visible>[Container.Content(movies) | Container.Content(tvshows)] + [Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(script.extendedinfo)]</visible>
+                <height>90</height>
+                <width min="220">auto</width>
+                <font>Details</font>
+                <align>center</align>
+                <label>$LOCALIZE[32016]</label>
+                <onclick condition="Container.Content(movies)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onclick>
+                <onclick condition="Container.Content(tvshows)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onclick>
+            </control>
 			<control type="button" id="299" description="Cinema">
 				<height>90</height>
 				<visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
@@ -299,7 +311,7 @@
 		<control type="list" id="50">
 			<visible>!Control.HasFocus(10)</visible>
 			<include>VisibleFadeEffectDelay</include>
-			<ondown condition="System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[Container(50).ListItem.Label])</ondown>
+			<ondown condition="[System.HasAddon(script.extendedinfo) + Skin.HasSetting(Enable.ExtendedInfo)]">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[Container(50).ListItem.Label])</ondown>
 			<posx>700</posx>
 			<posy>640</posy>
 			<width>1180</width>
