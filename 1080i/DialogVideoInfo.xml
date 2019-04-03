@@ -102,8 +102,10 @@
 							<label>$LOCALIZE[20339]:</label>
 							<label2>$INFO[ListItem.Director]</label2>
 							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SendClick(13)</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[ListItem.Director])</onclick>
-							<visible>!String.IsEmpty(ListItem.Director)</visible>
+			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">SetProperty(IsDirector,True)</onclick>
+			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">SetProperty(ActorName,$INFO[ListItem.Director])</onclick>
+			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">ActivateWindow(1121)</onclick>							
+                            <visible>!String.IsEmpty(ListItem.Director)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[20417]:</label>
@@ -311,7 +313,9 @@
 		<control type="list" id="50">
 			<visible>!Control.HasFocus(10)</visible>
 			<include>VisibleFadeEffectDelay</include>
-			<ondown condition="[System.HasAddon(script.extendedinfo) + Skin.HasSetting(Enable.ExtendedInfo)]">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[Container(50).ListItem.Label])</ondown>
+			<onclick>SetProperty(IsActor,True)</onclick>
+			<onclick>SetProperty(ActorName,$INFO[Container(50).ListItem.Label])</onclick>
+			<onclick>ActivateWindow(1121)</onclick>			
 			<posx>700</posx>
 			<posy>640</posy>
 			<width>1180</width>
