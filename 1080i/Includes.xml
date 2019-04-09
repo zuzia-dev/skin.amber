@@ -901,7 +901,6 @@
 			<param name="customid">1</param>
 		</include>
 		<item id="16" description="Games">
-			<visible>!Skin.HasSetting(plexbmc)</visible>
 			<visible>!Skin.HasSetting(Games.Hide)</visible>
 			<label>$LOCALIZE[15016]</label>
 			<thumb>$VAR[Games.Art]</thumb>
@@ -1013,9 +1012,9 @@
 			<onclick condition="!System.HasMediaDvd">Notification($LOCALIZE[164],$LOCALIZE[219],5,DefaultIconWarning.png)</onclick>
 		</item>
 		<item id="100" description="Search">
-			<visible>System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch)</visible>
+			<visible>System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch) + !Skin.HasSetting(Search.Hide)</visible>
 			<label>$LOCALIZE[137]</label>
-			<thumb>$VAR[Settings.Art]</thumb>
+			<thumb>$VAR[Search.Art]</thumb>
 			<onclick>RunScript(script.globalsearch)</onclick>
 		</item>
 		<include content="Home.Main.Menu.Custom.Item">
@@ -1062,6 +1061,74 @@
 		</include>		
 	</include>
 
+    <include name="DefaultMenuPosition">
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),5)">DefaultPosTVShows</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),4)">DefaultPosMovies</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),16)">DefaultPosGames</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),1)">DefaultPosPictures</include>        
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),2)">DefaultPosAddons</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),3)">DefaultPosVideos</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),6)">DefaultPosMusic</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),14)">DefaultPosMusicVideos</include>        
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),12)">DefaultPosLiveTV</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),13)">DefaultPosRadio</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),7)">DefaultPosFavourites</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),8)">DefaultPosDVD</include>        
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),100)">DefaultPosSearch</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),15)">DefaultPosWeather</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),10)">DefaultPosSettings</include>
+        <include condition="String.IsEqual(Skin.String(DefaultMenuPos),11)">DefaultPosQuit</include>        
+    </include>
+
+    <include name="DefaultPosTVShows">
+        <defaultcontrol always="true">5</defaultcontrol>
+    </include>
+    <include name="DefaultPosMovies">
+        <defaultcontrol always="true">4</defaultcontrol>
+    </include>
+    <include name="DefaultPosGames">
+        <defaultcontrol always="true">16</defaultcontrol>
+    </include>
+    <include name="DefaultPosPictures">
+        <defaultcontrol always="true">1</defaultcontrol>
+    </include>
+    <include name="DefaultPosAddons">
+        <defaultcontrol always="true">2</defaultcontrol>
+    </include>
+    <include name="DefaultPosVideos">
+        <defaultcontrol always="true">3</defaultcontrol>
+    </include>
+    <include name="DefaultPosMusic">
+        <defaultcontrol always="true">6</defaultcontrol>
+    </include>
+    <include name="DefaultPosMusicVideos">
+        <defaultcontrol always="true">14</defaultcontrol>
+    </include>
+    <include name="DefaultPosLiveTV">
+        <defaultcontrol always="true">12</defaultcontrol>
+    </include>
+    <include name="DefaultPosRadio">
+        <defaultcontrol always="true">13</defaultcontrol>
+    </include>
+    <include name="DefaultPosFavourites">
+        <defaultcontrol always="true">7</defaultcontrol>
+    </include>
+    <include name="DefaultPosDVD">
+        <defaultcontrol always="true">8</defaultcontrol>
+    </include>
+    <include name="DefaultPosSearch">
+        <defaultcontrol always="true">100</defaultcontrol>
+    </include>
+    <include name="DefaultPosSettings">
+        <defaultcontrol always="true">10</defaultcontrol>
+    </include>
+    <include name="DefaultPosQuit">
+        <defaultcontrol always="true">11</defaultcontrol>
+    </include>
+    <include name="DefaultPosWeather">
+        <defaultcontrol always="true">15</defaultcontrol>
+    </include>
+    
 	<include name="Home.Submenu.Items">
 		<item id="1" description="DVD eject">
 			<visible>Container(300).HasFocus(8)</visible>
@@ -1602,8 +1669,33 @@
 		</definition>
 	</include>
 
+	<include name="DefMenuOptSettingItem">
+		<param name="itemid" />
+        <param name="optid" />
+		<param name="itemlabel" />
+		<param name="itemvisibility" default="true"/>
+		<param name="skinsetting"/>
+		<definition>
+			<item id="$PARAM[itemid]">
+				<visible>String.IsEqual(Skin.String($PARAM[skinsetting]),$PARAM[optid])</visible>
+                <visible>$PARAM[itemvisibility]</visible>
+				<label>$PARAM[itemlabel]</label>
+				<label2>$LOCALIZE[107]</label2>
+				<onclick>Skin.Reset($PARAM[skinsetting])</onclick>
+			</item>
+			<item id="$PARAM[itemid]">
+				<visible>!Skin.String($PARAM[skinsetting]) | !String.IsEqual(Skin.String($PARAM[skinsetting]),$PARAM[optid])</visible>
+                <visible>$PARAM[itemvisibility]</visible>
+				<label>$PARAM[itemlabel]</label>
+				<label2>$LOCALIZE[106]</label2>
+				<onclick>Skin.SetString($PARAM[skinsetting], $PARAM[optid])</onclick>
+			</item>
+		</definition>
+	</include>
+
 	<include name="YesNoSettingItem">
 		<param name="itemid" />
+        <param name="optid"/>
 		<param name="itemlabel" />
 		<param name="itemicon"/>
 		<param name="itemvisibility" default="true"/>
@@ -1627,6 +1719,7 @@
 				<icon>$PARAM[itemicon]</icon>
 				<property name="area">$PARAM[area]</property>
 				<onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+                <onclick condition="String.IsEqual(Skin.String(DefaultMenuPos),$PARAM[optid])">Skin.Reset(DefaultMenuPos)</onclick>
 			</item>
 		</definition>
 	</include>
@@ -1722,8 +1815,10 @@
 		<param name="itemid"/>
 		<param name="itemlabel"/>
 		<param name="area"/>
+        <param name="itemvisibility">true</param>
 		<definition>
 			<item id="$PARAM[itemid]">
+                <visible>$PARAM[itemvisibility]</visible>
 				<visible>!Skin.HasSetting($PARAM[area].Hide)</visible>
 				<label>$PARAM[itemlabel]</label>
 				<label2>$LOCALIZE[305]</label2>
@@ -1731,6 +1826,7 @@
 				<onclick>Skin.ToggleSetting($PARAM[area].Hide)</onclick>
 			</item>
 			<item id="$PARAM[itemid]">
+                <visible>$PARAM[itemvisibility]</visible>            
 				<visible>Skin.HasSetting($PARAM[area].Hide)</visible>
 				<label>[COLOR=Grey]$PARAM[itemlabel][/COLOR]</label>
 				<label2>$LOCALIZE[1223]</label2>
