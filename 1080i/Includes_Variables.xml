@@ -1089,6 +1089,21 @@
         <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + !Integer.IsLess(ListItem.Episode,10) + !Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode,E,]</value>
     </variable>
 
+   <variable name="UpNextSeasonEpisodeLabel">
+        <value condition="[String.IsEmpty(Window.Property(Season)) | String.Contains(Window.Property(Episode),S)]">$INFO[Window.Property(Episode)]</value>
+		<value condition="Integer.IsLess(Window.Property(Episode),10) + Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),S0,]$INFO[Window.Property(Episode),E0,]</value>
+        <value condition="Integer.IsLess(Window.Property(Episode),10) + !Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),S,]$INFO[Window.Property(Episode),E0,]</value>
+        <value condition="!Integer.IsLess(Window.Property(Episode),10) + Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),S0,]$INFO[Window.Property(Episode),E,]</value>
+        <value condition="!Integer.IsLess(Window.Property(Episode),10) + !Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),S,]$INFO[Window.Property(Episode),E,]</value>
+    </variable>
+    
+    <variable name="UpNextThumbVar">
+        <value condition="String.IsEmpty(Window.Property(fanart)) + String.IsEmpty(Window.Property(landscape))">$INFO[Window.Property(Thumb)]</value>
+        <value condition="String.IsEmpty(Window.Property(fanart)) + !String.IsEmpty(Window.Property(landscape)">$INFO[Window.Property(landscape)]</value>
+        <value condition="!String.IsEmpty(Window.Property(fanart)">$INFO[Window.Property(fanart)]</value>
+    </variable>
+
+
 
 
 	<expression name="SettingsAddon1to5Visibility">!String.IsEmpty(Skin.String(ShelfAddons.1.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.2.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.3.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.4.Label)) + !String.IsEmpty(Skin.String(ShelfAddons.5.Label))</expression>
