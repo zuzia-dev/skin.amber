@@ -9,6 +9,7 @@
     _1119 CustomAddons * browse addons united under the same roof
 	_1120 CustomGameSettings * Game Settings from the Game OSD
 	_1121 CustomInfoSelect * Select whether to search local library or show extendedinfo for actors/directors
+    _1122 Custom_1122_Search * Search without addons, thanks to sualfred and jurialmunkey
 
    -->
 	 
@@ -20,7 +21,8 @@
 	<include file="Includes_Vertical_Home.xml" />
 	<include file="Includes_Shelf_Contents_Jarvis.xml" />
 	<include file="Includes_Shelf_Contents.xml" />
-	
+	<include file="Includes_Search.xml" />
+    
 	<include file="Includes_Media.xml" />
 	<include file="View_50_List.xml" />
 	<include file="View_51_Panel.xml" />
@@ -1023,10 +1025,10 @@
 			<onclick condition="!System.HasMediaDvd">Notification($LOCALIZE[164],$LOCALIZE[219],5,DefaultIconWarning.png)</onclick>
 		</item>
 		<item id="100" description="Search">
-			<visible>System.HasAddon(script.globalsearch) + Skin.HasSetting(Enable.GlobalSearch) + !Skin.HasSetting(Search.Hide)</visible>
+			<visible>!Skin.HasSetting(Search.Hide)</visible>
 			<label>$LOCALIZE[137]</label>
 			<thumb>$VAR[Search.Art]</thumb>
-			<onclick>RunScript(script.globalsearch)</onclick>
+			<include>search_action</include>
 		</item>
 		<include content="Home.Main.Menu.Custom.Item">
 			<param name="itemid">32</param>
@@ -1278,37 +1280,37 @@
 			<onclick condition="Container(300).HasFocus(6)">UpdateLibrary(music)</onclick>
 		</item>
 		<item id="100" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(movies)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(movies) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[20342]</label>
 			<onclick>RunScript(script.globalsearch,movies=true)</onclick>
 		</item>
 		<item id="101" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(tvshows)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(tvshows) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[20343]</label>
 			<onclick>RunScript(script.globalsearch,tvshows=true)</onclick>
 		</item>
 		<item id="102" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(tvshows)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(tvshows) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[20360]</label>
 			<onclick>RunScript(script.globalsearch,episodes=true)</onclick>
 		</item>
 		<item id="103" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(musicvideos)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(musicvideos) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[20389]</label>
 			<onclick>RunScript(script.globalsearch,musicvideos=true)</onclick>
 		</item>
 		<item id="104" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(music) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[133]</label>
 			<onclick>RunScript(script.globalsearch,artists=true)</onclick>
 		</item>
 		<item id="105" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(music) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[132]</label>
 			<onclick>RunScript(script.globalsearch,albums=true)</onclick>
 		</item>
 		<item id="106" description="Search subitems">
-			<visible>Container(300).HasFocus(100) + Library.HasContent(music)</visible>
+			<visible>Container(300).HasFocus(100) + Library.HasContent(music) + Skin.HasSetting(Enable.GlobalSearch)</visible>
 			<label>$LOCALIZE[134]</label>
 			<onclick>RunScript(script.globalsearch,songs=true)</onclick>
 		</item>
