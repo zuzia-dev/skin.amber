@@ -501,7 +501,13 @@
 	<variable name="WeatherIconPath"> 
 		<value condition="!String.IsEmpty(Skin.String(WeatherIconsResource.path))">$INFO[Skin.String(WeatherIconsResource.path)]</value> 
 		<value>resource://resource.images.weathericons.default/</value> 
-	</variable> 
+	</variable>
+
+	<variable name="WeatherIconExt">
+        <value condition="String.Contains(Skin.String(weatherIconsResource.path),animated)" />
+		<value condition="!String.IsEmpty(Skin.String(WeatherIconsResource.ext))">$INFO[Skin.String(WeatherIconsResource.ext)]</value> 
+		<value>.png</value> 
+	</variable>    
 
 	<variable name="LibraryStats" description="Home page library statistics">
 		<value condition="Integer.IsGreater(Window(Home).Property(MusicVideos.Unwatched),0) + Library.HasContent(musicvideos) + Container(300).HasFocus(14)">$INFO[Window(Home).Property(MusicVideos.Count),$LOCALIZE[20389]: ,[COLOR=Highlight]  •  [/COLOR]]$INFO[Window(Home).Property(MusicVideos.Unwatched),$LOCALIZE[16101]: ]</value>

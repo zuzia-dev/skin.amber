@@ -312,14 +312,17 @@
 						<aspectratio aligny="center">keep</aspectratio>
 						<texture>img/PVR-IsRecording.png</texture>
 					</control>
-					<control type="image">
+					<control type="multiimage">
 						<visible>!Skin.HasSetting(Hide.WeatherTitleBar) + !String.IsEmpty(Weather.Plugin)</visible>
 						<visible>!String.IsEqual(Weather.Location,$LOCALIZE[503])</visible>
 						<top>3</top>
 						<width>45</width>
 						<height>38</height>
 						<aspectratio aligny="center">keep</aspectratio>
-						<texture>$VAR[WeatherIconPath]$INFO[Window(Weather).Property(Current.FanartCode),,.png]</texture>
+                        <timeperimage>70</timeperimage>
+				        <fadetime>1</fadetime>
+				        <randomize>false</randomize>
+						<imagepath>$VAR[WeatherIconPath]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherIconExt]</imagepath>
 					</control>
 					<control type="label">
 						<visible>!Skin.HasSetting(Hide.WeatherTitleBar) + !String.IsEmpty(Weather.Plugin)</visible>
@@ -1426,13 +1429,16 @@
 					<shadowcolor>ShadowDark</shadowcolor>
 					<label>$INFO[Window.Property(Day$PARAM[dayid].LowTemp)]</label>
 				</control>
-				<control type="image" description="Icon">
+				<control type="multiimage" description="Icon">
 					<posx>555</posx>
 					<posy>745</posy>
 					<height>120</height>
 					<width>260</width>
-					<texture>$VAR[WeatherIconPath]$INFO[Window.Property(Day$PARAM[dayid].FanartCode),,.png]</texture>
+					<imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Day$PARAM[dayid].FanartCode)]$VAR[WeatherIconExt]</imagepath>
 					<aspectratio>keep</aspectratio>
+					<timeperimage>70</timeperimage>
+					<fadetime>1</fadetime>
+					<randomize>false</randomize>
 				</control>
 				<control type="label" description="Conditions">
 					<posx>555</posx>
