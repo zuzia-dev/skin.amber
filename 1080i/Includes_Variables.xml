@@ -1047,6 +1047,14 @@
         <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + !Integer.IsLess(ListItem.Episode,10) + !Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode,E,]</value>
     </variable>
 
+   <variable name="PlayerSeasonEpisodeLabel">
+        <value condition="[String.IsEmpty(VideoPlayer.Season) | String.Contains(VideoPlayer.Episode,S)]">$INFO[VideoPlayer.Episode]</value>
+		<value condition="Integer.IsLess(VideoPlayer.Episode,10) + Integer.IsLess(VideoPlayer.Season,10)">$INFO[VideoPlayer.Season,S0,]$INFO[VideoPlayer.Episode,E0,]</value>
+        <value condition="Integer.IsLess(VideoPlayer.Episode,10) + !Integer.IsLess(VideoPlayer.Season,10)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E0,]</value>
+        <value condition="!Integer.IsLess(VideoPlayer.Episode,10) + Integer.IsLess(VideoPlayer.Season,10)">$INFO[VideoPlayer.Season,S0,]$INFO[VideoPlayer.Episode,E,]</value>
+        <value condition="!Integer.IsLess(VideoPlayer.Episode,10) + !Integer.IsLess(VideoPlayer.Season,10)">$INFO[VideoPlayer.Season,S,]$INFO[VideoPlayer.Episode,E,]</value>
+    </variable>
+
    <variable name="UpNextSeasonEpisodeLabel">
         <value condition="[String.IsEmpty(Window.Property(Season)) | String.Contains(Window.Property(Episode),S)]">$INFO[Window.Property(Episode)]</value>
 		<value condition="Integer.IsLess(Window.Property(Episode),10) + Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),S0,]$INFO[Window.Property(Episode),E0,]</value>
