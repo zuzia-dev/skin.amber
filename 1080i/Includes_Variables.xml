@@ -354,6 +354,7 @@
 		<value condition="String.IsEqual(ListItem.DBType,season)">$INFO[ListItem.TVShowTitle,[B],[/B]] - $INFO[ListItem.Label,[B],[/B]]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode)">$INFO[ListItem.TVShowTitle,[B],[/B]] - $INFO[ListItem.Label,[B],[/B]]$INFO[ListItem.Premiered, (,)][COLOR=White]$INFO[ListItem.Duration, • , $LOCALIZE[12391]]$INFO[ListItem.Rating, • ][/COLOR]</value>
         <value condition="!String.IsEmpty(ListItem.Property(nextairedtvshowtitle))">$INFO[ListItem.Label]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(recommendedtvshowtitle))">$INFO[ListItem.Label]</value>
         <value condition="!String.IsEmpty(ListItem.Property(Label3))">$INFO[ListItem.Label,[B],[/B]]$INFO[ListItem.Label2, • ,][COLOR=White]$INFO[ListItem.Property(Label3), • ][/COLOR]</value>
         <value condition="!String.IsEmpty(ListItem.Property(Outlook))">$INFO[ListItem.Property(LongDay),[B],[/B]]$INFO[ListItem.Property(Time),[B],[/B]]$INFO[ListItem.Property(ShortDate), • [B],[/B]][COLOR=White]$INFO[ListItem.Property(Outlook), • ,][/COLOR]</value>
         <value condition="!String.IsEmpty(ListItem.Property(TotalEpisodes))">$INFO[ListItem.Label,[B],[/B]]$INFO[ListItem.Year, (,)][COLOR=White]$INFO[ListItem.Property(TotalEpisodes), • ,]$INFO[ListItem.Property(UnWatchedEpisodes), (,)]$INFO[ListItem.Rating, • ][/COLOR]</value>
@@ -365,7 +366,7 @@
 	</variable>
 
     <variable name="WidgetItemLabel">
-        <value condition="!String.IsEmpty(ListItem.Property(nextairedtvshowtitle))">$INFO[ListItem.Label2]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) | !String.IsEmpty(ListItem.Property(recommendedtvshowtitle))">$INFO[ListItem.Label2]</value>
         <value condition="!String.IsEmpty(ListItem.Property(Label3))">$INFO[ListItem.Label] - $INFO[ListItem.Label2][CR]$INFO[ListItem.Property(Label3)]</value>
         <value condition="!String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Label][CR]$INFO[ListItem.Label2]</value>
 		<value condition="String.Contains(ListItem.Path,pvr://channels)">$INFO[ListItem.StartTime] $INFO[ListItem.Title][CR]$INFO[ListItem.NextStartTime] $INFO[ListItem.NextTitle]</value>
@@ -814,8 +815,9 @@
 	</variable>
 
 	<variable name="HomeBackground">
-		<value condition="!Skin.HasSetting(Home_DefaultBG) + [ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(Container.ListItem.Art(fanart)) + $EXP[WidgetFanartVisible]]">$INFO[Container.ListItem.Art(fanart)]</value>
+		<value condition="!Skin.HasSetting(Home_DefaultBG) + [ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(Container.ListItem.Art(fanart)) + $EXP[WidgetFanartVisible]]">$INFO[Container.ListItem.Art(fanart)]</value>
 		<value condition="!Skin.HasSetting(Home_DefaultBG) + [ControlGroup(700).HasFocus + !String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.Property(nextairedfanart)) + $EXP[WidgetFanartVisible]]">$INFO[ListItem.Property(nextairedfanart)]</value>
+        <value condition="!Skin.HasSetting(Home_DefaultBG) + [ControlGroup(700).HasFocus + !String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + !String.IsEmpty(ListItem.Property(recommendedfanart)) + $EXP[WidgetFanartVisible]]">$INFO[ListItem.Property(recommendedfanart)]</value>
 		<value condition="Skin.HasSetting(Home_DefaultBG) + !String.IsEmpty(Skin.String(Default.Background))">$INFO[Skin.String(Default.Background)]</value>
 		<value condition="Skin.HasSetting(Home_DefaultBG)">special://skin/backgrounds/Default.jpg</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Movie.Fanart)">$INFO[Window(Home).Property(script.grab.fanart.Movie.FanArt)]</value>
@@ -829,9 +831,10 @@
 	</variable>
 
 	<variable name="FanartTitleVar">
-		<value condition="ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(ListItem.TVShowTitle) + $EXP[WidgetFanartVisible]">$INFO[ListItem.TVShowTitle]</value>
-		<value condition="ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(Container.ListItem.Art(fanart)) + $EXP[WidgetFanartVisible]">$INFO[Container.ListItem.Title]</value>
+		<value condition="ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(ListItem.TVShowTitle) + $EXP[WidgetFanartVisible]">$INFO[ListItem.TVShowTitle]</value>
+		<value condition="ControlGroup(700).HasFocus + [!String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle))] + !String.IsEmpty(Container.ListItem.Art(fanart)) + $EXP[WidgetFanartVisible]">$INFO[Container.ListItem.Title]</value>
 		<value condition="ControlGroup(700).HasFocus + !String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.Property(nextairedfanart)) + $EXP[WidgetFanartVisible]">$INFO[ListItem.Property(nextairedtvshowtitle)]</value>
+        <value condition="ControlGroup(700).HasFocus + !String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + !String.IsEmpty(ListItem.Property(recommendedfanart)) + $EXP[WidgetFanartVisible]">$INFO[ListItem.Property(recommendedtvshowtitle)]</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Movie.Fanart)">$INFO[Window(Home).Property(script.grab.fanart.Movie.Title)]</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),TV.Fanart)">$INFO[Window(Home).Property(script.grab.fanart.TV.Title)]</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Video.Fanart)">$INFO[Window(Home).Property(script.grab.fanart.Video.Title)]</value>
