@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <!-- List layout for all List views except BigList -->
 	<include name="List_Layout">
 	    <param name="id">50</param>
         <param name="ListLabelFont"></param>
@@ -188,6 +189,101 @@
                     <param name="BGposy">$PARAM[BGposy]</param>
 				</include>
 			</focusedlayout>
+		</definition>
+	</include>
+
+    <!-- List layout for BigList -->
+	<include name="52_layout">
+		<param name="left">20</param>
+		<param name="width">1040</param>
+		<param name="imgalign">center</param>
+		<param name="imgwidth">233</param>
+		<param name="image">$VAR[Poster]</param>
+		<param name="isfocused">false</param>
+        <param name="imagevisibility">true</param>
+		<definition>
+			<control type="image">
+				<visible>$PARAM[isfocused]</visible>
+				<width>1040</width>
+				<height>104</height>
+				<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+				<animation effect="fade" start="105" end="50" time="105" condition="!Control.HasFocus(52)">Conditional</animation>
+			</control>
+			<control type="image">
+				<visible>!$PARAM[isfocused]</visible>
+				<height>104</height>
+				<width>1040</width>
+				<texture flipy="true" border="3">list/ListNF.png</texture>
+			</control>
+			<include content="ShadowedImage">
+				<param name="top">5</param>
+				<param name="left">5</param>
+				<param name="width">$PARAM[imgwidth]</param>
+				<param name="height">90</param>
+				<param name="shadowoffset">4</param>
+				<param name="texture">$PARAM[image]</param>
+				<param name="align">$PARAM[imgalign]</param>
+                <param name="visibility">$PARAM[imagevisibility]</param>
+			</include>
+           <control type="label">
+		        <visible>$PARAM[isfocused]</visible>
+		        <posx>$PARAM[left]</posx>
+		        <posy>10</posy>
+		        <height>40</height>
+		        <width>890</width>
+		        <font>font16</font>
+		        <textcolor>Black</textcolor>
+		        <shadowcolor></shadowcolor>
+		        <scroll>false</scroll>
+		        <aligny>center</aligny>
+		        <label>$VAR[panelheading]</label>
+	        </control>
+	        <control type="label">
+		        <visible>!$PARAM[isfocused]</visible>
+		        <posx>$PARAM[left]</posx>
+		        <posy>10</posy>
+		        <height>40</height>
+		        <width>890</width>
+		        <font>font16</font>
+		        <scroll>false</scroll>
+		        <aligny>center</aligny>
+		        <label>$VAR[panelheading]</label>
+	        </control>
+	        <control type="label">
+		        <visible>!$PARAM[isfocused]</visible>
+		        <posx>$PARAM[left]</posx>
+		        <posy>53</posy>
+		        <height>40</height>
+		        <width>$PARAM[width]</width>
+		        <font>ListDetails</font>
+		        <aligny>center</aligny>
+		        <align>left</align>
+		        <label>$VAR[panelsubheading]</label>
+	        </control>
+	        <control type="label">
+		        <visible>$PARAM[isfocused]</visible>
+		        <posx>$PARAM[left]</posx>
+		        <posy>53</posy>
+		        <height>40</height>
+		        <width>$PARAM[width]</width>
+		        <font>ListDetails</font>
+		        <aligny>center</aligny>
+		        <align>left</align>
+		        <textcolor>Black</textcolor>
+		        <shadowcolor></shadowcolor>
+		        <label>$VAR[panelsubheading]</label>
+	        </control>
+		    <control type="group">
+    			<visible>[Container.Content(Movies) | Container.Content(Episodes) | Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    <control type="image">
+    				<posx>45r</posx>
+				    <posy>-5</posy>
+				    <width>30</width>
+				    <height>100</height>
+				    <texture>$VAR[Overlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+			    </control>
+		    </control>
 		</definition>
 	</include>
 

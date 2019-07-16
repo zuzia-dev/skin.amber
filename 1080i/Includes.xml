@@ -545,6 +545,20 @@
                     <onclick>Container.SetViewMode(50)</onclick>
                     <visible>!Skin.HasSetting(hide.listview)</visible>
                 </control>
+                <control type="button" id="9654">
+                    <description>Set View 54</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[31962]</label>
+                    <onclick>Container.SetViewMode(54)</onclick>
+                    <visible>!Skin.HasSetting(hide.lowlistview)</visible>
+                </control>                
+                <control type="button" id="9652">
+                    <description>Set View 52</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[31999]</label>
+                    <onclick>Container.SetViewMode(52)</onclick>
+                    <visible>!Skin.HasSetting(hide.biglistview)</visible>
+                </control>                
                 <control type="button" id="96501">
                     <description>Set View 501</description>
                     <include>9000SysButtons</include>
@@ -559,33 +573,19 @@
                     <onclick>Container.SetViewMode(51)</onclick>
                     <visible>!Skin.HasSetting(hide.panelview)</visible>
                 </control>
-                <control type="button" id="9652">
-                    <description>Set View 52</description>
-                    <include>9000SysButtons</include>
-                    <label>$LOCALIZE[31999]</label>
-                    <onclick>Container.SetViewMode(52)</onclick>
-                    <visible>!Skin.HasSetting(hide.biglistview)</visible>
-                </control>
-                <control type="button" id="9653">
-                    <description>Set View 53</description>
-                    <include>9000SysButtons</include>
-                    <label>$LOCALIZE[536]</label>
-                    <onclick>Container.SetViewMode(53)</onclick>
-                    <visible>!Skin.HasSetting(hide.iconsview)</visible>
-                </control>
-                <control type="button" id="9654">
-                    <description>Set View 54</description>
-                    <include>9000SysButtons</include>
-                    <label>$LOCALIZE[31962]</label>
-                    <onclick>Container.SetViewMode(54)</onclick>
-                    <visible>!Skin.HasSetting(hide.lowlistview)</visible>
-                </control>
                 <control type="button" id="9655">
                     <description>Set View 55</description>
                     <include>9000SysButtons</include>
                     <label>$LOCALIZE[31958]</label>
                     <onclick>Container.SetViewMode(55)</onclick>
                     <visible>!Skin.HasSetting(hide.bigpanelview)</visible>
+                </control>                
+                <control type="button" id="9653">
+                    <description>Set View 53</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[536]</label>
+                    <onclick>Container.SetViewMode(53)</onclick>
+                    <visible>!Skin.HasSetting(hide.iconsview)</visible>
                 </control>
                 <control type="button" id="9656">
                     <description>Set View 56</description>
@@ -1227,6 +1227,7 @@
         </definition>
     </include>
 
+    <!-- Panel Template for all views except Tall List and Big List -->
     <include name="PanelTemplate">
         <param name="lowpanel">false</param>
         <param name="top"></param>
@@ -1380,7 +1381,7 @@
             </control>
         </definition>
     </include>
-
+    <!-- Panel Template for Tall List -->
     <include name="PanelTemplateTall">
         <param name="top"></param>
         <param name="left">60</param>
@@ -1502,7 +1503,126 @@
             </control>
         </definition>
     </include>
-    
+    <!-- Panel Template for Big List -->
+    <include name="PanelTemplate52">
+        <param name="top">40</param>
+        <param name="left">0</param>
+        <param name="width">880</param>
+        <param name="heading">$VAR[panelheading]</param>
+        <param name="plot">$VAR[Plots]</param>
+        <param name="plotheight">320</param>
+        <param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
+        <param name="subcontent_path">$INFO[ListItem.Path]</param>
+        <param name="subcontent_sortby">year</param>
+        <param name="subcontent_sortorder">descending</param>
+        <param name="subcontent_visible">ListItem.IsCollection + String.IsEmpty(ListItem.Plot)</param>
+        <param name="subcontent_image_visible">true</param>
+        <param name="subcontent_image_texture">$VAR[Overlay]</param>
+        <param name="visibility">false</param>
+        <definition>
+            <control type="group" id="4000" description="Media Info Panel">
+                <include>OpenClose</include>
+                <visible>$PARAM[visibility]</visible>                
+                <posx>$PARAM[left]</posx>
+                <posy>$PARAM[top]</posy>
+                <width>$PARAM[width]</width>
+                <control type="label" description="Heading Label">
+                    <top>30</top>
+                    <left>47</left>
+                    <width>800</width>
+                    <height>60</height>
+                    <aligny>center</aligny>
+                    <align>center</align>
+                    <textcolor>Highlight</textcolor>
+                    <font>font20_title</font>
+                    <wrapmultiline>true</wrapmultiline>
+                    <label>$PARAM[heading]</label>
+                </control>
+				<include content="ShadowedImage">
+                    <param name="top">105</param>
+                    <param name="left">67</param>
+					<param name="width">750</param>
+					<param name="height">399</param>
+					<param name="texture">$VAR[Fanart]</param>
+				</include>
+                <control type="label" description="Subheading Label">
+                    <top>540</top>
+                    <left>47</left>
+                    <width>800</width>
+                    <height>60</height>
+                    <aligny>center</aligny>
+                    <align>center</align>
+                    <font>ListDetails</font>
+                    <wrapmultiline>true</wrapmultiline>
+                    <label>$VAR[panelfooter]</label>
+                </control>                
+                <control type="group">
+                    <width>820</width>
+                    <height>$PARAM[plotheight]</height>
+                    <left>30</left>
+                    <top>630</top>
+                    <control type="textbox" id="4001">
+                        <align>justify</align>
+                        <label>$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <width>820</width>
+                        <height>$PARAM[plotheight]</height>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+                    <control type="panel" id="4002">
+                        <visible>$PARAM[subcontent_visible]</visible>
+                        <visible>!ListItem.IsParentFolder</visible>
+                        <orientation>vertical</orientation>
+                        <focusedlayout height="40" width="800">
+                        </focusedlayout>
+                        <itemlayout height="40" width="800">
+                            <control type="image">
+                                <top>5</top>
+                                <width>30</width>
+                                <height>30</height>
+                                <visible>$PARAM[subcontent_image_visible]</visible>
+                                <texture>$PARAM[subcontent_image_texture]</texture>
+                            </control>
+                            <control type="label">
+                                <left>40</left>
+                                <height>40</height>
+                                <width>800</width>
+                                <aligny>center</aligny>
+                                <label>$PARAM[subcontent_label]</label>
+                                <font>ListDetails</font>
+                                <scrollspeed>25</scrollspeed>
+                                <visible>$PARAM[subcontent_image_visible]</visible>
+                            </control>
+                            <control type="label">
+                                <left>0</left>
+                                <height>40</height>
+                                <width>800</width>
+                                <aligny>center</aligny>
+                                <label>$PARAM[subcontent_label]</label>
+                                <font>ListDetails</font>
+                                <scrollspeed>25</scrollspeed>
+                                <visible>!$PARAM[subcontent_image_visible]</visible>
+                            </control>
+                        </itemlayout>
+                        <content sortby="$PARAM[subcontent_sortby]" sortorder="$PARAM[subcontent_order]">$PARAM[subcontent_path]</content>
+                    </control>
+                </control>
+		        <control type="grouplist" description="Flags">
+			        <top>975</top>
+			        <left>40</left>
+			        <width>800</width>
+			        <height>45</height>
+			        <itemgap>30</itemgap>
+			        <orientation>horizontal</orientation>
+			        <align>center</align>
+			        <include content="MediaFlagItems">
+				        <param name="showratingbadge">false</param>
+			        </include>
+		        </control>                
+            </control>
+        </definition>
+    </include>
+ 
     <include name="MediaFlags">
         <param name="top"></param>
         <param name="left"></param>
@@ -1528,10 +1648,6 @@
             </control>
         </definition>
     </include>    
-
-
-
-
 
     <include name="HolidaySub">
         <param name="type">snow</param>
@@ -2202,9 +2318,12 @@
             <onup>9000</onup>
             <scrolltime>200</scrolltime>
             <orientation>horizontal</orientation>
-            <include content="ActorLayout">
+            <include condition="!String.IsEqual(ListItem.DBType,set)" content="ActorLayout">
                 <param name="viewid">50</param>
             </include>
+            <include condition="String.IsEqual(ListItem.DBType,set)" content="SetLayout">
+                <param name="viewid">50</param>
+            </include>            
         </control>
     </include>
 

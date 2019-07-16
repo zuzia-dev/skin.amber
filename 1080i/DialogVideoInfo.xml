@@ -561,9 +561,8 @@
 			<height>90</height>
 			<align>center</align>
 			<onup>90003</onup>
-            <ondown condition="!Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">SetFocus(50)</ondown>
+            <ondown condition="!Skin.hasSetting(Enable.ExtendedInfo)">SetFocus(50)</ondown>
 			<ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">SetFocus(90050)</ondown>
-            <ondown condition="String.IsEqual(ListItem.DBType,set)">SetFocus(90150)</ondown>
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
 			<control type="togglebutton" id="8" description="Play/browse to Show or Set">
@@ -594,7 +593,7 @@
                 <label>$LOCALIZE[32007]</label>
                 <onclick>Action(close)</onclick>
                 <onclick>RunScript(plugin.video.specialfeatures,listitem)</onclick>
-                <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true)</visible>
+                <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true) + !String.isEqual(ListItem.DBType,set)</visible>
             </control>
             <control type="button" id="1228" description="Extended Info">
                 <visible>[Container.Content(movies) | Container.Content(tvshows)] + [Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(script.extendedinfo)]</visible>
@@ -701,7 +700,7 @@
 			<onup>9000</onup>
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
-            <include condition="!Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">DefaultCast</include>
+            <include condition="!Skin.hasSetting(Enable.ExtendedInfo)">DefaultCast</include>
             <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">CustomCast</include>
         </control>
         
