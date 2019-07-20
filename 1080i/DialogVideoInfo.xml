@@ -7,7 +7,7 @@
     
     <!-- Next line adapted from MikeSiLVO -->
     
-        <include condition="Skin.HasSetting(Enable.ExtendedInfo)">HiddenCast</include>
+        <include condition="Skin.HasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">HiddenCast</include>
     
 		<control type="image">
 			<width>1920</width>
@@ -561,7 +561,7 @@
 			<height>90</height>
 			<align>center</align>
 			<onup>90003</onup>
-            <ondown condition="!Skin.hasSetting(Enable.ExtendedInfo)">SetFocus(50)</ondown>
+            <ondown condition="!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection">SetFocus(50)</ondown>
 			<ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">SetFocus(90050)</ondown>
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
@@ -700,8 +700,9 @@
 			<onup>9000</onup>
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
-            <include condition="!Skin.hasSetting(Enable.ExtendedInfo)">DefaultCast</include>
+            <include condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection]">DefaultCast</include>
             <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">CustomCast</include>
+            
         </control>
         
 		<control type="group">
