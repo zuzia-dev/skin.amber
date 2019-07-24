@@ -2382,9 +2382,9 @@
 
 
 	<include name="FanartTitleHorizontal">
-		<control type="button">
+		<control type="button" id="12000">
 			<top>1045</top>
-			<width min="0" max="450">auto</width>
+			<width min="0" max="550">auto</width>
 			<font>font22</font>
 			<textcolor>FFDFDFDF</textcolor>
 			<shadowcolor />
@@ -2394,25 +2394,92 @@
 			<label>$VAR[FanartTitleVar]</label>
 			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
             <include>ContentFade</include>
+            <onup>9001</onup>
+            <ondown>9001</ondown>
+            <onleft>9001</onleft>
+            <onright>9001</onright>
+            <onback>9001</onback>
 			<visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
+            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
+            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
+		    <onclick>ActivateWindow(1122)</onclick>
 		</control>
 	</include>
     
 	<include name="FanartTitleVertical">
-		<control type="button">
-			<top>1045</top>
-            <left>1400</left>
-			<width min="0" max="450">auto</width>
-			<font>font22</font>
-			<textcolor>FFDFDFDF</textcolor>
+        <control type="label">
+            <top>3</top>
+            <left>20</left>
+            <height>35</height>            
+            <font>ExtProgressBar</font>
+		    <textcolor>FFDFDFDF</textcolor>
+		    <shadowcolor />
+		    <aligny>center</aligny>
+            <label>$LOCALIZE[33068]:</label>
+        </control>
+		<control type="button" id="12001">
+            <left>105</left>
+            <top>3</top>
+            <height>35</height>                
+		    <width min="0" max="550">auto</width>
+			<font>ExtProgressBar</font>
+			<!--    <textcolor>FFDFDFDF</textcolor>  -->
+            <textcolor>Highlight</textcolor>
 			<shadowcolor />
-			<aligny>top</aligny>
-			<textoffsetx>30</textoffsetx>
-			<textoffsety>5</textoffsety>
+			<aligny>center</aligny>
+            <align>left</align>
 			<label>$VAR[FanartTitleVar]</label>
 			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
+		    <textoffsetx>4</textoffsetx>
             <include>ContentFade</include>
-			<visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
+            <onup>9001</onup>
+            <ondown>9001</ondown>
+            <onleft>9001</onleft>
+            <onright>9001</onright>
+            <onback>9001</onback>            
+            <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
+            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
+            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
+		    <onclick>ActivateWindow(1122)</onclick>
+		</control>
+	</include>
+
+	<include name="ShowFanartTitle">
+        <control type="label">
+            <top>3</top>
+            <left>20</left>
+            <height>35</height>            
+            <font>ExtProgressBar</font>
+		    <textcolor>FFDFDFDF</textcolor>
+		    <shadowcolor />
+		    <aligny>center</aligny>
+            <label>$LOCALIZE[33068]:</label>
+            <visible>!String.IsEmpty(Control.GetLabel(12001))</visible>
+        </control>
+		<control type="button" id="12001">
+            <left>105</left>
+            <top>3</top>
+            <height>35</height>                
+		    <width min="0" max="550">auto</width>
+			<font>ExtProgressBar</font>
+			<!--    <textcolor>FFDFDFDF</textcolor>  -->
+            <textcolor>Highlight</textcolor>
+			<shadowcolor />
+			<aligny>center</aligny>
+            <align>left</align>
+			<label>$VAR[FanartTitleVar]</label>
+			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
+		    <textoffsetx>4</textoffsetx>
+            <include>ContentFade</include>
+            <onup>9001</onup>
+            <ondown>9001</ondown>
+            <onleft>9001</onleft>
+            <onright>9001</onright>
+            <onback>9001</onback>            
+            <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
+            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
+            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
+		    <onclick>ActivateWindow(1122)</onclick>
 		</control>
 	</include>    
 
@@ -2586,5 +2653,97 @@
 			<visible>!String.IsEmpty(PVR.ChannelNumberInput)</visible>
 		</control>
 	</include>
+
+
+    <!-- The following thanks to sualfred for his Embuary Helper script and to MikeSiLVO for his implementation -->
+
+	<!-- Jump to letter includes -->
+
+	<include name="ScriptJumpToLetterVert">
+		<control type="group">
+			<left>1870</left>
+			<animation effect="slide" end="100,0" time="200" tween="quadratic" easing="out" condition="!Control.HasFocus(615)">Conditional</animation>
+			<control type="list" id="615">
+				<top>325</top>
+				<width>40</width>
+				<height>740</height>
+                <onleft>SetFocus(50)</onleft>
+                <onback>SetFocus(50)</onback>
+                <onright condition="String.IsEqual(Container.ViewMode,biglist)">62</onright>
+                <onright condition="String.IsEqual(Container.ViewMode,list)">60</onright>
+				<visible>System.HasAddon(script.embuary.helper)</visible>
+				<visible>[[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+				<itemlayout height="37" width="40">
+					<control type="label">
+						<height>37</height>
+						<align>center</align>
+						<font>ListDetails</font>
+						<textcolor>White</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="37" width="40">
+			        <control type="image">
+				        <left>-4</left>
+				        <width>44</width>
+				        <height>41</height>
+				        <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+			        </control>					
+                    <control type="label">
+						<height>37</height>
+						<align>center</align>
+						<font>ListDetails</font>
+						<textcolor>Black</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content>plugin://script.embuary.helper/?info=jumptoletter&amp;reload=$INFO[Container.NumItems]</content>
+			</control>
+		</control>
+    </include>
+    <include name="ScriptLetterJumpHoriz">
+		<control type="group">
+			<top>1000</top>
+			<animation effect="slide" end="0,100" time="200" tween="quadratic" easing="out" condition="!Control.HasFocus(616)">Conditional</animation>
+			<control type="image">
+				<width>100%</width>
+				<height>80</height>
+				<texture>bottombar.png</texture>
+			</control>
+			<control type="list" id="616">
+				<left>60</left>
+				<top>20</top>
+				<width>1800</width>
+				<height>60</height>
+				<onup>SetFocus(50)</onup>
+				<ondown>4400</ondown>
+				<onback>SetFocus(50)</onback>
+				<orientation>horizontal</orientation>
+				<visible>System.HasAddon(script.embuary.helper)</visible>
+				<visible>String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])</visible>
+				<itemlayout height="60" width="66">
+					<control type="label">
+						<height>60</height>
+						<align>center</align>
+						<font>font15_title</font>
+						<textcolor>grey2</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="60" width="66">
+					<control type="label">
+						<height>60</height>
+						<align>center</align>
+						<font>font15_title</font>
+						<textcolor>$VAR[ThemeLabelColor]</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content>plugin://script.embuary.helper/?info=jumptoletter&amp;reload=$INFO[Container.NumItems]</content>
+			</control>
+		</control>
+	</include>
+
+
 
 </includes>
