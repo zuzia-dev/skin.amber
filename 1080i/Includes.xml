@@ -2445,23 +2445,12 @@
 	</include>
 
 	<include name="ShowFanartTitle">
-        <control type="label">
-            <top>3</top>
-            <left>20</left>
-            <height>35</height>            
-            <font>ExtProgressBar</font>
-		    <textcolor>FFDFDFDF</textcolor>
-		    <shadowcolor />
-		    <aligny>center</aligny>
-            <label>$LOCALIZE[33068]:</label>
-            <visible>!String.IsEmpty(Control.GetLabel(12001))</visible>
-        </control>
 		<control type="button" id="12001">
-            <left>105</left>
+            <left>30</left>
             <top>3</top>
             <height>35</height>                
 		    <width min="0" max="550">auto</width>
-			<font>ExtProgressBar</font>
+			<font>FanartTitleFont</font>
 			<!--    <textcolor>FFDFDFDF</textcolor>  -->
             <textcolor>Highlight</textcolor>
 			<shadowcolor />
@@ -2477,6 +2466,7 @@
             <onright>9001</onright>
             <onback>9001</onback>            
             <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
+            <onclick>SetProperty(CustomSearch,2,home)</onclick>
             <onclick>Skin.Reset(CustomSearchTerm)</onclick>
             <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
 		    <onclick>ActivateWindow(1122)</onclick>
@@ -2659,46 +2649,103 @@
 
 	<!-- Jump to letter includes -->
 
+    <include name="LetterItemLayout">
+        <param name="itemfont">font16</param>
+        <param name="itemheight">37</param>
+        <param name="highlightheight">41</param>
+        <definition>    
+		    <itemlayout height="$PARAM[itemheight]" width="40">
+			    <control type="label">
+				    <height>$PARAM[itemheight]</height>
+				    <align>center</align>
+				    <font>$PARAM[itemfont]</font>
+				    <textcolor>White</textcolor>
+				    <label>$INFO[ListItem.Label]</label>
+			    </control>
+		    </itemlayout>
+		    <focusedlayout height="$PARAM[itemheight]" width="40">
+		        <control type="image">
+		            <left>-4</left>
+		            <width>44</width>
+		            <height>$PARAM[highlightheight]</height>
+		            <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+		        </control>					
+                <control type="label">
+				    <height>$PARAM[itemheight]</height>
+				    <align>center</align>
+				    <font>$PARAM[itemfont]</font>
+				    <textcolor>Black</textcolor>
+				    <label>$INFO[ListItem.Label]</label>
+			    </control>
+		    </focusedlayout>
+		    <content>plugin://script.embuary.helper/?info=jumptoletter&amp;reload=$INFO[Container.NumItems]</content>
+        </definition>    
+    </include>
+
 	<include name="ScriptJumpToLetterVert">
 		<control type="group">
 			<left>1870</left>
-			<animation effect="slide" end="100,0" time="200" tween="quadratic" easing="out" condition="!Control.HasFocus(615)">Conditional</animation>
+			<animation effect="slide" end="100,0" time="200" tween="quadratic" easing="out" condition="!Control.HasFocus(615) + !Control.HasFocus(616) + !Control.HasFocus(617) + !Control.HasFocus(618)">Conditional</animation>
 			<control type="list" id="615">
-				<top>325</top>
-				<width>40</width>
-				<height>740</height>
+                <top>47</top>
+                <height>1030</height>
+                <width>40</width>
                 <onleft>SetFocus(50)</onleft>
                 <onback>SetFocus(50)</onback>
-                <onright condition="String.IsEqual(Container.ViewMode,biglist)">62</onright>
-                <onright condition="String.IsEqual(Container.ViewMode,list)">60</onright>
+                <onright>62</onright>
 				<visible>System.HasAddon(script.embuary.helper)</visible>
-				<visible>[[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
-				<itemlayout height="37" width="40">
-					<control type="label">
-						<height>37</height>
-						<align>center</align>
-						<font>ListDetails</font>
-						<textcolor>White</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout height="37" width="40">
-			        <control type="image">
-				        <left>-4</left>
-				        <width>44</width>
-				        <height>41</height>
-				        <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
-			        </control>					
-                    <control type="label">
-						<height>37</height>
-						<align>center</align>
-						<font>ListDetails</font>
-						<textcolor>Black</textcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</focusedlayout>
-				<content>plugin://script.embuary.helper/?info=jumptoletter&amp;reload=$INFO[Container.NumItems]</content>
+				<visible>String.IsEqual(Container.Viewmode,BigList) + [[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+                <include content="LetterItemLayout">
+                    <param name="itemheight">38</param>
+                    <param name="itemfont">font16</param>
+                    <param name="highlightheight">42</param>
+                </include>
 			</control>
+			<control type="list" id="616">
+                <top>331</top>
+                <height>740</height>
+                <width>40</width>
+                <onleft>SetFocus(50)</onleft>
+                <onback>SetFocus(50)</onback>
+                <onright>60</onright>
+				<visible>System.HasAddon(script.embuary.helper)</visible>
+				<visible>String.IsEqual(Container.Viewmode,List) + [[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+                <include content="LetterItemLayout">
+                    <param name="itemheight">37</param>
+                    <param name="itemfont">ListDetails</param>
+                    <param name="highlightheight">41</param>
+                </include>
+			</control>
+			<control type="list" id="617">
+                <top>591</top>
+                <height>490</height>
+                <width>40</width>
+                <onleft>SetFocus(50)</onleft>
+                <onback>SetFocus(50)</onback>
+                <onright>64</onright>
+				<visible>System.HasAddon(script.embuary.helper)</visible>
+				<visible>String.IsEqual(Container.Viewmode,Low List) + [[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+                <include content="LetterItemLayout">
+                    <param name="itemheight">37</param>
+                    <param name="itemfont">ListDetails</param>
+                    <param name="highlightheight">41</param>
+                </include>
+			</control>
+			<control type="list" id="618">
+                <top>100</top>
+                <height>965</height>
+                <width>40</width>
+                <onleft>SetFocus(50)</onleft>
+                <onback>SetFocus(50)</onback>
+                <onright>6501</onright>
+				<visible>System.HasAddon(script.embuary.helper)</visible>
+				<visible>String.IsEqual(Container.Viewmode,Tall List) + [[Container.HasNext | Container.HasPrevious] + String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+                <include content="LetterItemLayout">
+                    <param name="itemheight">37</param>
+                    <param name="itemfont">ListDetails</param>
+                    <param name="highlightheight">41</param>
+                </include>
+			</control>            
 		</control>
     </include>
     <include name="ScriptLetterJumpHoriz">
