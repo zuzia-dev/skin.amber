@@ -2458,16 +2458,21 @@
     
     <include name="HorizTitleButtonBelowTopBar">
         <left>0</left>
-        <top>29</top>
-        <height>46</height>                
-		<width>550</width>
-        <texturefocus />
-        <texturenofocus />
+        <top>43</top>
+        <height>45</height>                
+		<width min="0" max="550">auto</width>
         <align>left</align>
+<!--        <shadowcolor>ShadowDark</shadowcolor> -->
 		<font>FanartTitleFont</font>
-		<textcolor>FFDFDFDF</textcolor>
-        <focusedcolor>Highlight</focusedcolor>
-        <label>[I]$VAR[FanartTitleVar][/I]</label>    
+        <textcolor>Highlight</textcolor>
+<!--		<textcolor>FFDFDFDF</textcolor> -->
+<!--        <focusedcolor>Highlight</focusedcolor> -->
+        <texturenofocus />
+<!--        <texturenofocus />
+        <texturenofocus border="30,30,30,30">text_shadow.png</texturenofocus> -->       
+<!--        <texturenofocus flipx="true" flipy="true">common/TimePanel.png</texturenofocus>
+        <texturefocus flipx="true" flipy="true">common/TimePanel.png</texturefocus> -->
+        <label>[I][B]$VAR[FanartTitleVar][/B][/I]</label>    
     </include>
 
     <include name="VertTitleButtonBelowTopBar">
@@ -2487,13 +2492,13 @@
 	<include name="ShowFanartTitle">
         <control type="group">
             <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
-            <control type="image">
+<!--            <control type="image">
                 <left>0</left>
                 <top>41</top>
-                <height>50</height>                
+                <height>85</height>                
 		        <width>550</width>
                 <texture flipx="true" flipy="true">common/TimePanel.png</texture>
-                <colordiffuse>dfcebe9e</colordiffuse> 
+                <colordiffuse>dfcebe9e</colordiffuse>
                 <visible>!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)</visible>
             </control>
             <control type="image">
@@ -2504,13 +2509,13 @@
                 <texture flipy="true">common/TimePanel.png</texture>
                 <colordiffuse>dfcebe9e</colordiffuse> 
                 <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)</visible>
-            </control>            
+            </control>  -->          
 		    <control type="button" id="12001">
                 <include condition="Skin.HasSetting(FanartTitle.InTopBar)">TitleButtonTopBar</include>
                 <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">HorizTitleButtonBelowTopBar</include>
                 <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">VertTitleButtonBelowTopBar</include>
                 <aligny>center</aligny>
-                <textoffsetx>4</textoffsetx>
+                <textoffsetx>10</textoffsetx>
                 <include>ContentFade</include>
                 <onup>9001</onup>
                 <ondown>9001</ondown>
