@@ -2406,6 +2406,8 @@
 		</control>
 	</include>
     
+
+    
 	<include name="FanartTitleVertical">
         <control type="label">
             <top>3</top>
@@ -2444,33 +2446,83 @@
 		</control>
 	</include>
 
+    <include name="TitleButtonTopBar">
+        <left>0</left>
+        <top>1</top>
+        <height>38</height>                
+		<width min="0" max="550">auto</width>
+        <texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
+		<font>FanartTitleFont</font>
+        <label>$VAR[FanartTitleVar]</label>    
+    </include>
+    
+    <include name="HorizTitleButtonBelowTopBar">
+        <left>0</left>
+        <top>29</top>
+        <height>46</height>                
+		<width>550</width>
+        <texturefocus />
+        <texturenofocus />
+        <align>left</align>
+		<font>FanartTitleFont</font>
+		<textcolor>FFDFDFDF</textcolor>
+        <focusedcolor>Highlight</focusedcolor>
+        <label>[I]$VAR[FanartTitleVar][/I]</label>    
+    </include>
+
+    <include name="VertTitleButtonBelowTopBar">
+        <left>1460</left>
+        <top>29</top>
+        <height>46</height>                
+		<width>450</width>
+        <texturefocus />
+        <texturenofocus />
+        <align>right</align>
+		<font>FanartTitleFont</font>
+		<textcolor>FFDFDFDF</textcolor>
+        <focusedcolor>Highlight</focusedcolor>
+        <label>[I]$VAR[FanartTitleVar][/I]</label>    
+    </include>
+    
 	<include name="ShowFanartTitle">
-		<control type="button" id="12001">
-            <left>30</left>
-            <top>3</top>
-            <height>35</height>                
-		    <width min="0" max="550">auto</width>
-			<font>FanartTitleFont</font>
-			<!--    <textcolor>FFDFDFDF</textcolor>  -->
-            <textcolor>Highlight</textcolor>
-			<shadowcolor />
-			<aligny>center</aligny>
-            <align>left</align>
-			<label>$VAR[FanartTitleVar]</label>
-			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
-		    <textoffsetx>4</textoffsetx>
-            <include>ContentFade</include>
-            <onup>9001</onup>
-            <ondown>9001</ondown>
-            <onleft>9001</onleft>
-            <onright>9001</onright>
-            <onback>9001</onback>            
+        <control type="group">
             <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
-            <onclick>SetProperty(CustomSearch,2,home)</onclick>
-            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
-            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
-		    <onclick>ActivateWindow(1122)</onclick>
-		</control>
+            <control type="image">
+                <left>0</left>
+                <top>41</top>
+                <height>50</height>                
+		        <width>550</width>
+                <texture flipx="true" flipy="true">common/TimePanel.png</texture>
+                <colordiffuse>dfcebe9e</colordiffuse> 
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)</visible>
+            </control>
+            <control type="image">
+                <left>1400</left>
+                <top>41</top>
+                <height>50</height>                
+		        <width>550</width>
+                <texture flipy="true">common/TimePanel.png</texture>
+                <colordiffuse>dfcebe9e</colordiffuse> 
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)</visible>
+            </control>            
+		    <control type="button" id="12001">
+                <include condition="Skin.HasSetting(FanartTitle.InTopBar)">TitleButtonTopBar</include>
+                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">HorizTitleButtonBelowTopBar</include>
+                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">VertTitleButtonBelowTopBar</include>
+                <aligny>center</aligny>
+                <textoffsetx>4</textoffsetx>
+                <include>ContentFade</include>
+                <onup>9001</onup>
+                <ondown>9001</ondown>
+                <onleft>9001</onleft>
+                <onright>9001</onright>
+                <onback>9001</onback>            
+                <onclick condition="!System.HasAddon(plugin.video.youtube)">SetProperty(CustomSearch,2,home)</onclick>
+                <onclick>Skin.Reset(CustomSearchTerm)</onclick>
+                <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
+		        <onclick>ActivateWindow(1122)</onclick>
+		    </control>
+        </control>
 	</include>    
 
 	<!-- Fanart Time Per Image -->
