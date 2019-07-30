@@ -5,11 +5,18 @@
 		<control type="group">
 			<visible>!Window.IsVisible(numericinput)</visible>
 			<left>181</left>
-			<top>200</top>
+			<top>50</top>
 			<control type="image">
+				<width>1557</width>
+				<height>906</height>
+				<texture border="45">dialogs/TinyDialog.png</texture>
+                <visible>Skin.HasSetting(Enable.Autocompletion)</visible>
+			</control>
+            <control type="image">
 				<width>1557</width>
 				<height>706</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
+                <visible>!Skin.HasSetting(Enable.Autocompletion)</visible>
 			</control>
 			<control type="image">
 				<visible>Control.IsVisible(313)</visible>
@@ -404,7 +411,7 @@
 						<include>KeyboardButtons</include>
 					</control>
 				</control>
-				<control type="grouplist">
+				<control type="grouplist" id="8001">
 					<description>5th Row</description>
 					<itemgap>14</itemgap>
 					<orientation>horizontal</orientation>
@@ -413,7 +420,7 @@
 						<width>300</width>
 						<label>[UPPERCASE]$LOCALIZE[20177][/UPPERCASE]</label>
 						<onup>302</onup>
-						<ondown>309</ondown>
+						<ondown>8000</ondown>
 						<textcolor>FF4fe805</textcolor>
 						<font>ListDetails</font>
 						<include>KeyboardButtons</include>
@@ -423,7 +430,7 @@
 						<width>738</width>
 						<label>$LOCALIZE[20182]</label>
 						<onup>164</onup>
-						<ondown>105</ondown>
+						<ondown>8000</ondown>
 						<font>ListDetails</font>
 						<include>KeyboardButtons</include>
 					</control>
@@ -431,27 +438,81 @@
 						<description>previous button</description>
 						<label>&lt;</label>
 						<onup>168</onup>
-						<ondown>108</ondown>
+						<ondown>8000</ondown>
 						<include>KeyboardButtons</include>
 					</control>
 					<control type="button" id="306">
 						<description>next button</description>
 						<label>&gt;</label>
 						<onup>169</onup>
-						<ondown>109</ondown>
+						<ondown>8000</ondown>
 						<include>KeyboardButtons</include>
 					</control>
 					<control type="button" id="8">
 						<description>BACKSPACE button</description>
 						<label>$LOCALIZE[20181]</label>
 						<onup>169</onup>
-						<ondown>109</ondown>
+						<ondown>8000</ondown>
 						<width>175</width>
 						<font>ListDetails</font>
 						<include>KeyboardButtons</include>
 					</control>
 				</control>
 			</control>
+            
+            <!-- Autocompletion suggestions -->
+            <control type="group">
+                <width>1440</width>
+                <height>240</height>
+                <posy>663</posy>
+                <posx>94</posx>
+                <visible>![Control.IsVisible(313) + System.HasHiddenInput] + Skin.HasSetting(Enable.Autocompletion)</visible>
+                <control type="panel" id="8000">
+                    <height>230</height>
+                    <top>10</top>
+                    <left>0</left>
+                    <onup>8001</onup>
+                    <ondown>312</ondown>
+                    <itemgap>20</itemgap>
+                    <orientation>horizontal</orientation>
+                    <itemlayout height="70" width="460">
+                        <control type="group">
+                            <control type="image">
+		                        <width>450</width>
+                                <height>60</height>
+                                <texture border="4">img/WhiteRoundedT.png</texture>
+                            </control>
+                            <control type="label">
+                                <height>60</height>
+                                <width>420</width>
+                                <aligny>center</aligny>
+                                <align>center</align>
+                                <textcolor>White</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="70" width="460">
+                        <control type="group">
+                            <control type="image">
+		                        <width>450</width>
+                                <height>60</height>
+                                <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+                            </control>
+                            <control type="label">
+                                <height>60</height>
+                                <width>420</width>
+                                <aligny>center</aligny>
+                                <align>center</align>
+                                <textcolor>Black</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                            </control>
+                        </control>
+                    </focusedlayout>
+                    <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=9</content>
+                </control>
+            </control>
+            
 			<control type="group">
 				<left>64</left>
 				<top>684</top>
