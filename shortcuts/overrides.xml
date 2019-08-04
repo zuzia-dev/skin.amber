@@ -292,24 +292,6 @@
 
 	<!-- Widget fallback if empty -->
 	<propertyfallback property="widgetTwoShelves">false</propertyfallback>
-<!--	<propertyfallback property="widgetSortBy">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit">18</propertyfallback>
-	<propertyfallback property="widgetSortBy.2">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder.2">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit.2">18</propertyfallback>
-	<propertyfallback property="widgetSortBy.3">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder.3">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit.3">18</propertyfallback>
-	<propertyfallback property="widgetSortBy.4">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder.4">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit.4">18</propertyfallback>
-	<propertyfallback property="widgetSortBy.5">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder.5">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit.5">18</propertyfallback>
-	<propertyfallback property="widgetSortBy.6">title</propertyfallback>
-	<propertyfallback property="widgetSortOrder.6">ascending</propertyfallback>
-	<propertyfallback property="widgetLimit.6">18</propertyfallback> -->
 
 	<!-- Set widgetContent to static for non-dynamic widgets -->
 	<propertyfallback property="widgetContent" attribute="widget" value="static">static</propertyfallback>
@@ -427,11 +409,28 @@
 		</node>
         <!-- Embuary Helper Widgets -->
 		<node label="$LOCALIZE[31495]" icon="DefaultFolder.png">
-			<shortcut widget="MoviesbyGenre" label="$LOCALIZE[31497]" icon="DefaultMovies.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getbygenre&amp;unwatched=True&amp;type=movie&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
-			<shortcut widget="TVShowsbyGenre" label="$LOCALIZE[31517]" icon="DefaultGenre.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getbygenre&amp;unwatched=True&amp;type=tvshow&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
+			<shortcut widget="MoviesbyGenre" label="$LOCALIZE[31497]" icon="shelves/embuary.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getbygenre&amp;unwatched=True&amp;type=movie&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
+			<shortcut widget="TVShowsbyGenre" label="$LOCALIZE[31517]" icon="shelves/embuary.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getbygenre&amp;unwatched=True&amp;type=tvshow&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
+        </node>
+        <!-- Themoviedb Helper Widgets -->
+		<node label="$LOCALIZE[31498]" icon="DefaultFolder.png">
+			<!-- Movies -->
+			<node label="$LOCALIZE[342]" icon="DefaultMovies.png">
+				<shortcut widget="PopularMovies" label="$LOCALIZE[31518]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=popular&amp;type=movie</shortcut>
+				<shortcut widget="TMDBTopRatedMovies" label="$LOCALIZE[31519]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=top_rated&amp;type=movie</shortcut>
+				<shortcut widget="UpcomingMovies" label="$LOCALIZE[31520]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=upcoming&amp;type=movie</shortcut>
+				<shortcut widget="InTheaterMovies" label="$LOCALIZE[31521]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=now_playing&amp;type=movie</shortcut>
+			</node>
+			<!-- TV Shows -->
+			<node label="$LOCALIZE[31432]" icon="DefaultTVShows.png">
+				<shortcut widget="PopularTvShows" label="$LOCALIZE[31522]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows)">plugin://plugin.video.themoviedb.helper/?info=popular&amp;type=tv</shortcut>
+				<shortcut widget="TMDBTopRatedTvShows" label="$LOCALIZE[31523]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows)">plugin://plugin.video.themoviedb.helper/?info=top_rated&amp;type=tv</shortcut>
+				<shortcut widget="AiringTodayTvShows" label="$LOCALIZE[31524]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows)">plugin://plugin.video.themoviedb.helper/?info=airing_today&amp;type=tv</shortcut>
+				<shortcut widget="CurrentlyAiringTVShows" label="$LOCALIZE[31525]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows)">plugin://plugin.video.themoviedb.helper/?info=on_the_air&amp;type=tv</shortcut>
+			</node>
         </node>            
 		<!-- Additional Widgets -->
-		<shortcut label="$LOCALIZE[31421]" icon="DefaultFolder.png" condition="System.HasAddon(script.skin.helper.service)">||BROWSE||script.skin.helper.service/?action=widgets&amp;path=skinplaylists,librarydataprovider,extendedinfo,scriptwidgets,smartshortcuts,pvr</shortcut>
+		<shortcut label="$LOCALIZE[31421]" icon="DefaultFolder.png" condition="System.HasAddon(script.skin.helper.service)">||BROWSE||script.skin.helper.service/?action=widgets&amp;path=skinplaylists,librarydataprovider,scriptwidgets,smartshortcuts,pvr</shortcut>
 		<shortcut label="32107" condition="!System.HasAddon(script.skin.helper.service)">::INSTALL::script.skin.helper.service</shortcut>
 		<!-- Picture sources -->
 		<node label="32020">
