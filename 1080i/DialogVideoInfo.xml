@@ -6,15 +6,8 @@
     <onunload condition="Window.IsVisible(1128)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 	<controls>
     
-    <!-- Next line adapted from MikeSiLVO -->
-    
-        <include condition="Skin.HasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">HiddenCast</include>
-    
-        <!-- Get movie details when it is a themoviedb helper widget item -->
-        <include condition="String.IsEqual(ListItem.DBType,movie) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Property(tmdb_id))">TMDbMovieDetails</include>
-    
-        <!-- Get tv show details when it is a themoviedb helper widget item -->
-        <include condition="String.IsEqual(ListItem.DBType,tvshow) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Property(tmdb_id))">TMDbTVShowDetails</include>
+        <!-- Get additional TMDb media details from themoviedb helper -->
+        <include condition="Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
     
 		<control type="image">
 			<width>1920</width>
@@ -80,7 +73,7 @@
             <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
                                      String.IsEqual(ListItem.DBType,season) | 
                                      String.IsEqual(ListItem.DBType,episode)] + 
-                                     Integer.IsEqual(Container(50).NumItems,0) + String.IsEmpty(Listitem.Property(tmdb_id))</param>
+                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(951001).NumItems,0) + !Control.HasFocus(10)</param>
 		</include>                
 		<control type="grouplist" description="Flags">
 			<top>1010</top>
@@ -409,7 +402,7 @@
         
         <!-- Certification Flag for local items -->        
         <control type="group">
-            <visible>String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+            <visible>!String.IsEmpty(ListItem.MPAA)</visible>
             <control type="image" description="Certification flag USA">
                 <top>80</top>
                 <left>1738</left>
@@ -449,7 +442,7 @@
         
         <!-- Certification Flag for tmdb helper items -->        
         <control type="group">
-            <visible>!String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+            <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
             <control type="image" description="Certification flag USA">
                 <top>80</top>
                 <left>1738</left>
@@ -489,7 +482,7 @@
 
         
 		<control type="group" description="Media Info">
-			<control type="group" description="top">
+			<control type="group" description="top" id="300">
 				<posx>700</posx>
 				<posy>60</posy>
 				<control type="label" description="Main Label other than Sets">
@@ -579,7 +572,7 @@
                     <selected>true</selected>
 					<onclick>SetProperty(TextViewerHeader,$ESCVAR[panelheading],Home)</onclick>
                     <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">SetProperty(TextViewerSubHeader,$ESCINFO[ListItem.Tagline,[I],[/I]],Home)</onclick>
-                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Tagline)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(5100).ListItemAbsolute(0).Tagline,[I],[/I]],Home)</onclick>
+                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.Tagline) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Tagline)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(5100).ListItemAbsolute(0).Tagline,[I],[/I]],Home)</onclick>
                     <onclick condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Years))">SetProperty(TextViewerSubHeader,$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Years),[I],[/I]],Home)</onclick>
 					<onclick>SetProperty(TextViewerContent,$ESCVAR[Plots],Home)</onclick>
 					<onclick>ActivateWindow(1124)</onclick>
@@ -627,16 +620,14 @@
 							<label>$LOCALIZE[20339]:</label>
 							<label2>$INFO[ListItem.Director]</label2>
 							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SendClick(13)</onclick>
-			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">SetProperty(DirectorID,True)</onclick>
-			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">SetProperty(ActorName,$INFO[ListItem.Director])</onclick>
-			                <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">ActivateWindow(1121)</onclick>							
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[ListItem.Director],call_id=1129,prevent_del,delay=0.35)</onclick>
                             <visible>!String.IsEmpty(ListItem.Director) + !String.IsEqual(ListItem.DBType,set)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[20339]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Director]</label2>
-                            <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Director)</visible>
+                            <onclick>RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Director],call_id=1129,prevent_del,delay=0.35)</onclick>
+                            <visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Director)</visible>
 						</item>                        
 						<item>
 							<label>$LOCALIZE[20339](s):</label>
@@ -647,14 +638,14 @@
 							<label>$LOCALIZE[20417]:</label>
 							<label2>$INFO[ListItem.Writer]</label2>
 							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">noop</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name=$INFO[ListItem.Writer])</onclick>
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[ListItem.Writer],call_id=1129,prevent_del,delay=0.35)</onclick>
 							<visible>!String.IsEmpty(ListItem.Writer) + !String.IsEqual(ListItem.DBType,set)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[20417]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Writer]</label2>
-							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Writer)</visible>
+							<onclick>RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Writer],call_id=1129,prevent_del,delay=0.35)</onclick>
+							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Writer)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[20417](s):</label>
@@ -671,7 +662,7 @@
 							<label>$LOCALIZE[515]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Genre]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre) + !String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre) + !String.IsEqual(ListItem.DBType,set)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[515](s):</label>
@@ -689,7 +680,7 @@
 							<label>$LOCALIZE[2050]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Duration] $LOCALIZE[12391]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Duration) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Duration) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Duration) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Duration)</visible>
 						</item>                      
 						<item>
 							<label>$LOCALIZE[20161] $LOCALIZE[2050]:</label>
@@ -707,7 +698,7 @@
 							<label>$LOCALIZE[21875]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Country]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Country) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Country) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Country) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Country)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[572]:</label>
@@ -719,7 +710,7 @@
 							<label>$LOCALIZE[572]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Studio]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[29909](s):</label>
@@ -733,23 +724,29 @@
 							<onclick>noop</onclick>
 							<visible>!String.IsEmpty(ListItem.Premiered)</visible>
 						</item>
-						<item>
-							<label>$LOCALIZE[20360]:</label>
-							<label2>$INFO[listitem.episode] ($INFO[ListItem.Property(WatchedEpisodes),, $LOCALIZE[16102]] - $INFO[ListItem.Property(UnWatchedEpisodes), , $LOCALIZE[16101]])</label2>
+                        <item>
+							<label>$LOCALIZE[33054]:</label>
+							<label2>$INFO[ListItem.Property(TotalSeasons)]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Property(TotalSeasons))</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[33054]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).season]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).season) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalSeasons)) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).season)</visible>
+						</item>
+                        <item>
+							<label>$LOCALIZE[20360]:</label>
+							<label2>$INFO[Listitem.Property(TotalEpisodes)] ($INFO[ListItem.Property(WatchedEpisodes),, $LOCALIZE[16102]] - $INFO[ListItem.Property(UnWatchedEpisodes), , $LOCALIZE[16101]])</label2>
+							<onclick>noop</onclick>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(ListItem.Property(WatchedEpisodes)) + !String.IsEmpty(ListItem.Property(UnWatchedEpisodes))</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[20360]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).episode]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).episode) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).episode)</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[31037]:</label>
@@ -761,7 +758,7 @@
 							<label>$LOCALIZE[31037]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).MPAA]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
 						</item>
                         <item>
                             <label>$LOCALIZE[292]:</label>
@@ -784,7 +781,7 @@
 							<label>$LOCALIZE[20457]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(set.name)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(set.name)) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Set) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(set.name))</visible>
 						</item>
 						<item>
 							<label>$LOCALIZE[20459]:</label>
@@ -802,43 +799,43 @@
 							<label>$LOCALIZE[126]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Status]</label2>
 							<onclick>noop</onclick>
-							<visible>String.IsEmpty(ListItem.Status) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Status) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>String.IsEmpty(ListItem.Status) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Status)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32073]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(budget)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(budget)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(budget),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(budget)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(budget),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32074]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(revenue)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(revenue)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(revenue),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(revenue)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(revenue),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32075]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(awards)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(awards)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(awards),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(awards)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(awards),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32077]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewtotal)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewtotal)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewtotal),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewtotal)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewtotal),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32078]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsfresh)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsfresh)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsfresh),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsfresh)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsfresh),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32079]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsrotten)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsrotten)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsrotten),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsrotten)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_reviewsrotten),N/A)</visible>
 						</item>
                         <item>
 							<label>$LOCALIZE[32080]:</label>
@@ -847,13 +844,13 @@
                             <onclick>SetProperty(TextViewerSubHeader,$VAR[RTConsesusLabel],Home)</onclick>
 					        <onclick>SetProperty(TextViewerContent,$ESCINFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_consensus)],Home)</onclick>
 					        <onclick>ActivateWindow(1124)</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_consensus)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_consensus),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_consensus)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_consensus),N/A)</visible>
 						</item>                        
                         <item>
 							<label>$LOCALIZE[32081]:</label>
 							<label2>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_userreviews)]</label2>
 							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_userreviews)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_userreviews),N/A) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+							<visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_userreviews)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_userreviews),N/A)</visible>
 						</item>                        
 						<item>
 							<label>$LOCALIZE[573]:</label>
@@ -878,9 +875,8 @@
 			<height>90</height>
 			<align>center</align>
 			<onup>90003</onup>
-            <ondown condition="!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(50)</ondown>
-			<ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set) + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(90050)</ondown>
-            <ondown condition="!String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(951001)</ondown>
+            <ondown condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(50)</ondown>
+            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo)">SetFocus(951001)</ondown>
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
 			<control type="togglebutton" id="8" description="Play/browse to Show or Set">
@@ -926,17 +922,6 @@
                 <onclick>RunScript(plugin.video.specialfeatures,listitem)</onclick>
                 <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true) + !String.isEqual(ListItem.DBType,set) + !String.IsEmpty(Listitem.DBID)</visible>
             </control>
-            <control type="button" id="1228" description="Extended Info">
-                <visible>[Container.Content(movies) | Container.Content(tvshows)] + [Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(script.extendedinfo)]</visible>
-                <height>90</height>
-                <width min="220">auto</width>
-                <font>Details</font>
-                <align>center</align>
-                <label>$LOCALIZE[32016]</label>
-                <onclick condition="Container.Content(movies)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onclick>
-                <onclick condition="Container.Content(tvshows)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onclick>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
-            </control>
 			<control type="button" id="299" description="Cinema">
 				<height>90</height>
 				<visible>System.HasAddon(script.cinemavision) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]</visible>
@@ -955,7 +940,7 @@
 				<align>center</align>
 				<font>Details</font>
 				<label>$LOCALIZE[31129]</label>
-				<visible>!String.IsEmpty(ListItem.Director)</visible>
+				<visible>!String.IsEmpty(ListItem.Director) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
 			<control type="button" id="6" description="Refresh">
 				<height>90</height>
@@ -1026,9 +1011,6 @@
                 <visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
 			</control>			
 		</control>
-
-<!-- The use of two different cast panels, depending on whether ExtendedInfo is enabled in the skin has been adapted from MikeSiLVO's code.
-     Many thanks to him -->
 		
         <control type="group">
 			<posx>700</posx>
@@ -1039,8 +1021,7 @@
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
             <include condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">DefaultCast</include>
-            <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set) + String.IsEmpty(ListItem.Property(tmdb_id))">CustomCast</include>
-            <include condition="!String.IsEmpty(ListItem.Property(tmdb_id))">TMDBCast</include>
+            <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">TMDBCast</include>
         </control>
         
 		<control type="group">

@@ -22,6 +22,7 @@
     <include file="Includes_Shelf_Contents.xml" />
     <include file="Includes_Search.xml" />
     <include file="Includes_CustomSelect.xml" />
+    <include file="Includes_Info.xml" />
 
     <include file="Includes_Media.xml" />
     <include file="Includes_List.xml" />
@@ -159,16 +160,6 @@
         <fadetime>200</fadetime>
         <animation effect="fade" time="200">Visible</animation>
         <animation effect="fade" time="100">Hidden</animation>
-    </include>
-    <include name="HiddenButton">
-        <left>-3000</left>
-        <top>-3000</top>
-        <width>1</width>
-        <height>1</height>
-        <texturefocus></texturefocus>
-        <texturenofocus></texturenofocus>
-        <label></label>
-        <font></font>
     </include>
 
 	<include name="DialogBackgroundFade">
@@ -842,47 +833,6 @@
         <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
     </include>
 
-    <include name="List_9009_Commons" description="Video Info metadata container">
-        <posy>95</posy>
-        <left>640</left>
-        <width>540</width>
-        <height>370</height>
-<!--        <ondown>9000</ondown>
-        <onup>9000</onup>
-        <onleft>9000</onleft>
-        <onright>9000</onright> -->
-        <pagecontrol></pagecontrol>
-        <itemlayout height="47" width="530">
-            <control type="label">
-                <height>45</height>
-                <font>Details</font>
-                <align>left</align>
-                <aligny>center</aligny>
-                <textcolor>Grey2</textcolor>
-                <selectedcolor>selected</selectedcolor>
-                <label>$INFO[ListItem.Label,[COLOR=Highlight],[/COLOR] ]$INFO[ListItem.Label2]</label>
-                <textoffsetx>8</textoffsetx>
-                <scroll>false</scroll>
-            </control>
-        </itemlayout>
-        <focusedlayout height="47" width="530">
-            <control type="image">
-                <texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
-            </control>
-            <control type="label">
-                <height>45</height>
-                <font>Details</font>
-                <align>left</align>
-                <aligny>center</aligny>
-                <textcolor>Black</textcolor>
-                <selectedcolor>Black</selectedcolor>
-                <shadowcolor></shadowcolor>
-                <textoffsetx>8</textoffsetx>
-                <label>$INFO[ListItem.Label,, ]$INFO[ListItem.Label2]</label>
-            </control>
-        </focusedlayout>
-    </include>
-
     <include name="Library_Count">
         <control type="group" description="Library stats">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
@@ -914,8 +864,6 @@
         <fadetime>400</fadetime>
         <aspectratio>scale</aspectratio>
     </include>
-
-
 
     <include name="WeatherItemBG">
         <param name="xoffset" default="0"/>
@@ -2139,250 +2087,8 @@
         </control>
     </include>
 
-    <!-- The following has been adapted from MikeSiLVO, to be able to have a custom onclick for cast items in DialogVideoInfo.xml -->
-
-    <include name="CustomCastItem">
-        <param name="CastListItemID" />
-        <definition>
-            <item>
-                <label>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label]</label>
-                <label2>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label2]</label2>
-                <icon>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Icon]</icon>
-                <onclick>SetProperty(ActorID,$PARAM[CastListItemID])</onclick>
-                <onclick>SetProperty(ActorName,$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label])</onclick>
-                <onclick>ActivateWindow(1121)</onclick>
-                <visible>!String.IsEmpty(Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label)</visible>
-            </item>
-        </definition>
-    </include>
-
-    <include name="CustomCastListContent">
-        <include content="CustomCastItem">
-            <param name="CastListItemID">0</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">1</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">2</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">3</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">4</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">5</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">6</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">7</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">8</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">9</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">10</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">11</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">12</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">13</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">14</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">15</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">16</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">17</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">18</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">19</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">20</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">21</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">22</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">23</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">24</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">25</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">26</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">27</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">28</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">29</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">30</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">31</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">32</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">33</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">34</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">35</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">36</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">37</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">38</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">39</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">40</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">41</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">42</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">43</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">44</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">45</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">46</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">47</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">48</param>
-        </include>
-        <include content="CustomCastItem">
-            <param name="CastListItemID">49</param>
-        </include>        
-    </include>
-
-    <include name="DefaultCast">
-        <control type="list" id="50">
-            <width>1180</width>
-            <height>410</height>
-            <onleft>50</onleft>
-            <onright>50</onright>
-            <onup>9000</onup>
-            <scrolltime>200</scrolltime>
-            <orientation>horizontal</orientation>
-            <include condition="!String.IsEqual(ListItem.DBType,set)" content="ActorLayout">
-                <param name="viewid">50</param>
-            </include>
-            <include condition="String.IsEqual(ListItem.DBType,set)" content="SetLayout">
-                <param name="viewid">50</param>
-            </include>            
-        </control>
-    </include>
-
-    <include name="CustomCast">
-        <control type="list" id="90050">
-            <width>1180</width>
-            <height>410</height>
-            <onleft>90050</onleft>
-            <onright>90050</onright>
-            <onup>9000</onup>
-            <scrolltime>200</scrolltime>            
-            <orientation>horizontal</orientation>
-            <include content="ActorLayout">
-                <param name="viewid">90050</param>
-            </include>
-            <content>
-                <include>CustomCastListContent</include>
-            </content>
-        </control>
-    </include>
-
-    <include name="HiddenCast">
-        <control type="list" id="50">
-            <left>-100</left>
-            <top>-100</top>
-            <width>100</width>
-            <height>100</height>
-            <itemlayout height="100" width="100" />
-            <focusedlayout height="100" width="100" />
-        </control>
-    </include>    
-
-    <!-- End adaptations from MikeSiLVO -->    
-
-
-
-
-
-    <include name="ExtendedSet">
-        <control type="panel" id="90150">
-            <width>1180</width>
-            <height>410</height>
-            <onleft>90150</onleft>
-            <onright>90150</onright>
-            <onup>9000</onup>
-            <scrolltime>200</scrolltime>            
-            <orientation>horizontal</orientation>
-            <onclick>noop</onclick>
-            <oninfo>Dialog.Close(1127)</oninfo>
-            <include content="SetLayout">
-                <param name="viewid">90150</param>
-            </include>
-            <content sortby="year" target="videos">videodb://movies/sets/$INFO[ListItem.DBID]</content>
-        </control>
-    </include>
-
 
 <!-- The following also adapted from MikeSiLVO -->
-
 
 	<include name="FanartTitleHorizontal">
 		<control type="button" id="12000">
@@ -2709,32 +2415,6 @@
         <onload>ClearProperty(WidgetFocus32)</onload>
     </include>    
 
-    <include name="UpDownArrows">
-        <param name="id" default="900031" />
-        <definition>
-            <control type="group">
-                <left>-20</left>
-                <posy>440</posy>
-                <align>center</align>
-                <visible>Container($PARAM[id]).HasNext</visible>
-                <control type="group">
-                    <width>22</width>
-                    <control type="image">
-                        <width>20</width>
-                        <height>20</height>
-                        <texture colordiffuse="Highlight" flipy="false">icons/arrowdown.png</texture>
-                    </control>
-                    <control type="image">
-                        <top>10</top>
-                        <width>20</width>
-                        <height>20</height>
-                        <texture colordiffuse="Highlight" flipy="false">icons/arrowdown.png</texture>
-                    </control>
-                </control>
-            </control>
-        </definition>
-    </include>
-
 	<include name="PVRChannelNumberInput">
 		<control type="label">
 			<left>0</left>
@@ -2766,7 +2446,7 @@
 
     <include name="AlphabetLetter">
         <control type="label">
-            <width>64</width>
+            <width>42</width>
             <height>42</height>
             <label>$PARAM[label]</label>
             <align>center</align>
@@ -2776,7 +2456,7 @@
             <visible>!String.IsEqual(ListItem.SortLetter,$PARAM[label])</visible>
         </control>
         <control type="label">
-            <width>64</width>
+            <width>42</width>
             <height>42</height>
             <label>[B]$PARAM[label][/B]</label>
             <align>center</align>
@@ -2789,7 +2469,7 @@
 
     <include name="AlphabetNumber">
         <control type="label">
-            <width>64</width>
+            <width>42</width>
             <height>42</height>
             <label>#</label>
             <align>center</align>
@@ -2799,7 +2479,7 @@
             <visible>![String.IsEqual(ListItem.SortLetter,$NUMBER[0]) | String.IsEqual(ListItem.SortLetter,$NUMBER[1]) | String.IsEqual(ListItem.SortLetter,$NUMBER[2]) | String.IsEqual(ListItem.SortLetter,$NUMBER[3]) | String.IsEqual(ListItem.SortLetter,$NUMBER[4]) | String.IsEqual(ListItem.SortLetter,$NUMBER[5]) | String.IsEqual(ListItem.SortLetter,$NUMBER[6]) | String.IsEqual(ListItem.SortLetter,$NUMBER[7]) | String.IsEqual(ListItem.SortLetter,$NUMBER[8]) | String.IsEqual(ListItem.SortLetter,$NUMBER[9])]</visible>
         </control>
         <control type="label">
-            <width>64</width>
+            <width>42</width>
             <height>42</height>
             <label>[B]#[/B]</label>
             <align>center</align>
@@ -3003,244 +2683,5 @@
 			</control>            
 		</control>
 	</include>
-
-    <!-- Includes for showing info from plugin.vieo.themoviedb.helper -->
-    <!-- Thanks to jurialmunkey for allowing me to adapt his code -->
-
-    <include name="TMDBCastItem">
-        <param name="CastListItemID" />
-        <definition>
-            <item>
-                <label>$INFO[Container(5100).ListItemAbsolute(1).Property(Cast.$PARAM[CastListItemID].Name)]</label>
-                <label2>$INFO[Container(5100).ListItemAbsolute(1).Property(Cast.$PARAM[CastListItemID].Role)]</label2>
-                <icon>$INFO[Container(5100).ListItemAbsolute(1).Property(Cast.$PARAM[CastListItemID].Thumb)]</icon>
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(1).Property(Cast.$PARAM[CastListItemID].Name))</visible>
-                <onclick>RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(5100).ListItemAbsolute(1).Property(Cast.$PARAM[CastListItemID].Name)],call_id=1129,prevent_del,delay=0.35)</onclick>
-            </item>
-        </definition>
-    </include>
-
-    <include name="TMDBCastListContent">
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">1</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">2</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">3</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">4</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">5</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">6</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">7</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">8</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">9</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">10</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">11</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">12</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">13</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">14</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">15</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">16</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">17</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">18</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">19</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">20</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">21</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">22</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">23</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">24</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">25</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">26</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">27</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">28</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">29</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">30</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">31</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">32</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">33</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">34</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">35</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">36</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">37</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">38</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">39</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">40</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">41</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">42</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">43</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">44</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">45</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">46</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">47</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">48</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">49</param>
-        </include>
-        <include content="TMDBCastItem">
-            <param name="CastListItemID">50</param>
-        </include>        
-    </include>
-
-    <include name="TMDBCast">
-        <control type="list" id="951001">
-            <width>1180</width>
-            <height>410</height>
-            <onleft>951001</onleft>
-            <onright>951001</onright>
-            <onup>9000</onup>
-            <scrolltime>200</scrolltime>            
-            <orientation>horizontal</orientation>
-            <include content="ActorLayout">
-                <param name="viewid">951001</param>
-            </include>
-            <content>
-                <include>TMDBCastListContent</include>
-            </content>
-        </control>
-    </include>
-
-    <include name="TMDbMovieDetails">
-        <control type="list" id="5100">
-            <left>-100</left>
-            <top>-100</top>
-            <width>100</width>
-            <height>100</height>
-            <itemlayout height="100" width="100" />
-            <focusedlayout height="100" width="100" />
-            <content>plugin://plugin.video.themoviedb.helper/?info=details&amp;type=movie&amp;tmdb_id=$INFO[ListItem.Property(tmdb_id)]</content>
-        </control>
-    </include>
-    
-    <include name="TMDbTVShowDetails">
-        <control type="list" id="5100">
-            <left>-100</left>
-            <top>-100</top>
-            <width>100</width>
-            <height>100</height>
-            <itemlayout height="100" width="100" />
-            <focusedlayout height="100" width="100" />
-            <content>plugin://plugin.video.themoviedb.helper/?info=details&amp;type=tv&amp;tmdb_id=$INFO[ListItem.Property(tmdb_id)]</content>
-        </control>
-    </include>
-
-    <include name="InfoList_OnBack">
-        <onback condition="!Skin.HasSetting(Enable.ExtendedInfo)">SetFocus(50)</onback>
-        <onback>SetFocus(5000)</onback>
-        <onback>300</onback>
-    </include>
-
-    <include name="InfoList_OnClick">
-        <param name="prevent_del" default="prevent_del" />
-        <definition>
-            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SetFocus(50)</onclick>
-            <onclick>SetFocus(5000)</onclick>
-            <onclick>SetFocus(300)</onclick>
-            <onclick condition="String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_id=1129,delay=0.35,$PARAM[prevent_del])</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129,delay=0.35,$PARAM[prevent_del])</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_id=1129,delay=0.35,$PARAM[prevent_del])</onclick>
-        </definition>
-    </include>
-
-    <include name="HiddenButton">
-        <top>-100</top>
-        <visible allowhiddenfocus="true">false</visible>
-        <width>1</width>
-        <height>1</height>
-        <texturefocus />
-        <texturenofocus />
-        <font />
-    </include>
 
 </includes>
