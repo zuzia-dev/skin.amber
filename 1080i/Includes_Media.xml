@@ -267,6 +267,8 @@
 		<param name="belowlabelalign">center</param>
 		<param name="belowdoublelabel1"></param>
 		<param name="belowdoublelabel2"></param>
+        <param name="labelfont1">Shelf_Label</param>
+        <param name="labelfont2">Shelf_Label</param>
 		<param name="belowdoublelabelvisibility">false</param>
 		<param name="belowdoublelabelalign">center</param>
 		<param name="belowtextbox"></param>
@@ -331,6 +333,8 @@
 					<param name="labelvisibility">$PARAM[belowdoublelabelvisibility]</param>
 					<param name="labeltext1">$PARAM[belowdoublelabel1]</param>
 					<param name="labeltext2">$PARAM[belowdoublelabel2]</param>
+                    <param name="labelfont1">$PARAM[labelfont1]</param>
+                    <param name="labelfont2">$PARAM[labelfont2]</param>
 					<param name="labelalign">$PARAM[belowdoublelabelalign]</param>
 					<param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeLT],0</param>
 				</include>
@@ -542,6 +546,8 @@
 		<param name="labelvisibility">false</param>
 		<param name="labeltext1"/>
 		<param name="labeltext2"/>
+        <param name="labelfont1">Shelf_Label</param>
+        <param name="labelfont2">Shelf_Label</param>
 		<param name="labelalign">center</param>
 		<param name="textboxwidth"/>
 		<param name="bordersize"/>
@@ -571,7 +577,7 @@
 					<visible>!$PARAM[isFocused]</visible>
 					<width>$PARAM[labelwidth]</width>
 					<height>35</height>
-					<font>Shelf_Label</font>
+					<font>$PARAM[labelfont1]</font>
 					<textoffsetx>24</textoffsetx>
 					<label>$PARAM[labeltext1]</label>
 					<align>$PARAM[labelalign]</align>
@@ -583,7 +589,7 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>35</height>
 					<textoffsetx>24</textoffsetx>
-					<font>Shelf_Label</font>
+					<font>$PARAM[labelfont2]</font>
 					<label>$PARAM[labeltext2]</label>
 					<align>$PARAM[labelalign]</align>
 					<scroll>false</scroll>
@@ -592,7 +598,7 @@
 					<visible>$PARAM[isFocused]</visible>
 					<width>$PARAM[labelwidth]</width>
 					<height>35</height>
-					<font>Shelf_Label</font>
+					<font>$PARAM[labelfont1]</font>
 					<textoffsetx>24</textoffsetx>
 					<textcolor>Black</textcolor>
 					<selectedcolor>Black</selectedcolor>
@@ -606,7 +612,7 @@
 					<top>34</top>
 					<width>$PARAM[labelwidth]</width>
 					<height>35</height>
-					<font>Shelf_Label</font>
+					<font>$PARAM[labelfont2]</font>
 					<textoffsetx>24</textoffsetx>
 					<textcolor>Black</textcolor>
 					<selectedcolor>Black</selectedcolor>
@@ -977,6 +983,56 @@
 				    <param name="belowdoublelabelvisibility">true</param>
 				    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
 				    <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
+				    <param name="aspect">scale</param>
+			    </include>                
+			</focusedlayout>
+		</definition>
+	</include>
+
+	<include name="CastLayout">
+		<param name="viewid"/>
+        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+        <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
+		<definition>
+			<itemlayout height="410" width="232.5">
+			    <include content="GenericThumbIconTemplate">
+				    <param name="isFocused">false</param>
+				    <param name="iconwidth">232.5</param>
+				    <param name="iconheight">326</param>
+				    <param name="iconoffset">0</param>
+				    <param name="iconimage">$INFO[ListItem.Icon]</param>
+				    <param name="fallbackicon">DefaultActorPoster.png</param>
+				    <param name="shadowoffset">8</param>
+				    <param name="bordersizeLT">12</param>
+				    <param name="bordersizeRB">20</param>
+				    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$PARAM[belowdoublelabel1]</param>
+                    <param name="belowdoublelabel2">$PARAM[belowdoublelabel2]</param>
+<!--				    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param> -->
+                    <param name="labelfont1">ListDetailsSmall</param>
+                    <param name="labelfont2">ListDetailsSmall</param>
+				    <param name="aspect">scale</param>
+			    </include>
+			</itemlayout>
+			<focusedlayout height="410" width="232.5">
+			    <include content="GenericThumbIconTemplate">
+				    <param name="isFocused">Control.HasFocus($PARAM[viewid])</param>
+				    <param name="iconwidth">232.5</param>
+				    <param name="iconheight">326</param>
+				    <param name="iconoffset">0</param>
+				    <param name="iconimage">$INFO[ListItem.Icon]</param>
+				    <param name="fallbackicon">DefaultActorPoster.png</param>
+				    <param name="shadowoffset">8</param>
+				    <param name="bordersizeLT">12</param>
+				    <param name="bordersizeRB">20</param>
+				    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$PARAM[belowdoublelabel1]</param>
+                    <param name="belowdoublelabel2">$PARAM[belowdoublelabel2]</param>
+<!--				    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param> -->
+                    <param name="labelfont1">ListDetailsSmall</param>
+                    <param name="labelfont2">ListDetailsSmall</param>
 				    <param name="aspect">scale</param>
 			    </include>                
 			</focusedlayout>

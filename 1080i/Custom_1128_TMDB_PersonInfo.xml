@@ -22,13 +22,20 @@
         <!-- Wait until plugin has populated person info.  If it is not a person, just show info. -->
         <control type="list" id="9999">
             <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + !String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">Action(Info)</onfocus>
-            <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">SetFocus(3100)</onfocus>
+            <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">SetFocus(90003)</onfocus>
             <onfocus condition="[Integer.IsEqual(Container(9999).NumItems,0) | Container(9999).IsUpdating] + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">AlarmClock(doinfo,SetFocus(9999),00:01,silent)</onfocus>
             <onfocus condition="String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">Action(Back)</onfocus>
             <itemlayout />
             <focusedlayout />
-            <content limit="1" target="videos">$INFO[Window(Home).Property(TMDbHelper.Path.Current)]</content>
+            <content target="videos">$INFO[Window(Home).Property(TMDbHelper.Path.Current)]</content>
         </control>
+
+        <!-- Please wait... -->
+        <control type="group">
+            <visible>[!String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person) | Control.HasFocus(9999)] + !Window.IsVisible(DialogVideoInfo.xml)</visible>
+            <include>InfoLoading</include>
+        </control>
+
 
         <!-- Person Info -->
         <control type="group">
@@ -106,6 +113,7 @@
 					<onclick>SetProperty(TextViewerHeader,$ESCINFO[Container(9999).ListItemAbsolute(0).Label],Home)</onclick>
 					<onclick>SetProperty(TextViewerContent,$ESCINFO[Container(9999).ListItemAbsolute(0).Property(biography)],Home)</onclick>
 					<onclick>ActivateWindow(1124)</onclick>
+                    <onback condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onback>
 				</control>
 				<control type="image" description="Line Split">
 				    <posy>90</posy>
@@ -155,7 +163,7 @@
 					</content>
 				</control>
                 
-                <control type="button" id="3111">
+ <!--               <control type="button" id="3111">
                     <onfocus>SetFocus(3100)</onfocus>
                     <include>HiddenButton</include>
                 </control>
@@ -169,33 +177,188 @@
                     <focusedlayout />
                     <include>HiddenButton</include>
                     <content>$INFO[Window(Home).Property(TMDbHelper.Path.Current)]</content>
-                </control>
+                </control>  -->
                 
 			</control>
                 
             <control type="group" id="9100">
-			        
                 <posx>700</posx>
-			    <posy>640</posy>
+			    <posy>600</posy>
 			    <width>1180</width>
-			    <height>410</height>
+			    <height>450</height>
                 
-                    <control type="list" id="9101">
-                        <width>1180</width>
-                        <height>410</height>
-                        <onleft>9101</onleft>
-                        <onright>9101</onright>
-                        <scrolltime>200</scrolltime>
-                        <orientation>horizontal</orientation>
-                        <include>InfoList_OnBack</include>
-                        <include content="InfoList_OnClick">
-                            <param name="prevent_del" value="noop" />
-                        </include>
-                        <include content="SetLayout">
-                            <param name="viewid">9101</param>
-                        </include>
-                        <content limit="25" target="videos">$VAR[InfoCastList01]</content>                        
+                <control type="grouplist" id="91001">
+                    <scrolltime tween="quadratic">400</scrolltime>
+                    <onup>90003</onup>
+                    <height>450</height>
+                    <orientation>vertical</orientation>
+                    <itemgap>50</itemgap>
+                    <usecontrolcoords>true</usecontrolcoords>
+                    
+                    <control type="group">
+                        <height>450</height>
+                        <control type="group">
+                            <control type="label">
+                                <left>8</left>
+                                <top>0</top>
+                                <height>30</height>
+                                <label>Cast in Movies</label>
+                            </control>
+                            <control type="image" description="Line Split">
+				                <top>38</top>
+                                <left>10</left>
+				                <width>1180</width>
+				                <height>1</height>
+				                <texture>img/LineL.png</texture>
+				                <aspectratio>stretch</aspectratio>
+				            </control>
+                            <control type="list" id="9101">
+                                <top>42</top>
+                                <width>1180</width>
+                                <height>410</height>
+                                <onup>300</onup>
+                                <ondown>9102</ondown>
+                                <onleft>9101</onleft>
+                                <onright>9101</onright>
+                                <scrolltime>200</scrolltime>
+                                <orientation>horizontal</orientation>
+                                <include>InfoList_OnBack</include>
+                                <include content="InfoList_OnClick">
+                                    <param name="prevent_del" value="noop" />
+                                </include>
+                                <include content="CastLayout">
+                                    <param name="viewid">9101</param>
+                                    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				                    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
+                                </include>
+                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList01]</content>                        
+                            </control>
+                        </control>
                     </control>
+                    
+                    <control type="group">
+                        <height>450</height>
+                        <control type="group">
+                            <control type="label">
+                                <left>8</left>
+                                <top>0</top>
+                                <height>30</height>
+                                <label>Cast in TV Shows</label>
+                            </control>
+                            <control type="image" description="Line Split">
+				                <top>38</top>
+                                <left>10</left>
+				                <width>1180</width>
+				                <height>1</height>
+				                <texture>img/LineL.png</texture>
+				                <aspectratio>stretch</aspectratio>
+				            </control>
+                            <control type="list" id="9102">
+                                <top>42</top>
+                                <width>1180</width>
+                                <height>410</height>
+                                <onup>9101</onup>
+                                <ondown>9103</ondown>
+                                <onleft>9102</onleft>
+                                <onright>9102</onright>
+                                <scrolltime>200</scrolltime>
+                                <orientation>horizontal</orientation>
+                                <include>InfoList_OnBack</include>
+                                <include content="InfoList_OnClick">
+                                    <param name="prevent_del" value="noop" />
+                                </include>
+                                <include content="CastLayout">
+                                    <param name="viewid">9102</param>
+                                    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				                    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
+                                </include>
+                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList02]</content>                        
+                            </control>
+                        </control>
+                    </control>
+
+                    <control type="group">
+                        <height>450</height>
+                        <control type="group">
+                            <control type="label">
+                                <left>8</left>
+                                <top>0</top>
+                                <height>30</height>
+                                <label>Crew in Movies</label>
+                            </control>
+                            <control type="image" description="Line Split">
+				                <top>38</top>
+                                <left>10</left>
+				                <width>1180</width>
+				                <height>1</height>
+				                <texture>img/LineL.png</texture>
+				                <aspectratio>stretch</aspectratio>
+				            </control>
+                            <control type="list" id="9103">
+                                <top>42</top>
+                                <width>1180</width>
+                                <height>410</height>
+                                <onup>9102</onup>
+                                <ondown condition="Integer.IsGreater(Container(9104).NumItems,0)">9104</ondown>
+                                <onleft>9103</onleft>
+                                <onright>9103</onright>
+                                <scrolltime>200</scrolltime>
+                                <orientation>horizontal</orientation>
+                                <include>InfoList_OnBack</include>
+                                <include content="InfoList_OnClick">
+                                    <param name="prevent_del" value="noop" />
+                                </include>
+                                <include content="CastLayout">
+                                    <param name="viewid">9103</param>
+                                    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				                    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
+                                </include>
+                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList03]</content>                        
+                            </control>
+                        </control>
+                    </control>
+                    
+                   <control type="group">
+                        <height>450</height>
+                        <control type="group">
+                            <control type="label">
+                                <left>8</left>
+                                <top>0</top>
+                                <height>30</height>
+                                <label>Crew in TV Shows</label>
+                            </control>
+                            <control type="image" description="Line Split">
+				                <top>38</top>
+                                <left>10</left>
+				                <width>1180</width>
+				                <height>1</height>
+				                <texture>img/LineL.png</texture>
+				                <aspectratio>stretch</aspectratio>
+				            </control>
+                            <control type="list" id="9104">
+                                <top>42</top>
+                                <width>1180</width>
+                                <height>410</height>
+                                <onup>9103</onup>
+                                <onleft>9104</onleft>
+                                <onright>9104</onright>
+                                <scrolltime>200</scrolltime>
+                                <orientation>horizontal</orientation>
+                                <include>InfoList_OnBack</include>
+                                <include content="InfoList_OnClick">
+                                    <param name="prevent_del" value="noop" />
+                                </include>
+                                <include content="CastLayout">
+                                    <param name="viewid">9104</param>
+                                    <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
+				                    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
+                                </include>
+                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList04]</content>                        
+                            </control>
+                        </control>
+                    </control>
+                    
+                </control>   
             </control>
                 
         </control>
