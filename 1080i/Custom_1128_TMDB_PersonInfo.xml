@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="window" id="1128">
+    <onload>ClearProperty(TMDBHelper.TMDbTotals1.NumTMDBItems,Home)</onload>
+    <onload>ClearProperty(TMDBHelper.TMDbTotals1.NumTMDBItems,Home)</onload>
+    <onload>ClearProperty(TMDBHelper.TMDbTotals2.NumTMDBItems,Home)</onload>
+    <onload>ClearProperty(TMDBHelper.TMDbTotals2.NumDBIDItems,Home)</onload>
     <defaultcontrol always="true">9999</defaultcontrol>
     <controls>
     
@@ -36,13 +40,12 @@
             <include>InfoLoading</include>
         </control>
 
-
         <!-- Person Info -->
         <control type="group">
             <top>0</top>
             <left>0</left>
             <visible>String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person) + !Control.HasFocus(9999)</visible>
-                        
+ 
             <include content="ShadowedImage">
 			    <param name="top">24</param>
 			    <param name="left">24</param>
@@ -161,37 +164,32 @@
 					        <visible>!String.IsEmpty(Container(9999).ListItemAbsolute(0).Property(aliases))</visible>
 					    </item>
                         <item>
-					        <label>Total Media in TMDb:</label>
-					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals.NumTMDBItems)]</label2>
+					        <label>$LOCALIZE[32091]:</label>
+					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals1.NumTMDBItems)]</label2>
 					        <onclick>noop</onclick>
-					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals.NumTMDBItems))</visible>
+					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals1.NumTMDBItems))</visible>
 					    </item>
                         <item>
-					        <label>Total in local Database:</label>
-					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals.NumDBIDItems)]</label2>
+					        <label>$LOCALIZE[32093]:</label>
+					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals1.NumDBIDItems)]</label2>
 					        <onclick>noop</onclick>
-					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals.NumDBIDItems))</visible>
+					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals1.NumDBIDItems))</visible>
 					    </item>
+                        <item>
+					        <label>$LOCALIZE[32092]:</label>
+					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals2.NumTMDBItems)]</label2>
+					        <onclick>noop</onclick>
+					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals2.NumTMDBItems))</visible>
+					    </item>
+                        <item>
+					        <label>$LOCALIZE[32094]:</label>
+					        <label2>$INFO[Window(Home).Property(TMDBHelper.TMDbTotals2.NumDBIDItems)]</label2>
+					        <onclick>noop</onclick>
+					        <visible>!String.IsEmpty(Window(Home).Property(TMDBHelper.TMDbTotals2.NumDBIDItems))</visible>
+					    </item>                        
 					</content>
 				</control>
-                
- <!--               <control type="button" id="3111">
-                    <onfocus>SetFocus(3100)</onfocus>
-                    <include>HiddenButton</include>
-                </control>
-                <control type="list" id="3100">
-                    <orientation>horizontal</orientation>
-                    <onup>90003</onup>
-                    <ondown>9101</ondown>
-                    <onback condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onback>
-                    <onback>3111</onback>
-                    <itemlayout />
-                    <focusedlayout />
-                    <include>HiddenButton</include>
-                    <content>$INFO[Window(Home).Property(TMDbHelper.Path.Current)]</content>
-                </control>  -->
-                
-			</control>
+ 			</control>
                 
             <control type="group" id="9100">
                 <posx>700</posx>
@@ -204,7 +202,7 @@
                     <onup>90003</onup>
                     <height>450</height>
                     <orientation>vertical</orientation>
-                    <itemgap>0</itemgap>
+                    <itemgap>10</itemgap>
                     <usecontrolcoords>true</usecontrolcoords>
                     
                     <control type="group">
@@ -219,7 +217,7 @@
                                    <label>Cast in Movies</label>
                                 </control>
                                 <control type="image" description="Line Split">
-				                    <top>38</top>
+				                    <top>40</top>
                                     <left>10</left>
 				                    <width>1180</width>
 				                    <height>1</height>
@@ -228,7 +226,8 @@
 				                </control>
                             </control>    
                             <control type="panel" id="9101">
-                                <top>42</top>
+                                <top>44</top>
+                                <left>10</left>
                                 <width>1180</width>
                                 <height>410</height>
                                 <onup>300</onup>
@@ -272,7 +271,7 @@
                                    <label>Cast in TV Shows</label>
                                 </control>
                                 <control type="image" description="Line Split">
-				                    <top>38</top>
+				                    <top>40</top>
                                     <left>10</left>
 				                    <width>1180</width>
 				                    <height>1</height>
@@ -281,7 +280,8 @@
 				                </control>
                             </control>
                             <control type="panel" id="9102">
-                                <top>42</top>
+                                <top>44</top>
+                                <left>10</left>
                                 <width>1180</width>
                                 <height>410</height>
                                 <onup>9101</onup>
@@ -308,7 +308,7 @@
 							            <visible>String.IsEmpty(Container(9102).ListItem(1).Label)</visible>
 						            </item>
                                 </content>
-                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList02]</content>                        
+                                <content sortby="year" sortorder="descending" limit="30" target="videos">$VAR[InfoCastList02]</content>                        
                             </control>
                         </control>
                     </control>
@@ -325,7 +325,7 @@
                                    <label>Crew in Movies</label>
                                 </control>
                                 <control type="image" description="Line Split">
-				                    <top>38</top>
+				                    <top>40</top>
                                     <left>10</left>
 				                    <width>1180</width>
 				                    <height>1</height>
@@ -334,7 +334,8 @@
 				                </control>
                             </control>
                             <control type="panel" id="9103">
-                                <top>42</top>
+                                <top>44</top>
+                                <left>10</left>
                                 <width>1180</width>
                                 <height>410</height>
                                 <onup>9102</onup>
@@ -361,7 +362,7 @@
 							            <visible>String.IsEmpty(Container(9103).ListItem(1).Label)</visible>
 						            </item>
                                 </content>
-                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList03]</content>                        
+                                <content sortby="year" sortorder="descending" limit="30" target="videos">$VAR[InfoCastList03]</content>                        
                             </control>
                         </control>
                     </control>
@@ -378,7 +379,7 @@
                                    <label>Crew in TV Shows</label>
                                 </control>
                                 <control type="image" description="Line Split">
-				                    <top>38</top>
+				                    <top>40</top>
                                     <left>10</left>
 				                    <width>1180</width>
 				                    <height>1</height>
@@ -387,7 +388,8 @@
 				                </control>
                             </control>
                             <control type="panel" id="9104">
-                                <top>42</top>
+                                <top>44</top>
+                                <left>10</left>
                                 <width>1180</width>
                                 <height>410</height>
                                 <onup>9103</onup>
@@ -413,7 +415,7 @@
 							            <visible>String.IsEmpty(Container(9104).ListItem(1).Label)</visible>
 						            </item>
                                 </content>
-                                <content sortby="year" sortorder="descending" limit="25" target="videos">$VAR[InfoCastList04]</content>                        
+                                <content sortby="year" sortorder="descending" limit="30" target="videos">$VAR[InfoCastList04]</content>                        
                             </control>
                         </control>
                     </control>

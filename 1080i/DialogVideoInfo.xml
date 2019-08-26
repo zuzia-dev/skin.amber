@@ -3,11 +3,11 @@
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<animation effect="fade" time="200">WindowOpen</animation>
 	<animation effect="fade" time="150">WindowClose</animation>
-    <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
+    <onunload condition="Window.IsVisible(1128)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 	<controls>
     
-        <!-- Get additional TMDb media details from themoviedb helper -->
-        <include condition="Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
+        <!-- Get additional TMDb media details from themoviedb helper for movies and tvshows -->
+        <include condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
     
 		<control type="image">
 			<width>1920</width>
@@ -876,7 +876,7 @@
 			<align>center</align>
 			<onup>90003</onup>
             <ondown condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(50)</ondown>
-            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo)">SetFocus(951001)</ondown>
+            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetFocus(951001)</ondown>
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
 			<control type="togglebutton" id="8" description="Play/browse to Show or Set">
@@ -889,7 +889,7 @@
 				<texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
 				<alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
 				<usealttexture>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set)</usealttexture>
-                <onclick>Dialog.Close(all,true)</onclick>
+           <!--     <onclick>Dialog.Close(all,true)</onclick> -->
                 <visible>!String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
             <control type="button" id="8100" description="Search">
