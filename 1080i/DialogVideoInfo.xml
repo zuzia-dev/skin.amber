@@ -7,7 +7,10 @@
 	<controls>
     
         <!-- Get additional TMDb media details from themoviedb helper for movies and tvshows -->
-        <include condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
+        <include condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
+    
+    
+        <include>HiddenCast</include>
     
 		<control type="image">
 			<width>1920</width>
@@ -73,7 +76,7 @@
             <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
                                      String.IsEqual(ListItem.DBType,season) | 
                                      String.IsEqual(ListItem.DBType,episode)] + 
-                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(951001).NumItems,0) + !Control.HasFocus(10)</param>
+                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + !Control.HasFocus(10)</param>
 		</include>                
 		<control type="grouplist" description="Flags">
 			<top>1010</top>
@@ -875,8 +878,9 @@
 			<height>90</height>
 			<align>center</align>
 			<onup>90003</onup>
-            <ondown condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(50)</ondown>
-            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetFocus(951001)</ondown>
+            <ondown>SetFocus(90050)</ondown>
+    <!--        <ondown condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(90050)</ondown>
+            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetFocus(951001)</ondown> -->
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
 			<control type="togglebutton" id="8" description="Play/browse to Show or Set">
@@ -1020,8 +1024,9 @@
 			<onup>9000</onup>
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
-            <include condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">DefaultCast</include>
-            <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">TMDBCast</include>
+            <include>CustomCast</include>
+        <!--    <include condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">CustomCast</include>
+            <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">TMDBCast</include> -->
         </control>
         
 		<control type="group">

@@ -782,7 +782,14 @@
         <value condition="!Container(9999).IsUpdating + Integer.IsGreater(Container(3100).NumItems,0)">$INFO[Container(9999).ListItemAbsolute(5).FolderPath]</value>
     </variable>
 
-
+    <variable name="CastContentSource">
+		<value condition="ListItem.IsCollection + !String.IsEmpty(ListItem.DBID) + !String.IsEqual(ListItem.DBID,0)">videodb://movies/sets/$INFO[ListItem.DBID]/?setid=$INFO[ListItem.DBID]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.DBID) + !String.IsEqual(ListItem.DBID,0)">plugin://script.embuary.helper?info=getcast&amp;type=movie&amp;dbid=$INFO[ListItem.DBID]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.DBID) + !String.IsEqual(ListItem.DBID,0)">plugin://script.embuary.helper?info=getcast&amp;type=tvshow&amp;dbid=$INFO[ListItem.DBID]</value>
+		<value condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">plugin://script.embuary.helper?info=getcast&amp;type=tvshow&amp;title='$ESCINFO[ListItem.TVShowTitle]'</value>
+		<value condition="!String.IsEmpty(ListItem.Property(tmdb_id) + String.IsEmpty(ListItem.DBID)">$INFO[Container(5100).ListItemAbsolute(1).FolderPath]</value>
+        <value>-</value>
+	</variable>
 
     <include name="Info_Button_300">
         <control type="button" id="300">
@@ -872,9 +879,16 @@
                 <label>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label]</label>
                 <label2>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label2]</label2>
                 <icon>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Icon]</icon>
-                <onclick>SetProperty(ActorID,$PARAM[CastListItemID])</onclick>
+                
+                <onclick>SetProperty(CustomSearch,3,home)</onclick>
+				<onclick>Skin.SetString(CustomSearchTerm,$ESCINFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label])</onclick>
+				<onclick>Dialog.Close(all)</onclick>
+				<onclick>ActivateWindow(1122)</onclick>
+				<onclick>AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent)</onclick>
+
+<!--                <onclick>SetProperty(ActorID,$PARAM[CastListItemID])</onclick>
                 <onclick>SetProperty(ActorName,$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label])</onclick>
-                <onclick>ActivateWindow(1121)</onclick>
+                <onclick>ActivateWindow(1121)</onclick> -->
                 <visible>!String.IsEmpty(Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label)</visible>
             </item>
         </definition>
@@ -1060,14 +1074,34 @@
             <onup>9000</onup>
             <scrolltime>200</scrolltime>            
             <orientation>horizontal</orientation>
-            <include content="ActorLayout">
+            
+            <!-- select local or tmdb search for movies or tv shows -->
+			<onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+			<onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(90050).ListItem.Label],call_id=1129,prevent_del))</onclick>
+			<onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			<onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">SetProperty(Dialog.2.BuiltIn,SetProperty(CustomSearch,3,home)||Skin.SetString(CustomSearchTerm,$INFO[Container(90050).ListItem.Label])||Dialog.Close(all)||ActivateWindow(1122)||AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent))</onclick>
+			<onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick> 
+            <!-- only local search -->            
+            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">SetProperty(CustomSearch,3,home)</onclick>
+			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">Skin.SetString(CustomSearchTerm,$ESCINFO[ListItem.Label])</onclick>
+			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">Dialog.Close(all)</onclick>
+			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">ActivateWindow(1122)</onclick>
+			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent)</onclick>
+            <!-- sets -->
+            <onclick condition="Container.Content(sets)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(90050).ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129)</onclick>
+            
+            <include condition="!String.IsEqual(ListItem.DBType,set)" content="ActorLayout">
                 <param name="viewid">90050</param>
             </include>
-            <content>
-                <include>CustomCastListContent</include>
-            </content>
+            <include condition="String.IsEqual(ListItem.DBType,set)" content="SetLayout">
+                <param name="viewid">90050</param>
+            </include>
+            <content>$VAR[CastContentSource]</content>
         </control>
     </include>
+
+
+
 
     <include name="HiddenCast">
         <control type="list" id="50">
