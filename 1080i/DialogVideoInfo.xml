@@ -3,7 +3,7 @@
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<animation effect="fade" time="200">WindowOpen</animation>
 	<animation effect="fade" time="150">WindowClose</animation>
-    <onunload condition="Window.IsVisible(1128)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
+    <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 	<controls>
     
         <!-- Get additional TMDb media details from themoviedb helper for movies and tvshows -->
@@ -879,8 +879,6 @@
 			<align>center</align>
 			<onup>90003</onup>
             <ondown>SetFocus(90050)</ondown>
-    <!--        <ondown condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">SetFocus(90050)</ondown>
-            <ondown condition="Skin.hasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetFocus(951001)</ondown> -->
 			<orientation>horizontal</orientation>
 			<itemgap>16</itemgap>
 			<control type="togglebutton" id="8" description="Play/browse to Show or Set">
@@ -1025,8 +1023,6 @@
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
             <include>CustomCast</include>
-        <!--    <include condition="[!Skin.hasSetting(Enable.ExtendedInfo) | ListItem.IsCollection] + String.IsEmpty(ListItem.Property(tmdb_id))">CustomCast</include>
-            <include condition="Skin.hasSetting(Enable.ExtendedInfo) + !String.IsEqual(ListItem.DBType,set)">TMDBCast</include> -->
         </control>
         
 		<control type="group">
