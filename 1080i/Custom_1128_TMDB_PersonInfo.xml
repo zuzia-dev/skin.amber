@@ -45,7 +45,7 @@
             <top>0</top>
             <left>0</left>
             <visible>String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person) + !Control.HasFocus(9999)</visible>
- 
+            <!-- Person main image -->
             <include content="ShadowedImage">
 			    <param name="top">24</param>
 			    <param name="left">24</param>
@@ -55,7 +55,7 @@
 			    <param name="texture">$INFO[Container(9999).ListItemAbsolute(0).Art(poster)]</param>
                 <param name="visibility">true</param>
 		    </include>
-                        
+            <!-- Person info details -->            
             <control type="group" id="300">
 			    <posx>700</posx>
 			    <posy>60</posy>
@@ -190,7 +190,7 @@
 					</content>
 				</control>
  			</control>
-                
+            <!-- Info Lists for person -->   
             <control type="group" id="9100">
                 <posx>700</posx>
 			    <posy>600</posy>
@@ -203,7 +203,7 @@
                     <orientation>vertical</orientation>
                     <itemgap>10</itemgap>
                     <usecontrolcoords>true</usecontrolcoords>
-                    
+                    <!-- Cast in Movies-->
                     <include content="TMDbInfoCastWidget">
                         <param name="id">9101</param>
                         <param name="headinglabel">$LOCALIZE[32087]</param>
@@ -212,7 +212,7 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
                         <param name="content">$VAR[InfoCastList01]</param>
                     </include>
-
+                    <!-- Cast in TV Shows -->
                     <include content="TMDbInfoCastWidget">
                         <param name="id">9102</param>
                         <param name="headinglabel">$LOCALIZE[32088]</param>
@@ -221,7 +221,7 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
                         <param name="content">$VAR[InfoCastList02]</param>
                     </include>
-
+                    <!-- Crew in Movies -->
                     <include content="TMDbInfoCastWidget">
                         <param name="id">9103</param>
                         <param name="headinglabel">$LOCALIZE[32089]</param>
@@ -230,16 +230,16 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
                         <param name="content">$VAR[InfoCastList03]</param>
                     </include>                    
-                    
+                    <!-- Crew in TV Shows -->
                     <include content="TMDbInfoCastWidget">
                         <param name="id">9104</param>
-                        <param name="headinglabel">$LOCALIZE[32089]</param>
+                        <param name="headinglabel">$LOCALIZE[32090]</param>
                         <param name="onup">9103</param>
                         <param name="ondown">9105</param>
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
                         <param name="content">$VAR[InfoCastList04]</param>
                     </include>
-                    
+                    <!-- Pictures -->
                     <include content="TMDbInfoPicturesWidget">
                         <param name="id">9105</param>
                         <param name="headinglabel">$LOCALIZE[1]</param>
@@ -251,6 +251,7 @@
                 </control>   
             </control>
         
+           <!-- Provide slideshow for person pictures -->
             <control type="button" id="91506">
                 <include>HiddenButton</include>
                 <onleft>Control.Move(9105,-1)</onleft>
@@ -274,8 +275,5 @@
             </control>
         
         </control>
-        
-        
-        
     </controls>
 </window>

@@ -683,6 +683,10 @@
         <value>[I]$LOCALIZE[32080][/I]</value>
     </variable>
 
+    <variable name="AwardsLabel">
+        <value>[I]$LOCALIZE[32075][/I]</value>
+    </variable>
+    
     <variable name="TMDbParam">
         <value condition="!String.IsEmpty(ListItem.Property(tmdb_id))">tmdb_id=$INFO[ListItem.Property(tmdb_id)]</value>
         <value condition="Container.Content(movies) + !String.IsEmpty(ListItem.Property(imdb_id))">imdb_id=$INFO[ListItem.Property(imdb_id)]</value>
@@ -875,7 +879,7 @@
             <onleft>90050</onleft>
             <onright>90050</onright>
             <onup>9000</onup>
-            <onback>9000</onback>
+        <!--    <onback>9000</onback> -->
             <scrolltime>200</scrolltime>            
             <orientation>horizontal</orientation>
             
@@ -893,7 +897,7 @@
 			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">ActivateWindow(1122)</onclick>
 			<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !Container.Content(sets)">AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent)</onclick>
             <!-- sets -->
-            <onclick condition="Container.Content(sets)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(90050).ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129)</onclick>
+            <onclick condition="Container.Content(sets)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(90050).ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129,prevent_del)</onclick>
             
             <include condition="!String.IsEqual(ListItem.DBType,set)" content="ActorLayout">
                 <param name="viewid">90050</param>
@@ -980,15 +984,15 @@
     </include>
     
     <include name="InfoList_OnBack">
-        <onback condition="Window.IsVisible(DialogVideoInfo.xml)">SetFocus(90050)</onback>
+     <!--   <onback condition="Window.IsVisible(DialogVideoInfo.xml)">SetFocus(90050)</onback> -->
         <onback condition="Window.IsVisible(1128)">300</onback>
     </include>
 
     <include name="InfoList_OnClick">
         <param name="prevent_del" default="prevent_del" />
         <definition>
-            <onclick condition="Window.IsVisible(DialogVideoInfo.xml)">SetFocus(90050)</onclick>
-            <onclick condition="Window.IsVisible(1128)">SetFocus(300)</onclick>
+        <!--    <onclick condition="Window.IsVisible(DialogVideoInfo.xml)">SetFocus(90050)</onclick> -->
+        <!--    <onclick condition="Window.IsVisible(1128)">SetFocus(300)</onclick> -->
             <onclick condition="String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_id=1129,$PARAM[prevent_del])</onclick>
             <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129,$PARAM[prevent_del])</onclick>
             <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_id=1129,$PARAM[prevent_del])</onclick>
@@ -1040,7 +1044,7 @@
                         <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container($PARAM[id]).NumItems,1) | Container($PARAM[id]).IsUpdating">Conditional</animation>
                         <include>InfoList_OnBack</include>
                         <include content="InfoList_OnClick">
-                            <param name="prevent_del" value="prevent_del" />
+                            <param name="prevent_del" value="noop" />
                         </include>
                         <include content="CastLayout">
                             <param name="viewid">$PARAM[id]</param>
@@ -1106,7 +1110,7 @@
                         <include content="CastLayout">
                             <param name="viewid">$PARAM[id]</param>
                             <param name="belowlabelvisibility">true</param>
-                            <param name="belowlabel">$INFO[ListItem.Label]px</param>
+                            <param name="belowlabel">$INFO[ListItem.Label]</param>
                             <param name="belowdoublelabelvisibility">false</param>
                         </include>
                         <content limit="25" target="videos">$PARAM[content]</content>                        
