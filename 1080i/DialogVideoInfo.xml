@@ -3,7 +3,18 @@
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<animation effect="fade" time="200">WindowOpen</animation>
 	<animation effect="fade" time="150">WindowClose</animation>
+    <onload>RunScript(script.embuary.helper,action=split,value='$ESCINFO[ListItem.Director]',separator='" / "',prop=SepDirectors)</onload>
     <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
+    <onunload>ClearProperty(SepDirectors.0,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.1,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.2,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.3,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.4,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.5,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.6,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.7,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.8,Home)</onunload>
+    <onunload>ClearProperty(SepDirectors.9,Home)</onunload>
 	<controls>
     
         <!-- Get additional TMDb media details from themoviedb helper for movies and tvshows -->
@@ -622,7 +633,12 @@
 						<item>
 							<label>$LOCALIZE[20339]:</label>
 							<label2>$INFO[ListItem.Director]</label2>
-							<onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SendClick(13)</onclick>
+                            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">SetProperty(CustomSearch,2,Home)</onclick>
+                            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">Dialog.Close(all,force)</onclick>
+                            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">Skin.Reset(CustomSearchTerm)</onclick>
+		                    <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">Skin.SetString(CustomSearchTerm,$ESCVAR[SingleDirector])</onclick>
+		                    <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">ActivateWindow(1122)</onclick>
+                            <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent)</onclick>
                             <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[ListItem.Director],call_id=1129,prevent_del)</onclick>
                             <visible>!String.IsEmpty(ListItem.Director) + !String.IsEqual(ListItem.DBType,set)</visible>
 						</item>
@@ -939,15 +955,6 @@
 				<onclick>RunScript(script.cinemavision,experience)</onclick>
                 <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
-			<control type="button" id="13" description="Director">
-				<height>90</height>
-				<width min="220">auto</width>
-				<ondown>50</ondown>
-				<align>center</align>
-				<font>Details</font>
-				<label>$LOCALIZE[31129]</label>
-				<visible>!String.IsEmpty(ListItem.Director) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
-			</control>
 			<control type="button" id="6" description="Refresh">
 				<height>90</height>
 				<width min="220">auto</width>
@@ -1018,15 +1025,32 @@
 			</control>			
 		</control>
 		
-        <control type="group">
+        <control type="group" id="9100">
 			<posx>700</posx>
 			<posy>640</posy>
 			<width>1180</width>
-			<height>410</height>
-			<onup>9000</onup>
-            <ondown>noop</ondown>
+			<height>450</height>
             <visible>!Control.HasFocus(10)</visible>
-            <include>CustomCast</include>
+            <control type="grouplist" id="91001">
+                <scrolltime tween="quadratic">400</scrolltime>
+                <height>450</height>
+                <orientation>vertical</orientation>
+                <itemgap>10</itemgap>
+                <usecontrolcoords>true</usecontrolcoords>
+                <onup>9000</onup>
+                <ondown>noop</ondown>
+                <include>CustomCast</include>
+                <!-- Movies from Director -->
+                <include content="TMDbInfoCastWidget">
+                    <param name="id">9101</param>
+                    <param name="headinglabel">$INFO[ListItem.Director,Also Directed by ,]</param>
+                    <param name="onup">90050</param>
+                    <param name="ondown">noop</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+                    <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
+                    <param name="content">$VAR[VideoInfoFromDirector]</param>
+                </include>
+            </control>    
         </control>
         
 		<control type="group">
@@ -1082,5 +1106,11 @@
 				<label>$LOCALIZE[21371]</label>
 			</control>
 		</control>
+        
+        <control type="button" id="13" description="Director">
+			<include>HiddenButton</include>
+		</control>
+        
+        
 	</controls>
 </window>
