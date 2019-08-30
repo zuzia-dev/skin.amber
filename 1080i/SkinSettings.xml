@@ -84,15 +84,19 @@
 						<label>$LOCALIZE[31053]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="5" description="Advanced">
+                    <item id="5" description="Video Info Options">
+						<label>$LOCALIZE[32107]</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="6" description="Advanced">
 						<label>$LOCALIZE[31985]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="6" description="Backup/Restore">
+					<item id="7" description="Backup/Restore">
 						<label>$LOCALIZE[32064]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="7" description="Manage dependencies">
+					<item id="8" description="Manage dependencies">
 						<label>$LOCALIZE[24996]</label>
 						<onclick>noop</onclick>
 					</item>
@@ -148,16 +152,7 @@
 							<param name="itemlabel" value="$LOCALIZE[32056]"/>
 							<param name="skinsetting" value="Show.MoreItems.List"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="9"/>
-							<param name="itemlabel" value="$LOCALIZE[32057]"/>
-							<param name="skinsetting" value="Show.SeasonEpisodeInfo"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="10"/>
-							<param name="itemlabel" value="$LOCALIZE[32058]"/>
-							<param name="skinsetting" value="Show.EpisodeThumbInfo"/>
-						</include>
+						
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="11"/>
 							<param name="itemlabel" value="$LOCALIZE[32038]"/>
@@ -387,12 +382,43 @@
 						</include>
 					</content>
 				</control>
-				<!-- 9000 5 Advanced options -->
+                <!-- 9000 5 Video Info options -->
 				<control type="panel" id="9105">
 					<visible>Container(9000).HasFocus(5)</visible>
 					<onright>500</onright>
 					<onup>9105</onup>
 					<ondown>9105</ondown>
+					<pagecontrol></pagecontrol>
+					<include>SettingsListCommons</include>
+					<content>
+                        <include content="YesNoSettingItem">
+							<param name="itemid" value="1"/>
+							<param name="itemlabel" value="$LOCALIZE[32057]"/>
+							<param name="skinsetting" value="Show.SeasonEpisodeInfo"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="2"/>
+							<param name="itemlabel" value="$LOCALIZE[32058]"/>
+							<param name="skinsetting" value="Show.EpisodeThumbInfo"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="3"/>
+							<param name="itemlabel" value="$LOCALIZE[32015]"/>
+							<param name="skinsetting" value="Enable.ExtendedInfo"/>
+						</include>
+                        <item id="4" description="Select Custom Info Lists">
+							<label>$LOCALIZE[32104]</label>
+							<onclick>SetProperty(CustomSelectInfoLists,True)</onclick>
+							<onclick>ActivateWindow(1130)</onclick>
+						</item>
+					</content>
+				</control>
+				<!-- 9000 6 Advanced options -->
+				<control type="panel" id="9106">
+					<visible>Container(9000).HasFocus(6)</visible>
+					<onright>500</onright>
+					<onup>9106</onup>
+					<ondown>9106</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -418,11 +444,6 @@
 							<param name="itemlabel" value="$LOCALIZE[32008]"/>
 							<param name="skinsetting" value="Enable.SpecialFeatures"/>
 							<param name="addonpath" value="plugin.video.specialfeatures"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="12"/>
-							<param name="itemlabel" value="$LOCALIZE[32015]"/>
-							<param name="skinsetting" value="Enable.ExtendedInfo"/>
 						</include>
 						<include content="InstallAddonItem">
 							<param name="itemid" value="3"/>
@@ -475,12 +496,12 @@
 						</include>
 					</content>
 				</control>
-				<!-- 9000 6 - Backup/Restore -->
-				<control type="panel" id="9106">
-					<visible>Container(9000).HasFocus(6)</visible>
+				<!-- 9000 7 - Backup/Restore -->
+				<control type="panel" id="9107">
+					<visible>Container(9000).HasFocus(7)</visible>
 					<onright>500</onright>
-					<onup>9106</onup>
-					<ondown>9106</ondown>
+					<onup>9107</onup>
+					<ondown>9107</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -510,13 +531,13 @@
 						</item>
 					</content>
 				</control>                
-				<!-- 9000 7 - Manage Dependencies -->
-				<control type="grouplist" id="9107">
-					<visible>Container(9000).HasFocus(7)</visible>
+				<!-- 9000 8 - Manage Dependencies -->
+				<control type="grouplist" id="9108">
+					<visible>Container(9000).HasFocus(8)</visible>
 					<onright>500</onright>
                     <include>SettingsListCommons</include>
-					<onup>9107</onup>
-					<ondown>9107</ondown>                    
+					<onup>9108</onup>
+					<ondown>9108</ondown>                    
 					<control type="radiobutton" id="91121">
 						<label>script.favourites</label>
 						<label2>$INFO[System.AddonVersion(script.favourites)]        </label2>
