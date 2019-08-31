@@ -863,7 +863,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)]</label>
+                        <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -1002,18 +1002,40 @@
             <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_id=1129,$PARAM[prevent_del])</onclick>
         </definition>
     </include>
+    
+    <include name="InfoList_OnClickPictures">
+        <param name="prevent_del" default="prevent_del" />
+        <definition>
+            <onclick>SetFocus(91506)</onclick>
+        </definition>
+    </include>
+    
+    <include name="InfoList_OnClickSeasons">
+        <param name="prevent_del" default="prevent_del" />
+        <definition>
+            <onclick>Dialog.Close(all,force)</onclick>
+            <onclick>ActivateWindow(videos,$INFO[Container(9102).ListItem.FolderPath])</onclick>
+        </definition>
+    </include>
 
     <include name="VideoInfoPosterWidget">
         <param name="id" />
         <param name="headinglabel"></param>
         <param name="onup"></param>
         <param name="ondown"></param>
+        <param name="belowdoublelabelvisibility">true</param>
         <param name="belowdoublelabel1">$INFO[ListItem.Label] $INFO[ListItem.Year,(,)]</param>
         <param name="belowdoublelabel2"></param>
+        <param name="belowlabelvisibility">false</param>
+        <param name="belowlabel">$INFO[ListItem.Label]</param>
         <param name="content"></param>
         <param name="prevent_del">prevent_del</param>
         <param name="visibility1">true</param>
         <param name="visibility2">true</param>
+        <param name="onclickinclude">InfoList_OnClick</param>
+        <param name="minnumitems">1</param>
+        <param name="sortby">year</param>
+        <param name="sortorder">descending</param>
         <definition>
             <control type="group">
                 <height>450</height>
@@ -1026,7 +1048,7 @@
                             <left>8</left>
                             <top>0</top>
                             <height>30</height>
-                            <label>$PARAM[headinglabel] $INFO[Container($PARAM[id]).NumItems,(,)]</label>
+                            <label>[COLOR=Highlight]$PARAM[headinglabel] $INFO[Container($PARAM[id]).NumItems,(,)][/COLOR]</label>
                             <font>ListDetails</font>
                         </control>
                         <control type="image" description="Line Split">
@@ -1049,16 +1071,19 @@
                         <onright>$PARAM[id]</onright>
                         <scrolltime>200</scrolltime>
                         <orientation>horizontal</orientation>
-                        <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,1) | Container($PARAM[id]).IsUpdating</visible>
-                        <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container($PARAM[id]).NumItems,1) | Container($PARAM[id]).IsUpdating">Conditional</animation>
+                        <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,$PARAM[minnumitems]) | Container($PARAM[id]).IsUpdating</visible>
+                        <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container($PARAM[id]).NumItems,$PARAM[minnumitems]) | Container($PARAM[id]).IsUpdating">Conditional</animation>
                         <include>InfoList_OnBack</include>
-                        <include content="InfoList_OnClick">
+                        <include content="$PARAM[onclickinclude]">
                             <param name="prevent_del">$PARAM[prevent_del]</param>
                         </include>
                         <include content="CastLayout">
                             <param name="viewid">$PARAM[id]</param>
+                            <param name="belowdoublelabelvisibility">$PARAM[belowdoublelabelvisibility]</param>
                             <param name="belowdoublelabel1">$PARAM[belowdoublelabel1]</param>
 			                <param name="belowdoublelabel2">$PARAM[belowdoublelabel2]</param>
+                            <param name="belowlabelvisibility">$PARAM[belowlabelvisibility]</param>
+                            <param name="belowlabel">$PARAM[belowlabel]</param>
                         </include>
                         <content>
                             <item>
@@ -1067,63 +1092,7 @@
 							    <visible>String.IsEmpty(Container($PARAM[id]).ListItem(1).Label)</visible>
 						    </item>
                         </content>
-                        <content sortby="year" sortorder="descending" limit="25" target="videos">$PARAM[content]</content>                        
-                    </control>
-                </control>
-            </control>
-        </definition>
-    </include>
-    
-    <include name="VideoInfoPicturesWidget">
-        <param name="id" />
-        <param name="headinglabel"></param>
-        <param name="onup"></param>
-        <param name="ondown"></param>
-        <param name="content"></param>
-        <definition>
-            <control type="group">
-                <height>450</height>
-                <visible>Control.IsVisible($PARAM[id])</visible>
-                <control type="group">
-                    <control type="group">
-                        <control type="label">
-                            <left>8</left>
-                            <top>0</top>
-                            <height>30</height>
-                            <label>$PARAM[headinglabel] $INFO[Container($PARAM[id]).NumItems,(,)]</label>
-                            <font>ListDetails</font>
-                        </control>
-                        <control type="image" description="Line Split">
-				            <top>40</top>
-                            <left>10</left>
-				            <width>1180</width>
-				            <height>1</height>
-				            <texture>img/LineL.png</texture>
-				            <aspectratio>stretch</aspectratio>
-				        </control>
-                    </control>    
-                    <control type="panel" id="$PARAM[id]">
-                        <top>44</top>
-                        <left>10</left>
-                        <width>1180</width>
-                        <height>410</height>
-                        <onup>$PARAM[onup]</onup>
-                        <ondown>$PARAM[ondown]</ondown>
-                        <onleft>$PARAM[id]</onleft>
-                        <onright>$PARAM[id]</onright>
-                        <scrolltime>200</scrolltime>
-                        <orientation>horizontal</orientation>
-                        <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,1) | Container($PARAM[id]).IsUpdating</visible>
-                        <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container($PARAM[id]).NumItems,1) | Container($PARAM[id]).IsUpdating">Conditional</animation>
-                        <include>InfoList_OnBack</include>
-                        <onclick>SetFocus(91506)</onclick>
-                        <include content="CastLayout">
-                            <param name="viewid">$PARAM[id]</param>
-                            <param name="belowlabelvisibility">true</param>
-                            <param name="belowlabel">$INFO[ListItem.Label]</param>
-                            <param name="belowdoublelabelvisibility">false</param>
-                        </include>
-                        <content limit="25" target="videos">$PARAM[content]</content>                        
+                        <content sortby="$PARAM[sortby]" sortorder="$PARAM[sortorder]" limit="25" target="videos">$PARAM[content]</content>                        
                     </control>
                 </control>
             </control>
