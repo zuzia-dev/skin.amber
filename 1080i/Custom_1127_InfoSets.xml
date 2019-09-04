@@ -47,6 +47,7 @@
                     <width>83</width>
                     <aligny>center</aligny>
                     <align>center</align>
+                    <aspectratio>keep</aspectratio>
       		        <texture>badges/ratings/imdb2.png</texture>
 		        </control>
 			    <control type="label" description="IMDb Rating and Votes">
@@ -227,26 +228,6 @@
                 <onclick>Dialog.Close(all,true)</onclick>
 			    <onclick>ActivateWindow(Videos,videodb://movies/sets/$INFO[ListItem.DBID]/?setid=$INFO[ListItem.DBID])</onclick>
 			</control>
-<!--			<control type="button" id="297" description="AB: Choose Art">
-				<height>90</height>
-				<width min="220">auto</width>
-				<align>center</align>
-				<font>Details</font>
-				<label>$LOCALIZE[32005]</label>
-                <visible>system.hasaddon(script.artwork.beef)</visible>
-                <onclick>XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=set, dbid=$INFO[ListItem.DBID])</onclick>
-                <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
-			</control>
-			<control type="button" id="298" description="AB: All Art">
-				<height>90</height>
-				<width min="220">auto</width>
-				<align>center</align>
-				<font>Details</font>
-				<label>$LOCALIZE[32006]</label>
-                <visible>system.hasaddon(script.artwork.beef)</visible>
-                <onclick>XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=set, dbid=$INFO[ListItem.DBID])</onclick>
-                <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>				
-			</control> -->
 			<control type="button" id="296" description="Show Fanart">
 				<height>90</height>
 				<width min="220">auto</width>
@@ -259,9 +240,6 @@
 			</control>			
 		</control>
 
-<!-- The use of two different cast panels, depending on whether ExtendedInfo is enabled in the skin has been adapted from MikeSiLVO's code.
-     Many thanks to him -->
-		
         <control type="group">
 			<posx>700</posx>
 			<posy>640</posy>
@@ -270,7 +248,7 @@
 			<onup>9000</onup>
             <ondown>noop</ondown>
             <visible>!Control.HasFocus(10)</visible>
-			<include condition="String.IsEqual(ListItem.DBType,set)">ExtendedSet</include>
+			<include>ExtendedSet</include>
         </control>
         
 		<control type="group">

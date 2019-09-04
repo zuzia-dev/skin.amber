@@ -91,7 +91,7 @@
             <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
                                      String.IsEqual(ListItem.DBType,season) | 
                                      String.IsEqual(ListItem.DBType,episode)] + 
-                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + !Control.HasFocus(10)</param>
+                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
 		</include>                
 		<control type="grouplist" description="Flags">
 			<top>1010</top>
@@ -108,7 +108,7 @@
 		
         <!-- Ratings bar for local content -->        
 		<control type="grouplist" description="Ratings">
-			<top>93</top>
+			<top>83</top>
 			<left>705</left>
 			<width>1200</width>
 			<height>40</height>
@@ -126,6 +126,7 @@
                     <width>83</width>
                     <aligny>center</aligny>
                     <align>center</align>
+                    <aspectratio>keep</aspectratio>
       		        <texture>badges/ratings/imdb2.png</texture>
 		        </control>
 			    <control type="label" description="IMDb Rating and Votes">
@@ -179,6 +180,7 @@
 				    <width>40</width>
 				    <height>40</height>
 				    <texture>$VAR[RottenFreshLogoVar]</texture>
+                    <aspectratio>keep</aspectratio>
 			    </control>
 			    <control type="label">
 				    <height>40</height>
@@ -198,6 +200,7 @@
 				    <width>40</width>
 				    <height>40</height>
 				    <texture>$VAR[RottenFreshAudienceLogoVar]</texture>
+                    <aspectratio>keep</aspectratio>
 			    </control>
 			    <control type="label">
      				<height>40</height>
@@ -217,6 +220,7 @@
 				    <width>40</width>
 				    <height>40</height>
 				    <texture>badges/ratings/metacritic2.png</texture>
+                    <aspectratio>keep</aspectratio>
 			    </control>
 			    <control type="label">
 				    <height>40</height>
@@ -236,6 +240,7 @@
                     <height>40</height>
                     <width>45</width>
                     <texture>badges/ratings/themoviedb3.png</texture>
+                    <aspectratio>keep</aspectratio>
 		        </control>
 			    <control type="label" description="TMDB Rating">
 				    <width>50</width>
@@ -256,6 +261,7 @@
                     <width>71</width>
                     <aligny>center</aligny>
       		        <texture>badges/ratings/tvdb2.png</texture>
+                    <aspectratio>keep</aspectratio>
 		        </control>
 			    <control type="label" description="TVDB Rating">
 				    <width>auto</width>
@@ -290,7 +296,7 @@
         
         <!-- Rating bar for TMDB Online info -->
         <control type="grouplist" description="Ratings for tmdbhelper widget items">
-			<top>93</top>
+			<top>83</top>
 			<left>705</left>
 			<width>1200</width>
 			<height>40</height>
@@ -308,6 +314,7 @@
                     <width>45</width>
                     <aligny>center</aligny>
                     <align>center</align>
+                    <aspectratio>keep</aspectratio>
       		        <texture>badges/ratings/themoviedb3.png</texture>
 		        </control>
 			    <control type="label" description="Main Rating and Votes">
@@ -338,6 +345,7 @@
 			    <control type="image">
 				    <width>40</width>
 				    <height>40</height>
+                    <aspectratio>keep</aspectratio>
 				    <texture>$VAR[TMDBRottenFreshLogoVar]</texture>
 			    </control>
 			    <control type="label">
@@ -357,6 +365,7 @@
 			    <control type="image">
 				    <width>40</width>
 				    <height>40</height>
+                    <aspectratio>keep</aspectratio>
 				    <texture>$VAR[TMDBRottenFreshAudienceLogoVar]</texture>
 			    </control>
 			    <control type="label">
@@ -376,6 +385,7 @@
 			    <control type="image">
 				    <width>40</width>
 				    <height>40</height>
+                    <aspectratio>keep</aspectratio>
 				    <texture>badges/ratings/metacritic2.png</texture>
 			    </control>
 			    <control type="label">
@@ -396,6 +406,7 @@
                     <width>83</width>
                     <aligny>center</aligny>
                     <align>center</align>
+                    <aspectratio>keep</aspectratio>
       		        <texture>badges/ratings/imdb2.png</texture>
 		        </control>
 			    <control type="label" description="IMDb Rating and Votes">
@@ -422,7 +433,7 @@
         <control type="group">
             <visible>!String.IsEmpty(ListItem.MPAA)</visible>
             <control type="image" description="Certification flag USA">
-                <top>80</top>
+                <top>70</top>
                 <left>1738</left>
                 <height>65</height>
                 <width>85</width>
@@ -440,7 +451,7 @@
                          !String.Contains(ListItem.MPAA,NL) + !String.IsEmpty(ListItem.MPAA)</visible>
 		    </control>
 		    <control type="image" description="Certification flag non-USA">
-                <top>91</top>
+                <top>81</top>
                 <left>1750</left>
                 <height>45</height>
                 <width>59</width>
@@ -462,7 +473,7 @@
         <control type="group">
             <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
             <control type="image" description="Certification flag USA">
-                <top>80</top>
+                <top>70</top>
                 <left>1738</left>
                 <height>65</height>
                 <width>85</width>
@@ -480,7 +491,7 @@
                          !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,NL) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
 		    </control>
 		    <control type="image" description="Certification flag non-USA">
-                <top>91</top>
+                <top>81</top>
                 <left>1750</left>
                 <height>45</height>
                 <width>59</width>
@@ -502,14 +513,15 @@
 		<control type="group" description="Media Info">
 			<control type="group" description="top" id="300">
 				<posx>700</posx>
-				<posy>60</posy>
+				<posy>50</posy>
 				<control type="label" description="Main Label other than Sets">
-					<posy>-45</posy>
+					<posy>-51</posy>
 					<width>950</width>
-					<height>60</height>
+					<height>75</height>
 					<font>InfoTitle</font>
 					<textcolor>Highlight</textcolor>
 					<align>left</align>
+                    <aligny>center</aligny>                       
 					<label>$VAR[panelheading]</label>
                     <visible>!String.IsEqual(ListItem.DBType,set)</visible>
 				</control>
@@ -524,9 +536,9 @@
                     <visible>String.IsEqual(ListItem.DBType,set)</visible>
 				</control>                
 				<control type="image" description="Studio">
-					<posy>-60</posy>
+					<posy>-51</posy>
                     <left>1000</left>
-					<height>85</height>
+					<height>75</height>
                     <width>160</width>
 					<texture>$VAR[InfoStudios]</texture>
 					<aspectratio>keep</aspectratio>
@@ -534,9 +546,9 @@
                     <visible>!String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
 				</control>
 				<control type="image" description="Studio - TMDb Helper">
-					<posy>-60</posy>
+					<posy>-51</posy>
                     <left>1000</left>
-					<height>85</height>
+					<height>75</height>
                     <width>160</width>
 					<texture>$VAR[InfoStudiosTMDB]</texture>
 					<aspectratio>keep</aspectratio>
@@ -678,7 +690,7 @@
 						<item>
 							<label>$LOCALIZE[515]:</label>
 							<label2>$INFO[ListItem.Genre]</label2>
-							<onclick>noop</onclick>
+                            <onclick>noop</onclick>
 							<visible>!String.IsEmpty(ListItem.Genre) + !String.IsEqual(ListItem.DBType,set)</visible>
 						</item>
                         <item>
@@ -714,7 +726,7 @@
 						<item>
 							<label>$LOCALIZE[21875]:</label>
 							<label2>$INFO[ListItem.Country]</label2>
-							<onclick>noop</onclick>
+                            <onclick>noop</onclick>
 							<visible>!String.IsEmpty(ListItem.Country)</visible>
 						</item>
                         <item>
@@ -897,7 +909,7 @@
 		</control>
 		<control type="grouplist" id="9000">
 			<left>700</left>
-			<posy>540</posy>
+			<posy>527</posy>
 			<width>1180</width>
 			<height>90</height>
 			<align>center</align>
@@ -915,7 +927,6 @@
 				<texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
 				<alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
 				<usealttexture>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set)</usealttexture>
-           <!--     <onclick>Dialog.Close(all,true)</onclick> -->
                 <visible>!String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
             <control type="button" id="8100" description="Search">
@@ -936,7 +947,7 @@
 				<font>Details</font>
 				<align>center</align>
 				<label>$LOCALIZE[20410]</label>
-				<visible>!String.IsEmpty(ListItem.Trailer) + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+				<visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
 			</control>
             <control type="button" id="1227" description="Special Features">
                 <height>90</height>
@@ -957,7 +968,7 @@
 				<label>$LOCALIZE[31005]</label>
 				<onclick>Dialog.Close(MovieInformation)</onclick>
 				<onclick>RunScript(script.cinemavision,experience)</onclick>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <visible>!String.IsEmpty(Listitem.DBID) + !ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
 			<control type="button" id="6" description="Refresh">
 				<height>90</height>
@@ -1000,7 +1011,7 @@
                 <onclick condition="String.IsEqual(ListItem.DBType,set)">XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=set, dbid=$INFO[ListItem.DBID])</onclick>
                 <onclick condition="String.IsEqual(ListItem.DBType,musicvideo)">XBMC.RunScript(script.artwork.beef, mode=gui, mediatype=musicvideo, dbid=$INFO[ListItem.DBID])</onclick>
                 <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <visible>!String.IsEmpty(Listitem.DBID) + !ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
 			</control>
 			<control type="button" id="298" description="AB: All Art">
 				<height>90</height>
@@ -1015,7 +1026,7 @@
                 <onclick condition="String.IsEqual(ListItem.DBType,set)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=set, dbid=$INFO[ListItem.DBID])</onclick>
                 <onclick condition="String.IsEqual(ListItem.DBType,musicvideo)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=musicvideo, dbid=$INFO[ListItem.DBID])</onclick>
                 <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>				
+                <visible>!String.IsEmpty(Listitem.DBID) + !ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))</visible>				
 			</control>
 			<control type="button" id="296" description="Show Fanart">
 				<height>90</height>
@@ -1031,7 +1042,7 @@
 		
         <control type="group" id="9100">
 			<posx>700</posx>
-			<posy>640</posy>
+			<posy>622</posy>
 			<width>1180</width>
 			<height>450</height>
             <visible>!Control.HasFocus(10)</visible>
@@ -1052,6 +1063,8 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoSets]</param>
+                    <param name="sortby">Year</param>
+                    <param name="sortorder">Ascending</param>
                     <param name="visibility1">!String.IsEmpty(ListItem.Set) | ListItem.IsCollection</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListSets)</param>
                 </include>
@@ -1086,7 +1099,7 @@
                 <!-- Similar -->
                 <include content="VideoInfoPosterWidget">
                     <param name="id">9104</param>
-                    <param name="headinglabel">$INFO[ListItem.Title,$LOCALIZE[32102] ,]</param>
+                    <param name="headinglabel">$LOCALIZE[32105]</param>
                     <param name="onup">9103</param>
                     <param name="ondown">9105</param>
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
@@ -1123,6 +1136,7 @@
                     <param name="headinglabel">$INFO[ListItem.Studio,$LOCALIZE[32100] ,]</param>
                     <param name="onup">9106</param>
                     <param name="ondown">9108</param>
+                    <param name="minnumitems">0</param>
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromStudio]</param>
@@ -1147,7 +1161,8 @@
                     <param name="headinglabel">$LOCALIZE[32103]</param>
                     <param name="onup">9108</param>
                     <param name="ondown">9110</param>
-                    <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+                    <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoCastFeatured]</param>
                     <param name="visibility1">String.IsEqual(ListItem.DBType,movie) + Integer.IsGreater(Container(90050).NumItems,0)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListCastFeature)</param>
