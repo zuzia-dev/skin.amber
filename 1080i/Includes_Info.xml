@@ -760,12 +760,14 @@
     </variable>
     <!-- Also directed by custom info list content -->
     <variable name="VideoInfoFromDirector">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[ListItem.Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Director)">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[ListItem.Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Director) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Director)">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22director%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Director]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
     </variable>
     <!-- More from studio custom info list content -->
     <variable name="VideoInfoFromStudio">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[ListItem.Studio]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Studio)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[ListItem.Studio]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[Container(5100).ListItemAbsolute(0).Studio]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
     </variable>
     <!-- More from year custom info list content -->
@@ -777,7 +779,8 @@
     </variable>
     <!-- More in genre custom info list content -->
     <variable name="VideoInfoFromGenre">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$VAR[TMDbMediaType]&amp;with_genres=$INFO[Container(5100).ListItemAbsolute(0).Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[ListItem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Listitem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
     </variable>
@@ -860,6 +863,174 @@
         </focusedlayout>
     </include>
 
+
+    <include name="CustomCastItem">
+        <param name="CastListItemID" />
+        <definition>
+            <item>
+                <label>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label]</label>
+                <label2>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label2]</label2>
+                <icon>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Icon]</icon>
+                <visible>!String.IsEmpty(Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label)</visible>
+            </item>
+        </definition>
+    </include>
+
+    <include name="CustomCastListContent">
+        <include content="CustomCastItem">
+            <param name="CastListItemID">0</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">1</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">2</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">3</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">4</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">5</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">6</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">7</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">8</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">9</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">10</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">11</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">12</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">13</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">14</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">15</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">16</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">17</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">18</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">19</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">20</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">21</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">22</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">23</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">24</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">25</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">26</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">27</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">28</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">29</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">30</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">31</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">32</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">33</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">34</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">35</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">36</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">37</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">38</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">39</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">40</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">41</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">42</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">43</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">44</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">45</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">46</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">47</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">48</param>
+        </include>
+        <include content="CustomCastItem">
+            <param name="CastListItemID">49</param>
+        </include>        
+    </include>
+
+
+
     <!-- Cast Panel: Always use a custom cast to have control over actions -->
     <include name="CustomCast">
         <control type="group">
@@ -872,7 +1043,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
+                        <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(50).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -896,7 +1067,7 @@
                     <ondown>9101</ondown>
                     <scrolltime>200</scrolltime>            
                     <orientation>horizontal</orientation>
-                    <visible>Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating</visible>
+                    <visible>Integer.IsGreater(Container(50).NumItems,0) | Container(50).IsUpdating</visible>
                     <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating">Conditional</animation>
 			        <!-- select online tmdb search or local search -->
                     <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
@@ -913,7 +1084,9 @@
                     <include content="ActorLayout">
                         <param name="viewid">90050</param>
                     </include>
-                    <content>$VAR[CastContentSource]</content>
+                    <content>
+                        <include>CustomCastListContent</include>
+                    </content>
                 </control>
             </control>
         </control>            
