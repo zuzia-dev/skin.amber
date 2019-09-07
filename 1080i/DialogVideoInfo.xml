@@ -579,7 +579,7 @@
 					<font>InfoPlot</font>
                     <textcolor>$VAR[InfoPlotTextColor]</textcolor>
                     <shadowcolor>LiteShadow</shadowcolor>
-					<label>$VAR[Plots]</label>
+					<label fallback="19055">$VAR[Plots]</label>
 				</control>
 				<control type="radiobutton" id="90003">
 					<posy>447</posy>
@@ -1065,7 +1065,7 @@
                     <param name="content">$VAR[VideoInfoSets]</param>
                     <param name="sortby">Year</param>
                     <param name="sortorder">Ascending</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Set) | ListItem.IsCollection</param>
+                    <param name="visibility1">!String.IsEmpty(ListItem.Set) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Set) | ListItem.IsCollection</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListSets)</param>
                 </include>
                 <!-- Seasons -->
@@ -1093,7 +1093,7 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromDirector]</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Director)</param>
+                    <param name="visibility1">!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Director)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListDirector)</param>
                 </include>
                 <!-- Similar -->
@@ -1127,7 +1127,7 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromGenre]</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Genre)</param>
+                    <param name="visibility1">!String.IsEmpty(ListItem.Genre) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListGenre)</param>
                 </include>                                                    
                 <!-- Movies from Studio -->
@@ -1140,7 +1140,7 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromStudio]</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Studio)</param>
+                    <param name="visibility1">!String.IsEmpty(ListItem.Studio) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListStudio)</param>
                 </include> 
                 <!-- Movies from Year -->
@@ -1152,7 +1152,7 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromYear]</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Year)</param>
+                    <param name="visibility1">!String.IsEmpty(ListItem.Year) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Year)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListYear)</param>
                 </include>                    
                 <!-- Cast also stars in -->
@@ -1164,7 +1164,7 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoCastFeatured]</param>
-                    <param name="visibility1">String.IsEqual(ListItem.DBType,movie) + Integer.IsGreater(Container(90050).NumItems,0)</param>
+                    <param name="visibility1">String.IsEqual(ListItem.DBType,movie) + [Integer.IsGreater(Container(90050).NumItems,0) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(Cast.1.Name))]</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListCastFeature)</param>
                 </include>                    
                 <!-- Crew -->
