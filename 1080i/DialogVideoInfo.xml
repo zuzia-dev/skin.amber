@@ -509,6 +509,45 @@
             </control>
         </control>
 
+        <!-- Certification Flag for sets, flag for first movie MPAA only -->        
+        <control type="group">
+            <visible>String.IsEqual(ListItem.DBType,set) + String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA))</visible>
+            <control type="image" description="Certification flag USA">
+                <top>70</top>
+                <left>1738</left>
+                <height>65</height>
+                <width>85</width>
+                <aspectratio>keep</aspectratio>
+                <align>center</align>
+                <texture fallback="badges/mpaa/NR.png">$VAR[SetsCertFlag]</texture>
+                <visible>!String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Brazil) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),UK) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),United Kingdom) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),classificação) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),France) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Germany) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Australia) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Netherlands) + 
+                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NL) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA))</visible>
+            </control>
+            <control type="image" description="Certification flag non-USA">
+                <top>81</top>
+                <left>1750</left>
+                <height>45</height>
+                <width>59</width>
+                <aspectratio>keep</aspectratio>
+                <texture fallback="badges/mpaa/NR.png">$VAR[SetsCertFlag]</texture>
+                <visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA)) + [String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Brazil) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),UK) |  
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),United Kingdom) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),classificação) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),France) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Germany) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Australia) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Netherlands) | 
+                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NL)]</visible>
+            </control>
+        </control>
 
         <control type="group" description="Media Info">
             <control type="group" description="top" id="300">
@@ -544,6 +583,16 @@
                     <aspectratio>keep</aspectratio>
                     <aligny>center</aligny>
                     <visible>!String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
+                </control>
+                <control type="image" description="1st. Studio - Sets">
+                    <posy>-51</posy>
+                    <left>1000</left>
+                    <height>75</height>
+                    <width>160</width>
+                    <texture>$VAR[InfoStudiosSets]</texture>
+                    <aspectratio>keep</aspectratio>
+                    <aligny>center</aligny>
+                    <visible>String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Single.Studio)) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
                 </control>
                 <control type="image" description="Studio - TMDb Helper">
                     <posy>-51</posy>
@@ -655,13 +704,13 @@
                             <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">Skin.SetString(CustomSearchTerm,$ESCVAR[SingleDirector])</onclick>
                             <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">ActivateWindow(1122)</onclick>
                             <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">AlarmClock(Wait,ClearProperty(CustomSearch,home),00:01,silent)</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[ListItem.Director],call_id=1129,prevent_del)</onclick>
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_query=$INFO[ListItem.Director],type=person,call_id=1129,prevent_del)</onclick>
                             <visible>!String.IsEmpty(ListItem.Director) + !String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20339]:</label>
                             <label2>$INFO[Container(5100).ListItemAbsolute(0).Director]</label2>
-                            <onclick>RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Director],call_id=1129,prevent_del)</onclick>
+                            <onclick>RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(5100).ListItemAbsolute(0).Director],type=person,call_id=1129,prevent_del)</onclick>
                             <visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Director)</visible>
                         </item>                        
                         <item>
@@ -673,13 +722,13 @@
                             <label>$LOCALIZE[20417]:</label>
                             <label2>$INFO[ListItem.Writer]</label2>
                             <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo)">noop</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[ListItem.Writer],call_id=1129,prevent_del)</onclick>
+                            <onclick condition="Skin.HasSetting(Enable.ExtendedInfo)">RunScript(plugin.video.themoviedb.helper,add_query=$INFO[ListItem.Writer],type=person,call_id=1129,prevent_del)</onclick>
                             <visible>!String.IsEmpty(ListItem.Writer) + !String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20417]:</label>
                             <label2>$INFO[Container(5100).ListItemAbsolute(0).Writer]</label2>
-                            <onclick>RunScript(plugin.video.themoviedb.helper,add_path=plugin://plugin.video.themoviedb.helper/?info=details&amp;type=person&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Writer],call_id=1129,prevent_del)</onclick>
+                            <onclick>RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(5100).ListItemAbsolute(0).Writer],type=person,call_id=1129,prevent_del)</onclick>
                             <visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Writer)</visible>
                         </item>
                         <item>
@@ -1066,6 +1115,7 @@
                     <param name="content">$VAR[VideoInfoSets]</param>
                     <param name="sortby">Year</param>
                     <param name="sortorder">Ascending</param>
+                    <param name="minnumitems">0</param>
                     <param name="visibility1">!String.IsEmpty(ListItem.Set) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Set) | ListItem.IsCollection</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListSets)</param>
                 </include>
