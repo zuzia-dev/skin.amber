@@ -1191,13 +1191,13 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoFromStudio]</param>
-                    <param name="visibility1">!String.IsEmpty(ListItem.Studio) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)</param>
+                    <param name="visibility1">String.IsEqual(ListItem.DBType,movie) + [!String.IsEmpty(ListItem.Studio) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)]</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListStudio)</param>
                 </include> 
                 <!-- Movies from Year -->
                 <include content="VideoInfoPosterWidget">
                     <param name="id">9108</param>
-                    <param name="headinglabel">$INFO[ListItem.Year,$LOCALIZE[32100] ,]</param>
+                    <param name="headinglabel">$INFO[Container(5100).ListItemAbsolute(0).Year,$LOCALIZE[32100] ,]</param>
                     <param name="onup">9107</param>
                     <param name="ondown">9109</param>
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
