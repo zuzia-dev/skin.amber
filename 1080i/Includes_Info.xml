@@ -851,6 +851,28 @@
     <variable name="TMDbRecommended">
         <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</value>
     </variable>
+    
+    <variable name="InfoListStudioHeader">
+        <value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio]</value>
+        <value condition="String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)">$INFO[Container(5100).ListItemAbsolute(0).Studio]</value>
+    </variable>
+    
+    <variable name="InfoListGenreHeader">
+        <value condition="!String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]</value>
+        <value condition="String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre)">$INFO[Container(5100).ListItemAbsolute(0).Genre]</value>
+    </variable>
+    
+    <variable name="InfoListYearHeader">
+        <value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]</value>
+        <value condition="String.IsEmpty(ListItem.Year) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Year)">$INFO[Container(5100).ListItemAbsolute(0).Year]</value>
+    </variable>
+    
+    <variable name="InfoListDirectorHeader">
+        <value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]</value>
+        <value condition="String.IsEmpty(ListItem.Director) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Director)">$INFO[Container(5100).ListItemAbsolute(0).Director]</value>
+    </variable>
+    
+    
     <!-- Cast in Movies info list -->
     <variable name="InfoCastList01">
         <value condition="!Container(9999).IsUpdating + Integer.IsGreater(Container(9999).NumItems,0)">$INFO[Container(9999).ListItemAbsolute(1).FolderPath]</value>
@@ -901,7 +923,6 @@
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalEpisodeStudio)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieCountry)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
     </variable>
-    
     
     <!-- List layout for video info media details -->
     <include name="List_9009_Commons" description="Video Info metadata container">
@@ -1172,6 +1193,11 @@
                         <param name="viewid">90050</param>
                     </include>
                     <content>
+                        <item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(90050).ListItem(1).Label)</visible>
+						</item>
                         <include>CustomCastListContentOnline</include>
                     </content>
                 </control>

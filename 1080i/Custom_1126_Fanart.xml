@@ -3,23 +3,95 @@
 <!-- Adapted from Estuary. Thanks to phil65 and the Kodi team -->
 
 <window type="dialog" id="1126">
+
 	<defaultcontrol always="true">3000</defaultcontrol>
 	<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
 	<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
-	<controls>
+    <onunload>ClearProperty(fanart,Home)</onunload>
+    <onunload>ClearProperty(fanart1,Home)</onunload>
+    <onunload>ClearProperty(fanart2,Home)</onunload>
+    <onunload>ClearProperty(fanart3,Home)</onunload>
+    <onunload>ClearProperty(fanart4,Home)</onunload>
+    <onunload>ClearProperty(fanart5,Home)</onunload>
+    <onunload>ClearProperty(fanart6,Home)</onunload>
+    <onunload>ClearProperty(fanart7,Home)</onunload>
+    <onunload>ClearProperty(fanart8,Home)</onunload>
+    <onunload>ClearProperty(fanart9,Home)</onunload>
+    <onunload>ClearProperty(fanart10,Home)</onunload>
+    <onunload>ClearProperty(fanart11,Home)</onunload>
+    <onunload>ClearProperty(fanart12,Home)</onunload>
+    <onunload>ClearProperty(fanart13,Home)</onunload>
+    <onunload>ClearProperty(fanart14,Home)</onunload>
+    <onunload>ClearProperty(fanart15,Home)</onunload>
+    <onunload>ClearProperty(fanart16,Home)</onunload>
+    <onunload>ClearProperty(fanart17,Home)</onunload>
+    <onunload>ClearProperty(fanart18,Home)</onunload>
+    <onunload>ClearProperty(fanart19,Home)</onunload>
+    <onunload>ClearProperty(fanart20,Home)</onunload>
+	
+    <controls>
+    
+        <control type="fadelabel" id="4410">
+			<top>-100</top>
+			<width>2560</width>
+			<height>0</height>
+			<scrollspeed>20</scrollspeed>
+			<scroll>false</scroll>
+			<scrollout>false</scrollout>
+			<randomize>true</randomize>
+			<resetonlabelchange>true</resetonlabelchange>
+			<visible>Skin.HasSetting(SkinHelper.EnableExtraFanart)</visible>
+			<include>FadeLabelTime</include>
+			<label>$INFO[Window(home).Property(fanart)]</label>
+			<label>$INFO[Window(home).Property(fanart1)]</label>
+			<label>$INFO[Window(home).Property(fanart2)]</label>
+			<label>$INFO[Window(home).Property(fanart3)]</label>
+			<label>$INFO[Window(home).Property(fanart4)]</label>
+			<label>$INFO[Window(home).Property(fanart5)]</label>
+			<label>$INFO[Window(home).Property(fanart6)]</label>
+			<label>$INFO[Window(home).Property(fanart7)]</label>
+			<label>$INFO[Window(home).Property(fanart8)]</label>
+			<label>$INFO[Window(home).Property(fanart9)]</label>
+			<label>$INFO[Window(home).Property(fanart10)]</label>
+			<label>$INFO[Window(home).Property(fanart11)]</label>
+			<label>$INFO[Window(home).Property(fanart12)]</label>
+			<label>$INFO[Window(home).Property(fanart13)]</label>
+			<label>$INFO[Window(home).Property(fanart14)]</label>
+			<label>$INFO[Window(home).Property(fanart15)]</label>
+			<label>$INFO[Window(home).Property(fanart16)]</label>
+			<label>$INFO[Window(home).Property(fanart17)]</label>
+			<label>$INFO[Window(home).Property(fanart18)]</label>
+			<label>$INFO[Window(home).Property(fanart19)]</label>
+			<label>$INFO[Window(home).Property(fanart20)]</label>
+		</control>
+    
 		<control type="image">
 			<include>FullScreenDimensions</include>
 			<aspectratio>scale</aspectratio>
 			<texture>colors/black.png</texture>
 		</control>
+        
+        <control type="multiimage">
+            <include>Dimensions_Fullscreen</include>
+            <timeperimage>12000</timeperimage>
+            <fadetime>400</fadetime>
+            <imagepath background="true">$INFO[Control.GetLabel(4410)]</imagepath>
+            <randomize>true</randomize>
+            <aspectratio>scale</aspectratio>
+            <visible>Skin.HasSetting(SkinHelper.EnableExtraFanart)</visible>
+        </control>
+        
 		<control type="image">
+            <visible>!Skin.HasSetting(SkinHelper.EnableExtraFanart)</visible>
 			<include>FullScreenDimensions</include>
 			<aspectratio>keep</aspectratio>
 			<texture>$INFO[Window(home).Property(fanart)]</texture>
 		</control>
+        
 		<control type="button" id="3000">
 			<include>HiddenButton</include>
 			<onclick>Action(close)</onclick>
 		</control>
+        
 	</controls>
 </window>
