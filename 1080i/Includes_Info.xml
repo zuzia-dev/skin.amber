@@ -877,24 +877,28 @@
         <value>videodb://</value>
     </variable>
 
-    <!-- Header for online search of movies/tv shows with genre -->
+    <!-- Header for single search of movies/tv shows/episodes with genre -->
     <variable name="GenreOnlineHeaderVar">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32029]</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32030]</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[32030]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32117]</value>
     </variable>
 
-    <!-- Header for online search of movies/tv shows from studio -->
+    <!-- Header for single search of movies/tv shows/episodes from studio -->
     <variable name="StudioOnlineHeaderVar">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32031]</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32032]</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[32032]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32116]</value>
     </variable>
     
     <variable name="SingleSearchContent">
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),Online)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$INFO[Skin.String(OnlineMediaType)]&amp;$INFO[Skin.String(OnlineCallType)]=$INFO[Skin.String(SingleSearchTerm)]</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieGenre)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalTVShowGenre)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+        <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalEpisodeGenre)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieStudio)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalTVShowStudio)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+        <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalEpisodeStudio)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieCountry)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
     </variable>
     
