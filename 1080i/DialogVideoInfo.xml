@@ -857,19 +857,31 @@
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(ListItem.Duration) + !String.IsEqual(ListItem.DBType,set)</visible>
+                            <visible>!String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)</visible>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[2050]:</label>
+                            <label2>$VAR[ItemDurationHrMins]</label2>
+                            <onclick>noop</onclick>
+                            <visible>!String.IsEmpty(ListItem.Duration) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[Container(5100).ListItemAbsolute(0).Duration] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Duration) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Duration)</visible>
-                        </item>                      
+                            <visible>String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Duration)</visible>
+                        </item>
+                        <item>
+                            <label>$LOCALIZE[2050]:</label>
+                            <label2>$VAR[OnlineItemDurationHrMins]</label2>
+                            <onclick>noop</onclick>
+                            <visible>String.IsEmpty(ListItem.Duration) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Duration)</visible>
+                        </item>                        
                         <item>
                             <label>$LOCALIZE[20161] $LOCALIZE[2050]:</label>
                             <label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Runtime)] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Runtime)) + String.IsEqual(ListItem.DBType,set)</visible>
+                            <visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Runtime)) + !Skin.HasSetting(Enable.HourMinutes) + String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[21875]:</label>
