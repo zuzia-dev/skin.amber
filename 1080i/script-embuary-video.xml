@@ -3,18 +3,18 @@
     <defaultcontrol always="true">9000</defaultcontrol>
     <animation effect="fade" time="200">WindowOpen</animation>
     <animation effect="fade" time="150">WindowClose</animation>
-    <onload condition="String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,tvshow)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.TVShowTitle]"',prop=EncodeddTitle)</onload>
-    <onload condition="String.IsEqual(ListItem.DBTYPE,movie)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
-    <onunload>ClearProperty(EncodedTitle,home)</onunload>
-    <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + !Window.IsActive(1122) + !Window.IsActive(1131)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 
     <controls>
 
-        <!-- Get additional TMDb media details from themoviedb helper for movies and tvshows if tmdb online info is enabled -->
-        <include condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">TMDbMediaDetails</include>
-
-        <!-- Hide default cast list 50, using a custom cast -->
-        <include>HiddenCast</include>
+        <!-- Hide Details list for video -->
+		<control type="list" id="10051">
+			<itemlayout />
+	        <focusedlayout />
+            <posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+		</control>
 
         <control type="image">
             <width>1920</width>
@@ -25,7 +25,7 @@
         <control type="image">
             <width>1920</width>
             <height>1080</height>
-            <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+            <texture background="true">$INFO[Container(10051).ListItem.Art(fanart)]</texture>
             <aspectratio>scale</aspectratio>
         </control>
         <include content="BackgroundOverlay">
@@ -38,38 +38,7 @@
             <param name="height">960</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoPoster]</param>
-            <param name="visibility">!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)</param>
         </include>
-        <control type="group" description="episode images">
-            <visible>String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
-            <include content="ShadowedImage">
-                <param name="top">83</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">114</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-                <param name="visibility">!String.IsEmpty(ListItem.Art(tvshow.banner))</param>
-            </include>            
-            <include content="ShadowedImage">
-                <param name="top">390</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">348</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">!String.IsEmpty(ListItem.Art(tvshow.banner))</param>
-            </include>
-            <include content="ShadowedImage">
-                <param name="top">340</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">348</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">String.IsEmpty(ListItem.Art(tvshow.banner))</param>
-            </include>            
-        </control>
         <include content="ShadowedImage">
             <param name="top">740</param>
             <param name="left">885</param>
@@ -77,12 +46,10 @@
             <param name="height">200</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-            <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
-                                     String.IsEqual(ListItem.DBType,season) | 
-                                     String.IsEqual(ListItem.DBType,episode)] + 
-                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
+            <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + 
+                                     Integer.IsEqual(Container(10052).NumItems,0)</param>
         </include>                
-        <control type="grouplist" description="Flags">
+ <!--       <control type="grouplist" description="Flags">
             <top>1010</top>
             <left>24</left>
             <width>619</width>
@@ -93,198 +60,11 @@
             <include content="MediaFlagItems">
                 <param name="showratingbadge">false</param>
             </include>
-        </control>
+        </control> -->
 
-        <!-- Ratings bar for local content -->        
-        <control type="grouplist" description="Ratings">
-            <top>83</top>
-            <left>705</left>
-            <width>1200</width>
-            <height>40</height>
-            <itemgap>8</itemgap>
-            <orientation>horizontal</orientation>
-            <align>left</align>
-            <visible>String.IsEmpty(ListItem.Property(tmdb_id))</visible>
-            <control type="grouplist" description="IMDb Rating or Main Rating">
-                <width>320</width>
-                <orientation>horizontal</orientation>
-                <itemgap>5</itemgap>
-                <visible>!String.IsEmpty(ListItem.Rating(imdb)) | !String.IsEmpty(ListItem.Rating)</visible>
-                <control type="image" description="IMDb logo">
-                    <height>40</height>
-                    <width>83</width>
-                    <aligny>center</aligny>
-                    <align>center</align>
-                    <aspectratio>keep</aspectratio>
-                    <texture>badges/ratings/imdb2.png</texture>
-                </control>
-                <control type="label" description="IMDb Rating and Votes">
-                    <width>auto</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <align>left</align>
-                    <label>$INFO[ListItem.Rating(imdb)]$INFO[ListItem.Votes(imdb), (, $LOCALIZE[205])]</label>
-                    <visible>!String.IsEmpty(ListItem.Rating(imdb))</visible>
-                </control>
-                <control type="label" description="Main Rating and Votes">
-                    <width>auto</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <align>left</align>
-                    <label>$INFO[ListItem.Rating]$INFO[ListItem.Votes, (, $LOCALIZE[205])]</label>
-                    <visible>String.IsEmpty(ListItem.Rating(imdb)) + !String.IsEmpty(ListItem.Rating) + !String.IsEmpty(ListItem.Votes) + !String.IsEqual(ListItem.Votes,0)</visible>
-                </control>
-                <control type="label" description="Main Rating No Votes">
-                    <width>auto</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <align>left</align>
-                    <label>$INFO[ListItem.Rating]</label>
-                    <visible>String.IsEmpty(ListItem.Rating(imdb)) + !String.IsEmpty(ListItem.Rating) + [String.IsEmpty(ListItem.Votes) | String.IsEqual(ListItem.Votes,0)]</visible>
-                </control>                
-            </control>
-            <control type="grouplist" description="IMDb Top 250 rank">
-                <width>100</width>
-                <orientation>horizontal</orientation>
-                <itemgap>3</itemgap>
-                <control type="label" description="IMDb Top 250">
-                    <width>auto</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <align>left</align>
-                    <textcolor>Highlight</textcolor>
-                    <label>[B]$INFO[ListItem.Top250,#][/B]</label>
-                </control>
-            </control>
-            <control type="grouplist" description="RT Critics rating">
-                <visible>!String.IsEmpty(ListItem.Rating(tomatometerallcritics))</visible>
-                <width>120</width>
-                <orientation>horizontal</orientation>
-                <align>left</align>
-                <itemgap>3</itemgap>            
-                <control type="image">
-                    <width>40</width>
-                    <height>40</height>
-                    <texture>$VAR[RottenFreshLogoVar]</texture>
-                    <aspectratio>keep</aspectratio>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <width>55</width>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <label>$VAR[RottenFreshLabelVar]%</label>
-                </control>
-            </control>
-            <control type="grouplist" description="RT Audience rating">
-                <visible>!String.IsEmpty(ListItem.Rating(tomatometerallaudience))</visible>
-                <width>120</width>
-                <orientation>horizontal</orientation>
-                <align>left</align>
-                <itemgap>3</itemgap>            
-                <control type="image">
-                    <width>40</width>
-                    <height>40</height>
-                    <texture>$VAR[RottenFreshAudienceLogoVar]</texture>
-                    <aspectratio>keep</aspectratio>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <width>50</width>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <label>$VAR[RottenFreshAudienceLabelVar]%</label>
-                </control>
-            </control>
-            <control type="grouplist" description="Metacritic rating">
-                <visible>!String.IsEmpty(ListItem.Rating(metacritic))</visible>
-                <width>80</width>
-                <orientation>horizontal</orientation>
-                <align>left</align>
-                <itemgap>5</itemgap>            
-                <control type="image">
-                    <width>40</width>
-                    <height>40</height>
-                    <texture>badges/ratings/metacritic2.png</texture>
-                    <aspectratio>keep</aspectratio>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <width>40</width>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <label>$VAR[MetacriticLabelVar]</label>
-                </control>
-            </control>
-            <control type="grouplist" description="TMDB rating">
-                <visible>!String.IsEmpty(ListItem.Rating(themoviedb))</visible>
-                <width>105</width>
-                <orientation>horizontal</orientation>
-                <itemgap>5</itemgap>  
-                <align>left</align>
-                <control type="image" description="TMDB logo">
-                    <height>40</height>
-                    <width>45</width>
-                    <texture>badges/ratings/themoviedb3.png</texture>
-                    <aspectratio>keep</aspectratio>
-                </control>
-                <control type="label" description="TMDB Rating">
-                    <width>50</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <label>$VAR[TheMovieDBLabelVar]%</label>
-                </control>
-            </control>
-            <control type="grouplist" description="TVDB rating and votes">
-                <visible>!String.IsEmpty(ListItem.Rating(tvdb))</visible>
-                <width>300</width>
-                <orientation>horizontal</orientation>
-                <itemgap>5</itemgap>
-                <align>left</align>                
-                <control type="image" description="TVDB logo">
-                    <height>40</height>
-                    <width>71</width>
-                    <aligny>center</aligny>
-                    <texture>badges/ratings/tvdb2.png</texture>
-                    <aspectratio>keep</aspectratio>
-                </control>
-                <control type="label" description="TVDB Rating">
-                    <width>auto</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <align>left</align>
-                    <textcolor>Highlight</textcolor>
-                    <label>$INFO[ListItem.Rating(tvdb)]$INFO[ListItem.Votes(tvdb), (, $LOCALIZE[205])]</label>
-                </control>
-            </control>
-            <control type="grouplist" description="User rating">
-                <visible>!String.IsEmpty(ListItem.UserRating)</visible>
-                <width>80</width>
-                <orientation>horizontal</orientation>
-                <itemgap>0</itemgap>
-                <align>left</align>                
-                <control type="image" description="User Rating logo">
-                    <height>40</height>
-                    <width>40</width>
-                    <texture>badges/ratings/userrating2.png</texture>
-                </control>
-                <control type="label" description="User Rating">
-                    <width>40</width>
-                    <height>40</height>
-                    <font>ListDetails</font>
-                    <align>left</align>
-                    <textcolor>Highlight</textcolor>
-                    <label>$INFO[ListItem.UserRating]</label>
-                </control>
-            </control>            
-        </control>
 
         <!-- Rating bar for TMDB Online info -->
-        <control type="grouplist" description="Ratings for tmdbhelper widget items">
+        <control type="grouplist" description="Ratings for embuary info items">
             <top>83</top>
             <left>705</left>
             <width>1200</width>
@@ -292,12 +72,11 @@
             <itemgap>8</itemgap>
             <orientation>horizontal</orientation>
             <align>left</align>
-            <visible>!String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             <control type="grouplist" description="Main Rating, TMDB">
                 <width>320</width>
                 <orientation>horizontal</orientation>
                 <itemgap>5</itemgap>
-                <visible>!String.IsEmpty(ListItem.Rating)</visible>
+                <visible>!String.IsEmpty(Container(10051).ListItem.Rating)</visible>
                 <control type="image" description="TMDB logo">
                     <height>40</height>
                     <width>45</width>
@@ -312,8 +91,8 @@
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <align>left</align>
-                    <label>$INFO[ListItem.Rating]$INFO[ListItem.Votes, (, $LOCALIZE[205])]</label>
-                    <visible>!String.IsEmpty(ListItem.Rating) + !String.IsEmpty(ListItem.Votes) + !String.IsEqual(ListItem.Votes,0)</visible>
+                    <label>$INFO[Container(10051).ListItem.Rating]$INFO[Container(10051).ListItem.Votes, (, $LOCALIZE[205])]</label>
+                    <visible>!String.IsEmpty(Container(10051).ListItem.Rating) + !String.IsEmpty(Container(10051).ListItem.Votes) + !String.IsEqual(Container(10051).ListItem.Votes,0)</visible>
                 </control>
                 <control type="label" description="Main Rating No Votes">
                     <width>auto</width>
@@ -321,12 +100,12 @@
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <align>left</align>
-                    <label>$INFO[ListItem.Rating]</label>
-                    <visible>!String.IsEmpty(ListItem.Rating) + [String.IsEmpty(ListItem.Votes) | String.IsEqual(ListItem.Votes,0)]</visible>
+                    <label>$INFO[Container(10051).ListItem.Rating]</label>
+                    <visible>!String.IsEmpty(Container(10051).ListItem.Rating) + [String.IsEmpty(Container(10051).ListItem.Votes) | String.IsEqual(Container(10051).ListItem.Votes,0)]</visible>
                 </control>                
             </control>
             <control type="grouplist" description="RT Critics rating">
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_rating)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_rating),N/A)</visible>
+                <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.rotten)) + !String.IsEqual(Container(10051).ListItem.Property(rating.rotten),N/A)</visible>
                 <width>120</width>
                 <orientation>horizontal</orientation>
                 <align>left</align>
@@ -335,38 +114,18 @@
                     <width>40</width>
                     <height>40</height>
                     <aspectratio>keep</aspectratio>
-                    <texture>$VAR[TMDBRottenFreshLogoVar]</texture>
+                    <texture>$VAR[EmbuaryInfoRottenFreshLogoVar]</texture>
                 </control>
                 <control type="label">
                     <height>40</height>
                     <width>55</width>
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
-                    <label>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_rating)]%</label>
-                </control>
-            </control>
-            <control type="grouplist" description="RT Audience rating">
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_usermeter)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_usermeter),N/A)</visible>
-                <width>120</width>
-                <orientation>horizontal</orientation>
-                <align>left</align>
-                <itemgap>3</itemgap>            
-                <control type="image">
-                    <width>40</width>
-                    <height>40</height>
-                    <aspectratio>keep</aspectratio>
-                    <texture>$VAR[TMDBRottenFreshAudienceLogoVar]</texture>
-                </control>
-                <control type="label">
-                    <height>40</height>
-                    <width>55</width>
-                    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
-                    <label>$INFO[Container(5100).ListItemAbsolute(0).Property(rottentomatoes_usermeter)]%</label>
+                    <label>$INFO[Container(10051).ListItem.Property(rating.rotten)]%</label>
                 </control>
             </control>
             <control type="grouplist" description="Metacritic rating">
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(metacritic_rating)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(metacritic_rating),N/A)</visible>
+                <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.metacritic)) + !String.IsEqual(Container(10051).ListItem.Property(rating.metacritic),N/A)</visible>
                 <width>80</width>
                 <orientation>horizontal</orientation>
                 <align>left</align>
@@ -382,14 +141,14 @@
                     <width>40</width>
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
-                    <label>$INFO[Container(5100).ListItemAbsolute(0).Property(metacritic_rating)]</label>
+                    <label>$INFO[Container(10051).ListItem.Property(rating.metacritic)]</label>
                 </control>
             </control>
             <control type="grouplist" description="IMDb Rating">
                 <width>320</width>
                 <orientation>horizontal</orientation>
                 <itemgap>5</itemgap>
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(imdb_rating)) + !String.IsEqual(Container(5100).ListItemAbsolute(0).Property(imdb_rating),N/A)</visible>
+                <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.imdb))) + !String.IsEqual(Container(10051).ListItem.Property(rating.imdb),N/A)</visible>
                 <control type="image" description="IMDb logo">
                     <height>40</height>
                     <width>83</width>
@@ -404,7 +163,7 @@
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <align>left</align>
-                    <label>$INFO[Container(5100).ListItemAbsolute(0).Property(imdb_rating)]$INFO[Container(5100).ListItemAbsolute(0).Property(imdb_votes), (, $LOCALIZE[205])]</label>
+                    <label>$INFO[Container(10051).ListItem.Property(rating.imdb)]$INFO[Container(10051).ListItem.Property(votes.imdb), (, $LOCALIZE[205])]</label>
                 </control>
                 <control type="label" description="IMDB Rating No Votes">
                     <width>auto</width>
@@ -412,15 +171,15 @@
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <align>left</align>
-                    <label>$INFO[Container(5100).ListItemAbsolute(0).Property(imdb_rating)]</label>
-                    <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(imdb_rating)) + [String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(imdb_votes)) | String.IsEqual(Container(5100).ListItemAbsolute(0).Property(imdb_votes),0)]</visible>
+                    <label>$INFO[Container(10051).ListItem.Property(rating.imdb)]</label>
+                    <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.imdb)) + [String.IsEmpty(Container(10051).ListItem.Property(votes.imdb)) | String.IsEqual(Container(10051).ListItem.Property(votes.imdb),0)]</visible>
                 </control>                
             </control>            
         </control>
 
-        <!-- Certification Flag for local items -->        
+        <!-- Certification Flag for embuary info items -->        
         <control type="group">
-            <visible>!String.IsEmpty(ListItem.MPAA)</visible>
+            <visible>!String.IsEmpty(Container(10051).ListItem.MPAA)</visible>
             <control type="image" description="Certification flag USA">
                 <top>70</top>
                 <left>1738</left>
@@ -428,113 +187,7 @@
                 <width>85</width>
                 <aspectratio>keep</aspectratio>
                 <align>center</align>
-                <texture fallback="badges/mpaa/NR.png">$VAR[CertFlag]</texture>
-                <visible>!String.Contains(ListItem.MPAA,Brazil) + 
-                         !String.Contains(ListItem.MPAA,UK) + 
-                         !String.Contains(ListItem.MPAA,United Kingdom) + 
-                         !String.Contains(ListItem.MPAA,classificação) + 
-                         !String.Contains(ListItem.MPAA,France) + 
-                         !String.Contains(ListItem.MPAA,Germany) + 
-                         !String.Contains(ListItem.MPAA,Australia) + 
-                         !String.Contains(ListItem.MPAA,Netherlands) + 
-                         !String.Contains(ListItem.MPAA,NL) + !String.IsEmpty(ListItem.MPAA)</visible>
-            </control>
-            <control type="image" description="Certification flag non-USA">
-                <top>81</top>
-                <left>1750</left>
-                <height>45</height>
-                <width>59</width>
-                <aspectratio>keep</aspectratio>
-                <texture fallback="badges/mpaa/NR.png">$VAR[CertFlag]</texture>
-                <visible>!String.IsEmpty(ListItem.MPAA) + [String.Contains(ListItem.MPAA,Brazil) | 
-                         String.Contains(ListItem.MPAA,UK) |  
-                         String.Contains(ListItem.MPAA,United Kingdom) | 
-                         String.Contains(ListItem.MPAA,classificação) | 
-                         String.Contains(ListItem.MPAA,France) | 
-                         String.Contains(ListItem.MPAA,Germany) | 
-                         String.Contains(ListItem.MPAA,Australia) | 
-                         String.Contains(ListItem.MPAA,Netherlands) | 
-                         String.Contains(ListItem.MPAA,NL)]</visible>
-            </control>
-        </control>
-
-        <!-- Certification Flag for tmdb helper items -->        
-        <control type="group">
-            <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
-            <control type="image" description="Certification flag USA">
-                <top>70</top>
-                <left>1738</left>
-                <height>65</height>
-                <width>85</width>
-                <aspectratio>keep</aspectratio>
-                <align>center</align>
-                <texture fallback="badges/mpaa/NR.png">$VAR[TMDBCertFlag]</texture>
-                <visible>!String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Brazil) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,UK) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,United Kingdom) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,classificação) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,France) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Germany) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Australia) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Netherlands) + 
-                         !String.Contains(Container(5100).ListItemAbsolute(0).MPAA,NL) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
-            </control>
-            <control type="image" description="Certification flag non-USA">
-                <top>81</top>
-                <left>1750</left>
-                <height>45</height>
-                <width>59</width>
-                <aspectratio>keep</aspectratio>
-                <texture fallback="badges/mpaa/NR.png">$VAR[TMDBCertFlag]</texture>
-                <visible>!String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA) + [String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Brazil) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,UK) |  
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,United Kingdom) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,classificação) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,France) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Germany) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Australia) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Netherlands) | 
-                         String.Contains(Container(5100).ListItemAbsolute(0).MPAA,NL)]</visible>
-            </control>
-        </control>
-
-        <!-- Certification Flag for sets, flag for first movie MPAA only -->        
-        <control type="group">
-            <visible>String.IsEqual(ListItem.DBType,set) + String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA))</visible>
-            <control type="image" description="Certification flag USA">
-                <top>70</top>
-                <left>1738</left>
-                <height>65</height>
-                <width>85</width>
-                <aspectratio>keep</aspectratio>
-                <align>center</align>
-                <texture fallback="badges/mpaa/NR.png">$VAR[SetsCertFlag]</texture>
-                <visible>!String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Brazil) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),UK) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),United Kingdom) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),classificação) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),France) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Germany) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Australia) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Netherlands) + 
-                         !String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NL) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA))</visible>
-            </control>
-            <control type="image" description="Certification flag non-USA">
-                <top>81</top>
-                <left>1750</left>
-                <height>45</height>
-                <width>59</width>
-                <aspectratio>keep</aspectratio>
-                <texture fallback="badges/mpaa/NR.png">$VAR[SetsCertFlag]</texture>
-                <visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA)) + [String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Brazil) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),UK) |  
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),United Kingdom) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),classificação) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),France) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Germany) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Australia) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Netherlands) | 
-                         String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NL)]</visible>
+                <texture fallback="badges/mpaa/NR.png">$VAR[EmbuaryInfoCertFlag]</texture>
             </control>
         </control>
 
@@ -542,7 +195,7 @@
             <control type="group" description="top" id="300">
                 <posx>700</posx>
                 <posy>50</posy>
-                <control type="label" description="Main Label other than Sets">
+                <control type="label" description="Main Label">
                     <posy>-51</posy>
                     <width>950</width>
                     <height>75</height>
@@ -551,47 +204,16 @@
                     <align>left</align>
                     <aligny>center</aligny>                       
                     <label>$VAR[panelheading]</label>
-                    <visible>!String.IsEqual(ListItem.DBType,set)</visible>
                 </control>
-                <control type="label" description="Main Label - Sets">
-                    <posy>-45</posy>
-                    <width>950</width>
-                    <height>60</height>
-                    <font>InfoTitle</font>
-                    <textcolor>Highlight</textcolor>
-                    <align>left</align>
-                    <label>$INFO[ListItem.Title,[B],[/B]] $INFO[Window(Home).Property(SkinInfo.Set.Movies.Years),(,)]</label>
-                    <visible>String.IsEqual(ListItem.DBType,set)</visible>
-                </control>                
-                <control type="image" description="Studio">
+                <control type="image" description="Studio - Embuary Info">
                     <posy>-51</posy>
                     <left>1000</left>
                     <height>75</height>
                     <width>160</width>
-                    <texture>$VAR[InfoStudios]</texture>
+                    <texture>$VAR[InfoStudiosEmbuary]</texture>
                     <aspectratio>keep</aspectratio>
                     <aligny>center</aligny>
-                    <visible>!String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
-                </control>
-                <control type="image" description="1st. Studio - Sets">
-                    <posy>-51</posy>
-                    <left>1000</left>
-                    <height>75</height>
-                    <width>160</width>
-                    <texture>$VAR[InfoStudiosSets]</texture>
-                    <aspectratio>keep</aspectratio>
-                    <aligny>center</aligny>
-                    <visible>String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Single.Studio)) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
-                </control>
-                <control type="image" description="Studio - TMDb Helper">
-                    <posy>-51</posy>
-                    <left>1000</left>
-                    <height>75</height>
-                    <width>160</width>
-                    <texture>$VAR[InfoStudiosTMDB]</texture>
-                    <aspectratio>keep</aspectratio>
-                    <aligny>center</aligny>
-                    <visible>String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListitemAbsolute(0).Studio) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
+                    <visible>!String.IsEmpty(Container(10051).Listitem.Studio) + !String.IsEmpty(Skin.String(studiosResource.path))</visible>
                 </control>                
                 <control type="image" description="Line Split">
                     <posy>23</posy>
@@ -639,9 +261,7 @@
                     <font></font>
                     <selected>true</selected>
                     <onclick>SetProperty(TextViewerHeader,$ESCVAR[panelheading],Home)</onclick>
-                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">SetProperty(TextViewerSubHeader,$ESCINFO[ListItem.Tagline,[I],[/I]],Home)</onclick>
-                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.Tagline) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Tagline)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(5100).ListItemAbsolute(0).Tagline,[I],[/I]],Home)</onclick>
-                    <onclick condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Years))">SetProperty(TextViewerSubHeader,$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Years),[I],[/I]],Home)</onclick>
+                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(10051).ListItem.Tagline,[I],[/I]],Home)</onclick>
                     <onclick>SetProperty(TextViewerContent,$ESCVAR[Plots],Home)</onclick>
                     <onclick>ActivateWindow(1124)</onclick>
                 </control>
@@ -1019,9 +639,9 @@
                         </item>
                         <item>
                             <label>$LOCALIZE[31037]:</label>
-                            <label2>$INFO[Container(5100).ListItemAbsolute(0).MPAA]</label2>
+                            <label2>$INFO[Container(10051).ListItem.MPAA]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA)</visible>
+                            <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Container(10051).ListItem.MPAA)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[292]:</label>
@@ -1227,7 +847,7 @@
 				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.IMDBNumber)">RunScript(script.embuary.info,call=movie,query='"$INFO[ListItem.Title]"',year=$INFO[ListItem.Year])</onclick>
 				<onclick condition="String.IsEqual(ListItem.DBTYPE,tvshow)">RunScript(script.embuary.info,call=tv,query='"$INFO[ListItem.Title]"',year=$INFO[ListItem.Year])</onclick>
                 <visible>[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,movie)] + system.hasaddon(script.embuary.info)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <visible>!String.IsEmpty(Listitem.DBID) + !ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             </control>
             <control type="button" id="10" description="Get Art">
                 <height>90</height>
