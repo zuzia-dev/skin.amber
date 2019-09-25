@@ -879,12 +879,16 @@
     <!-- Media type for themoviedb.helper: movie or tvshow -->
     <variable name="TMDbMediaType">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">type=movie</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">type=movie</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">type=tv</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">type=tv</value>
     </variable>
     <!-- Studio call for themoviedb.helper: companies for movies, networks for tv shows -->
     <variable name="TMDbStudioCall">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">with_companies</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">with_companies</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">with_networks</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">with_networks</value>
     </variable>
     
     <variable name="TMDbFanart">
@@ -1011,6 +1015,8 @@
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32029]</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[32030]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32117]</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">$LOCALIZE[32029]</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">$LOCALIZE[32030]</value>
     </variable>
 
     <!-- Header for single search of movies/tv shows/episodes from studio -->
@@ -1018,6 +1024,8 @@
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32031]</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[32032]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode)">$LOCALIZE[32116]</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">$LOCALIZE[32031]</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">$LOCALIZE[32032]</value>
     </variable>
     
     <variable name="SingleSearchContent">
@@ -1030,6 +1038,27 @@
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalEpisodeStudio)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieCountry)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
     </variable>
+    
+    <variable name="EmbuaryInfoMovies">
+		<value condition="Integer.IsGreater(Container(10052).NumItems,1)">$INFO[Container(10052).NumItems,, $LOCALIZE[342]]</value>
+		<value condition="Integer.IsEqual(Container(10052).NumItems,1)">$INFO[Container(10052).NumItems,, $LOCALIZE[20338]]</value>
+	</variable>
+	<variable name="EmbuaryInfoTVShows">
+		<value condition="Integer.IsGreater(Container(10053).NumItems,1)">$INFO[Container(10053).NumItems,, $LOCALIZE[20343]]</value>
+		<value condition="Integer.IsEqual(Container(10053).NumItems,1)">$INFO[Container(10053).NumItems,, $LOCALIZE[20364]]</value>
+	</variable>
+	<variable name="EmbuaryInfoLocalEntries">
+		<value condition="Integer.IsGreater(Container(10051).ListItem.Property(LocalMedia),1)">$INFO[Container(10051).ListItem.Property(LocalMedia),, $LOCALIZE[31380]]</value>
+		<value condition="Integer.IsEqual(Container(10051).ListItem.Property(LocalMedia),1)">$INFO[Container(10051).ListItem.Property(LocalMedia),, $LOCALIZE[31381]]</value>
+	</variable>
+	<variable name="EmbuaryInfoCrewLabel">
+		<value condition="String.IsEqual(Container(10051).ListItem.DBType,season)">$LOCALIZE[32129]</value>
+		<value>$LOCALIZE[32099]</value>
+	</variable>
+    
+    
+    
+    
     
     <!-- List layout for video info media details -->
     <include name="List_9009_Commons" description="Video Info metadata container">
