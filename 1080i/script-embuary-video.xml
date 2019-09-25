@@ -3,7 +3,7 @@
     <defaultcontrol always="true">9000</defaultcontrol>
     <animation effect="fade" time="200">WindowOpen</animation>
     <animation effect="fade" time="150">WindowClose</animation>
-
+    <conload>RunScript(script.embuary.helper,action=resetposition,container=9009||10052||10053||10054||10055||10056||10057||10058||10059)</conload>
     <controls>
 
         <!-- Hide Details list for video -->
@@ -15,7 +15,7 @@
 			<width>1</width>
 			<height>1</height>
 		</control>
-        
+        <!-- Background and poster -->
         <control type="image">
             <width>1920</width>
             <height>1080</height>
@@ -39,7 +39,7 @@
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoPoster]</param>
         </include>
-
+        <!-- Powered by TMDb image -->
         <control type="image" description="Powered by TMDb">
             <posy>1000</posy>
             <left>250</left>
@@ -162,7 +162,6 @@
                 </control>                
             </control>            
         </control>
-
         <!-- Certification Flag for embuary info items -->        
         <control type="group">
             <visible>!String.IsEmpty(Container(10051).ListItem.MPAA)</visible>
@@ -176,7 +175,7 @@
                 <texture fallback="badges/mpaa/NR.png">$VAR[EmbuaryInfoCertFlag]</texture>
             </control>
         </control>
-
+        <!-- Video details -->
         <control type="group" description="Media Info">
             <control type="group" description="top" id="300">
                 <posx>700</posx>
@@ -411,6 +410,7 @@
                 </control>
             </control>
         </control>
+        <!-- Buttons -->
         <control type="grouplist" id="9000">
             <left>700</left>
             <posy>527</posy>
@@ -420,6 +420,7 @@
             <onup>90003</onup>
             <ondown>91001</ondown>
             <orientation>horizontal</orientation>
+            <defaultcontrol>8</defaultcontrol>
             <itemgap>16</itemgap>
             <control type="togglebutton" id="8" description="Play/browse to Show">
                 <height>90</height>
@@ -463,7 +464,7 @@
 				<onclick>Addon.OpenSettings(script.embuary.info)</onclick>
             </control>
         </control>
-        
+        <!-- Cast and Lists -->
 		<control type="grouplist" id="91001">
 			<posx>700</posx>
             <posy>622</posy>
@@ -472,10 +473,12 @@
 			<onup>9000</onup>
 			<ondown>noop</ondown>
             <itemgap>10</itemgap>
+            <defaultcontrol>10052</defaultcontrol>
             <orientation>vertical</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
-			<control type="group">
+			<!-- Cast -->
+            <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10052).NumItems,0) | Container(10052).IsUpdating</visible>
                 <control type="group">
@@ -499,7 +502,6 @@
 				        <aspectratio>stretch</aspectratio>
 				    </control>
                 </control>
-                <!-- Cast -->
 			    <control type="panel" id="10052">
 				    <top>44</top>
                     <left>10</left>
@@ -515,6 +517,7 @@
                     </include>
 			    </control>
             </control>
+            <!-- Crew / Guest Stars -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10056).NumItems,0) | Container(10056).IsUpdating</visible>
@@ -539,7 +542,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- Crew / Guest Stars -->
                 <control type="panel" id="10056">
 			        <top>44</top>
                     <left>10</left>
@@ -559,6 +561,7 @@
                     </include>
 			    </control>
 		    </control>
+            <!-- Set -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10057).NumItems,1) | Container(10057).IsUpdating</visible>
@@ -583,7 +586,6 @@
 				        <aspectratio>stretch</aspectratio>
 				    </control>
                 </control>
-                <!-- Set -->
 			    <control type="panel" id="10057">
 				    <top>44</top>
                     <left>10</left>
@@ -603,6 +605,7 @@
                     </include>
 			    </control>
             </control>
+            <!-- Seasons -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10058).NumItems,1) | Container(10058).IsUpdating</visible>
@@ -627,7 +630,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- Seasons -->
                 <control type="panel" id="10058">
 			        <top>44</top>
                     <left>10</left>
@@ -647,6 +649,7 @@
                     </include>
 			    </control>
 		    </control>
+            <!-- Similar -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10053).NumItems,0) | Container(10058).IsUpdating</visible>
@@ -671,7 +674,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- Similar -->
                 <control type="panel" id="10053">
 			        <top>44</top>
                     <left>10</left>
@@ -691,6 +693,7 @@
                     </include>
 			    </control>
 		    </control>
+            <!-- YouTube -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10054).NumItems,0) | Container(10054).IsUpdating</visible>
@@ -703,7 +706,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>[COLOR=Highlight]YouTube $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
+                        <label>[COLOR=Highlight]$LOCALIZE[32131] $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -715,7 +718,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- YouTube -->
                 <control type="panel" id="10054">
 			        <top>44</top>
                     <left>10</left>
@@ -735,6 +737,7 @@
                     </include>
 			    </control>
 		    </control>
+            <!-- Backdrops -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10055).NumItems,0) | Container(10055).IsUpdating</visible>
@@ -747,7 +750,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[1] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
+                        <label>[COLOR=Highlight]$LOCALIZE[20445] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -759,7 +762,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- Backdrops -->
                 <control type="panel" id="10055">
 			        <top>44</top>
                     <left>10</left>
@@ -779,6 +781,7 @@
                     </include>
 			    </control>
 		    </control>
+            <!-- Posters -->
             <control type="group">
                 <height>450</height>
                 <visible>Integer.IsGreater(Container(10059).NumItems,0) | Container(10059).IsUpdating</visible>
@@ -791,7 +794,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>[COLOR=Highlight]Posters $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
+                        <label>[COLOR=Highlight]$LOCALIZE[32130] $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -803,7 +806,6 @@
 			            <aspectratio>stretch</aspectratio>
 			        </control>
                 </control>
-                <!-- Posters -->
                 <control type="panel" id="10059">
 			        <top>44</top>
                     <left>10</left>
@@ -824,8 +826,5 @@
 			    </control>
 		    </control>
         </control>
-        
-        
-        
     </controls>
 </window>
