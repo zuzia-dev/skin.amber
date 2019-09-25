@@ -1090,6 +1090,16 @@
                 <label>$LOCALIZE[20410]</label>
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
             </control>
+            <control type="button" id="1101" description="Search for Trailer">
+                <height>90</height>
+                <width min="210">auto</width>
+                <font>Details</font>
+                <align>center</align>
+                <label>$LOCALIZE[32132]</label>
+                <onclick>Action(close)</onclick>
+				<onclick>RunScript(script.embuary.helper,action=goto,path='"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Title]&amp;search_type=videos"',target=videos)</onclick>
+				<visible>System.HasAddon(plugin.video.youtube) + System.HasAddon(script.embuary.helper) + String.IsEqual(ListItem.DBType,movie) + !Control.IsVisible(11)</visible>
+            </control>
             <control type="button" id="1227" description="Special Features">
                 <height>90</height>
                 <width min="210">auto</width>
@@ -1151,7 +1161,18 @@
                 <visible>!Skin.HasSetting(KioskMode.Enabled) + !String.IsEqual(ListItem.DBType,set)</visible>
                 <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             </control>
-            <control type="button" id="297" description="AB: Choose Art">
+            <control type="button" id="297" description="Get Art">
+                <height>90</height>
+                <width min="220">auto</width>
+                <align>center</align>
+                <font>Details</font>
+                <label>Artwork Beef</label>
+                <onclick>SetProperty(DoInfoExtras,True,Home)</onclick>
+                <onclick>ActivateWindow(1121)</onclick>
+                <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
+                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+            </control>
+<!--            <control type="button" id="297" description="AB: Choose Art">
                 <height>90</height>
                 <width min="220">auto</width>
                 <align>center</align>
@@ -1180,7 +1201,7 @@
                 <onclick condition="String.IsEqual(ListItem.DBType,musicvideo)">XBMC.RunScript(script.artwork.beef, mode=auto, mediatype=musicvideo, dbid=$INFO[ListItem.DBID])</onclick>
                 <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
                 <visible>!String.IsEmpty(Listitem.DBID) + !ListItem.IsCollection + String.IsEmpty(ListItem.Property(tmdb_id))</visible>				
-            </control>
+            </control> -->
             <control type="button" id="296" description="Show Fanart">
                 <height>90</height>
                 <width min="220">auto</width>
