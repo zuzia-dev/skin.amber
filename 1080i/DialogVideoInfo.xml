@@ -5,8 +5,9 @@
     <animation effect="fade" time="150">WindowClose</animation>
     <onload condition="String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,tvshow)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.TVShowTitle]"',prop=EncodeddTitle)</onload>
     <onload condition="String.IsEqual(ListItem.DBTYPE,movie)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
-    <onload>RunScript(script.embuary.helper,action=resetposition,container=90050||9009||9101||9102||9103||9104||9105||9106||9107||9108||9109||9110)</onload>
-    <onload>SetFocus(9000)</onload>
+    <onload>RunScript(script.embuary.helper,action=resetposition,container=9000||90050||9009||9101||9102||9103||9104||9105||9106||9107||9108||9109||9110)</onload>
+    <onload condition="Control.IsVisible(90050)">SetFocus(90050)</onload>
+    <onload condition="!Control.IsVisible(90050)">SetFocus(9000)</onload>
     <onunload>ClearProperty(EncodedTitle,home)</onunload>
     <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + !Window.IsActive(1122) + !Window.IsActive(1131)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 
