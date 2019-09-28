@@ -917,7 +917,16 @@
 		<value>$INFO[VideoPlayer.Duration(ss),,s]</value>
 	</variable>
 
-
+    <variable name="VideoInfoButton8">
+        <value condition="[String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))] | 
+                          [!String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))]">$LOCALIZE[15067]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[20360]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[1024]</value>
+		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[342]</value>
+		<value condition="ListItem.IsResumable">$LOCALIZE[13404]</value>
+		<value condition="ListItem.IsFolder">$LOCALIZE[1024]</value>
+		<value>$LOCALIZE[208]</value>
+	</variable>
 
     <expression name="56_FanartViewInfo">[[container.content(albums) | container.content(artists)] + Skin.HasSetting(56_Music_Info)] | [container.content(episodes) + Skin.HasSetting(56_Episodes_Info)] | [[container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Info)]</expression>
 

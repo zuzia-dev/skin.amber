@@ -27,7 +27,7 @@
             <left>-1000</left>
             <top>-1000</top>
             <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + !String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">Action(Info)</onfocus>
-            <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">SetFocus(90003)</onfocus>
+            <onfocus condition="!Integer.IsEqual(Container(9999).NumItems,0) + !Container(9999).IsUpdating + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + String.Contains(Window(Home).Property(TMDbHelper.Path.Current),type=person)">SetFocus(9000)</onfocus>
             <onfocus condition="[Integer.IsEqual(Container(9999).NumItems,0) | Container(9999).IsUpdating] + !String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">AlarmClock(doinfo,SetFocus(9999),00:01,silent)</onfocus>
             <onfocus condition="String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current))">Action(Back)</onfocus>
             <itemlayout />
@@ -98,9 +98,9 @@
                     <label fallback="19055">$INFO[Container(9999).ListItemAbsolute(0).Property(biography)]</label>
                 </control>
                 <control type="radiobutton" id="90003">
-                    <posy>528</posy>
+                    <posy>447</posy>
                     <left>588.3</left>
-                    <ondown>9100</ondown>
+                    <ondown>9000</ondown>
                     <onright>9009</onright>
                     <align>center</align>
                     <aligny>center</aligny>
@@ -169,15 +169,36 @@
                     </content>
                 </control>
             </control>
+            <!-- Buttons -->
+            <control type="grouplist" id="9000">
+                <left>700</left>
+                <posy>527</posy>
+                <width>1180</width>
+                <height>90</height>
+                <align>center</align>
+                <onup>90003</onup>
+                <ondown>91001</ondown>
+                <orientation>horizontal</orientation>
+                <defaultcontrol>9001</defaultcontrol>
+                <itemgap>16</itemgap>
+                <control type="button" id="9001" description="Close">
+                    <height>90</height>
+                    <width min="220">auto</width>
+                    <align>center</align>
+                    <font>Details</font>
+                    <label>$LOCALIZE[15067]</label>
+					<onclick>Action(Close)</onclick>
+                </control>
+            </control>
             <!-- Info Lists for person -->   
             <control type="group" id="9100">
                 <posx>700</posx>
-                <posy>600</posy>
+                <posy>622</posy>
                 <width>1180</width>
                 <height>450</height>
                 <control type="grouplist" id="91001">
                     <scrolltime tween="quadratic">400</scrolltime>
-                    <onup>90003</onup>
+                    <onup>9000</onup>
                     <height>450</height>
                     <orientation>vertical</orientation>
                     <itemgap>10</itemgap>
@@ -192,6 +213,8 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
                         <param name="prevent_del">noop</param>
                         <param name="content">$VAR[InfoCastList01]</param>
+                        <param name="sortby">year</param>
+                        <param name="sortorder">descending</param>
                     </include>
                     <!-- Cast in TV Shows -->
                     <include content="VideoInfoPosterWidget">
@@ -202,6 +225,8 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(character)][/I]</param>
                         <param name="prevent_del">noop</param>
                         <param name="content">$VAR[InfoCastList02]</param>
+                        <param name="sortby">year</param>
+                        <param name="sortorder">descending</param>
                     </include>
                     <!-- Crew in Movies -->
                     <include content="VideoInfoPosterWidget">
@@ -212,6 +237,8 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
                         <param name="prevent_del">noop</param>
                         <param name="content">$VAR[InfoCastList03]</param>
+                        <param name="sortby">year</param>
+                        <param name="sortorder">descending</param>
                     </include>                    
                     <!-- Crew in TV Shows -->
                     <include content="VideoInfoPosterWidget">
@@ -222,6 +249,8 @@
                         <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
                         <param name="prevent_del">noop</param>
                         <param name="content">$VAR[InfoCastList04]</param>
+                        <param name="sortby">year</param>
+                        <param name="sortorder">descending</param>
                     </include>
                     <!-- Pictures -->
                     <include content="VideoInfoPosterWidget">

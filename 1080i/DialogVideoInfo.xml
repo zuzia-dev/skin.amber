@@ -6,8 +6,6 @@
     <onload condition="String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,tvshow)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.TVShowTitle]"',prop=EncodeddTitle)</onload>
     <onload condition="String.IsEqual(ListItem.DBTYPE,movie)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
     <onload>RunScript(script.embuary.helper,action=resetposition,container=9000||90050||9009||9101||9102||9103||9104||9105||9106||9107||9108||9109||9110)</onload>
-    <onload condition="Control.IsVisible(90050)">SetFocus(90050)</onload>
-    <onload condition="!Control.IsVisible(90050)">SetFocus(9000)</onload>
     <onunload>ClearProperty(EncodedTitle,home)</onunload>
     <onunload condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.Path.Current)) + !Window.IsActive(1122) + !Window.IsActive(1131)">RunScript(plugin.video.themoviedb.helper,del_path,call_id=1129)</onunload>
 
@@ -18,6 +16,15 @@
 
         <!-- Hide default cast list 50, using a custom cast -->
         <include>HiddenCast</include>
+
+        <control type="button" id="13" description="Director">
+            <include>HiddenButton</include>
+        </control>
+
+        <control type="button" id="8" description="Play/Browse">
+            <include>HiddenButton</include>
+        </control>
+
 
         <control type="image">
             <width>1920</width>
@@ -1056,22 +1063,34 @@
             <height>90</height>
             <align>center</align>
             <onup>90003</onup>
-            <ondown>9100</ondown>
+            <ondown>91001</ondown>
             <orientation>horizontal</orientation>
-            <defaultcontrol>8</defaultcontrol>
+            <defaultcontrol always="true">8000</defaultcontrol>
             <itemgap>16</itemgap>
-            <control type="togglebutton" id="8" description="Play/browse to Show or Set">
+            
+            <control type="button" id="8000" description="Play/browse">
                 <height>90</height>
                 <width min="210">auto</width>
                 <align>center</align>
                 <font>Details</font>
-                <label>$LOCALIZE[208]</label>
-                <altlabel>$LOCALIZE[1024]</altlabel>
-                <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
-                <alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
-                <usealttexture>String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set)</usealttexture>
-                <visible>!String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <label>$VAR[VideoInfoButton8]</label>
+                <onclick condition="String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))">Action(Close)</onclick>
+                <onclick condition="!String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))">Action(Close)</onclick>
+                <onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+                <onclick condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+                <onclick condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
             </control>
+            
+            <control type="button" id="8001" description="Set">
+                <height>90</height>
+                <width min="210">auto</width>
+                <align>center</align>
+                <font>Details</font>
+                <label>Collection</label>
+                <onclick>RunScript(script.embuary.helper,action=goto,path='"videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId]"',target=videos)</onclick>
+                <visible>!String.IsEmpty(ListItem.SetId) + !String.IsEmpty(ListItem.DBID)</visible>
+            </control>
+            
             <control type="button" id="8100" description="Search">
                 <height>90</height>
                 <width min="210">auto</width>
@@ -1091,16 +1110,6 @@
                 <align>center</align>
                 <label>$LOCALIZE[20410]</label>
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
-            </control>
-            <control type="button" id="1101" description="Search for Trailer">
-                <height>90</height>
-                <width min="210">auto</width>
-                <font>Details</font>
-                <align>center</align>
-                <label>$LOCALIZE[32132]</label>
-                <onclick>Action(close)</onclick>
-				<onclick>RunScript(script.embuary.helper,action=goto,path='"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Title]&amp;search_type=videos"',target=videos)</onclick>
-				<visible>System.HasAddon(plugin.video.youtube) + System.HasAddon(script.embuary.helper) + String.IsEqual(ListItem.DBType,movie) + !Control.IsVisible(11)</visible>
             </control>
             <control type="button" id="6" description="Refresh">
                 <height>90</height>
@@ -1179,8 +1188,8 @@
                     <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
                     <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
                     <param name="content">$VAR[VideoInfoSets]</param>
-                    <param name="sortby">Year</param>
-                    <param name="sortorder">Ascending</param>
+                    <param name="sortby">year</param>
+                    <param name="sortorder">ascending</param>
                     <param name="minnumitems">0</param>
                     <param name="visibility1">!String.IsEmpty(ListItem.Set) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Set) | ListItem.IsCollection</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListSets)</param>
@@ -1192,8 +1201,8 @@
                     <param name="onup">9101</param>
                     <param name="ondown">9103</param>
                     <param name="minnumitems">0</param>
-                    <param name="sortby">Name</param>
-                    <param name="sortorder">Ascending</param>
+                    <param name="sortby">name</param>
+                    <param name="sortorder">ascending</param>
                     <param name="belowdoublelabelvisibility">false</param>
                     <param name="belowlabelvisibility">true</param>
                     <param name="onclickinclude">InfoList_OnClickSeasons</param>
@@ -1223,6 +1232,8 @@
                     <param name="content">$VAR[VideoInfoFromDirector]</param>
                     <param name="visibility1">!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Director)</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListDirector)</param>
+                    <param name="sortby">year</param>
+                    <param name="sortorder">descending</param>
                 </include>
                 <!-- Similar -->
                 <include content="VideoInfoPosterWidget">
@@ -1294,6 +1305,8 @@
                     <param name="content">$VAR[VideoInfoCastFeatured]</param>
                     <param name="visibility1">String.IsEqual(ListItem.DBType,movie) + [Integer.IsGreater(Container(90050).NumItems,0) | !String.IsEmpty(Container(5100).ListItemAbsolute(0).Property(Cast.1.Name))]</param>
                     <param name="visibility2">!Skin.HasSetting(DisableInfoListCastFeature)</param>
+                    <param name="sortby">year</param>
+                    <param name="sortorder">descending</param>
                 </include>                    
             </control>    
         </control>
@@ -1350,10 +1363,6 @@
                 <align>center</align>
                 <label>$LOCALIZE[21371]</label>
             </control>
-        </control>
-
-        <control type="button" id="13" description="Director">
-            <include>HiddenButton</include>
         </control>
 
         <control type="image" id="8899">
