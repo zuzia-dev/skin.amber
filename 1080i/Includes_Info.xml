@@ -1302,15 +1302,11 @@
                     <visible>Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating</visible>
                     <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating">Conditional</animation>
 			        <!-- select online tmdb search or local search -->
-                    <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                    <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_id=1129,prevent_del))</onclick>
-			        <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			        <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Dialog.Close(all)||ActivateWindow(1122))</onclick>
-			        <onclick condition="Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
-                    <!-- only local search -->            
-			        <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])</onclick>
-			        <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">Dialog.Close(all)</onclick>
-			        <onclick condition="!Skin.HasSetting(Enable.ExtendedInfo) + !ListItem.IsCollection">ActivateWindow(1122)</onclick>
+                    <onclick condition="!ListItem.IsCollection">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+                    <onclick condition="!ListItem.IsCollection">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_id=1129,prevent_del))</onclick>
+			        <onclick condition="!ListItem.IsCollection">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			        <onclick condition="!ListItem.IsCollection">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Dialog.Close(all)||ActivateWindow(1122))</onclick>
+			        <onclick condition="!ListItem.IsCollection">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
                     <!-- sets -->
                     <onclick condition="ListItem.IsCollection">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container(90050).ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_id=1129,prevent_del)</onclick>
                     <include content="ActorLayout">
@@ -1683,8 +1679,5 @@
 			</control>
 		</definition>
 	</include>
-
-
-
 
 </includes>
