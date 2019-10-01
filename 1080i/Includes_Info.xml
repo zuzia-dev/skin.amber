@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-
+    <!-- Video info poster -->
     <variable name="DialogVideoInfoPoster">
         <value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
         <value condition="!String.IsEmpty(Container(10051).ListItem.Art(Thumb))">$INFO[Container(10051).ListItem.Art(thumb)]</value>
     </variable>
-
+    <!-- Video info episode thumb -->
     <variable name="DialogVideoInfoThumb" description="Episode Thumb">
         <value condition="ListItem.IsParentFolder">DefaultEpisodeBack.png</value>
         <value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
         <value condition="!String.IsEmpty(ListItem.Icon)">$INFO[ListItem.Icon]</value>
         <value>DefaultEpisode.png</value>
     </variable>
-
+    <!-- Video info tv show banner -->
     <variable name="DialogVideoInfoBanner" description="TV Show Banner">
         <value condition="!String.IsEmpty(ListItem.Art(tvshow.banner)) + !String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Art(tvshow.banner)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(banner)) + String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.Art(banner)]</value>
@@ -148,7 +148,6 @@
         <value condition="[Window.IsVisible(movieinformation) + Integer.IsGreaterOrEqual(ListItem.Rating(tomatometerallaudience),6.0)] | [!Window.IsVisible(movieinformation) + Integer.IsGreaterOrEqual(VideoPlayer.Rating(tomatometerallaudience),6.0)]">badges/ratings/popcorn12.png</value>
         <value>badges/ratings/popcorn22.png</value>
     </variable>
-
     <!-- Rotten Tomatoes Average Audience Rating Percent Variable-->
     <variable name="RottenFreshAudienceLabelVar">
         <value condition="String.IsEqual(ListItem.Rating(tomatometerallaudience),0.0)">0</value>
@@ -253,7 +252,6 @@
         <value condition="String.IsEqual(ListItem.Rating(tomatometerallaudience),9.9)">99</value>
         <value condition="String.IsEqual(ListItem.Rating(tomatometerallaudience),10.0)">100</value>
     </variable>    
-
     <!-- Metacritic Rating Variable-->
     <variable name="MetacriticLabelVar">
         <value condition="String.IsEqual(ListItem.Rating(metacritic),0.0)">0</value>
@@ -358,7 +356,6 @@
         <value condition="String.IsEqual(ListItem.Rating(metacritic),9.9)">99</value>
         <value condition="String.IsEqual(ListItem.Rating(metacritic),10.0)">100</value>
     </variable>
-
     <!-- TMDB Rating Variable-->
     <variable name="TheMovieDBLabelVar">
         <value condition="String.IsEqual(ListItem.Rating(themoviedb),0.0)">0</value>
@@ -463,10 +460,7 @@
         <value condition="String.IsEqual(ListItem.Rating(themoviedb),9.9)">99</value>
         <value condition="String.IsEqual(ListItem.Rating(themoviedb),10.0)">100</value>
     </variable>
-
-
     <!-- TMDB Online Rottentomatoes and Metacritic Variables -->
-
     <variable name="TMDBRottenFreshLogoVar">
         <value condition="String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_rating),100)">badges/ratings/certified2.png</value>
         <value condition="String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_rating),99)">badges/ratings/certified2.png</value>
@@ -556,9 +550,7 @@
         <value condition="String.IsEqual(Container(5100).ListItemAbsolute(0).Property(rottentomatoes_usermeter),60)">badges/ratings/popcorn12.png</value>
         <value>badges/ratings/popcorn22.png</value>
     </variable>
-    
-    <!-- Embuary Info Rottentomatoes Variables -->
-
+    <!-- Embuary Info Rottentomatoes Variable -->
     <variable name="EmbuaryInfoRottenFreshLogoVar">
         <value condition="String.IsEqual(Container(10051).ListItem.Property(Rating.Rotten),100)">badges/ratings/certified2.png</value>
         <value condition="String.IsEqual(Container(10051).ListItem.Property(Rating.Rotten),99)">badges/ratings/certified2.png</value>
@@ -603,7 +595,7 @@
         <value condition="String.IsEqual(Container(10051).ListItem.Property(Rating.Rotten),60)">badges/ratings/fresh2.png</value>
         <value>badges/ratings/rotten2.png</value>
     </variable>
-
+    <!-- Local cert. flag -->
     <variable name="CertFlag">
         <value condition="String.IsEmpty(ListItem.MPAA) | String.Contains(ListItem.MPAA,NR) | String.IsEqual(ListItem.MPAA,Rated) | String.IsEqual(ListItem.MPAA,Rated ) | String.IsEqual(ListItem.MPAA,Not Rated) | String.IsEqual(ListItem.MPAA,Rated Not Rated)">badges/mpaa/NR.png</value>
         <value condition="String.Contains(ListItem.MPAA,US:R) | String.Contains(ListItem.MPAA,United States:R) | String.Contains(ListItem.MPAA,USA:R) | String.IsEqual(ListItem.MPAA,Rated R) | String.IsEqual(ListItem.MPAA,R)">badges/mpaa/R.png</value>
@@ -656,7 +648,7 @@
         <value condition="String.Contains(ListItem.MPAA,NL-18) | String.Contains(ListItem.MPAA,Netherlands:18)">badges/mpaa/NL_18.png</value>
         <value>$INFO[ListItem.MPAA,badges/mpaa,.png]</value>
     </variable>
-
+    <!-- TMDb online cert. flag -->
     <variable name="TMDBCertFlag">
         <value condition="String.IsEmpty(Container(5100).ListItemAbsolute(0).MPAA) | String.Contains(Container(5100).ListItemAbsolute(0).MPAA,NR) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,Rated) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,Rated ) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,Not Rated) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,Rated Not Rated)">badges/mpaa/NR.png</value>
         <value condition="String.Contains(Container(5100).ListItemAbsolute(0).MPAA,US:R) | String.Contains(Container(5100).ListItemAbsolute(0).MPAA,United States:R) | String.Contains(Container(5100).ListItemAbsolute(0).MPAA,USA:R) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,Rated R) | String.IsEqual(Container(5100).ListItemAbsolute(0).MPAA,R)">badges/mpaa/R.png</value>
@@ -709,7 +701,7 @@
         <value condition="String.Contains(Container(5100).ListItemAbsolute(0).MPAA,NL-18) | String.Contains(Container(5100).ListItemAbsolute(0).MPAA,Netherlands:18)">badges/mpaa/NL_18.png</value>
         <value>$INFO[Container(5100).ListItemAbsolute(0).MPAA,badges/mpaa,.png]</value>
     </variable>
-    
+    <!-- Embuary info video window cert flag. Based on addon setting for cert. country -->
     <variable name="EmbuaryInfoCertFlag">
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),US) + [String.IsEmpty(Container(10051).ListItem.MPAA) | String.IsEqual(Container(10051).ListItem.MPAA,NR) | String.IsEqual(Container(10051).ListItem.MPAA,Rated) | String.IsEqual(Container(10051).ListItem.MPAA,Rated ) | String.IsEqual(Container(10051).ListItem.MPAA,Not Rated)]">badges/mpaa/NR.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),US) + String.IsEqual(Container(10051).ListItem.MPAA,R)">badges/mpaa/R.png</value>
@@ -759,10 +751,9 @@
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),NL) + [String.Contains(Container(10051).ListItem.MPAA,NL-12) | String.IsEqual(Container(10051).ListItem.MPAA,12)]">badges/mpaa/NL_12.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),NL) + [String.Contains(Container(10051).ListItem.MPAA,NL-16) | String.IsEqual(Container(10051).ListItem.MPAA,16)]">badges/mpaa/NL_16.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),NL) + [String.Contains(Container(10051).ListItem.MPAA,NL-18) | String.IsEqual(Container(10051).ListItem.MPAA,18)]">badges/mpaa/NL_18.png</value>
-
         <value>$INFO[Container(10051).ListItem.MPAA,badges/mpaa,.png]</value>
     </variable>
-    
+    <!-- Cert flag for first movie in set -->
     <variable name="SetsCertFlag">
         <value condition="String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA)) | String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NR) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Rated) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Rated ) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Not Rated) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Rated Not Rated)">badges/mpaa/NR.png</value>
         <value condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),US:R) | String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),United States:R) | String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),USA:R) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Rated R) | String.IsEqual(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),R)">badges/mpaa/R.png</value>
@@ -815,43 +806,43 @@
         <value condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),NL-18) | String.Contains(Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),Netherlands:18)">badges/mpaa/NL_18.png</value>
         <value>$INFO[Window(Home).Property(SkinInfo.Set.Movie.1.MPAA),badges/mpaa,.png]</value>
     </variable>
-
+    <!-- Local studio icon -->
     <variable name="InfoStudios">
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),coloured)">resource://resource.images.studios.coloured/$INFO[Listitem.Studio,,.png]</value>
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),white)">resource://resource.images.studios.white/$INFO[Listitem.Studio,,.png]</value>
         <value>DefaultStudios.png</value>
     </variable>
-    
+    <!-- Set's first movie studio icon -->
     <variable name="InfoStudiosSets">
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),coloured)">resource://resource.images.studios.coloured/$INFO[Window(Home).Property(SkinInfo.Set.Movies.Single.Studio),,.png]</value>
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),white)">resource://resource.images.studios.white/$INFO[Window(Home).Property(SkinInfo.Set.Movies.Single.Studio),,.png]</value>
         <value>DefaultStudios.png</value>
     </variable>
-    
+    <!-- Online studio icon -->
     <variable name="InfoStudiosTMDB">
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),coloured)">resource://resource.images.studios.coloured/$INFO[Container(5100).ListItemAbsolute(0).Studio,,.png]</value>
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),white)">resource://resource.images.studios.white/$INFO[Container(5100).ListItemAbsolute(0).Studio,,.png]</value>
         <value>DefaultStudios.png</value>
     </variable>
-    
+    <!-- Embuary info video window studio icon -->
     <variable name="InfoStudiosEmbuary">
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),coloured)">resource://resource.images.studios.coloured/$INFO[Container(10051).ListItem.Studio,,.png]</value>
         <value condition="!String.IsEmpty(Skin.String(studiosResource.path)) + String.Contains(Skin.String(studiosResource.path),white)">resource://resource.images.studios.white/$INFO[Container(10051).ListItem.Studio,,.png]</value>
         <value>DefaultStudios.png</value>
     </variable>
-    
+    <!-- Text color for plot -->
     <variable name="InfoPlotTextColor">
         <value>White</value>
     </variable>
-    
+    <!-- Sub header for textviewer window for RT Consensus -->
     <variable name="RTConsesusLabel">
         <value>[I]$LOCALIZE[32080][/I]</value>
     </variable>
-
+    <!-- Sub header for textviewer window for Awards -->
     <variable name="AwardsLabel">
         <value>[I]$LOCALIZE[32075][/I]</value>
     </variable>
-    
+    <!-- Movies in Set custom info list label -->
     <variable name="SetNameLabel">
         <value condition="!String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
         <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
@@ -962,28 +953,26 @@
     <variable name="TMDbRecommended">
         <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</value>
     </variable>
-    
+    <!-- Studio header, either local or online -->
     <variable name="InfoListStudioHeader">
         <value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio]</value>
         <value condition="String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Studio)">$INFO[Container(5100).ListItemAbsolute(0).Studio]</value>
     </variable>
-    
+    <!-- Genre header, either local or online -->
     <variable name="InfoListGenreHeader">
         <value condition="!String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]</value>
         <value condition="String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Genre)">$INFO[Container(5100).ListItemAbsolute(0).Genre]</value>
     </variable>
-    
+    <!-- Year header, either local or online -->
     <variable name="InfoListYearHeader">
         <value condition="!String.IsEmpty(ListItem.Year)">$INFO[ListItem.Year]</value>
         <value condition="String.IsEmpty(ListItem.Year) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Year)">$INFO[Container(5100).ListItemAbsolute(0).Year]</value>
     </variable>
-    
+    <!-- Director header, either local or online -->
     <variable name="InfoListDirectorHeader">
         <value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]</value>
         <value condition="String.IsEmpty(ListItem.Director) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Director)">$INFO[Container(5100).ListItemAbsolute(0).Director]</value>
     </variable>
-    
-    
     <!-- Cast in Movies info list -->
     <variable name="InfoCastList01">
         <value condition="!Container(9999).IsUpdating + Integer.IsGreater(Container(9999).NumItems,0)">$INFO[Container(9999).ListItemAbsolute(1).FolderPath]</value>
@@ -1009,7 +998,6 @@
         <value condition="!Container(9999).IsUpdating + Integer.IsGreater(Container(9999).NumItems,0)">$INFO[Container(9999).ListItemAbsolute(5).FolderPath]</value>
         <value>videodb://</value>
     </variable>
-
     <!-- Header for single search of movies/tv shows/episodes with genre -->
     <variable name="GenreOnlineHeaderVar">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32029]</value>
@@ -1018,7 +1006,6 @@
         <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">$LOCALIZE[32029]</value>
         <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">$LOCALIZE[32030]</value>
     </variable>
-
     <!-- Header for single search of movies/tv shows/episodes from studio -->
     <variable name="StudioOnlineHeaderVar">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">$LOCALIZE[32031]</value>
@@ -1027,7 +1014,7 @@
         <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">$LOCALIZE[32031]</value>
         <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">$LOCALIZE[32032]</value>
     </variable>
-    
+    <!-- Single Search content sources -->
     <variable name="SingleSearchContent">
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),Online)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$INFO[Skin.String(OnlineMediaType)]&amp;$INFO[Skin.String(OnlineCallType)]=$INFO[Skin.String(SingleSearchTerm)]</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieGenre)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
@@ -1038,15 +1025,22 @@
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalEpisodeStudio)">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieCountry)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
     </variable>
-    
+    <!-- Crew for movies/tv shows, guest stars for seasons -->
 	<variable name="EmbuaryInfoCrewLabel">
 		<value condition="String.IsEqual(Container(10051).ListItem.DBType,season)">$LOCALIZE[32129]</value>
 		<value>$LOCALIZE[32099]</value>
 	</variable>
-    
-    
-    
-    
+    <!-- Movie/TV Show status from TMDb -->
+    <variable name="EmbuaryInfoStatus">
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Ended)">$LOCALIZE[32139]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Rumored)">$LOCALIZE[32140]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Planned)">$LOCALIZE[32141]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,In Production)">$LOCALIZE[32142]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Post Production)">$LOCALIZE[32143]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Released)">$LOCALIZE[32144]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Canceled)">$LOCALIZE[32145]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Status,Returning Series)">$LOCALIZE[32146]</value>
+	</variable>
     
     <!-- List layout for video info media details -->
     <include name="List_9009_Commons" description="Video Info metadata container">
@@ -1369,7 +1363,7 @@
             <content>plugin://plugin.video.themoviedb.helper/$VAR[TMDbCallType]&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</content>
         </control>
     </include>
-    
+    <!-- On back actions for custom info lists -->
     <include name="InfoList_OnBack">
         <onback condition="Window.IsVisible(1128)">9000</onback>
         <onback>SetFocus(90050)</onback>
@@ -1489,7 +1483,6 @@
         <texturenofocus />
         <font />
     </include>
-    
     <!-- Busy Spinner -->
     <include name="InfoLoading">
         <control type="group">
@@ -1532,6 +1525,8 @@
         </control>
     </include>    
 
+    <!-- Thanks to sualfred for providing this -->
+    <!-- Multiple fanart background for Embuary info person window.  Takes fanart from movies and tv shows -->
     <include name="EmbuaryInfoPersonMultiFanart">
 		<definition>
 			<control type="list" id="2003">
@@ -1679,5 +1674,5 @@
 			</control>
 		</definition>
 	</include>
-
+    
 </includes>
