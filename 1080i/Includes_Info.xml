@@ -733,7 +733,7 @@
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),FR) + [String.IsEqual(Container(10051).ListItem.MPAA,12) | String.Contains(Container(10051).ListItem.MPAA,Interdit aux moins de 12 ans)]">badges/mpaa/France_-12.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),FR) + [String.IsEqual(Container(10051).ListItem.MPAA,16) | String.Contains(Container(10051).ListItem.MPAA,Interdit aux moins de 16 ans)]">badges/mpaa/France_-16.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),FR) + [String.IsEqual(Container(10051).ListItem.MPAA,18) | String.Contains(Container(10051).ListItem.MPAA,Interdit aux moins de 18 ans)]">badges/mpaa/France_-18.png</value>
-        <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),BR) + [String.Contains(Container(10051).ListItem.MPAA,Livre) | String.IsEqual(Container(10051).ListItem.MPAA,Livre)]">badges/mpaa/Brazil_L.png</value>
+        <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),BR) + [String.Contains(Container(10051).ListItem.MPAA,Livre) | String.IsEqual(Container(10051).ListItem.MPAA,Livre) | String.IsEqual(Container(10051).ListItem.MPAA,L)]">badges/mpaa/Brazil_L.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),BR) + String.IsEqual(Container(10051).ListItem.MPAA,10)">badges/mpaa/Brazil_10.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),BR) + String.IsEqual(Container(10051).ListItem.MPAA,12)">badges/mpaa/Brazil_12.png</value>
         <value condition="String.IsEqual(Window(home).Property(script.embuary.info-country_code),BR) + String.IsEqual(Container(10051).ListItem.MPAA,14)">badges/mpaa/Brazil_14.png</value>
@@ -845,6 +845,7 @@
     <!-- Movies in Set custom info list label -->
     <variable name="SetNameLabel">
         <value condition="!String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
+        <value condition="!String.IsEmpty(Container(5100).ListItemAbsolute(0).Set)">$INFO[Container(5100).ListItemAbsolute(0).Set]</value>
         <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
     </variable>
    <!-- Parameter to pass to themoviedb.helper depending on available infolabels --> 
@@ -894,6 +895,7 @@
     <!-- List content for Sets custom info list -->
     <variable name="VideoInfoSets">
         <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Set)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Set]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Container(5100).ListItemAbsolute(0).Set)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[Container(5100).ListItemAbsolute(0).Set]</value>
         <value condition="ListItem.IsCollection + Skin.HasSetting(Enable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Title)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Title]</value>
         <value condition="String.IsEqual(ListItem.DBType,set) + !Skin.HasSetting(Enable.ExtendedInfo) + !String.IsEmpty(ListItem.DBID)">$INFO[ListItem.DBID,videodb://movies/sets/,/]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.SetID)">$INFO[ListItem.SetID,videodb://movies/sets/,/]</value>
@@ -1041,6 +1043,23 @@
 		<value condition="String.IsEqual(Container(10051).ListItem.Status,Canceled)">$LOCALIZE[32145]</value>
 		<value condition="String.IsEqual(Container(10051).ListItem.Status,Returning Series)">$LOCALIZE[32146]</value>
 	</variable>
+    <!-- TMDb Person Known For -->
+    <variable name="EmbuaryInfoKnownFor">
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Acting)">$LOCALIZE[32147]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Directing)">$LOCALIZE[32148]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Writing)">$LOCALIZE[32149]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Production)">$LOCALIZE[32150]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Sound)">$LOCALIZE[32151]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Crew)">$LOCALIZE[32099]</value>
+		<value condition="String.IsEqual(Container(10051).ListItem.Property(Known_For_Department),Creator)">$LOCALIZE[32152]</value>
+	</variable>
+    
+    <variable name="AgeLabel">
+        <value condition="!String.IsEmpty(Container(10051).ListItem.Property(Age)) + String.IsEmpty(Container(10051).ListItem.Property(Deathday))">$LOCALIZE[32084]</value>
+        <value condition="!String.IsEmpty(Container(10051).ListItem.Property(Age)) + !String.IsEmpty(Container(10051).ListItem.Property(Deathday))">$LOCALIZE[32153]</value>
+        <value condition="!String.IsEmpty(Container(9999).ListItemAbsolute(0).Property(Age)) + String.IsEmpty(Container(9999).ListItemAbsolute(0).Property(Deathday))">$LOCALIZE[32084]</value>
+        <value condition="!String.IsEmpty(Container(9999).ListItemAbsolute(0).Property(Age)) + !String.IsEmpty(Container(9999).ListItemAbsolute(0).Property(Deathday))">$LOCALIZE[32153]</value>
+    </variable>
     
     <!-- List layout for video info media details -->
     <include name="List_9009_Commons" description="Video Info metadata container">
@@ -1391,6 +1410,18 @@
         <definition>
             <onclick>Dialog.Close(all,force)</onclick>
             <onclick>ActivateWindow(videos,$INFO[Container(9102).ListItem.FolderPath])</onclick>
+        </definition>
+    </include>
+    <!-- Onclick for Crew info list -->
+    <include name="InfoList_OnClickCrew">
+        <param name="prevent_del" default="prevent_del" />
+        <definition>
+            <!-- select online tmdb search or local search -->
+            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+            <onclick>SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(9103).ListItem.Label],type=person,call_id=1129,prevent_del))</onclick>
+			<onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			<onclick>SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(9103).ListItem.Label])||Dialog.Close(all)||ActivateWindow(1122))</onclick>
+			<onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
         </definition>
     </include>
     <!-- Video and Person info custom info list template -->
