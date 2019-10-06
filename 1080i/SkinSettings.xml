@@ -427,16 +427,22 @@
 							<param name="itemlabel" value="$LOCALIZE[32015]"/>
 							<param name="skinsetting" value="Disable.ExtendedInfo"/>
 						</include>
-                        <item id="4" description="Select Custom Info Lists">
+                        <include content="YesNoSettingItemAddon">
+							<param name="itemid" value="4"/>
+							<param name="itemlabel" value="$LOCALIZE[32156]"/>
+							<param name="skinsetting" value="Enable.BlurredVideoInfo"/>
+                            <param name="addonpath" value="script.colorbox"/>
+						</include>
+                        <item id="5" description="Select Custom Info Lists">
 							<label>$LOCALIZE[32104]</label>
 							<onclick>SetProperty(CustomSelectInfoLists,True)</onclick>
 							<onclick>ActivateWindow(1130)</onclick>
 						</item>
-                        <item id="5" description="Embuary Info Config">
+                        <item id="6" description="Embuary Info Config">
 							<label>$LOCALIZE[32128]</label>
 							<onclick>Addon.OpenSettings(script.embuary.info)</onclick>
 						</item>
-                        <item id="6" description="TMDb Helper Config">
+                        <item id="7" description="TMDb Helper Config">
 							<label>$LOCALIZE[32155]</label>
 							<onclick>Addon.OpenSettings(plugin.video.themoviedb.helper)</onclick>
 						</item>
@@ -697,8 +703,15 @@
 						<label>plugin.video.themoviedb.helper</label>
 						<label2>$INFO[System.AddonVersion(plugin.video.themoviedb.helper)]        </label2>
 						<onclick>Addon.OpenSettings(plugin.video.themoviedb.helper)</onclick>
-						<onclick condition="!System.HasAddon(script.embuary.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
+						<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
 						<selected>System.HasAddon(plugin.video.themoviedb.helper)</selected>
+					</control>
+                    <control type="radiobutton" id="911223">
+						<label>script.colorbox</label>
+						<label2>$INFO[System.AddonVersion(script.colorbox)]        </label2>
+						<onclick>Addon.OpenSettings(script.colorbox)</onclick>
+						<onclick condition="!System.HasAddon(script.colorbox)">InstallAddon(script.colorbox)</onclick>
+						<selected>System.HasAddon(script.colorbox)</selected>
 					</control>                    
 				</control>
 			</control>
