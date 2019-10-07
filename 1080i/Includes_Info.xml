@@ -859,16 +859,6 @@
         <value condition="!String.IsEmpty(ListItem.Title)">query=$INFO[ListItem.Title]</value>
         <value>query=$INFO[ListItem.Label]</value>
     </variable>
-    <!-- Call type for themoviedb.helper -->
-    <variable name="TMDbCallType">
-        <!-- Online media: details call -->
-        <value condition="!String.IsEmpty(ListItem.Property(tmdb_id))">?info=details</value>
-        <!-- Local movie: find call -->
-        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Property(imdb_id))">?info=find</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.IMDBNumber) + !String.StartsWith(ListItem.IMDBNumber,xx)">?info=find</value>
-        <!-- All other chioces: details call -->
-        <value>?info=details</value>
-    </variable>
     <!-- Media type for themoviedb.helper: movie or tvshow -->
     <variable name="TMDbMediaType">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">type=movie</value>
@@ -880,8 +870,6 @@
     <variable name="TMDbStudioCall">
         <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">with_companies</value>
         <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">with_companies</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">with_networks</value>
-        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">with_networks</value>
     </variable>
     
     <variable name="TMDbFanart">
@@ -1404,7 +1392,7 @@
             <height>1</height>
             <itemlayout height="1" width="1" />
             <focusedlayout height="1" width="1" />
-            <content>plugin://plugin.video.themoviedb.helper/$VAR[TMDbCallType]&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</content>
+            <content>plugin://plugin.video.themoviedb.helper/?info=details&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</content>
         </control>
     </include>
     <!-- On back actions for custom info lists -->
