@@ -419,7 +419,8 @@
         <value condition="Window.IsActive(TVSearch)">$LOCALIZE[19020] / $LOCALIZE[137]</value>
         <value condition="Window.IsActive(RadioSearch)">$LOCALIZE[19021] / $LOCALIZE[137]</value>
 
-        <value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
+        <value condition="!String.IsEmpty(Container.FolderName) + String.IsEmpty(Container.PluginCategory)">$INFO[Container.FolderName,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
+        <value condition="!String.IsEmpty(Container.FolderName) + !String.IsEmpty(Container.PluginCategory)">$INFO[Container.PluginCategory,,[COLOR=Highlight]  •  [/COLOR]]$INFO[Container.NumItems]</value>
         <value condition="[Window.IsActive(script-NextAired-TVGuide2.xml) | Window.IsActive(script-NextAired-TVGuide.xml)]">$INFO[System.AddonTitle(script.tv.show.next.aired)]</value>
         <value condition="Window.IsActive(script-globalsearch.xml)">$INFO[System.AddonTitle(script.globalsearch)] - $LOCALIZE[32014][COLOR=Highlight]$INFO[Window.Property(GlobalSearch.SearchString)][/COLOR]</value>
         <value condition="Window.IsActive(1122)">$LOCALIZE[32014][COLOR=Highlight]$INFO[Skin.String(CustomSearchTerm)][/COLOR]</value>
