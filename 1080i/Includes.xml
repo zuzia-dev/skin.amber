@@ -2152,74 +2152,7 @@
         </control>
     </include>
 
-
-<!-- The following also adapted from MikeSiLVO -->
-
-	<include name="FanartTitleHorizontal">
-		<control type="button" id="12000">
-			<top>1045</top>
-			<width min="0" max="550">auto</width>
-			<font>font22</font>
-			<textcolor>FFDFDFDF</textcolor>
-			<shadowcolor />
-			<aligny>top</aligny>
-			<textoffsetx>30</textoffsetx>
-			<textoffsety>5</textoffsety>
-			<label>$VAR[FanartTitleVar]</label>
-			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
-            <include>ContentFade</include>
-            <onup>9001</onup>
-            <ondown>9001</ondown>
-            <onleft>9001</onleft>
-            <onright>9001</onright>
-            <onback>9001</onback>
-			<visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
-            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
-            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
-		    <onclick>ActivateWindow(1122)</onclick>
-		</control>
-	</include>
-    
-
-    
-	<include name="FanartTitleVertical">
-        <control type="label">
-            <top>3</top>
-            <left>20</left>
-            <height>35</height>            
-            <font>ExtProgressBar</font>
-		    <textcolor>FFDFDFDF</textcolor>
-		    <shadowcolor />
-		    <aligny>center</aligny>
-            <label>$LOCALIZE[33068]:</label>
-        </control>
-		<control type="button" id="12001">
-            <left>105</left>
-            <top>3</top>
-            <height>35</height>                
-		    <width min="0" max="550">auto</width>
-			<font>ExtProgressBar</font>
-			<!--    <textcolor>FFDFDFDF</textcolor>  -->
-            <textcolor>Highlight</textcolor>
-			<shadowcolor />
-			<aligny>center</aligny>
-            <align>left</align>
-			<label>$VAR[FanartTitleVar]</label>
-			<texturenofocus border="30,0,30,30">text_shadow.png</texturenofocus>
-		    <textoffsetx>4</textoffsetx>
-            <include>ContentFade</include>
-            <onup>9001</onup>
-            <ondown>9001</ondown>
-            <onleft>9001</onleft>
-            <onright>9001</onright>
-            <onback>9001</onback>            
-            <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
-            <onclick>Skin.Reset(CustomSearchTerm)</onclick>
-            <onclick>Skin.SetString(CustomSearchTerm,$ESCVAR[FanartTitleVar])</onclick>
-		    <onclick>ActivateWindow(1122)</onclick>
-		</control>
-	</include>
-
+    <!-- Fanart Title on home window includes -->
     <include name="TitleButtonTopBar">
         <left>0</left>
         <top>1</top>
@@ -2229,7 +2162,6 @@
 		<font>FanartTitleFont</font>
         <label>[I]$VAR[FanartTitleVar][/I]</label>    
     </include>
-    
     <include name="HorizTitleButtonBelowTopBar">
         <left>0</left>
         <top>39</top>
@@ -2244,7 +2176,6 @@
         <wrapmultiline>true</wrapmultiline>
         <label>[I]$VAR[FanartTitleVar][/I]</label>
     </include>
-
     <include name="VertTitleButtonBelowTopBar">
         <left>1600</left>
         <top>39</top>
@@ -2259,7 +2190,6 @@
         <wrapmultiline>true</wrapmultiline>
         <label>[I]$VAR[FanartTitleVar][/I]</label>    
     </include>
-    
 	<include name="ShowFanartTitle">
         <control type="group">
             <visible>[String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)</visible>
@@ -2448,8 +2378,7 @@
 		<include condition="String.IsEqual(Skin.String(FanartTimePerImage),90)">FadelabelPauseAtEnd90</include>
 	</include>
 
-
-
+    <!-- Playlist statistics -->
 	<include name="PlayListStatsList">
 		<control type="list" id="43260">
 			<visible>String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),tvshowplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),episodeplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)</visible>
@@ -2461,6 +2390,7 @@
 		</control>
 	</include>
 
+    <!-- Clear widget navigation property -->
     <include name="ClearWidgetNavProperties1">
         <onunload>ClearProperty(WidgetFocus1,Home)</onunload>
         <onunload>ClearProperty(WidgetFocus2,Home)</onunload>
@@ -2606,6 +2536,7 @@
         </control>
     </include>
     
+    <!-- Onclick for blur settings buttons -->
     <include name="OnClickUpdateColorbox">
         <onclick>AlarmClock(nms1,SetProperty(NINE_manual_set,"var=main,set=$INFO[Skin.String(colorbox_main)]|var=comp,set=$INFO[Skin.String(colorbox_comp)]|var=quality,set=$INFO[Skin.String(colorbox_quality)]|var=blursize,set=$INFO[Skin.String(colorbox_blursize)]|var=bitsize,set=$INFO[Skin.String(colorbox_bitsize)]|var=pixelsize,set=$INFO[Skin.String(colorbox_pixelsize)]|var=black,set=$INFO[Skin.String(colorbox_black)]|var=white,set=$INFO[Skin.String(colorbox_white)]|var=blend,set=$INFO[Skin.String(colorbox_blend)]|var=desat,set=$INFO[Skin.String(colorbox_desat)]",home),00:00,silent)</onclick>
         <onclick>AlarmClock(nms2,SetProperty(FIVE_daemon_fire,True,home),00:01,silent)</onclick>
