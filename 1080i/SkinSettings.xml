@@ -449,22 +449,27 @@
                             <onclick condition="System.HasAddon(script.colorbox) + !Skin.HasSetting(Enable.BlurredVideoInfo)">AlarmClock(nms1,SetProperty(NINE_manual_set,"var=quality,set=$INFO[Skin.String(colorbox_quality)]|var=blursize,set=$INFO[Skin.String(colorbox_blursize)]|var=bitsize,set=$INFO[Skin.String(colorbox_bitsize)]|var=pixelsize,set=$INFO[Skin.String(colorbox_pixelsize)]|var=black,set=$INFO[Skin.String(colorbox_black)]|var=white,set=$INFO[Skin.String(colorbox_white)]",home),00:05,true)</onclick>
                             <onclick condition="System.HasAddon(script.colorbox)">Skin.ToggleSetting(Enable.BlurredVideoInfo)</onclick>
                         </item>
-                        <item id="5" description="Blur Settings">
+                        <include content="YesNoSettingItem">
+							<param name="itemid" value="5"/>
+							<param name="itemlabel" value="      $LOCALIZE[32165]"/>
+							<param name="skinsetting" value="Blur.UsePoster"/>
+						</include>
+                        <item id="6" description="Blur Settings">
 							<label>      $LOCALIZE[32157]</label>
 							<onclick>ActivateWindow(1132)</onclick>
                             <visible>System.HasAddon(script.colorbox) + Skin.HasSetting(Enable.BlurredVideoInfo)</visible>
 						</item>
-                        <item id="6" description="Select Custom Info Lists">
+                        <item id="7" description="Select Custom Info Lists">
 							<label>$LOCALIZE[32104]</label>
 							<onclick>SetProperty(CustomSelectInfoLists,True)</onclick>
 							<onclick>ActivateWindow(1130)</onclick>
 						</item>
-                        <item id="7" description="Embuary Info Config">
+                        <item id="8" description="Embuary Info Config">
 							<label>$LOCALIZE[32128]</label>
 							<onclick condition="System.HasAddon(script.embuary.info)">Addon.OpenSettings(script.embuary.info)</onclick>
                             <onclick condition="!System.HasAddon(script.embuary.info)">InstallAddon(script.embuary.info)</onclick>
                         </item>
-                        <item id="8" description="TMDb Helper Config">
+                        <item id="9" description="TMDb Helper Config">
 							<label>$LOCALIZE[32155]</label>
 							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Addon.OpenSettings(plugin.video.themoviedb.helper)</onclick>
                             <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
