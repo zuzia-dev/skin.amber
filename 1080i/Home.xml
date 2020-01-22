@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<onload condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(plugin.video.themoviedb.helper,reset_path)</onload>
+<!--	<onload condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(plugin.video.themoviedb.helper,reset_path)</onload> -->
     <onload condition="System.HasAddon(script.favourites)">RunScript(script.favourites)</onload>
-	<onload condition="System.HasAddon(script.skinshortcuts)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;options=noGroups)</onload>
+	<onload condition="System.HasAddon(script.skinshortcuts)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onload>
     <onload condition="System.HasAddon(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">Skin.SetString(FocusedMenu.BackgroundPlaylist,$INFO[Container(300).ListItem.Property(backgroundPlaylist)])</onunload>
-<!--    <include>ClearWidgetNavProperties2</include> -->
-	<onunload>ClearProperty(SkinHelper.WidgetContainer,home)</onunload>
+	<onunload condition="System.HasAddon(plugin.video.themoviedb.helper)">ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
 	<defaultcontrol always="true">300</defaultcontrol>
 	<controls>
 		<control type="list" id="9988">
@@ -22,6 +21,84 @@
 			<focusedlayout height="1" width="1">
 			</focusedlayout>
 			<content>$INFO[Container(300).ListItem.Property(backgroundPlaylist)]</content>
+		</control>
+        
+        <control type="list" id="9980">
+			<description>hidden container for video addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://sources/video</content>
+		</control>
+        
+        <control type="list" id="9981">
+			<description>hidden container for audio addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://sources/audio</content>
+		</control>
+        
+        <control type="list" id="9982">
+			<description>hidden container for program addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://sources/executable</content>
+		</control>
+        
+        <control type="list" id="9983">
+			<description>hidden container for picture addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://sources/image</content>
+		</control>
+        
+        <control type="list" id="9984">
+			<description>hidden container for game addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://sources/game</content>
+		</control>
+        
+        <control type="list" id="9985">
+			<description>hidden container for all addons, for addon count infoline</description>
+			<posx>-20</posx>
+			<posy>-20</posy>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout width="1" height="1">
+			</itemlayout>
+			<focusedlayout height="1" width="1">
+			</focusedlayout>
+			<content>addons://user/all</content>
 		</control>
         
         <control type="list" id="12341">

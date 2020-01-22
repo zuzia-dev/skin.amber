@@ -52,7 +52,14 @@
 		<condition>Skin.HasSetting(Enable.GlobalSearch) + System.HasAddon(script.globalsearch)</condition>
 		<action>RunScript(script.globalsearch)</action>
 	</override>
+    <override action="reboot_to_android">
+        <action>System.ExecWait("/usr/sbin/rebootfromnand")</action>
+        <action>XBMC.Reset()</action>
+    </override>
 
+    <!-- For Power Menu -->
+    <groupoverride group="powermenu" condition="Window.IsActive(DialogButtonMenu.xml)">Close</groupoverride>
+    
 	<!-- Warning to Remove/Disable Settings -->
 	<warn heading="31395" message="31396">ActivateWindow(Settings)</warn>
 	<!-- Warning to Remove/Disable Search -->
@@ -70,13 +77,13 @@
 	<property property="InfoLine" label="$LOCALIZE[19021]">radio</property>
 	<property property="InfoLine" label="$LOCALIZE[31409]">pvr</property>
 	<property property="InfoLine" label="$LOCALIZE[8]">weather</property>
-	<property property="InfoLine" label="$LOCALIZE[24001]" condition="System.HasAddon(script.skin.helper.service)">addons</property>
-	<property property="InfoLine" label="$LOCALIZE[1037]" condition="System.HasAddon(script.skin.helper.service)">videoaddons</property>
-	<property property="InfoLine" label="$LOCALIZE[1038]" condition="System.HasAddon(script.skin.helper.service)">musicaddons</property>
-	<property property="InfoLine" label="$LOCALIZE[31414]" condition="System.HasAddon(script.skin.helper.service)">videomusicaddons</property>
-	<property property="InfoLine" label="$LOCALIZE[1043]" condition="System.HasAddon(script.skin.helper.service)">programaddons</property>
-	<property property="InfoLine" label="$LOCALIZE[1039]" condition="System.HasAddon(script.skin.helper.service)">pictureaddons</property>
-	<property property="InfoLine" label="$LOCALIZE[1036]" condition="System.HasAddon(script.skin.helper.service)">favourites</property>
+	<property property="InfoLine" label="$LOCALIZE[24001]">addons</property>
+	<property property="InfoLine" label="$LOCALIZE[1037]">videoaddons</property>
+	<property property="InfoLine" label="$LOCALIZE[1038]">musicaddons</property>
+	<property property="InfoLine" label="$LOCALIZE[1043]">programaddons</property>
+	<property property="InfoLine" label="$LOCALIZE[1039]">pictureaddons</property>
+    <property property="InfoLine" label="$LOCALIZE[35049]">gameaddons</property>
+	<property property="InfoLine" label="$LOCALIZE[1036]" condition="System.HasAddon(script.favourites)">favourites</property>
 	<property property="InfoLine" label="$LOCALIZE[427]">disc</property>
 	<property property="InfoLine" label="$LOCALIZE[130]">systeminfo</property>
 	<property property="InfoLine" label="$LOCALIZE[31410]" condition="System.HasAddon(script.embuary.helper)">movieplaylist</property>
@@ -422,14 +429,46 @@
 			<shortcut widget="embuaryhelpertvshows" label="$LOCALIZE[31517]" icon="shelves/embuary.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getbygenre&amp;unwatched=True&amp;type=tvshow&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
             <shortcut widget="embuaryhelpernextepisodes" label="$LOCALIZE[31526]" icon="shelves/embuary.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.helper)">plugin://script.embuary.helper/?info=getnextup&amp;reload=$INFO[Window(home).Property(EmbuaryWidgetUpdate)]</shortcut>
         </node>
+		<!-- Embuary Info Widgets -->
+		<node label="$LOCALIZE[31553]" icon="DefaultFolder.png">
+			<!-- Movies -->
+			<node label="$LOCALIZE[342]" icon="DefaultMovies.png">
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31554]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=popular</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31555]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=top_rated</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31556]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=upcoming</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31557]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=now_playing</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31558]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=trending&amp;call=movie&amp;get=week</shortcut>
+			</node>
+			<!-- TV Shows -->
+			<node label="$LOCALIZE[31432]" icon="DefaultTVShows.png">
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31559]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=popular</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31560]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=top_rated</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31561]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=airing_today</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31562]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=on_the_air</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31563]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=trending&amp;call=tv&amp;get=week</shortcut>
+			</node>
+        </node>
         <!-- Themoviedb Helper Widgets -->
 		<node label="$LOCALIZE[31498]" icon="DefaultFolder.png">
 			<!-- Movies -->
 			<node label="$LOCALIZE[342]" icon="DefaultMovies.png">
-				<shortcut widget="tmbdhelpermovies" label="$LOCALIZE[31518]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=popular&amp;type=movie</shortcut>
-				<shortcut widget="tmbdhelpermovies" label="$LOCALIZE[31519]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=top_rated&amp;type=movie</shortcut>
-				<shortcut widget="tmbdhelpermovies" label="$LOCALIZE[31520]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=upcoming&amp;type=movie</shortcut>
-				<shortcut widget="tmbdhelpermovies" label="$LOCALIZE[31521]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=now_playing&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31518]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=popular&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31519]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=top_rated&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31520]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=upcoming&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31521]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=now_playing&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31530]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31531]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_week&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31532]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=revenue_movies&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31533]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=most_voted&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31538]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31539]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_history&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31540]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_mostwatched&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31542]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_recommendations&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31543]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_trending&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31544]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_popular&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31545]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_mostplayed&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31546]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_anticipated&amp;type=movie</shortcut>
+				<shortcut widget="tmdbhelpermovies" label="$LOCALIZE[31547]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_boxoffice&amp;type=movie</shortcut>
 			</node>
 			<!-- TV Shows -->
 			<node label="$LOCALIZE[31432]" icon="DefaultTVShows.png">
@@ -437,11 +476,34 @@
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31523]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=top_rated&amp;type=tv</shortcut>
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31524]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=airing_today&amp;type=tv</shortcut>
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31525]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=on_the_air&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31530]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31531]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_week&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31533]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=most_voted&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31538]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31539]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_history&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31540]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_mostwatched&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31541]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31542]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_recommendations&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31543]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_trending&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31544]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_popular&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31545]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_mostplayed&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31546]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_anticipated&amp;type=tv</shortcut>
+				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31548]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_myairing&amp;type=tv</shortcut>
+			</node>
+			<!-- People -->
+			<node label="$LOCALIZE[31534]" icon="DefaultActor.png">
+				<shortcut widget="tmdbhelperpeople" label="$LOCALIZE[31529]" icon="shelves/themoviedb.helper.png" widgetType="people" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=popular&amp;type=person&amp;widget=True</shortcut>
+				<shortcut widget="tmdbhelperpeople" label="$LOCALIZE[31535]" icon="shelves/themoviedb.helper.png" widgetType="people" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_day&amp;type=person&amp;widget=True</shortcut>
+				<shortcut widget="tmdbhelperpeople" label="$LOCALIZE[31536]" icon="shelves/themoviedb.helper.png" widgetType="people" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=trending_week&amp;type=person&amp;widget=True</shortcut>
+			</node>
+			<!-- Trakt -->
+			<node label="$LOCALIZE[31537]" icon="DefaultMovies.png">
+				<shortcut widget="tmdbhelpertrakt" label="$LOCALIZE[31549]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper?info=trakt_trendinglists&amp;type=both&amp;widget=True</shortcut>
+				<shortcut widget="tmdbhelpertrakt" label="$LOCALIZE[31550]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper?info=trakt_popularlists&amp;type=both&amp;widget=True</shortcut>
+				<shortcut widget="tmdbhelpertrakt" label="$LOCALIZE[31551]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper?info=trakt_likedlists&amp;type=both&amp;widget=True</shortcut>
+				<shortcut widget="tmdbhelpertrakt" label="$LOCALIZE[31552]" icon="shelves/themoviedb.helper.png" widgetType="movies" widgetTarget="video" condition="[Library.HasContent(tvshows) | Library.HasContent(movies)] + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper?info=trakt_mylists&amp;type=both&amp;widget=True</shortcut>
 			</node>
         </node>            
-		<!-- Additional Widgets
-		<shortcut label="$LOCALIZE[31421]" icon="DefaultFolder.png" condition="System.HasAddon(script.skin.helper.service)">||BROWSE||script.skin.helper.service/?action=widgets&amp;path=skinplaylists,scriptwidgets,smartshortcuts,pvr</shortcut>
-		<shortcut label="32107" condition="!System.HasAddon(script.skin.helper.service)">::INSTALL::script.skin.helper.service</shortcut> -->
 		<!-- Picture sources -->
 		<node label="32020">
 			<content>picturesources</content>

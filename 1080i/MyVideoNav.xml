@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>50</defaultcontrol>
-	<views>50,51,52,53,54,55,56,501</views>
+	
+	<include condition="Skin.HasSetting(UseListDefault)">DefaultViews</include>
+    <include condition="Skin.HasSetting(UseTallListDefault)">TallListDefaultView</include>
+	<include condition="Skin.HasSetting(UseLowListDefault)">LowListDefaultView</include>
+	<include condition="Skin.HasSetting(UseBigListDefault)">BigListDefaultView</include>
+	<include condition="Skin.HasSetting(UsePanelDefault)">PanelDefaultView</include>
+	<include condition="Skin.HasSetting(UseBigPanelDefault)">BigPanelDefaultView</include>
+	<include condition="Skin.HasSetting(UseIconsDefault)">IconsDefaultView</include>
+	<include condition="Skin.HasSetting(UseFanartDefault)">FanartDefaultView</include>
+	
 	<onload>ClearProperty(gallery)</onload>
     <onload condition="System.HasAddon(script.tv.show.next.aired)">RunScript(script.tv.show.next.aired,backend=True)</onload>
 	<onunload>ClearProperty(gallery)</onunload>
@@ -122,7 +130,8 @@
         <include>View_54_LowList</include>
         <include>View_55_BigPanel</include>
         <include>View_56_Fanart</include>
-        <include>View_501_TallList</include>
+       <include>View_501_TallList</include>
+	   
 		<control type="group" description="Showcase trigger">
 			<animation effect="slide" easing="out" start="0,0" end="0,-90" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
 			<include>VignetteFade</include>

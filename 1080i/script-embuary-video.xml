@@ -36,13 +36,13 @@
                 <aspectratio align="center">scale</aspectratio>
 			    <texture background="true">$VAR[VideoInfoBackground]</texture>
             </control>
-            <include content="BackgroundOverlay">
+            <include condition="!Skin.HasSetting(Enable.BlurredVideoInfo) | [Skin.HasSetting(Enable.BlurredVideoInfo) + !Skin.HasSetting(Blur.UsePoster)]" content="BackgroundOverlay">
                 <param name="parentid" value="9000"/>
             </include>
-<!--            <include condition="Skin.HasSetting(Enable.BlurredVideoInfo)" content="BackgroundOverlay">
+            <include condition="Skin.HasSetting(Enable.BlurredVideoInfo) + Skin.HasSetting(Blur.UsePoster)" content="BackgroundOverlay">
                 <param name="parentid" value="9000"/>
-                <param name="colordiffuse">8FFFFFFF</param>
-            </include> -->
+                <param name="colordiffuse" value="9FC8C8C8"/>
+            </include>
         </control>
         
         <include content="ShadowedImage">
@@ -67,7 +67,7 @@
         <control type="grouplist" description="Ratings for embuary info items">
             <top>83</top>
             <left>705</left>
-            <width>1200</width>
+            <width>1275</width>
             <height>40</height>
             <itemgap>8</itemgap>
             <orientation>horizontal</orientation>
@@ -106,7 +106,7 @@
             </control>
             <control type="grouplist" description="RT Critics rating">
                 <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.rotten)) + !String.IsEqual(Container(10051).ListItem.Property(rating.rotten),N/A)</visible>
-                <width>120</width>
+                <width>130</width>
                 <orientation>horizontal</orientation>
                 <align>left</align>
                 <itemgap>3</itemgap>            
@@ -118,7 +118,7 @@
                 </control>
                 <control type="label">
                     <height>40</height>
-                    <width>55</width>
+                    <width>60</width>
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <label>$INFO[Container(10051).ListItem.Property(rating.rotten)]%</label>
@@ -126,7 +126,7 @@
             </control>
             <control type="grouplist" description="Metacritic rating">
                 <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.metacritic)) + !String.IsEqual(Container(10051).ListItem.Property(rating.metacritic),N/A)</visible>
-                <width>80</width>
+                <width>90</width>
                 <orientation>horizontal</orientation>
                 <align>left</align>
                 <itemgap>5</itemgap>            
@@ -138,7 +138,7 @@
                 </control>
                 <control type="label">
                     <height>40</height>
-                    <width>40</width>
+                    <width>50</width>
                     <font>ListDetails</font>
                     <textcolor>Highlight</textcolor>
                     <label>$INFO[Container(10051).ListItem.Property(rating.metacritic)]</label>
@@ -497,359 +497,314 @@
             <width>1180</width>
             <height>450</height>
 			<onup>9000</onup>
-			<ondown>noop</ondown>
-            <itemgap>10</itemgap>
+            <itemgap>-44</itemgap>
             <defaultcontrol always="true">10052</defaultcontrol>
             <orientation>vertical</orientation>
 			<usecontrolcoords>true</usecontrolcoords>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
+			<control type="group" id="10099"></control>
 			<!-- Cast -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10052).NumItems,0) | Container(10052).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10052).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100521">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10052).NumItems,0) | Container(10052).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(10052).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(10052).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-				        <top>40</top>
-                        <left>10</left>
-				        <width>1180</width>
-				        <height>1</height>
-				        <texture>img/LineL.png</texture>
-				        <aspectratio>stretch</aspectratio>
-				    </control>
-                </control>
-			    <control type="panel" id="10052">
-				    <top>44</top>
+                <control type="image" description="Line Split">
+        	        <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>9000</onup>
-                    <ondown>10056</ondown>
-                    <orientation>horizontal</orientation>
-				    <preloaditems>2</preloaditems>
-				    <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="ActorLayout">
-                        <param name="viewid">10052</param>
-                    </include>
+			        <width>1180</width>
+			        <height>1</height>
+			        <texture>img/LineL.png</texture>
+			        <aspectratio>stretch</aspectratio>
 			    </control>
             </control>
+		    <control type="panel" id="10052">
+			    <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+			    <preloaditems>2</preloaditems>
+			    <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10052).NumItems,0) | Container(10052).IsUpdating</visible>
+                <include content="CastLayout">
+                    <param name="viewid">10052</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[Container(10052).ListItem.Label]</param>
+			        <param name="belowdoublelabel2">[I]$INFO[Container(10052).ListItem.Label2][/I]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
+		    </control>
             <!-- Crew / Guest Stars -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10056).NumItems,0) | Container(10056).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10056).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100561">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10056).NumItems,0) | Container(10056).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$VAR[EmbuaryInfoCrewLabel] $INFO[Container(10056).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$VAR[EmbuaryInfoCrewLabel] $INFO[Container(10056).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10056">
-			        <top>44</top>
+                <control type="image" description="Line Split">
+     		        <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10052</onup>
-                    <ondown>10057</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="CastLayout">
-                        <param name="viewid">10056</param>
-                        <param name="belowdoublelabelvisibility">true</param>
-                        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-			            <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
-                        <param name="belowlabelvisibility">false</param>
-                    </include>
+	    	        <width>1180</width>
+			        <height>1</height>
+			        <texture>img/LineL.png</texture>
+			        <aspectratio>stretch</aspectratio>
 			    </control>
+            </control>
+            <control type="panel" id="10056">
+			    <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+                <include content="CastLayout">
+                    <param name="viewid">10056</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+    	            <param name="belowdoublelabel2">[I]$INFO[ListItem.Label2][/I]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
 		    </control>
             <!-- Set -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10057).NumItems,1) | Container(10057).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10057).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100571">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10057).NumItems,0) | Container(10057).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$INFO[Container(10051).ListItem.Property(collection),$LOCALIZE[32097] ,] $INFO[Container(10057).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$INFO[Container(10051).ListItem.Property(collection),$LOCALIZE[32097] ,] $INFO[Container(10057).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-				        <top>40</top>
-                        <left>10</left>
-				        <width>1180</width>
-				        <height>1</height>
-				        <texture>img/LineL.png</texture>
-				        <aspectratio>stretch</aspectratio>
-				    </control>
-                </control>
-			    <control type="panel" id="10057">
-				    <top>44</top>
+                <control type="image" description="Line Split">
+			        <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10056</onup>
-                    <ondown>10058</ondown>
-                    <orientation>horizontal</orientation>
-				    <preloaditems>2</preloaditems>
-				    <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="CastLayout">
-                        <param name="viewid">10057</param>
-                        <param name="belowdoublelabelvisibility">true</param>
-                        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-			            <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
-                        <param name="belowlabelvisibility">false</param>
-                    </include>
+			        <width>1180</width>
+			        <height>1</height>
+			        <texture>img/LineL.png</texture>
+			        <aspectratio>stretch</aspectratio>
 			    </control>
             </control>
-            <!-- Seasons -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10058).NumItems,0) | Container(10058).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10058).IsUpdating</visible>
-                    <include>InfoLoading</include>
-                </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[33054] $INFO[Container(10058).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10058">
-			        <top>44</top>
-                    <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10057</onup>
-                    <ondown>10053</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="CastLayout">
-                        <param name="viewid">10058</param>
-                        <param name="belowdoublelabelvisibility">true</param>
-                        <param name="belowdoublelabel1">$INFO[ListItem.Title]</param>
-			            <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
-                        <param name="belowlabelvisibility">false</param>
-                    </include>
-			    </control>
+		    <control type="panel" id="10057">
+			    <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+    		    <preloaditems>2</preloaditems>
+			    <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10057).NumItems,0) | Container(10057).IsUpdating</visible>
+                <include content="CastLayout">
+                    <param name="viewid">10057</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+	                <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
 		    </control>
-            <!-- Similar -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10053).NumItems,0) | Container(10058).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10053).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <!-- Seasons -->
+            <control type="group" id="100581">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10058).NumItems,0) | Container(10058).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[33054] $INFO[Container(10058).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[32105] $INFO[Container(10053).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10053">
-			        <top>44</top>
+                <control type="image" description="Line Split">
+  		            <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10058</onup>
-                    <ondown>10054</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="CastLayout">
-                        <param name="viewid">10053</param>
-                        <param name="belowdoublelabelvisibility">true</param>
-                        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-			            <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
-                        <param name="belowlabelvisibility">false</param>
-                    </include>
-			    </control>
+    	            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+            </control>
+            <control type="panel" id="10058">
+		        <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10058).NumItems,0) | Container(10058).IsUpdating</visible>
+                <include content="CastLayout">
+                    <param name="viewid">10058</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Title]</param>
+    	            <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
+		    </control>
+		    <!-- Similar -->
+            <control type="group" id="100531">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10053).NumItems,0) | Container(10053).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[32105] $INFO[Container(10053).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
+                </control>
+                <control type="image" description="Line Split">
+   		            <top>40</top>
+                    <left>10</left>
+    	            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+            </control>
+            <control type="panel" id="10053">
+		        <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10053).NumItems,0) | Container(10053).IsUpdating</visible>
+                <include content="CastLayout">
+                    <param name="viewid">10053</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+		            <param name="belowdoublelabel2">$INFO[ListItem.Year]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
 		    </control>
             <!-- YouTube -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10054).NumItems,0) | Container(10054).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10054).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100541">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10054).NumItems,0) | Container(10054).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[32131] $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[32131] $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10054">
-			        <top>44</top>
+                <control type="image" description="Line Split">
+   		            <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10053</onup>
-                    <ondown>10055</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="WideLayout">
-                        <param name="viewid">10054</param>
-                        <param name="belowdoublelabelvisibility">true</param>
-                        <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-			            <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
-                        <param name="belowlabelvisibility">false</param>
-                    </include>
-			    </control>
+    	            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+            </control>
+            <control type="panel" id="10054">
+		        <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10054).NumItems,0) | Container(10054).IsUpdating</visible>
+                <include content="WideLayout">
+                    <param name="viewid">10054</param>
+                    <param name="belowdoublelabelvisibility">true</param>
+                    <param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
+    	            <param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
+                    <param name="belowlabelvisibility">false</param>
+                </include>
 		    </control>
             <!-- Backdrops -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10055).NumItems,0) | Container(10055).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10055).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100551">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10055).NumItems,0) | Container(10055).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[20445] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[20445] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10055">
-			        <top>44</top>
+                <control type="image" description="Line Split">
+   		            <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10054</onup>
-                    <ondown>10059</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="WideLayout">
-                        <param name="viewid">10055</param>
-                        <param name="belowdoublelabelvisibility">false</param>
-                        <param name="belowlabel">$INFO[ListItem.Label]</param>
-                        <param name="belowlabelvisibility">true</param>
-                        <param name="belowlabelheight">74</param>
-                    </include>
-			    </control>
+    	            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+            </control>
+            <control type="panel" id="10055">
+		        <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10055).NumItems,0) | Container(10055).IsUpdating</visible>
+                <include content="WideLayout">
+                    <param name="viewid">10055</param>
+                    <param name="belowdoublelabelvisibility">false</param>
+                    <param name="belowlabel">$INFO[ListItem.Label]</param>
+                    <param name="belowlabelvisibility">true</param>
+                    <param name="belowlabelheight">74</param>
+                </include>
 		    </control>
             <!-- Posters -->
-            <control type="group">
-                <height>450</height>
-                <visible>Integer.IsGreater(Container(10059).NumItems,0) | Container(10059).IsUpdating</visible>
-                <control type="group">
-                    <visible>Container(10059).IsUpdating</visible>
-                    <include>InfoLoading</include>
+            <control type="group" id="100591">
+			    <top>44</top>
+				<height>44</height>
+				<visible>Integer.IsGreater(Container(10059).NumItems,0) | Container(10059).IsUpdating</visible>
+                <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=Highlight]$LOCALIZE[32130] $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
                 </control>
-                <control type="group">
-                    <control type="label">
-                        <left>8</left>
-                        <top>0</top>
-                        <height>30</height>
-                        <label>[COLOR=Highlight]$LOCALIZE[32130] $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
-                        <font>ListDetails</font>
-                    </control>
-                    <control type="image" description="Line Split">
-     		            <top>40</top>
-                        <left>10</left>
-	    	            <width>1180</width>
-			            <height>1</height>
-			            <texture>img/LineL.png</texture>
-			            <aspectratio>stretch</aspectratio>
-			        </control>
-                </control>
-                <control type="panel" id="10059">
-			        <top>44</top>
+                <control type="image" description="Line Split">
+   		            <top>40</top>
                     <left>10</left>
-                    <width>1180</width>
-                    <height>410</height>
-                    <onup>10055</onup>
-                    <ondown>10052</ondown>
-                    <orientation>horizontal</orientation>
-		            <preloaditems>2</preloaditems>
-			        <scrolltime tween="quadratic" easing="out">300</scrolltime>
-                    <include content="CastLayout">
-                        <param name="viewid">10059</param>
-                        <param name="belowdoublelabelvisibility">false</param>
-                        <param name="belowlabel">$INFO[ListItem.Label]</param>
-                        <param name="belowlabelvisibility">true</param>
-                        <param name="belowlabelheight">74</param>
-                    </include>
-			    </control>
+    	            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+            </control>
+            <control type="panel" id="10059">
+		        <top>44</top>
+                <left>10</left>
+                <width>1180</width>
+                <height>410</height>
+                <orientation>horizontal</orientation>
+	            <preloaditems>2</preloaditems>
+		        <scrolltime tween="quadratic" easing="out">300</scrolltime>
+				<visible>Integer.IsGreater(Container(10059).NumItems,0) | Container(10059).IsUpdating</visible>
+                <include content="CastLayout">
+                    <param name="viewid">10059</param>
+                    <param name="belowdoublelabelvisibility">false</param>
+                    <param name="belowlabel">$INFO[ListItem.Label]</param>
+                    <param name="belowlabelvisibility">true</param>
+                    <param name="belowlabelheight">74</param>
+                </include>
 		    </control>
         </control>
     </controls>

@@ -9,14 +9,31 @@
             <height>1080</height>
             <visible>Player.HasAudio</visible>
         </control>
-        <control type="multiimage" description="Slideshow">
-            <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))</visible>
+        <control type="image" description="Slideshow - AS 3.0">
+            <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))</visible>
+            <texture background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</texture>
             <include>Dimensions_Fullscreen</include>
-            <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
+            <texture background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow.Image)]</texture>
             <aspectratio aligny="top">scale</aspectratio>
-            <timeperimage>14000</timeperimage>
+            <fadetime>10000</fadetime>
+            <animation effect="fade" start="0" end="80" time="300">Visible</animation>
+            <animation effect="fade" start="80" end="0" time="200">Hidden</animation>
+            <animation type="Conditional" condition="Visualisation.Enabled">
+                <effect type="fade" start="0" end="50" time="0" />
+            </animation>
+            <animation type="Conditional" condition="!Visualisation.Enabled">
+                <effect type="fade" start="0" end="80" time="0" />
+            </animation>
+        </control>
+		<control type="multiimage" description="Slideshow - AS 2.x">
+		    <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.ArtworkReady)</visible>
+            <include>Dimensions_Fullscreen</include>
+            <aspectratio aligny="top">scale</aspectratio>
+			<timeperimage>14000</timeperimage>
             <fadetime>10000</fadetime>
             <randomize>true</randomize>
+            <loop>yes</loop>
+            <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
             <animation effect="fade" start="0" end="80" time="300">Visible</animation>
             <animation effect="fade" start="80" end="0" time="200">Hidden</animation>
             <animation type="Conditional" condition="Visualisation.Enabled">
@@ -27,7 +44,7 @@
             </animation>
         </control>
         <control type="image" description="Fanart only">
-            <visible>Skin.HasSetting(MusicPlayingFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow))]</visible>
+            <visible>Skin.HasSetting(MusicPlayingFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
             <include>Dimensions_Fullscreen</include>
             <fadetime>400</fadetime>
             <aspectratio>scale</aspectratio>

@@ -262,6 +262,7 @@
 		<param name="overlaylabelvisibility">false</param>
 		<param name="overlaylabelalign">left</param>
 		<param name="overlaylabelyoffset">65r</param>
+		<param name="overlaylabelfont">Shelf_Label</param>
 		<param name="belowlabel"></param>
         <param name="belowlabelheight"></param>
 		<param name="belowlabelvisibility">false</param>
@@ -315,6 +316,7 @@
 					<param name="labelvisibility">$PARAM[overlaylabelvisibility]</param>
 					<param name="labeltext">$PARAM[overlaylabel]</param>
 					<param name="labelalign">$PARAM[overlaylabelalign]</param>
+					<param name="labelfont">$PARAM[overlaylabelfont]</param>
 					<param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeRB],0</param>
 				</include>
 				<include content="GenericBelowLabelTemplate">
@@ -385,6 +387,7 @@
 		<param name="labeltext"/>
 		<param name="labelalign"/>
 		<param name="bordersize"/>
+		<param name="labelfont">Shelf_Label</param>
 		<definition>
 			<control type="group">
 				<visible>$PARAM[labelvisibility]</visible>
@@ -402,9 +405,9 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>45</height>
 					<textoffsetx>24</textoffsetx>
-					<font>Shelf_Label</font>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
+					<font>$PARAM[labelfont]</font>
 					<scroll>false</scroll>
 				</control>
 				<control type="label">
@@ -412,8 +415,8 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>45</height>
 					<textoffsetx>24</textoffsetx>
-					<font>Shelf_Label</font>
 					<textcolor>Highlight</textcolor>
+					<font>$PARAM[labelfont]</font>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
 					<scroll>false</scroll>
@@ -638,6 +641,7 @@
     
 	<include name="GenericActorIconBig">
 		<param name="isFocused">false</param>
+		<param name="belowlabel2">$INFO[ListItem.Label2]</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
@@ -651,7 +655,7 @@
 				<param name="bordersizeRB">20</param>
 				<param name="belowdoublelabelvisibility">true</param>
 				<param name="belowdoublelabel1">$INFO[ListItem.Label]</param>
-				<param name="belowdoublelabel2">$INFO[ListItem.Label2]</param>
+				<param name="belowdoublelabel2">$PARAM[belowlabel2]</param>
 				<param name="aspect">scale</param>
 			</include>
 		</definition>
@@ -945,15 +949,18 @@
 
 	<include name="ActorLayout">
 		<param name="viewid"/>
+		<param name="belowlabel2" />
 		<definition>
 			<itemlayout height="410" width="232.5">
 				<include content="GenericActorIconBig">
 					<param name="isFocused">false</param>
+					<param name="belowlabel2">$PARAM[belowlabel2]</param>
 				</include>
 			</itemlayout>
 			<focusedlayout height="410" width="232.5">
 				<include content="GenericActorIconBig">
 					<param name="isFocused">Control.HasFocus($PARAM[viewid])</param>
+					<param name="belowlabel2">$PARAM[belowlabel2]</param>
 				</include>
 			</focusedlayout>
 		</definition>

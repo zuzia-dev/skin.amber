@@ -11,7 +11,7 @@
 			<include>ContentFade</include>
            
 			<control type="list" id="50">
-				<viewtype label="$LOCALIZE[535]">List</viewtype>
+				<viewtype label="$LOCALIZE[535]">list</viewtype>
 				<posx>650</posx>
 				<posy>406</posy>
 				<width>1240</width>
@@ -151,7 +151,7 @@
 				<param name="subheading">$VAR[panelsubheading]</param>
 				<param name="plot">$VAR[Plots]</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(addons) | Container.Content(images) | Container.Content(games) | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)</param>
+				<param name="visibility">String.IsEqual(Container.ViewMode,List) + [Container.content(addons) | Container.Content(images) | Container.Content(games) | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
 			</include>
             
 			<include content="PanelTemplate">
@@ -165,7 +165,7 @@
                 <param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</param>
 				<param name="plot">$VAR[Plots]</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(tvshows) | Container.Content(seasons)</param>
+				<param name="visibility">String.IsEqual(Container.ViewMode,List) + [Container.content(tvshows) | Container.Content(seasons)]</param>
 			</include>            
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -175,7 +175,7 @@
 				<param name="heading">$VAR[panelheading]</param>
 				<param name="subheading">$VAR[panelsubheading]</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(sets)</param>
+				<param name="visibility">String.IsEqual(Container.ViewMode,List) + Container.content(sets)</param>
 			</include>
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -190,7 +190,7 @@
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Artist_Description))</param>
 				<param name="subcontent_image_visible">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(artists)</param>
+				<param name="visibility">String.IsEqual(Container.ViewMode,List) + Container.content(artists)</param>
 			</include>
 			<include content="PanelTemplate">
 				<param name="top">355</param>
@@ -208,9 +208,10 @@
 				<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
 				<param name="subcontent_image_visible">false</param>
 				<param name="footer">$VAR[panelfooter]</param>
-				<param name="visibility">Container.content(albums)</param>
+				<param name="visibility">String.IsEqual(Container.ViewMode,List) + Container.content(albums)</param>
 			</include>
 			<control type="group" description="50 MediaInfo">
+				<visible>String.IsEqual(Container.ViewMode,List)</visible>
 				<posx>30</posx>
 				<posy>351</posy>
 				<width>490</width>

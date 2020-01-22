@@ -525,7 +525,14 @@
                 <width>248</width>
                 <height>454</height>
                 <onleft>9000</onleft>
-                <onright>50</onright>
+                <onright condition="String.IsEqual(Container.ViewMode,BigList)">52</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,List)">50</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Low List)">54</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Panel)">51</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Tall List)">501</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Icons)">53</onright>
+		        <onright condition="String.IsEqual(Container.ViewMode,Fanart)">53</onright>
                 <onup>9600</onup>
                 <ondown>9600</ondown>
                 <onback>9000</onback>
@@ -683,10 +690,26 @@
         <width>500</width>
         <height>1120</height>
         <onleft>9001</onleft>
-        <onright>50</onright>
+        <onright condition="String.IsEqual(Container.ViewMode,BigList)">52</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,List)">50</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Low List)">54</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Panel)">51</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Tall List)">501</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Icons)">53</onright>
+		<onright condition="String.IsEqual(Container.ViewMode,Fanart)">53</onright>
+	<!--	<onright>50</onright> -->
         <onup>9000</onup>
         <ondown>9000</ondown>
-        <onback>50</onback>
+    <!--    <onback>50</onback> -->
+	    <onback condition="String.IsEqual(Container.ViewMode,BigList)">52</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,List)">50</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Low List)">54</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Panel)">51</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Tall List)">501</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Icons)">53</onback>
+		<onback condition="String.IsEqual(Container.ViewMode,Fanart)">53</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
         <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
@@ -2540,6 +2563,39 @@
     <include name="OnClickUpdateColorbox">
         <onclick>AlarmClock(nms1,SetProperty(NINE_manual_set,"var=main,set=$INFO[Skin.String(colorbox_main)]|var=comp,set=$INFO[Skin.String(colorbox_comp)]|var=quality,set=$INFO[Skin.String(colorbox_quality)]|var=blursize,set=$INFO[Skin.String(colorbox_blursize)]|var=bitsize,set=$INFO[Skin.String(colorbox_bitsize)]|var=pixelsize,set=$INFO[Skin.String(colorbox_pixelsize)]|var=black,set=$INFO[Skin.String(colorbox_black)]|var=white,set=$INFO[Skin.String(colorbox_white)]|var=blend,set=$INFO[Skin.String(colorbox_blend)]|var=desat,set=$INFO[Skin.String(colorbox_desat)]",home),00:00,silent)</onclick>
         <onclick>AlarmClock(nms2,SetProperty(FIVE_daemon_fire,True,home),00:01,silent)</onclick>
+    </include>
+	
+	<include name="DefaultViews">
+        <views>50,51,52,53,54,55,56,501</views>
+		<defaultcontrol>50</defaultcontrol>
+    </include>
+    <include name="TallListDefaultView">
+        <views>501,50,51,52,54,53,55,56</views>
+		<defaultcontrol>501</defaultcontrol>
+    </include>
+	<include name="LowListDefaultView">
+        <views>54,50,51,52,53,55,56,501</views>
+		<defaultcontrol>54</defaultcontrol>
+    </include>
+	<include name="BigListDefaultView">
+        <views>52,50,51,53,54,55,56,501</views>
+		<defaultcontrol>52</defaultcontrol>
+    </include>
+	<include name="PanelDefaultView">
+        <views>51,52,53,54,55,56,501</views>
+		<defaultcontrol>51</defaultcontrol>
+    </include>
+	<include name="BigPanelDefaultView">
+        <views>55,50,51,52,53,54,56,501</views>
+		<defaultcontrol>55</defaultcontrol>
+    </include>
+	<include name="IconsDefaultView">
+        <views>53,5-,51,52,54,55,56,501</views>
+		<defaultcontrol>53</defaultcontrol>
+    </include>
+	<include name="FanartDefaultView">
+        <views>56,50,51,52,53,54,55,501</views>
+		<defaultcontrol>56</defaultcontrol>
     </include>
 
 </includes>
