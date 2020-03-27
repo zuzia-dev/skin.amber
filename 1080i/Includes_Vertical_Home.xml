@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-	<include name="StaticSettingsFirst">
-		<movement>6</movement>
+	<include name="StaticSettingsFirstBigFont">
+		<movement>7</movement>
+		<focusposition>0</focusposition>
+	</include>
+	
+	<include name="StaticSettingsFirstSmallFont">
+		<movement>12</movement>
 		<focusposition>0</focusposition>
 	</include>
 	
@@ -53,12 +58,12 @@
 		<ondown>300</ondown>
 		<onleft>9001</onleft>
         <include condition="!Skin.HasSetting(Hide.AllShelves)">skinshortcuts-template-ShelfOnRightMainMenu</include>
-<!--		<onright>700</onright> -->
 		<onback>9001</onback>
 		<pagecontrol></pagecontrol>
 		<include condition="Skin.HasSetting(StaticVerticalHome) + !Skin.HasSetting(VerticalFirst)">StaticSettings</include>
 		<include condition="!Skin.HasSetting(StaticVerticalHome) + !Skin.HasSetting(VerticalFirst)">NonStaticSettings</include>
-		<include condition="Skin.HasSetting(StaticVerticalHome) + Skin.HasSetting(VerticalFirst)">StaticSettingsFirst</include>
+		<include condition="Skin.HasSetting(StaticVerticalHome) + Skin.HasSetting(VerticalFirst) + Skin.HasSetting(Vertical.BiggerFont)">StaticSettingsFirstBigFont</include>
+		<include condition="Skin.HasSetting(StaticVerticalHome) + Skin.HasSetting(VerticalFirst) + !Skin.HasSetting(Vertical.BiggerFont)">StaticSettingsFirstSmallFont</include>
 		<include condition="!Skin.HasSetting(StaticVerticalHome) + Skin.HasSetting(VerticalFirst)">NonStaticSettingsFirst</include>
 		<scrolltime tween="quadratic" easing="out">200</scrolltime>
 		<animation effect="fade" time="200" start="100" end="50" reversible="true" condition="Control.HasFocus(9001)">Conditional</animation>
@@ -67,7 +72,7 @@
 				<width>380</width>
 				<align>right</align>
 				<aligny>center</aligny>
-				<textcolor>Grey3</textcolor>
+				<textcolor>$VAR[LabelTextColor]</textcolor>
 				<shadowcolor>ShadowDark</shadowcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<scroll>false</scroll>
@@ -79,7 +84,7 @@
 				<width>380</width>
 				<align>right</align>
 				<aligny>center</aligny>
-				<textcolor>Highlight</textcolor>
+				<textcolor>$VAR[HighlightColor]</textcolor>
 				<shadowcolor>ShadowDark</shadowcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<include condition="Skin.HasSetting(Vertical.BiggerFont)">BigVerticalFont</include>
@@ -90,7 +95,7 @@
 				<width>380</width>
 				<align>right</align>
 				<aligny>center</aligny>
-				<textcolor>Grey3</textcolor>
+				<textcolor>$VAR[LabelTextColor]</textcolor>
 				<shadowcolor>ShadowDark</shadowcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<scroll>false</scroll>
@@ -102,7 +107,7 @@
 				<width>380</width>
 				<align>right</align>
 				<aligny>center</aligny>
-				<textcolor>Highlight</textcolor>
+				<textcolor>$VAR[HighlightColor]</textcolor>
 				<shadowcolor>ShadowDark</shadowcolor>
 				<label>$INFO[ListItem.Label]</label>
 				<include condition="!Skin.HasSetting(Vertical.BiggerFont)">NormalVerticalFont</include>
@@ -136,7 +141,7 @@
 				<control type="image" description="Main Left Blade">
 					<width>440</width>
 					<height>1080</height>
-					<texture border="0,0,30,0">common/ViewMenuHome.png</texture>
+					<texture border="0,0,30,0" colordiffuse="$VAR[VertMenuBladeColor]">common/ViewMenuHome.png</texture>
 				</control>
 			</control>
 			<include condition="Skin.HasSetting(VerticalNavWrap)">VerticalMenuWrapped</include>
@@ -148,7 +153,7 @@
 			<posx>-518</posx>
 			<width>540</width>
 			<height>1080</height>
-			<texture border="0,0,30,0">common/ViewMenu.png</texture>
+			<texture border="0,0,30,0"  colordiffuse="$VAR[VertMenuBladeColor]">common/ViewMenu.png</texture>
 		</control>
 		<control type="list" id="9001">
 			<visible allowhiddenfocus="true">Control.HasFocus(9001)</visible>
@@ -185,13 +190,13 @@
 				<control type="image">
 					<width>400</width>
 					<height>60</height>
-					<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 				</control>
 				<control type="label" description="Main Label">
 					<posx>30</posx>
 					<width>360</width>
 					<height>60</height>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 					<shadowcolor></shadowcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>

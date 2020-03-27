@@ -39,7 +39,7 @@
 					        <height>18</height>
 					        <texturebg border="15,0,15,0">OSD/ProgressBG.png</texturebg>
 					        <midtexture border="15,0,15,0">OSD/ProgressBar.png</midtexture>
-					        <colordiffuse>Highlight</colordiffuse>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					        <info2>PVR.TimeshiftProgressEpgStart</info2>
 					        <info>PVR.TimeshiftProgressPlayPos</info>
 				        </control>
@@ -75,7 +75,7 @@
 					    <height>18</height>
 					    <texturebg border="15,0,15,0">OSD/ProgressBG.png</texturebg>
 					    <midtexture border="15,0,15,0">OSD/ProgressBar.png</midtexture>
-					    <colordiffuse>Highlight</colordiffuse>
+					    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        <info>PVR.EpgEventProgress</info>
 			        </control>
 		        </control>
@@ -87,7 +87,7 @@
 					<height>18</height>
 					<texturesliderbar>OSD/seekslider.png</texturesliderbar>
 					<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
-					<textureslidernibfocus>OSD/ScrollbarNibFO.png</textureslidernibfocus>
+					<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
 					<visible>VideoPlayer.Content(livetv) + Player.SeekEnabled</visible>
 				</control>                
                 
@@ -110,7 +110,7 @@
 					<height>18</height>
 					<texturebg border="15,0,15,0">OSD/ProgressBG.png</texturebg>
 					<midtexture border="15,0,15,0">OSD/ProgressBar.png</midtexture>
-					<colordiffuse>Highlight</colordiffuse>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<info>Player.Progress</info>
 				</control>
 				<control type="slider" id="401">
@@ -121,10 +121,10 @@
 					<height>18</height>
 					<texturesliderbar>OSD/seekslider.png</texturesliderbar>
 					<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
-					<textureslidernibfocus>OSD/ScrollbarNibFO.png</textureslidernibfocus>
+					<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
 					<visible>!VideoPlayer.Content(livetv)</visible>
 				</control>
-			    <control type="ranges">
+				<control type="ranges">
 				    <posx>30</posx>
 				    <posy>3</posy>
 				    <width>1570</width>
@@ -145,7 +145,7 @@
 				    <righttexture>colors/white.png</righttexture>
                     <colordiffuse>Highlight</colordiffuse>
 				    <info>Player.Chapters</info>
-			    </control>
+			    </control>			  
 				<control type="label" description="Progress time label">
 					<left>30</left>
 					<top>30</top>
@@ -175,7 +175,7 @@
 					<width>400</width>
 					<align>left</align>
 					<font>Details</font>
-                    <label>[COLOR-Highlight]$LOCALIZE[32039]: [/COLOR] $INFO[PVR.TimeshiftCur]$INFO[PVR.TimeshiftOffset, (-,)]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32039]: [/COLOR] $INFO[PVR.TimeshiftCur]$INFO[PVR.TimeshiftOffset, (-,)]</label>
 					<visible>VideoPlayer.Content(livetv) + !Player.ChannelPreviewActive + Pvr.IsTimeShift</visible>
 				</control>                
 				<control type="label" description="Chapter Info with Player info">
@@ -186,7 +186,7 @@
 					<width>400</width>
 					<align>left</align>
 					<font>Details</font>
-					<label>[COLOR=Highlight]$LOCALIZE[21396]: [/COLOR]$INFO[Player.Chapter]$INFO[Player.ChapterCount, / ]</label>
+					<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[21396]: [/COLOR]$INFO[Player.Chapter]$INFO[Player.ChapterCount, / ]</label>
 				</control>
 				<control type="label" description="Progress rem time label">
 					<left>1200</left>
@@ -194,7 +194,7 @@
 					<height>30</height>
 					<width>400</width>
 					<align>right</align>
-					<label>$INFO[Player.TimeRemaining,[COLOR=Highlight]$LOCALIZE[31029]: [/COLOR]]</label>
+					<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[31029]: [/COLOR]$INFO[Player.TimeRemaining]</label>
 					<font>Details</font>
 					<shadowcolor>Black</shadowcolor>
                     <visible>!VideoPlayer.Content(livetv) | [VideoPlayer.Content(livetv) + !VideoPlayer.HasEPG]</visible>
@@ -205,7 +205,7 @@
 					<height>30</height>
 					<width>400</width>
 					<align>right</align>
-					<label>$INFO[PVR.EpgEventRemainingTime,[COLOR=Highlight]$LOCALIZE[31029]: [/COLOR]]</label>
+					<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[31029]: [/COLOR]$INFO[PVR.EpgEventRemainingTime]</label>
 					<font>Details</font>
 					<shadowcolor>Black</shadowcolor>
                     <visible>VideoPlayer.Content(livetv) + VideoPlayer.HasEPG</visible>
@@ -219,7 +219,7 @@
 					<font>Details</font>
 					<shadowcolor>Black</shadowcolor>
 					<scroll>false</scroll>
-					<label>$INFO[Player.FinishTime,[COLOR=Highlight]$LOCALIZE[19127]: [/COLOR]]</label>
+					<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[19127]: [/COLOR]$INFO[Player.FinishTime]</label>
                     <visible>!VideoPlayer.Content(livetv) | [VideoPlayer.Content(livetv) + !VideoPlayer.HasEPG]</visible>
 				</control>
 				<control type="label" description="End Time PVR with EPG">
@@ -231,7 +231,7 @@
 					<font>Details</font>
 					<shadowcolor>Black</shadowcolor>
 					<scroll>false</scroll>
-					<label>$INFO[PVR.EpgEventFinishTime,[COLOR=Highlight]$LOCALIZE[19127]: [/COLOR]]</label>
+					<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[19127]: [/COLOR]$INFO[PVR.EpgEventFinishTime]</label>
                     <visible>VideoPlayer.Content(livetv) + VideoPlayer.HasEPG</visible>
 				</control>                
 				<control type="label" description="Player Status label">

@@ -3,7 +3,7 @@
     <defaultcontrol always="true">9000</defaultcontrol>
     <animation effect="fade" time="200">WindowOpen</animation>
     <animation effect="fade" time="150">WindowClose</animation>
-    <conload>RunScript(script.embuary.helper,action=resetposition,container=9000||9009||10052||10053||10054||10055||10056||10057||10058||10059)</conload>
+    <conload condition="System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9000||9009||10052||10053||10054||10055||10056||10057||10058||10059)</conload>
     <onload>SetProperty(onclose,SetFocus(9000))</onload>
     <controls>
 
@@ -89,7 +89,7 @@
                     <width>auto</width>
                     <height>40</height>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <align>left</align>
                     <label>$INFO[Container(10051).ListItem.Rating]$INFO[Container(10051).ListItem.Votes, (, $LOCALIZE[205])]</label>
                     <visible>!String.IsEmpty(Container(10051).ListItem.Rating) + !String.IsEmpty(Container(10051).ListItem.Votes) + !String.IsEqual(Container(10051).ListItem.Votes,0)</visible>
@@ -98,7 +98,7 @@
                     <width>auto</width>
                     <height>40</height>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <align>left</align>
                     <label>$INFO[Container(10051).ListItem.Rating]</label>
                     <visible>!String.IsEmpty(Container(10051).ListItem.Rating) + [String.IsEmpty(Container(10051).ListItem.Votes) | String.IsEqual(Container(10051).ListItem.Votes,0)]</visible>
@@ -120,7 +120,7 @@
                     <height>40</height>
                     <width>60</width>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[Container(10051).ListItem.Property(rating.rotten)]%</label>
                 </control>
             </control>
@@ -140,7 +140,7 @@
                     <height>40</height>
                     <width>50</width>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[Container(10051).ListItem.Property(rating.metacritic)]</label>
                 </control>
             </control>
@@ -161,7 +161,7 @@
                     <width>auto</width>
                     <height>40</height>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <align>left</align>
                     <label>$INFO[Container(10051).ListItem.Property(rating.imdb)]$INFO[Container(10051).ListItem.Property(votes.imdb), (, $LOCALIZE[205])]</label>
                 </control>
@@ -169,7 +169,7 @@
                     <width>auto</width>
                     <height>40</height>
                     <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <align>left</align>
                     <label>$INFO[Container(10051).ListItem.Property(rating.imdb)]</label>
                     <visible>!String.IsEmpty(Container(10051).ListItem.Property(rating.imdb)) + [String.IsEmpty(Container(10051).ListItem.Property(votes.imdb)) | String.IsEqual(Container(10051).ListItem.Property(votes.imdb),0)]</visible>
@@ -199,7 +199,7 @@
                     <width>950</width>
                     <height>75</height>
                     <font>InfoTitle</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <align>left</align>
                     <aligny>center</aligny>                       
                     <label>$VAR[panelheading]</label>
@@ -257,9 +257,9 @@
                     <onright>9009</onright>
                     <align>center</align>
                     <aligny>center</aligny>
-                    <textureradioonfocus colordiffuse="Black">icons/dots7.png</textureradioonfocus>
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">icons/dots7.png</textureradioonfocus>
                     <textureradioonnofocus>icons/dots7.png</textureradioonnofocus>
-                    <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
                     <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
                     <width>37</width>
                     <height>17</height>
@@ -270,7 +270,7 @@
                     <font></font>
                     <selected>true</selected>
                     <onclick>SetProperty(TextViewerHeader,$ESCVAR[panelheading],Home)</onclick>
-                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(10051).ListItem.Tagline,[I],[/I]],Home)</onclick>
+                    <onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(Container(10051).ListItem.Tagline)">SetProperty(TextViewerSubHeader,$ESCINFO[Container(10051).ListItem.Tagline,[I],[/I]],Home)</onclick>
                     <onclick>SetProperty(TextViewerContent,$ESCVAR[Plots],Home)</onclick>
                     <onclick>ActivateWindow(1124)</onclick>
                 </control>
@@ -309,13 +309,13 @@
                             <label>$LOCALIZE[515]:</label>
                             <label2>$INFO[Container(10051).ListItem.Genre]</label2>
                             <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick condition="String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,with_genres)++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[ListItem.Genre])||Skin.SetString(OnlineCallType,with_genres)||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
+                            <onclick condition="String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,with_genres)++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[ListItem.Genre])||Skin.SetString(OnlineCallType,with_genres)||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||ActivateWindow(1131))</onclick>
 			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalTVShowGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Genre])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + !String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalTVShowGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Genre])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
+			                <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalTVShowGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Container(10051).ListItem.Genre]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Genre])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + !String.Contains(Container(10051).ListItem.Genre, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalTVShowGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Genre])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||ActivateWindow(1131))</onclick>
 			                <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
                             <visible>!String.IsEmpty(Container(10051).ListItem.Genre)</visible>
                         </item>
@@ -334,12 +334,11 @@
                         <item>
                             <label>$LOCALIZE[21875]:</label>
                             <label2>$INFO[Container(10051).ListItem.Country]</label2>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Country, / )">SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieCountry,Home)++Skin.SetString(SingleSearchHeader,$LOCALIZE[32035])++Skin.SetString(SingleSearchTerm,???)++Dialog.Close(all)++ActivateWindow(1131))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Country, / )">SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieCountry,Home)++Skin.SetString(SingleSearchHeader,$LOCALIZE[32035])++Skin.SetString(SingleSearchTerm,???)++ActivateWindow(1131))</onclick>
                             <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Country, / )">RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32115]"',items='$ESCINFO[Container(10051).ListItem.Country]',seperator='" / "',splitby='"++"')</onclick>
                             <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Country, / )">SetProperty(SingleSearchType,LocalMovieCountry,Home)</onclick>
                             <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Country, / )">Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Country])</onclick>
                             <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Country, / )">Skin.SetString(SingleSearchHeader,$LOCALIZE[32035])</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Country, / )">Dialog.Close(all)</onclick>
                             <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Country, / )">ActivateWindow(1131)</onclick>
                             <visible>!String.IsEmpty(Container(10051).ListItem.Country)</visible>
                         </item>
@@ -347,13 +346,13 @@
                             <label>$LOCALIZE[572]:</label>
                             <label2>$INFO[Container(10051).ListItem.Studio]</label2>
                             <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick condition="String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[ListItem.Studio])||Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
+                            <onclick condition="String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[ListItem.Studio])||Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||ActivateWindow(1131))</onclick>
 			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalTVShowStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Studio])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + !String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalTVShowStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Studio])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
+			                <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalTVShowStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Container(10051).ListItem.Studio]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,movie) + !String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Studio])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+                            <onclick condition="String.IsEqual(Container(10051).ListItem.DBType,tvshow) + !String.Contains(Container(10051).ListItem.Studio, / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalTVShowStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Container(10051).ListItem.Studio])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||ActivateWindow(1131))</onclick>
 			                <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
                             <visible>!String.IsEmpty(Container(10051).ListItem.Studio)</visible>
                         </item>
@@ -512,7 +511,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(10052).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[206] $INFO[Container(10052).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -550,7 +549,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$VAR[EmbuaryInfoCrewLabel] $INFO[Container(10056).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$VAR[EmbuaryInfoCrewLabel] $INFO[Container(10056).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -587,7 +586,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$INFO[Container(10051).ListItem.Property(collection),$LOCALIZE[32097] ,] $INFO[Container(10057).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$INFO[Container(10051).ListItem.Property(collection),$LOCALIZE[32097] ,] $INFO[Container(10057).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -625,7 +624,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[33054] $INFO[Container(10058).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[33054] $INFO[Container(10058).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -663,7 +662,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[32105] $INFO[Container(10053).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32105] $INFO[Container(10053).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -701,7 +700,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[32131] $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32131] $INFO[Container(10054).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -739,7 +738,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[20445] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[20445] $INFO[Container(10055).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -777,7 +776,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[32130] $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32130] $INFO[Container(10059).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">

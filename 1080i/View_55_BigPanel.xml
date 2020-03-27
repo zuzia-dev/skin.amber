@@ -56,18 +56,24 @@
 
             <include content="PanelTemplate">
                 <param name="top">100</param>
-                <param name="height">640</param>
+                <param name="height">715</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">630</param>
                 <param name="heading">$VAR[panelheading]</param>
                 <param name="subheading">$VAR[panelsubheading]</param>
+				<param name="subheading2">$VAR[panelsubheading2]</param>
+                <param name="subheading2_visible">[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</param>                
                 <param name="plot">$VAR[Plots]</param>
                 <param name="footer">$VAR[panelfooter]</param>
                 <param name="visibility">![Container.Content(artists) | Container.Content(albums) | Container.Content(images) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</param>
             </include>
 			<include content="PanelTemplate">
 				<param name="top">100</param>
-				<param name="height">610</param>
+				<param name="height">640</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">550</param>
 				<param name="heading">$VAR[panelheading]</param>
 				<param name="subheading">$VAR[panelsubheading]</param>
                 <param name="subheading2">$VAR[panelsubheading2]</param>
@@ -80,6 +86,8 @@
                 <param name="top">100</param>
                 <param name="height">640</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">550</param>
                 <param name="heading">$VAR[panelheading]</param>
                 <param name="subheading">$VAR[panelsubheading]</param>
                 <param name="footer">$VAR[panelfooter]</param>
@@ -89,6 +97,8 @@
                 <param name="top">100</param>
                 <param name="height">760</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">550</param>
                 <param name="heading">$VAR[panelheading]</param>
                 <param name="subheading">$VAR[panelsubheading]</param>
                 <param name="plot">$VAR[Plots]</param>
@@ -97,8 +107,10 @@
             </include>
             <include content="PanelTemplate">
                 <param name="top">100</param>
-                <param name="height">640</param>
+                <param name="height">710</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">550</param>
                 <param name="heading">$VAR[panelheading]</param>
                 <param name="subheading">$VAR[panelsubheading]</param>
                 <param name="plot">$VAR[Plots]</param>
@@ -112,13 +124,15 @@
             </include>
             <include content="PanelTemplate">
                 <param name="top">100</param>
-                <param name="height">640</param>
+                <param name="height">680</param>
                 <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">550</param>
                 <param name="heading">$VAR[panelheading]</param>
                 <param name="subheading">$VAR[panelsubheading]</param>
                 <param name="plot">$VAR[Plots]</param>
-                <param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Duration, • (,)]</param>
-                <param name="subcontent_label2">$INFO[ListItem.Label]$VAR[ItemDurationHrMins, • (,)]</param>
+                <param name="subcontent_label1">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$INFO[ListItem.Duration, • (,)]</param>
+                <param name="subcontent_label2">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$VAR[ItemDurationHrMins, • (,)]</param>
                 <param name="subcontent_path">$INFO[ListItem.FolderPath]</param>
                 <param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
                 <param name="subcontent_image_visible">false</param>
@@ -137,7 +151,7 @@
                 <texturesliderbar></texturesliderbar>
                 <texturesliderbarfocus></texturesliderbarfocus>
                 <textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
-                <textureslidernibfocus border="18">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+                <textureslidernibfocus border="18" colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
                 <showonepage>false</showonepage>
                 <orientation>vertical</orientation>
                 <onleft>55</onleft>
@@ -147,7 +161,7 @@
         </control>
         
             <control type="button" id="65">
-                <visible>String.IsEqual(Container.ViewMode,Big Panel)</visible>
+                <visible>Control.IsVisible(55)</visible>
                 <visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
                 <font />
                 <texturefocus />
@@ -205,7 +219,7 @@
                 <include content="AlphabetLetter"><param name="label" value="U" /></include>
                 <include content="AlphabetLetter"><param name="label" value="V" /></include>
                 <animation effect="fade" start="100" end="0" condition="[String.IsEqual(ListItem.SortLetter,O) | String.IsEqual(ListItem.SortLetter,P) | String.IsEqual(ListItem.SortLetter,Q) | String.IsEqual(ListItem.SortLetter,R) | String.IsEqual(ListItem.SortLetter,S) | String.IsEqual(ListItem.SortLetter,T) | String.IsEqual(ListItem.SortLetter,U) | String.IsEqual(ListItem.SortLetter,V) | String.IsEqual(ListItem.SortLetter,W) | String.IsEqual(ListItem.SortLetter,X) | String.IsEqual(ListItem.SortLetter,Y) | String.IsEqual(ListItem.SortLetter,Z)]">Conditional</animation>
-                <visible>String.IsEqual(Container.ViewMode,Big Panel)</visible>
+                <visible>Control.IsVisible(55)</visible>
                 <visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
             </control>
 
@@ -241,7 +255,7 @@
                 <include content="AlphabetLetter"><param name="label" value="Y" /></include>
                 <include content="AlphabetLetter"><param name="label" value="Z" /></include>
                 <animation effect="fade" start="100" end="0" condition="![String.IsEqual(ListItem.SortLetter,O) | String.IsEqual(ListItem.SortLetter,P) | String.IsEqual(ListItem.SortLetter,Q) | String.IsEqual(ListItem.SortLetter,R) | String.IsEqual(ListItem.SortLetter,S) | String.IsEqual(ListItem.SortLetter,T) | String.IsEqual(ListItem.SortLetter,U) | String.IsEqual(ListItem.SortLetter,V) | String.IsEqual(ListItem.SortLetter,W) | String.IsEqual(ListItem.SortLetter,X) | String.IsEqual(ListItem.SortLetter,Y) | String.IsEqual(ListItem.SortLetter,Z)]">Conditional</animation>
-                <visible>String.IsEqual(Container.ViewMode,Big Panel)</visible>
+                <visible>Control.IsVisible(55)</visible>
                 <visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
             </control>        
         

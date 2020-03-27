@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<!-- Establish list as default view if no default view is set -->
+	<onload condition="!Skin.HasSetting(UseListDefault) + !Skin.HasSetting(UseTallListDefault) + !Skin.HasSetting(UseLowListDefault) + !Skin.HasSetting(UseBigListDefault) + !Skin.HasSetting(UsePanelDefault) + 
+	                   !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload>
 	<onunload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onunload>
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<backgroundcolor>0</backgroundcolor>
@@ -15,6 +18,7 @@
 				<width>412</width>
 				<height>980</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
 			</control>
 			<control type="image" description="2/2 Right Menu">
 				<visible>!Control.IsVisible(9001)</visible>
@@ -23,6 +27,7 @@
 				<width>1419</width>
 				<height>980</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
 			</control>
 			<!-- 9000 Left panel -->
 			<control type="list" id="9000">
@@ -54,13 +59,13 @@
 						<animation effect="fade" start="100" end="40" time="100" condition="!Control.HasFocus(9000)">Conditional</animation>
 						<width>322</width>
 						<height>60</height>
-						<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+						<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
 						<width>301</width>
 						<height>60</height>
-						<textcolor>Black</textcolor>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
 						<shadowcolor></shadowcolor>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
@@ -90,19 +95,23 @@
 						<label>$LOCALIZE[32107]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="7" description="Search">
+					<item id="7" description="Color Options">
+						<label>Color Options</label>
+						<onclick>noop</onclick>
+					</item>
+					<item id="8" description="Search">
 						<label>$LOCALIZE[137]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="8" description="Advanced">
+					<item id="9" description="Advanced">
 						<label>$LOCALIZE[31985]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="9" description="Backup/Restore">
+					<item id="10" description="Backup/Restore">
 						<label>$LOCALIZE[32064]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="10" description="Manage dependencies">
+					<item id="11" description="Manage dependencies">
 						<label>$LOCALIZE[24996]</label>
 						<onclick>noop</onclick>
 					</item>
@@ -130,13 +139,8 @@
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="3"/>
-							<param name="itemlabel" value="$LOCALIZE[32020]"/>
-							<param name="skinsetting" value="Hide.Label2.Lists"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="4"/>
-							<param name="itemlabel" value="$LOCALIZE[32056]"/>
-							<param name="skinsetting" value="Show.MoreItems.List"/>
+							<param name="itemlabel" value="$LOCALIZE[32224]"/>
+							<param name="skinsetting" value="SubtitleOpensSettings"/>
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="5"/>
@@ -172,9 +176,14 @@
 							<param name="itemid" value="11"/>
 							<param name="itemlabel" value="$LOCALIZE[32124]"/>
 							<param name="skinsetting" value="Enable.HourMinutes"/>
-						</include>                        
-						<include content="YesNoSettingItem">
+						</include>
+                        <include content="YesNoSettingItem">
 							<param name="itemid" value="12"/>
+							<param name="itemlabel" value="$LOCALIZE[32233]"/>
+							<param name="skinsetting" value="ShowRatingUser"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="14"/>
 							<param name="itemlabel" value="$LOCALIZE[31996]"/>
 							<param name="skinsetting" value="holiday"/>
 						</include>
@@ -268,6 +277,11 @@
 							<onclick>SetProperty(CustomSelectFanartTimePerImage,True)</onclick>
 							<onclick>ActivateWindow(1121)</onclick>
 						</item>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="14"/>
+							<param name="itemlabel" value="$LOCALIZE[32220]"/>
+							<param name="skinsetting" value="ShowHomeLogo"/>
+						</include>
 						<item id="11" description="Set Default Background">
 							<label>$LOCALIZE[32061]</label>
 							<onclick>SetProperty(CustomSelectDefaultBackground,True)</onclick>
@@ -295,6 +309,11 @@
 							<param name="skinsetting" value="MusicPlayingFanart"/>
 						</include>
 						<include content="YesNoSettingItem">
+							<param name="itemid" value="13"/>
+							<param name="itemlabel" value="$LOCALIZE[32218]"/>
+							<param name="skinsetting" value="ShowLogoMusicViz"/>
+						</include>
+						<include content="YesNoSettingItem">
 							<param name="itemid" value="6"/>
 							<param name="itemlabel" value="$LOCALIZE[31949]"/>
 							<param name="skinsetting" value="SkinHelper.EnableExtraFanart"/>
@@ -315,41 +334,76 @@
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
-						<item id="19" description="Set Default View">
+						<item id="1" description="Set Default View">
 							<label>$LOCALIZE[32204]</label>
 							<onclick>SetProperty(CustomSelectDefaultView,True)</onclick>
 							<onclick>ActivateWindow(1135)</onclick>
 						</item>
 						<include content="YesNoSettingItem">
+							<param name="itemid" value="2"/>
+							<param name="itemlabel" value="$LOCALIZE[32219]"/>
+							<param name="skinsetting" value="ShowLogoMediaViews"/>
+						</include>
+						<include content="YesNoSettingItem">
 							<param name="itemid" value="3"/>
+							<param name="itemlabel" value="$LOCALIZE[32223]"/>
+							<param name="skinsetting" value="ShowAudioSub"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="4"/>
+							<param name="itemlabel" value="$LOCALIZE[32236]"/>
+							<param name="skinsetting" value="ShowRatingandMPAA"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="5"/>
+							<param name="itemlabel" value="$LOCALIZE[32225]"/>
+							<param name="skinsetting" value="DisableListPanel"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="6"/>
+							<param name="itemlabel" value="$LOCALIZE[32020]"/>
+							<param name="skinsetting" value="Hide.Label2.Lists"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="7"/>
+							<param name="itemlabel" value="$LOCALIZE[32056]"/>
+							<param name="skinsetting" value="Show.MoreItems.List"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="8"/>
+							<param name="itemlabel" value="$LOCALIZE[32217]"/>
+							<param name="skinsetting" value="ListCenterFocus"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="9"/>
 							<param name="itemlabel" value="$LOCALIZE[20189]"/>
 							<param name="skinsetting" value="AutoScroll"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="7"/>
+							<param name="itemid" value="10"/>
 							<param name="itemlabel" value="$LOCALIZE[31514]"/>
 							<param name="skinsetting" value="EpisodesUsePoster"/>
 						</include>						
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="0"/>
+							<param name="itemid" value="11"/>
 							<param name="itemlabel" value="$LOCALIZE[31981]"/>
 							<param name="itemicon" value="OverlayWatched.png"/>
 							<param name="skinsetting" value="Hide_Watched_Marks"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="1"/>
+							<param name="itemid" value="12"/>
 							<param name="itemlabel" value="$LOCALIZE[31980]"/>
 							<param name="itemicon" value="OverlayUnwatched.png"/>
 							<param name="skinsetting" value="Hide_Unwatched_Marks"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="2"/>
+							<param name="itemid" value="13"/>
 							<param name="itemlabel" value="$LOCALIZE[31972]"/>
 							<param name="itemicon" value="OverlayInProgress.png"/>
 							<param name="skinsetting" value="Hide_InProgress_Marks"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="8"/>
+							<param name="itemid" value="14"/>
 							<param name="itemlabel" value="$LOCALIZE[31035]"/>
 							<param name="skinsetting" value="Hide.MediaFlagsVideo"/>
 						</include>
@@ -359,39 +413,39 @@
 							<param name="skinsetting" value="hide.listview"/>
 						</include> -->
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="12"/>
-							<param name="itemlabel" value="$LOCALIZE[31151]"/>
-							<param name="skinsetting" value="hide.panelview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="13"/>
-							<param name="itemlabel" value="$LOCALIZE[31152]"/>
-							<param name="skinsetting" value="hide.biglistview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="14"/>
-							<param name="itemlabel" value="$LOCALIZE[31153]"/>
-							<param name="skinsetting" value="hide.iconsview"/>
-						</include>
-						<include content="YesNoSettingItem">
 							<param name="itemid" value="15"/>
 							<param name="itemlabel" value="$LOCALIZE[31154]"/>
 							<param name="skinsetting" value="hide.lowlistview"/>
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="16"/>
+							<param name="itemlabel" value="$LOCALIZE[31152]"/>
+							<param name="skinsetting" value="hide.biglistview"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="17"/>
+							<param name="itemlabel" value="$LOCALIZE[32059]"/>
+							<param name="skinsetting" value="hide.talllistview"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="18"/>
+							<param name="itemlabel" value="$LOCALIZE[31151]"/>
+							<param name="skinsetting" value="hide.panelview"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="19"/>
 							<param name="itemlabel" value="$LOCALIZE[31155]"/>
 							<param name="skinsetting" value="hide.bigpanelview"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="17"/>
-							<param name="itemlabel" value="$LOCALIZE[31156]"/>
-							<param name="skinsetting" value="hide.fanartview"/>
+							<param name="itemid" value="20"/>
+							<param name="itemlabel" value="$LOCALIZE[31153]"/>
+							<param name="skinsetting" value="hide.iconsview"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="18"/>
-							<param name="itemlabel" value="$LOCALIZE[32059]"/>
-							<param name="skinsetting" value="hide.talllistview"/>
+							<param name="itemid" value="21"/>
+							<param name="itemlabel" value="$LOCALIZE[31156]"/>
+							<param name="skinsetting" value="hide.fanartview"/>
 						</include>
 					</content>
 				</control>
@@ -450,7 +504,7 @@
 							<param name="itemlabel" value="$LOCALIZE[32015]"/>
 							<param name="skinsetting" value="Disable.ExtendedInfo"/>
 						</include>
-                        <item id="4" description="Blur Background - colorbox present">
+                        <item id="5" description="Blur Background - colorbox present">
                             <visible>Skin.HasSetting(Enable.BlurredVideoInfo) + System.HasAddon(script.colorbox)</visible>
                             <label>[B]$LOCALIZE[32156][/B]</label>
                             <label2>$LOCALIZE[107]</label2>
@@ -459,7 +513,7 @@
                             <onclick condition="System.HasAddon(script.colorbox) + !Skin.HasSetting(Enable.BlurredVideoInfo)">AlarmClock(nms1,SetProperty(NINE_manual_set,"var=quality,set=$INFO[Skin.String(colorbox_quality)]|var=blursize,set=$INFO[Skin.String(colorbox_blursize)]|var=bitsize,set=$INFO[Skin.String(colorbox_bitsize)]|var=pixelsize,set=$INFO[Skin.String(colorbox_pixelsize)]|var=black,set=$INFO[Skin.String(colorbox_black)]|var=white,set=$INFO[Skin.String(colorbox_white)]",home),00:05,true)</onclick>
                             <onclick>Skin.ToggleSetting(Enable.BlurredVideoInfo)</onclick>
                         </item>
-                        <item id="4" description="Blur Background - colorbox not installed">
+                        <item id="6" description="Blur Background - colorbox not installed">
                             <visible>!Skin.HasSetting(Enable.BlurredVideoInfo) | !System.HasAddon(script.colorbox)</visible>
                             <label>[B]$LOCALIZE[32156][/B]</label>
                             <label2>$LOCALIZE[106]</label2>
@@ -470,39 +524,174 @@
                             <onclick condition="System.HasAddon(script.colorbox)">Skin.ToggleSetting(Enable.BlurredVideoInfo)</onclick>
                         </item>
                         <include content="YesNoSettingItem">
-							<param name="itemid" value="5"/>
+							<param name="itemid" value="7"/>
 							<param name="itemlabel" value="      $LOCALIZE[32165]"/>
 							<param name="skinsetting" value="Blur.UsePoster"/>
                             <param name="itemvisibility" value="Skin.HasSetting(Enable.BlurredVideoInfo)"/>
 						</include>
-                        <item id="6" description="Blur Settings">
+                        <item id="8" description="Blur Settings">
 							<label>      $LOCALIZE[32157]</label>
 							<onclick>ActivateWindow(1132)</onclick>
                             <visible>System.HasAddon(script.colorbox) + Skin.HasSetting(Enable.BlurredVideoInfo)</visible>
 						</item>
-                        <item id="7" description="Select Custom Info Lists">
+                        <item id="9" description="Select Custom Info Lists">
 							<label>$LOCALIZE[32104]</label>
 							<onclick>SetProperty(CustomSelectInfoLists,True)</onclick>
 							<onclick>ActivateWindow(1130)</onclick>
 						</item>
-                        <item id="8" description="Embuary Info Config">
+						<item id="10" description="Select Ratings">
+							<label>$LOCALIZE[32230]</label>
+							<onclick>SetProperty(CustomSelectRatings,True)</onclick>
+							<onclick>ActivateWindow(1138)</onclick>
+						</item>
+                        <item id="11" description="Embuary Info Config">
 							<label>$LOCALIZE[32128]</label>
 							<onclick condition="System.HasAddon(script.embuary.info)">Addon.OpenSettings(script.embuary.info)</onclick>
                             <onclick condition="!System.HasAddon(script.embuary.info)">InstallAddon(script.embuary.info)</onclick>
                         </item>
-                        <item id="9" description="TMDb Helper Config">
+                        <item id="12" description="TMDb Helper Config">
 							<label>$LOCALIZE[32155]</label>
 							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Addon.OpenSettings(plugin.video.themoviedb.helper)</onclick>
                             <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
 						</item>
 					</content>
 				</control>
-				<!-- 9000 7 Search -->
-				<control type="panel" id="9107">
-					<visible>Container(9000).HasFocus(7)</visible>
+				<!-- 9000 7 - Color Options -->
+				<control type="grouplist" id="9107">
+					<visible>Container(9000).HasFocus(07)</visible>
 					<onright>500</onright>
+                    <posx>495</posx>
+                    <posy>120</posy>
+                    <width>1350</width>
+                    <height>860</height>
+                    <onleft>9000</onleft>
+                    <scrolltime>280</scrolltime>
 					<onup>9107</onup>
 					<ondown>9107</ondown>
+					<control type="button" id="91070">
+					    <width>1350</width>
+						<height>60</height>
+						<texturenofocus />
+						<textoffsetx>30</textoffsetx>
+			            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[571])</onclick>
+			            <onclick>SetProperty(Dialog.1.BuiltIn,RunScript(script.embuary.helper,action=setkodisetting,setting=lookandfeel.skincolors,value=SKINDEFAULT)||Skin.SetString(HighlightColorStr,None)||Skin.SetString(LabelTextColorStr,None)||Skin.SetString(FocusedTextColorStr,None)||Skin.SetString(SelectedTextColorStr,None))</onclick>
+			            <onclick>SetProperty(Dialog.2.Label,Blue)</onclick>
+			            <onclick>SetProperty(Dialog.2.BuiltIn,RunScript(script.embuary.helper,action=setkodisetting,setting=lookandfeel.skincolors,value=Blue)||Skin.SetString(HighlightColorStr,None)||Skin.SetString(LabelTextColorStr,None)||Skin.SetString(FocusedTextColorStr,None)||Skin.SetString(SelectedTextColorStr,None))</onclick>
+			            <onclick>SetProperty(Dialog.3.Label,Green)</onclick>
+			            <onclick>SetProperty(Dialog.3.BuiltIn,RunScript(script.embuary.helper,action=setkodisetting,setting=lookandfeel.skincolors,value=Green)||Skin.SetString(HighlightColorStr,None)||Skin.SetString(LabelTextColorStr,None)||Skin.SetString(FocusedTextColorStr,None)||Skin.SetString(SelectedTextColorStr,None))</onclick>
+			            <onclick>SetProperty(Dialog.4.Label,White)</onclick>
+			            <onclick>SetProperty(Dialog.4.BuiltIn,RunScript(script.embuary.helper,action=setkodisetting,setting=lookandfeel.skincolors,value=White)||Skin.SetString(HighlightColorStr,None)||Skin.SetString(LabelTextColorStr,None)||Skin.SetString(FocusedTextColorStr,None)||Skin.SetString(SelectedTextColorStr,None))</onclick>
+			            <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[15111])</onclick>
+			            <label>$LOCALIZE[32210]</label>
+			            <label2>$VAR[SkinColorTheme]</label2>
+						<visible>System.HasAddon(script.embuary.helper)</visible>
+		            </control>
+                    <control type="radiobutton" id="91071">
+						<label>$LOCALIZE[32205]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32205])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=HighlightColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[HighlightColor]</param>
+						</include>
+					</control>
+					<control type="radiobutton" id="91072">
+						<label>$LOCALIZE[32212]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32212])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=LabelTextColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[LabelTextColor]</param>
+						</include>
+					</control>					
+					<control type="radiobutton" id="91073">
+						<label>$LOCALIZE[32213]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32213])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=FocusedTextColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[FocusedTextColor]</param>
+						</include>
+					</control>					
+					<control type="radiobutton" id="91074">
+						<label>$LOCALIZE[32214]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32214])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=SelectedTextColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[SelectedTextColor]</param>
+						</include>
+					</control>
+                    <control type="radiobutton" id="91075">
+						<label>$LOCALIZE[32206]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32206])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=GlowBarsColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[GlowBarsColor]</param>
+						</include>
+					</control>
+                    <control type="radiobutton" id="91076">
+						<label>$LOCALIZE[32207]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32207])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=MenuBarColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[MenuBarColor]</param>
+						</include>
+					</control>
+                    <control type="radiobutton" id="91077">
+						<label>$LOCALIZE[32208]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32208])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=VertMenuBladeColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[VertMenuBladeColor]</param>
+						</include>
+					</control>					
+					<control type="radiobutton" id="91078">
+						<label>$LOCALIZE[32209]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32209])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=TopBarColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[TopBarColor]</param>
+						</include>
+					</control>
+                    <control type="radiobutton" id="91079">
+						<label>$LOCALIZE[32211]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32211])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=DialogBGColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[DialogBGColor]</param>
+						</include>
+					</control>					
+					<control type="radiobutton" id="910710">
+						<label>$LOCALIZE[32215]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32215])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=WidgetBGColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[WidgetBGColor]</param>
+						</include>
+					</control>
+                    <control type="radiobutton" id="910711">
+						<label>$LOCALIZE[32221]</label>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32221])</onclick>
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=ViewsBGColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[ViewsBGColor]</param>
+						</include>
+					</control>					
+				</control>
+				<!-- 9000 8 Search -->
+				<control type="panel" id="9108">
+					<visible>Container(9000).HasFocus(8)</visible>
+					<onright>500</onright>
+					<onup>9108</onup>
+					<ondown>9108</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -512,19 +701,24 @@
 							<param name="skinsetting" value="Enable.GlobalSearch"/>
 							<param name="addonpath" value="script.globalsearch"/>
 						</include>
-						<item id="2" description="Select Search Categories">
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="2"/>
+							<param name="itemlabel" value="$LOCALIZE[32228]"/>
+							<param name="skinsetting" value="OnlyLocalSearches"/>
+						</include>
+						<item id="3" description="Select Search Categories">
 							<label>$LOCALIZE[32168]</label>
 							<onclick>SetProperty(CustomSelectSearchOptions,True)</onclick>
 							<onclick>ActivateWindow(1133)</onclick>
 						</item>
 					</content>
 				</control>
-				<!-- 9000 8 Advanced options -->
-				<control type="panel" id="9108">
-					<visible>Container(9000).HasFocus(8)</visible>
+				<!-- 9000 9 Advanced options -->
+				<control type="panel" id="9109">
+					<visible>Container(9000).HasFocus(9)</visible>
 					<onright>500</onright>
-					<onup>9108</onup>
-					<ondown>9108</ondown>
+					<onup>9109</onup>
+					<ondown>9109</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -538,12 +732,6 @@
 							<param name="itemlabel" value="$LOCALIZE[31969]"/>
 							<param name="skinsetting" value="Use_Artist_Slideshow"/>
 							<param name="addonpath" value="script.artistslideshow"/>
-						</include>
-						<include content="YesNoSettingItemAddon">
-							<param name="itemid" value="8"/>
-							<param name="itemlabel" value="$LOCALIZE[31938]"/>
-							<param name="skinsetting" value="Enable.GlobalSearch"/>
-							<param name="addonpath" value="script.globalsearch"/>
 						</include>
 						<include content="YesNoSettingItemAddon">
 							<param name="itemid" value="11"/>
@@ -602,12 +790,12 @@
 						</include>
 					</content>
 				</control>
-				<!-- 9000 9 - Backup/Restore -->
-				<control type="panel" id="9109">
-					<visible>Container(9000).HasFocus(9)</visible>
+				<!-- 9000 10 - Backup/Restore -->
+				<control type="panel" id="9110">
+					<visible>Container(9000).HasFocus(10)</visible>
 					<onright>500</onright>
-					<onup>9109</onup>
-					<ondown>9109</ondown>
+					<onup>9110</onup>
+					<ondown>9110</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -637,13 +825,13 @@
 						</item>
 					</content>
 				</control>                
-				<!-- 9000 10 - Manage Dependencies -->
-				<control type="grouplist" id="9110">
-					<visible>Container(9000).HasFocus(10)</visible>
+				<!-- 9000 11 - Manage Dependencies -->
+				<control type="grouplist" id="9111">
+					<visible>Container(9000).HasFocus(11)</visible>
 					<onright>500</onright>
                     <include>SettingsListCommons</include>
-					<onup>9110</onup>
-					<ondown>9110</ondown>                    
+					<onup>9111</onup>
+					<ondown>9111</ondown>                    
 					<control type="radiobutton" id="91121">
 						<label>script.favourites</label>
 						<label2>$INFO[System.AddonVersion(script.favourites)]        </label2>

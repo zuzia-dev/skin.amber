@@ -17,6 +17,7 @@
 				<width>412</width>
 				<height>980</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
 			</control>
 			<control type="image" description="2/2 Right Menu">
 				<left>462</left>
@@ -24,12 +25,13 @@
 				<width>1419</width>
 				<height>980</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
 			</control>
 			<!-- Left Content -->
 			<control type="label">
 				<posx>100</posx>
 				<posy>80</posy>
-				<textcolor>Highlight</textcolor>
+				<textcolor>$VAR[HighlightColor]</textcolor>
 				<label>[B]$VAR[SkinShortcutsLeftLabelVar][/B]</label>
 			</control>
 
@@ -67,13 +69,13 @@
 						<animation effect="fade" start="100" end="40" time="100" condition="!Control.HasFocus(211)">Conditional</animation>
 						<width>322</width>
 						<height>60</height>
-						<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+						<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
 						<width>301</width>
 						<height>60</height>
-						<textcolor>Black</textcolor>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
 						<shadowcolor></shadowcolor>
                         <font>ListDetails</font>
 						<label>$VAR[ShortcutsDisabled]$INFO[ListItem.Label]</label>
@@ -86,7 +88,7 @@
 				<label>[B]$INFO[Control.GetLabel(211)][/B]</label>
 				<posx>500</posx>
 				<posy>80</posy>
-				<textcolor>Highlight</textcolor>
+				<textcolor>$VAR[HighlightColor]</textcolor>
 			</control>
 			<control type="image">
 				<visible>ControlGroup(90000).HasFocus</visible>
@@ -94,7 +96,7 @@
 				<left>500</left>
 				<height>60</height>
 				<width>1340</width>
-				<texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+				<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 			</control>
 			<control type="image">
 				<visible>!ControlGroup(90000).HasFocus</visible>
@@ -158,7 +160,7 @@
 				</control>
 				<control type="label">
 					<label>$VAR[SkinShortcutLabelVar]</label>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 				</control>
 			</control>
 
@@ -201,6 +203,17 @@
 					<width>1340</width>
 					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 					<font>ListDetails</font>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+				</control>
+				<control type="button" id="306">
+					<description>Change icon</description>
+					<label>$ADDON[script.skinshortcuts 32026]</label>
+					<label2>$INFO[Container(211).ListItem.Icon]</label2>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<visible>!String.IsEqual(Window.Property(groupname),mainmenu)</visible>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
 				</control>
 				<control type="button" id="307">
@@ -392,7 +405,7 @@
 				</control>
 				<control type="radiobutton" id="900">
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
-					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True) + String.IsEmpty(Container(211).ListItem.Property(widgetRecordingRadio))</visible>
 					<description>Enable PVR TV Recording widget</description>
 					<label>$LOCALIZE[31485]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetRecordingTV))">SetProperty(customProperty,widgetRecordingTV)</onclick>
@@ -407,7 +420,7 @@
 				</control>
 				<control type="radiobutton" id="901">
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
-					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True) + String.IsEmpty(Container(211).ListItem.Property(widgetRecordingTV))</visible>
 					<description>Enable PVR Radio Recording widget</description>
 					<label>$LOCALIZE[31486]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetRecordingRadio))">SetProperty(customProperty,widgetRecordingRadio)</onclick>

@@ -4,6 +4,7 @@
 	<doNotShareMenu />
 
 	<widgetPlaylists>True</widgetPlaylists>
+	<thumbnailBrowseDefault>special://skin/media/</thumbnailBrowseDefault>
 
 	<!-- Set widget to false if there is no path -->
 	<propertyfallback property="widgetTarget">false</propertyfallback>
@@ -22,6 +23,22 @@
 	<background label="31402">Music.Fanart</background>
 	<background label="31403">Global.Fanart</background>
 	<background label="31404" condition="!String.IsEmpty(Skin.String(weatherfanartResource.path))">Weather.Fanart</background>
+	<background label="31569">special://skin/backgrounds/Default.jpg</background>
+	<background label="31570">special://skin/backgrounds/Addons.jpg</background>
+	<background label="31571">special://skin/backgrounds/Videos.jpg</background>
+	<background label="31572">special://skin/backgrounds/Movies.jpg</background>
+	<background label="31573">special://skin/backgrounds/TVShows.jpg</background>
+	<background label="31574">special://skin/backgrounds/MusicVideos.jpg</background>
+	<background label="31575">special://skin/backgrounds/Music.jpg</background>
+	<background label="31576">special://skin/backgrounds/Pictures.jpg</background>
+	<background label="31577">special://skin/backgrounds/Weather.jpg</background>
+	<background label="31578">special://skin/backgrounds/Games.jpg</background>
+	<background label="31579">special://skin/backgrounds/Favourites.jpg</background>
+	<background label="31580">special://skin/backgrounds/Search.jpg</background>
+	<background label="31581">special://skin/backgrounds/Quit.jpg</background>
+	<background label="31582">special://skin/backgrounds/TV.jpg</background>
+	<background label="31583">special://skin/backgrounds/Radio.jpg</background>
+	<background label="31584">special://skin/backgrounds/Settings.jpg</background>
 
 	<backgrounddefault defaultID="videos">$VAR[Videos.Art]</backgrounddefault>
 	<backgrounddefault defaultID="movies">$VAR[Movies.Art]</backgrounddefault>
@@ -51,6 +68,18 @@
 	<override action="start_search">
 		<condition>Skin.HasSetting(Enable.GlobalSearch) + System.HasAddon(script.globalsearch)</condition>
 		<action>RunScript(script.globalsearch)</action>
+	</override>
+	<override action="tv_guide">
+		<condition>System.HasAddon(plugin.video.themoviedb.helper)</condition>
+		<action>ActivateWindow(1136)</action>
+	</override>
+	<override action="tv_guide">
+		<condition>!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.embuary.info)</condition>
+		<action>ActivateWindow(1137)</action>
+	</override>
+	<override action="tv_guide">
+		<condition>!System.HasAddon(plugin.video.themoviedb.helper) + !System.HasAddon(script.embuary.info) + System.HasAddon(script.tv.show.next.aired)</condition>
+		<action>RunScript(script.tv.show.next.aired)</action>
 	</override>
     <override action="reboot_to_android">
         <action>System.ExecWait("/usr/sbin/rebootfromnand")</action>
@@ -103,7 +132,7 @@
 	<property property="widgetSortBy" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">tracknumber</property>
 	<property property="widgetSortBy" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType),pvr)">channelnumber</property>
 	<property property="widgetSortBy" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType),albums)">year</property>
-	<property property="widgetSortBy" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType),pvr)">dateAdded</property>
+	<property property="widgetSortBy" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType),pvr)">dateadded</property>
 	<property property="widgetSortBy" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType),episodes)">playcount</property>
@@ -135,7 +164,7 @@
 	<property property="widgetSortBy.2" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.2),songs)">tracknumber</property>
 	<property property="widgetSortBy.2" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.2),pvr)">channelnumber</property>
 	<property property="widgetSortBy.2" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.2),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),albums)">year</property>
-	<property property="widgetSortBy.2" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.2),pvr)">dateAdded</property>
+	<property property="widgetSortBy.2" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.2),pvr)">dateadded</property>
 	<property property="widgetSortBy.2" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy.2" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.2),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy.2" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.2),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.2),episodes)">playcount</property>
@@ -168,7 +197,7 @@
 	<property property="widgetSortBy.3" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.3),songs)">tracknumber</property>
 	<property property="widgetSortBy.3" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.3),pvr)">channelnumber</property>
 	<property property="widgetSortBy.3" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.3),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),albums)">year</property>
-	<property property="widgetSortBy.3" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.3),pvr)">dateAdded</property>
+	<property property="widgetSortBy.3" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.3),pvr)">dateadded</property>
 	<property property="widgetSortBy.3" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy.3" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.3),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy.3" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.3),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.3),episodes)">playcount</property>
@@ -201,7 +230,7 @@
 	<property property="widgetSortBy.4" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.4),songs)">tracknumber</property>
 	<property property="widgetSortBy.4" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.4),pvr)">channelnumber</property>
 	<property property="widgetSortBy.4" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.4),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),albums)">year</property>
-	<property property="widgetSortBy.4" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.4),pvr)">dateAdded</property>
+	<property property="widgetSortBy.4" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.4),pvr)">dateadded</property>
 	<property property="widgetSortBy.4" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy.4" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.4),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy.4" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.4),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.4),episodes)">playcount</property>    
@@ -236,7 +265,7 @@
 	<property property="widgetSortBy.5" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.5),songs)">tracknumber</property>
 	<property property="widgetSortBy.5" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.5),pvr)">channelnumber</property>
 	<property property="widgetSortBy.5" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.5),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),albums)">year</property>
-	<property property="widgetSortBy.5" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.5),pvr)">dateAdded</property>
+	<property property="widgetSortBy.5" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.5),pvr)">dateadded</property>
 	<property property="widgetSortBy.5" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy.5" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.5),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy.5" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.5),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.5),episodes)">playcount</property>    
@@ -271,7 +300,7 @@
 	<property property="widgetSortBy.6" label="$LOCALIZE[554]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.6),songs)">tracknumber</property>
 	<property property="widgetSortBy.6" label="$LOCALIZE[19029]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.6),pvr)">channelnumber</property>
 	<property property="widgetSortBy.6" label="$LOCALIZE[345]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.6),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),albums)">year</property>
-	<property property="widgetSortBy.6" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.6),pvr)">dateAdded</property>
+	<property property="widgetSortBy.6" label="$LOCALIZE[570]" condition="!String.IsEqual(Container(211).ListItem.Property(widgetType.6),pvr)">dateadded</property>
 	<property property="widgetSortBy.6" label="$LOCALIZE[590]">random</property>
 	<property property="widgetSortBy.6" label="$LOCALIZE[515]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.6),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),albums) | String.IsEqual(Container(211).ListItem.Property(widgetType),songs)">genre</property>
 	<property property="widgetSortBy.6" label="$LOCALIZE[567]" condition="String.IsEqual(Container(211).ListItem.Property(widgetType.6),movies) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),tvshows) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),musicvideos) | String.IsEqual(Container(211).ListItem.Property(widgetType.6),episodes)">playcount</property>
@@ -417,11 +446,13 @@
 				<shortcut widget="static" label="$LOCALIZE[31476]" icon="DefaultAddonWeather.png" widgetType="weatherhourly" condition="!String.IsEmpty(Weather.Plugin)">$INCLUDE[skinshortcuts-template-WeatherContentHourly]</shortcut>
 			</node>
 			<!-- Favourites -->
-			<shortcut widget="static" label="$LOCALIZE[1036]" icon="DefaultFavourites.png" widgetType="favourite" condition="System.HasAddon(script.favourites)">$INCLUDE[skinshortcuts-template-FavouriteContent]</shortcut>
+			<shortcut widget="allfavorites" label="$LOCALIZE[1036]" icon="DefaultFavourites.png" widgetType="favourite" condition="System.HasAddon(script.favourites)">favourites://</shortcut>
 			<!-- System -->
 			<shortcut widget="static" label="$LOCALIZE[130]" icon="thumbs/systeminfo/square/system.png" widgetType="system" condition="true">$INCLUDE[skinshortcuts-template-SystemContent]</shortcut>
 			<!-- Favourite Addons -->
 			<shortcut widget="static" label="$LOCALIZE[31487]" icon="DefaultAddon.png" widgetType="favouriteaddons" condition="!String.IsEmpty(Skin.String(ShelfAddons.1.Label))">$INCLUDE[skinshortcuts-template-FavouriteAddonsContent]</shortcut>
+			<!-- Submenu -->
+			<shortcut widget="mysubmenu" label="$LOCALIZE[1034]" icon="DefaultAddon.png" widgetType="addons" widgetTarget="programs">$INCLUDE[skinshortcuts-submenu]</shortcut>
 		</node>
         <!-- Embuary Helper Widgets -->
 		<node label="$LOCALIZE[31495]" icon="DefaultFolder.png">
@@ -433,19 +464,24 @@
 		<node label="$LOCALIZE[31553]" icon="DefaultFolder.png">
 			<!-- Movies -->
 			<node label="$LOCALIZE[342]" icon="DefaultMovies.png">
-				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31554]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=popular</shortcut>
-				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31555]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=top_rated</shortcut>
-				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31556]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=upcoming</shortcut>
-				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31557]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=movies&amp;call=now_playing</shortcut>
-				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31558]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=trending&amp;call=movie&amp;get=week</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31554]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/movie/popular</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31555]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/movie/top_rated</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31556]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/movie/upcoming</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31557]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/movie/now_playing</shortcut>
+				<shortcut widget="embuaryinfomovies" label="$LOCALIZE[31558]" icon="shelves/embuary.info.png" widgetType="movies" widgetTarget="video" condition="Library.HasContent(movies) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/movie/trending</shortcut>
 			</node>
 			<!-- TV Shows -->
 			<node label="$LOCALIZE[31432]" icon="DefaultTVShows.png">
-				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31559]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=popular</shortcut>
-				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31560]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=top_rated</shortcut>
-				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31561]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=airing_today</shortcut>
-				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31562]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=tvshows&amp;call=on_the_air</shortcut>
-				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31563]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/?info=trending&amp;call=tv&amp;get=week</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31559]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/tv/popular</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31560]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/tv/top_rated</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31561]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/tv/airing_today</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31562]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/tv/on_the_air</shortcut>
+				<shortcut widget="embuaryinfotvshows" label="$LOCALIZE[31563]" icon="shelves/embuary.info.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/tv/trending</shortcut>
+			</node>
+			<!-- Episodes -->
+			<node label="$LOCALIZE[20360]" icon="DefaultTVShows.png">
+			    <shortcut widget="embuaryinfoepisodes" label="$LOCALIZE[31567]" icon="shelves/embuary.info.png" widgetType="episodes" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/nextaired/week</shortcut>
+				<shortcut widget="embuaryinfoepisodes" label="$LOCALIZE[31568]" icon="shelves/embuary.info.png" widgetType="episodes" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(script.embuary.info)">plugin://script.embuary.info/nextaired/today</shortcut>
 			</node>
         </node>
         <!-- Themoviedb Helper Widgets -->
@@ -489,6 +525,12 @@
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31545]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_mostplayed&amp;type=tv</shortcut>
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31546]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_anticipated&amp;type=tv</shortcut>
 				<shortcut widget="tmdbhelpertvshows" label="$LOCALIZE[31548]" icon="shelves/themoviedb.helper.png" widgetType="tvshows" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.trakt)">plugin://plugin.video.themoviedb.helper/?info=trakt_myairing&amp;type=tv</shortcut>
+			</node>
+			<!-- Episodes -->
+			<node label="$LOCALIZE[20360]" icon="DefaultTVShows.png">
+			    <shortcut widget="tmdbhelperepisodes" label="$LOCALIZE[31564]" icon="shelves/themoviedb.helper.png" widgetType="episodes" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=library_nextaired&amp;days=365&amp;startdate=0&amp;type=episode&amp;widget=true&amp;localdb=true</shortcut>
+				<shortcut widget="tmdbhelperepisodes" label="$LOCALIZE[31565]" icon="shelves/themoviedb.helper.png" widgetType="episodes" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=library_nextaired&amp;days=7&amp;startdate=0&amp;type=episode&amp;widget=true&amp;localdb=true</shortcut>
+				<shortcut widget="tmdbhelperepisodes" label="$LOCALIZE[31566]" icon="shelves/themoviedb.helper.png" widgetType="episodes" widgetTarget="video" condition="Library.HasContent(tvshows) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=library_nextaired&amp;startdate=0&amp;type=episode&amp;widget=true&amp;localdb=true</shortcut>	
 			</node>
 			<!-- People -->
 			<node label="$LOCALIZE[31534]" icon="DefaultActor.png">

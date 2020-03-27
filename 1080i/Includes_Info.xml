@@ -833,7 +833,7 @@
     </variable>
     <!-- Text color for plot -->
     <variable name="InfoPlotTextColor">
-        <value>White</value>
+        <value>$VAR[LabelTextColor]</value>
     </variable>
     <!-- Sub header for textviewer window for RT Consensus -->
     <variable name="RTConsesusLabel">
@@ -920,10 +920,10 @@
     </variable>
     <!-- More from studio custom info list content - Movies only -->
     <variable name="VideoInfoFromStudio">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Studio)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[ListItem.Studio]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[Window(Home).Property(TMDbHelper.ListItem.Studio)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
-    </variable>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !Skin.HasSetting(Disable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;with_id=True&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !Skin.HasSetting(DisableExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;with_networks=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;with_id=True</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+	</variable>
     <!-- More from year custom info list content -->
     <variable name="VideoInfoFromYear">
         <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Year)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;primary_release_year=$INFO[ListItem.Year]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]</value>
@@ -1186,24 +1186,24 @@
                 <font>Details</font>
                 <align>left</align>
                 <aligny>center</aligny>
-                <textcolor>Grey2</textcolor>
-                <selectedcolor>selected</selectedcolor>
-                <label>$INFO[ListItem.Label,[COLOR=Highlight],[/COLOR] ]$INFO[ListItem.Label2]</label>
+                <textcolor>$VAR[LabelTextColor]</textcolor>
+                <selectedcolor>$VAR[SelectedTextColor]</selectedcolor>
+                <label>[COLOR=$VAR[HighlightColor]]$INFO[ListItem.Label][/COLOR] $INFO[ListItem.Label2]</label>
                 <textoffsetx>8</textoffsetx>
                 <scroll>false</scroll>
             </control>
         </itemlayout>
         <focusedlayout height="47" width="530">
             <control type="image">
-                <texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+                <texture colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
             </control>
             <control type="label">
                 <height>45</height>
                 <font>Details</font>
                 <align>left</align>
                 <aligny>center</aligny>
-                <textcolor>Black</textcolor>
-                <selectedcolor>Black</selectedcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
+                <selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
                 <shadowcolor></shadowcolor>
                 <textoffsetx>8</textoffsetx>
                 <label>$INFO[ListItem.Label,, ]$INFO[ListItem.Label2]</label>
@@ -1397,7 +1397,7 @@
             <control type="group">
 			    <top>44</top>
 				<height>410</height>
-                <visible>Container(50).IsUpdating)  | Container(90050).IsUpdating</visible>
+                <visible>Container(50).IsUpdating  | Container(90050).IsUpdating</visible>
                 <include>InfoLoading</include>
             </control>
 			<control type="group">
@@ -1406,7 +1406,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -1425,18 +1425,22 @@
             <width>1180</width>
             <height>410</height>
             <onup>9000</onup>
-            <onback>9000</onback>
+<!--            <onback>9000</onback> -->
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
             <orientation>horizontal</orientation>
 			<visible>Container(50).IsUpdating | Container(90050).IsUpdating | Integer.IsGreater(Container(90050).NumItems,0) | Integer.IsGreater(Container(50).NumItems,0)</visible>
+			<animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(50).NumItems,0) | Container(50).IsUpdating | !Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating">Conditional</animation>
             <!-- select online tmdb search or local search -->
-            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-            <onclick>SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_auto=1134))</onclick>
-            <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-	        <onclick>SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Dialog.Close(All)||ActivateWindow(1122))</onclick>
-		    <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
-            <include content="CastLayout">
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_auto=1134))</onclick>
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+	        <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Dialog.Close(All)||ActivateWindow(1122))</onclick>
+		    <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+			<onclick condition="!System.HasAddon(script.embuary.helper)">Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])</onclick>
+			<onclick condition="!System.HasAddon(script.embuary.helper)">Dialog.Close(all)</onclick>
+			<onclick condition="!System.HasAddon(script.embuary.helper)">ActivateWindow(1122)</onclick>
+			<include content="CastLayout">
                     <param name="viewid">90050</param>
                     <param name="belowdoublelabelvisibility">true</param>
                     <param name="belowdoublelabel1">$INFO[Container(90050).ListItem.Label]</param>
@@ -1473,7 +1477,7 @@
                     <left>8</left>
                     <top>0</top>
                     <height>30</height>
-                    <label>[COLOR=Highlight]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[206] $INFO[Container(90050).NumItems,(,)][/COLOR]</label>
                     <font>ListDetails</font>
                 </control>
                 <control type="image" description="Line Split">
@@ -1495,13 +1499,17 @@
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
             <orientation>horizontal</orientation>
 			<visible>Container(90050).IsUpdating | Integer.IsGreater(Container(90050).NumItems,0)</visible>
+			<animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating">Conditional</animation>
             <!-- select online tmdb search or local search -->
-            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-            <onclick>SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_auto=1134))</onclick>
-            <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-	        <onclick>SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Action(Close)||ActivateWindow(1122))</onclick>
-		    <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
-            <include content="CastLayout">
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Container(90050).ListItem.Label],type=person,call_auto=1134))</onclick>
+            <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+	        <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])||Action(Close)||ActivateWindow(1122))</onclick>
+		    <onclick condition="System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+            <onclick condition="!System.HasAddon(script.embuary.helper)">Skin.SetString(CustomSearchTerm,$ESCINFO[Container(90050).ListItem.Label])</onclick>
+			<onclick condition="!System.HasAddon(script.embuary.helper)">Dialog.Close(all)</onclick>
+			<onclick condition="!System.HasAddon(script.embuary.helper)">ActivateWindow(1122)</onclick>
+			<include content="CastLayout">
                 <param name="viewid">90050</param>
                 <param name="belowdoublelabelvisibility">true</param>
                 <param name="belowdoublelabel1">$INFO[Container(90050).ListItem.Label]</param>
@@ -1558,9 +1566,9 @@
     <!-- Onclick actions for most custom info lists -->
     <include name="InfoList_OnClick">
         <definition>
-            <onclick condition="String.IsEmpty(ListItem.DBID) | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_auto=1134)</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_auto=1134)</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_auto=1134)</onclick>
+            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEmpty(ListItem.DBID) | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]]">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_auto=1134)</onclick>
+            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_auto=1134)</onclick>
+            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_auto=1134)</onclick>
         </definition>
     </include>
     <!-- Onclick action for person images info list -->
@@ -1635,7 +1643,7 @@
                         <left>8</left>
                         <top>0</top>
                         <height>30</height>
-                        <label>[COLOR=Highlight]$PARAM[headinglabel] $INFO[Container($PARAM[id]).NumItems,(,)][/COLOR]</label>
+                        <label>[COLOR=$VAR[HighlightColor]]$PARAM[headinglabel] $INFO[Container($PARAM[id]).NumItems,(,)][/COLOR]</label>
                         <font>ListDetails</font>
                     </control>
                     <control type="image" description="Line Split">
@@ -1716,7 +1724,7 @@
                 <height>100</height>
                 <animation effect="rotate" condition="true" start="0" end="360" loop="true" time="1000" center="auto">Conditional</animation>
                 <control type="image">
-                    <texture colordiffuse="Highlight">dialogs/loading-spinner.png</texture>
+                    <texture colordiffuse="$VAR[HighlightColor]">dialogs/loading-spinner.png</texture>
                     <aspectratio>keep</aspectratio>
                 </control>
             </control>
@@ -1729,7 +1737,7 @@
                 <aligny>center</aligny>
                 <align>center</align>
                 <label>$LOCALIZE[20186]...</label>
-                <textcolor>Highlight</textcolor>
+                <textcolor>$VAR[HighlightColor]</textcolor>
             </control>
         </control>
     </include>    

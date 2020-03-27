@@ -16,14 +16,14 @@
 				<height>1120</height>
 				<itemgap>0</itemgap>
 				<onleft>9001</onleft>
-				<onright>10</onright>
+				<onright>50</onright>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
 				<onback>50</onback>
 				<scrolltime>200</scrolltime>
 				<orientation>vertical</orientation>
 				<control type="label" id="200">
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<textoffsetx>10</textoffsetx>
 					<align>left</align>
 					<include>9000ViewButtons</include>
@@ -41,6 +41,7 @@
 					<description>TV Guide</description>
 					<include>9000SysButtons</include>
 					<label>$LOCALIZE[22020]</label> 
+					<onright>10</onright>	  
 					<onclick condition="Window.IsActive(TVGuide) | Window.IsActive(RadioGuide)">NextChannelGroup</onclick> 
 					<onclick condition="String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(TVGuide)</onclick> 
 					<onclick condition="!String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(RadioGuide)</onclick> 
@@ -75,7 +76,7 @@
 					<onclick condition="!String.IsEmpty(Window.Property(IsRadio))">ActivateWindow(RadioSearch)</onclick> 
 				</control>
 				<control type="label" id="201">
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<textoffsetx>10</textoffsetx>
 					<align>left</align>
 					<include>9000ViewButtons</include>
@@ -118,11 +119,11 @@
 				</control>
 				<control type="label" id="300">
 					<label>$LOCALIZE[31026]</label>
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<textoffsetx>10</textoffsetx>
 					<align>left</align>
 					<include>9000ViewButtons</include>
-					<visible>Control.IsVisible(31) |Control.IsVisible(5) |Control.IsVisible(6) |Control.IsVisible(7) |Control.IsVisible(8)</visible>
+					<visible>Control.IsVisible(31) | Control.IsVisible(5) | Control.IsVisible(6) | Control.IsVisible(7) | Control.IsVisible(8)</visible>
 				</control>
 				<control type="radiobutton" id="31">
 					<include>9000SysButtons</include>
@@ -137,6 +138,13 @@
 					<selected>Skin.HasSetting(HideEPGLogos)</selected>
 					<onclick>Skin.ToggleSetting(HideEPGLogos)</onclick>
 					<visible>Window.IsActive(MyPVRChannels.xml) | Window.IsActive(MyPVRGuide.xml)</visible>
+				</control>
+				<control type="radiobutton" id="33">
+					<include>9000SysButtons</include>
+					<label>$LOCALIZE[32229]</label>
+					<selected>Skin.HasSetting(HideGuideChannelGroups)</selected>
+					<onclick>Skin.ToggleSetting(HideGuideChannelGroups)</onclick>
+					<visible>Window.IsActive(MyPVRGuide.xml)</visible>
 				</control>
 				<control type="radiobutton" id="5">
 					<description>Group recording items by folder structure</description>
@@ -194,7 +202,7 @@
 				<onup>11</onup>
 				<ondown>10</ondown>
 				<pagecontrol>60</pagecontrol>
-				<progresstexture border="0,96,18,14">img/EPGMarker.png</progresstexture>
+				<progresstexture border="0,96,18,14" colordiffuse="$VAR[HighlightColor]">img/EPGMarker.png</progresstexture>
 				<rulerlayout height="80" width="1400">
 					<control type="image" id="1" description="Header row">
 						<width>1400</width>
@@ -252,7 +260,7 @@
 						<height>70</height>
 						<align>center</align>
 						<aligny>center</aligny>
-						<textcolor>Highlight</textcolor>
+						<textcolor>$VAR[HighlightColor]</textcolor>
 						<label>$INFO[ListItem.ChannelNumberLabel]</label>
 					</control>
 					<control type="label" id="1" description="Column 1 Focused">
@@ -260,7 +268,7 @@
 						<posx>80</posx>
 						<width>258</width>
 						<height>70</height>
-						<textcolor>Highlight</textcolor>
+						<textcolor>$VAR[HighlightColor]</textcolor>
 						<aligny>center</aligny>
 						<align>left</align>
 						<font>ListDetails</font>
@@ -293,6 +301,7 @@
 					</control>
 					<control type="image">
 						<posx>7</posx>
+						<posy>-12</posy>
 						<width>20</width>
 						<height>71</height>
 						<texture>$VAR[PVROverlay]</texture>
@@ -300,22 +309,22 @@
 					</control>
 					<control type="label" id="1">
 						<posx>33</posx>
-						<posy>14</posy>
+						<posy>6</posy>
 						<width>23</width>
 						<height>36</height>
 						<font>ListDetails</font>
 						<label>$INFO[ListItem.Label]</label>
 						<scroll>false</scroll>
-						<textcolor>White2</textcolor>
+						<textcolor>$VAR[LabelTextColor]</textcolor>
 						<visible>ListItem.IsRecording | ListItem.HasTimer</visible>
 					</control>
 					<control type="label" id="1">
 						<posx>7</posx>
-						<posy>14</posy>
+						<posy>6</posy>
 						<width>45</width>
 						<height>36</height>
 						<scroll>false</scroll>
-						<textcolor>White2</textcolor>
+						<textcolor>$VAR[LabelTextColor]</textcolor>
 						<font>ListDetails</font>
 						<label>$INFO[ListItem.Label]</label>
 						<visible>![ListItem.IsRecording | ListItem.HasTimer]</visible>
@@ -325,42 +334,54 @@
 					<control type="image" id="2" description="Row">
 						<width>54</width>
 						<height>71</height>
-						<texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+						<texture colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 						<bordersize>1</bordersize>
 					</control>
 					<control type="image">
 						<posx>7</posx>
+						<posy>-16</posy>
 						<width>20</width>
 						<height>71</height>
-						<texture>$VAR[PVROverlay]</texture>
+						<texture>$VAR[PVROverlay(Focused)]</texture>
 						<aspectratio>keep</aspectratio>
 					</control>
 					<control type="label" id="1">
 						<posx>33</posx>
-						<posy>14</posy>
+						<posy>2</posy>
 						<width>23</width>
 						<height>36</height>
 						<font>ListDetails</font>
 						<label>$INFO[ListItem.Label]</label>
 						<scroll>true</scroll>
-						<textcolor>Black</textcolor>
-						<selectedcolor>Black</selectedcolor>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+						<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 						<shadowcolor></shadowcolor>
 						<visible>ListItem.IsRecording | ListItem.HasTimer</visible>
 					</control>
 					<control type="label" id="1">
 						<posx>7</posx>
-						<posy>14</posy>
+						<posy>2</posy>
 						<width>45</width>
 						<height>36</height>
 						<scroll>false</scroll>
-						<textcolor>Black</textcolor>
-						<selectedcolor>Black</selectedcolor>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+						<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 						<shadowcolor></shadowcolor>
 						<font>ListDetails</font>
 						<label>$INFO[ListItem.Label]</label>
 						<visible>![ListItem.IsRecording | ListItem.HasTimer]</visible>
 					</control>
+					<control type="label" id="1">
+						<posx>7</posx>
+						<posy>30</posy>
+						<height>36</height>
+						<font>ListDetails</font>
+						<label>$INFO[ListItem.StartTime,, - ]$INFO[ListItem.EndTime,,]</label>
+						<scroll>false</scroll>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+						<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+						<shadowcolor></shadowcolor> 
+					</control>			  
 				</focusedlayout>
 			</control>
 			<control type="image" description="Top split">
@@ -376,6 +397,7 @@
 				<width>1850</width>
 				<height>122</height>
 				<texture>img/LineST.png</texture>
+				<visible>!Skin.HasSetting(HideGuideChannelGroups)</visible>
 			</control>
 			<control type="image" description="Middle split">
 				<posx>30</posx>
@@ -386,13 +408,14 @@
 			</control>
 			<control type="group">
 				<visible>Control.IsVisible(10)</visible>
+				<visible>!Skin.HasSetting(HideGuideChannelGroups)</visible>
 				<control type="image">
 					<posx>40</posx>
 					<posy>290</posy>
 					<width>306</width>
 					<height>80</height>
 					<aligny>center</aligny>
-					<texture colordiffuse="Highlight" border="20">button-fo.png</texture>
+					<texture colordiffuse="$VAR[HighlightColor]" border="20">button-fo.png</texture>
 					<visible>Control.HasFocus(11)</visible>
 				</control>
 				<control type="image">
@@ -400,19 +423,19 @@
 					<posy>315</posy>
 					<width>20</width>
 					<height>30</height>
-					<texture colordiffuse="Highlight">arrowleft.png</texture>
+					<texture colordiffuse="$VAR[HighlightColor]">arrowleft.png</texture>
 				</control>
 				<control type="image">
 					<posx>30r</posx>
 					<posy>315</posy>
 					<width>20</width>
 					<height>30</height>
-					<texture colordiffuse="Highlight">arrowright.png</texture>
+					<texture colordiffuse="$VAR[HighlightColor]">arrowright.png</texture>
 				</control>
 			</control>
 			<control type="group">
 				<description>Channel Groups on EPG Timeline</description>
-				<visible>Control.IsVisible(10)</visible>
+				<visible>Control.IsVisible(10) + !Skin.HasSetting(HideGuideChannelGroups)</visible>
 				<width>1880</width>
 				<control type="fixedlist" id="11">
 					<posx>42</posx>
@@ -452,7 +475,7 @@
 							<width>306</width>
 							<height>80</height>
 							<aligny>center</aligny>
-							<texture colordiffuse="Highlight" border="20">button-fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightColor]" border="20">button-fo.png</texture>
 							<animation effect="fade" end="30" condition="true">Conditional</animation>
 							<visible>!Control.HasFocus(11)</visible>
 						</control>
@@ -464,7 +487,7 @@
 							<align>center</align>
 							<aligny>center</aligny>
 							<scroll>true</scroll>
-							<textcolor>Black</textcolor>
+							<textcolor>$VAR[FocusedTextColor]</textcolor>
 							<font>ListDetails</font>
 							<label>$INFO[ListItem.Label]</label>
 						</control>

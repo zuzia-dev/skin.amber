@@ -25,6 +25,7 @@
 			<param name="width">619</param>
 			<param name="height">960</param>
 			<param name="shadowoffset">16</param>
+			<param name="texture">$INFO[ListItem.Icon]</param>
 		</include>
 		<control type="group" description="Media Info">
 			<control type="group" description="top">
@@ -35,7 +36,7 @@
 					<width>1180</width>
 					<height>60</height>
 					<font>InfoTitle</font>
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<align>left</align>
 					<label>$VAR[MusicInfoHeader]</label>
 				</control>
@@ -63,9 +64,9 @@
                     <ondown>9000</ondown>
                     <align>center</align>
                     <aligny>center</aligny>
-                    <textureradioonfocus colordiffuse="Black">icons/dots7.png</textureradioonfocus>
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">icons/dots7.png</textureradioonfocus>
                     <textureradioonnofocus>icons/dots7.png</textureradioonnofocus>
-                    <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
                     <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
                     <width>37</width>
                     <height>17</height>
@@ -303,6 +304,26 @@
 				<font>Details</font>
 				<label>$LOCALIZE[32068]</label>
                 <onclick>SetProperty(fanart,$ESCINFO[ListItem.Art(fanart)],home)</onclick>
+				<onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart1,$ESCINFO[ListItem.Art(fanart1)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart2,$ESCINFO[ListItem.Art(fanart2)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart3,$ESCINFO[ListItem.Art(fanart3)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart4,$ESCINFO[ListItem.Art(fanart4)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart5,$ESCINFO[ListItem.Art(fanart5)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart6,$ESCINFO[ListItem.Art(fanart6)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart7,$ESCINFO[ListItem.Art(fanart7)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart8,$ESCINFO[ListItem.Art(fanart8)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart9,$ESCINFO[ListItem.Art(fanart9)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart10,$ESCINFO[ListItem.Art(fanart10)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart11,$ESCINFO[ListItem.Art(fanart11)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart12,$ESCINFO[ListItem.Art(fanart12)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart13,$ESCINFO[ListItem.Art(fanart13)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart14,$ESCINFO[ListItem.Art(fanart14)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart15,$ESCINFO[ListItem.Art(fanart15)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart16,$ESCINFO[ListItem.Art(fanart16)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart17,$ESCINFO[ListItem.Art(fanart17)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart18,$ESCINFO[ListItem.Art(fanart18)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart19,$ESCINFO[ListItem.Art(fanart19)],home)</onclick>
+                <onclick condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">SetProperty(fanart20,$ESCINFO[ListItem.Art(fanart20)],home)</onclick>
                 <onclick>ActivateWindow(1126)</onclick>
                 <visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
 			</control>			
@@ -324,7 +345,7 @@
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Grey2</textcolor>
+					<textcolor>$VAR[LabelTextColor]</textcolor>
 					<label>$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$INFO[ListItem.Duration, • (,)]</label>
 					<textoffsetx>8</textoffsetx>
 					<scroll>false</scroll>
@@ -334,7 +355,7 @@
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Grey2</textcolor>
+					<textcolor>$VAR[LabelTextColor]</textcolor>
 					<label>$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$VAR[ItemDurationHrMins, • (,)]</label>
 					<textoffsetx>8</textoffsetx>
 					<scroll>false</scroll>
@@ -343,13 +364,13 @@
 			</itemlayout>
 			<focusedlayout height="62" width="590" condition="Container.Content(albums)">
 				<control type="image">
-					<texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+					<texture colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 				</control>
 				<control type="label">
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 					<shadowcolor></shadowcolor>
 					<textoffsetx>8</textoffsetx>
 					<label>$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$INFO[ListItem.Duration, • (,)]</label>
@@ -359,7 +380,7 @@
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 					<shadowcolor></shadowcolor>
 					<textoffsetx>8</textoffsetx>
 					<label>$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$VAR[ItemDurationHrMins, • (,)]</label>
@@ -371,7 +392,7 @@
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Grey2</textcolor>
+					<textcolor>$VAR[LabelTextColor]</textcolor>
 					<label>$INFO[ListItem.Label,,: ]$INFO[ListItem.Label2]</label>
 					<textoffsetx>8</textoffsetx>
 					<scroll>false</scroll>
@@ -379,13 +400,13 @@
 			</itemlayout>
 			<focusedlayout height="62" width="590" condition="Container.Content(songs)">
 				<control type="image">
-					<texture colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+					<texture colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 				</control>
 				<control type="label">
 					<font>Details</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 					<shadowcolor></shadowcolor>
 					<textoffsetx>8</textoffsetx>
 					<label>$INFO[ListItem.Label,,. ]$INFO[ListItem.Label2]</label>

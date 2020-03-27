@@ -32,7 +32,7 @@
 					<width>50</width>
 					<height>42</height>
 					<texture border="3">img/WhiteRoundedT.png</texture>
-					<colordiffuse>Black</colordiffuse>
+					<colordiffuse>$VAR[FocusedTextColor]</colordiffuse>
 				</control>
 				<control type="image" description="Label2 BG">
 					<visible>!$PARAM[isFocused]</visible>
@@ -49,7 +49,7 @@
 					<width>100</width>
 					<font>ListDetails</font>
 					<align>center</align>
-					<textcolor>Black</textcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
 					<shadowcolor></shadowcolor>
 					<label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
 				</control>
@@ -60,7 +60,7 @@
 					<width>100</width>
 					<font>ListDetails</font>
 					<align>center</align>
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
 				</control>
 			</control>
@@ -166,7 +166,7 @@
 				<texture>$INFO[$PARAM[type].AudioChannels,badges/audiochannels/channels,.png]</texture>
 			</control>
 			<control type="image" description="Stars">
-				<visible>$PARAM[showratingbadge]</visible>
+				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser)</visible>
 				<height>$PARAM[itemheight]</height>
 				<width>$PARAM[itemwidth]</width>
 				<bordersize>3</bordersize>
@@ -218,7 +218,7 @@
 				    <fadetime>1</fadetime>
 				    <randomize>false</randomize>
                     <aspectratio>$PARAM[aspect]</aspectratio>
-					<bordertexture colordiffuse="Highlight" border="8">thumbs/IconBorder_FO.png</bordertexture>
+					<bordertexture colordiffuse="$VAR[HighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
 					<bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
 					<aspectratio>$PARAM[aspect]</aspectratio>
 				</control>
@@ -297,7 +297,7 @@
 				<control type="image">
 					<visible>$PARAM[isFocused]</visible>
 					<texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-					<bordertexture colordiffuse="Highlight" border="8">thumbs/IconBorder_FO.png</bordertexture>
+					<bordertexture colordiffuse="$VAR[HighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
 					<bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
 					<aspectratio>$PARAM[aspect]</aspectratio>
 				</control>
@@ -371,7 +371,7 @@
 					<width>33</width>
 					<height>33</height>
 					<texture>$VAR[Overlay]</texture>
-					<colordiffuse>Highlight</colordiffuse>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<aspectratio>keep</aspectratio>
 				</control>
 			</control>
@@ -415,7 +415,7 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>45</height>
 					<textoffsetx>24</textoffsetx>
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<font>$PARAM[labelfont]</font>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
@@ -454,7 +454,7 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>$PARAM[labelheight]</height>
 					<texture border="4">img/WhiteRoundedST2.png</texture>
-					<colordiffuse>Highlight</colordiffuse>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<bordersize>$PARAM[bordersize]</bordersize>
 					<aspectratio>stretch</aspectratio>
 				</control>
@@ -475,8 +475,8 @@
 					<height>$PARAM[labelheight]</height>
 					<font>Shelf_Label</font>
 					<textoffsetx>24</textoffsetx>
-					<textcolor>Black</textcolor>
-					<selectedcolor>Black</selectedcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 					<shadowcolor></shadowcolor>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
@@ -516,7 +516,7 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>74</height>
 					<texture border="4">img/WhiteRoundedST2.png</texture>
-					<colordiffuse>Highlight</colordiffuse>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<bordersize>4,0,4,0</bordersize>
 					<aspectratio>stretch</aspectratio>
 				</control>
@@ -538,8 +538,8 @@
 					<left>$PARAM[bordersize]</left>
 					<width>$PARAM[textboxwidth]</width>
 					<height>64</height>
-					<textcolor>Black</textcolor>
-					<selectedcolor>Black</selectedcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 					<shadowcolor></shadowcolor>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
@@ -581,7 +581,7 @@
 					<width>$PARAM[labelwidth]</width>
 					<height>74</height>
 					<texture border="4">img/WhiteRoundedST2.png</texture>
-					<colordiffuse>Highlight</colordiffuse>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<bordersize>$PARAM[bordersize]</bordersize>
 					<aspectratio>stretch</aspectratio>
 				</control>
@@ -612,8 +612,8 @@
 					<height>35</height>
 					<font>$PARAM[labelfont1]</font>
 					<textoffsetx>24</textoffsetx>
-					<textcolor>Black</textcolor>
-					<selectedcolor>Black</selectedcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 					<shadowcolor></shadowcolor>
 					<label>$PARAM[labeltext1]</label>
 					<align>$PARAM[labelalign]</align>
@@ -626,8 +626,8 @@
 					<height>35</height>
 					<font>$PARAM[labelfont2]</font>
 					<textoffsetx>24</textoffsetx>
-					<textcolor>Black</textcolor>
-					<selectedcolor>Black</selectedcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 					<shadowcolor></shadowcolor>
 					<label>$PARAM[labeltext2]</label>
 					<align>$PARAM[labelalign]</align>
@@ -770,6 +770,7 @@
 				<param name="bordersizeRB">24</param>
 				<param name="belowlabelvisibility">true</param>
 				<param name="belowlabel">$INFO[ListItem.Label]</param>
+				<param name="belowlabelheight">52</param>
 			</include>
 		</definition>
 	</include>
@@ -882,7 +883,7 @@
 				<param name="bordersizeLT">12</param>
 				<param name="bordersizeRB">20</param>
 				<param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
-				<param name="overlaylabel">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</param>
+				<param name="overlaylabel">$VAR[EpisodeLabel]</param>
 			</include>
 		</definition>
 	</include>
@@ -1284,17 +1285,17 @@
 	<include name="GenericLayout">
 		<param name="viewid"/>
 		<definition>
-			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
+			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="400" width="310">
+			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
 				</include>
 			</focusedlayout>
-			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
+			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
 				</include>
@@ -1331,7 +1332,7 @@
 				<width>1140</width>
 				<height>50</height>
 				<align>center</align>
-				<textcolor>White2</textcolor>
+				<textcolor>$VAR[HighlightColor]</textcolor>
 				<shadowcolor></shadowcolor>
 				<font>InfoTitle</font>
 				<scroll>false</scroll>
@@ -1347,7 +1348,9 @@
 				<label>$VAR[panelsubheading]</label>
 			</control>
 			<control type="label" description="Details2">
-				<visible>[Control.IsVisible(53) | [Control.IsVisible(56) + !Control.IsVisible(66561) + ![$EXP[56_FanartViewInfo]]]] + !String.IsEmpty(Window(Home).Property(NextAired.NextDate))</visible>
+				<visible>[Control.IsVisible(53) | [Control.IsVisible(56) + !Control.IsVisible(66561) + ![$EXP[56_FanartViewInfo]]]]</visible>
+				<visible>[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | 
+				         [Container.content(tvshows) | Container.content(seasons)] + [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | !String.IsEmpty(ListItem.Status)]</visible>
 				<posy>100</posy>
                 <width>1140</width>
 				<height>30</height>
@@ -1369,6 +1372,7 @@
 				<param name="showvideobadge">true</param>
 				<param name="showaudiobadge">false</param>
 				<param name="showratingbadge">false</param>
+				<param name="diffuse">$VAR[LabelTextColor]</param>
 			</include>
 		</control>
 		<control type="grouplist" description="Right Flags">
@@ -1384,6 +1388,7 @@
 				<param name="showvideobadge">false</param>
 				<param name="showaudiobadge">true</param>
 				<param name="showratingbadge">true</param>
+				<param name="diffuse">$VAR[LabelTextColor]</param>
 			</include>
 		</control>
 	</include>

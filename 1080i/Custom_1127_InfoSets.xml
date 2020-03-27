@@ -3,7 +3,7 @@
 	<defaultcontrol always="true">8</defaultcontrol>
 	<animation effect="fade" time="200">WindowOpen</animation>
 	<animation effect="fade" time="150">WindowClose</animation>
-    <onload>RunScript(script.embuary.helper,action=resetposition,container=9009||90150)</onload>
+    <onload condition="System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9009||90150)</onload>
 	<controls>
     
 		<control type="image">
@@ -59,7 +59,7 @@
 				    <width>auto</width>
 				    <height>40</height>
 				    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
 				    <align>left</align>
 				    <label>$INFO[ListItem.Rating(imdb)]$INFO[ListItem.Votes(imdb), (, $LOCALIZE[205])]</label>
                     <visible>!String.IsEmpty(ListItem.Rating(imdb))</visible>
@@ -68,7 +68,7 @@
 				    <width>auto</width>
 				    <height>40</height>
 				    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
 				    <align>left</align>
 				    <label>$INFO[ListItem.Rating]$INFO[ListItem.Votes, (, $LOCALIZE[205])]</label>
                     <visible>String.IsEmpty(ListItem.Rating(imdb)) + !String.IsEmpty(ListItem.Rating) + !String.IsEmpty(ListItem.Votes) + !String.IsEqual(ListItem.Votes,0)</visible>
@@ -77,7 +77,7 @@
 				    <width>auto</width>
 				    <height>40</height>
 				    <font>ListDetails</font>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
 				    <align>left</align>
 				    <label>$INFO[ListItem.Rating]</label>
                     <visible>String.IsEmpty(ListItem.Rating(imdb)) + !String.IsEmpty(ListItem.Rating) + [String.IsEmpty(ListItem.Votes) | String.IsEqual(ListItem.Votes,0)]</visible>
@@ -134,7 +134,7 @@
 					<width>950</width>
 					<height>75</height>
 					<font>InfoTitle</font>
-					<textcolor>Highlight</textcolor>
+					<textcolor>$VAR[HighlightColor]</textcolor>
 					<align>left</align>
 					<label>$INFO[ListItem.Title,[B],[/B]] $INFO[Window(Home).Property(SkinInfo.Set.Movies.Years),(,)]</label>
 				</control>
@@ -181,9 +181,9 @@
 					<onright>9009</onright>
                     <align>center</align>
                     <aligny>center</aligny>
-                    <textureradioonfocus colordiffuse="Black">icons/dots7.png</textureradioonfocus>
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">icons/dots7.png</textureradioonfocus>
                     <textureradioonnofocus>icons/dots7.png</textureradioonnofocus>
-                    <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
                     <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
                     <width>37</width>
                     <height>17</height>
@@ -215,37 +215,63 @@
 					<content>
 						<item>
 							<label>$LOCALIZE[20339](s):</label>
-							<label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]</label2>
-                            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick>SetProperty(Dialog.1.BuiltIn,Dialog.Close(All)||RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)],type=person,call_auto=1134))</onclick>
-			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++Dialog.Close(all)++ActivateWindow(1122))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32110]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]',seperator='" / "',splitby='"++"'))</onclick>
-			                <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)])||Dialog.Close(all)||ActivateWindow(1122))</onclick>
-                            <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Director))</visible>
+                            <label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]</label2>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)],type=person,call_auto=1134))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++ActivateWindow(1122))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32110]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]',seperator='" / "',splitby='"++"'))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)])||ActivateWindow(1122))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">noop</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++ActivateWindow(1122))</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32110]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]',seperator='" / "',splitby='"++"')</onclick>
+							
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">Dialog.Close(all)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Director), / )">ActivateWindow(1122)</onclick>
+							<visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Director))</visible>
 						</item>                        
 						<item>
 							<label>$LOCALIZE[20417](s):</label>
-							<label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]</label2>
-                            <onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick>SetProperty(Dialog.1.BuiltIn,Dialog.Close(All)||RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)],type=person,call_auto=1134))</onclick>
-			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++Dialog.Close(all)++ActivateWindow(1122))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32113]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]',seperator='" / "',splitby='"++"'))</onclick>
-			                <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)])||Dialog.Close(all)||ActivateWindow(1122))</onclick>
-                            <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            <label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]</label2>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.BuiltIn,RunScript(plugin.video.themoviedb.helper,add_query=$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)],type=person,call_auto=1134))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++ActivateWindow(1122))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32113]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]',seperator='" / "',splitby='"++"'))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">SetProperty(Dialog.2.BuiltIn,Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)])||ActivateWindow(1122))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">noop</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">SetProperty(Dialog.Builtin,Skin.SetString(CustomSearchTerm,???)++ActivateWindow(1122))</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32113]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]',seperator='" / "',splitby='"++"')</onclick>
+							
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">Dialog.Close(all)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Writer), / )">ActivateWindow(1122)</onclick>
 							<visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Writer))</visible>
 						</item>                        
 						<item>
 							<label>$LOCALIZE[515](s):</label>
-							<label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]</label2>
-							<onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,with_genres)++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)])||Skin.SetString(OnlineCallType,with_genres)||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-			                <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
-							<visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Genre)) + String.IsEqual(ListItem.DBType,set)</visible>
+                            <label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]</label2>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,with_genres)++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)])||Skin.SetString(OnlineCallType,with_genres)||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieGenre,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)])||Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">noop</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieGenre,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])++ActivateWindow(1131))</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32108]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)]',seperator='" / "',splitby='"++"')</onclick>
+							
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">SetProperty(SingleSearchType,LocalMovieGenre,Home)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Genre)])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">Dialog.Close(All)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Genre), / )">ActivateWindow(1131)</onclick>
+							<visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Genre))</visible>
 						</item>                        
 						<item>
 							<label>$LOCALIZE[20161] $LOCALIZE[2050]:</label>
@@ -255,14 +281,24 @@
 						</item>
 						<item>
 							<label>$LOCALIZE[29909](s):</label>
-							<label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]</label2>
-							<onclick>SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
-                            <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)])||Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-			                <onclick>SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
-			                <onclick condition="String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++Dialog.Close(all)++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]',seperator='" / "',splitby='"++"'))</onclick>
-                            <onclick condition="!String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||Dialog.Close(all)||ActivateWindow(1131))</onclick>
-			                <onclick>RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            <label2>$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]</label2>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.1.Label,$LOCALIZE[32018])</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,Online,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])++Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.1.BuiltIn,SetProperty(SingleSearchType,Online,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)])||Skin.SetString(OnlineCallType,$VAR[TMDbStudioCall])||Skin.SetString(OnlineMediaType,$VAR[TMDbMediaType])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(Dialog.2.Label,$LOCALIZE[32017])</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))||RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]',seperator='" / "',splitby='"++"'))</onclick>
+                            <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.2.BuiltIn,SetProperty(SingleSearchType,LocalMovieStudio,Home)||Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)])||Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])||ActivateWindow(1131))</onclick>
+			                <onclick condition="!Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.embuary.helper,action=createselect,header=$LOCALIZE[137])</onclick>
+                            
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">noop</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(Dialog.Builtin,SetProperty(SingleSearchType,LocalMovieStudio,Home)++Skin.SetString(SingleSearchTerm,???)++Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])++ActivateWindow(1131))</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + System.HasAddon(script.embuary.helper) + String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">RunScript(script.embuary.helper,action=splitandcreateselect,header='"$LOCALIZE[32109]"',items='$ESCINFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)]',seperator='" / "',splitby='"++"')</onclick>
+							
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">SetProperty(SingleSearchType,LocalMovieStudio,Home)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">Skin.SetString(SingleSearchTerm,$INFO[Window(Home).Property(SkinInfo.Set.Movies.Studio)])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">Dialog.Close(All)</onclick>
+							<onclick condition="Skin.HasSetting(OnlyLocalSearches) + !String.Contains(Window(Home).Property(SkinInfo.Set.Movies.Studio), / )">ActivateWindow(1131)</onclick>
 							<visible>!String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Studio))</visible>
 						</item>                        
 					</content>

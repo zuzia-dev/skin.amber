@@ -26,6 +26,7 @@
 		<texture background="true" flipy="true">$VAR[Poster]</texture>
 		<aspectratio aligny="top">scale</aspectratio>
 	</include>
+	
 	<include name="SquareFanartThumbDimensions">
 		<posx>15</posx>
 		<width>297</width>
@@ -45,6 +46,7 @@
 		<texture background="true" flipy="true">$VAR[Square]</texture>
 		<aspectratio aligny="top">keep</aspectratio>
 	</include>
+	
 	<include name="EpisodeFanartThumbDimensions">
 		<posx>12</posx>
 		<posy>12</posy>
@@ -65,6 +67,7 @@
 		<texture background="true">$VAR[Episode]</texture>
 		<aspectratio aligny="top">scale</aspectratio>
 	</include>
+	
 	<include name="View_56_Fanart">
 		<control type="group">
 			<visible>Control.IsVisible(56)</visible>
@@ -209,7 +212,7 @@
 									<width>300</width>
 									<height>70</height>
 									<font>font24_title</font>
-									<textcolor>White2</textcolor>
+									<textcolor>$VAR[LabelTextColor]</textcolor>
 									<label>$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</label>
 								</control>
 								<control type="image" description="Watched Overlay">
@@ -275,11 +278,11 @@
 							<posy>72</posy>
 							<width>1360</width>
 							<height>60</height>
-							<textcolor>White2</textcolor>
+							<textcolor>$VAR[LabelTextColor]</textcolor>
 							<shadowcolor>Black</shadowcolor>
 							<font>InfoTitle</font>
 							<scroll>false</scroll>
-							<label>$INFO[ListItem.Label]</label>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
 						</control>
 						<control type="label" description="Details">
 							<posy>135</posy>
@@ -295,7 +298,7 @@
 						    <width>1200</width>
 						    <font>Details</font>
 						    <label>$VAR[panelsubheading2]</label>
-                            <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</visible>
+                            <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | [Container.Content(movies) | Container.Content(episodes)]</visible>
 					    </control>                        
 						<control type="label" description="Genre">
 							<posy>207</posy>
@@ -311,7 +314,7 @@
 							<width>1500</width>
 							<height>85</height>
 							<align>left</align>
-							<textcolor>Black</textcolor>
+							<textcolor>$VAR[FocusedTextColor]</textcolor>
 							<shadowcolor></shadowcolor>
 							<label>$VAR[Plots]</label>
 						</control>
@@ -334,6 +337,7 @@
 								<orientation>horizontal</orientation>
 								<align>left</align>
 								<include content="MediaFlagItems">
+								    <param name="diffuse">$VAR[LabelTextColor]</param>
 								</include>
 							</control>
 						</control>
@@ -351,7 +355,7 @@
 					<texturesliderbar></texturesliderbar>
 					<texturesliderbarfocus></texturesliderbarfocus>
 					<textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
-					<textureslidernibfocus border="18">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+					<textureslidernibfocus border="18" colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
 					<showonepage>true</showonepage>
 					<orientation>horizontal</orientation>
 					<onup>56</onup>
@@ -360,7 +364,7 @@
 				</control>
 
                 <control type="button" id="66">
-                    <visible>String.IsEqual(Container.ViewMode,Fanart)</visible>
+                    <visible>Control.IsVisible(56)</visible>
                     <visible>String.IsEmpty(Window.Property(gallery))</visible>
                     <visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
                     <font />
@@ -424,7 +428,7 @@
                     <include content="AlphabetLetter"><param name="label" value="X" /></include>
                     <include content="AlphabetLetter"><param name="label" value="Y" /></include>
                     <include content="AlphabetLetter"><param name="label" value="Z" /></include>
-                    <visible>String.IsEqual(Container.ViewMode,Fanart)</visible>
+                    <visible>Control.IsVisible(56)</visible>
                     <visible>String.IsEmpty(Window.Property(gallery))</visible>
                     <visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
                 </control>                
@@ -442,7 +446,7 @@
 						<posy>87</posy>
 						<width>900</width>
 						<height>60</height>
-						<textcolor>Highlight</textcolor>
+						<textcolor>$VAR[HighlightColor]</textcolor>
 						<font>InfoTitle</font>
 						<scroll>false</scroll>
 						<label>$VAR[panelheading]</label>
@@ -462,13 +466,13 @@
 						<font>Details</font>
 						<scroll>false</scroll>
 						<label>$VAR[panelsubheading2]</label>
-                        <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</visible>
+                        <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | [Container.Content(movies) | Container.Content(episodes)]</visible>
 					</control>                    
 					<control type="label" description="Genre">
 						<posy>235</posy>
 						<visible>!Container.Content(Artists)</visible>
 						<height>33</height>
-						<width>1640</width>
+						<width>900</width>
 						<font>Details</font>
 						<scroll>false</scroll>
 						<label>$INFO[ListItem.Genre]</label>

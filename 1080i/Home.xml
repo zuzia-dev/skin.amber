@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-<!--	<onload condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(plugin.video.themoviedb.helper,reset_path)</onload> -->
+
     <onload condition="System.HasAddon(script.favourites)">RunScript(script.favourites)</onload>
-	<onload condition="System.HasAddon(script.skinshortcuts)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onload>
+	<onload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onload>
     <onload condition="System.HasAddon(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
-    <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
+	<onload condition="!Skin.HasSetting(UseListDefault) + !Skin.HasSetting(UseTallListDefault) + !Skin.HasSetting(UseLowListDefault) + !Skin.HasSetting(UseBigListDefault) + !Skin.HasSetting(UsePanelDefault) + 
+	                   !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload>
+	<onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">Skin.SetString(FocusedMenu.BackgroundPlaylist,$INFO[Container(300).ListItem.Property(backgroundPlaylist)])</onunload>
 	<onunload condition="System.HasAddon(plugin.video.themoviedb.helper)">ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
 	<defaultcontrol always="true">300</defaultcontrol>
@@ -20,7 +22,7 @@
 			</itemlayout>
 			<focusedlayout height="1" width="1">
 			</focusedlayout>
-			<content>$INFO[Container(300).ListItem.Property(backgroundPlaylist)]</content>
+			<content sortby="random">$INFO[Container(300).ListItem.Property(backgroundPlaylist)]</content>
 		</control>
         
         <control type="list" id="9980">
@@ -100,7 +102,7 @@
 			</focusedlayout>
 			<content>addons://user/all</content>
 		</control>
-        
+        <!-- Hidden list for movies fanart background -->
         <control type="list" id="12341">
 	        <content sortby="random" limit="50">videodb://movies/titles/</content>
 	        <include>AutoscrollTime</include>
@@ -111,7 +113,7 @@
 			<width>1</width>
 			<height>1</height>
         </control>
-        
+        <!-- Hidden list for tv shows fanart background -->
         <control type="list" id="12342">
 	        <content sortby="random" limit="50">videodb://tvshows/titles/</content>
 	        <include>AutoscrollTime</include>
@@ -122,7 +124,7 @@
 			<width>1</width>
 			<height>1</height>
         </control>        
-        
+        <!-- Hidden list for video fanart background -->
         <control type="list" id="12343">
 	        <content sortby="random" limit="5">videodb://movies/titles/</content>
 	        <content sortby="random" limit="5">videodb://tvshows/titles/</content>
@@ -138,18 +140,18 @@
 			<width>1</width>
 			<height>1</height>
         </control>
-        
+        <!-- Hidden list for global fanart background -->
         <control type="list" id="12344">
 	        <content sortby="random" limit="5">videodb://movies/titles/</content>
 	        <content sortby="random" limit="5">videodb://musicvideos/titles/</content>
 	        <content sortby="random" limit="5">videodb://tvshows/titles/</content>
 	        <content sortby="random" limit="5">videodb://movies/sets/</content>
-	        <content sortby="random" limit="5">musicdb://artists/</content>
+	        <content sortby="random" limit="5">musicdb://artists/?albumartistsonly=true</content>
 	        <content sortby="random" limit="5">videodb://movies/titles/</content>
 	        <content sortby="random" limit="5">videodb://musicvideos/titles/</content>
 	        <content sortby="random" limit="5">videodb://movies/sets/</content>
 	        <content sortby="random" limit="5">videodb://tvshows/titles/</content>
-	        <content sortby="random" limit="5">musicdb://artists/</content>
+	        <content sortby="random" limit="5">musicdb://artists/?albumartistsonly=true</content>
 	        <include>AutoscrollTime</include>
 	        <itemlayout />
 	        <focusedlayout />
@@ -158,9 +160,9 @@
 			<width>1</width>
 			<height>1</height>
         </control>
-        
+        <!-- Hidden list for music fanart background -->
         <control type="list" id="12345">
-	        <content sortby="random" limit="50">musicdb://artists/</content>
+	        <content sortby="random" limit="50">musicdb://artists/?albumartistsonly=true</content>
 	        <include>AutoscrollTime</include>
 	        <itemlayout />
 	        <focusedlayout />
@@ -192,7 +194,40 @@
 			<include condition="Skin.HasSetting(VerticalHome)">Vertical_Home_Layout</include>
 			<include condition="!Skin.HasSetting(VerticalHome)">Horizontal_Home_Layout</include>
 			<include>Time</include>
-            <include condition="[[!Player.Playing + Skin.HasSetting(FanartTitle.InTopBar)] | !Skin.HasSetting(FanartTitle.InTopBar)] + [!Skin.HasSetting(Home_DefaultBG) + Skin.HasSetting(Enable.FanartTitle)]">ShowFanartTitle</include>
+            <!-- Fanart background title -->
+			<include condition="[[!Player.Playing + Skin.HasSetting(FanartTitle.InTopBar)] | !Skin.HasSetting(FanartTitle.InTopBar)] + [!Skin.HasSetting(Home_DefaultBG) + Skin.HasSetting(Enable.FanartTitle)]">ShowFanartTitle</include>
+			<!-- Movie/TV Show Logo -->
+			<!-- Smaller logo for horizontal menu -->
+			<control type="image">
+                <posy>43</posy>
+			    <posx>1700</posx>
+                <width>200</width>
+                <height>78</height>
+                <texture  background="true">$VAR[HomeClearLogo]</texture>
+			    <aspectratio>keep</aspectratio>
+                <visible>Skin.HasSetting(ShowHomeLogo) + !Skin.HasSetting(VerticalHome)</visible>
+            </control>
+			<!-- Smaller logo for vertical menu if fanart title is enabled and not in title bar -->
+			<control type="image">
+                <posy>110</posy>
+			    <posx>1700</posx>
+                <width>200</width>
+                <height>78</height>
+                <texture  background="true">$VAR[HomeClearLogo]</texture>
+			    <aspectratio>keep</aspectratio>
+                <visible>Skin.HasSetting(ShowHomeLogo) + Skin.HasSetting(VerticalHome) + [Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)]</visible>
+            </control>
+			<!-- Larger logo for vert. menu if fanart title not enabled or in title bar -->
+			<control type="image">
+                <posy>60</posy>
+			    <posx>1540</posx>
+                <width>361</width>
+                <height>140</height>
+                <texture  background="true">$VAR[HomeClearLogo]</texture>
+			    <aspectratio>keep</aspectratio>
+                <visible>Skin.HasSetting(ShowHomeLogo) + Skin.HasSetting(VerticalHome) + [[Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)] | !Skin.HasSetting(Enable.FanartTitle)]</visible>
+            </control>
+			<!-- Hidden list for playlist stats for info line -->
 			<control type="group">
 				<include condition="System.HasAddon(script.embuary.helper)">PlayListStatsList</include>
 			</control>

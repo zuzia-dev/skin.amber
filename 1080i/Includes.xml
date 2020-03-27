@@ -23,6 +23,7 @@
     <include file="Includes_Search.xml" />
     <include file="Includes_CustomSelect.xml" />
     <include file="Includes_Info.xml" />
+	<include file="Includes_TVGuide.xml" />
 
     <include file="Includes_Media.xml" />
     <include file="Includes_List.xml" />
@@ -194,7 +195,7 @@
         <param name="height"/>
         <param name="shadowoffset">8</param>
         <param name="shadowcolor">HeavyShadow</param>
-        <param name="texture">$INFO[ListItem.Icon]</param>
+        <param name="texture"></param>
         <param name="aspect">keep</param>
         <param name="align">center</param>
         <param name="aligny">center</param>
@@ -203,7 +204,7 @@
             <control type="group">
                 <top>$PARAM[top]</top>
                 <left>$PARAM[left]</left>
-                <visible>$PARAM[visibility]</visible>
+                <visible>$PARAM[visibility] + [String.IsEmpty(ListItem.Art(poster1)) | Control.IsVisible(52)]</visible>
                 <control type="image" description="Icon Shadow">
                     <top>$PARAM[shadowoffset]</top>
                     <left>$PARAM[shadowoffset]</left>
@@ -219,10 +220,54 @@
                     <aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
                 </control>
             </control>
+			<control type="group">
+                <top>$PARAM[top]</top>
+                <left>$PARAM[left]</left>
+                <visible>$PARAM[visibility] + !String.IsEmpty(ListItem.Art(poster1)) + !Control.IsVisible(52)</visible>
+               <control type="multiimage" description="Icon Shadow">
+                    <top>$PARAM[shadowoffset]</top>
+                    <left>$PARAM[shadowoffset]</left>
+                    <width>$PARAM[width]</width>
+                    <height>$PARAM[height]</height>
+					<fadetime>400</fadetime>
+                    <imagepath background="true">$PARAM[texture]</imagepath>
+					<colordiffuse>$PARAM[shadowcolor]</colordiffuse>
+                    <aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
+                </control>
+                <control type="multiimage" description="Icon">
+                    <width>$PARAM[width]</width>
+                    <height>$PARAM[height]</height>
+                    <imagepath background="true">$PARAM[texture]</imagepath>
+                    <aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
+					<fadetime>400</fadetime>
+                </control>
+            </control>
         </definition>
     </include>
 
     <include name="BackgroundOverlay">
+        <param name="overlaywidth">1920</param>
+        <param name="overlayheight">1120</param>
+        <param name="overlaytop">-40</param>
+        <param name="overlayleft">0</param>
+        <param name="parentid"/>
+        <param name="colordiffuse">dfcebe9e</param>
+        <definition>
+            <control type="image" description="background overlay">
+                <visible>Control.IsVisible($PARAM[parentid])</visible>
+                <include>VignetteFade</include>
+                <left>$PARAM[overlayleft]</left>
+                <top>$PARAM[overlaytop]</top>
+                <width>$PARAM[overlaywidth]</width>
+                <height>$PARAM[overlayheight]</height>
+                <texture border="0,30,0,0">OSD/FS_OSDBackground.png</texture> 
+                <colordiffuse>$VAR[ViewsBGColor]</colordiffuse>
+            <!--     <colordiffuse>8FFFFFFF</colordiffuse> -->
+            </control>
+        </definition>
+    </include>
+	
+	<include name="BackgroundOverlayVideoInfo">
         <param name="overlaywidth">1920</param>
         <param name="overlayheight">1120</param>
         <param name="overlaytop">-40</param>
@@ -260,7 +305,7 @@
                     <include>VisibleFadeEffect</include>
                     <width>1920</width>
                     <height>48</height>
-                    <texture>common/TopStripe.png</texture>
+                    <texture colordiffuse="$VAR[TopBarColor]">common/TopStripe.png</texture>
                 </control>
                 <control type="label">
                     <visible>!Player.HasMedia</visible>
@@ -281,7 +326,7 @@
                     <shadowcolor>ShadowDark</shadowcolor>
                     <titlecolor>White2</titlecolor>
                     <headlinecolor>White2</headlinecolor>
-                    <textcolor>Grey</textcolor>
+                    <textcolor>$VAR[LabelTextColor]</textcolor>
                 </control>
                 <control type="group">
                     <visible>Player.HasMedia</visible>
@@ -293,7 +338,7 @@
                         <height>51</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$VAR[TopBarMediaIcon]</texture>
-                        <colordiffuse>Highlight</colordiffuse>
+                        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
                     </control>
                     <control type="label">
                         <include>VisibleFadeEffect</include>
@@ -340,9 +385,9 @@
                         <align>right</align>
                         <aligny>center</aligny>
                         <font>Details</font>
-                        <textcolor>White</textcolor>
+                        <textcolor>$VAR[LabelTextColor]</textcolor>
                         <shadowcolor>ShadowDark</shadowcolor>
-                        <label>$INFO[Weather.Temperature,,[COLOR=Highlight]  • [/COLOR]]</label>
+                        <label>$INFO[Weather.Temperature][COLOR=$VAR[HighlightColor]]  • [/COLOR]</label>
                         <height>40</height>
                     </control>
                     <control type="label">
@@ -350,7 +395,7 @@
                         <align>right</align>
                         <aligny>center</aligny>
                         <font>Details</font>
-                        <textcolor>White</textcolor>
+                        <textcolor>$VAR[LabelTextColor]</textcolor>
                         <shadowcolor>ShadowDark</shadowcolor>
                         <label>$VAR[TimeLabel]</label>
                         <height>40</height>
@@ -362,8 +407,8 @@
                         <height>30</height>
                         <texturefocus>NoMasterNF.png</texturefocus>
                         <texturenofocus>NoMasterNF.png</texturenofocus>
-                        <alttexturefocus colordiffuse="Highlight">MasterNF.png</alttexturefocus>
-                        <alttexturenofocus colordiffuse="Highlight">MasterNF.png</alttexturenofocus>
+                        <alttexturefocus colordiffuse="$VAR[HighlightColor]">MasterNF.png</alttexturefocus>
+                        <alttexturenofocus colordiffuse="$VAR[HighlightColor]">MasterNF.png</alttexturenofocus>
                         <usealttexture>System.IsMaster</usealttexture>
                         <onclick>mastermode</onclick>
                         <aligny>center</aligny>
@@ -377,7 +422,7 @@
         <control type="multiimage">
             <visible>![Player.HasVideo + Skin.HasSetting(Show_Player)]</visible>
             <include>Dimensions_Fullscreen</include>
-            <timeperimage>12000</timeperimage>
+            <timeperimage>8000</timeperimage>
             <fadetime>400</fadetime>
             <imagepath background="true">$VAR[SubBackground]</imagepath>
             <randomize>true</randomize>
@@ -433,7 +478,7 @@
             <posx>-500</posx>
             <width>510</width>
             <height>1080</height>
-            <texture border="0,0,30,0">common/ViewMenu.png</texture>
+            <texture border="0,0,30,0" colordiffuse="$VAR[DialogBGColor]">common/ViewMenu.png</texture>
         </control>
     </include>
 
@@ -475,6 +520,7 @@
                 <width>300</width>
                 <height>154</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
             </control>
             <control type="image">
@@ -482,6 +528,7 @@
                 <width>300</width>
                 <height>208</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
             </control>
             <control type="image">
@@ -489,6 +536,7 @@
                 <width>300</width>
                 <height>262</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
             </control>
             <control type="image">
@@ -496,6 +544,7 @@
                 <width>300</width>
                 <height>316</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
             </control>
             <control type="image">
@@ -503,6 +552,7 @@
                 <width>300</width>
                 <height>370</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
             </control>
             <control type="image">
@@ -510,6 +560,7 @@
                 <width>300</width>
                 <height>424</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,7)</visible>
             </control>
             <control type="image">
@@ -517,6 +568,7 @@
                 <width>300</width>
                 <height>478</height>
                 <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,8)</visible>
             </control>            
             <control type="grouplist" id="9600">
@@ -525,14 +577,14 @@
                 <width>248</width>
                 <height>454</height>
                 <onleft>9000</onleft>
-                <onright condition="String.IsEqual(Container.ViewMode,BigList)">52</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,List)">50</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Low List)">54</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Panel)">51</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Tall List)">501</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Icons)">53</onright>
-		        <onright condition="String.IsEqual(Container.ViewMode,Fanart)">53</onright>
+                <onright condition="control.isvisible(52)">52</onright>
+		        <onright condition="control.isvisible(50)">50</onright>
+		        <onright condition="control.isvisible(54)">54</onright>
+		        <onright condition="control.isvisible(51)">51</onright>
+		        <onright condition="control.isvisible(55)">55</onright>
+		        <onright condition="control.isvisible(501)">501</onright>
+		        <onright condition="control.isvisible(53)">53</onright>
+		        <onright condition="control.isvisible(56)">56</onright>
                 <onup>9600</onup>
                 <ondown>9600</ondown>
                 <onback>9000</onback>
@@ -690,31 +742,29 @@
         <width>500</width>
         <height>1120</height>
         <onleft>9001</onleft>
-        <onright condition="String.IsEqual(Container.ViewMode,BigList)">52</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,List)">50</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Low List)">54</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Panel)">51</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Tall List)">501</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Icons)">53</onright>
-		<onright condition="String.IsEqual(Container.ViewMode,Fanart)">53</onright>
-	<!--	<onright>50</onright> -->
+        <onright condition="Control.IsVisible(52)">52</onright>
+		<onright condition="Control.IsVisible(50)">50</onright>
+		<onright condition="Control.IsVisible(54)">54</onright>
+		<onright condition="Control.IsVisible(51)">51</onright>
+		<onright condition="Control.IsVisible(55)">55</onright>
+		<onright condition="Control.IsVisible(501)">501</onright>
+		<onright condition="Control.IsVisible(53)">53</onright>
+		<onright condition="Control.IsVisible(56)">56</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
-    <!--    <onback>50</onback> -->
-	    <onback condition="String.IsEqual(Container.ViewMode,BigList)">52</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,List)">50</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Low List)">54</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Panel)">51</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Big Panel)">55</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Tall List)">501</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Icons)">53</onback>
-		<onback condition="String.IsEqual(Container.ViewMode,Fanart)">53</onback>
+	    <onback condition="Control.IsVisible(52)">52</onback>
+		<onback condition="Control.IsVisible(50)">50</onback>
+		<onback condition="Control.IsVisible(54)">54</onback>
+		<onback condition="Control.IsVisible(51)">51</onback>
+		<onback condition="Control.IsVisible(55)">55</onback>
+		<onback condition="Control.IsVisible(501)">501</onback>
+		<onback condition="Control.IsVisible(53)">53</onback>
+		<onback condition="Control.IsVisible(56)">56</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
         <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
         <control type="label" id="9140">
-            <textcolor>Highlight</textcolor>
+            <textcolor>$VAR[HighlightColor]</textcolor>
             <textoffsetx>10</textoffsetx>
             <align>left</align>
             <include>9000ViewButtons</include>
@@ -805,19 +855,23 @@
             <visible>Control.IsEnabled(4)</visible>
             <onclick>SendClick(4)</onclick>
         </control>
-        <control type="edit" id="19">
-            <visible>Container.CanFilter + !Container.CanFilterAdvanced</visible>
-            <visible>!Container.Content()</visible>
-            <textwidth>395</textwidth>
+        <control type="button" id="8">
             <include>9000SysButtons</include>
             <label>$LOCALIZE[137]</label>
-            <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+            <visible>Window.IsVisible(Videos) | Window.IsVisible(Music)</visible>
         </control>
-        <control type="radiobutton" id="199">
+		<control type="edit" id="19">
+            <visible>Container.CanFilter + !Container.CanFilterAdvanced</visible>
+            <textwidth>395</textwidth>
+            <include>9000SysButtons</include>
+            <label>$LOCALIZE[587]</label>
+            <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+			<onclick>right</onclick>
+        </control>
+        <control type="button" id="199">
             <visible>Container.CanFilterAdvanced</visible>
             <include>9000SysButtons</include>
             <label>$LOCALIZE[587]</label>
-            <selected>Container.Filtered</selected>
             <onclick>right</onclick>
             <onclick>Filter</onclick>
         </control>
@@ -830,23 +884,23 @@
         <width>80</width>
         <height>80</height>
         <font>Keyboard</font>
-        <focusedcolor>Black</focusedcolor>
+        <focusedcolor>$VAR[FocusedTextColor]</focusedcolor>
         <shadowcolor></shadowcolor>
         <textoffsety>-3</textoffsety>
-        <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
         <texturenofocus border="4">img/WhiteRoundedT.png</texturenofocus>
-        <alttexturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</alttexturefocus>
+        <alttexturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</alttexturefocus>
         <alttexturenofocus border="4">img/WhiteRoundedT.png</alttexturenofocus>
     </include>
 
     <include name="OSDButtons">
-        <textureradioonfocus colordiffuse="Black">$PARAM[icon]</textureradioonfocus>
+        <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioonfocus>
         <textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
-        <textureradioofffocus colordiffuse="Black">$PARAM[icon]</textureradioofffocus>
+        <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioofffocus>
         <textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
         <textureradioondisabled colordiffuse="Disabled">$PARAM[icon]</textureradioondisabled>
         <textureradiooffdisabled colordiffuse="Disabled">$PARAM[icon]</textureradiooffdisabled>
-        <texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
         <width>64</width>
         <height>64</height>
         <radiowidth>64</radiowidth>
@@ -1019,7 +1073,7 @@
     <include name="SettingsListCommons">
         <param name="showicon">true</param>
         <param name="listwidth">1350</param>
-        <param name="listheight">860</param>
+        <param name="listheight">840</param>
         <definition>
             <posx>495</posx>
             <posy>120</posy>
@@ -1049,7 +1103,7 @@
                     <haspath>true</haspath>
                     <align>right</align>
                     <scroll>false</scroll>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[ListItem.Label2]</label>
                 </control>
                 <control type="image" description="Icon">
@@ -1066,13 +1120,13 @@
                 <control type="image">
                     <height>60</height>
                     <width>$PARAM[listwidth]</width>
-                    <texture border="3" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+                    <texture border="3" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
                 </control>
                 <control type="label" description="Main Label">
                     <posx>30</posx>
                     <height>60</height>
                     <width>$PARAM[listwidth]</width>
-                    <textcolor>Black</textcolor>
+                    <textcolor>$VAR[FocusedTextColor]</textcolor>
                     <shadowcolor></shadowcolor>
                     <label>$INFO[ListItem.Label]</label>
                 </control>
@@ -1085,7 +1139,7 @@
                     <haspath>true</haspath>
                     <align>right</align>
                     <scroll>false</scroll>
-                    <textcolor>Black</textcolor>
+                    <textcolor>$VAR[FocusedTextColor]</textcolor>
                     <shadowcolor></shadowcolor>
                     <label>$INFO[ListItem.Label2]</label>
                 </control>
@@ -1206,95 +1260,169 @@
         <param name="top"></param>
         <param name="left">60</param>
         <param name="height">430</param>
+		<param name="groupheight">610</param>
         <param name="width">870</param>
         <param name="heading"></param>
         <param name="subheading"></param>
         <param name="subheading2"></param>
         <param name="subheading2_visible">false</param>
         <param name="plot">$INFO[ListItem.Plot]</param>
-        <param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
-        <param name="subcontent_label2">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
+		<param name="plotheight">400</param>
+		<param name="plotheightlow">200</param>
+        <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
+        <param name="subcontent_label2">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
         <param name="subcontent_path">$INFO[ListItem.Path]</param>
         <param name="subcontent_sortby">year</param>
         <param name="subcontent_sortorder">descending</param>
-        <param name="subcontent_visible">ListItem.IsCollection + String.IsEmpty(ListItem.Plot)</param>
+        <param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
         <param name="subcontent_image_visible">true</param>
         <param name="subcontent_image_texture">$VAR[Overlay]</param>
         <param name="footer"></param>
         <param name="visibility"></param>
         <param name="showfooter">true</param>
         <param name="showflags">true</param>
+		<param name="footertop">960</param>
+		<param name="footerheight">115</param>
         <definition>
             <control type="grouplist" id="4000" description="Media Info Panel">
                 <include>OpenClose</include>
                 <visible>$PARAM[visibility]</visible>
-                <visible>!Container.Content(files)</visible>
+                <visible>[$EXP[PanelShouldShow] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | 
+				         Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]] | 
+						 [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | 
+						 Container.Content(images) | Container.Content(games)]</visible>
                 <posx>$PARAM[left]</posx>
                 <posy>$PARAM[top]</posy>
                 <width>$PARAM[width]</width>
+				<height>$PARAM[groupheight]</height>
                 <orientation>vertical</orientation>
+				<itemgap>10</itemgap>
                 <control type="label" description="Title Label">
                     <visible>!$PARAM[lowpanel]</visible>
                     <width>$PARAM[width]</width>
                     <height>60</height>
                     <aligny>center</aligny>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <font>font20_title</font>
                     <wrapmultiline>true</wrapmultiline>
                     <label>$PARAM[heading]</label>
                 </control>
                 <control type="label" description="Title Label">
-                    <visible>$PARAM[lowpanel]</visible>
+					<visible>$PARAM[lowpanel]</visible>
                     <width>$PARAM[width]</width>
-                    <height>40</height>
+                    <height>55</height>
                     <aligny>center</aligny>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <font>font20_title</font>
                     <label>$PARAM[heading]</label>
+					<wrapmultiline>true</wrapmultiline>
                 </control>
                 <control type="label" description="Subheading">
-                    <visible>!$PARAM[lowpanel]</visible>
-                    <height>80</height>
+                    <visible>!$PARAM[lowpanel] + Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+                    <height>60</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
                     <label>[B]$PARAM[subheading][/B]</label>
                     <aligny>center</aligny>
                     <wrapmultiline>true</wrapmultiline>
                 </control>
-                <control type="label" description="Subheading">
-                    <visible>$PARAM[lowpanel]</visible>
-                    <height>40</height>
+				<control type="label" description="Subheading">
+                    <visible>!$PARAM[lowpanel] + !Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+                    <height>100</height>
+                    <width>$PARAM[width]</width>
+                    <font>font20_title</font>
+                    <label>[B]$PARAM[subheading][/B]</label>
+                    <aligny>center</aligny>
+                    <wrapmultiline>true</wrapmultiline>
+                </control>
+				<control type="label" description="Subheading">
+					<visible>$PARAM[lowpanel] + !Container.Content(addons)</visible>
+                    <height>60</height>
                     <width>$PARAM[width]</width>
                     <font>ListDetails</font>
                     <label>[B]$PARAM[subheading][/B]</label>
                     <aligny>center</aligny>
+					<scroll>false</scroll>
+					<wrapmultiline>true</wrapmultiline>
                 </control>
-                <control type="label" description="Subheading2">
-                    <visible>!$PARAM[lowpanel] + $PARAM[subheading2_visible]</visible>
-                    <height>80</height>
-                    <width>$PARAM[width]</width>
-                    <font>ListDetails</font>
-                    <label>[B]$PARAM[subheading2][/B]</label>
-                    <aligny>center</aligny>
-                </control>
-                <control type="label" description="Subheading2">
-                    <visible>$PARAM[lowpanel] + $PARAM[subheading2_visible]</visible>
-                    <height>30</height>
-                    <width>$PARAM[width]</width>
-                    <font>ListDetails</font>
-                    <label>[B]$PARAM[subheading2][/B]</label>
-                    <aligny>center</aligny>
-                </control>                
+				<!-- Audio/Sub info or Next Aired Episode info -->
+				<control type="group">
+				    <visible>$PARAM[subheading2_visible]</visible>
+                    <control type="label" description="Subheading2">
+                        <visible>!$PARAM[lowpanel]</visible>
+                        <top>10</top>
+						<height>40</height>
+                        <width>$PARAM[width]</width>
+                        <font>ListDetails</font>
+                        <label>[B]$PARAM[subheading2][/B]</label>
+                        <aligny>top</aligny>
+                    </control>
+                    <control type="label" description="Subheading2">
+                        <top>10</top>
+						<visible>$PARAM[lowpanel]</visible>
+					    <height>30</height>
+                        <width>$PARAM[width]</width>
+                        <font>ListDetails</font>
+                        <label>[B]$PARAM[subheading2][/B]</label>
+                        <aligny>center</aligny>
+                    </control>                
+				</control>	
                 <control type="group">
                     <width>$PARAM[width]</width>
                     <height>$PARAM[height]</height>
-                    <control type="textbox" id="4001">
-                        <align>justify</align>
-                        <label fallback="19055">[CR]$PARAM[plot]</label>
+                    <!-- Plot when there is no next episode info or audio/sub info being displayed -->
+					<control type="textbox">
+                        <top>5</top>
+						<visible>[!Skin.HasSetting(ShowAudioSub) + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
+						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
+						<align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>
                         <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
                     </control>
-                    <control type="panel" id="4002">
+					<!-- Plot for other content types -->
+					<control type="textbox">
+                        <visible>![Container.Content(movies) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(sets)] + ![$PARAM[subcontent_visible]]</visible>
+						<align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Plot for normal panel when audio/sub info or next aired episode info is shown -->
+					<control type="textbox">
+					    <top>40</top>
+						<visible>!$PARAM[lowpanel] + [[Skin.HasSetting(ShowAudioSub) + [!String.IsEmpty(ListItem.Property(AudioLanguage.1)) | !String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+						         [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						<height>$PARAM[plotheight]</height>
+                        <align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Plot for episodes/tv shows/seasons in low panel when audio/sub info or next aired episode info is shown -->
+					<control type="textbox">
+					    <top>40</top>
+						<visible>$PARAM[lowpanel] + [[Skin.HasSetting(ShowAudioSub) + Container.Content(episodes) + 
+						         ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						<height>160</height>
+                        <align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Plot for movies in low panel when audio/sub info is shown -->
+					<control type="textbox">
+					    <top>40</top>
+						<visible>$PARAM[lowpanel] + [Skin.HasSetting(ShowAudioSub) + Container.Content(movies) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</visible>
+						<height>165</height>
+                        <align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Panel to show set info or artist discography info or album track info -->
+                    <control type="panel">
                         <visible>$PARAM[subcontent_visible]</visible>
                         <visible>!ListItem.IsParentFolder</visible>
                         <orientation>vertical</orientation>
@@ -1352,10 +1480,22 @@
                         <content sortby="$PARAM[subcontent_sortby]" sortorder="$PARAM[subcontent_order]">$PARAM[subcontent_path]</content>
                     </control>
                 </control>
+			</control>
+			<!-- Footer and media flags -->
+            <control type="grouplist">
+                <visible>$PARAM[visibility]</visible>
+                <visible>[!String.IsEmpty(Listitem.Duration) | !String.IsEmpty(Listitem.Genre) | !String.IsEmpty(Listitem.Year) | !String.IsEmpty(ListItem.Episode)] | 
+				         [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem.Episode)]</visible>
+                <posx>$PARAM[left]</posx>
+                <posy>$PARAM[footertop]</posy>
+                <width>$PARAM[width]</width>
+				<height>$PARAM[footerheight]</height>
+				<itemgap>5</itemgap>
+                <orientation>vertical</orientation>			
                 <control type="label" description="Footer">
                     <visible>$PARAM[showfooter]</visible>
                     <width>$PARAM[width]</width>
-                    <height>100</height>
+                    <height>60</height>
                     <font>ListDetails</font>
                     <label>$PARAM[footer]</label>
                     <wrapmultiline>true</wrapmultiline>
@@ -1364,15 +1504,15 @@
                     <visible>$PARAM[showflags]</visible>
                     <include>ContentFade</include>
                     <width>$PARAM[width]</width>
-                    <height>70</height>
+                    <height>40</height>
                     <itemgap>20</itemgap>
                     <orientation>horizontal</orientation>
                     <align>left</align>
                     <include content="MediaFlagItems">
-                        <param name="diffuse">White</param>
+                        <param name="diffuse">$VAR[LabelTextColor]</param>
                     </include>
                 </control>
-            </control>
+			</control>	
         </definition>
     </include>
     <!-- Panel Template for Tall List -->
@@ -1381,16 +1521,16 @@
         <param name="left">60</param>
         <param name="height"></param>
         <param name="width">870</param>
+		<param name="groupheight">710</param>
         <param name="heading"></param>
         <param name="subheading"></param>
         <param name="subheading2"></param>
         <param name="subheading2_visible">false</param>
         <param name="plotgrouptop"></param>
-        <param name="footertop">845</param>
-        <param name="flagstop"></param>
+		<param name="plotheight">630</param>
         <param name="plot">$INFO[ListItem.Plot]</param>
-        <param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
-        <param name="subcontent_label2">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
+        <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
+        <param name="subcontent_label2">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
         <param name="subcontent_path">$INFO[ListItem.Path]</param>
         <param name="subcontent_sortby">year</param>
         <param name="subcontent_sortorder">descending</param>
@@ -1401,26 +1541,36 @@
         <param name="visibility"></param>
         <param name="showfooter">true</param>
         <param name="showflags">true</param>
+		<param name="footertop">845</param>
+        <param name="flagstop"></param>
+		<param name="footerheight">115</param>
         <definition>
             <control type="group" id="4000" description="Media Info Panel">
                 <include>OpenClose</include>
                 <visible>$PARAM[visibility]</visible>
-                <visible>!Container.Content(files)</visible>
+                <visible>[$EXP[PanelShouldShow] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | 
+				         Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]] | 
+						 [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | 
+						 Container.Content(images) | Container.Content(games)]</visible>
                 <posx>$PARAM[left]</posx>
                 <posy>$PARAM[top]</posy>
                 <width>$PARAM[width]</width>
+				<height>$PARAM[groupheight]</height>
+                <orientation>vertical</orientation>
+				<itemgap>10</itemgap>
                 <control type="label" description="Title Label">
-                    <top>0</top>
+                    <top>-8</top>
                     <width>$PARAM[width]</width>
                     <height>60</height>
                     <aligny>center</aligny>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <font>font20_title</font>
                     <wrapmultiline>true</wrapmultiline>
                     <label>$PARAM[heading]</label>
                 </control>
                 <control type="label" description="Subheading">
                     <top>60</top>
+					<visible>Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
                     <height>80</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
@@ -1428,8 +1578,18 @@
                     <aligny>center</aligny>
                     <wrapmultiline>true</wrapmultiline>
                 </control>
-                <control type="label" description="Subheading2">
-                    <top>140</top>
+				<control type="label" description="Subheading">
+                    <top>65</top>
+					<visible>!Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+                    <height>80</height>
+                    <width>$PARAM[width]</width>
+                    <font>font20_title</font>
+                    <label>[B]$PARAM[subheading][/B]</label>
+                    <aligny>center</aligny>
+                    <wrapmultiline>true</wrapmultiline>
+                </control>
+				<control type="label" description="Subheading2">
+                    <top>127</top>
                     <visible>$PARAM[subheading2_visible]</visible>
                     <height>80</height>
                     <width>$PARAM[width]</width>
@@ -1441,9 +1601,33 @@
                     <width>$PARAM[width]</width>
                     <height>$PARAM[height]</height>
                     <top>$PARAM[plotgrouptop]</top>
-                    <control type="textbox" id="4001">
+					<!-- Plot when there is no next episode info or audio/sub info being displayed -->
+					<control type="textbox" id="4001">
+                        <top>5</top>
+						<visible>[!Skin.HasSetting(ShowAudioSub) + [Container.Content(movies) | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
+						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
+						<align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Plot for normal panel when audio/sub info or next aired episode info is shown -->
+					<control type="textbox" id="4001">
+					    <top>40</top>
+						<visible>[[Skin.HasSetting(ShowAudioSub) + [!String.IsEmpty(ListItem.Property(AudioLanguage.1)) | !String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+						         [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						<height>$PARAM[plotheight]</height>
                         <align>justify</align>
-                        <label>$PARAM[plot]</label>
+                        <label fallback="19055">$PARAM[plot]</label>
+                        <font>InfoPlot</font>
+                        <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+                    </control>
+					<!-- Plot for other content types -->
+					<control type="textbox" id="4001">
+                        <visible>![Container.Content(movies) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(seasons)] + ![$PARAM[subcontent_visible]]</visible>
+						<align>justify</align>
+                        <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>
                         <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
                     </control>
@@ -1508,6 +1692,8 @@
                 <control type="label" description="Footer">
                     <top>$PARAM[footertop]</top>
                     <visible>$PARAM[showfooter]</visible>
+					<visible>[!String.IsEmpty(Listitem.Duration) | !String.IsEmpty(Listitem.Genre) | !String.IsEmpty(Listitem.Year) | !String.IsEmpty(ListItem.Episode)] | 
+				         [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem.Episode)]</visible>
                     <width>$PARAM[width]</width>
                     <height>75</height>
                     <font>ListDetails</font>
@@ -1526,8 +1712,10 @@
         <param name="heading">$VAR[panelheading]</param>
         <param name="plot">$VAR[Plots]</param>
         <param name="plotheight">320</param>
-        <param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
-        <param name="subcontent_label2">$INFO[ListItem.Label]$INFO[ListItem.Year,[COLOR Highlight]  (,)[/COLOR]]</param>
+		<param name="subheading2"></param>
+		<param name="subheading2_visible">false</param>
+        <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
+        <param name="subcontent_label2">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
         <param name="subcontent_path">$INFO[ListItem.Path]</param>
         <param name="subcontent_sortby">year</param>
         <param name="subcontent_sortorder">descending</param>
@@ -1549,7 +1737,7 @@
                     <height>60</height>
                     <aligny>center</aligny>
                     <align>center</align>
-                    <textcolor>Highlight</textcolor>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
                     <font>font20_title</font>
                     <wrapmultiline>true</wrapmultiline>
                     <label>$PARAM[heading]</label>
@@ -1562,7 +1750,7 @@
 					<param name="texture">$VAR[Fanart]</param>
 				</include>
                 <control type="label" description="Subheading Label">
-                    <top>540</top>
+                    <top>520</top>
                     <left>47</left>
                     <width>800</width>
                     <height>60</height>
@@ -1571,6 +1759,16 @@
                     <font>ListDetails</font>
                     <wrapmultiline>true</wrapmultiline>
                     <label>$VAR[panelfooter]</label>
+                </control>
+                <control type="label" description="Subheading2">
+                    <top>585</top>
+					<left>47</left>
+                    <visible>$PARAM[subheading2_visible]</visible>
+                    <width>800</width>
+                    <height>30</height>
+                    <align>center</align>
+                    <font>ListDetails</font>
+                    <label>$PARAM[subheading2]</label>
                 </control>                
                 <control type="group">
                     <width>820</width>
@@ -1652,6 +1850,7 @@
 			        <orientation>horizontal</orientation>
 			        <align>center</align>
 			        <include content="MediaFlagItems">
+					    <param name="diffuse">$VAR[LabelTextColor]</param>
 				        <param name="showratingbadge">false</param>
 			        </include>
 		        </control>                
@@ -1665,11 +1864,11 @@
         <param name="height"></param>
         <param name="width"></param>
         <param name="visibility">true</param>
-        <param name="showratingbadge"></param>
+        <param name="showratingbadge">true</param>
         <definition>
             <control type="grouplist" description="Flags">
-                <top>$PARAM[top]</top>
-                <left>$PARAM[left]</left>
+                <posy>$PARAM[top]</posy>
+                <posx>$PARAM[left]</posx>
                 <visible>$PARAM[visibility]</visible>
                 <include>ContentFade</include>
                 <width>$PARAM[width]</width>
@@ -1678,7 +1877,7 @@
                 <orientation>horizontal</orientation>
                 <align>center</align>
                 <include content="MediaFlagItems">
-                    <param name="diffuse">White</param>
+                    <param name="diffuse">$VAR[LabelTextColor]</param>
                     <param name="showratingbadge">$PARAM[showratingbadge]</param>
                 </include>
             </control>
@@ -1979,7 +2178,7 @@
                 <label>$INFO[ListItem.Label]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Highlight</textcolor>
+                <textcolor>$VAR[HighlightColor]</textcolor>
             </control>
             <control type="label">
                 <top>360</top>
@@ -1988,13 +2187,13 @@
                 <label>$LOCALIZE[32009]:</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Highlight</textcolor>
+                <textcolor>$VAR[HighlightColor]</textcolor>
             </control>
             <control type="label">
                 <top>410</top>
                 <width>425</width>
                 <height>45</height>
-                <label>[COLOR Highlight]$LOCALIZE[20373]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR Highlight]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+                <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[20373]:[/COLOR] [B][COLOR $VAR[LabelTextColor]]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR $VAR[HighlightColor]]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoPlot</font>
             </control>			
@@ -2003,7 +2202,7 @@
                 <top>460</top>
                 <width>425</width>
                 <height>185</height>
-                <label>[COLOR Grey2]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+                <label>[COLOR $VAR[LabelTextColor]]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
                 <autoscroll>false</autoscroll>
                 <shadowcolor />
             </control>
@@ -2014,14 +2213,14 @@
                 <label>$LOCALIZE[126]:</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Highlight</textcolor>
+                <textcolor>$VAR[HighlightColor]</textcolor>
             </control>
             <control type="label">
                 <top>695</top>
                 <width>445</width>
                 <height>45</height>
                 <label>$INFO[ListItem.Property(Status)]</label>
-                <textcolor>Grey2</textcolor>
+                <textcolor>$VAR[LabelTextColor]</textcolor>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoPlot</font>
             </control>
@@ -2032,14 +2231,14 @@
                 <label>$LOCALIZE[32011]:</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Highlight</textcolor>
+                <textcolor>$VAR[HighlightColor]</textcolor>
             </control>
             <control type="label">
                 <top>790</top>
                 <width>445</width>
                 <height>45</height>
                 <label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
-                <textcolor>Grey2</textcolor>
+                <textcolor>$VAR[LabelTextColor]</textcolor>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoPlot</font>
             </control>
@@ -2048,7 +2247,7 @@
             <control type="image" description="fa overlay">
                 <width>447</width>
                 <height>840</height>
-                <texture border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texture>
+                <texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
                 <visible>ControlGroup(9001).HasFocus()</visible>
             </control>
             <control type="image">
@@ -2065,7 +2264,7 @@
                 <label>[B]$INFO[ListItem.Label][/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
             </control>
             <control type="label">
                 <top>360</top>
@@ -2074,7 +2273,7 @@
                 <label>[B]$LOCALIZE[32009]:[/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
             </control>
             <control type="label">
                 <top>410</top>
@@ -2083,7 +2282,7 @@
                 <label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoPlot</font>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
             </control>
             <control type="textbox">
                 <left>20</left>
@@ -2093,7 +2292,7 @@
                 <label>$INFO[ListItem.Property(NextTitle)]</label>
                 <autoscroll>false</autoscroll>
                 <shadowcolor />
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
             </control>
             <control type="label">
                 <top>650</top>
@@ -2102,7 +2301,7 @@
                 <label>[B]$LOCALIZE[126]:[/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
             </control>
             <control type="label">
                 <top>695</top>
@@ -2110,7 +2309,7 @@
                 <height>45</height>
                 <label>$INFO[ListItem.Property(Status)]</label>
                 <textoffsetx>15</textoffsetx>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
                 <font>InfoPlot</font>
             </control>
             <control type="label">
@@ -2120,14 +2319,14 @@
                 <label>[B]$LOCALIZE[32011]:[/B]</label>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoTitle</font>
-                <textcolor>Black</textcolor>				
+                <textcolor>$VAR[FocusedTextColor]</textcolor>				
             </control>
             <control type="label">
                 <top>790</top>
                 <width>445</width>
                 <height>45</height>
                 <label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
-                <textcolor>Black</textcolor>
+                <textcolor>$VAR[FocusedTextColor]</textcolor>
                 <textoffsetx>15</textoffsetx>
                 <font>InfoPlot</font>
             </control>
@@ -2151,24 +2350,24 @@
                 <description>Go Back</description>
                 <width>40</width>
                 <height>40</height>
-                <texturefocus colordiffuse="Highlight">icons/home.png</texturefocus>
-                <texturenofocus colordiffuse="Grey2">icons/home.png</texturenofocus>
+                <texturefocus colordiffuse="$VAR[HighlightColor]">icons/home.png</texturefocus>
+                <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/home.png</texturenofocus>
                 <onclick>ActivateWindow(home)</onclick>
             </control>
             <control type="button" id="10001">
                 <description>Go Back</description>
                 <width>40</width>
                 <height>40</height>
-                <texturefocus colordiffuse="Highlight">icons/back.png</texturefocus>
-                <texturenofocus colordiffuse="Grey2">icons/back.png</texturenofocus>
+                <texturefocus colordiffuse="$VAR[HighlightColor]">icons/back.png</texturefocus>
+                <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/back.png</texturenofocus>
                 <onclick>Action(back)</onclick>
             </control>                
             <control type="button" id="10002">
                 <description>Open Side Menu</description>
                 <width>40</width>
                 <height>40</height>
-                <texturefocus colordiffuse="Highlight">icons/settings.png</texturefocus>
-                <texturenofocus colordiffuse="Grey2">icons/settings.png</texturenofocus>
+                <texturefocus colordiffuse="$VAR[HighlightColor]">icons/settings.png</texturefocus>
+                <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/settings.png</texturenofocus>
                 <onclick condition="!Skin.HasSetting(KioskMode.Enabled)">SetFocus(9000)</onclick>
                 <onclick condition="Skin.HasSetting(KioskMode.Enabled)">noop</onclick>
             </control>
@@ -2195,7 +2394,7 @@
         <align>center</align>
         <font>FanartTitleFont</font>
         <textcolor>FFDFDFDF</textcolor>
-        <focusedcolor>Highlight</focusedcolor>
+        <focusedcolor>$VAR[HighlightColor]</focusedcolor>
         <wrapmultiline>true</wrapmultiline>
         <label>[I]$VAR[FanartTitleVar][/I]</label>
     </include>
@@ -2209,7 +2408,7 @@
         <align>center</align>
         <font>FanartTitleFont</font>
         <textcolor>FFDFDFDF</textcolor>
-        <focusedcolor>Highlight</focusedcolor>
+        <focusedcolor>$VAR[HighlightColor]</focusedcolor>
         <wrapmultiline>true</wrapmultiline>
         <label>[I]$VAR[FanartTitleVar][/I]</label>    
     </include>
@@ -2520,7 +2719,7 @@
             <label>$PARAM[label]</label>
             <align>center</align>
             <aligny>center</aligny>
-            <textcolor>White</textcolor>
+            <textcolor>$VAR[LabelTextColor]</textcolor>
             <font>ListDetails</font>
             <visible>!String.IsEqual(ListItem.SortLetter,$PARAM[label])</visible>
         </control>
@@ -2530,7 +2729,7 @@
             <label>[B]$PARAM[label][/B]</label>
             <align>center</align>
             <aligny>center</aligny>
-            <textcolor>Highlight</textcolor>
+            <textcolor>$VAR[HighlightColor]</textcolor>
             <font>ListDetails</font>
             <visible>String.IsEqual(ListItem.SortLetter,$PARAM[label])</visible>
         </control>
@@ -2543,7 +2742,7 @@
             <label>#</label>
             <align>center</align>
             <aligny>center</aligny>
-            <textcolor>White</textcolor>
+            <textcolor>$VAR[LabelTextColor]</textcolor>
             <font>ListDetails</font>
             <visible>!$EXP[SortLetterIsNumber]</visible>
         </control>
@@ -2553,7 +2752,7 @@
             <label>[B]#[/B]</label>
             <align>center</align>
             <aligny>center</aligny>
-            <textcolor>Highlight</textcolor>
+            <textcolor>$VAR[HighlightColor]</textcolor>
             <font>ListDetails</font>
             <visible>$EXP[SortLetterIsNumber]</visible>
         </control>
@@ -2565,37 +2764,63 @@
         <onclick>AlarmClock(nms2,SetProperty(FIVE_daemon_fire,True,home),00:01,silent)</onclick>
     </include>
 	
+	<!-- Default views includes: The first view id determines the default view -->
 	<include name="DefaultViews">
         <views>50,51,52,53,54,55,56,501</views>
 		<defaultcontrol>50</defaultcontrol>
+		<onload>SetFocus(50)</onload>
     </include>
     <include name="TallListDefaultView">
         <views>501,50,51,52,54,53,55,56</views>
 		<defaultcontrol>501</defaultcontrol>
+		<onload>SetFocus(501)</onload>
     </include>
 	<include name="LowListDefaultView">
         <views>54,50,51,52,53,55,56,501</views>
 		<defaultcontrol>54</defaultcontrol>
+		<onload>SetFocus(54)</onload>
     </include>
 	<include name="BigListDefaultView">
         <views>52,50,51,53,54,55,56,501</views>
 		<defaultcontrol>52</defaultcontrol>
+		<onload>SetFocus(52)</onload>
     </include>
 	<include name="PanelDefaultView">
-        <views>51,52,53,54,55,56,501</views>
+        <views>51,50,52,53,54,55,56,501</views>
 		<defaultcontrol>51</defaultcontrol>
+		<onload>SetFocus(51)</onload>
     </include>
 	<include name="BigPanelDefaultView">
         <views>55,50,51,52,53,54,56,501</views>
 		<defaultcontrol>55</defaultcontrol>
+		<onload>SetFocus(55)</onload>
     </include>
 	<include name="IconsDefaultView">
-        <views>53,5-,51,52,54,55,56,501</views>
+        <views>53,50,51,52,54,55,56,501</views>
 		<defaultcontrol>53</defaultcontrol>
+		<onload>SetFocus(53)</onload>
     </include>
 	<include name="FanartDefaultView">
         <views>56,50,51,52,53,54,55,501</views>
 		<defaultcontrol>56</defaultcontrol>
+		<onload>SetFocus(56)</onload>
     </include>
+
+    <include name="ColorButton">
+		<param name="ColorString" />
+		<definition>
+			<width>1385</width>
+			<height>60</height>
+			<textoffsetx>30</textoffsetx>
+			<font>font16</font>
+			<radiowidth>150</radiowidth>
+		    <radioheight>50</radioheight>
+			<textureradioonfocus colordiffuse="$PARAM[ColorString]">color_swatch.png</textureradioonfocus>
+			<textureradioonnofocus colordiffuse="$PARAM[ColorString]">color_swatch.png</textureradioonnofocus>
+			<textureradioofffocus colordiffuse="$PARAM[ColorString]">color_swatch.png</textureradioofffocus>
+			<textureradiooffnofocus colordiffuse="$PARAM[ColorString]">color_swatch.png</textureradiooffnofocus>
+			<texturefocus colordiffuse="$VAR[HighlightColor]" border="4">img/WhiteRoundedST2.png</texturefocus>
+		</definition>
+	</include>
 
 </includes>

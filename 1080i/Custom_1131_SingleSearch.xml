@@ -60,7 +60,7 @@
 			            <align>left</align>
 			            <aligny>center</aligny>
 			            <label>$INFO[Skin.String(SingleSearchHeader)]$INFO[Skin.String(SingleSearchTerm), &quot;[CAPITALIZE],[/CAPITALIZE]&quot;]$INFO[Container(101).NumItems, (,)]</label>
-			            <textcolor>Highlight</textcolor>
+			            <textcolor>$VAR[HighlightColor]</textcolor>
 		            </control>
 				</control>
             </control>
@@ -72,11 +72,12 @@
 				<scrolltime>200</scrolltime>
                 <orientation>horizontal</orientation>
                 <visible>Integer.IsGreater(Container(101).NumItems,0) | Container(101).IsUpdating</visible>
-				<onclick>Dialog.Close(1131)</onclick>
-				<onclick condition="String.IsEmpty(Container.ListItem.DBID) | [!String.IsEqual(Container.ListItem.DBType,movie) + !String.IsEqual(Container.ListItem.DBType,tvshow) + !String.IsEqual(Container.ListItem.DBType,episode)]">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.FolderPath],call_auto=1134)</onclick>
-                <onclick condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_auto=1134)</onclick>
-                <onclick condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_auto=1134)</onclick>
-                <onclick condition="!String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,add_path=videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22tvshow%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.TvShowTitle]%22%5d%7d%2c%7b%22field%22%3a%22season%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Season]%22%5d%7d%2c%7b%22field%22%3a%22episode%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Episode]%22%5d%7d%5d%7d%2c%22type%22%3a%22episodes%22%7d,call_auto=1134)</onclick>
+				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Dialog.Close(1131)</onclick>
+				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEmpty(Container.ListItem.DBID) | [!String.IsEqual(Container.ListItem.DBType,movie) + !String.IsEqual(Container.ListItem.DBType,tvshow) + !String.IsEqual(Container.ListItem.DBType,episode)]]">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.FolderPath],call_auto=1134)</onclick>
+                <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_auto=1134)</onclick>
+                <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,tvshow)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[Container.ListItem.Label,videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D],call_auto=1134)</onclick>
+                <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,add_path=videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22tvshow%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.TvShowTitle]%22%5d%7d%2c%7b%22field%22%3a%22season%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Season]%22%5d%7d%2c%7b%22field%22%3a%22episode%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Episode]%22%5d%7d%5d%7d%2c%22type%22%3a%22episodes%22%7d,call_auto=1134)</onclick>
+				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">Action(Info)</onclick>
 				<animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(101).NumItems,0) | Container(101).IsUpdating">Conditional</animation>
                 <itemlayout height="326" width="232.5">
 				    <include content="GenericThumbIconTemplate">
@@ -88,7 +89,7 @@
 				        <param name="shadowoffset">8</param>
 				        <param name="bordersizeLT">12</param>
 				        <param name="bordersizeRB">20</param>
-				        <param name="belowdoublelabelvisibility">[String.Contains(Skin.String(SingleSearchHeader),Cast:) | String.Contains(Skin.String(SingleSearchHeader),Crew:)]</param>
+				        <param name="belowdoublelabelvisibility">String.IsEqual(Window(Home).Property(SingleSearchType),OnlineTotals)</param>
 						<param name="belowdoublelabel1">$INFO[Container.ListItem.Year]</param>
 						<param name="belowdoublelabel2">[I]$VAR[SearchBelowLabel2][/I]</param>
 	                </include>
@@ -103,7 +104,7 @@
 		                <param name="shadowoffset">8</param>
 		                <param name="bordersizeLT">12</param>
 		                <param name="bordersizeRB">20</param>
-						<param name="belowdoublelabelvisibility">[String.Contains(Skin.String(SingleSearchHeader),Cast:) | String.Contains(Skin.String(SingleSearchHeader),Crew:)]</param>
+						<param name="belowdoublelabelvisibility">String.IsEqual(Window(Home).Property(SingleSearchType),OnlineTotals)</param>
 						<param name="belowdoublelabel1">$INFO[Container.ListItem.Year]</param>
 						<param name="belowdoublelabel2">[I]$VAR[SearchBelowLabel2][/I]</param>
 	                </include>
@@ -153,7 +154,7 @@
 			    <width>1140</width>
 			    <height>50</height>
 			    <align>center</align>
-			    <textcolor>White2</textcolor>
+			    <textcolor>$VAR[HighlightColor]</textcolor>
 			    <shadowcolor></shadowcolor>
 			    <font>InfoTitle</font>
 			    <scroll>false</scroll>
@@ -182,6 +183,7 @@
 				<param name="showaudiobadge">false</param>
 				<param name="showratingbadge">false</param>
 				<param name="type">Container.ListItem</param>
+				<param name="diffuse">$VAR[LabelTextColor]</param>
 			</include>
 		</control>
 		<control type="grouplist" description="Right Flags">
@@ -198,6 +200,7 @@
 			    <param name="showaudiobadge">true</param>
 			    <param name="showratingbadge">true</param>
 				<param name="type">Container.ListItem</param>
+				<param name="diffuse">$VAR[LabelTextColor]</param>
 			</include>
 		</control>
 
@@ -215,7 +218,7 @@
      		    <align>left</align>
 			    <aligny>center</aligny>
 			    <label>$LOCALIZE[19055]</label>
-			    <textcolor>Highlight</textcolor>
+			    <textcolor>$VAR[HighlightColor]</textcolor>
 			</control>
 		</control>
 

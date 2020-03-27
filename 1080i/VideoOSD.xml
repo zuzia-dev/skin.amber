@@ -18,7 +18,7 @@
 				<action>seek</action>
 				<texturesliderbar>OSD/seekslider.png</texturesliderbar>
 				<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
-				<textureslidernibfocus>OSD/ScrollbarNibFO.png</textureslidernibfocus>
+				<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
 				<visible>Player.SeekEnabled</visible>
 			</control>
 			<control type="grouplist" id="100">
@@ -43,10 +43,10 @@
 					<include content="OSDButtons">
 						<param name="icon">OSD/OSDSubtitlesNF.png</param>
 					</include>
-				<!--	<onup>1110</onup> -->
+					<onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
 					<ondown>101</ondown>
-					<onclick>ActivateWindow(osdsubtitlesettings)</onclick>
-				<!--	<onclick>ShowSubtitles</onclick> -->
+					<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
+					<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">ShowSubtitles</onclick>
 					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				</control>
 				<control type="radiobutton" id="606">
@@ -161,11 +161,11 @@
 					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				</control>
 				<control type="radiobutton" id="602">
-					<textureradioonfocus colordiffuse="Black">OSD/OSDPlayNF.png</textureradioonfocus>
+					<textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPlayNF.png</textureradioonfocus>
 					<textureradioonnofocus>OSD/OSDPlayNF.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="Black">OSD/OSDPauseNF.png</textureradioofffocus>
+					<textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPauseNF.png</textureradioofffocus>
 					<textureradiooffnofocus>OSD/OSDPauseNF.png</textureradiooffnofocus>
-					<texturefocus border="4" colordiffuse="Highlight">img/WhiteRoundedST2.png</texturefocus>
+					<texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
 					<width>64</width>
 					<height>64</height>
 					<radiowidth>64</radiowidth>
@@ -271,7 +271,6 @@
 						<texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 						<visible>System.HasCMS</visible>
 					</control>
-
 					<control type="button" id="1014">
 						<height>80</height>
 						<width>470</width>
@@ -283,10 +282,10 @@
 					</control>
 				</control>
 			</control>
-<!--			<control type="group" id="1100">
+			<control type="group" id="1100">
 				<top>520</top>
 				<left>830</left>
-				<visible>Control.HasFocus(656) | ControlGroup(1100).HasFocus</visible>
+				<visible>[Control.HasFocus(656) | ControlGroup(1100).HasFocus] + !Skin.HasSetting(SubtitleOpensSettings)</visible>
 				<control type="grouplist" id="1110">
 					<align>right</align>
 					<left>30</left>
@@ -322,7 +321,7 @@
 						<height>80</height>
 						<width>470</width>
 						<label>$LOCALIZE[32004]</label>
-						<label2>$INFO[VideoPlayer.SubtitlesLanguage,[COLOR=Selected],[/COLOR]]</label2>
+						<label2>[COLOR=$VAR[SelectedTextColor]]$INFO[VideoPlayer.SubtitlesLanguage][/COLOR]</label2>
 						<onclick>CycleSubtitle</onclick>
 						<enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
 						<font>Details</font>
@@ -340,7 +339,7 @@
 						<texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 					</control>
 				</control>
-			</control> -->
+			</control>
 			<control type="group" id="1200">
 				<top>520</top>
 				<left>830</left>

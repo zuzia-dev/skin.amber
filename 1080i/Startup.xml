@@ -19,8 +19,13 @@
     <onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
 	
 	<!-- Establish list as default view if no default view is set -->
-	<onload condition="!Skin.HasSetting(UseListDefault) + !Skin.HasSetting(UseTallListDefault) + !Skin.HasSetting(UseLowListDefault) + !Skin.HasSetting(UseBigListDefault) + !Skin.HasSetting(UsePanelDefault) + 
-	                   !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload>
+	<onload condition="!Skin.HasSetting(FirstRunDone)">Skin.SetBool(UseListDefault)</onload>
+	<onload condition="!Skin.HasSetting(FirstRunDone)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onload>
+	<onload condition="!Skin.HasSetting(FirstRunDone)">ReloadSkin()</onload>
+	<onload condition="!Skin.HasSetting(FirstRunDone)">Skin.SetBool(FristRunDone)</onload>
+	
+<!--	<onload condition="!Skin.HasSetting(UseListDefault) + !Skin.HasSetting(UseTallListDefault) + !Skin.HasSetting(UseLowListDefault) + !Skin.HasSetting(UseBigListDefault) + !Skin.HasSetting(UsePanelDefault) + 
+	                   !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload> -->
 	<controls>
     </controls>
 </window>

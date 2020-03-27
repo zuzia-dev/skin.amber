@@ -48,7 +48,7 @@
             <include>Dimensions_Fullscreen</include>
             <fadetime>400</fadetime>
             <aspectratio>scale</aspectratio>
-            <texture background="true">$INFO[MusicPlayer.Property(Fanart_Image)]</texture>
+            <texture background="true">$VAR[MusicNonASFanart]</texture>
             <animation effect="fade" start="0" end="80" time="300">Visible</animation>
             <animation effect="fade" start="80" end="0" time="200">Hidden</animation>
             <animation type="Conditional" condition="Visualisation.Enabled">
@@ -57,6 +57,16 @@
             <animation type="Conditional" condition="!Visualisation.Enabled">
                 <effect type="fade" start="0" end="80" time="0" />
             </animation>
+        </control>
+		<!-- Artist Logo -->
+		<control type="image">
+            <posy>15</posy>
+			<posx>1500</posx>
+            <width>400</width>
+            <height>155</height>
+            <texture  background="true">$INFO[Player.Art(artist.clearlogo)]</texture>
+			<aspectratio>keep</aspectratio>
+            <visible>!String.IsEmpty(Player.Art(artist.clearlogo)) + Skin.HasSetting(ShowLogoMusicViz) + !Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
         </control>
         <control type="image">
             <posy>-110</posy>
@@ -155,7 +165,7 @@
                         <height>60</height>
                         <font>MainLabelBigTitle</font>
                         <label>$INFO[MusicPlayer.TrackNumber,,: ]$INFO[Player.Title]</label>
-                        <textcolor>Highlight</textcolor>
+                        <textcolor>$VAR[HighlightColor]</textcolor>
                         <scroll>true</scroll>
                         <scrollspeed>25</scrollspeed>
                     </control>
