@@ -14,9 +14,9 @@
 
 				<control type="$PARAM[ListType]" id="50">
 					<viewtype label="$LOCALIZE[535]">list</viewtype>
-					<posx>650</posx>
+					<posx>540</posx>
 					<posy>406</posy>
-					<width>1240</width>
+					<width>1340</width>
 					<height>648</height>
 					<pagecontrol>60</pagecontrol>
 					<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
@@ -145,9 +145,10 @@
 					<visible>Skin.HasSetting(Show.JumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
 				</control>
 
+                <!-- Panels in original position -->
 				<include content="PanelTemplate">
 					<param name="top">355</param>
-					<param name="left">555</param>
+					<param name="left">535</param>
 					<param name="height">400</param>
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
@@ -156,12 +157,11 @@
 					<param name="subheading2_visible">[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + !Skin.HasSetting(DisableListPanel) + [[[Container.Content(files) | Container.Content()] + !String.IsEmpty(ListItem.Plot)] | [Container.Content(videos) | Container.content(addons) | Container.Content(images) | Container.Content(games) | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [[[Container.Content(files) | Container.Content()] + !String.IsEmpty(ListItem.Plot)] | [Container.Content(videos) | Container.content(addons) | Container.Content(images) | Container.Content(games) | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]]</param>
 				</include>
-
 				<include content="PanelTemplate">
 					<param name="top">355</param>
-					<param name="left">555</param>
+					<param name="left">535</param>
 					<param name="height">400</param>
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
@@ -170,21 +170,21 @@
 					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + !Skin.HasSetting(DisableListPanel) + [Container.content(tvshows) | Container.Content(seasons)]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.content(tvshows) | Container.Content(seasons)]</param>
 				</include>            
 				<include content="PanelTemplate">
 					<param name="top">355</param>
-					<param name="left">555</param>
+					<param name="left">535</param>
 					<param name="height">400</param>
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
 					<param name="subheading">$VAR[panelsubheading]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + !Skin.HasSetting(DisableListPanel) + Container.content(sets)</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + Container.content(sets)</param>
 				</include>
 				<include content="PanelTemplate">
 					<param name="top">355</param>
-					<param name="left">555</param>
+					<param name="left">535</param>
 					<param name="height">400</param>
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
@@ -195,11 +195,11 @@
 					<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Artist_Description))</param>
 					<param name="subcontent_image_visible">false</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + !Skin.HasSetting(DisableListPanel) + Container.content(artists)</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + Container.content(artists)</param>
 				</include>
 				<include content="PanelTemplate">
 					<param name="top">355</param>
-					<param name="left">555</param>
+					<param name="left">535</param>
 					<param name="height">400</param>
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
@@ -213,8 +213,80 @@
 					<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
 					<param name="subcontent_image_visible">false</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + !Skin.HasSetting(DisableListPanel) + Container.content(albums)</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + Container.content(albums)</param>
 				</include>
+
+				<!-- Panels in swapped position -->
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">1230</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="subheading2">$VAR[panelsubheading2]</param>
+					<param name="subheading2_visible">[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [[[Container.Content(files) | Container.Content()] + !String.IsEmpty(ListItem.Plot)] | [Container.Content(videos) | Container.content(addons) | Container.Content(images) | Container.Content(games) | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]]</param>
+				</include>
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">1230</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="subheading2">$VAR[panelsubheading2]</param>
+					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [Container.content(tvshows) | Container.Content(seasons)]</param>
+				</include>            
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">1230</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + Container.content(sets)</param>
+				</include>
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">1230</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="subcontent_label">$INFO[ListItem.Label]$INFO[ListItem.Year,  (,)]</param>
+					<param name="subcontent_path">$INFO[ListItem.FolderPath]</param>
+					<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Artist_Description))</param>
+					<param name="subcontent_image_visible">false</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + Container.content(artists)</param>
+				</include>
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">1230</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="subcontent_label1">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$INFO[ListItem.Duration,  (,)]</param>
+					<param name="subcontent_label2">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$VAR[ItemDurationHrMins,  (,)]</param>
+					<param name="subcontent_path">$INFO[ListItem.FolderPath]</param>
+					<param name="subcontent_sortby" value="track" />
+					<param name="subcontent_sortorder" value="ascending" />
+					<param name="subcontent_visible">String.IsEmpty(ListItem.Property(Album_Description))</param>
+					<param name="subcontent_image_visible">false</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + Container.content(albums)</param>
+				</include>
+
 				<control type="group" description="50 MediaInfo">
 					<visible>Control.IsVisible(50)</visible>
 					<posx>30</posx>
@@ -222,7 +294,9 @@
 					<width>490</width>
 					<control type="label">
 						<height>45</height>
+						<wrapmultiline>true</wrapmultiline>
 						<align>center</align>
+						<aligny>center</aligny>
 						<label>$VAR[listmediaheader]</label>
 						<textcolor>$VAR[HighlightColor]</textcolor>
 					</control>
@@ -242,7 +316,19 @@
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$VAR[Square]</param>
-						<param name="visibility">![Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)]</param>
+						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)]</param>
+					</include>
+					<include content="ShadowedImage">
+						<param name="width">490</param>
+						<param name="height">700</param>
+						<param name="texture">$VAR[Square]</param>
+						<param name="visibility">Container.Content(images) + [!Skin.HasSetting(50_Images_DisablePanel) | !Skin.HasSetting(50_Images_LargeImage)]</param>
+					</include>
+					<include content="ShadowedImage">
+						<param name="width">900</param>
+						<param name="height">700</param>
+						<param name="texture">$VAR[Square]</param>
+						<param name="visibility">Container.Content(images) + Skin.HasSetting(50_Images_DisablePanel) + Skin.HasSetting(50_Images_LargeImage)</param>
 					</include>
 					<control type="label">
 						<top>650</top>

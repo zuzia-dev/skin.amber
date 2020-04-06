@@ -650,19 +650,208 @@
         </control>
     </include>
 
-    <include name="StandardViewSwitches">
-        <param name="viewid"/>
-        <definition>
-            <control type="radiobutton" id="9$PARAM[viewid]1" description="View Banners">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(TvShows)</visible>
+    <!--  List Views Setting to disable the info panel -->
+    <include name="ViewSettingsDisablePanel">
+	    <param name="viewid"/>
+		<definition>
+		    <control type="radiobutton" id="9$PARAM[viewid]10">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows) + $EXP[PanelShouldShow]</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
-                <onclick>Skin.ToggleSetting($PARAM[viewid]_UseBanners)</onclick>
-                <selected>Skin.HasSetting($PARAM[viewid]_UseBanners)</selected>
-                <label>- $LOCALIZE[31992]</label>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_TvShows_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_TvShows_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
             </control>
-            <control type="radiobutton" id="9$PARAM[viewid]2" description="View TV Show Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(TvShows)</visible>
+            <control type="radiobutton" id="9$PARAM[viewid]11">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(seasons)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Seasons_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Seasons_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]12">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(episodes)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Episodes_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Episodes_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]13">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(movies)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Movies_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Movies_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]14">
+                <visible>Control.IsVisible($PARAM[viewid]) + [Container.Content(albums) | Container.Content(artists)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Music_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Music_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]15">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(images)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Images_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Images_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]16">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(addons)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Addons_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Addons_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>
+			<control type="radiobutton" id="9$PARAM[viewid]17">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(musicvideos)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_MusicVideos_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_MusicVideos_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>
+            <control type="radiobutton" id="9$PARAM[viewid]18">
+                <visible>Control.IsVisible($PARAM[viewid]) + $EXP[PanelShouldShow] + ![container.content(episodes) | container.content(addons) | container.content(artists) | 
+				                                             container.content(albums) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | 
+															 container.content(tvshows) | container.content(seasons)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Others_DisablePanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Others_DisablePanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32240]</label>
+            </control>
+		</definition>
+	</include>
+	
+	<!-- List View Setting to swap the list and the info panel positions -->
+	<include name="ViewSettingsSwapPanel">
+	    <param name="viewid"/>
+		<definition>
+		    <control type="radiobutton" id="9$PARAM[viewid]19">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows) + !Skin.HasSetting($PARAM[viewid]_TvShows_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_TvShows_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_TvShows_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>
+            <control type="radiobutton" id="9$PARAM[viewid]20">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(seasons) + !Skin.HasSetting($PARAM[viewid]_Seasons_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Seasons_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Seasons_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]21">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(episodes) + !Skin.HasSetting($PARAM[viewid]_Episodes_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Episodes_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Episodes_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]22">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(movies) + !Skin.HasSetting($PARAM[viewid]_Movies_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Movies_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Movies_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]23">
+                <visible>Control.IsVisible($PARAM[viewid]) + [Container.Content(albums) | Container.Content(artists)] + !Skin.HasSetting($PARAM[viewid]_Music_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Music_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Music_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]24">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(images) + !Skin.HasSetting($PARAM[viewid]_Images_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Images_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Images_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>    
+            <control type="radiobutton" id="9$PARAM[viewid]25">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(addons) + !Skin.HasSetting($PARAM[viewid]_Addons_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Addons_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Addons_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>
+			<control type="radiobutton" id="9$PARAM[viewid]26">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(musicvideos) + !Skin.HasSetting($PARAM[viewid]_MusicVideos_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_MusicVideos_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_MusicVideos_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>
+            <control type="radiobutton" id="9$PARAM[viewid]27">
+                <visible>Control.IsVisible($PARAM[viewid]) + $EXP[PanelShouldShow] + !Skin.HasSetting($PARAM[viewid]_Others_DisablePanel) + ![container.content(episodes) | container.content(addons) | 
+				                                             container.content(artists) | container.content(albums) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | 
+															 container.content(tvshows) | container.content(seasons)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Others_SwapPanel)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Others_SwapPanel)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32241]</label>
+            </control>
+		</definition>
+	</include>
+	
+	<!-- List View Setting to make the picture larger for images (no info panel) -->
+	<include name="ViewSettingsLargeImage">
+	    <param name="viewid"/>
+		<definition>
+		    <control type="radiobutton" id="9$PARAM[viewid]28">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(images) + Skin.HasSetting($PARAM[viewid]_Images_DisablePanel)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Images_LargeImage)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Images_LargeImage)</selected>
+                <textoffsetx>16</textoffsetx>
+                <label>- $LOCALIZE[32242]</label>
+            </control>
+		</definition>
+	</include>
+
+
+    <include name="ViewSettingsSmallIcons">
+	    <param name="viewid"/>
+		<definition>
+		    <control type="radiobutton" id="9$PARAM[viewid]2" description="View TV Show Small icons">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_TvShows_SmallIcons)</onclick>
@@ -671,7 +860,7 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>
             <control type="radiobutton" id="9$PARAM[viewid]3" description="View Seasons Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Seasons)</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(seasons)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_Seasons_SmallIcons)</onclick>
@@ -680,7 +869,7 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>    
             <control type="radiobutton" id="9$PARAM[viewid]4" description="View Episodes Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Episodes)</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(episodes)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_Episodes_SmallIcons)</onclick>
@@ -689,7 +878,7 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>    
             <control type="radiobutton" id="9$PARAM[viewid]5" description="View Movies Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Movies)</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(movies)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_Movies_SmallIcons)</onclick>
@@ -707,7 +896,7 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>    
             <control type="radiobutton" id="9$PARAM[viewid]7" description="View $PARAM[viewid] Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Images)</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(images)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_Images_SmallIcons)</onclick>
@@ -716,7 +905,7 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>    
             <control type="radiobutton" id="9$PARAM[viewid]8" description="View 53 Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(Addons)</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(addons)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_Addons_SmallIcons)</onclick>
@@ -725,15 +914,101 @@
                 <label>- $LOCALIZE[1438]</label>
             </control>
             <control type="radiobutton" id="9$PARAM[viewid]9" description="View 53 Small icons">
-                <visible>Control.IsVisible($PARAM[viewid]) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(TVshows) | container.content(seasons)]</visible>
+                <visible>Control.IsVisible($PARAM[viewid]) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
                 <onclick>Skin.ToggleSetting($PARAM[viewid]_SmallIcons)</onclick>
                 <selected>Skin.HasSetting($PARAM[viewid]_SmallIcons)</selected>
                 <textoffsetx>16</textoffsetx>
                 <label>- $LOCALIZE[1438]</label>
-            </control> 
+            </control>
+		</definition>
+	</include>	
+
+
+    <include name="IconViewSwitches">
+        <param name="viewid"/>
+        <definition>
+            <control type="radiobutton" id="9$PARAM[viewid]1" description="View Banners">
+                <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_UseBanners)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_UseBanners)</selected>
+                <label>- $LOCALIZE[31992]</label>
+            </control>
+			<include content="ViewSettingsSmallIcons">
+			    <param name="viewid">$PARAM[viewid]</param>
+			</include>
         </definition>
+    </include>
+	
+	<include name="ListViewSwitches">
+        <param name="viewid"/>
+        <definition>
+            <include content="ViewSettingsDisablePanel">
+			    <param name="viewid">$PARAM[viewid]</param>
+			</include>
+			<include content="ViewSettingsSwapPanel">
+			    <param name="viewid">$PARAM[viewid]</param>
+			</include>
+			<include content="ViewSettingsLargeImage">
+			    <param name="viewid">$PARAM[viewid]</param>
+			</include>
+        </definition>
+    </include>
+	
+	<include name="FanartViewSwitches">
+	    <control type="radiobutton" id="9163" description="Fanart View: Show Info for Episodes">
+            <visible>Control.IsVisible(56)+ container.content(episodes)</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Episodes_Info)</onclick>
+            <selected>Skin.HasSetting(56_Episodes_Info)</selected>
+            <label>- $LOCALIZE[31968]</label>
+        </control>
+        <control type="radiobutton" id="9162" description="Fanart view: Enable gallery for EPISODES">
+            <visible>Control.IsVisible(56) + container.content(episodes)</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Episodes_Gallery)</onclick>
+            <selected>Skin.HasSetting(56_Episodes_Gallery)</selected>
+            <label>- $LOCALIZE[31970]</label>
+        </control>
+
+        <control type="radiobutton" id="9166" description="Fanart view: Enable Info for MUSIC">
+            <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Music_Info)</onclick>
+            <selected>Skin.HasSetting(56_Music_Info)</selected>
+            <label>- $LOCALIZE[31968]</label>
+        </control>
+        <control type="radiobutton" id="9165" description="Fanart view: Enable gallery for MUSIC">
+            <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Music_Gallery)</onclick>
+            <selected>Skin.HasSetting(56_Music_Gallery)</selected>
+            <label>- $LOCALIZE[31970]</label>
+        </control>
+
+        <control type="radiobutton" id="9169" description="Fanart view: Enable Info for POSTERS">
+            <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Posters_Info)</onclick>
+            <selected>Skin.HasSetting(56_Posters_Info)</selected>
+            <label>- $LOCALIZE[31968]</label>
+        </control>
+        <control type="radiobutton" id="9168" description="Fanart view: Enable gallery for POSTERS">
+            <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(56_Posters_Gallery)</onclick>
+            <selected>Skin.HasSetting(56_Posters_Gallery)</selected>
+            <label>- $LOCALIZE[31970]</label>
+        </control>
     </include>
 
     <include name="9000GrouplistParameters">
@@ -778,68 +1053,31 @@
             <onclick>Control.SetFocus(9600)</onclick>
         </control>
 
-        <include content="StandardViewSwitches">
+        <include content="IconViewSwitches">
             <param name="viewid">53</param>
         </include>
 
-        <include content="StandardViewSwitches">
+        <include content="IconViewSwitches">
             <param name="viewid">55</param>
         </include>
 
-        <include content="StandardViewSwitches">
+        <include content="IconViewSwitches">
             <param name="viewid">51</param>
         </include>
+		
+		<include content="ListViewSwitches">
+            <param name="viewid">50</param>
+        </include>
 
-        <control type="radiobutton" id="9163" description="View 57 Enable info for EPISODES">
-            <visible>Control.IsVisible(56)+ container.content(episodes)</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Episodes_Info)</onclick>
-            <selected>Skin.HasSetting(56_Episodes_Info)</selected>
-            <label>- $LOCALIZE[31968]</label>
-        </control>
-        <control type="radiobutton" id="9162" description="View 57 Enable gallery for EPISODES">
-            <visible>Control.IsVisible(56) + container.content(episodes)</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Episodes_Gallery)</onclick>
-            <selected>Skin.HasSetting(56_Episodes_Gallery)</selected>
-            <label>- $LOCALIZE[31970]</label>
-        </control>
+        <include content="ListViewSwitches">
+            <param name="viewid">54</param>
+        </include>
 
-        <control type="radiobutton" id="9166" description="View 58 Enable Info for MUSIC">
-            <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Music_Info)</onclick>
-            <selected>Skin.HasSetting(56_Music_Info)</selected>
-            <label>- $LOCALIZE[31968]</label>
-        </control>
-        <control type="radiobutton" id="9165" description="View 58 Enable gallery for MUSIC">
-            <visible>Control.IsVisible(56) + [container.content(albums) | container.content(artists)]</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Music_Gallery)</onclick>
-            <selected>Skin.HasSetting(56_Music_Gallery)</selected>
-            <label>- $LOCALIZE[31970]</label>
-        </control>
+        <include content="ListViewSwitches">
+            <param name="viewid">501</param>
+        </include>
 
-        <control type="radiobutton" id="9169" description="View 59 Enable Info for POSTERS">
-            <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Posters_Info)</onclick>
-            <selected>Skin.HasSetting(56_Posters_Info)</selected>
-            <label>- $LOCALIZE[31968]</label>
-        </control>
-        <control type="radiobutton" id="9168" description="View 59 Enable gallery for POSTERS">
-            <visible>Control.IsVisible(56) + [container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)]</visible>
-            <font>ListDetails</font>
-            <include>9000SysButtons</include>
-            <onclick>Skin.ToggleSetting(56_Posters_Gallery)</onclick>
-            <selected>Skin.HasSetting(56_Posters_Gallery)</selected>
-            <label>- $LOCALIZE[31970]</label>
-        </control>
+        <include>FanartViewSwitches</include>
 
         <control type="button" id="6053">
             <include>9000SysButtons</include>
@@ -1374,7 +1612,7 @@
 					<control type="textbox">
                         <top>5</top>
 						<visible>[!Skin.HasSetting(ShowAudioSub) + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
-						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
 								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						<align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
@@ -1605,7 +1843,7 @@
 					<control type="textbox" id="4001">
                         <top>5</top>
 						<visible>[!Skin.HasSetting(ShowAudioSub) + [Container.Content(movies) | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
-						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
+						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
 								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						<align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
@@ -1625,7 +1863,7 @@
                     </control>
 					<!-- Plot for other content types -->
 					<control type="textbox" id="4001">
-                        <visible>![Container.Content(movies) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(seasons)] + ![$PARAM[subcontent_visible]]</visible>
+                        <visible>![Container.Content(movies) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(sets)] + ![$PARAM[subcontent_visible]]</visible>
 						<align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>

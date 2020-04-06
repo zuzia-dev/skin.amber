@@ -14,7 +14,10 @@
 		<movement>2</movement>
 	</include>
 
-    <!-- List layout for all List views except BigList -->
+    <!-- ==================== -->
+    <!-- =   List Layouts   = -->
+    <!-- ==================== -->
+	
 	<include name="List_Layout">
 	    <param name="id">50</param>
         <param name="ListLabelFont"></param>
@@ -22,16 +25,19 @@
         <param name="itemheight"></param>
         <param name="BGposy"></param>
 		<definition>
-		    <itemlayout condition="!Skin.HasSetting(DisableListPanel) + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+		    
+			<!-- Itemlayouts/Focusedlayouts when panel is enabled  and not swapped -->
+		    
+		    <itemlayout condition="![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
 			    <control type="image" description="BG">
     				<posy>0</posy>
-				    <posx>580</posx>
+				    <posx>670</posx>
 				    <width>670</width>
 				    <height>$PARAM[itemheight]</height>
 				    <texture flipy="true" border="3">list/ListNF.png</texture>
 			    </control>
                 <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>679</posx>
 				    <height>$PARAM[itemheight]</height>
 				    <width>600</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
@@ -41,9 +47,9 @@
                     <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>679</posx>
 				    <height>$PARAM[itemheight]</height>
-				    <width>465</width>
+				    <width>475</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
                     <font>$PARAM[ListLabelFont]</font>
@@ -51,9 +57,9 @@
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label">
-    				<right>30</right>
+    				<posx>1115</posx>
 				    <posy>0</posy>
-				    <width>500</width>
+				    <width>180</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
@@ -61,28 +67,29 @@
 				    <textcolor>Grey</textcolor>
 				    <align>right</align>
 				    <label>$VAR[MediaListLabel2]</label>
-                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + !Container.Content(albums)</visible>
 			    </control>
-			    <control type="label" description ="Workaround label spacing for watched overlay">
-    				<visible>String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons)</visible>
-				    <width>1240</width>
+				<control type="label">
+    				<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>220</width>
 				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
 					<font>$PARAM[ListLabel2Font]</font>
-				    <textcolor>0000000</textcolor>
-				    <selectedcolor></selectedcolor>
-				    <shadowcolor></shadowcolor>
+				    <textcolor>Grey</textcolor>
 				    <align>right</align>
-				    <label>KJIJA</label>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + Container.Content(albums)</visible>
 			    </control>
 			    <include content="ListWatchedOverlay">
                     <param name="itemheight">$PARAM[itemheight]</param>
                     <param name="BGposy">$PARAM[BGposy]</param>
                 </include>
 		    </itemlayout>
-		    <focusedlayout condition="!Skin.HasSetting(DisableListPanel) + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+		    <focusedlayout condition="![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
 			    <control type="image" description="BG">
-    				<posx>589</posx>
+    				<posx>679</posx>
 					<posy>0</posy>
 					<height>$PARAM[itemheight]</height>
                     <width>670</width>
@@ -90,7 +97,7 @@
 				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
 			    </control>
                 <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>679</posx>
 				    <height>$PARAM[itemheight]</height>
 				    <width>600</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
@@ -103,7 +110,304 @@
                     <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>475</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1115</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + !Container.Content(albums)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1115</posx>
+		    		<posy>0</posy>
+			    	<width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + Container.Content(albums)</visible>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+		    
+		    <itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>670</posx>
+				    <width>680</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>590</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1095</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="ListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>679</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>680</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>590</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1095</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- Itemlayout/FocusedLayout when the panel is enabled and swapped -->
+			
+			<itemlayout condition="![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>10</posy>
+				    <posx>0</posx>
+				    <width>640</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>10</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>464</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="ListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>10</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>640</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>10</posx>
 				    <height>$PARAM[itemheight]</height>
 				    <width>465</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
@@ -116,9 +420,9 @@
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
     			<control type="label">
-	    			<right>30</right>
+	    			<posx>464</posx>
 		    		<posy>0</posy>
-			    	<width>500</width>
+			    	<width>180</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 					<textoffsetx>16</textoffsetx>
@@ -130,46 +434,415 @@
 					<label>$VAR[MediaListLabel2]</label>
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 			    </control>
-				<control type="label" description ="Workaround label spacing for watched overlay">
-					<visible>String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons)</visible>
-					<width>1250</width>
-					<height>$PARAM[itemheight]</height>
-					<textoffsetx>16</textoffsetx>
-					<font>$PARAM[ListLabel2Font]</font>
-					<textcolor>0000000</textcolor>
-					<selectedcolor></selectedcolor>
-					<shadowcolor></shadowcolor>
-					<align>right</align>
-					<label>KJIJA</label>
-				</control>			
 				<include content ="ListWatchedOverlay">
 					<param name="isFocused">true</param>
                     <param name="itemheight">$PARAM[itemheight]</param>
                     <param name="BGposy">$PARAM[BGposy]</param>
 				</include>
 			</focusedlayout>
-		    <itemlayout condition="![$EXP[PanelShouldShow]] | Skin.HasSetting(DisableListPanel)" height="$PARAM[itemheight]" width="1210">
-			    <control type="image">
+		    
+			<itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>-20</posy>
 				    <posx>0</posx>
+				    <width>680</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>435</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>415</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="ListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[ListPanelIsDisabled]] + $EXP[ListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>-20</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>680</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>435</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>415</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No info panel should show or it is disabled and not images -->
+			
+			<itemlayout condition="[![$EXP[PanelShouldShow]] | $EXP[ListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+				    <posx>20</posx>
 				    <posy>0</posy>
 				    <height>$PARAM[itemheight]</height>
-				    <width>1250</width>
+				    <width>1320</width>
 				    <texture flipy="true" border="3">list/ListNF.png</texture>
 			    </control>
 			    <control type="label">
     				<posx>25</posx>
 				    <posy>0</posy>
-				    <width>900</width>
+				    <width>1120</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
                     <font>$PARAM[ListLabelFont]</font>
 				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>995</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
                 </control>
 			    <control type="label">
-    				<right>70</right>
+    				<right>45</right>
 				    <posy>0</posy>
-				    <width>400</width>
+				    <width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<control type="label">
+    				<right>65</right>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+    				<right>5</right>
+				    <posy>0</posy>
+				    <width>295</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+			    <include content="ListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="[![$EXP[PanelShouldShow]] | $EXP[ListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+    				<posx>20</posx>
+				    <posy>1</posy>
+					<height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>995</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<right>45</right>
+		    		<posy>0</posy>
+			    	<width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<control type="label">
+	    			<right>65</right>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+	    			<right>5</right>
+		    		<posy>0</posy>
+			    	<width>295</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No Panel, images, normal size image -->
+			<itemlayout condition="$EXP[ListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+				    <posx>20</posx>
+				    <posy>0</posy>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+			    <control type="label">
+    				<right>45</right>
+				    <posy>0</posy>
+				    <width>150</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
@@ -184,19 +857,19 @@
                     <param name="BGposy">$PARAM[BGposy]</param>
                 </include>
 		    </itemlayout>
-		    <focusedlayout condition="![$EXP[PanelShouldShow]] | Skin.HasSetting(DisableListPanel)" height="$PARAM[itemheight]" width="1210">
+		    <focusedlayout condition="$EXP[ListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
 			    <control type="image">
-    				<posx>0</posx>
+    				<posx>20</posx>
 				    <posy>1</posy>
 					<height>$PARAM[itemheight]</height>
-				    <width>1250</width>
+				    <width>1320</width>
 					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
 			    </control>
 			    <control type="label">
     				<posx>25</posx>
 				    <posy>0</posy>
-				    <width>900</width>
+				    <width>1120</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 					<textoffsetx>16</textoffsetx>
@@ -205,11 +878,26 @@
 					<shadowcolor></shadowcolor>
                     <font>$PARAM[ListLabelFont]</font>
 					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
     			<control type="label">
-	    			<right>70</right>
+	    			<right>45</right>
 		    		<posy>0</posy>
-			    	<width>400</width>
+			    	<width>150</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>false</scroll>
 					<textoffsetx>16</textoffsetx>
@@ -228,18 +916,19 @@
 				</include>
 			</focusedlayout>
 			
-		    <itemlayout condition="[$EXP[PanelShouldShow] + !Skin.HasSetting(DisableListPanel)] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			<!-- No Panel, images, large image -->
+			<itemlayout condition="$EXP[ListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
 			    <control type="image" description="BG">
     				<posy>0</posy>
-				    <posx>580</posx>
-				    <width>670</width>
+				    <posx>430</posx>
+				    <width>1070</width>
 				    <height>$PARAM[itemheight]</height>
 				    <texture flipy="true" border="3">list/ListNF.png</texture>
 			    </control>
                 <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>439</posx>
 				    <height>$PARAM[itemheight]</height>
-				    <width>600</width>
+				    <width>1000</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
                     <font>$PARAM[ListLabelFont]</font>
@@ -247,9 +936,9 @@
                     <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>439</posx>
 				    <height>$PARAM[itemheight]</height>
-				    <width>465</width>
+				    <width>875</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
                     <font>$PARAM[ListLabelFont]</font>
@@ -257,9 +946,9 @@
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label">
-    				<right>30</right>
+    				<posx>1115</posx>
 				    <posy>0</posy>
-				    <width>500</width>
+				    <width>180</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 				    <textoffsetx>16</textoffsetx>
@@ -269,26 +958,149 @@
 				    <label>$VAR[MediaListLabel2]</label>
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 			    </control>
-			    <control type="label" description ="Workaround label spacing for watched overlay">
-    				<visible>String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons)</visible>
-				    <width>1240</width>
-				    <height>$PARAM[itemheight]</height>
-				    <textoffsetx>16</textoffsetx>
-					<font>$PARAM[ListLabel2Font]</font>
-				    <textcolor>0000000</textcolor>
-				    <selectedcolor></selectedcolor>
-				    <shadowcolor></shadowcolor>
-				    <align>right</align>
-				    <label>KJIJA</label>
-			    </control>
 			    <include content="ListWatchedOverlay">
                     <param name="itemheight">$PARAM[itemheight]</param>
                     <param name="BGposy">$PARAM[BGposy]</param>
                 </include>
 		    </itemlayout>
-		    <focusedlayout condition="[$EXP[PanelShouldShow] + !Skin.HasSetting(DisableListPanel)] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+		    <focusedlayout condition="$EXP[ListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
 			    <control type="image" description="BG">
-    				<posx>589</posx>
+    				<posx>439</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>1070</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1000</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>875</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1115</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="ListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+		</definition>
+	</include>
+
+
+    <!-- ==================== -->
+    <!-- = Low List Layouts = -->
+    <!-- ==================== -->
+
+    <include name="LowList_Layout">
+	    <param name="id">54</param>
+        <param name="ListLabelFont"></param>
+        <param name="ListLabel2Font"></param>
+        <param name="itemheight"></param>
+        <param name="BGposy"></param>
+		
+		<definition>
+		    
+			<!-- Itemlayouts/Focusedlayouts when panel is enabled  and not swapped -->
+		    
+		    <itemlayout condition="![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>870</posx>
+				    <width>670</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>475</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + !Container.Content(albums)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + Container.Content(albums)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>879</posx>
 					<posy>0</posy>
 					<height>$PARAM[itemheight]</height>
                     <width>670</width>
@@ -296,7 +1108,7 @@
 				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
 			    </control>
                 <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>879</posx>
 				    <height>$PARAM[itemheight]</height>
 				    <width>600</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
@@ -309,7 +1121,304 @@
                     <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
 			    <control type="label" description="Main Label">
-    				<posx>589</posx>
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>475</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1315</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + !Container.Content(albums)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1315</posx>
+		    		<posy>0</posy>
+			    	<width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + Container.Content(albums)</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+		    
+		    <itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>870</posx>
+				    <width>680</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1295</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>879</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>680</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>879</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1295</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- Itemlayout/FocusedLayout when the panel is enabled and swapped -->
+			
+			<itemlayout condition="![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>10</posy>
+				    <posx>0</posx>
+				    <width>640</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>469</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>10</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>640</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>9</posx>
 				    <height>$PARAM[itemheight]</height>
 				    <width>465</width>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
@@ -322,9 +1431,9 @@
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 				</control>
     			<control type="label">
-	    			<right>30</right>
+	    			<posx>469</posx>
 		    		<posy>0</posy>
-			    	<width>500</width>
+			    	<width>180</width>
 				    <height>$PARAM[itemheight]</height>
 				    <scroll>$VAR[LongLabelScroll]</scroll>
 					<textoffsetx>16</textoffsetx>
@@ -336,26 +1445,1585 @@
 					<label>$VAR[MediaListLabel2]</label>
                     <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
 			    </control>
-				<control type="label" description ="Workaround label spacing for watched overlay">
-					<visible>String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,set) | Container.Content(addons)</visible>
-					<width>1250</width>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+		    
+			<itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>-20</posy>
+				    <posx>0</posx>
+				    <width>680</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>435</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+    				<posx>415</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>-20</posx>
+					<posy>0</posy>
 					<height>$PARAM[itemheight]</height>
+                    <width>680</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>0</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>435</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
 					<textoffsetx>16</textoffsetx>
 					<font>$PARAM[ListLabel2Font]</font>
-					<textcolor>0000000</textcolor>
-					<selectedcolor></selectedcolor>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
 					<shadowcolor></shadowcolor>
 					<align>right</align>
-					<label>KJIJA</label>
-				</control>			
-				<include content ="ListWatchedOverlay">
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+	    			<posx>415</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No info panel should show or it is disabled -->
+			
+			<itemlayout condition="[![$EXP[PanelShouldShow]] | $EXP[LowListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image">
+				    <posx>20</posx>
+				    <posy>0</posy>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1520</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1320</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1195</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1440</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+			    <control type="label">
+    				<posx>1295</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1235</posx>
+				    <posy>0</posy>
+				    <width>300</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="[![$EXP[PanelShouldShow]] | $EXP[LowListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image">
+    				<posx>20</posx>
+				    <posy>1</posy>
+					<height>$PARAM[itemheight]</height>
+				    <width>1520</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1320</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1195</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1440</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1295</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1235</posx>
+				    <posy>0</posy>
+				    <width>300</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No Panel, images, normal size image -->
+			<itemlayout condition="$EXP[LowListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image">
+				    <posx>20</posx>
+				    <posy>0</posy>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1520</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1320</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1440</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+			    <control type="label">
+    				<right>45</right>
+				    <posy>0</posy>
+				    <width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[LowListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image">
+    				<posx>20</posx>
+				    <posy>1</posy>
+					<height>$PARAM[itemheight]</height>
+				    <width>1520</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1320</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label">
+    				<posx>25</posx>
+				    <posy>0</posy>
+				    <width>1440</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<right>45</right>
+		    		<posy>0</posy>
+			    	<width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No Panel, images, large image -->
+			<itemlayout condition="$EXP[LowListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>430</posx>
+				    <width>1270</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1200</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1075</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1315</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="LowListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[LowListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1540">
+			    <control type="image" description="BG">
+    				<posx>439</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>1270</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1200</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1075</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1315</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="LowListWatchedOverlay">
 					<param name="isFocused">true</param>
                     <param name="itemheight">$PARAM[itemheight]</param>
                     <param name="BGposy">$PARAM[BGposy]</param>
 				</include>
 			</focusedlayout>
 		</definition>
+	</include>	
+
+    <!-- ===================== -->
+    <!-- = Tall List Layouts = -->
+    <!-- ===================== -->
+	
+	<include name="TallList_Layout">
+	    <param name="id">501</param>
+        <param name="ListLabelFont"></param>
+        <param name="ListLabel2Font"></param>
+        <param name="itemheight"></param>
+        <param name="BGposy"></param>
+		<definition>
+		    
+			<!-- Itemlayouts/Focusedlayouts when panel is enabled  and not swapped -->
+		    
+		    <itemlayout condition="![$EXP[TallListPanelIsDisabled]] + ![$EXP[TallListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>670</posx>
+				    <width>670</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>475</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<control type="label">
+    				<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="![$EXP[TallListPanelIsDisabled]] + ![$EXP[TallListPanelIsSwapped]] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>679</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>670</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>475</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1115</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1115</posx>
+		    		<posy>0</posy>
+			    	<width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+		    
+		    <itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[TallListPanelIsDisabled]] + ![$EXP[TallListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>670</posx>
+				    <width>680</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>590</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1095</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[TallListPanelIsDisabled]] + ![$EXP[TallListPanelIsSwapped]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>679</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>680</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>610</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>590</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>440</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>679</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1095</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>1115</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- Itemlayout/FocusedLayout when the panel is enabled and swapped -->
+			
+			<itemlayout condition="![$EXP[TallListPanelIsDisabled]] + $EXP[TallListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>80</posy>
+				    <posx>0</posx>
+				    <width>640</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>455</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>494</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<control type="label">
+    				<posx>494</posx>
+				    <posy>0</posy>
+				    <width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="![$EXP[TallListPanelIsDisabled]] + $EXP[TallListPanelIsSwapped] + [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | Container.Content(images) | Container.Content(games)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>80</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>640</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>600</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>455</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>494</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<control type="label">
+	    			<posx>494</posx>
+		    		<posy>0</posy>
+			    	<width>220</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(images)]</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+		    
+			<itemlayout condition="$EXP[PanelShouldShow] + ![$EXP[TallListPanelIsDisabled]] + $EXP[TallListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posy>80</posy>
+				    <posx>0</posx>
+				    <width>640</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>560</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>410</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>495</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+    				<posx>475</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[PanelShouldShow] + ![$EXP[TallListPanelIsDisabled]] + $EXP[TallListPanelIsSwapped] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]" height="$PARAM[itemheight]" width="1210">
+			    <control type="image" description="BG">
+    				<posx>80</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>640</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>580</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>560</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>465</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>85</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>410</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>495</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>![Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<control type="label">
+	    			<posx>475</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No info panel should show or it is disabled and not images -->
+			
+			<itemlayout condition="[![$EXP[PanelShouldShow]] | $EXP[TallListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+				    <posx>80</posx>
+				    <posy>0</posy>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>995</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+                </control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+			    <control type="label">
+    				<right>45</right>
+				    <posy>0</posy>
+				    <width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<control type="label">
+    				<right>65</right>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+    				<right>5</right>
+				    <posy>0</posy>
+				    <width>295</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="[![$EXP[PanelShouldShow]] | $EXP[TallListPanelIsDisabled]] + !Container.Content(images)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+    				<posx>80</posx>
+				    <posy>1</posy>
+					<height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>995</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+				</control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<right>45</right>
+		    		<posy>0</posy>
+			    	<width>150</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + ![Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<control type="label">
+	    			<right>65</right>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
+			    </control>
+				<control type="label">
+	    			<right>5</right>
+		    		<posy>0</posy>
+			    	<width>295</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists) + [Container.Content(albums) | Container.Content(songs)]</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No Panel, images, normal size image -->
+			<itemlayout condition="$EXP[TallListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+				    <posx>80</posx>
+				    <posy>0</posy>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+			    <control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+                </control>
+			    <control type="label">
+    				<right>5</right>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[TallListPanelIsDisabled] + Container.Content(images) + !Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image">
+    				<posx>80</posx>
+				    <posy>1</posy>
+					<height>$PARAM[itemheight]</height>
+				    <width>1320</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+			    <control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1120</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+				<control type="label">
+    				<posx>85</posx>
+				    <posy>0</posy>
+				    <width>1240</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<right>5</right>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>false</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+			<!-- No Panel, images, large image -->
+			<itemlayout condition="$EXP[TallListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>430</posx>
+				    <width>1070</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1000</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>875</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label">
+    				<posx>1155</posx>
+				    <posy>0</posy>
+				    <width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+				    <textcolor>Grey</textcolor>
+				    <align>right</align>
+				    <label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+			    <include content="TallListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout condition="$EXP[TallListPanelIsDisabled] + Container.Content(images) + Skin.HasSetting($PARAM[id]_Images_LargeImage)" height="$PARAM[itemheight]" width="1340">
+			    <control type="image" description="BG">
+    				<posx>439</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>1070</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>1000</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+			    <control type="label" description="Main Label">
+    				<posx>439</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>875</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+				</control>
+    			<control type="label">
+	    			<posx>1155</posx>
+		    		<posy>0</posy>
+			    	<width>180</width>
+				    <height>$PARAM[itemheight]</height>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<font>$PARAM[ListLabel2Font]</font>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+					<align>right</align>
+					<label>$VAR[MediaListLabel2]</label>
+                    <visible>!Skin.HasSetting(Hide.Label2.Lists)</visible>
+			    </control>
+				<include content ="TallListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+		</definition>
 	</include>
+
 
     <!-- List layout for BigList -->
 	<include name="52_layout">

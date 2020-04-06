@@ -133,7 +133,7 @@
     </variable>
 
     <variable name="MediaListLabel2">
-        <value condition="Container.Content(albums) | Container.Content(songs)">$INFO[ListItem.artist]</value>
+        <value condition="Container.Content(songs)">$INFO[ListItem.artist]</value>
         <value>$INFO[ListItem.Label2]</value>
     </variable>
 
@@ -152,7 +152,7 @@
 
     <variable name="Overlay" description="Overlay image">
         <value condition="String.StartsWith(ListItem.FolderPath,plugin://) + !String.IsEmpty(ListItem.DBID)">Library.png</value>
-		<value condition="ListItem.IsCollection">Collection.png</value>
+		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection">Collection.png</value>
         <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
         <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">OverlayInProgress.png</value>
         <value condition="Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable"></value>
@@ -1280,9 +1280,47 @@
                                        [String.IsEqual(Window(Home).Property(InfoExtrasDBType),movie) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),tvshow) | 
                                         String.IsEqual(Window(Home).Property(InfoExtrasDBType),season) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),episode)]]</expression>
 										
-	<expression name="PanelShouldShow">!String.IsEqual(ListItem.DBType,song) + [[!String.IsEmpty(ListItem.Duration) | !String.IsEmpty(ListItem.Plot) | !String.IsEmpty(ListItem.Genre) | !String.IsEmpty(ListItem.Year) | !String.IsEmpty(ListItem.AddonDescription)] | 
+	<expression name="PanelShouldShow">!Container.Content(songs) + [[!String.IsEmpty(ListItem.Duration) | !String.IsEmpty(ListItem.Plot) | !String.IsEmpty(ListItem.Genre) | !String.IsEmpty(ListItem.Year) | !String.IsEmpty(ListItem.AddonDescription)] | 
 	                                   [!String.IsEmpty(ListItem(1).Duration) | !String.IsEmpty(ListItem(1).Plot) | !String.IsEmpty(ListItem(1).Genre) | !String.IsEmpty(ListItem(1).Year) | !String.IsEmpty(ListItem(1).AddonDescription)] | 
 									   [!String.IsEmpty(ListItem(2).Duration) | !String.IsEmpty(ListItem(2).Plot) | !String.IsEmpty(ListItem(2).Genre) | !String.IsEmpty(ListItem(2).Year) | !String.IsEmpty(ListItem(2).AddonDescription)] | 
 									   [!String.IsEmpty(ListItem(3).Duration) | !String.IsEmpty(ListItem(3).Plot) | !String.IsEmpty(ListItem(3).Genre) | !String.IsEmpty(ListItem(3).Year) | !String.IsEmpty(ListItem(3).AddonDescription)] | 
 	                                   [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem(1).Genre)]]</expression>
+										  
+    <expression name="ListPanelIsDisabled">Skin.HasSetting(DisableListPanel) | [[Container.Content(movies) + Skin.HasSetting(50_Movies_DisablePanel)] | [Container.Content(tvshows) + Skin.HasSetting(50_TVShows_DisablePanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(50_Seasons_DisablePanel)] | [Container.Content(episodes) + Skin.HasSetting(50_Episodes_DisablePanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(50_MusicVideos_DisablePanel)] | [Container.Content(addons) + Skin.HasSetting(50_Addons_DisablePanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(50_Images_DisablePanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(50_Music_DisablePanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(50_Others_DisablePanel)]]</expression>
+    <expression name="LowListPanelIsDisabled">Skin.HasSetting(DisableListPanel) | [[Container.Content(movies) + Skin.HasSetting(54_Movies_DisablePanel)] | [Container.Content(tvshows) + Skin.HasSetting(54_TVShows_DisablePanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(54_Seasons_DisablePanel)] | [Container.Content(episodes) + Skin.HasSetting(54_Episodes_DisablePanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(54_MusicVideos_DisablePanel)] | [Container.Content(addons) + Skin.HasSetting(54_Addons_DisablePanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(54_Images_DisablePanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(54_Music_DisablePanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(54_Others_DisablePanel)]]</expression>
+    <expression name="TallListPanelIsDisabled">Skin.HasSetting(DisableListPanel) | [[Container.Content(movies) + Skin.HasSetting(501_Movies_DisablePanel)] | [Container.Content(tvshows) + Skin.HasSetting(501_TVShows_DisablePanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(501_Seasons_DisablePanel)] | [Container.Content(episodes) + Skin.HasSetting(501_Episodes_DisablePanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(501_MusicVideos_DisablePanel)] | [Container.Content(addons) + Skin.HasSetting(501_Addons_DisablePanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(501_Images_DisablePanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(501_Music_DisablePanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(501_Others_DisablePanel)]]</expression>										  
+    
+	<expression name="ListPanelIsSwapped">Skin.HasSetting(SwapListPanel) | [[Container.Content(movies) + Skin.HasSetting(50_Movies_SwapPanel)] | [Container.Content(tvshows) + Skin.HasSetting(50_TVShows_SwapPanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(50_Seasons_SwapPanel)] | [Container.Content(episodes) + Skin.HasSetting(50_Episodes_SwapPanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(50_MusicVideos_SwapPanel)] | [Container.Content(addons) + Skin.HasSetting(50_Addons_SwapPanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(50_Images_SwapPanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(50_Music_SwapPanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(50_Others_SwapPanel)]]</expression>
+    <expression name="LowListPanelIsSwapped">Skin.HasSetting(SwapListPanel) | [[Container.Content(movies) + Skin.HasSetting(54_Movies_SwapPanel)] | [Container.Content(tvshows) + Skin.HasSetting(54_TVShows_SwapPanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(54_Seasons_SwapPanel)] | [Container.Content(episodes) + Skin.HasSetting(54_Episodes_SwapPanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(54_MusicVideos_SwapPanel)] | [Container.Content(addons) + Skin.HasSetting(54_Addons_SwapPanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(54_Images_SwapPanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(54_Music_SwapPanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(54_Others_SwapPanel)]]</expression>
+    <expression name="TallListPanelIsSwapped">Skin.HasSetting(SwapListPanel) | [[Container.Content(movies) + Skin.HasSetting(501_Movies_SwapPanel)] | [Container.Content(tvshows) + Skin.HasSetting(501_TVShows_SwapPanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(501_Seasons_SwapPanel)] | [Container.Content(episodes) + Skin.HasSetting(501_Episodes_SwapPanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(501_MusicVideos_SwapPanel)] | [Container.Content(addons) + Skin.HasSetting(501_Addons_SwapPanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(501_Images_SwapPanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(501_Music_SwapPanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(501_Others_SwapPanel)]]</expression>
 </includes>
