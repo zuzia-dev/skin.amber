@@ -29,10 +29,12 @@
     <include file="Includes_List.xml" />
     <include file="View_50_List.xml" />
     <include file="View_51_Panel.xml" />
+	<include file="View_511_Panel2.xml" />
     <include file="View_52_BigList.xml" />
     <include file="View_53_Icons.xml" />
     <include file="View_54_LowList.xml" />
     <include file="View_55_BigPanel.xml" />
+	<include file="View_551_BigPanel2.xml" />
     <include file="View_56_Fanart.xml" />
     <include file="View_501_TallList.xml" />
     <include file="View_PVR.xml" />
@@ -570,18 +572,36 @@
                 <texture border="45">dialogs/TinyDialog.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,8)</visible>
+            </control>
+            <control type="image">
+                <posy>92</posy>
+                <width>300</width>
+                <height>532</height>
+                <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                <visible>Integer.IsEqual(Container(9600).NumItems,9)</visible>
+            </control>
+            <control type="image">
+                <posy>92</posy>
+                <width>300</width>
+                <height>586</height>
+                <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                <visible>Integer.IsEqual(Container(9600).NumItems,10)</visible>
             </control>            
             <control type="grouplist" id="9600">
                 <posx>26</posx>
                 <posy>116</posy>
                 <width>248</width>
-                <height>454</height>
+                <height>564</height>
                 <onleft>9000</onleft>
                 <onright condition="control.isvisible(52)">52</onright>
 		        <onright condition="control.isvisible(50)">50</onright>
 		        <onright condition="control.isvisible(54)">54</onright>
 		        <onright condition="control.isvisible(51)">51</onright>
+				<onright condition="control.isvisible(511)">511</onright>
 		        <onright condition="control.isvisible(55)">55</onright>
+				<onright condition="control.isvisible(551)">551</onright>
 		        <onright condition="control.isvisible(501)">501</onright>
 		        <onright condition="control.isvisible(53)">53</onright>
 		        <onright condition="control.isvisible(56)">56</onright>
@@ -625,12 +645,26 @@
                     <onclick>Container.SetViewMode(51)</onclick>
                     <visible>!Skin.HasSetting(hide.panelview)</visible>
                 </control>
+				<control type="button" id="96511">
+                    <description>Set View 511</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[32245]</label>
+                    <onclick>Container.SetViewMode(511)</onclick>
+                    <visible>!Skin.HasSetting(hide.panel2view)</visible>
+                </control>
                 <control type="button" id="9655">
                     <description>Set View 55</description>
                     <include>9000SysButtons</include>
                     <label>$LOCALIZE[31958]</label>
                     <onclick>Container.SetViewMode(55)</onclick>
                     <visible>!Skin.HasSetting(hide.bigpanelview)</visible>
+                </control>
+                <control type="button" id="96551">
+                    <description>Set View 551</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[32246]</label>
+                    <onclick>Container.SetViewMode(551)</onclick>
+                    <visible>!Skin.HasSetting(hide.bigpanel2view)</visible>
                 </control>                
                 <control type="button" id="9653">
                     <description>Set View 53</description>
@@ -1021,7 +1055,9 @@
 		<onright condition="Control.IsVisible(50)">50</onright>
 		<onright condition="Control.IsVisible(54)">54</onright>
 		<onright condition="Control.IsVisible(51)">51</onright>
+		<onright condition="Control.IsVisible(511)">511</onright>
 		<onright condition="Control.IsVisible(55)">55</onright>
+		<onright condition="Control.IsVisible(551)">551</onright>
 		<onright condition="Control.IsVisible(501)">501</onright>
 		<onright condition="Control.IsVisible(53)">53</onright>
 		<onright condition="Control.IsVisible(56)">56</onright>
@@ -1031,7 +1067,9 @@
 		<onback condition="Control.IsVisible(50)">50</onback>
 		<onback condition="Control.IsVisible(54)">54</onback>
 		<onback condition="Control.IsVisible(51)">51</onback>
+		<onback condition="Control.IsVisible(511)">511</onback>
 		<onback condition="Control.IsVisible(55)">55</onback>
+		<onback condition="Control.IsVisible(551)">551</onback>
 		<onback condition="Control.IsVisible(501)">501</onback>
 		<onback condition="Control.IsVisible(53)">53</onback>
 		<onback condition="Control.IsVisible(56)">56</onback>
@@ -1060,9 +1098,17 @@
         <include content="IconViewSwitches">
             <param name="viewid">55</param>
         </include>
-
+        
+		<include content="IconViewSwitches">
+            <param name="viewid">551</param>
+        </include>
+		
         <include content="IconViewSwitches">
             <param name="viewid">51</param>
+        </include>
+		
+		<include content="IconViewSwitches">
+            <param name="viewid">511</param>
         </include>
 		
 		<include content="ListViewSwitches">
@@ -3004,42 +3050,52 @@
 	
 	<!-- Default views includes: The first view id determines the default view -->
 	<include name="DefaultViews">
-        <views>50,51,52,53,54,55,56,501</views>
+        <views>50,51,511,52,53,54,55,551,56,501</views>
 		<defaultcontrol>50</defaultcontrol>
 		<onload>SetFocus(50)</onload>
     </include>
     <include name="TallListDefaultView">
-        <views>501,50,51,52,54,53,55,56</views>
+        <views>501,50,51,511,52,54,53,55,551,56</views>
 		<defaultcontrol>501</defaultcontrol>
 		<onload>SetFocus(501)</onload>
     </include>
 	<include name="LowListDefaultView">
-        <views>54,50,51,52,53,55,56,501</views>
+        <views>54,50,51,511,52,53,55,551,56,501</views>
 		<defaultcontrol>54</defaultcontrol>
 		<onload>SetFocus(54)</onload>
     </include>
 	<include name="BigListDefaultView">
-        <views>52,50,51,53,54,55,56,501</views>
+        <views>52,50,51,511,53,54,55,551,56,501</views>
 		<defaultcontrol>52</defaultcontrol>
 		<onload>SetFocus(52)</onload>
     </include>
 	<include name="PanelDefaultView">
-        <views>51,50,52,53,54,55,56,501</views>
+        <views>51,50,511,52,53,54,55,551,56,501</views>
 		<defaultcontrol>51</defaultcontrol>
 		<onload>SetFocus(51)</onload>
     </include>
+	<include name="Panel2DefaultView">
+        <views>511,50,51,52,53,54,55,551,56,501</views>
+		<defaultcontrol>511</defaultcontrol>
+		<onload>SetFocus(511)</onload>
+    </include>
 	<include name="BigPanelDefaultView">
-        <views>55,50,51,52,53,54,56,501</views>
+        <views>55,50,51,511,52,53,54,56,501</views>
 		<defaultcontrol>55</defaultcontrol>
 		<onload>SetFocus(55)</onload>
     </include>
+	<include name="BigPanel2DefaultView">
+        <views>551,50,51,511,52,53,54,55,56,501</views>
+		<defaultcontrol>551</defaultcontrol>
+		<onload>SetFocus(551)</onload>
+    </include>
 	<include name="IconsDefaultView">
-        <views>53,50,51,52,54,55,56,501</views>
+        <views>53,50,51,511,52,54,55,551,56,501</views>
 		<defaultcontrol>53</defaultcontrol>
 		<onload>SetFocus(53)</onload>
     </include>
 	<include name="FanartDefaultView">
-        <views>56,50,51,52,53,54,55,501</views>
+        <views>56,50,51,511,52,53,54,55,551,501</views>
 		<defaultcontrol>56</defaultcontrol>
 		<onload>SetFocus(56)</onload>
     </include>

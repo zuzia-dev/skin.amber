@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-
-    <onload condition="System.HasAddon(script.favourites)">RunScript(script.favourites)</onload>
+    
+	<onload condition="System.HasAddon(script.favourites)">RunScript(script.favourites)</onload>
 	<onload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;group=mainmenu|powermenu)</onload>
     <onload condition="System.HasAddon(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
+    <!-- Establish list as default view if no default view is set -->
 	<onload condition="!Skin.HasSetting(UseListDefault) + !Skin.HasSetting(UseTallListDefault) + !Skin.HasSetting(UseLowListDefault) + !Skin.HasSetting(UseBigListDefault) + !Skin.HasSetting(UsePanelDefault) + 
-	                   !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload>
+	                   !Skin.HasSetting(UsePanel2Default) + !Skin.HasSetting(UseBigPanelDefault) + !Skin.HasSetting(UseBigPanel2Default) + !Skin.HasSetting(UseIconsDefault) + !Skin.HasSetting(UseFanartDefault)">Skin.SetBool(UseListDefault)</onload>
 	<onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">Skin.SetString(FocusedMenu.BackgroundPlaylist,$INFO[Container(300).ListItem.Property(backgroundPlaylist)])</onunload>
 	<onunload condition="System.HasAddon(plugin.video.themoviedb.helper)">ClearProperty(TMDbHelper.WidgetContainer,home)</onunload>
 	<defaultcontrol always="true">300</defaultcontrol>
 	<controls>
+		
 		<control type="list" id="9988">
 			<description>hidden container for playlist background</description>
 			<posx>-20</posx>
@@ -18,13 +20,27 @@
 			<width>1</width>
 			<height>1</height>
 			<include>AutoscrollTime</include>
-			<itemlayout width="1" height="1">
-			</itemlayout>
-			<focusedlayout height="1" width="1">
-			</focusedlayout>
-			<content sortby="random">$INFO[Container(300).ListItem.Property(backgroundPlaylist)]</content>
+			<itemlayout />
+	        <focusedlayout />
+			<content sortby="random" limit="50">$INFO[Container(300).ListItem.Property(backgroundPlaylist)]</content>
 		</control>
         
+		<control type="fadelabel" id="398045">
+	        <description>Randomizer for playlist fanart</description>
+	        <top>-1000</top>
+	        <width>1</width>
+	        <height>1</height>
+	        <info>Container(9988).ListItem.Art(fanart)</info>
+	        <info>Container(9988).ListItem.Art(fanart1)</info>
+	        <info>Container(9988).ListItem.Art(fanart2)</info>
+	        <randomize>true</randomize>
+	        <pauseatend>15000</pauseatend> <!-- Time to show each image, in milliseconds -->
+	        <scroll>false</scroll>
+	        <scrollout>false</scrollout>
+	        <resetonlabelchange>true</resetonlabelchange>
+        </control>
+		
+		
         <control type="list" id="9980">
 			<description>hidden container for video addons, for addon count infoline</description>
 			<posx>-20</posx>

@@ -61,7 +61,60 @@
 		</item>
 		<item>
 			<onclick>Dialog.Close(all,true)</onclick>
-			<onclick>ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/list/",return)</onclick>
+			<onclick>ActivateWindow(videos,plugin://plugin.video.youtube/search/?q=$INFO[Window(Home).Property(InfoExtrasTitle)],return)</onclick>
+			<label>$LOCALIZE[137] $INFO[System.AddonTitle(plugin.video.youtube)]</label>
+			<visible>System.HasAddon(plugin.video.youtube)</visible>
+		</item>
+	</include>
+	
+	<!-- Music Info Extras Button Items -->
+    <include name="SelectMusicInfoExtras">
+		<item>
+			<label>$LOCALIZE[13511]</label>
+            <onclick>Dialog.Close(1121)</onclick>
+            <onclick>SendClick(musicinformation,10)</onclick>
+            <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
+            <visible>!String.IsEmpty(Listitem.DBID) | [!String.IsEmpty(Window(Home).Property(InfoExtrasDBID)) + !String.IsEmpty(Window(Home).Property(InfoExtrasDBType))]</visible>
+		</item>
+        <item>
+			<label>$LOCALIZE[32005]</label>
+            <onclick>Dialog.Close(1121)</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,artist) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),artist)]">RunScript(script.artwork.beef, mode=gui, mediatype=artist, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,album) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),album)]">RunScript(script.artwork.beef, mode=gui, mediatype=album, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,song) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),song)]">RunScript(script.artwork.beef, mode=gui, mediatype=song, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
+            <visible>System.HasAddon(script.artwork.beef) + [!String.IsEmpty(Listitem.DBID) | 
+                     [!String.IsEmpty(Window(Home).Property(InfoExtrasDBID)) + !String.IsEmpty(Window(Home).Property(InfoExtrasDBType))]] 
+            </visible>
+		</item>
+		<item>
+			<label>$LOCALIZE[32006]</label>
+            <onclick>Dialog.Close(1121)</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,artist) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),artist)]">RunScript(script.artwork.beef, mode=auto, mediatype=artist, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,album) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),album)]">RunScript(script.artwork.beef, mode=auto, mediatype=album, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <onclick condition="[String.IsEqual(ListItem.DBType,song) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),song)]">RunScript(script.artwork.beef, mode=auto, mediatype=song, dbid=$INFO[Window(Home).Property(InfoExtrasDBID)])</onclick>
+            <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
+            <visible>System.HasAddon(script.artwork.beef) + [!String.IsEmpty(Listitem.DBID) | 
+                     [!String.IsEmpty(Window(Home).Property(InfoExtrasDBID)) + !String.IsEmpty(Window(Home).Property(InfoExtrasDBType))]] 
+            </visible>
+		</item>
+        <item>
+			<label>$LOCALIZE[32068]</label>
+            <onclick>Dialog.Close(1121)</onclick>
+            <onclick>ActivateWindow(1126)</onclick>
+            <visible>!String.IsEmpty(Window(Home).Property(fanart))</visible>
+		</item>
+        <item>
+			<label>$LOCALIZE[32167]</label>
+            <onclick>Dialog.Close(1121)</onclick>
+            <onclick>XBMC.RunScript(script.metadata.editor,dbid=$INFO[Window(Home).Property(InfoExtrasDBID)],type=$INFO[Window(Home).Property(InfoExtrasDBType)])</onclick>
+            <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
+            <visible>System.HasAddon(script.metadata.editor) + [!String.IsEmpty(Window(Home).Property(InfoExtrasDBID)) + !String.IsEmpty(Window(Home).Property(InfoExtrasDBType))]
+            </visible>
+		</item>
+		<item>
+			<onclick>Dialog.Close(all,true)</onclick>
+			<onclick>ActivateWindow(videos,plugin://plugin.video.youtube/search/?q=$INFO[Window(Home).Property(InfoExtrasArtist)],return)</onclick>
 			<label>$LOCALIZE[137] $INFO[System.AddonTitle(plugin.video.youtube)]</label>
 			<visible>System.HasAddon(plugin.video.youtube)</visible>
 		</item>

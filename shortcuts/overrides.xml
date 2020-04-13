@@ -85,6 +85,10 @@
         <action>System.ExecWait("/usr/sbin/rebootfromnand")</action>
         <action>XBMC.Reset()</action>
     </override>
+	<override action="start_favourites">
+		<action>Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</action>
+		<action>ActivateWindow(favourites)</action>
+	</override>
 
     <!-- For Power Menu -->
     <groupoverride group="powermenu" condition="Window.IsActive(DialogButtonMenu.xml)">Close</groupoverride>
@@ -93,6 +97,8 @@
 	<warn heading="31395" message="31396">ActivateWindow(Settings)</warn>
 	<!-- Warning to Remove/Disable Search -->
 	<warn heading="31397" message="31398">start_search</warn>
+	<!-- Warning to Remove/Disable Favourites -->
+	<warn heading="31585" message="31586">start_favourites</warn>
 
 	<!-- Infolines -->
 	<property property="InfoLine" label="$LOCALIZE[31405]">movies</property>
@@ -567,7 +573,7 @@
 				<content>addon-image</content>
 			</node>
 			<node label="32009">
-				<content>addon-program-plugin</content>
+				<content>addon-program</content>
 			</node>
 			<shortcut label="$LOCALIZE[1043]" widget="addon" icon="DefaultAddonProgram.png" widgetType="addons" widgetTarget="programs">addons://sources/executable/</shortcut>
 			<shortcut label="$LOCALIZE[20244]" widget="addon" icon="DefaultAddonProgram.png" widgetType="addons" widgetTarget="programs" condition="System.Platform.Android">androidapp://sources/apps/</shortcut>

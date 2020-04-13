@@ -822,6 +822,25 @@
 					<aspectratio>$PARAM[aspect]</aspectratio>
 					<colordiffuse>eeeeeeee</colordiffuse>
 				</control>
+<!--				<control type="image">
+					<visible>ListItem.IsCollection</visible>
+					<visible>!$PARAM[isFocused]</visible>
+					<texture background="true">overlays/Collections-white.png</texture>
+					<posx>77r</posx>
+					<posy>16</posy>
+					<height>52</height>
+					<width>52</width>
+				</control>
+				<control type="image">
+					<visible>ListItem.IsCollection</visible>
+					<visible>$PARAM[isFocused]</visible>
+					<texture background="true">overlays/Collections-white.png</texture>
+					<posx>52r</posx>
+					<posy>0</posy>
+					<height>52</height>
+					<width>52</width>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control> -->
 				<include content="GenericThumbLabelTemplate">
 					<param name="isFocused">$PARAM[isFocused]</param>
 					<param name="yoffset">$PARAM[overlaylabelyoffset]</param>
@@ -1319,7 +1338,7 @@
 				<param name="bordersizeLT">12</param>
 				<param name="bordersizeRB">20</param>
 				<param name="belowtextboxvisibility">true</param>
-				<param name="belowtextbox">$INFO[ListItem.Label][CR]$INFO[ListItem.Label2]</param>
+				<param name="belowtextbox">$INFO[ListItem.Label][CR]$INFO[ListItem.Year]</param>
 				<param name="belowtextboxwidth">286</param>
                 <param name="belowtextboxfont">ListDetailsSmall</param>
 			</include>
@@ -1703,16 +1722,16 @@
 	</include>
 
 	<include name="Info_Albums">
-		<param name="id1"/>
+		<param name="viewid"/>
 		<definition>
-			<itemlayout height="372" width="310.5" condition="Container.Content(artists)">
+			<itemlayout height="372" width="310.5">
 				<include content="GenericMusicIconInfo">
 					<param name="isFocused">false</param>
 				</include>
 			</itemlayout>
-			<focusedlayout height="372" width="310.5" condition="Container.Content(artists)">
+			<focusedlayout height="372" width="310.5">
 				<include content="GenericMusicIconInfo">
-					<param name="isFocused">Control.HasFocus(50)</param>
+					<param name="isFocused">Control.HasFocus($PARAM[viewid])</param>
 				</include>
 			</focusedlayout>
 		</definition>
