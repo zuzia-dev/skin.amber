@@ -888,8 +888,8 @@
                 <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
-                <onclick>Skin.ToggleSetting($PARAM[viewid]_TvShows_SmallIcons)</onclick>
-                <selected>Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons)</selected>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_TVShows_SmallIcons)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_TVShows_SmallIcons)</selected>
                 <textoffsetx>16</textoffsetx>
                 <label>- $LOCALIZE[1438]</label>
             </control>
@@ -1199,22 +1199,86 @@
     <include name="Library_Count">
         <control type="group" description="Library stats">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
-            <control type="image">
-                <posx>630r</posx>
-                <posy>754</posy>
-                <width>630</width>
+            <visible>!String.IsEmpty(Container(300).ListItem.Property(InfoLine)) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
+			<control type="image">
+                <posx>0</posx>
+                <posy>603</posy>
+                <width>670</width>
                 <height>90</height>
-                <texture border="100,0,0,0">common/TimePanel.png</texture>
+                <texture flipx="true" border="100,0,0,0">common/TimePanel.png</texture>
+				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+				<visible>!Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
             <control type="label">
-                <posx>20r</posx>
-                <posy>797</posy>
+                <posx>10</posx>
+                <posy>647</posy>
                 <height>50</height>
-                <width>490</width>
+                <width>595</width>
                 <font>ListDetails</font>
-                <align>right</align>
+                <align>left</align>
                 <label>$VAR[LibraryStats]</label>
                 <shadowcolor>ShadowDark</shadowcolor>
+				<visible>!Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+			<control type="image">
+                <posx>0</posx>
+                <posy>603</posy>
+                <width>910</width>
+                <height>90</height>
+                <texture flipx="true" border="100,0,0,0">common/TimePanel.png</texture>
+				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+				<visible>!Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+            <control type="label">
+                <posx>10</posx>
+                <posy>647</posy>
+                <height>50</height>
+                <width>830</width>
+                <font>ListDetails</font>
+                <align>left</align>
+                <label>$VAR[LibraryStats]</label>
+                <shadowcolor>ShadowDark</shadowcolor>
+				<visible>!Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+			<control type="image">
+                <posx>436</posx>
+                <posy>40</posy>
+                <width>670</width>
+                <height>90</height>
+                <texture flipx="true" flipy="true" border="100,0,0,0">common/TimePanel.png</texture>
+				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+				<visible>Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+            <control type="label">
+                <posx>446</posx>
+                <posy>34</posy>
+                <height>50</height>
+                <width>595</width>
+                <font>ListDetails</font>
+                <align>left</align>
+                <label>$VAR[LibraryStats]</label>
+                <shadowcolor>ShadowDark</shadowcolor>
+				<visible>Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+			<control type="image">
+                <posx>436</posx>
+                <posy>40</posy>
+                <width>910</width>
+                <height>90</height>
+                <texture flipx="true" flipy="true" border="100,0,0,0">common/TimePanel.png</texture>
+				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+				<visible>Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
+            </control>
+            <control type="label">
+                <posx>446</posx>
+                <posy>34</posy>
+                <height>50</height>
+                <width>830</width>
+                <font>ListDetails</font>
+                <align>left</align>
+                <label>$VAR[LibraryStats]</label>
+                <shadowcolor>ShadowDark</shadowcolor>
+				<visible>Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
         </control>
     </include>
@@ -3115,6 +3179,69 @@
 			<textureradiooffnofocus colordiffuse="$PARAM[ColorString]">color_swatch.png</textureradiooffnofocus>
 			<texturefocus colordiffuse="$VAR[HighlightColor]" border="4">img/WhiteRoundedST2.png</texturefocus>
 		</definition>
+	</include>
+	
+	 <!-- Movie/TV Show Logo for Home Window -->
+	<include name="HomeClearLogo">
+		<!-- Logo when double shelf and fanart title in top bar -->
+		<control type="image">
+            <posy>40</posy>
+		    <posx>1480</posx>
+            <width>420</width>
+            <height>170</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>$EXP[isDoubleShelf] +  Skin.HasSetting(VerticalHome) + ![Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)]</visible>
+        </control>
+		<!-- Logo when double shelf and fanart title below top bar -->
+		<control type="image">
+            <posy>50</posy>
+		    <posx>1060</posx>
+            <width>420</width>
+            <height>160</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>$EXP[isDoubleShelf] +  [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)]</visible>
+        </control>
+		<control type="image">
+            <posy>45</posy>
+		    <posx>1500</posx>
+            <width>400</width>
+            <height>75</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>$EXP[isDoubleShelf] +  !Skin.HasSetting(VerticalHome)</visible>
+        </control>
+		<!-- Logo for vert. menu single shelf -->
+		<control type="image">
+            <posy>40</posy>
+		    <posx>1400</posx>
+            <width>500</width>
+            <height>320</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>![$EXP[isDoubleShelf]] + Skin.HasSetting(VerticalHome)</visible>
+        </control>
+		<!-- Logo for horiz. menu single shelf -->
+		<control type="image">
+            <posy>60</posy>
+		    <posx>1400</posx>
+            <width>500</width>
+            <height>200</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>![$EXP[isDoubleShelf]] + !Skin.HasSetting(VerticalHome)</visible>
+        </control>
 	</include>
 
 </includes>

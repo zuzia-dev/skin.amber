@@ -763,6 +763,7 @@
 
 	<include name="GenericThumbIconTemplate">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<param name="iconwidth"/>
 		<param name="iconheight"/>
 		<param name="iconoffset"/>
@@ -822,25 +823,10 @@
 					<aspectratio>$PARAM[aspect]</aspectratio>
 					<colordiffuse>eeeeeeee</colordiffuse>
 				</control>
-<!--				<control type="image">
-					<visible>ListItem.IsCollection</visible>
-					<visible>!$PARAM[isFocused]</visible>
-					<texture background="true">overlays/Collections-white.png</texture>
-					<posx>77r</posx>
-					<posy>16</posy>
-					<height>52</height>
-					<width>52</width>
-				</control>
-				<control type="image">
-					<visible>ListItem.IsCollection</visible>
-					<visible>$PARAM[isFocused]</visible>
-					<texture background="true">overlays/Collections-white.png</texture>
-					<posx>52r</posx>
-					<posy>0</posy>
-					<height>52</height>
-					<width>52</width>
-					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
-				</control> -->
+				<include condition="Skin.HasSetting(ShowTopRightOverlays)" content="TopRightOverlayTemplate">
+				    <param name="isFocused">$PARAM[isFocused]</param>
+					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				</include>	
 				<include content="GenericThumbLabelTemplate">
 					<param name="isFocused">$PARAM[isFocused]</param>
 					<param name="yoffset">$PARAM[overlaylabelyoffset]</param>
@@ -889,20 +875,20 @@
                     <param name="belowtextboxfont">$PARAM[belowtextboxfont]</param>
 				</include>
 				<control type="image" description="Watched Overlay">
-					<visible>!$PARAM[isFocused]</visible>
+					<visible>!$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + ![$EXP[IsIconView]]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
-					<width>33</width>
-					<height>33</height>
+					<width>30</width>
+					<height>30</height>
 					<texture>$VAR[Overlay]</texture>
 					<aspectratio>keep</aspectratio>
 				</control>
 				<control type="image" description="Watched Overlay">
-					<visible>$PARAM[isFocused]</visible>
+					<visible>$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + ![$EXP[IsIconView]]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
-					<width>33</width>
-					<height>33</height>
+					<width>30</width>
+					<height>30</height>
 					<texture>$VAR[Overlay]</texture>
 					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 					<aspectratio>keep</aspectratio>
@@ -910,6 +896,72 @@
 			</control>
 		</definition>
 	</include>
+	
+	<include name="TopRightOverlayTemplate">
+	    <param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
+		<definition>
+		    <control type="image">
+				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>96r</posx>
+				<posy>16</posy>
+				<height>72</height>
+				<width>72</width>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>96r</posx>
+				<posy>16</posy>
+				<height>72</height>
+				<width>72</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + !String.IsEmpty(Container.Viewmode)</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>92r</posx>
+				<posy>12</posy>
+				<height>72</height>
+				<width>72</width>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + !String.IsEmpty(Container.Viewmode)</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>92r</posx>
+				<posy>12</posy>
+				<height>72</height>
+				<width>72</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + String.IsEmpty(Container.Viewmode)</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>102r</posx>
+				<posy>12</posy>
+				<height>82</height>
+				<width>82</width>
+				<aspectratio>keep</aspectratio>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + String.IsEmpty(Container.Viewmode)</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>102r</posx>
+				<posy>12</posy>
+				<height>82</height>
+				<width>82</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				<aspectratio>keep</aspectratio>
+			</control>
+		</definition>
+	</include>	
 
 	<include name="GenericThumbLabelTemplate">
 		<param name="isFocused">false</param>
@@ -1213,9 +1265,11 @@
 
 	<include name="GenericThumbIconBig">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">310</param>
 				<param name="iconheight">310</param>
 				<param name="iconoffset">0</param>
@@ -1233,9 +1287,11 @@
 
 	<include name="GenericThumbIconSmall">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">232.5</param>
 				<param name="iconoffset">0</param>
@@ -1291,9 +1347,11 @@
 
 	<include name="GenericMusicIconBig">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">310</param>
 				<param name="iconheight">310</param>
 				<param name="iconoffset">0</param>
@@ -1310,9 +1368,11 @@
 
 	<include name="GenericMusicIconSmall">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">232.5</param>
 				<param name="iconoffset">0</param>
@@ -1347,9 +1407,11 @@
 
 	<include name="GenericPosterIconBig">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">310</param>
 				<param name="iconheight">437</param>
 				<param name="iconoffset">0</param>
@@ -1367,9 +1429,11 @@
 
 	<include name="GenericPosterIconSmall">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">326</param>
 				<param name="iconoffset">0</param>
@@ -1387,9 +1451,11 @@
 
 	<include name="GenericEpisodeIconBig">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">310</param>
 				<param name="iconheight">226</param>
 				<param name="iconoffset">0</param>
@@ -1405,9 +1471,11 @@
 
 	<include name="GenericEpisodeIconSmall">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">170</param>
 				<param name="iconoffset">0</param>
@@ -1423,9 +1491,11 @@
 
 	<include name="GenericBannerIconBig">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">930</param>
 				<param name="iconheight">204</param>
 				<param name="iconoffset">0</param>
@@ -1439,9 +1509,11 @@
 
 	<include name="GenericBannerIconSmall">
 		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="iconwidth">465</param>
 				<param name="iconheight">112</param>
 				<param name="iconoffset">0</param>
@@ -1461,21 +1533,25 @@
 			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="204" width="930">
 				<include content="GenericBannerIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="204" width="930">
 				<include content="GenericBannerIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="112" width="465">
 				<include content="GenericBannerIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + Skin.HasSetting($PARAM[viewid]_UseBanners)" height="112" width="465">
 				<include content="GenericBannerIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1672,24 +1748,28 @@
 	<include name="PosterLayout">
 		<param name="viewid"/>
 		<definition>
-			<itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
+			<itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_TVShows_SmallIcons) + Container.Content(tvshows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
 				<include content="GenericPosterIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
+			<focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_TVShows_SmallIcons) + Container.Content(tvshows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [!Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [!Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="437" width="310">
 				<include content="GenericPosterIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
-			<itemlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
+			<itemlayout condition="[Skin.HasSetting($PARAM[viewid]_TVShows_SmallIcons) + Container.Content(tvshows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
 				<include content="GenericPosterIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_TvShows_SmallIcons) + Container.Content(TvShows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
+			<focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_TVShows_SmallIcons) + Container.Content(tvshows) + !Skin.HasSetting($PARAM[viewid]_UseBanners)] | [Skin.HasSetting($PARAM[viewid]_Movies_SmallIcons) + [container.content(movies) | container.content(sets)]] | [Skin.HasSetting($PARAM[viewid]_Seasons_SmallIcons) + container.content(seasons)] | [Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)]" height="326" width="232.5">
 				<include content="GenericPosterIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1701,21 +1781,25 @@
 			<itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
 				<include content="GenericEpisodeIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + !Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="226" width="310">
 				<include content="GenericEpisodeIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
 				<include content="GenericEpisodeIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting(EpisodesUsePoster) + Skin.HasSetting($PARAM[viewid]_Episodes_SmallIcons) + container.content(episodes)" height="170" width="232.5">
 				<include content="GenericEpisodeIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1743,21 +1827,25 @@
 			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="372" width="310">
 				<include content="GenericMusicIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="372" width="310">
 				<include content="GenericMusicIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="294" width="232.5">
 				<include content="GenericMusicIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="294" width="232.5">
 				<include content="GenericMusicIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1769,21 +1857,25 @@
 			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="396" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Images_SmallIcons) + Container.Content(images)" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1795,21 +1887,25 @@
 			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Addons_SmallIcons) + Container.Content(addons)" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
@@ -1821,21 +1917,25 @@
 			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
 			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
 				</include>
 			</focusedlayout>
 		</definition>

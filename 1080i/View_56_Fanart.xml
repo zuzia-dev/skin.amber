@@ -68,6 +68,51 @@
 		<aspectratio aligny="top">scale</aspectratio>
 	</include>
 	
+	<include name="TopRightOverlayFanart">
+	    <param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
+		<definition>
+		    <control type="image">
+				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>96r</posx>
+				<posy>16</posy>
+				<height>72</height>
+				<width>72</width>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>96r</posx>
+				<posy>16</posy>
+				<height>72</height>
+				<width>72</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon]</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>92r</posx>
+				<posy>12</posy>
+				<height>72</height>
+				<width>72</width>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon]</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>92r</posx>
+				<posy>12</posy>
+				<height>72</height>
+				<width>72</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			</control>
+		</definition>
+	</include>
+	
 	<include name="View_56_Fanart">
 		<control type="group">
 			<visible>Control.IsVisible(56)</visible>
@@ -131,20 +176,19 @@
 							<include>MovieFanartReflection</include>
 						</control>
 						<control type="image">
+				            <texture background="true">$VAR[TopRightOverlay]</texture>
+				            <posx>86r</posx>
+				            <posy>15</posy>
+				            <height>72</height>
+				            <width>72</width>
+			            </control>
+<!--						<control type="image">
 							<posx>190</posx>
 							<posy>291</posy>
 							<width>33</width>
 							<height>33</height>
 							<texture>$VAR[Overlay]</texture>
-						</control>
-						<control type="image">
-					        <visible>ListItem.IsCollection</visible>
-					        <texture background="true">overlays/Collections-white.png</texture>
-					        <posx>68r</posx>
-					        <posy>15</posy>
-					        <height>52</height>
-					        <width>52</width>
-				        </control>
+						</control> -->
 					</itemlayout>
 					<focusedlayout height="339" width="240" condition="container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)">
 						<control type="group">
@@ -156,21 +200,20 @@
 							<control type="image">
 								<include>MovieFanartReflection</include>
 							</control>
-							<control type="image">
+<!--							<control type="image">
 								<posx>190</posx>
 								<posy>291</posy>
 								<width>33</width>
 								<height>33</height>
 								<texture>$VAR[Overlay]</texture>
-							</control>
+							</control> -->
 							<control type="image">
-					            <visible>ListItem.IsCollection</visible>
-					            <texture background="true">overlays/Collections-white.png</texture>
-					            <posx>68r</posx>
-					            <posy>15</posy>
-					            <height>52</height>
-					            <width>52</width>
-				            </control>
+				                <texture background="true">$VAR[TopRightOverlay]</texture>
+				                <posx>86r</posx>
+				                <posy>15</posy>
+				                <height>72</height>
+				                <width>72</width>
+			                </control>
 						</control>
 					</focusedlayout>
 					<itemlayout height="291" width="464" condition="container.content(episodes)">
@@ -194,17 +237,24 @@
 								<font>font24_title</font>
 								<label>$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</label>
 							</control>
-							<control type="image" description="Watched Overlay">
+<!--							<control type="image" description="Watched Overlay">
 								<posx>357</posx>
 								<width>33</width>
 								<height>70</height>
 								<texture>$VAR[Overlay]</texture>
 								<aspectratio>keep</aspectratio>
-							</control>
+							</control> -->
 							<control type="image">
 								<include>EpisodeFanartReflection</include>
 							</control>
 						</control>
+						<control type="image">
+				            <texture background="true">$VAR[TopRightOverlay]</texture>
+				            <posx>134r</posx>
+				            <posy>12</posy>
+				            <height>72</height>
+				            <width>72</width>
+			            </control>
 					</itemlayout>
 					<focusedlayout height="291" width="464" condition="container.content(episodes)">
 						<control type="group">
@@ -231,17 +281,24 @@
 									<textcolor>$VAR[LabelTextColor]</textcolor>
 									<label>$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</label>
 								</control>
-								<control type="image" description="Watched Overlay">
+<!--								<control type="image" description="Watched Overlay">
 									<posx>357</posx>
 									<width>33</width>
 									<height>70</height>
 									<texture>$VAR[Overlay]</texture>
 									<aspectratio>keep</aspectratio>
-								</control>
+								</control> -->
 								<control type="image">
 									<include>EpisodeFanartReflection</include>
 								</control>
 							</control>
+							<control type="image">
+				                <texture background="true">$VAR[TopRightOverlay]</texture>
+				                <posx>134r</posx>
+				                <posy>12</posy>
+				                <height>72</height>
+				                <width>72</width>
+			                </control>
 						</control>
 					</focusedlayout>
 					<itemlayout height="344" width="344" condition="![container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons) | container.content(episodes)]">
@@ -279,13 +336,20 @@
 							<include>Icon_Fade</include>
 							<include>MovieFanartThumb</include>
 						</control>
-						<control type="image">
+<!--						<control type="image">
 							<posx>190</posx>
 							<posy>291</posy>
 							<width>33</width>
 							<height>33</height>
 							<texture>$VAR[Overlay]</texture>
-						</control>
+						</control> -->
+						<control type="image">
+				            <texture background="true">$VAR[TopRightOverlay]</texture>
+				            <posx>1727r</posx>
+				            <posy>14</posy>
+				            <height>72</height>
+				            <width>72</width>
+			            </control>
 					</control>
 					<control type="group" description="Media info">
 						<posx>330</posx>

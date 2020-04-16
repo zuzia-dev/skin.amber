@@ -212,37 +212,7 @@
 			<include>Time</include>
             <!-- Fanart background title -->
 			<include condition="[[!Player.Playing + Skin.HasSetting(FanartTitle.InTopBar)] | !Skin.HasSetting(FanartTitle.InTopBar)] + [!Skin.HasSetting(Home_DefaultBG) + Skin.HasSetting(Enable.FanartTitle)]">ShowFanartTitle</include>
-			<!-- Movie/TV Show Logo -->
-			<!-- Smaller logo for horizontal menu -->
-			<control type="image">
-                <posy>43</posy>
-			    <posx>1700</posx>
-                <width>200</width>
-                <height>78</height>
-                <texture  background="true">$VAR[HomeClearLogo]</texture>
-			    <aspectratio>keep</aspectratio>
-                <visible>Skin.HasSetting(ShowHomeLogo) + !Skin.HasSetting(VerticalHome)</visible>
-            </control>
-			<!-- Smaller logo for vertical menu if fanart title is enabled and not in title bar -->
-			<control type="image">
-                <posy>110</posy>
-			    <posx>1700</posx>
-                <width>200</width>
-                <height>78</height>
-                <texture  background="true">$VAR[HomeClearLogo]</texture>
-			    <aspectratio>keep</aspectratio>
-                <visible>Skin.HasSetting(ShowHomeLogo) + Skin.HasSetting(VerticalHome) + [Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)]</visible>
-            </control>
-			<!-- Larger logo for vert. menu if fanart title not enabled or in title bar -->
-			<control type="image">
-                <posy>60</posy>
-			    <posx>1540</posx>
-                <width>361</width>
-                <height>140</height>
-                <texture  background="true">$VAR[HomeClearLogo]</texture>
-			    <aspectratio>keep</aspectratio>
-                <visible>Skin.HasSetting(ShowHomeLogo) + Skin.HasSetting(VerticalHome) + [[Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)] | !Skin.HasSetting(Enable.FanartTitle)]</visible>
-            </control>
+			<include condition="Skin.HasSetting(ShowHomeLogo)">HomeClearLogo</include>
 			<!-- Hidden list for playlist stats for info line -->
 			<control type="group">
 				<include condition="System.HasAddon(script.embuary.helper)">PlayListStatsList</include>
