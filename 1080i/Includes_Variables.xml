@@ -164,13 +164,13 @@
 	
 	<variable name="TopRightOverlay" description="Overlay image">
         <value condition="String.StartsWith(ListItem.FolderPath,plugin://) + !String.IsEmpty(ListItem.DBID)">Library.png</value>
-		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection">overlays/Collections-white.png</value>
+		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection">overlays/toprightcollections.png</value>
         <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
-        <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">overlays/TopRightOverlayInProgress.png</value>
+        <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">overlays/toprightinprogress.png</value>
         <value condition="Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable"></value>
-        <value condition="!Skin.HasSetting(Hide_Watched_Marks) + !String.IsEmpty(ListItem.Overlay) + String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/TopRightOverlayWatched.png</value>
-        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(ListItem.Overlay) + !String.IsEqual(ListItem.Overlay,OverlayWatched.png) + [Window.IsActive(TVRecordings) | Window.IsActive(RadioRecordings)]">overlays/TopRightOverlayUnwatched.png</value>
-        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(ListItem.Overlay) + String.IsEqual(ListItem.Overlay,OverlayUnWatched.png)">overlays/TopRightOverlayUnWatched.png</value>
+        <value condition="!Skin.HasSetting(Hide_Watched_Marks) + !String.IsEmpty(ListItem.Overlay) + String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/toprightwatched.png</value>
+        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(ListItem.Overlay) + !String.IsEqual(ListItem.Overlay,OverlayWatched.png) + [Window.IsActive(TVRecordings) | Window.IsActive(RadioRecordings)]">overlays/toprightunwatched.png</value>
+        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(ListItem.Overlay) + String.IsEqual(ListItem.Overlay,OverlayUnWatched.png)">overlays/toprightunwatched.png</value>
         <value></value>
     </variable>
 
@@ -1151,7 +1151,6 @@
         <value condition="!String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_H),0) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_M),0)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_H)] $VAR[OnlineHourLabel]</value>
 		<value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_H)] $VAR[OnlineHourLabel], $INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_M)] $VAR[OnlineMinuteLabel]</value>
 	</variable>
-    
 	<variable name="PlayerDurationHrMins">
 		<value condition="Integer.IsGreater(VideoPlayer.Duration(h),0) + Integer.IsGreater(VideoPlayer.Duration(mm),00)">$INFO[VideoPlayer.Duration(h),,h]$INFO[VideoPlayer.Duration(mm),,m]</value>
 		<value condition="Integer.IsGreater(VideoPlayer.Duration(h),0) + Integer.IsEqual(VideoPlayer.Duration(mm),00)">$INFO[VideoPlayer.Duration(h),,h]</value>
@@ -1294,11 +1293,11 @@
                                        [String.IsEqual(Window(Home).Property(InfoExtrasDBType),movie) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),tvshow) | 
                                         String.IsEqual(Window(Home).Property(InfoExtrasDBType),season) | String.IsEqual(Window(Home).Property(InfoExtrasDBType),episode)]]</expression>
 										
-	<expression name="PanelShouldShow">!Container.Content(songs) + [[!String.IsEmpty(ListItem.Duration) | !String.IsEmpty(ListItem.Plot) | !String.IsEmpty(ListItem.Genre) | !String.IsEmpty(ListItem.Year) | !String.IsEmpty(ListItem.AddonDescription)] | 
+	<expression name="PanelShouldShow">[!Container.Content(songs) + [[!String.IsEmpty(ListItem.Duration) | !String.IsEmpty(ListItem.Plot) | !String.IsEmpty(ListItem.Genre) | !String.IsEmpty(ListItem.Year) | !String.IsEmpty(ListItem.AddonDescription)] | 
 	                                   [!String.IsEmpty(ListItem(1).Duration) | !String.IsEmpty(ListItem(1).Plot) | !String.IsEmpty(ListItem(1).Genre) | !String.IsEmpty(ListItem(1).Year) | !String.IsEmpty(ListItem(1).AddonDescription)] | 
 									   [!String.IsEmpty(ListItem(2).Duration) | !String.IsEmpty(ListItem(2).Plot) | !String.IsEmpty(ListItem(2).Genre) | !String.IsEmpty(ListItem(2).Year) | !String.IsEmpty(ListItem(2).AddonDescription)] | 
 									   [!String.IsEmpty(ListItem(3).Duration) | !String.IsEmpty(ListItem(3).Plot) | !String.IsEmpty(ListItem(3).Genre) | !String.IsEmpty(ListItem(3).Year) | !String.IsEmpty(ListItem(3).AddonDescription)] | 
-	                                   [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem(1).Genre)]]</expression>
+	                                   [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem(1).Genre)]]] | String.IsEqual(Container.ViewMode,$LOCALIZE[31999])</expression>
 										  
     <expression name="ListPanelIsDisabled">Skin.HasSetting(DisableListPanel) | [[Container.Content(movies) + Skin.HasSetting(50_Movies_DisablePanel)] | [Container.Content(tvshows) + Skin.HasSetting(50_TVShows_DisablePanel)] | 
 	                                       [Container.Content(seasons) + Skin.HasSetting(50_Seasons_DisablePanel)] | [Container.Content(episodes) + Skin.HasSetting(50_Episodes_DisablePanel)] | 
@@ -1337,25 +1336,14 @@
 										   [Container.Content(images) + Skin.HasSetting(501_Images_SwapPanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(501_Music_SwapPanel)] | 
 										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
                                            Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(501_Others_SwapPanel)]]</expression>
+	<expression name="BigListPanelIsSwapped">Skin.HasSetting(SwapListPanel) | [[Container.Content(movies) + Skin.HasSetting(52_Movies_SwapPanel)] | [Container.Content(tvshows) + Skin.HasSetting(52_TVShows_SwapPanel)] | 
+	                                       [Container.Content(seasons) + Skin.HasSetting(52_Seasons_SwapPanel)] | [Container.Content(episodes) + Skin.HasSetting(52_Episodes_SwapPanel)] | 
+										   [Container.Content(musicvideos) + Skin.HasSetting(52_MusicVideos_SwapPanel)] | [Container.Content(addons) + Skin.HasSetting(52_Addons_SwapPanel)] | 
+										   [Container.Content(images) + Skin.HasSetting(52_Images_SwapPanel)] | [[Container.Content(artists) | Container.Content(albums)] + Skin.HasSetting(52_Music_SwapPanel)] | 
+										   [![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(musicvideos) | Container.Content(addons) | Container.Content(images) | 
+                                           Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(52_Others_SwapPanel)]]</expression>																																																					
 	<expression name="IsIconView">String.IsEmpty(Container.ViewMode) | String.IsEqual(Container.ViewMode,$LOCALIZE[536]) | String.IsEqual(Container.ViewMode,$LOCALIZE[20445]) | String.IsEqual(Container.ViewMode,$LOCALIZE[31958]) | 
 	                              String.IsEqual(Container.ViewMode,$LOCALIZE[31963]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32245]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32246])</expression>
-    <expression name="IsSmallIconsView">[Container.Content(movies) + [Skin.HasSetting(51_Movies_SmallIcons) | Skin.HasSetting(511_Movies_SmallIcons) | Skin.HasSetting(53_Movies_SmallIcons) | Skin.HasSetting(55_Movies_SmallIcons) | 
-	                                     Skin.HasSetting(551_Movies_SmallIcons)]] | 
-										[Container.Content(tvshows) + [Skin.HasSetting(51_TVShows_SmallIcons) | Skin.HasSetting(511_TVShows_SmallIcons) | Skin.HasSetting(53_TVShows_SmallIcons) | Skin.HasSetting(55_TVShows_SmallIcons) | 
-	                                     Skin.HasSetting(551_TVShows_SmallIcons)]] | 
-										[Container.Content(episodes) + [Skin.HasSetting(51_Episodes_SmallIcons) | Skin.HasSetting(511_Epsiodes_SmallIcons) | Skin.HasSetting(53_Episodes_SmallIcons) | Skin.HasSetting(55_Episodes_SmallIcons) | 
-	                                     Skin.HasSetting(551_Episodes_SmallIcons)]] | 
-										[Container.Content(seasons) + [Skin.HasSetting(51_Seasons_SmallIcons) | Skin.HasSetting(511_Seasons_SmallIcons) | Skin.HasSetting(53_Seasons_SmallIcons) | Skin.HasSetting(55_Seasons_SmallIcons) | 
-	                                     Skin.HasSetting(551_Seasons_SmallIcons)]] | 
-										[Container.Content(addons) + [Skin.HasSetting(51_Addons_SmallIcons) | Skin.HasSetting(511_Addons_SmallIcons) | Skin.HasSetting(53_Addons_SmallIcons) | Skin.HasSetting(55_Addons_SmallIcons) | 
-	                                     Skin.HasSetting(551_Addons_SmallIcons)]] | 
-										[Container.Content(images) + [Skin.HasSetting(51_Images_SmallIcons) | Skin.HasSetting(511_Images_SmallIcons) | Skin.HasSetting(53_Images_SmallIcons) | Skin.HasSetting(55_Images_SmallIcons) | 
-	                                     Skin.HasSetting(551_Images_SmallIcons)]] | 
-										[[Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + [Skin.HasSetting(51_Music_SmallIcons) | Skin.HasSetting(511_Music_SmallIcons) | Skin.HasSetting(53_Music_SmallIcons) | Skin.HasSetting(55_Music_SmallIcons) | 
-	                                     Skin.HasSetting(551_Music_SmallIcons)]] | 
-										[![Container.Content(tvshows) | Container.Content(movies) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(addons) | Container.Content(images) | 
-                                           Container.Content(albums) | Container.Content(artists) | Container.Content(songs)] + [Skin.HasSetting(51_SmallIcons) | Skin.HasSetting(511_SmallIcons) | Skin.HasSetting(53_SmallIcons) | Skin.HasSetting(55_SmallIcons) | 
-	                                     Skin.HasSetting(551_SmallIcons)]]</expression>
 	<expression name="isDoubleShelf">Container(300).ListItem.Property(widgetTwoShelves) | [ControlGroup(700).HasFocus + [Container(300).ListItem.Property(WidgetDouble) | Container(300).ListItem.Property(WidgetDouble.2) | Container(300).ListItem.Property(WidgetDouble.3) | 
                                      Container(300).ListItem.Property(WidgetDouble.4) | Container(300).ListItem.Property(WidgetDouble.5) | Container(300).ListItem.Property(WidgetDouble.6)]]</expression>	
 

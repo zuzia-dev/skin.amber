@@ -356,6 +356,134 @@
     <propertyfallback property="widgetContent.5">default</propertyfallback>
     <propertyfallback property="widgetContent.6">default</propertyfallback>
 
+    <!-- GROUPINGS -->
+    <!-- Main Grouping -->
+    <groupings>
+	    <!-- Common -->
+        <node label="32029">
+            <shortcut label="3" type="3" icon="DefaultVideo.png">ActivateWindow(Videos,library://video/,return)</shortcut>
+			<shortcut label="342" type="20342" icon="DefaultMovies.png">ActivateWindow(Videos,videodb://movies/titles/,return)</shortcut>
+			<shortcut label="20343" type="20343" icon="DefaultTVShows.png">ActivateWindow(Videos,videodb://tvshows/titles/,return)</shortcut>
+			<shortcut label="2" type="2" icon="DefaultAddonMusic.png">ActivateWindow(Music,musicdb://,return)</shortcut>
+			<shortcut label="133" type="2" icon="DefaultMusicArtists.png">ActivateWindow(Music,musicdb://artists/,return)</shortcut>
+			<shortcut label="132" type="2" icon="DefaultMusicAlbums.png">ActivateWindow(Music,musicdb://albums/,return)</shortcut>
+			<shortcut label="20389" type="20389" icon="DefaultMusicVideos.png">ActivateWindow(Videos,videodb://musicvideos/titles/,return)</shortcut>
+			<shortcut label="20244" type="10001" icon="DefaultAddonProgram.png" condition="System.Platform.Android">ActivateWindow(Programs,androidapp://sources/apps,return)</shortcut>
+			<shortcut label="LibreELEC" type="10001" icon="DefaultLibreELEC.png" condition="System.HasAddon(service.libreelec.settings)">RunAddon(service.libreelec.settings)</shortcut>
+			<shortcut label="CoreELEC" type="10001" icon="DefaultCoreELEC.png" condition="System.HasAddon(service.coreelec.settings)">RunAddon(service.coreelec.settings)</shortcut>
+			<shortcut label="10001" type="10001" icon="DefaultAddonProgram.png">ActivateWindow(Programs,Addons,return)</shortcut>
+			<shortcut label="1037" type="1037" icon="DefaultAddonVideo.png">ActivateWindow(Videos,Addons,return)</shortcut>
+			<shortcut label="1038" type="1038" icon="DefaultAddonMusic.png">ActivateWindow(MusicLibrary,Addons,return)</shortcut>
+			<shortcut label="1039" type="1039" icon="DefaultAddonPicture.png">ActivateWindow(Pictures,Addons,return)</shortcut>
+			<shortcut label="10821" type="10821" icon="DefaultAddonGame.png">ActivateWindow(Games)</shortcut>
+			<shortcut label="33060" type="33060" icon="ShutdownNF.png">ActivateWindow(shutdownmenu)</shortcut>
+			<shortcut label="589" type="589" icon="DefaultPartyMode.png">PlayerControl(PartyMode)</shortcut>
+			<shortcut label="31588" type="589" icon="DefaultPartyMode.png">PlayerControl(PartyMode(Video))</shortcut>
+			<shortcut label="4" type="4" icon="DefaultAddonTvInfo.png">ActivateWindow(TVGuide)</shortcut>
+			<shortcut label="19023" type="19023" icon="DefaultAddonTvInfo.png">ActivateWindow(TVChannels)</shortcut>
+			<shortcut label="1" type="1" icon="DefaultPicture.png">ActivateWindow(Pictures)</shortcut>
+			<shortcut label="12600" type="12600" icon="DefaultAddonWeather.png">ActivateWindow(Weather)</shortcut>
+			<shortcut label="341" type="341" icon="DefaultVCD.png">PlayDisc</shortcut>
+			<shortcut label="13391" type="31587" icon="DefaultVCD.png">EjectTray()</shortcut>
+            <shortcut label="$LOCALIZE[137]" type="$LOCALIZE[31587]" icon="DefaultMusicSearch.png">start_search</shortcut>
+        </node>
+		<!-- Video Library -->
+        <node label="32030">
+            <content>video</content>
+            <node label="32040">
+                <content>playlist-video</content>
+            </node>
+            <node label="32010">
+                <shortcut label="1037" type="32014" icon="DefaultAddonVideo.png">ActivateWindow(Videos,Addons,return)</shortcut>
+                <content>addon-video</content>
+            </node>
+            <node label="32075">
+                <content>videosources</content>
+                <content>upnp-video</content>
+            </node>
+        </node>
+		<!-- Music Library -->
+        <node label="32031">
+            <content>music</content>
+            <node label="32040">
+                <content>playlist-audio</content>
+            </node>
+            <node label="32011">
+                <shortcut label="1038" type="32019" icon="DefaultAddonMusic.png">ActivateWindow(MusicLibrary,Addons,return)</shortcut>
+                <content>addon-audio</content>
+            </node>
+            <node label="32075">
+                <content>musicsources</content>
+                <content>upnp-music</content>
+            </node>
+        </node>
+		<!-- PVR -->
+        <node label="32017" condition="System.GetBool(pvrmanager.enabled)" version="13">
+            <content>pvr</content>
+            <node label="19023">
+                <content>pvr-tv</content>
+            </node>
+            <node label="19024">
+                <content>pvr-radio</content>
+            </node>
+        </node>
+        <node label="32017" condition="PVR.HasTVChannels" version="14">
+            <content>pvr</content>
+            <node label="19023">
+                <content>pvr-tv</content>
+            </node>
+        </node>
+        <node label="32087" condition="PVR.HasRadioChannels" version="14">
+            <content>radio</content>
+            <node label="19024">
+                <content>pvr-radio</content>
+            </node>
+        </node>
+		<!-- Pictures -->
+        <node label="32020">
+		    <shortcut label="1" type="1" icon="DefaultPicture.png">ActivateWindow(Pictures)</shortcut>
+			<shortcut label="1039" type="1" icon="DefaultAddonPicture.png">ActivateWindow(Pictures,Addons,return)</shortcut>
+            <content>picturesources</content>
+        </node>
+		<!-- Games -->
+		<node label="10821">
+			<shortcut label="10821" type="32021" icon="DefaultAddonGame.png">ActivateWindow(Games)</shortcut>
+		</node>
+        <node label="32007">
+            <node label="32009">
+                <shortcut label="10001" type="32021" icon="DefaultAddonProgram.png">ActivateWindow(Programs,Addons,return)</shortcut>
+                <content>addon-program</content>
+            </node>
+            <node label="32010">
+                <shortcut label="1037" type="32014" icon="DefaultAddonVideo.png">ActivateWindow(Videos,Addons,return)</shortcut>
+                <content>addon-video</content>
+            </node>
+            <node label="32011">
+                <shortcut label="1038" type="32019" icon="DefaultAddonMusic.png">ActivateWindow(MusicLibrary,Addons,return)</shortcut>
+                <content>addon-audio</content>
+            </node>
+            <node label="32012">
+                <shortcut label="1039" type="32020" icon="DefaultAddonPicture.png">ActivateWindow(Pictures,Addons,return)</shortcut>
+                <content>addon-image</content>
+            </node>
+        </node>
+		<!-- Favourites -->
+        <node label="32006">
+            <shortcut label="1036" type="1036" icon="DefaultAddonsInstalled.png">ActivateWindow(Favourites)</shortcut>
+			<content>favourite</content>
+        </node>
+		<!-- Settings -->
+        <node label="10004">
+            <shortcut label="LibreELEC" type="10001" icon="DefaultLibreELEC.png" condition="System.HasAddon(service.libreelec.settings)">RunAddon(service.libreelec.settings)</shortcut>
+			<shortcut label="CoreELEC" type="10001" icon="DefaultCoreELEC.png" condition="System.HasAddon(service.coreelec.settings)">RunAddon(service.coreelec.settings)</shortcut>
+			<content>settings</content>
+        </node>
+		<!-- Kodi Command -->
+        <node label="32054">
+            <content>commands</content>
+        </node>
+    </groupings>
+
 	<!-- Widget Grouping -->
 	<widget-groupings>
 		<!-- Default Widgets -->
