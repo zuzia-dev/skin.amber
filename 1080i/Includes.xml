@@ -1122,7 +1122,11 @@
         <include content="ListViewSwitches">
             <param name="viewid">501</param>
         </include>
-
+        
+		<include content="ViewSettingsSwapPanel">
+			    <param name="viewid">52</param>
+		</include>
+			
         <include>FanartViewSwitches</include>
 
         <control type="button" id="6053">
@@ -1205,8 +1209,7 @@
                 <posy>603</posy>
                 <width>670</width>
                 <height>90</height>
-                <texture flipx="true" border="100,0,0,0">common/TimePanel.png</texture>
-				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+                <texture flipx="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
 				<visible>!Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
             <control type="label">
@@ -1225,8 +1228,7 @@
                 <posy>603</posy>
                 <width>910</width>
                 <height>90</height>
-                <texture flipx="true" border="100,0,0,0">common/TimePanel.png</texture>
-				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+                <texture flipx="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
 				<visible>!Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
             <control type="label">
@@ -1245,8 +1247,7 @@
                 <posy>40</posy>
                 <width>670</width>
                 <height>90</height>
-                <texture flipx="true" flipy="true" border="100,0,0,0">common/TimePanel.png</texture>
-				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+                <texture flipx="true" flipy="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
 				<visible>Skin.HasSetting(VerticalHome) + ![String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
             <control type="label">
@@ -1265,8 +1266,7 @@
                 <posy>40</posy>
                 <width>910</width>
                 <height>90</height>
-                <texture flipx="true" flipy="true" border="100,0,0,0">common/TimePanel.png</texture>
-				<colordiffuse>$VAR[GlowBarsColor]</colordiffuse>
+                <texture flipx="true" flipy="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
 				<visible>Skin.HasSetting(VerticalHome) + [String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)]</visible>
             </control>
             <control type="label">
@@ -1619,7 +1619,7 @@
 		<param name="plotheightlow">200</param>
         <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
         <param name="subcontent_label2">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
-        <param name="subcontent_path">$INFO[ListItem.Path]</param>
+        <param name="subcontent_path">videodb://movies/sets/$INFO[ListItem.DBID]/?setid=$INFO[ListItem.DBID]</param>
         <param name="subcontent_sortby">year</param>
         <param name="subcontent_sortorder">descending</param>
         <param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
@@ -2060,6 +2060,8 @@
         <param name="heading">$VAR[panelheading]</param>
         <param name="plot">$VAR[Plots]</param>
         <param name="plotheight">320</param>
+		<param name="plotwidth">820</param>
+		<param name="labelwidth">800</param>
 		<param name="subheading2"></param>
 		<param name="subheading2_visible">false</param>
         <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
@@ -2081,7 +2083,7 @@
                 <control type="label" description="Heading Label">
                     <top>30</top>
                     <left>47</left>
-                    <width>800</width>
+                    <width>$PARAM[labelwidth]</width>
                     <height>60</height>
                     <aligny>center</aligny>
                     <align>center</align>
@@ -2100,7 +2102,7 @@
                 <control type="label" description="Subheading Label">
                     <top>520</top>
                     <left>47</left>
-                    <width>800</width>
+                    <width>$PARAM[labelwidth]</width>
                     <height>60</height>
                     <aligny>center</aligny>
                     <align>center</align>
@@ -2112,14 +2114,14 @@
                     <top>585</top>
 					<left>47</left>
                     <visible>$PARAM[subheading2_visible]</visible>
-                    <width>800</width>
+                    <width>$PARAM[labelwidth]</width>
                     <height>30</height>
                     <align>center</align>
                     <font>ListDetails</font>
                     <label>$PARAM[subheading2]</label>
                 </control>                
                 <control type="group">
-                    <width>820</width>
+                    <width>$PARAM[plotwidth]</width>
                     <height>$PARAM[plotheight]</height>
                     <left>30</left>
                     <top>630</top>
@@ -2127,7 +2129,7 @@
                         <align>justify</align>
                         <label>$PARAM[plot]</label>
                         <font>InfoPlot</font>
-                        <width>820</width>
+                        <width>$PARAM[plotwidth]</width>
                         <height>$PARAM[plotheight]</height>
                         <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
                     </control>
@@ -2148,7 +2150,7 @@
                             <control type="label">
                                 <left>40</left>
                                 <height>40</height>
-                                <width>800</width>
+                                <width>$PARAM[labelwidth]</width>
                                 <aligny>center</aligny>
                                 <label>$PARAM[subcontent_label1]</label>
                                 <font>ListDetails</font>
@@ -2158,7 +2160,7 @@
                             <control type="label">
                                 <left>40</left>
                                 <height>40</height>
-                                <width>800</width>
+                                <width>$PARAM[labelwidth]</width>
                                 <aligny>center</aligny>
                                 <label>$PARAM[subcontent_label2]</label>
                                 <font>ListDetails</font>
@@ -2168,7 +2170,7 @@
                             <control type="label">
                                 <left>0</left>
                                 <height>40</height>
-                                <width>800</width>
+                                <width>$PARAM[labelwidth]</width>
                                 <aligny>center</aligny>
                                 <label>$PARAM[subcontent_label1]</label>
                                 <font>ListDetails</font>
@@ -2178,7 +2180,7 @@
                             <control type="label">
                                 <left>0</left>
                                 <height>40</height>
-                                <width>800</width>
+                                <width>$PARAM[labelwidth]</width>
                                 <aligny>center</aligny>
                                 <label>$PARAM[subcontent_label2]</label>
                                 <font>ListDetails</font>
@@ -2192,7 +2194,7 @@
 		        <control type="grouplist" description="Flags">
 			        <top>975</top>
 			        <left>40</left>
-			        <width>800</width>
+			        <width>$PARAM[labelwidth]</width>
 			        <height>45</height>
 			        <itemgap>30</itemgap>
 			        <orientation>horizontal</orientation>
