@@ -18,7 +18,7 @@
 	<onunload>ClearProperty(gallery)</onunload>
 	<menucontrol>9000</menucontrol>
 	<controls>
-    
+        <!-- Extra fanart -->
         <control type="fadelabel" id="4410">
 			<top>-100</top>
 			<width>2560</width>
@@ -72,6 +72,7 @@
 			<label>$INFO[ListItem.Art(tvshow.fanart19)]</label>
 			<label>$INFO[ListItem.Art(tvshow.fanart20)]</label>
 		</control>
+		<!-- Extra fanart (container) -->
 		<control type="fadelabel" id="4411">
 			<top>-100</top>
 			<width>2560</width>
@@ -124,7 +125,8 @@
 			<label>$INFO[Container.ListItem.Art(tvshow.fanart19)]</label>
 			<label>$INFO[Container.ListItem.Art(tvshow.fanart20)]</label>
 		</control>
-        <control type="fadelabel" id="4412">
+        <!-- Extra posters (character posters -->
+		<control type="fadelabel" id="4412">
 			<top>-100</top>
 			<width>2560</width>
 			<height>0</height>
@@ -155,24 +157,33 @@
 			<label>$INFO[ListItem.Art(poster20)]</label>
 			<include>FadeLabelTime</include>
 		</control>
-		
+		<!-- Hidden list for movie count for sets -->
 		<control type="list" id="4450">
-			<itemlayout />
-	        <focusedlayout />
-            <posx>-20</posx>
-			<posy>-20</posy>
-			<width>1</width>
-			<height>1</height>
+			<left>-100</left>
+		    <top>-100</top>
+		    <width>100</width>
+		    <height>100</height>
+		    <itemlayout height="100" width="100" />
+		    <focusedlayout height="100" width="100" />
 			<content sortby="year" sortorder="ascending">$VAR[MovieSetPath]</content>
  		</control>
+		<!-- Hidden list for fanart background for studios, genres, countries, etc. -->
+		<control type="list" id="4451">
+	        <content limit="20" sortby="random">$INFO[ListItem.FolderPath]</content>
+	        <autoscroll time="8000">true</autoscroll>
+	        <itemlayout />
+	        <focusedlayout />
+        </control>
 		
 		<include>DefaultBackground</include>
+		
 		<include content="View_50_List" condition="!Skin.HasSetting(ListCenterFocus)">
 		    <param name="ListType">list</param>
 		</include>
 		<include content="View_50_List" condition="Skin.HasSetting(ListCenterFocus)">
 		    <param name="ListType">fixedlist</param>
 		</include>
+		
 		<include>View_51_Panel</include>
 		<include>View_511_Panel2</include>
 		<include content="View_52_BigList" condition="!Skin.HasSetting(ListCenterFocus)">
@@ -189,10 +200,13 @@
 		<include content="View_54_LowList" condition="Skin.HasSetting(ListCenterFocus)">
 		    <param name="ListType">fixedlist</param>
 		</include>
+		
 		<include>View_55_BigPanel</include>
 		<include>View_551_BigPanel2</include>
+		
 		<include>View_56_Fanart</include>
-        <include content="View_501_TallList" condition="!Skin.HasSetting(ListCenterFocus)">
+        
+		<include content="View_501_TallList" condition="!Skin.HasSetting(ListCenterFocus)">
 		    <param name="ListType">list</param>
 		</include>
 		<include content="View_501_TallList" condition="Skin.HasSetting(ListCenterFocus)">

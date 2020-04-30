@@ -70,45 +70,288 @@
 	
 	<include name="TopRightOverlayFanart">
 	    <param name="isFocused">false</param>
-		<param name="isSmallIcon">false</param>
 		<definition>
-		    <control type="image">
-				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
+			<!-- Overlay for normal icons -->
+			<control type="image">
 				<visible>!$PARAM[isFocused]</visible>
+				<visible>!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !ListItem.IsResumable + !ListItem.IsCollection</visible>
 				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>96r</posx>
-				<posy>16</posy>
+				<posx>86r</posx>
+				<posy>15</posy>
 				<height>72</height>
 				<width>72</width>
 			</control>
 			<control type="image">
-				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]]</visible>
 				<visible>$PARAM[isFocused]</visible>
+				<visible>!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !ListItem.IsResumable + !ListItem.IsCollection</visible>
 				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>96r</posx>
-				<posy>16</posy>
+				<posx>86r</posx>
+				<posy>15</posy>
 				<height>72</height>
 				<width>72</width>
 				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 			</control>
-			<control type="image">
-				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon]</visible>
-				<visible>!$PARAM[isFocused]</visible>
-				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>92r</posx>
-				<posy>12</posy>
-				<height>72</height>
-				<width>72</width>
+			<!-- Unwatched episode count for normal icons -->
+			<control type="group">
+				<visible>!ListItem.IsParentFolder + [Container.content(tvshows) | container.content(seasons)]</visible>
+				<visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+				<control type="image">
+				    <visible>!$PARAM[isFocused]</visible>
+				    <texture background="true">overlays/toprightempty2.png</texture>
+				    <posx>93r</posx>
+				    <posy>15</posy>
+				    <height>82</height>
+				    <width>82</width>
+			    </control>
+				<control type="image">
+				    <visible>$PARAM[isFocused]</visible>
+				    <texture background="true">overlays/toprightempty2.png</texture>
+				    <posx>93r</posx>
+				    <posy>15</posy>
+				    <height>82</height>
+				    <width>82</width>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			    </control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>85r</posx>
+				    <posy>-262</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>85r</posx>
+				    <posy>-262</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>White2</textcolor>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused] + !Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>86r</posx>
+				    <posy>-262</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>White2</textcolor>
+				</control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + !Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>86r</posx>
+				    <posy>-262</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control>
 			</control>
+			
+			<!-- In-progress percent for normal icons -->
+			<control type="group">
+				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
+				<control type="image">
+				    <visible>!$PARAM[isFocused]</visible>
+				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
+				    <posx>86r</posx>
+				    <posy>15</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="image">
+				    <visible>$PARAM[isFocused]</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
+				    <posx>86r</posx>
+				    <posy>15</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused]</visible>
+					<posx>84r</posx>
+				    <posy>-268</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<textcolor>Black</textcolor>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused]</visible>
+					<posx>84r</posx>
+				    <posy>-268</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+					<textcolor>White2</textcolor>
+				</control>
+			</control>
+			
+			<!-- Collections for normal icons -->
+			<control type="group">
+				<visible>ListItem.IsCollection + !Skin.HasSetting(Hide_Collection_Marks)</visible>
+				<control type="image">
+				    <visible>!$PARAM[isFocused]</visible>
+				    <texture background="true">overlays/toprightcollectionsnf.png</texture>
+				    <posx>86r</posx>
+				    <posy>15</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="image">
+				    <visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service)</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsfo.png</texture>
+				    <posx>86r</posx>
+				    <posy>15</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="image">
+				    <visible>$PARAM[isFocused] + !System.HasAddon(script.skin.info.service)</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsnf.png</texture>
+				    <posx>96r</posx>
+				    <posy>16</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service)</visible>
+					<posx>84r</posx>
+				    <posy>-264</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<textcolor>Black</textcolor>
+					<label>[B]$INFO[window(home).property(skininfo.set.movies.count)][/B]</label>
+				</control>
+			</control>
+		</definition>
+	</include>
+	
+	<include name="TopRightOverlayGallery">
+		<definition>
+			<!-- Overlay for normal icons -->
 			<control type="image">
-				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon]</visible>
-				<visible>$PARAM[isFocused]</visible>
+				<visible>!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !ListItem.IsResumable + !ListItem.IsCollection</visible>
 				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>92r</posx>
-				<posy>12</posy>
+				<posx>1727r</posx>
+				<posy>14</posy>
 				<height>72</height>
 				<width>72</width>
 				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			</control>
+			<!-- Unwatched episode count for normal icons -->
+			<control type="group">
+				<visible>!ListItem.IsParentFolder + [Container.content(tvshows) | container.content(seasons)]</visible>
+				<visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+				<control type="image">
+				    <texture background="true">overlays/toprightempty2.png</texture>
+				    <posx>1734r</posx>
+				    <posy>14</posy>
+				    <height>82</height>
+				    <width>82</width>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			    </control>
+				<control type="label" description="l2">
+					<visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>1727r</posx>
+				    <posy>-283</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control>
+				<control type="label" description="l2">
+					<visible>!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
+					<posx>1727r</posx>
+				    <posy>-283</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control>
+			</control>
+			
+			<!-- In-progress percent for normal icons -->
+			<control type="group">
+				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
+				<control type="image">
+				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
+				    <posx>1727r</posx>
+				    <posy>14</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="label" description="l2">
+					<posx>1725r</posx>
+				    <posy>-283</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+					<textcolor>White2</textcolor>
+				</control>
+			</control>
+			
+			<!-- Collections for normal icons -->
+			<control type="group">
+				<visible>ListItem.IsCollection + !Skin.HasSetting(Hide_Collection_Marks)</visible>
+				<control type="image">
+				    <visible>System.HasAddon(script.skin.info.service)</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsfo.png</texture>
+				    <posx>1727r</posx>
+				    <posy>14</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="image">
+				    <visible>!System.HasAddon(script.skin.info.service)</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsnf.png</texture>
+				    <posx>1737r</posx>
+				    <posy>15</posy>
+				    <height>72</height>
+				    <width>72</width>
+			    </control>
+				<control type="label" description="l2">
+					<visible>System.HasAddon(script.skin.info.service)</visible>
+					<posx>1725r</posx>
+				    <posy>-283</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<textcolor>Black</textcolor>
+					<label>[B]$INFO[window(home).property(skininfo.set.movies.count)][/B]</label>
+				</control>
 			</control>
 		</definition>
 	</include>
@@ -175,20 +418,17 @@
 						<control type="image">
 							<include>MovieFanartReflection</include>
 						</control>
+						<include condition="Skin.HasSetting(ShowTopRightOverlays)" content="TopRightOverlayFanart">
+	                        <param name="isFocused">false</param>
+						</include>	
 						<control type="image">
-				            <texture background="true">$VAR[TopRightOverlay]</texture>
-				            <posx>86r</posx>
-				            <posy>15</posy>
-				            <height>72</height>
-				            <width>72</width>
-			            </control>
-<!--						<control type="image">
 							<posx>190</posx>
 							<posy>291</posy>
 							<width>33</width>
 							<height>33</height>
 							<texture>$VAR[Overlay]</texture>
-						</control> -->
+							<visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+						</control>
 					</itemlayout>
 					<focusedlayout height="339" width="240" condition="container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)">
 						<control type="group">
@@ -200,20 +440,17 @@
 							<control type="image">
 								<include>MovieFanartReflection</include>
 							</control>
-<!--							<control type="image">
+							<control type="image">
 								<posx>190</posx>
 								<posy>291</posy>
 								<width>33</width>
 								<height>33</height>
 								<texture>$VAR[Overlay]</texture>
-							</control> -->
-							<control type="image">
-				                <texture background="true">$VAR[TopRightOverlay]</texture>
-				                <posx>86r</posx>
-				                <posy>15</posy>
-				                <height>72</height>
-				                <width>72</width>
-			                </control>
+								<visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+							</control>
+							<include condition="Skin.HasSetting(ShowTopRightOverlays)" content="TopRightOverlayFanart">
+	                            <param name="isFocused">true</param>
+						    </include>
 						</control>
 					</focusedlayout>
 					<itemlayout height="291" width="464" condition="container.content(episodes)">
@@ -237,13 +474,14 @@
 								<font>font24_title</font>
 								<label>$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</label>
 							</control>
-<!--							<control type="image" description="Watched Overlay">
+							<control type="image" description="Watched Overlay">
 								<posx>357</posx>
 								<width>33</width>
 								<height>70</height>
 								<texture>$VAR[Overlay]</texture>
 								<aspectratio>keep</aspectratio>
-							</control> -->
+								<visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+							</control>
 							<control type="image">
 								<include>EpisodeFanartReflection</include>
 							</control>
@@ -254,6 +492,7 @@
 				            <posy>12</posy>
 				            <height>72</height>
 				            <width>72</width>
+							<visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
 			            </control>
 					</itemlayout>
 					<focusedlayout height="291" width="464" condition="container.content(episodes)">
@@ -281,13 +520,14 @@
 									<textcolor>$VAR[LabelTextColor]</textcolor>
 									<label>$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode]</label>
 								</control>
-<!--								<control type="image" description="Watched Overlay">
+								<control type="image" description="Watched Overlay">
 									<posx>357</posx>
 									<width>33</width>
 									<height>70</height>
 									<texture>$VAR[Overlay]</texture>
 									<aspectratio>keep</aspectratio>
-								</control> -->
+									<visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+								</control>
 								<control type="image">
 									<include>EpisodeFanartReflection</include>
 								</control>
@@ -298,6 +538,7 @@
 				                <posy>12</posy>
 				                <height>72</height>
 				                <width>72</width>
+								<visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
 			                </control>
 						</control>
 					</focusedlayout>
@@ -336,20 +577,15 @@
 							<include>Icon_Fade</include>
 							<include>MovieFanartThumb</include>
 						</control>
-<!--						<control type="image">
+						<control type="image">
 							<posx>190</posx>
 							<posy>291</posy>
 							<width>33</width>
 							<height>33</height>
 							<texture>$VAR[Overlay]</texture>
-						</control> -->
-						<control type="image">
-				            <texture background="true">$VAR[TopRightOverlay]</texture>
-				            <posx>1727r</posx>
-				            <posy>14</posy>
-				            <height>72</height>
-				            <width>72</width>
-			            </control>
+							<visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+						</control>
+						<include condition="Skin.HasSetting(ShowTopRightOverlays)" content="TopRightOverlayGallery"></include>
 					</control>
 					<control type="group" description="Media info">
 						<posx>330</posx>

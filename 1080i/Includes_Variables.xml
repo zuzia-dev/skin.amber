@@ -417,7 +417,7 @@
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),moviestvshows)">$LOCALIZE[20342]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Movies.Count)][/COLOR]  •  $LOCALIZE[20343]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(TVShows.Count)][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),pvr) + PVR.IsRecording">$LOCALIZE[19043]: [COLOR=$VAR[HighlightColor]]$INFO[Pvr.NowRecordingTitle][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),pvr) + PVR.HasNonRecordingTimer">$LOCALIZE[209]: [COLOR=$VAR[HighlightColor]]$INFO[Pvr.NextRecordingTitle][/COLOR]  •  [COLOR=$VAR[HighlightColor]]$INFO[Pvr.NextRecordingDateTime][/COLOR]</value>
-        <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),pvr)">$LOCALIZE[31409]: [COLOR=$VAR[HighlightColor]]$INFO[Pvr.BackendChannels] $LOCALIZE[14301][/COLOR]</value>
+        <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),pvr)">$LOCALIZE[31409]: [COLOR=$VAR[HighlightColor]]$INFO[Pvr.BackendChannels] $LOCALIZE[14301][/COLOR] $LOCALIZE[19017]: [COLOR=$VAR[HighlightColor]]$INFO[PVR.BackendRecordings][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),weather)">$INFO[Weather.Location]  [COLOR=$VAR[HighlightColor]]$INFO[Weather.Conditions][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),addons)">$LOCALIZE[24001]: [COLOR=$VAR[HighlightColor]]$INFO[Container(9985).NumItems][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),videoaddons)">$LOCALIZE[1037]: [COLOR=$VAR[HighlightColor]]$INFO[Container(9980).NumItems][/COLOR]</value>
@@ -899,7 +899,9 @@
         <value condition="!Skin.HasSetting(Sub_FanArtBG)">$VAR[SubDefaultBackground]</value>
         <value condition="!String.IsEmpty(Control.GetLabel(4411)) + Skin.HasSetting(SkinHelper.EnableExtraFanart)">$INFO[Control.GetLabel(4411)]</value>
 		<value condition="!String.IsEmpty(Control.GetLabel(4410)) + Skin.HasSetting(SkinHelper.EnableExtraFanart)">$INFO[Control.GetLabel(4410)]</value>
-        <value>$VAR[Fanart.Art]</value>
+        <value condition="Window.IsVisible(MyVideoNav.xml) + [Container.Content(actors) | Container.Content(directors) | Container.Content(years) | Container.Content(countries) | 
+		                                                      Container.Content(tags) | Container.Content(genres) | Container.Content(studios)] + !String.IsEmpty(Container(4451).ListItem.Art(fanart))">$INFO[Container(4451).ListItem.Art(fanart)]</value>
+		<value>$VAR[Fanart.Art]</value>
     </variable>
 
     <variable name="SubDefaultBackground">
@@ -1305,6 +1307,11 @@
 	<variable name="LongLabelScroll">
 	    <value condition="Skin.HasSetting(ScrollLongLabels)">true</value>
 		<value>false</value>
+	</variable>
+	
+	<variable name="UnwatchedEpisodes">
+	    <value condition="!Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)">$INFO[ListItem.Property(UnWatchedEpisodes)]</value>
+		<value>99+</value>
 	</variable>
 	
     <expression name="56_FanartViewInfo">[[container.content(albums) | container.content(artists)] + Skin.HasSetting(56_Music_Info)] | [container.content(episodes) + Skin.HasSetting(56_Episodes_Info)] | [[container.content(MusicVideos) | container.content(movies) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Info)]</expression>
