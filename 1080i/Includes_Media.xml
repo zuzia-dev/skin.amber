@@ -990,28 +990,53 @@
 			</control>
 			<!-- Overlay for small icons in widgets -->
 			<control type="image">
-				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] + String.IsEmpty(Container.Viewmode)</visible>
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] + String.IsEmpty(Container.Viewmode) + !Window.IsActive(dialogvideoinfo.xml)</visible>
 				<visible>!$PARAM[isFocused]</visible>
 				<visible>![String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] + !ListItem.IsResumable + !ListItem.IsCollection</visible>
 				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>102r</posx>
+				<posx>98r</posx>
 				<posy>12</posy>
 				<height>82</height>
 				<width>82</width>
 				<aspectratio>keep</aspectratio>
 			</control>
 			<control type="image">
-				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] +  String.IsEmpty(Container.Viewmode)</visible>
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] +  String.IsEmpty(Container.Viewmode) + !Window.IsActive(dialogvideoinfo.xml)</visible>
 				<visible>$PARAM[isFocused]</visible>
 				<visible>![String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] + !ListItem.IsResumable + !ListItem.IsCollection</visible>
 				<texture background="true">$VAR[TopRightOverlay]</texture>
-				<posx>102r</posx>
+				<posx>98r</posx>
 				<posy>12</posy>
 				<height>82</height>
 				<width>82</width>
 				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				<aspectratio>keep</aspectratio>
 			</control>
+			<!-- Overlay for small icons in custom video lists in info dialog -->
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] + String.IsEmpty(Container.Viewmode) + Window.IsActive(dialogvideoinfo.xml)</visible>
+				<visible>!$PARAM[isFocused]</visible>
+				<visible>![String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] + !ListItem.IsResumable + !ListItem.IsCollection</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>98r</posx>
+				<posy>12</posy>
+				<height>82</height>
+				<width>82</width>
+				<aspectratio>keep</aspectratio>
+			</control>
+			<control type="image">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] +  String.IsEmpty(Container.Viewmode) + Window.IsActive(dialogvideoinfo.xml)</visible>
+				<visible>$PARAM[isFocused]</visible>
+				<visible>![String.IsEqual(ListItem.DBType,tvshow) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)] + !ListItem.IsResumable + !ListItem.IsCollection</visible>
+				<texture background="true">$VAR[TopRightOverlay]</texture>
+				<posx>98r</posx>
+				<posy>12</posy>
+				<height>82</height>
+				<width>82</width>
+				<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				<aspectratio>keep</aspectratio>
+			</control>
+			
 			<!-- Unwatched episode count for normal icons -->
 			<control type="group">
 				<visible>$EXP[IsIconView] + ![$PARAM[isSmallIcon]] + ![$PARAM[isSearch]]</visible>
@@ -1179,7 +1204,7 @@
 				</control>
 				<!-- Poster in widgets -->
 				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode)</visible>
+					<visible>$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode) + !Window.IsActive(DialogVideoInfo.xml)</visible>
 					<posx>94r</posx>
 				    <posy>-244</posy>
 					<height>$PARAM[itemheight]</height>
@@ -1192,9 +1217,34 @@
 					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				</control>
 				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode)</visible>
+					<visible>!$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode) + !Window.IsActive(DialogVideoInfo.xml)</visible>
 					<posx>94r</posx>
 				    <posy>-244</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>White2</textcolor>
+				</control>
+				<!-- Posters in custom lists in video info -->
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode) + Window.IsActive(DialogVideoInfo.xml)</visible>
+					<posx>94r</posx>
+				    <posy>-254</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<label>$VAR[UnwatchedEpisodes]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused] + !$PARAM[isBanner] + String.IsEmpty(Container.Viewmode) + Window.IsActive(DialogVideoInfo.xml)</visible>
+					<posx>94r</posx>
+				    <posy>-254</posy>
 					<height>$PARAM[itemheight]</height>
 					<width>100</width>
 					<font>ListDetailsSmall</font>
@@ -1299,7 +1349,7 @@
 				    <width>72</width>
 			    </control>
 				<control type="label" description="l2">
-					<visible>$PARAM[isFocused]</visible>
+					<visible>$PARAM[isFocused] + !String.IsEqual(ListItem.DBType,episode)</visible>
 					<posx>94r</posx>
 				    <posy>-366</posy>
 					<height>$PARAM[itemheight]</height>
@@ -1311,9 +1361,32 @@
 					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
 				</control>
 				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused]</visible>
+					<visible>!$PARAM[isFocused] + !String.IsEqual(ListItem.DBType,episode)</visible>
 					<posx>94r</posx>
 				    <posy>-366</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+					<textcolor>White2</textcolor>
+				</control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + String.IsEqual(ListItem.DBType,episode)</visible>
+					<posx>94r</posx>
+				    <posy>-158</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<textcolor>Black</textcolor>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused] + String.IsEqual(ListItem.DBType,episode)</visible>
+					<posx>94r</posx>
+				    <posy>-158</posy>
 					<height>$PARAM[itemheight]</height>
 					<width>100</width>
 					<font>ListDetailsSmall</font>
@@ -1327,7 +1400,7 @@
 				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]]</visible>
 				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
 				<control type="image">
-				    <visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode)</visible>
+				    <visible>!$PARAM[isFocused]</visible>
 				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
 				    <posx>92r</posx>
 				    <posy>12</posy>
@@ -1335,32 +1408,16 @@
 				    <width>72</width>
 			    </control>
 				<control type="image">
-				    <visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode)</visible>
+				    <visible>$PARAM[isFocused]</visible>
 				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
 				    <posx>92r</posx>
-				    <posy>12</posy>
-				    <height>72</height>
-				    <width>72</width>
-			    </control>
-				<control type="image">
-				    <visible>!$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
-				    <posx>100r</posx>
-				    <posy>12</posy>
-				    <height>72</height>
-				    <width>72</width>
-			    </control>
-				<control type="image">
-				    <visible>$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
-				    <posx>100r</posx>
 				    <posy>12</posy>
 				    <height>72</height>
 				    <width>72</width>
 			    </control>
 				<!-- media view -->
 				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode)</visible>
+					<visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + !String.IsEqual(ListItem.DBType,episode)</visible>
 					<posx>90r</posx>
 				    <posy>-268</posy>
 					<height>$PARAM[itemheight]</height>
@@ -1372,9 +1429,32 @@
 					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
 				</control>
 				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode)</visible>
+					<visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + !String.IsEqual(ListItem.DBType,episode)</visible>
 					<posx>90r</posx>
 				    <posy>-268</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+					<textcolor>White2</textcolor>
+				</control>
+				<control type="label" description="l2">
+					<visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + String.IsEqual(ListItem.DBType,episode)</visible>
+					<posx>90r</posx>
+				    <posy>-108</posy>
+					<height>$PARAM[itemheight]</height>
+					<width>100</width>
+					<font>ListDetailsSmall</font>
+					<align>center</align>
+					<shadowcolor></shadowcolor>
+					<textcolor>Black</textcolor>
+					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
+				</control>
+				<control type="label" description="l2">
+					<visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + String.IsEqual(ListItem.DBType,episode)</visible>
+					<posx>90r</posx>
+				    <posy>-108</posy>
 					<height>$PARAM[itemheight]</height>
 					<width>100</width>
 					<font>ListDetailsSmall</font>
@@ -1385,8 +1465,8 @@
 				<!-- widget -->
 				<control type="label" description="l2">
 					<visible>$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-					<posx>98r</posx>
-				    <posy>-262</posy>
+					<posx>90r</posx>
+				    <posy>-254</posy>
 					<height>$PARAM[itemheight]</height>
 					<width>100</width>
 					<font>ListDetailsSmall</font>
@@ -1397,8 +1477,8 @@
 				</control>
 				<control type="label" description="l2">
 					<visible>!$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-					<posx>98r</posx>
-				    <posy>-262</posy>
+					<posx>90r</posx>
+				    <posy>-254</posy>
 					<height>$PARAM[itemheight]</height>
 					<width>100</width>
 					<font>ListDetailsSmall</font>
@@ -1465,33 +1545,13 @@
 				    <width>72</width>
 			    </control>
 				<control type="image">
-				    <visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service)</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsfo.png</texture>
-				    <posx>96r</posx>
-				    <posy>16</posy>
-				    <height>72</height>
-				    <width>72</width>
-			    </control>
-				<control type="image">
-				    <visible>$PARAM[isFocused] + !System.HasAddon(script.skin.info.service)</visible>
+				    <visible>$PARAM[isFocused]</visible>
 				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsnf.png</texture>
 				    <posx>96r</posx>
 				    <posy>16</posy>
 				    <height>72</height>
 				    <width>72</width>
 			    </control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service)</visible>
-					<posx>95r</posx>
-				    <posy>-362</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[window(home).property(skininfo.set.movies.count)][/B]</label>
-				</control>
 			</control>
 			<!-- Collections for small icons -->
 			<control type="group">
@@ -1506,35 +1566,14 @@
 				    <width>72</width>
 			    </control>
 				<control type="image">
-				    <visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service) + !String.IsEmpty(Container.Viewmode)</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsfo.png</texture>
-				    <posx>92r</posx>
-				    <posy>12</posy>
-				    <height>72</height>
-				    <width>72</width>
-			    </control>
-				<control type="image">
-				    <visible>$PARAM[isFocused] + [!System.HasAddon(script.skin.info.service) | String.IsEmpty(Container.Viewmode)]</visible>
+				    <visible>$PARAM[isFocused]</visible>
 				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightcollectionsnf.png</texture>
 				    <posx>92r</posx>
 				    <posy>12</posy>
 				    <height>72</height>
 				    <width>72</width>
 			    </control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + System.HasAddon(script.skin.info.service) + !String.IsEmpty(Container.Viewmode)</visible>
-					<posx>91.5r</posx>
-				    <posy>-260</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[window(home).property(skininfo.set.movies.count)][/B]</label>
-				</control>
 			</control>
-			
 			
 		</definition>
 	</include>	
@@ -2001,6 +2040,7 @@
 				<param name="overlaylabel">$VAR[PosterLabel]</param>
 				<param name="overlaylabelalign">center</param>
 				<param name="overlaylabelyoffset">90r</param>
+				<param name="aspect">scale</param>
 			</include>
 		</definition>
 	</include>
@@ -2206,6 +2246,7 @@
         <param name="belowlabelvisibility">false</param>
 		<param name="belowlabel" />
         <param name="belowlabelheight">35</param>
+		<param name="isSmallIcon">true</param>
 		<definition>
 			<itemlayout height="410" width="232.5">
 			    <include content="GenericThumbIconTemplate">
@@ -2227,6 +2268,7 @@
                     <param name="labelfont1">ListDetailsSmall</param>
                     <param name="labelfont2">ListDetailsSmall</param>
 				    <param name="aspect">scale</param>
+					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 			    </include>
 			</itemlayout>
 			<focusedlayout height="410" width="232.5">
@@ -2249,6 +2291,7 @@
                     <param name="labelfont1">ListDetailsSmall</param>
                     <param name="labelfont2">ListDetailsSmall</param>
 				    <param name="aspect">scale</param>
+					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 			    </include>                
 			</focusedlayout>
 		</definition>
