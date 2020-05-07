@@ -325,9 +325,9 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Global.Fanart) + System.HasAddon(script.embuary.helper)">$INFO[Window(home).Property(EmbuaryBackground.Clearlogo)]</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Music.Fanart) + System.HasAddon(script.embuary.helper)">$INFO[Window(home).Property(EmbuaryBackgroundMusic.Clearlogo)]</value>
 		
-        <value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(tvshow.clearlogo))">$INFO[Container(9988).ListItem.Art(tvshow.clearlogo)]</value>
-		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(clearlogo))">$INFO[Container(9988).ListItem.Art(clearlogo)]</value>
-		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + Skin.HasSetting(UseEHPlaylistBackgrounds) + System.HasAddon(script.embuary.helper) + !String.IsEmpty(Container(9989).ListItem.Art(clearlogo))">$INFO[Container(9989).ListItem.Art(clearlogo)]</value>
+        <value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(tvshow.clearlogo))">$INFO[Container(9988).ListItem.Art(tvshow.clearlogo)]</value>
+		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(clearlogo))">$INFO[Container(9988).ListItem.Art(clearlogo)]</value>
+		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper) + !String.IsEmpty(Container(9989).ListItem.Art(clearlogo))">$INFO[Container(9989).ListItem.Art(clearlogo)]</value>
 		
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground) + !String.IsEmpty(Container(9990).ListItem.Art(clearlogo))">$INFO[Container(9990).ListItem.Art(clearlogo)]</value>
     </variable>
@@ -490,9 +490,9 @@
     </variable>
 
     <variable name="GlobalHeadings" description="Global Headings">
-        <value condition="Window.IsActive(DialogFavourites.xml)">$LOCALIZE[1036]</value>
-        <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml)">$LOCALIZE[5] / $LOCALIZE[31022]</value>
         <value condition="Window.IsActive(service-LibreELEC-Settings-mainWindow.xml)">$LOCALIZE[5] / LibreELEC</value>
+		<value condition="Window.IsActive(DialogFavourites.xml)">$LOCALIZE[1036]</value>
+        <value condition="Window.IsActive(Settings.xml) | Window.IsActive(SettingsCategory.xml)">$LOCALIZE[5] / $LOCALIZE[31022]</value>
 		<value condition="Window.IsActive(SkinSettings.xml)">$LOCALIZE[5] / Amber</value>
         <value condition="Window.IsActive(AddonBrowser.xml) + String.IsEmpty(Container.FolderName)">$LOCALIZE[31291]</value>
         <value condition="Window.IsActive(MyVideoNav.xml) + Container.Content(episodes)">$INFO[Container.ShowTitle[COLOR=$VAR[HighlightColor]]  •  [/COLOR]]$INFO[Container.FolderName][COLOR=$VAR[HighlightColor]]  •  [/COLOR]$INFO[Container.NumItems]</value>
@@ -932,10 +932,10 @@
         <value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + String.IsEqual(Skin.String(FocusedMenu.Background),Kodi.Global.Fanart)">$INFO[Container(12347).ListItem.Art(fanart)]</value>
         <value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + String.IsEqual(Skin.String(FocusedMenu.Background),Weather.Fanart)">$INFO[Skin.String(weatherfanartResource.path)]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherBackgroundExt]</value>
 		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + String.IsEqual(Skin.String(FocusedMenu.Background),nodeBackground)">$INFO[Container(9990).ListItem.Art(fanart)]</value>
-        <value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(fanart))">$INFO[Container(9988).ListItem.Art(fanart)]</value>
-		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)] + String.IsEmpty(Container(9988).ListItem.Art(fanart))">$INFO[Skin.String(FocusedMenu.Background)]</value>
-		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [Skin.HasSetting(UseEHPlaylistBackgrounds) + System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9989).ListItem.Art(fanart))">$INFO[Container(9989).ListItem.Art(fanart)]</value>
-		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [Skin.HasSetting(UseEHPlaylistBackgrounds) + System.HasAddon(script.embuary.helper)] + String.IsEmpty(Container(9989).ListItem.Art(fanart))">$INFO[Skin.String(FocusedMenu.Background)]</value>
+        <value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9988).ListItem.Art(fanart))">$INFO[Container(9988).ListItem.Art(fanart)]</value>
+		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + String.IsEmpty(Container(9988).ListItem.Art(fanart))">$INFO[Skin.String(FocusedMenu.Background)]</value>
+		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9989).ListItem.Art(fanart))">$INFO[Container(9989).ListItem.Art(fanart)]</value>
+		<value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + !String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist)) + [String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)] + String.IsEmpty(Container(9989).ListItem.Art(fanart))">$INFO[Skin.String(FocusedMenu.Background)]</value>
         <value condition="!Skin.HasSetting(Sub_DefaultBG) + !String.IsEmpty(Skin.String(FocusedMenu.Background)) + String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist))">$INFO[Skin.String(FocusedMenu.Background)]</value>
         <value>special://skin/backgrounds/Default.jpg</value>
     </variable>
@@ -965,8 +965,8 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground)">$INFO[Container(9990).ListItem.Art(fanart)]</value>
 		
 		<value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">$INFO[Container(300).ListItem.Property(background)]</value>
-        <value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [Skin.HasSetting(UseEHPlaylistBackgrounds) + System.HasAddon(script.embuary.helper)]">$INFO[Container(9989).ListItem.Art(fanart)]</value>
+        <value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)]">$INFO[Container(9989).ListItem.Art(fanart)]</value>
 	</variable>
 
     <variable name="FanartTitleVar">
@@ -989,8 +989,8 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Global.Fanart) + System.HasAddon(script.embuary.helper)">$INFO[Window(home).Property(EmbuaryBackground.Title)]</value>
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),Music.Fanart) + System.HasAddon(script.embuary.helper)">$INFO[Window(home).Property(EmbuaryBackgroundMusic.Title)]</value>
 		
-        <value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!Skin.HasSetting(UseEHPlaylistBackgrounds) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Title]</value>
-		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + Skin.HasSetting(UseEHPlaylistBackgrounds) + System.HasAddon(script.embuary.helper)">$INFO[Container(9989).ListItem.Label]</value>
+        <value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Title]</value>
+		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)">$INFO[Container(9989).ListItem.Label]</value>
         
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground)">$INFO[Container(9990).ListItem.Title]</value>
 		<value></value>

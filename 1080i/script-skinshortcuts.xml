@@ -261,6 +261,22 @@
 					<font>ListDetails</font>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
 				</control>
+				<control type="radiobutton" id="807">
+					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
+					<label>$LOCALIZE[32258]</label>
+					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(EHPlaylistFanart))">SetProperty(customProperty,EHPlaylistFanart)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(EHPlaylistFanart),true)">SetProperty(customProperty,EHPlaylistFanart)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(EHPlaylistFanart),false)">SetProperty(customValue,true)</onclick>
+					<onclick>SendClick(404)</onclick>
+					<selected>String.IsEqual(Container(211).ListItem.Property(EHPlaylistFanart),true)</selected>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<visible>[String.Contains(Container(211).ListItem.Property(path),xsp) | String.Contains(Container(211).ListItem.Property(path),playlists)]</visible>
+					<visible>System.HasAddon(script.embuary.helper)</visible>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+				</control>
 				<control type="radiobutton" id="806">
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu) + !Skin.HasSetting(Hide.AllShelves)</visible>
 					<label>$LOCALIZE[32053]</label>
