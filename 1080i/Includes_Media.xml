@@ -1334,7 +1334,7 @@
 				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
 				<control type="image">
 				    <visible>!$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
+				    <texture background="true">$VAR[TopRightInProgress]</texture>
 				    <posx>96r</posx>
 				    <posy>16</posy>
 				    <height>72</height>
@@ -1342,66 +1342,20 @@
 			    </control>
 				<control type="image">
 				    <visible>$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
 				    <posx>96r</posx>
 				    <posy>16</posy>
 				    <height>72</height>
 				    <width>72</width>
 			    </control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + !String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>94r</posx>
-				    <posy>-366</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + !String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>94r</posx>
-				    <posy>-366</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>94r</posx>
-				    <posy>-158</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>94r</posx>
-				    <posy>-158</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
 			</control>
-			<!-- In-progress percent for small icons -->
+			<!-- In-progress percent for small icons, media views -->
 			<control type="group">
-				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]]</visible>
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] + !String.IsEmpty(Container.Viewmode)</visible>
 				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
 				<control type="image">
 				    <visible>!$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
+				    <texture background="true">$VAR[TopRightInProgress]</texture>
 				    <posx>92r</posx>
 				    <posy>12</posy>
 				    <height>72</height>
@@ -1409,83 +1363,35 @@
 			    </control>
 				<control type="image">
 				    <visible>$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
 				    <posx>92r</posx>
 				    <posy>12</posy>
 				    <height>72</height>
 				    <width>72</width>
 			    </control>
-				<!-- media view -->
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + !String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>90r</posx>
-				    <posy>-268</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + !String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>90r</posx>
-				    <posy>-268</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>90r</posx>
-				    <posy>-108</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + !String.IsEmpty(Container.Viewmode) + String.IsEqual(ListItem.DBType,episode)</visible>
-					<posx>90r</posx>
-				    <posy>-108</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
-				<!-- widget -->
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-					<posx>90r</posx>
-				    <posy>-254</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused] + String.IsEmpty(Container.Viewmode)</visible>
-					<posx>90r</posx>
-				    <posy>-254</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
+			</control>
+			<!-- In-progress percent for small icons, widgets and custom video info lists -->
+			<control type="group">
+				<visible>$EXP[IsIconView] + $PARAM[isSmallIcon] + ![$PARAM[isSearch]] + String.IsEmpty(Container.Viewmode)</visible>
+				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
+				<control type="image">
+				    <visible>!$PARAM[isFocused]</visible>
+				    <texture background="true">$VAR[TopRightInProgress]</texture>
+				    <posx>98r</posx>
+				    <posy>12</posy>
+				    <height>82</height>
+				    <width>82</width>
+				    <aspectratio>keep</aspectratio>
+			    </control>
+				<control type="image">
+				    <visible>$PARAM[isFocused]</visible>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				    <posx>98r</posx>
+				    <posy>12</posy>
+				    <height>82</height>
+				    <width>82</width>
+				    <aspectratio>keep</aspectratio>
+			    </control>
 			</control>
 			<!-- In-progress percent for search -->
 			<control type="group">
@@ -1493,43 +1399,22 @@
 				<visible>Integer.IsGreater(ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
 				<control type="image">
 				    <visible>!$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="Black">overlays/toprightblank.png</texture>
-				    <posx>92r</posx>
+				    <texture background="true">$VAR[TopRightInProgress]</texture>
+				    <posx>98r</posx>
 				    <posy>12</posy>
-				    <height>72</height>
-				    <width>72</width>
+				    <height>82</height>
+				    <width>82</width>
+				    <aspectratio>keep</aspectratio>
 			    </control>
 				<control type="image">
 				    <visible>$PARAM[isFocused]</visible>
-				    <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightblank.png</texture>
-				    <posx>92r</posx>
+				    <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				    <posx>98r</posx>
 				    <posy>12</posy>
-				    <height>72</height>
-				    <width>72</width>
+				    <height>82</height>
+				    <width>82</width>
+				    <aspectratio>keep</aspectratio>
 			    </control>
-				<control type="label" description="l2">
-					<visible>$PARAM[isFocused]</visible>
-					<posx>90r</posx>
-				    <posy>-270</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<shadowcolor></shadowcolor>
-					<textcolor>Black</textcolor>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-				</control>
-				<control type="label" description="l2">
-					<visible>!$PARAM[isFocused]</visible>
-					<posx>90r</posx>
-				    <posy>-270</posy>
-					<height>$PARAM[itemheight]</height>
-					<width>100</width>
-					<font>ListDetailsSmall</font>
-					<align>center</align>
-					<label>[B]$INFO[ListItem.PercentPlayed]%[/B]</label>
-					<textcolor>White2</textcolor>
-				</control>
 			</control>
 			
 			<!-- Collections for normal icons -->
