@@ -981,12 +981,20 @@
     <include name="IconViewSwitches">
         <param name="viewid"/>
         <definition>
-            <control type="radiobutton" id="9$PARAM[viewid]1" description="View Banners">
+            <control type="radiobutton" id="9$PARAM[viewid]1" description="View TV Show Banners">
                 <visible>Control.IsVisible($PARAM[viewid]) + Container.Content(tvshows)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
-                <onclick>Skin.ToggleSetting($PARAM[viewid]_UseBanners)</onclick>
-                <selected>Skin.HasSetting($PARAM[viewid]_UseBanners)</selected>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_TVShows_UseBanners)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_TVShows_UseBanners)</selected>
+                <label>- $LOCALIZE[31992]</label>
+            </control>
+			<control type="radiobutton" id="9$PARAM[viewid]111" description="View Movie Banners">
+                <visible>Control.IsVisible($PARAM[viewid]) + [container.content(movies) | container.content(sets)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting($PARAM[viewid]_Movies_UseBanners)</onclick>
+                <selected>Skin.HasSetting($PARAM[viewid]_Movies_UseBanners)</selected>
                 <label>- $LOCALIZE[31992]</label>
             </control>
 			<include content="ViewSettingsSmallIcons">
