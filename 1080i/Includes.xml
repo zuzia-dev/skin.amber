@@ -24,6 +24,7 @@
     <include file="Includes_CustomSelect.xml" />
     <include file="Includes_Info.xml" />
 	<include file="Includes_TVGuide.xml" />
+	<include file="Includes_Backgrounds.xml" />
 
     <include file="Includes_Media.xml" />
     <include file="Includes_List.xml" />
@@ -417,26 +418,6 @@
                     </control>
                 </control>
             </control>
-        </control>
-    </include>
-
-    <include name="DefaultBackground">
-        <control type="multiimage">
-            <visible>![Player.HasVideo + Skin.HasSetting(Show_Player)]</visible>
-            <include>Dimensions_Fullscreen</include>
-            <timeperimage>8000</timeperimage>
-            <fadetime>400</fadetime>
-            <imagepath background="true">$VAR[SubBackground]</imagepath>
-            <randomize>true</randomize>
-            <aspectratio>scale</aspectratio>
-        </control>
-        <control type="visualisation">
-            <visible>Player.HasAudio + Skin.HasSetting(Show_Player)</visible>
-            <include>Dimensions_Fullscreen</include>
-        </control>
-        <control type="videowindow">
-            <visible>Player.HasVideo + Skin.HasSetting(Show_Player)</visible>
-            <include>Dimensions_Fullscreen</include>
         </control>
     </include>
 
@@ -2976,18 +2957,6 @@
 		<include condition="String.IsEqual(Skin.String(FanartTimePerImage),90)">FadelabelPauseAtEnd90</include>
 	</include>
 
-    <!-- Playlist statistics -->
-	<include name="PlayListStatsList">
-		<control type="list" id="43260">
-			<visible>String.IsEqual(Container(300).ListItem.Property(InfoLine),movieplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),tvshowplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),episodeplaylist) | String.IsEqual(Container(300).ListItem.Property(InfoLine),musicvideoplaylist)</visible>
-			<width>1</width>
-			<height>1</height>
-			<focusedlayout />
-			<itemlayout />
-			<content>plugin://script.embuary.helper/?info=getpathstats&amp;path=$INFO[Container(300).ListItem.Property(Path)]&amp;prefix=PlaylistStats</content>
-		</control>
-	</include>
-
     <!-- Clear widget navigation property -->
     <include name="ClearWidgetNavProperties1">
         <onunload>ClearProperty(WidgetFocus1,Home)</onunload>
@@ -3203,77 +3172,31 @@
 		</definition>
 	</include>
 	
-	 <!-- Movie/TV Show Logo for Home Window -->
-	<include name="HomeClearLogo">
-		<!-- Logo when double shelf and fanart title in top bar -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1480</posx>
-            <width>420</width>
-            <height>170</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[isDoubleShelf] +  Skin.HasSetting(VerticalHome) + ![Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)]</visible>
-        </control>
-		<!-- Logo when double shelf and fanart title below top bar -->
-		<control type="image">
-            <posy>50</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>160</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[isDoubleShelf] +  [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)] + ![Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)]</visible>
-        </control>
-		<control type="image">
-            <posy>90</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>100</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[isDoubleShelf] +  [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar)] + [Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)]</visible>
-        </control>
-		<control type="image">
-            <posy>45</posy>
-		    <posx>1500</posx>
-            <width>400</width>
-            <height>75</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[isDoubleShelf] +  !Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo for vert. menu single shelf -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>320</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>![$EXP[isDoubleShelf]] + Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo for horiz. menu single shelf -->
-		<control type="image">
-            <posy>60</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>200</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>![$EXP[isDoubleShelf]] + !Skin.HasSetting(VerticalHome)</visible>
+	<include name="SetCountList">
+	    <!-- Hidden list for movie count for sets -->
+		<control type="list" id="4450">
+			<left>-100</left>
+		    <top>-100</top>
+		    <width>100</width>
+		    <height>100</height>
+		    <itemlayout height="100" width="100" />
+		    <focusedlayout height="100" width="100" />
+			<content sortby="year" sortorder="ascending">$VAR[MovieSetPath]</content>
+ 		</control>
+	</include>
+	
+	<include name="SpecialFanartList">
+	    <!-- Hidden list for fanart background for studios, genres, countries, etc. -->
+		<control type="list" id="4451">
+	        <left>-100</left>
+		    <top>-100</top>
+			<content limit="20" sortby="random">$INFO[ListItem.FolderPath]</content>
+	        <autoscroll time="8000">true</autoscroll>
+	        <itemlayout />
+	        <focusedlayout />
+			<visible>!String.StartsWith(ListItem.FolderPath,plugin) + [Container.Content(genres) | Container.Content(studios) | Container.Content(years) |
+			                                                           Container.Content(countries) | Container.Content(tags) | Container.Content(actors) | 
+																	   Container.Content(directors)]</visible>
         </control>
 	</include>
 

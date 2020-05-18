@@ -157,26 +157,9 @@
 			<label>$INFO[ListItem.Art(poster20)]</label>
 			<include>FadeLabelTime</include>
 		</control>
-		<!-- Hidden list for movie count for sets -->
-		<control type="list" id="4450">
-			<left>-100</left>
-		    <top>-100</top>
-		    <width>100</width>
-		    <height>100</height>
-		    <itemlayout height="100" width="100" />
-		    <focusedlayout height="100" width="100" />
-			<content sortby="year" sortorder="ascending">$VAR[MovieSetPath]</content>
- 		</control>
-		<!-- Hidden list for fanart background for studios, genres, countries, etc. -->
-		<control type="list" id="4451">
-	        <left>-100</left>
-		    <top>-100</top>
-			<content limit="20" sortby="random">$INFO[ListItem.FolderPath]</content>
-	        <autoscroll time="8000">true</autoscroll>
-	        <itemlayout />
-	        <focusedlayout />
-			<visible>!String.StartsWith(ListItem.FolderPath,plugin)</visible>
-        </control>
+		
+		<include condition="Skin.HasSetting(ShowSetCount)">SetCountList</include>
+		<include condition="Skin.HasSetting(ShowSpecialFanart)">SpecialFanartList</include>
 		
 		<include>DefaultBackground</include>
 		

@@ -23,12 +23,12 @@
 	<background label="31599">Kodi.Video.Fanart</background>
 	<background label="31600">Kodi.Music.Fanart</background>
 	<background label="31601">Kodi.Global.Fanart</background>
-	<background label="31399" condition="System.HasAddon(script.embuary.helper)">Movie.Fanart</background>
-	<background label="31400" condition="System.HasAddon(script.embuary.helper)">TV.Fanart</background>
-	<background label="31401" condition="System.HasAddon(script.embuary.helper)">Video.Fanart</background>
-	<background label="31589" condition="System.HasAddon(script.embuary.helper)">MusicVideo.Fanart</background>
-	<background label="31402" condition="System.HasAddon(script.embuary.helper)">Music.Fanart</background>
-	<background label="31403" condition="System.HasAddon(script.embuary.helper)">Global.Fanart</background>
+	<background label="31399" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">Movie.Fanart</background>
+	<background label="31400" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">TV.Fanart</background>
+	<background label="31401" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">Video.Fanart</background>
+	<background label="31589" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">MusicVideo.Fanart</background>
+	<background label="31402" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">Music.Fanart</background>
+	<background label="31403" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHBackgrounds)">Global.Fanart</background>
 	<background label="31590">nodeBackground</background>
 	<background label="31404" condition="!String.IsEmpty(Skin.String(weatherfanartResource.path))">Weather.Fanart</background>
 	<background label="31569">special://skin/backgrounds/Default.jpg</background>
@@ -127,10 +127,10 @@
 	<property property="InfoLine" label="$LOCALIZE[1036]" condition="System.HasAddon(script.favourites)">favourites</property>
 	<property property="InfoLine" label="$LOCALIZE[427]">disc</property>
 	<property property="InfoLine" label="$LOCALIZE[130]">systeminfo</property>
-	<property property="InfoLine" label="$LOCALIZE[31410]" condition="System.HasAddon(script.embuary.helper)">movieplaylist</property>
-	<property property="InfoLine" label="$LOCALIZE[31411]" condition="System.HasAddon(script.embuary.helper)">tvshowplaylist</property>
-	<property property="InfoLine" label="$LOCALIZE[31412]" condition="System.HasAddon(script.embuary.helper)">musicvideoplaylist</property>
-	<property property="InfoLine" label="$LOCALIZE[31418]" condition="System.HasAddon(script.embuary.helper)">episodeplaylist</property>
+	<property property="InfoLine" label="$LOCALIZE[31410]" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHInfoLine)">movieplaylist</property>
+	<property property="InfoLine" label="$LOCALIZE[31411]" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHInfoLine)">tvshowplaylist</property>
+	<property property="InfoLine" label="$LOCALIZE[31412]" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHInfoLine)">musicvideoplaylist</property>
+	<property property="InfoLine" label="$LOCALIZE[31418]" condition="System.HasAddon(script.embuary.helper) + Skin.HasSetting(UseEHInfoLine)">episodeplaylist</property>
     <property property="InfoLine" label="$LOCALIZE[31591]">movienode</property>
 	<property property="InfoLine" label="$LOCALIZE[31592]">tvshownode</property>
 	<property property="InfoLine" label="$LOCALIZE[31593]">musicvideonode</property>
@@ -757,6 +757,235 @@
 			</node>
 		</node>
 	</widget-groupings>
+
+    <!-- Default widgets -->
+<!--    <propertydefault defaultID="movies" property="widget">NewMovies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetTarget">video</propertydefault>
+    <propertydefault defaultID="movies" property="widgetType">movies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetPath">special://skin/extras/playlists/movies_recentlyadded.xsp</propertydefault>
+    <propertydefault defaultID="movies" property="widgetName">$LOCALIZE[31422]</propertydefault>
+    <propertydefault defaultID="movies" property="widgetSortBy">dateadded</propertydefault>
+    <propertydefault defaultID="movies" property="widgetSortOrder">descending</propertydefault>
+    <propertydefault defaultID="movies" property="widgetLimit">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="movies" property="widget.2">InProgressMovies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetTarget.2">video</propertydefault>
+    <propertydefault defaultID="movies" property="widgetType.2">movies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetPath.2">special://skin/extras/playlists/movies_inprogress.xsp</propertydefault>
+    <propertydefault defaultID="movies" property="widgetName.2">$LOCALIZE[31425]</propertydefault>
+    <propertydefault defaultID="movies" property="widgetSortBy.2">lastplayed</propertydefault>
+    <propertydefault defaultID="movies" property="widgetSortOrder.2">descending</propertydefault>
+    <propertydefault defaultID="movies" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="movies" property="widget.3">RandomMovies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetTarget.3">video</propertydefault>
+    <propertydefault defaultID="movies" property="widgetType.3">movies</propertydefault>
+    <propertydefault defaultID="movies" property="widgetPath.3">special://skin/extras/playlists/movies_random.xsp</propertydefault>
+    <propertydefault defaultID="movies" property="widgetName.3">$LOCALIZE[31424]</propertydefault>
+    <propertydefault defaultID="movies" property="widgetSortBy.3">random</propertydefault>
+    <propertydefault defaultID="movies" property="widgetLimit.3">$NUMBER[25]</propertydefault>
+    
+    <propertydefault defaultID="tvshows" property="widget">NewEpisodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType">episodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath">special://skin/extras/playlists/episodes_recentlyadded.xsp</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName">$LOCALIZE[31441]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortBy">dateadded</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortOrder">descending</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit">$NUMBER[25]</propertydefault>    
+    <propertydefault defaultID="tvshows" property="widget.2">UnwatchedTVShows</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget.2">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType.2">tvshows</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath.2">special://skin/extras/playlists/tvshows_unwatched.xsp</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName.2">$LOCALIZE[31437]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortBy.2">random</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widget.3">InProgressTVShows</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget.3">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType.3">tvshows</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath.3">library://video/tvshows/inprogressshows.xml</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName.3">$LOCALIZE[31436]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortBy.3">lastplayed</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortOrder.3">descending</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit.3">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widget.4">InProgressEpisodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget.4">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType.4">episodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath.4">special://skin/extras/playlists/episodes_inprogress.xsp</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName.4">$LOCALIZE[31444]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortBy.4">lastplayed</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetSortOrder.4">descending</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit.4">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widget.5">NextEpisodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget.5">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType.5">episodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath.5">plugin://script.skin.helper.widgets/?action=next&amp;mediatype=episodes&amp;reload=$INFO[Window(Home).Property(widgetreload-episodes)]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName.5">$LOCALIZE[31489]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit.5">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widget.6">AiringTodayEpisodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetTarget.6">video</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetType.6">episodes</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetPath.6">plugin://script.skin.helper.widgets/?action=airingtoday&amp;mediatype=episodes&amp;reload=$INFO[Window(Home).Property(widgetreload-episodes)]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetName.6">$LOCALIZE[31490]</propertydefault>
+    <propertydefault defaultID="tvshows" property="widgetLimit.6">$NUMBER[25]</propertydefault>
+
+    <propertydefault defaultID="music" property="widget">NewAlbums</propertydefault>
+    <propertydefault defaultID="music" property="widgetTarget">music</propertydefault>
+    <propertydefault defaultID="music" property="widgetType">albums</propertydefault>
+    <propertydefault defaultID="music" property="widgetPath">musicdb://recentlyaddedalbums/</propertydefault>
+    <propertydefault defaultID="music" property="widgetName">$LOCALIZE[31447]</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortBy">dateadded</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortOrder">descending</propertydefault>
+    <propertydefault defaultID="music" property="widgetLimit">$NUMBER[25]</propertydefault>    
+    <propertydefault defaultID="music" property="widget.2">MostPlayedAlbums</propertydefault>
+    <propertydefault defaultID="music" property="widgetTarget.2">music</propertydefault>
+    <propertydefault defaultID="music" property="widgetType.2">albums</propertydefault>
+    <propertydefault defaultID="music" property="widgetPath.2">special://skin/extras/playlists/albums_mostplayed.xsp</propertydefault>
+    <propertydefault defaultID="music" property="widgetName.2">$LOCALIZE[31465]</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortBy.2">lastplayed</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortOrder.2">descending</propertydefault>
+    <propertydefault defaultID="music" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="music" property="widget.3">RandomAlbums</propertydefault>
+    <propertydefault defaultID="music" property="widgetTarget.3">music</propertydefault>
+    <propertydefault defaultID="music" property="widgetType.3">albums</propertydefault>
+    <propertydefault defaultID="music" property="widgetPath.3">special://skin/extras/playlists/albums_random.xsp</propertydefault>
+    <propertydefault defaultID="music" property="widgetName.3">$LOCALIZE[31449]</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortBy.3">random</propertydefault>
+    <propertydefault defaultID="music" property="widgetLimit.3">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="music" property="widget.4">MostPlayedSongs</propertydefault>
+    <propertydefault defaultID="music" property="widgetTarget.4">music</propertydefault>
+    <propertydefault defaultID="music" property="widgetType.4">songs</propertydefault>
+    <propertydefault defaultID="music" property="widgetPath.4">special://skin/extras/playlists/songs_mostplayed.xsp</propertydefault>
+    <propertydefault defaultID="music" property="widgetName.4">$LOCALIZE[31469]</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortBy.4">lastplayed</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortOrder.4">descending</propertydefault>
+    <propertydefault defaultID="music" property="widgetLimit.4">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="music" property="widget.5">RandomArtists</propertydefault>
+    <propertydefault defaultID="music" property="widgetTarget.5">music</propertydefault>
+    <propertydefault defaultID="music" property="widgetType.5">artists</propertydefault>
+    <propertydefault defaultID="music" property="widgetPath.5">special://skin/extras/playlists/artists_random.xsp</propertydefault>
+    <propertydefault defaultID="music" property="widgetName.5">$LOCALIZE[31451]</propertydefault>
+    <propertydefault defaultID="music" property="widgetSortBy.5">random</propertydefault>
+    <propertydefault defaultID="music" property="widgetLimit.5">$NUMBER[25]</propertydefault>
+    
+    <propertydefault defaultID="musicvideos" property="widget">NewMusicVideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetTarget">video</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetType">musicvideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetPath">special://skin/extras/playlists/musicvideos_recentlyadded.xsp</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetName">$LOCALIZE[31471]</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetSortBy">dateadded</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetSortOrder">descending</propertydefault>    
+    <propertydefault defaultID="musicvideos" property="widgetLimit">$NUMBER[25]</propertydefault>    
+    <propertydefault defaultID="musicvideos" property="widget.2">RandomMusicVideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetTarget.2">video</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetType.2">musicvideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetPath.2">special://skin/extras/playlists/musicvideos_random.xsp</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetName.2">$LOCALIZE[31473]</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widget.3">UnwatchedMusicVideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetTarget.3">video</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetType.3">musicvideos</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetPath.3">special://skin/extras/playlists/musicvideos_unwatched.xsp</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetName.3">$LOCALIZE[31474]</propertydefault>
+    <propertydefault defaultID="musicvideos" property="widgetLimit.3">$NUMBER[25]</propertydefault>    
+ 
+    <propertydefault defaultID="tv" property="widget">LastPlayedChannels</propertydefault>
+    <propertydefault defaultID="tv" property="widgetTarget">pvr</propertydefault>
+    <propertydefault defaultID="tv" property="widgetType">tv</propertydefault>
+    <propertydefault defaultID="tv" property="widgetPath">pvr://channels/tv/*?=lastplayed</propertydefault>
+    <propertydefault defaultID="tv" property="widgetName">$LOCALIZE[31454]</propertydefault>
+    <propertydefault defaultID="tv" property="widgetSortBy">lastplayed</propertydefault>
+    <propertydefault defaultID="tv" property="widgetSortOrder">descending</propertydefault>    
+    <propertydefault defaultID="tv" property="widgetLimit">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="tv" property="widget.2">ActiveTVRecordings</propertydefault>
+    <propertydefault defaultID="tv" property="widgetTarget.2">pvr</propertydefault>
+    <propertydefault defaultID="tv" property="widgetType.2">tv</propertydefault>
+    <propertydefault defaultID="tv" property="widgetPath.2">pvr://recordings/tv/active?view=flat</propertydefault>
+    <propertydefault defaultID="tv" property="widgetName.2">$LOCALIZE[31455]</propertydefault>
+    <propertydefault defaultID="tv" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    
+    <propertydefault defaultID="radio" property="widget">LastPlayedRadioChannels</propertydefault>
+    <propertydefault defaultID="radio" property="widgetTarget">pvr</propertydefault>
+    <propertydefault defaultID="radio" property="widgetType">radio</propertydefault>
+    <propertydefault defaultID="radio" property="widgetPath">pvr://channels/radio/*?=lastplayed</propertydefault>
+    <propertydefault defaultID="radio" property="widgetName">$LOCALIZE[31461]</propertydefault>
+    <propertydefault defaultID="tv" property="widgetSortBy">lastplayed</propertydefault>
+    <propertydefault defaultID="tv" property="widgetSortOrder">descending</propertydefault>
+    <propertydefault defaultID="radio" property="widgetLimit">$NUMBER[25]</propertydefault>    
+    <propertydefault defaultID="radio" property="widget.2">ActiveRadioRecordings</propertydefault>
+    <propertydefault defaultID="radio" property="widgetTarget.2">pvr</propertydefault>
+    <propertydefault defaultID="radio" property="widgetType.2">radio</propertydefault>
+    <propertydefault defaultID="radio" property="widgetPath.2">pvr://recordings/radio/active?view=flat</propertydefault>
+    <propertydefault defaultID="radio" property="widgetName.2">$LOCALIZE[31476]</propertydefault>
+    <propertydefault defaultID="radio" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+
+    <propertydefault defaultID="weather" property="widget">static</propertydefault>
+    <propertydefault defaultID="weather" property="widgetType">weatherdaily</propertydefault>
+    <propertydefault defaultID="weather" property="widgetPath">$INCLUDE[skinshortcuts-template-WeatherContentDaily]</propertydefault>
+    <propertydefault defaultID="weather" property="widgetName">$LOCALIZE[31475]</propertydefault>
+    <propertydefault defaultID="weather" property="widget.2">static</propertydefault>
+    <propertydefault defaultID="weather" property="widgetType.2">weatherhourly</propertydefault>
+    <propertydefault defaultID="weather" property="widgetPath.2">$INCLUDE[skinshortcuts-template-WeatherContentHourly]</propertydefault>
+    <propertydefault defaultID="weather" property="widgetName.2">$LOCALIZE[31476]</propertydefault>
+ 
+    <propertydefault defaultID="addons" property="widget">videoaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetTarget">video</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType">videos</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath">addons://sources/video/</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName">$LOCALIZE[1037]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetLimit">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="addons" property="widget.2">musicaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetTarget.2">music</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType.2">music</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath.2">addons://sources/audio/</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName.2">$LOCALIZE[1038]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetLimit.2">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="addons" property="widget.3">programaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetTarget.3">programs</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType.3">program</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath.3">addons://sources/executable/</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName.3">$LOCALIZE[1043]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetLimit.3">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="addons" property="widget.4">pictureaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetTarget.4">picture</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType.4">pictures</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath.4">addons://sources/image/</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName.4">$LOCALIZE[1039]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetLimit.4">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="addons" property="widget.5">gameaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetTarget.5">games</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType.5">games</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath.5">addons://sources/game</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName.5">$LOCALIZE[35049]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetLimit.5">$NUMBER[25]</propertydefault>
+    <propertydefault defaultID="addons" property="widget.6">static</propertydefault>
+    <propertydefault defaultID="addons" property="widgetType.6">favouriteaddons</propertydefault>
+    <propertydefault defaultID="addons" property="widgetPath.6">$INCLUDE[skinshortcuts-template-FavouriteAddonsContent]</propertydefault>
+    <propertydefault defaultID="addons" property="widgetName.6">$LOCALIZE[31487]</propertydefault>
+
+    <propertydefault defaultID="games" property="widget">gamesources</propertydefault>
+    <propertydefault defaultID="games" property="widgetTarget">games</propertydefault>
+    <propertydefault defaultID="games" property="widgetType">games</propertydefault>
+    <propertydefault defaultID="games" property="widgetPath">sources://games/</propertydefault>
+    <propertydefault defaultID="games" property="widgetName">$LOCALIZE[10821]</propertydefault>
+    <propertydefault defaultID="games" property="widgetLimit">$NUMBER[25]</propertydefault>
+
+    <propertydefault defaultID="videos" property="widget">videosources</propertydefault>
+    <propertydefault defaultID="videos" property="widgetTarget">videos</propertydefault>
+    <propertydefault defaultID="videos" property="widgetType">video</propertydefault>
+    <propertydefault defaultID="videos" property="widgetPath">sources://videos/</propertydefault>
+    <propertydefault defaultID="videos" property="widgetName">$LOCALIZE[32069]</propertydefault>
+    <propertydefault defaultID="videos" property="widgetLimit">$NUMBER[25]</propertydefault>
+    
+    <propertydefault defaultID="pictures" property="widget">picturesources</propertydefault>
+    <propertydefault defaultID="pictures" property="widgetTarget">pictures</propertydefault>
+    <propertydefault defaultID="pictures" property="widgetType">pictures</propertydefault>
+    <propertydefault defaultID="pictures" property="widgetPath">sources://pictures/</propertydefault>
+    <propertydefault defaultID="pictures" property="widgetName">$LOCALIZE[32089]</propertydefault>
+    <propertydefault defaultID="pictures" property="widgetLimit">$NUMBER[25]</propertydefault>    
+
+    <propertydefault defaultID="favorites" property="widget">static</propertydefault>
+    <propertydefault defaultID="favorites" property="widgetType">favourite</propertydefault>
+    <propertydefault defaultID="favorites" property="widgetPath">$INCLUDE[skinshortcuts-template-FavouriteContent]</propertydefault>
+    <propertydefault defaultID="favorites" property="widgetName">$LOCALIZE[1036]</propertydefault> -->
 
 
 	<!-- On backs for management dialog -->
