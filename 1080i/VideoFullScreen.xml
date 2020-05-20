@@ -5,13 +5,13 @@
 		<control type="group" id="1">
 			<visible>!String.IsEmpty(Player.SeekNumeric)</visible>
 			<top>150</top>
-			<control type="image" id="1">
+			<control type="image" id="11">
 				<width>300</width>
 				<height>60</height>
 				<texture>img/OverlayStripe.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
 			</control>
-			<control type="label" id="1">
+			<control type="label" id="12">
 				<width>300</width>
 				<height>60</height>
 				<label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[31984]:[/COLOR] $INFO[Player.SeekNumeric]</label>
@@ -20,19 +20,21 @@
 				<shadowcolor>black</shadowcolor>
 			</control>
 		</control>
-		<control type="group" id="1">
+		<control type="group" id="2">
 			<posy>820</posy>
 			<include>OSDFade</include>
+			<onup>101</onup>
+			<ondown>101</ondown>
 			<visible>[Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="200">VisibleChange</animation>
-			<control type="image" id="1">
+			<control type="image" id="21">
 				<width>1920</width>
 				<height>260</height>
 				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
 				<visible>Skin.HasSetting(OSDInfo)</visible>
 			</control>
-			<control type="image" id="1">
+			<control type="image" id="22">
 				<posy>-150</posy>
 				<width>1920</width>
 				<height>410</height>
@@ -40,7 +42,7 @@
 				<colordiffuse>FFE2E2E2</colordiffuse>
 				<visible>!Skin.HasSetting(OSDInfo)</visible>
 			</control>
-			<control type="image" id="1">
+			<control type="image" id="23">
 				<posx>30</posx>
 				<posy>25</posy>
 				<width>1305</width>
@@ -58,7 +60,7 @@
 				<label>$VAR[VideoFullScreenPlot]</label>
 				<visible>!Skin.HasSetting(OSDInfo)</visible>
 			</control>
-			<control type="image" id="1">
+			<control type="image" id="24">
 				<posx>539r</posx>
 				<posy>666r</posy>
 				<width>509</width>
@@ -67,7 +69,7 @@
 				<aspectratio align="center" aligny="bottom">keep</aspectratio>
 				<colordiffuse>HeavyShadow</colordiffuse>
 			</control>
-			<control type="image" id="1">
+			<control type="image" id="25">
 				<posx>555r</posx>
 				<posy>682r</posy>
 				<width>509</width>
@@ -75,7 +77,7 @@
 				<texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
 				<aspectratio align="center" aligny="bottom">keep</aspectratio>
 			</control>
-			<control type="label" id="1">
+			<control type="label" id="26">
 				<description>Movie Info Studio</description>
 				<posx>30</posx>
 				<posy>50</posy>
@@ -86,7 +88,7 @@
 				<font>InfoTitle</font>
 				<textcolor>grey</textcolor>
 			</control>
-			<control type="grouplist" id="1">
+			<control type="grouplist" id="3">
 				<top>50</top>
 				<posx>708</posx>
 				<height>35</height>
@@ -94,7 +96,9 @@
 				<orientation>horizontal</orientation>
 				<itemgap>15</itemgap>
 				<align>right</align>
-				<control type="image" id="1">
+				<onup>101</onup>
+			    <ondown>101</ondown>
+				<control type="image" id="31">
 					<description>Video Resolution Image</description>
 					<width>85</width>
 					<aspectratio align="center" aligny="center">keep</aspectratio>
@@ -103,7 +107,7 @@
 					<visible>!Player.ChannelPreviewActive</visible>
 					<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				</control>
-				<control type="image" id="1">
+				<control type="image" id="32">
 					<description>Video Aspect Image</description>
 					<width>85</width>
 					<aspectratio align="center" aligny="center">keep</aspectratio>
@@ -113,7 +117,7 @@
 					<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				</control>
 
-				<control type="image" id="1">
+				<control type="image" id="33">
 					<description>Audio Codec Image</description>
 					<width>85</width>
 					<aspectratio align="center">keep</aspectratio>
@@ -123,7 +127,7 @@
 					<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				</control>
 
-				<control type="image" id="1">
+				<control type="image" id="34">
 					<description>Audio Channels Image</description>
 					<width>85</width>
 					<aspectratio align="center">keep</aspectratio>
@@ -133,24 +137,24 @@
 					<visible>!Player.ChannelPreviewActive</visible>
 				</control>
 			</control>
-			<control type="grouplist" id="1">
+			<control type="grouplist" id="4">
 				<left>30</left>
 				<top>100</top>
 				<width>905</width>
 				<height>60</height>
 				<orientation>horizontal</orientation>
-				<control type="image" id="1">
+				<control type="image" id="41">
 					<width>40</width>
 					<aspectratio align="center" aligny="center">keep</aspectratio>
 					<texture>img/PVR-IsRecording.png</texture>
 					<visible>VideoPlayer.Content(livetv) + PVR.IsRecordingPlayingChannel</visible>
 				</control>
-				<control type="image" id="1">
+				<control type="image" id="42">
 					<width>20</width>
 					<texture></texture>
 					<visible>VideoPlayer.Content(livetv) + PVR.IsRecordingPlayingChannel</visible>
 				</control>
-				<control type="label" id="1">
+				<control type="label" id="43">
 					<width>850</width>
 					<height>60</height>
 					<font>MainLabelBigTitle</font>
@@ -160,7 +164,7 @@
 					<scrollspeed>25</scrollspeed>
 				</control>
 			</control>
-			<control type="label" id="1">
+			<control type="label" id="5">
 				<posx>30</posx>
 				<posy>176</posy>
 				<width>640</width>
