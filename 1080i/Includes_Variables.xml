@@ -347,14 +347,6 @@
         <value>DefaultPoster.png</value>
     </variable>
 	
-	<variable name="DialogVideoInfoPoster" description="Poster">
-		<value condition="!String.IsEmpty(ListItem.Art(poster1))">$INFO[Control.GetLabel(4444)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
-        <value condition="!String.IsEmpty(ListItem.Icon)">$INFO[ListItem.Icon]</value>
-        <value>DefaultPoster.png</value>
-    </variable>
-	
 	<variable name="ContainerPoster" description="Poster">
         <value condition="String.IsEqual(Container.ListItem.DBType,episode) + !String.IsEmpty(Container.ListItem.Art(season.poster))">$INFO[Container.ListItem.Art(season.poster)]</value>
         <value condition="String.IsEqual(Container.ListItem.DBType,episode) + String.IsEmpty(Container.ListItem.Art(season.poster)) + !String.IsEmpty(Container.ListItem.Art(tvshow.poster))">$INFO[Container.ListItem.Art(tvshow.poster)]</value>
@@ -885,6 +877,11 @@
         <value condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-Widget))">$LOCALIZE[32045]</value>
         <value condition="String.IsEqual(Window.Property(groupname),mainmenu)">$LOCALIZE[33061]</value>
         <value condition="String.IsEqual(Window.Property(groupname),powermenu)">$LOCALIZE[31528]</value>
+		<value condition="String.EndsWith(Window.Property(groupname),.1)">$LOCALIZE[31605] 1</value>
+		<value condition="String.EndsWith(Window.Property(groupname),.2)">$LOCALIZE[31605] 2</value>
+		<value condition="String.EndsWith(Window.Property(groupname),.3)">$LOCALIZE[31605] 3</value>
+		<value condition="String.EndsWith(Window.Property(groupname),.4)">$LOCALIZE[31605] 4</value>
+		<value condition="String.EndsWith(Window.Property(groupname),.5)">$LOCALIZE[31605] 5</value>
         <value>$LOCALIZE[32044]</value>
     </variable>
     
@@ -1219,9 +1216,19 @@
 	
 	<expression name="IsIconView">String.IsEmpty(Container.ViewMode) | String.IsEqual(Container.ViewMode,$LOCALIZE[536]) | String.IsEqual(Container.ViewMode,$LOCALIZE[20445]) | String.IsEqual(Container.ViewMode,$LOCALIZE[31958]) | 
 	                              String.IsEqual(Container.ViewMode,$LOCALIZE[31963]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32245]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32246])</expression>
-	
-	<expression name="isDoubleShelf">Container(300).ListItem.Property(widgetTwoShelves) | [ControlGroup(700).HasFocus + [Container(300).ListItem.Property(WidgetDouble) | Container(300).ListItem.Property(WidgetDouble.2) | Container(300).ListItem.Property(WidgetDouble.3) | 
-                                     Container(300).ListItem.Property(WidgetDouble.4) | Container(300).ListItem.Property(WidgetDouble.5) | Container(300).ListItem.Property(WidgetDouble.6)]]</expression>
+	<expression name="widgetsAreShowing">ControlGroup(700).HasFocus | [Control.HasFocus(300) + !Container(300).ListItem.Property(widgetsHide)]</expression>
+	<expression name="doubleWidgetRowShowing">Container(300).ListItem.Property(widgetTwoShelves) | [ControlGroup(700).HasFocus + [[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),1) + Container(300).ListItem.Property(widgetDouble)] | 
+	                                                                        [String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),2) + Container(300).ListItem.Property(widgetDouble.2)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),3) + Container(300).ListItem.Property(widgetDouble.3)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),4) + Container(300).ListItem.Property(widgetDouble.4)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),5) + Container(300).ListItem.Property(widgetDouble.5)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),6) + Container(300).ListItem.Property(widgetDouble.6)]]]</expression>
+	<expression name="tripleWidgetRowShowing">Container(300).ListItem.Property(widgetThreeShelves) | [ControlGroup(700).HasFocus + [[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),1) + Container(300).ListItem.Property(widgetTriple)] | 
+	                                                                        [String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),2) + Container(300).ListItem.Property(widgetTriple.2)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),3) + Container(300).ListItem.Property(widgetTriple.3)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),4) + Container(300).ListItem.Property(widgetTriple.4)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),5) + Container(300).ListItem.Property(widgetTriple.5)] | 
+																			[String.EndsWith(Window(Home).Property(TMDbHelper.WidgetContainer),6) + Container(300).ListItem.Property(widgetTriple.6)]]]</expression>																		
 	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | 
 	                                     Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
 

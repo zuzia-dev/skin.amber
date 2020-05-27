@@ -77,8 +77,8 @@
 			</control>
 		</definition>
 	</include>
-    
-	<!-- Widget background and labels, two shelves together -->
+
+    <!-- Widget background and labels, two shelves together -->
     <include name="WidgetBackground2">
 		<param name="id1"></param>
 		<param name="id2"></param>
@@ -327,6 +327,468 @@
 		</definition>
 	</include>
 
+    <!-- Widget background and labels, three shelves together -->
+    <include name="WidgetBackground3">
+		<param name="id1"></param>
+		<param name="id2"></param>
+		<param name="id3"></param>
+		<param name="label1"></param>
+		<param name="label2"></param>
+		<param name="label3"></param>
+		<definition>
+			<!-- All three widgets have items -->
+			<control type="group">
+				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
+				<animation effect="fade" time="200">VisibleChange</animation>
+				<top>110</top>
+				<control type="image">
+					<top>-48</top>
+					<width>1920</width>
+					<height>280</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
+				</control>
+				<control type="image">
+					<top>230</top>
+					<width>1920</width>
+					<height>537</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+				</control>
+			    <control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label3]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id3]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id3]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<top>225</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label2]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>225</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>225</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
+				</control>
+                <control type="label">
+					<top>725</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label1]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>725</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>725</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,tvshow)</visible>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id3])</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id2])</visible>
+					<top>225</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id1])</visible>
+					<top>725</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+                <!-- Info Line -->
+				<control type="label">
+					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + !Control.HasFocus($PARAM[id3]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[LibraryStats]</label>
+				</control>                
+			</control>
+			
+			<!-- Widget 1 and 3 have items, widget 2 does not -->
+			<control type="group">
+				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
+				<top>170</top>
+				<control type="image">
+					<top>-48</top>
+					<width>1920</width>
+					<height>727</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label3]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id3]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id3]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label1]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id3])</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id1])</visible>
+					<top>636</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+                <!-- Info Line -->
+				<control type="label">
+					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id3]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[LibraryStats]</label>
+				</control>                
+			</control>
+			
+			<!-- Widgets 1 and 2 have items, widget 3 does not -->
+			<control type="group">
+				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
+				<top>170</top>
+				<control type="image">
+					<top>-48</top>
+					<width>1920</width>
+					<height>727</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label2]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label1]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>636</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id2])</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id1])</visible>
+					<top>636</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+                <!-- Info Line -->
+				<control type="label">
+					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[LibraryStats]</label>
+				</control>                
+			</control>
+			
+			<!-- Widget 1 has items, widget 2 and widget 3 do not -->
+			<control type="group">
+				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
+				<top>327</top>
+				<control type="image">
+					<top>-48</top>
+					<width>1920</width>
+					<height>375</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$PARAM[label1]</label>
+                    <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
+				</control>
+				<control type="label">
+					<top>-54</top>
+					<right>32</right>
+					<width>900</width>
+					<height>45</height>
+					<align>right</align>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$INFO[Container($PARAM[id1]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
+                    <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,tvshow)</visible>
+				</control>                
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id1])</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+                <!-- Info Line -->
+				<control type="label">
+					<visible>!Control.HasFocus($PARAM[id1]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<top>-54</top>
+					<left>32</left>
+					<width>900</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[LibraryStats]</label>
+				</control>                
+			</control>
+		</definition>
+	</include>    
+	
+	
+	
+
     <!-- Widget Container Layouts for dynamic content widgets: Square and Poster -->
 
     <!-- Shelf Layouts for Square widgets -->
@@ -339,149 +801,170 @@
 		<param name="textboxvisibility">true</param>
 		<param name="textboxfont">Shelf_Label</param>
         <param name="aspect">keep</param>
+		<param name="layoutheight">315</param>
+		<param name="layoutwidth">228</param>
+		<param name="textboxwidth">204</param>
+		<param name="textboxheight">64</param>
+		<param name="textbackheight">74</param>
 		<definition>  
-			<itemlayout height="315" width="228" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
                     <param name="iconimage">$VAR[WidgetArtVar]</param>
                     <param name="aspect">$PARAM[aspect]</param>
                     <param name="fallbackicon">$VAR[WidgetArtVar]</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				
 			</itemlayout>
-			<focusedlayout height="315" width="228" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                     <param name="iconimage">$VAR[WidgetArtVar]</param>
                     <param name="aspect">$PARAM[aspect]</param>
                     <param name="fallbackicon">$VAR[WidgetArtVar]</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</focusedlayout>
-			<itemlayout height="315" width="228" condition="$PARAM[isYear]">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isYear]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
                     <param name="iconimage">DefaultYear.png</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultYear.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</itemlayout>
-			<focusedlayout height="315" width="228" condition="$PARAM[isYear]">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isYear]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                     <param name="iconimage">DefaultYear.png</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultYear.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</focusedlayout>
-			<itemlayout height="315" width="228" condition="$PARAM[isMusicGenre]">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isMusicGenre]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
                     <param name="iconimage">$VAR[MusicGenres]</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultMusicGenres.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</itemlayout>
-			<focusedlayout height="315" width="228" condition="$PARAM[isMusicGenre]">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isMusicGenre]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                     <param name="iconimage">$VAR[MusicGenres]</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultMusicGenres.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</focusedlayout>
-			<itemlayout height="315" width="228" condition="$PARAM[isPlaylist]">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isPlaylist]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
                     <param name="iconimage">DefaultVideoPlaylists.png</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultVideoPlaylists.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</itemlayout>
-			<focusedlayout height="315" width="228" condition="$PARAM[isPlaylist]">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isPlaylist]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                     <param name="iconimage">DefaultVideoPlaylists.png</param>
                     <param name="aspect">keep</param>
                     <param name="fallbackicon">DefaultVideoPlaylists.png</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>				            
 			</focusedlayout>            
 		</definition>
@@ -493,16 +976,20 @@
 		<param name="labelfont">Shelf_Label</param>
 		<param name="textboxvisibility">false</param>
 		<param name="textboxfont">Shelf_Label</param>
+		<param name="layoutheight">315</param>
+		<param name="layoutwidth">228</param>
+		<param name="isTripleRow">false</param>
 		<definition>  
-			<itemlayout height="315" width="228">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
 					<param name="isSmallIcon">true</param>
+					<param name="isTripleRow">$PARAM[isTripleRow]</param>
                     <param name="iconimage">$VAR[Poster]</param>
                     <param name="aspect">scale</param>
                     <param name="fallbackicon">$VAR[Poster]</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">315</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutheight]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
@@ -516,15 +1003,16 @@
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
 			    </include>            
 			</itemlayout>
-			<focusedlayout height="315" width="228">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                     <param name="isSmallIcon">true</param>
+					<param name="isTripleRow">$PARAM[isTripleRow]</param>
 					<param name="iconimage">$VAR[Poster]</param>
                     <param name="aspect">scale</param>
                     <param name="fallbackicon">$VAR[Poster]</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">315</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutheight]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
@@ -552,9 +1040,10 @@
         <param name="labelvisibility">false</param>
         <param name="textboxvisibility">true</param>
 		<param name="labelfont">font16</param>
+		<param name="layoutheight">315</param>
 		<definition>
 			<include>VisibleFadeEffectDelayShelf</include>
-			<itemlayout height="315" width="228">
+			<itemlayout height="$PARAM[layoutheight]" width="228">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
 				    <param name="iconwidth">228</param>
@@ -573,7 +1062,7 @@
                     <param name="overlaylabelalign">center</param>                    
 			    </include>
 			</itemlayout>
-			<focusedlayout height="315" width="228">
+			<focusedlayout height="$PARAM[layoutheight]" width="228">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
 				    <param name="iconwidth">228</param>
@@ -599,9 +1088,10 @@
 		<param name="id1"/>
         <param name="iconheight">228</param>
         <param name="aspect">scale</param>
+		<param name="layoutheight">315</param>
 		<definition>
 			<include>VisibleFadeEffectDelayShelf</include>
-			<itemlayout height="315" width="228">
+			<itemlayout height="$PARAM[layoutheight]" width="228">
 			<include content="GenericThumbIconTemplateWeather">
 				<param name="isFocused">false</param>
 				<param name="iconwidth">228</param>
@@ -617,7 +1107,7 @@
 				<param name="belowtextboxwidth">204</param>
 			</include>
 			</itemlayout>
-			<focusedlayout height="315" width="228">
+			<focusedlayout height="$PARAM[layoutheight]" width="228">
 			    <include content="GenericThumbIconTemplateWeather">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
 				    <param name="iconwidth">228</param>
