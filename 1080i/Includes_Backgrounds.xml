@@ -305,7 +305,7 @@
 
     <!-- Movie/TV Show Logo for Home Window -->
 	<include name="HomeClearLogo">
-		<!-- Logo for vert. menu, no widgets or single-row widget -->
+		<!-- Logo for vert. menu, no widgets -->
 		<control type="image">
             <posy>40</posy>
 		    <posx>1400</posx>
@@ -315,9 +315,9 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>[![$EXP[widgetsAreShowing]] | [$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]]] + Skin.HasSetting(VerticalHome)</visible>
+            <visible>![$EXP[widgetsAreShowing]] + Skin.HasSetting(VerticalHome)</visible>
         </control>
-		<!-- Logo for horiz. menu, no widgets or single-row widget -->
+		<!-- Logo for horiz. menu, no widgets -->
 		<control type="image">
             <posy>60</posy>
 		    <posx>1400</posx>
@@ -327,7 +327,31 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>[![$EXP[widgetsAreShowing]] | [$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]]] + !Skin.HasSetting(VerticalHome)</visible>
+            <visible>![$EXP[widgetsAreShowing]] + !Skin.HasSetting(VerticalHome)</visible>
+        </control>
+		<!-- Logo for vert. menu, single-row widget -->
+		<control type="image">
+            <posy>40</posy>
+		    <posx>1400</posx>
+            <width>500</width>
+            <height>320</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + Skin.HasSetting(VerticalHome)</visible>
+        </control>
+		<!-- Logo for horiz. menu, single-row widget -->
+		<control type="image">
+            <posy>60</posy>
+		    <posx>1400</posx>
+            <width>500</width>
+            <height>200</height>
+            <texture  background="true">$VAR[HomeClearLogo]</texture>
+		    <aspectratio>keep</aspectratio>
+			<align>center</align>
+			<aligny>center</aligny>
+            <visible>$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + !Skin.HasSetting(VerticalHome)</visible>
         </control>
 		<!-- Logo when double shelf and fanart title in top bar -->
 		<control type="image">
