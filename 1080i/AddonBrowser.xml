@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	
 	<views>50,51,511,52,53,54,55,551,56,501</views>
 	<defaultcontrol>50</defaultcontrol>
 	<onload>SetFocus(50)</onload>
-	
-	
-	
 	<menucontrol>9000</menucontrol>
-
 	<controls>
 		<include>DefaultBackground</include>
-		<include>View_50_List</include>
+		<include content="View_50_List" condition="!Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">list</param>
+		</include>
+		<include content="View_50_List" condition="Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">fixedlist</param>
+		</include>
 		<include>View_51_Panel</include>
 		<include>View_511_Panel2</include>
-		<include>View_52_BigList</include>
+		<include content="View_52_BigList" condition="!Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">list</param>
+		</include>
+		<include content="View_52_BigList" condition="Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">fixedlist</param>
+		</include>
 		<include>View_53_Icons</include>
-		<include>View_54_LowList</include>
+		<include content="View_54_LowList" condition="!Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">list</param>
+		</include>
+		<include content="View_54_LowList" condition="Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">fixedlist</param>
+		</include>
 		<include>View_55_BigPanel</include>
 		<include>View_551_BigPanel2</include>
-		<include>View_56_Fanart</include>
-        <include>View_501_TallList</include>
+		<include content="View_56_Fanart">
+		    <param name="focusposition">2</param>
+		</include>
+        <include content="View_501_TallList" condition="!Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">list</param>
+		</include>
+		<include content="View_501_TallList" condition="Skin.HasSetting(ListCenterFocus)">
+		    <param name="ListType">fixedlist</param>
+		</include>
 		<control type="group">
 			<include>VignetteFade</include>
 			<include>Time</include>
@@ -63,6 +80,7 @@
 			</control>
 		</control>
         <include>TouchButtons</include>
-
+        <include condition="Skin.HasSetting(Show.EHJumpToLetter)">ScriptJumpToLetterVert</include>
+		<include condition="Skin.HasSetting(Show.EHJumpToLetter)">ScriptJumpToLetterHoriz</include>
 	</controls>
 </window>

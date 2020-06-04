@@ -1039,14 +1039,19 @@
         <param name="aspect">scale</param>
         <param name="labelvisibility">false</param>
         <param name="textboxvisibility">true</param>
-		<param name="labelfont">font16</param>
+		<param name="labelfont">Shelf_Label</param>
+		<param name="textboxfont">Shelf_Label</param>
 		<param name="layoutheight">315</param>
+		<param name="layoutwidth">228</param>
+		<param name="textboxwidth">204</param>
+		<param name="textboxheight">64</param>
+		<param name="textbackheight">74</param>
 		<definition>
 			<include>VisibleFadeEffectDelayShelf</include>
-			<itemlayout height="$PARAM[layoutheight]" width="228">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
-				    <param name="iconwidth">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[iconheight]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="iconimage">$PARAM[iconimage]</param>
@@ -1056,16 +1061,20 @@
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
+					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
                     <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
                     <param name="overlaylabel">$INFO[ListItem.Label2]</param>
-                    <param name="overlaylabelalign">center</param>                    
+                    <param name="overlaylabelalign">center</param>
+                    <param name="overlaylabelfont">$PARAM[labelfont]</param>					
 			    </include>
 			</itemlayout>
-			<focusedlayout height="$PARAM[layoutheight]" width="228">
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
-				    <param name="iconwidth">228</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[iconheight]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="iconimage">$PARAM[iconimage]</param>
@@ -1075,10 +1084,14 @@
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
+					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
                     <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
                     <param name="overlaylabel">$INFO[ListItem.Label2]</param>
-                    <param name="overlaylabelalign">center</param>                    
+                    <param name="overlaylabelalign">center</param>
+                    <param name="overlaylabelfont">$PARAM[labelfont]</param>					
 			    </include>            
 			</focusedlayout>
 		</definition>
@@ -1089,29 +1102,18 @@
         <param name="iconheight">228</param>
         <param name="aspect">scale</param>
 		<param name="layoutheight">315</param>
+		<param name="layoutwidth">228</param>
+		<param name="textboxfont">Shelf_Label</param>
+		<param name="textboxwidth">204</param>
+		<param name="textboxheight">64</param>
+		<param name="textbackheight">74</param>
 		<definition>
 			<include>VisibleFadeEffectDelayShelf</include>
-			<itemlayout height="$PARAM[layoutheight]" width="228">
-			<include content="GenericThumbIconTemplateWeather">
-				<param name="isFocused">false</param>
-				<param name="iconwidth">228</param>
-				<param name="iconheight">228</param>
-				<param name="iconoffset">0</param>
-				<param name="iconimage">$VAR[Square]</param>
-                <param name="aspect">$PARAM[aspect]</param>
-				<param name="shadowoffset">8</param>
-				<param name="bordersizeLT">12</param>
-				<param name="bordersizeRB">20</param>
-				<param name="belowtextboxvisibility">true</param>
-				<param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				<param name="belowtextboxwidth">204</param>
-			</include>
-			</itemlayout>
-			<focusedlayout height="$PARAM[layoutheight]" width="228">
+			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplateWeather">
-				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
-				    <param name="iconwidth">228</param>
-				    <param name="iconheight">228</param>
+				    <param name="isFocused">false</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[iconheight]</param>
 				    <param name="iconoffset">0</param>
 				    <param name="iconimage">$VAR[Square]</param>
                     <param name="aspect">$PARAM[aspect]</param>
@@ -1120,7 +1122,29 @@
 				    <param name="bordersizeRB">20</param>
 				    <param name="belowtextboxvisibility">true</param>
 				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				    <param name="belowtextboxwidth">204</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
+				    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
+				    <param name="belowtextboxheight">$PARAM[textboxheight]</param>
+				    <param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
+			    </include>
+			</itemlayout>
+			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
+			    <include content="GenericThumbIconTemplateWeather">
+				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
+				    <param name="iconwidth">$PARAM[layoutwidth]</param>
+				    <param name="iconheight">$PARAM[layoutwidth]</param>
+				    <param name="iconoffset">0</param>
+				    <param name="iconimage">$VAR[Square]</param>
+                    <param name="aspect">$PARAM[aspect]</param>
+				    <param name="shadowoffset">8</param>
+				    <param name="bordersizeLT">12</param>
+				    <param name="bordersizeRB">20</param>
+				    <param name="belowtextboxvisibility">true</param>
+				    <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
+				    <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
+					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
+					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
+					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 			    </include>            
 			</focusedlayout>
 		</definition>

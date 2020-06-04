@@ -8,8 +8,17 @@
 		
 		<control type="group" description="Default Content">
 		    <visible>![Window.IsActive(gamestretchmode) | Window.IsActive(gamevideofilter) | Window.IsActive(gamevideorotation)]</visible>
-			<posx>312</posx>
+			<posx>172</posx>
 			<posy>180</posy>
+			<control type="image">
+				<posx>6</posx>
+				<posy>-20</posy>
+				<width>1580</width>
+				<height>780</height>
+				<texture flipx="true">dialogs/SettingsBG.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+				<visible>!Control.IsVisible(3)</visible>
+			</control>
 			<control type="image">
 				<posx>-14</posx>
 				<posy>-20</posy>
@@ -17,6 +26,19 @@
 				<height>720</height>
 				<texture flipx="true" border="55">dialogs/DialogRightSmall.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+				<visible>Control.IsVisible(3)</visible>
+			</control>
+			<control type="label" id="1" description="Header">
+				<posx>-14</posx>
+				<posy>5</posy>
+				<width>1600</width>
+				<height>30</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>ListDetails</font>
+				<textcolor>$VAR[HighlightColor]</textcolor>
+				<label></label>
+				<visible>Control.IsVisible(6)</visible>
 			</control>
 			<control type="label" id="1" description="Header">
 				<posx>300</posx>
@@ -26,24 +48,38 @@
 				<font>ListDetails</font>
 				<textcolor>$VAR[HighlightColor]</textcolor>
 				<label></label>
+				<visible>!Control.IsVisible(6)</visible>
+			</control>
+			<control type="group">
+				<left>50</left>
+				<top>60</top>
+				<visible>Control.IsVisible(6)</visible>
+				<include content="ShadowedImage">
+					<param name="top">0</param>
+					<param name="left">0</param>
+					<param name="width">500</param>
+					<param name="height">500</param>
+					<param name="shadowoffset">8</param>
+					<param name="texture">$INFO[Container(6).ListItem.Icon]</param>
+				</include>
 			</control>
 			<control type="group" description="Group 6 Thumbs">
 				<visible>!Control.IsVisible(3)</visible>
 				<control type="list" id="6">
-					<posx>256</posx>
+					<posx>576</posx>
 					<posy>60</posy>
-					<width>1010</width>
+					<width>708</width>
 					<height>600</height>
 					<orientation>vertical</orientation>
-					<onleft>90</onleft>
-					<onright>60</onright>
+					<onleft>60</onleft>
+					<onright>90</onright>
 					<onup>6</onup>
 					<ondown>6</ondown>
 					<pagecontrol>60</pagecontrol>
 					<scrolltime>0</scrolltime>
-					<itemlayout width="1010" height="120">
+					<itemlayout width="708" height="120">
 						<control type="image">
-							<width>1010</width>
+							<width>708</width>
 							<height>120</height>
 							<texture border="3">list/ListNF.png</texture>
 						</control>
@@ -58,15 +94,15 @@
 						<control type="label">
 							<posx>132</posx>
 							<posy>5</posy>
-							<width>820</width>
+							<width>680</width>
 							<height>60</height>
 							<label>$INFO[ListItem.Label]</label>
-                            <selectedcolor>$VAR[HighlightColor]</selectedcolor>
+							<selectedcolor>$VAR[HighlightColor]</selectedcolor>
 						</control>
 						<control type="label">
 							<left>132</left>
 							<posy>55</posy>
-							<width>820</width>
+							<width>680</width>
 							<height>60</height>
 							<align>left</align>
 							<textcolor>Grey</textcolor>
@@ -76,16 +112,16 @@
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
 					</itemlayout>
-					<focusedlayout width="1010" height="120">
+					<focusedlayout width="708" height="120">
 						<control type="image">
-							<width>1010</width>
+							<width>708</width>
 							<height>120</height>
 							<texture border="3">list/ListNF.png</texture>
 						</control>
 						<control type="image">
 							<visible>Control.HasFocus(6)</visible>
 							<include>VisibleFadeEffect</include>
-							<width>1010</width>
+							<width>708</width>
 							<height>120</height>
 							<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 						</control>
@@ -101,7 +137,7 @@
 							<visible>Control.HasFocus(6)</visible>
 							<posx>132</posx>
 							<posy>5</posy>
-							<width>820</width>
+							<width>678</width>
 							<height>60</height>
 							<textcolor>$VAR[FocusedTextColor]</textcolor>
                             <selectedcolor>SelectedFocused</selectedcolor>
@@ -112,7 +148,7 @@
 							<visible>!Control.HasFocus(6)</visible>
 							<posx>132</posx>
 							<posy>5</posy>
-							<width>820</width>
+							<width>678</width>
 							<height>60</height>
                             <selectedcolor>$VAR[HighlightColor]</selectedcolor>
 							<label>$INFO[ListItem.Label]</label>
@@ -121,7 +157,7 @@
 							<visible>Control.HasFocus(6)</visible>
 							<left>132</left>
 							<posy>55</posy>
-							<width>820</width>
+							<width>678</width>
 							<height>60</height>
 							<align>left</align>
 							<textcolor>$VAR[FocusedTextColor]</textcolor>
@@ -134,7 +170,7 @@
 							<visible>!Control.HasFocus(6)</visible>
 							<left>132</left>
 							<posy>55</posy>
-							<width>820</width>
+							<width>678</width>
 							<height>60</height>
 							<align>left</align>
 							<textcolor>Grey</textcolor>
@@ -195,6 +231,21 @@
 				</control>
 			</control>
 			<control type="scrollbar" id="60">
+				<posx>13</posx>
+				<posy>60</posy>
+				<width>36</width>
+				<height>600</height>
+				<texturesliderbackground></texturesliderbackground>
+				<texturesliderbar></texturesliderbar>
+				<texturesliderbarfocus></texturesliderbarfocus>
+				<textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
+				<textureslidernibfocus border="18" colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+				<showonepage>false</showonepage>
+				<orientation>vertical</orientation>
+				<onright>3</onright>
+				<visible>Control.IsVisible(6)</visible>
+			</control>
+			<control type="scrollbar" id="60">
 				<posx>1250</posx>
 				<posy>60</posy>
 				<width>36</width>
@@ -207,8 +258,34 @@
 				<showonepage>false</showonepage>
 				<orientation>vertical</orientation>
 				<onleft>3</onleft>
+				<visible>!Control.IsVisible(6)</visible>
 			</control>
 			<control type="grouplist" id="90">
+				<visible>Control.IsVisible(6)</visible>
+				<top>580</top>
+				<left>1290</left>
+				<onleft condition="Control.IsVisible(3)">3</onleft>
+				<onright condition="Control.IsVisible(3)">3</onright>
+				<onleft condition="Control.IsVisible(6)">6</onleft>
+				<onright condition="Control.IsVisible(6)">6</onright>
+				<control type="button" id="5" description="Get more button">
+					<width>254</width>
+					<label></label>
+					<align>center</align>
+					<height>60</height>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+				</control>
+				<control type="button" id="7">
+					<description>Cancel button</description>
+					<width>254</width>
+					<height>60</height>
+					<label>$LOCALIZE[222]</label>
+					<align>center</align>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+				</control>
+			</control>
+			<control type="grouplist" id="90">
+				<visible>!Control.IsVisible(6)</visible>
 				<top>540</top>
 				<onleft condition="Control.IsVisible(3)">3</onleft>
 				<onright condition="Control.IsVisible(3)">3</onright>

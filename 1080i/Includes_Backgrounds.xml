@@ -243,8 +243,8 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground) + String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)">$INFO[Container(9992).ListItem.Art(fanart)]</value>
 		
 		<value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">$INFO[Container(300).ListItem.Property(background)]</value>
-        <value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(Container(300).ListItem.Property(background)) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)]">$INFO[Container(9989).ListItem.Art(fanart)]</value>
+        <value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [!String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)]">$INFO[Container(9988).ListItem.Art(fanart)]</value>
+		<value condition="String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) + !String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist)) + [String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)]">$INFO[Container(9989).ListItem.Art(fanart)]</value>
 	</variable>
 
     <variable name="FanartTitleVar">
@@ -305,6 +305,8 @@
 
     <!-- Movie/TV Show Logo for Home Window -->
 	<include name="HomeClearLogo">
+	    <control type="group">
+	    <visible>Control.HasFocus(300) | ControlGroup(700).HasFocus</visible>
 		<!-- Logo for vert. menu, no widgets -->
 		<control type="image">
             <posy>40</posy>
@@ -339,7 +341,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + Skin.HasSetting(VerticalHome)</visible>
+            <visible>$EXP[widgetsAreShowing] + $EXP[singleWidgetRowShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + Skin.HasSetting(VerticalHome)</visible>
         </control>
 		<!-- Logo for horiz. menu, single-row widget -->
 		<control type="image">
@@ -351,7 +353,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[widgetsAreShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + !Skin.HasSetting(VerticalHome)</visible>
+            <visible>$EXP[widgetsAreShowing] + $EXP[singleWidgetRowShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowShowing]] + !Skin.HasSetting(VerticalHome)</visible>
         </control>
 		<!-- Logo when double shelf and fanart title in top bar -->
 		<control type="image">
@@ -363,7 +365,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + ![$EXP[tripleWidgetRowShowing]] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
+            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
         </control>
 		<!-- Logo when double shelf and fanart title below top bar, info line in shelf -->
 		<control type="image">
@@ -375,7 +377,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + ![$EXP[tripleWidgetRowShowing]] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
+            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
         </control>
 		<!-- Logo when double shelf and fanart title below top bar, info line below top bar -->
 		<control type="image">
@@ -387,7 +389,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + ![$EXP[tripleWidgetRowShowing]] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
+            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
         </control>
 		<!-- Logo when double shelf and horizontal menu -->
 		<control type="image">
@@ -399,7 +401,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + ![$EXP[tripleWidgetRowShowing]] + $EXP[widgetsAreShowing] + !Skin.HasSetting(VerticalHome)</visible>
+            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + !Skin.HasSetting(VerticalHome)</visible>
         </control>
 		<!-- Logo when triple shelf and fanart title in top bar -->
 		<control type="image">
@@ -411,7 +413,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>Container(300).ListItem.Property(widgetThreeShelves) + $EXP[widgetsAreShowing] +  Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
+            <visible>$EXP[tripleWidgetRowShowing] + $EXP[widgetsAreShowing] +  Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
         </control>
 		<!-- Logo when triple shelf and fanart title below top bar, info line in shelf -->
 		<control type="image">
@@ -423,7 +425,7 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>Container(300).ListItem.Property(widgetThreeShelves) + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
+            <visible>$EXP[tripleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
         </control>
 		<!-- Logo when triple shelf and fanart title below top bar, info line below top bar -->
 		<control type="image">
@@ -435,14 +437,14 @@
 		    <aspectratio>keep</aspectratio>
 			<align>center</align>
 			<aligny>center</aligny>
-            <visible>Container(300).ListItem.Property(widgetThreeShelves) + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
+            <visible>$EXP[tripleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
         </control>
-		
+		</control>
 	</include>
 
     <include name="HomeBackgroundLists">
 	    <!-- Hidden list for playlist fanart background -->
-	    <control type="list" id="9988">
+	    <control type="wraplist" id="9988">
 			<description>hidden container for playlist background</description>
 			<posx>-20</posx>
 			<posy>-20</posy>
