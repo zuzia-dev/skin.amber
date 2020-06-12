@@ -15,13 +15,15 @@
    -->
 
     <include file="script-skinshortcuts-includes.xml"/>
-    <include file="Includes_Variables.xml" />
+    <include file="script-skinviewtypes-includes.xml"/>    
+	<include file="Includes_Variables.xml" />
     <include file="defaults.xml" />
     <include file="Includes_Horizontal_Home.xml" />
     <include file="Includes_Vertical_Home.xml" />
     <include file="Includes_Shelf_Contents.xml" />
     <include file="Includes_Search.xml" />
     <include file="Includes_CustomSelect.xml" />
+	<include file="Includes_DialogSelect.xml" />
     <include file="Includes_Info.xml" />
 	<include file="Includes_TVGuide.xml" />
 	<include file="Includes_Backgrounds.xml" />
@@ -1052,6 +1054,15 @@
         </control>
     </include>
 
+
+    <variable name="ViewModeSwitch">
+        <value condition="!String.IsEmpty(Container.Content)">$INFO[Container.Content]</value>
+        <value condition="Window.IsVisible(MyPVRRecordings.xml)">pvr-recordings</value>
+        <value condition="Window.IsVisible(MyPVRTimers.xml)">pvr-timers</value>
+        <value condition="Window.IsVisible(MyPVRSearch.xml)">pvr-search</value>
+        <value>none</value>
+    </variable>
+
     <include name="9000GrouplistParameters">
         <posx>-491</posx>
         <posy>60</posy>
@@ -1095,7 +1106,8 @@
             <label>$LOCALIZE[31023]</label>
             <label2>$INFO[Container.Viewmode]</label2>
             <enable>Integer.IsGreater(Container(9600).NumItems,1)</enable>
-            <onclick>Control.SetFocus(9600)</onclick>
+            <onclick condition="!Skin.HasSetting(Enable.NewViewSelector)">Control.SetFocus(9600)</onclick>
+			<onclick condition="Skin.HasSetting(Enable.NewViewSelector)">Runscript(script.skinvariables,action=buildviews,contentid=$VAR[ViewModeSwitch],pluginname=$INFO[Container.PluginName])</onclick>
         </control>
 
         <include content="IconViewSwitches">
@@ -1683,7 +1695,7 @@
                 </control>
 				<control type="label" description="Subheading">
                     <visible>!$PARAM[lowpanel] + !Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
-                    <height>100</height>
+                    <height>80</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
                     <label>[B]$PARAM[subheading][/B]</label>

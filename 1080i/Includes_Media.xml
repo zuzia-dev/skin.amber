@@ -787,6 +787,7 @@
 		<param name="isBanner">false</param>
 		<param name="isSearch">false</param>
 		<param name="isTripleRow">false</param>
+		<param name="isTripleRowMedium">false</param>
 		<param name="iconwidth"/>
 		<param name="iconheight"/>
 		<param name="iconoffset"/>
@@ -848,13 +849,14 @@
 					<aspectratio>$PARAM[aspect]</aspectratio>
 					<colordiffuse>eeeeeeee</colordiffuse>
 				</control>
-				<include condition="Skin.HasSetting(ShowTopRightOverlays) + !ListItem.IsRecording" content="TopRightOverlayTemplate">
+				<include condition="Skin.HasSetting(ShowTopRightOverlays) + !ListItem.IsRecording + !String.StartsWith(ListItem.FolderPath,pvr)" content="TopRightOverlayTemplate">
 				    <param name="isFocused">$PARAM[isFocused]</param>
 					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 					<param name="isSearch">$PARAM[isSearch]</param>
 					<param name="isBanner">$PARAM[isBanner]</param>
 					<param name="isWideIcon">$PARAM[isWideIcon]</param>
 					<param name="isTripleRow">$PARAM[isTripleRow]</param>
+					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
 				</include>	
 				<include content="GenericThumbLabelTemplate">
 					<param name="isFocused">$PARAM[isFocused]</param>
@@ -906,7 +908,7 @@
 					<param name="backgroundheight">$PARAM[belowtextboxbackheight]</param>
 				</include>
 				<control type="image" description="Watched Overlay">
-					<visible>!$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording]]]</visible>
+					<visible>!$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
 					<width>30</width>
@@ -915,7 +917,7 @@
 					<aspectratio>keep</aspectratio>
 				</control>
 				<control type="image" description="Watched Overlay">
-					<visible>$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording]]]</visible>
+					<visible>$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
 					<width>30</width>
@@ -935,6 +937,7 @@
 		<param name="isSearch">false</param>
 		<param name="isBanner">false</param>
 		<param name="isTripleRow">false</param>
+		<param name="isTripleRowMedium">false</param>
 		<definition>
 		    <!-- Overlay for small icons in custom video lists in info dialog -->
 			<control type="group">
@@ -1286,7 +1289,7 @@
 					    <visible>!$PARAM[isBanner] + String.IsEmpty(Container.Viewmode)</visible>
 						<!-- Single or double row -->
 						<control type="label" description="l2">
-					        <visible>$PARAM[isFocused] + !$PARAM[isTripleRow]</visible>
+					        <visible>$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
 					        <posx>94r</posx>
 				            <posy>-244</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1299,7 +1302,7 @@
 					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
-					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow]</visible>
+					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
 					        <posx>94r</posx>
 				            <posy>-244</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1309,9 +1312,9 @@
 					        <label>$VAR[UnwatchedEpisodes]</label>
 					        <textcolor>White2</textcolor>
 				        </control>
-						<!-- Triple row -->
+						<!-- Triple row small -->
 				        <control type="label" description="l2">
-					        <visible>$PARAM[isFocused] + $PARAM[isTripleRow]</visible>
+					        <visible>$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
 					        <posx>94r</posx>
 				            <posy>-150</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1324,9 +1327,34 @@
 					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
-					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow]</visible>
+					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
 					        <posx>94r</posx>
 				            <posy>-150</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+						<!-- Triple row medium -->
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused] + $PARAM[isTripleRowMedium]</visible>
+					        <posx>94r</posx>
+				            <posy>-180</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>$VAR[HighlightColor]</textcolor>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRowMedium]</visible>
+					        <posx>94r</posx>
+				            <posy>-180</posy>
 					        <height>$PARAM[itemheight]</height>
 					        <width>100</width>
 					        <font>ListDetailsSmall</font>

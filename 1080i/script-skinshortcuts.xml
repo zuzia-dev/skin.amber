@@ -259,7 +259,6 @@
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True) + Skin.HasSetting(ShowInfoLine)</visible>
 				</control>
 				<control type="radiobutton" id="807">
-<!--					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible> -->
 					<label>$LOCALIZE[32258]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(EHPlaylistFanart))">SetProperty(customProperty,EHPlaylistFanart)</onclick>
 					<onclick condition="String.IsEqual(Container(211).ListItem.Property(EHPlaylistFanart),true)">SetProperty(customProperty,EHPlaylistFanart)</onclick>
@@ -308,6 +307,21 @@
 					<onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false)">SetProperty(customValue,true)</onclick>
 					<onclick>SendClick(404)</onclick>
 					<selected>String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),true)</selected>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+				</control>
+				<control type="radiobutton" id="810">
+					<visible>String.IsEqual(Window.Property(groupname),mainmenu) + !Skin.HasSetting(Hide.AllShelves) + Skin.HasSetting(VerticalHome) + 
+							 [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
+					<label>$LOCALIZE[32277]</label>
+					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetThreeShelvesLarge))">SetProperty(customProperty,widgetThreeShelvesLarge)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetThreeShelvesLarge),true)">SetProperty(customProperty,widgetThreeShelvesLarge)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetThreeShelvesLarge),false)">SetProperty(customValue,true)</onclick>
+					<onclick>SendClick(404)</onclick>
+					<selected>String.IsEqual(Container(211).ListItem.Property(widgetThreeShelvesLarge),true)</selected>
 					<height>60</height>
 					<width>1340</width>
 					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
@@ -574,15 +588,16 @@
 					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 					<font>ListDetails</font>
 					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(customProperty,widgetDouble)</onunfocus>
-					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(SetProperty(customValue,false))</onunfocus>
+					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(customValue,false)</onunfocus>
 					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SendClick(404)</onunfocus>
 					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(customProperty,widgetTriple)</onunfocus>
-					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(SetProperty(customValue,false))</onunfocus>
+					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SetProperty(customValue,false)</onunfocus>
 					<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath))">SendClick(404)</onunfocus>
 				</control>
 				<control type="radiobutton" id="3002">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
-					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple),false)</visible>
+					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple),false)] | 
+							 String.IsEqual(Container(211).ListItem.Property(widgetDouble),true)]</visible>
 					<label>$LOCALIZE[31046]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDouble))">SetProperty(customProperty,widgetDouble)</onclick>
 					<onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetDouble),true)">SetProperty(customProperty,widgetDouble)</onclick>
@@ -595,8 +610,9 @@
 					<font>ListDetails</font>
 				</control>
 				<control type="radiobutton" id="3006">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
-					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble),false)</visible>
+					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble),false)] | 
+							 String.IsEqual(Container(211).ListItem.Property(widgetTriple),true)]</visible>
 					<label>$LOCALIZE[31045]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetTriple))">SetProperty(customProperty,widgetTriple)</onclick>
 					<onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetTriple),true)">SetProperty(customProperty,widgetTriple)</onclick>
@@ -669,10 +685,10 @@
 						<onclick>SetProperty(widgetID,2)</onclick>
 						<onclick>SendClick(312)</onclick>
 						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(customProperty,widgetDouble.2)</onunfocus>
-						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(customValue,false)</onunfocus>
 						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SendClick(404)</onunfocus>
 						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(customProperty,widgetTriple.2)</onunfocus>
-						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SetProperty(customValue,false)</onunfocus>
 						<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.2))">SendClick(404)</onunfocus>
 						<height>60</height>
 						<width>1340</width>
@@ -681,8 +697,9 @@
 						<font>ListDetails</font>
 					</control>
 					<control type="radiobutton" id="4002">
-						<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
-						         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple.2),false)</visible>
+						<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple.2),false)] | 
+							 String.IsEqual(Container(211).ListItem.Property(widgetDouble.2),true)]</visible>
 						<label>$LOCALIZE[31046]</label>
 						<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDouble.2))">SetProperty(customProperty,widgetDouble.2)</onclick>
 					    <onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetDouble.2),true)">SetProperty(customProperty,widgetDouble.2)</onclick>
@@ -695,8 +712,9 @@
 						<font>ListDetails</font>
 					</control>
 					<control type="radiobutton" id="4006">
-					    <visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
-					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble.2),false)</visible>
+					    <visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble.2),false)] | 
+							 String.IsEqual(Container(211).ListItem.Property(widgetTriple.2),true)]</visible>
 					    <label>$LOCALIZE[31045]</label>
 					    <onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetTriple.2))">SetProperty(customProperty,widgetTriple.2)</onclick>
 					    <onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetTriple.2),true)">SetProperty(customProperty,widgetTriple.2)</onclick>
@@ -769,10 +787,10 @@
 							<onclick>SetProperty(widgetID,3)</onclick>
 							<onclick>SendClick(312)</onclick>
 							<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(customProperty,widgetDouble.3)</onunfocus>
-						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(customValue,false)</onunfocus>
 						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SendClick(404)</onunfocus>
 						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(customProperty,widgetTriple.3)</onunfocus>
-						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SetProperty(customValue,false)</onunfocus>
 						    <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.3))">SendClick(404)</onunfocus>
 							<height>60</height>
 							<width>1340</width>
@@ -780,8 +798,9 @@
 							<font>ListDetails</font>
 						</control>
 						<control type="radiobutton" id="5002">
-							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + 
-							         String.IsEqual(Container(211).ListItem.Property(widgetTriple.3),false)</visible>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					                 String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple.3),false)] | 
+							         String.IsEqual(Container(211).ListItem.Property(widgetDouble.3),true)]</visible>
 							<label>$LOCALIZE[31046]</label>
 						    <onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDouble.3))">SetProperty(customProperty,widgetDouble.3)</onclick>
 					        <onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetDouble.3),true)">SetProperty(customProperty,widgetDouble.3)</onclick>
@@ -794,8 +813,9 @@
 							<font>ListDetails</font>
 						</control>
 						<control type="radiobutton" id="5006">
-					        <visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + 
-					                 String.IsEqual(Container(211).ListItem.Property(widgetDouble.3),false)</visible>
+					        <visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					                 String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble.3),false)] | 
+							         String.IsEqual(Container(211).ListItem.Property(widgetTriple.3),true)]</visible>
 					        <label>$LOCALIZE[31045]</label>
 					        <onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetTriple.3))">SetProperty(customProperty,widgetTriple.3)</onclick>
 					        <onclick condition="String.IsEqual(Container(211).ListItem.Property(widgetTriple.3),true)">SetProperty(customProperty,widgetTriple.3)</onclick>
@@ -867,10 +887,10 @@
 								<onclick>SetProperty(widgetID,4)</onclick>
 								<onclick>SendClick(312)</onclick>
 								<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(customProperty,widgetDouble.4)</onunfocus>
-						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(customValue,false)</onunfocus>
 						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SendClick(404)</onunfocus>
 						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(customProperty,widgetTriple.4)</onunfocus>
-						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SetProperty(customValue,false)</onunfocus>
 						        <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.4))">SendClick(404)</onunfocus>
 								<height>60</height>
 								<width>1340</width>
@@ -963,10 +983,10 @@
 									<onclick>SetProperty(widgetID,5)</onclick>
 									<onclick>SendClick(312)</onclick>
 									<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(customProperty,widgetDouble.5)</onunfocus>
-						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(customValue,false)</onunfocus>
 						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SendClick(404)</onunfocus>
 						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(customProperty,widgetTriple.5)</onunfocus>
-						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SetProperty(customValue,false)</onunfocus>
 						            <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.5))">SendClick(404)</onunfocus>
 									<height>60</height>
 									<width>1340</width>
@@ -1060,10 +1080,10 @@
 										<onclick>SetProperty(widgetID,6)</onclick>
 										<onclick>SendClick(312)</onclick>
 										<onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(customProperty,widgetDouble.6)</onunfocus>
-						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(customValue,false)</onunfocus>
 						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SendClick(404)</onunfocus>
 						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(customProperty,widgetTriple.6)</onunfocus>
-						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(SetProperty(customValue,false))</onunfocus>
+						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SetProperty(customValue,false)</onunfocus>
 						                <onunfocus condition="String.IsEmpty(Container(211).ListItem.Property(widgetPath.6))">SendClick(404)</onunfocus>
 										<height>60</height>
 										<width>1340</width>

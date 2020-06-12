@@ -178,36 +178,28 @@
 		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="triple1" tag="property" attribute="name|widgetTriple" />
+		<property name="double1" tag="property" attribute="name|widgetDouble" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.2" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '170' if (double1 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple1 in 'true') else '756' if (triplelarge in 'false' and triple1 in 'true') else '630' if (double1 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple1 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple1 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple1 in 'true') else '817' if (triplelarge in 'false' and triple1 in 'true') else '690' if (double1 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth1" tag="property" attribute="name|widgetTriple" value="true">158</property>
-		<property name="textboxwidth1">204</property>
+		<property name="textboxwidth1">'158' if (triple1 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight1" tag="property" attribute="name|widgetTriple" value="true">35</property>
-		<property name="textboxheight1">64</property>
+		<property name="textboxheight1">'35' if (triple1 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight1" tag="property" attribute="name|widgetTriple" value="true">45</property>
-		<property name="textbackheight1">74</property>
+		<property name="textbackheight1">'45' if (triple1 in 'true' and triplelarge in 'false') else '74'</property>
 		<!-- Content -->
         <property name="labelvisibility1" tag="property" attribute="name|widgetType" value="episodes|people">true</property>
         <property name="labelvisibility1">false</property>
@@ -220,22 +212,23 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'video' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="isTripleMedium1">'true'if (triple1 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]1</param>
 					<param name="label">$SKINSHORTCUTS[label1]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
                     <onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -253,13 +246,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre1]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility1]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont1]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth1]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight1]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight1]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth1]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight1]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight1]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect1]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont1]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium1]]</param>
 					</include>
                     <content>
 						<item>
@@ -292,36 +286,27 @@
 		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
 		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
 		<property name="triple2" tag="property" attribute="name|widgetTriple.2" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double2" tag="property" attribute="name|widgetDouble.2" />
+		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.3" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.2" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.2" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '170' if (double2 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.2" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.2" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple2 in 'true') else '756' if (triplelarge in 'false' and triple2 in 'true') else '630' if (double2 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.2" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple2 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.2" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple2 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.2" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.2" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple2 in 'true') else '817' if (triplelarge in 'false' and triple2 in 'true') else '690' if (double2 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth2" tag="property" attribute="name|widgetTriple.2" value="true">158</property>
-		<property name="textboxwidth2">204</property>
+		<property name="textboxwidth2">'158' if (triple2 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight2" tag="property" attribute="name|widgetTriple.2" value="true">35</property>
-		<property name="textboxheight2">64</property>
+		<property name="textboxheight2">'35' if (triple2 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight2" tag="property" attribute="name|widgetTriple.2" value="true">45</property>
-		<property name="textbackheight2">74</property>
+		<property name="textbackheight2">'45' if (triple2 in 'true' and triplelarge in 'false') else '74'</property>
 		<!-- Content -->
         <property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="episodes|people">true</property>
         <property name="labelvisibility2">false</property>
@@ -334,23 +319,23 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'video' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
-		<property name="contentinclude2">'skinshortcuts-submenu' if (widget2 in 'mysubmenu') else 'skinshortcuts-submenu-2' if (widget2 in 'custom') else 'none'</property>
+        <property name="isTripleMedium2">'true'if (triple2 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label">$SKINSHORTCUTS[label2]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -370,13 +355,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre2]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility2]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont2]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth2]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight2]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight2]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth2]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight2]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight2]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect2]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont2]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium2]]</param>
 					</include>
                     <content>
 						<item>
@@ -409,36 +395,28 @@
 		<property name="sortby3" tag="property" attribute="name|widgetSortBy.3" />
 		<property name="sortorder3" tag="property" attribute="name|widgetSortOrder.3" />
 		<property name="limit3" tag="property" attribute="name|widgetLimit.3" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="triple3" tag="property" attribute="name|widgetTriple.3" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double3" tag="property" attribute="name|widgetDouble.3" />
+		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.4" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.3" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.3" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '170' if (double3 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.3" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.3" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple3 in 'true') else '756' if (triplelarge in 'false' and triple3 in 'true') else '630' if (double3 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.3" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple3 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.3" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple3 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.3" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.3" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple3 in 'true') else '817' if (triplelarge in 'false' and triple3 in 'true') else '690' if (double3 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth3" tag="property" attribute="name|widgetTriple.3" value="true">158</property>
-		<property name="textboxwidth3">204</property>
+		<property name="textboxwidth3">'158' if (triple3 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight3" tag="property" attribute="name|widgetTriple.3" value="true">35</property>
-		<property name="textboxheight3">64</property>
+		<property name="textboxheight3">'35' if (triple3 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight3" tag="property" attribute="name|widgetTriple.3" value="true">45</property>
-		<property name="textbackheight3">74</property>
+		<property name="textbackheight3">'45' if (triple3 in 'true' and triplelarge in 'false') else '74'</property>
         <!-- Content -->
         <property name="labelvisibility3" tag="property" attribute="name|widgetType.3" value="episodes|people">true</property>
         <property name="labelvisibility3">false</property>
@@ -451,23 +429,23 @@
         <property name="isYear3">'true' if path3 in 'years' else 'false'</property>
         <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
-        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'video' and target3 in 'videos') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
-		<property name="contentinclude3">'skinshortcuts-submenu' if (widget3 in 'mysubmenu') else 'skinshortcuts-submenu-3' if (widget3 in 'custom') else 'none'</property>
+        <property name="isTripleMedium3">'true'if (triple3 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]3</param>
 					<param name="label">$SKINSHORTCUTS[label3]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]3">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]3,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -487,13 +465,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre3]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility3]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont3]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth3]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight3]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight3]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth3]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight3]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight3]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect3]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont3]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium3]]</param>
 					</include>
                     <content>
 						<item>
@@ -527,36 +506,28 @@
 		<property name="sortby4" tag="property" attribute="name|widgetSortBy.4" />
 		<property name="sortorder4" tag="property" attribute="name|widgetSortOrder.4" />
 		<property name="limit4" tag="property" attribute="name|widgetLimit.4" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="triple4" tag="property" attribute="name|widgetTriple.4" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double4" tag="property" attribute="name|widgetDouble.4" />
+		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.5" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.4" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.4" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '170' if (double4 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.4" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.4" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple4 in 'true') else '756' if (triplelarge in 'false' and triple4 in 'true') else '630' if (double4 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.4" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple4 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.4" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple4 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.4" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.4" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple4 in 'true') else '817' if (triplelarge in 'false' and triple4 in 'true') else '690' if (double4 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth4" tag="property" attribute="name|widgetTriple.4" value="true">158</property>
-		<property name="textboxwidth4">204</property>
+		<property name="textboxwidth4">'158' if (triple4 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight4" tag="property" attribute="name|widgetTriple.4" value="true">35</property>
-		<property name="textboxheight4">64</property>
+		<property name="textboxheight4">'35' if (triple4 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight4" tag="property" attribute="name|widgetTriple.4" value="true">45</property>
-		<property name="textbackheight4">74</property>
+		<property name="textbackheight4">'45' if (triple4 in 'true' and triplelarge in 'false') else '74'</property>
         <!-- Content -->
         <property name="labelvisibility4" tag="property" attribute="name|widgetType.4" value="episodes|people">true</property>
         <property name="labelvisibility4">false</property>
@@ -569,23 +540,23 @@
         <property name="isYear4">'true' if path4 in 'years' else 'false'</property>
         <property name="isPlaylist4">'true' if (path4 in 'videoplaylists' or path4 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre4">'true' if target4 in 'music' and path4 in 'genres' else 'false'</property>
-        <property name="content4">'Shelf_GenericSquare' if (type4 in 'movies' or type4 in 'tvshows' or type4 in 'episodes') and (path4 in 'tags' or path4 in 'genres' or path4 in 'studios' or path4 in 'actors' or path4 in 'directors' or path4 in 'country' or path4 in 'years') else 'Shelf_GenericSquare' if (type4 in 'video' and target4 in 'videos') else 'Shelf_GenericSquare' if (type4 in 'custom' or type4 in 'picture' or type4 in 'favourite' or type4 in 'addons' or type4 in 'games' or type4 in 'musicvideos' or target4 in 'music' or target4 in 'pvr' or target4 in 'tvguide' or target4 in 'radioguide' or path4 in 'videoplaylists' or path4 in 'musicplaylists' or path4 in 'sources') else 'Shelf_GenericPoster'</property>
-		<property name="contentinclude4">'skinshortcuts-submenu' if (widget4 in 'mysubmenu') else 'skinshortcuts-submenu-4' if (widget4 in 'custom') else 'none'</property>
+        <property name="isTripleMedium4">'true'if (triple4 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content4">'Shelf_GenericSquare' if (type4 in 'movies' or type4 in 'tvshows' or type4 in 'episodes') and (path4 in 'tags' or path4 in 'genres' or path4 in 'studios' or path4 in 'actors' or path4 in 'directors' or path4 in 'country' or path4 in 'years') else 'Shelf_GenericSquare' if (type4 in 'custom' or type4 in 'picture' or type4 in 'favourite' or type4 in 'addons' or type4 in 'games' or type4 in 'musicvideos' or target4 in 'music' or target4 in 'pvr' or target4 in 'tvguide' or target4 in 'radioguide' or path4 in 'videoplaylists' or path4 in 'musicplaylists' or path4 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]4</param>
 					<param name="label">$SKINSHORTCUTS[label4]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]4">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]4,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -605,13 +576,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre4]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility4]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont4]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth4]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight4]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight4]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth4]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight4]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight4]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect4]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont4]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium4]]</param>
 					</include>
                     <content>
 						<item>
@@ -646,36 +618,28 @@
 		<property name="sortby5" tag="property" attribute="name|widgetSortBy.5" />
 		<property name="sortorder5" tag="property" attribute="name|widgetSortOrder.5" />
 		<property name="limit5" tag="property" attribute="name|widgetLimit.5" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="triple5" tag="property" attribute="name|widgetTriple.5" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double5" tag="property" attribute="name|widgetDouble.5" />
+		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.6" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.5" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.5" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '170' if (double5 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.5" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.5" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple5 in 'true') else '756' if (triplelarge in 'false' and triple5 in 'true') else '630' if (double5 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.5" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple5 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.5" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple5 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.5" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.5" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple5 in 'true') else '817' if (triplelarge in 'false' and triple5 in 'true') else '690' if (double5 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth5" tag="property" attribute="name|widgetTriple.5" value="true">158</property>
-		<property name="textboxwidth5">204</property>
+		<property name="textboxwidth5">'158' if (triple5 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight5" tag="property" attribute="name|widgetTriple.5" value="true">35</property>
-		<property name="textboxheight5">64</property>
+		<property name="textboxheight5">'35' if (triple5 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight5" tag="property" attribute="name|widgetTriple.5" value="true">45</property>
-		<property name="textbackheight5">74</property>
+		<property name="textbackheight5">'45' if (triple5 in 'true' and triplelarge in 'false') else '74'</property>
         <!-- Content -->
         <property name="labelvisibility5" tag="property" attribute="name|widgetType.5" value="episodes|people">true</property>
         <property name="labelvisibility5">false</property>
@@ -688,23 +652,23 @@
         <property name="isYear5">'true' if path5 in 'years' else 'false'</property>
         <property name="isPlaylist5">'true' if (path5 in 'videoplaylists' or path5 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre5">'true' if target5 in 'music' and path5 in 'genres' else 'false'</property>
-        <property name="content5">'Shelf_GenericSquare' if (type5 in 'movies' or type5 in 'tvshows' or type5 in 'episodes') and (path5 in 'tags' or path5 in 'genres' or path5 in 'studios' or path5 in 'actors' or path5 in 'directors' or path5 in 'country' or path5 in 'years') else 'Shelf_GenericSquare' if (type5 in 'video' and target5 in 'videos') else 'Shelf_GenericSquare' if (type5 in 'custom' or type5 in 'picture' or type5 in 'favourite' or type5 in 'addons' or type5 in 'games' or type5 in 'musicvideos' or target5 in 'music' or target5 in 'pvr' or target5 in 'tvguide' or target5 in 'radioguide' or path5 in 'videoplaylists' or path5 in 'musicplaylists' or path5 in 'sources') else 'Shelf_GenericPoster'</property>
-		<property name="contentinclude5">'skinshortcuts-submenu' if (widget5 in 'mysubmenu') else 'skinshortcuts-submenu-5' if (widget5 in 'custom') else 'none'</property>
+        <property name="isTripleMedium5">'true'if (triple5 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content5">'Shelf_GenericSquare' if (type5 in 'movies' or type5 in 'tvshows' or type5 in 'episodes') and (path5 in 'tags' or path5 in 'genres' or path5 in 'studios' or path5 in 'actors' or path5 in 'directors' or path5 in 'country' or path5 in 'years') else 'Shelf_GenericSquare' if (type5 in 'custom' or type5 in 'picture' or type5 in 'favourite' or type5 in 'addons' or type5 in 'games' or type5 in 'musicvideos' or target5 in 'music' or target5 in 'pvr' or target5 in 'tvguide' or target5 in 'radioguide' or path5 in 'videoplaylists' or path5 in 'musicplaylists' or path5 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]5</param>
 					<param name="label">$SKINSHORTCUTS[label5]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]5">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]5,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -724,13 +688,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre5]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility5]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont5]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth5]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight5]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight5]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth5]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight5]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight5]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect5]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont5]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium5]]</param>
 					</include>
                     <content>
 						<item>
@@ -766,33 +731,25 @@
 		<property name="sortby6" tag="property" attribute="name|widgetSortBy.6" />
 		<property name="sortorder6" tag="property" attribute="name|widgetSortOrder.6" />
 		<property name="limit6" tag="property" attribute="name|widgetLimit.6" />
+		<property name="triple6" tag="property" attribute="name|widgetTriple.6" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double6" tag="property" attribute="name|widgetDouble.6" />
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.6" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.6" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '170' if (double6 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.6" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.6" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple6 in 'true') else '756' if (triplelarge in 'false' and triple6 in 'true') else '630' if (double6 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.6" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple6 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.6" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple6 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.6" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.6" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple6 in 'true') else '817' if (triplelarge in 'false' and triple6 in 'true') else '690' if (double6 in 'true') else '375'</property>
         <!-- Below textbox width -->
-		<property name="textboxwidth6" tag="property" attribute="name|widgetTriple.6" value="true">158</property>
-		<property name="textboxwidth6">204</property>
+		<property name="textboxwidth6">'158' if (triple6 in 'true' and triplelarge in 'false') else '204'</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight6" tag="property" attribute="name|widgetTriple.6" value="true">35</property>
-		<property name="textboxheight6">64</property>
+		<property name="textboxheight6">'35' if (triple6 in 'true' and triplelarge in 'false') else '64'</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight6" tag="property" attribute="name|widgetTriple.6" value="true">45</property>
-		<property name="textbackheight6">74</property>
+		<property name="textbackheight6">'45' if (triple6 in 'true' and triplelarge in 'false') else '74'</property>
         <!-- Content -->
         <property name="labelvisibility6" tag="property" attribute="name|widgetType.6" value="episodes|people">true</property>
         <property name="labelvisibility6">false</property>
@@ -805,23 +762,23 @@
         <property name="isYear6">'true' if path6 in 'years' else 'false'</property>
         <property name="isPlaylist6">'true' if (path6 in 'videoplaylists' or path6 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre6">'true' if target6 in 'music' and path6 in 'genres' else 'false'</property>
-        <property name="content6">'Shelf_GenericSquare' if (type6 in 'movies' or type6 in 'tvshows' or type6 in 'episodes') and (path6 in 'tags' or path6 in 'genres' or path6 in 'studios' or path6 in 'actors' or path6 in 'directors' or path6 in 'country' or path6 in 'years') else 'Shelf_GenericSquare' if (type6 in 'video' and target6 in 'videos') else 'Shelf_GenericSquare' if (type6 in 'picture' or type6 in 'favourite' or type6 in 'addons' or type6 in 'games' or type6 in 'musicvideos' or target6 in 'music' or target6 in 'pvr' or target6 in 'tvguide' or target6 in 'radioguide' or path6 in 'videoplaylists' or path6 in 'musicplaylists' or path6 in 'sources') else 'Shelf_GenericPoster'</property>
-		<property name="contentinclude6">'skinshortcuts-submenu' if (widget6 in 'mysubmenu') else 'none'</property>
+        <property name="isTripleMedium6">'true'if (triple6 in 'true' and triplelarge in 'false') else 'false'</property>
+		<property name="content6">'Shelf_GenericSquare' if (type6 in 'movies' or type6 in 'tvshows' or type6 in 'episodes') and (path6 in 'tags' or path6 in 'genres' or path6 in 'studios' or path6 in 'actors' or path6 in 'directors' or path6 in 'country' or path6 in 'years') else 'Shelf_GenericSquare' if (type6 in 'picture' or type6 in 'favourite' or type6 in 'addons' or type6 in 'games' or type6 in 'musicvideos' or target6 in 'music' or target6 in 'pvr' or target6 in 'tvguide' or target6 in 'radioguide' or path6 in 'videoplaylists' or path6 in 'musicplaylists' or path6 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]6</param>
 					<param name="label">$SKINSHORTCUTS[label6]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]6">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]6,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
@@ -839,13 +796,14 @@
                         <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre6]]</param>
                         <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility6]</param>
 						<param name="textboxfont">$SKINSHORTCUTS[textboxfont6]</param>
-                        <param name="textboxwidth">$SKINSHORTCUTS[textboxwidth6]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight6]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight6]</param>
+                        <param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth6]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight6]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight6]]</param>
 						<param name="aspect">$SKINSHORTCUTS[aspect6]</param>
 						<param name="labelfont">$SKINSHORTCUTS[labelfont6]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+						<param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
+						<param name="isTripleRowMedium">$PYTHON[$SKINSHORTCUTS[isTripleMedium6]]</param>
 					</include>
                     <content>
 						<item>
@@ -880,43 +838,34 @@
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
 		<property name="triple1" tag="property" attribute="name|widgetTriple" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="double1" tag="property" attribute="name|widgetDouble" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.2" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '170' if (double1 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple1 in 'true') else '756' if (triplelarge in 'false' and triple1 in 'true') else '630' if (double1 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple1 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple1 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple1 in 'true') else '817' if (triplelarge in 'false' and triple1 in 'true') else '690' if (double1 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth1">'158' if (triple1 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight1">'48' if (triple1 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple1 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight1">'56' if (triple1 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple1 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight1">'315' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') and (triple1 in 'false') else '252' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') and (triple1 in 'true') else '228' if (type1 in 'system' or type1 in 'favouriteaddons' or type1 in 'favourite' or type1 in 'weatherdaily' or type1 in 'weatherhourly') and (triple1 in 'false') else '182'</property>
+		<property name="iconheight1">'315' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') and (triplelarge in 'true' or triple1 in 'false') else '252' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') and (triplelarge in 'false' and triple1 in 'true') else '228' if (type1 in 'system' or type1 in 'favouriteaddons' or type1 in 'favourite' or type1 in 'weatherdaily' or type1 in 'weatherhourly') and (triplelarge in 'true' or triple1 in 'false') else '182'</property>
         <property name="aspect1" tag="property" attribute="name|widgetType" value="system|nextaired">keep</property>
         <property name="aspect1">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility1" tag="property" attribute="name|widgetType" value="nextaired">false</property>
         <property name="textboxvisibility1">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth1" tag="property" attribute="name|widgetTriple" value="true">158</property>
-		<property name="textboxwidth1">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight1" tag="property" attribute="name|widgetTriple" value="true">48</property>
-		<property name="textboxheight1">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight1" tag="property" attribute="name|widgetTriple" value="true">56</property>
-		<property name="textbackheight1">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont1" tag="property" attribute="name|widgetTriple" value="true">ListDetailsSmall</property>
 		<property name="textboxfont1">Shelf_Label</property>
@@ -935,15 +884,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]1</param>
 					<param name="label">$SKINSHORTCUTS[label1]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],2,home)</onup>
@@ -961,11 +910,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont1]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility1]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont1]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth1]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight1]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight1]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>                        
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth1]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight1]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight1]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>                        
 					</include>
                     <content>
 						<item>
@@ -997,44 +946,35 @@
 		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
 		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
 		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
+		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple2" tag="property" attribute="name|widgetTriple.2" />
+		<property name="double2" tag="property" attribute="name|widgetDouble.2" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.3" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.2" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.2" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '170' if (double2 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.2" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.2" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple2 in 'true') else '756' if (triplelarge in 'false' and triple2 in 'true') else '630' if (double2 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.2" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple2 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.2" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple2 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.2" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.2" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple2 in 'true') else '817' if (triplelarge in 'false' and triple2 in 'true') else '690' if (double2 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth2">'158' if (triple2 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight2">'48' if (triple2 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple2 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight2">'56' if (triple2 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple2 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight2">'315' if (type2 in 'nextaired' or type2 in 'swrecommendedeps') and (triple2 in 'false') else '252' if (type2 in 'nextaired' or type2 in 'swrecommendedeps') and (triple2 in 'true') else '228' if (type2 in 'system' or type2 in 'favouriteaddons' or type2 in 'favourite' or type2 in 'weatherdaily' or type2 in 'weatherhourly') and (triple2 in 'false') else '182'</property>
+		<property name="iconheight2">'315' if (type2 in 'nextaired' or type2 in 'swrecommendedeps') and (triplelarge in 'true' or triple2 in 'false') else '252' if (type2 in 'nextaired' or type2 in 'swrecommendedeps') and (triplelarge in 'false' and triple2 in 'true') else '228' if (type2 in 'system' or type2 in 'favouriteaddons' or type2 in 'favourite' or type2 in 'weatherdaily' or type2 in 'weatherhourly') and (triplelarge in 'true' or triple2 in 'false') else '182'</property>
         <property name="aspect2" tag="property" attribute="name|widgetType.2" value="system|nextaired">keep</property>
         <property name="aspect2">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility2" tag="property" attribute="name|widgetType.2" value="nextaired">false</property>
         <property name="textboxvisibility2">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth2" tag="property" attribute="name|widgetTriple.2" value="true">158</property>
-		<property name="textboxwidth2">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight2" tag="property" attribute="name|widgetTriple.2" value="true">48</property>
-		<property name="textboxheight2">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight2" tag="property" attribute="name|widgetTriple.2" value="true">56</property>
-		<property name="textbackheight2">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont2" tag="property" attribute="name|widgetTriple.2" value="true">ListDetailsSmall</property>
 		<property name="textboxfont2">Shelf_Label</property>
@@ -1052,15 +992,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label">$SKINSHORTCUTS[label2]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],3,home)</onup>
@@ -1080,11 +1020,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont2]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility2]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont2]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth2]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight2]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight2]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth2]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight2]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight2]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
 					</include>
                     <content>
 						<item>
@@ -1117,44 +1057,35 @@
 		<property name="sortby3" tag="property" attribute="name|widgetSortBy.3" />
 		<property name="sortorder3" tag="property" attribute="name|widgetSortOrder.3" />
 		<property name="limit3" tag="property" attribute="name|widgetLimit.3" />
+		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple3" tag="property" attribute="name|widgetTriple.3" />
+		<property name="double3" tag="property" attribute="name|widgetDouble.3" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.4" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.3" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.3" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '170' if (double3 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.3" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.3" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple3 in 'true') else '756' if (triplelarge in 'false' and triple3 in 'true') else '630' if (double3 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.3" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple3 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.3" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple3 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.3" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.3" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple3 in 'true') else '817' if (triplelarge in 'false' and triple3 in 'true') else '690' if (double3 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth3">'158' if (triple3 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight3">'48' if (triple3 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple3 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight3">'56' if (triple3 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple3 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight3">'315' if (type3 in 'nextaired' or type3 in 'swrecommendedeps') and (triple3 in 'false') else '252' if (type3 in 'nextaired' or type3 in 'swrecommendedeps') and (triple3 in 'true') else '228' if (type3 in 'system' or type3 in 'favouriteaddons' or type3 in 'favourite' or type3 in 'weatherdaily' or type3 in 'weatherhourly') and (triple3 in 'false') else '182'</property>
+		<property name="iconheight3">'315' if (type3 in 'nextaired' or type3 in 'swrecommendedeps') and (triplelarge in 'true' or triple3 in 'false') else '252' if (type3 in 'nextaired' or type3 in 'swrecommendedeps') and (triplelarge in 'false' and triple3 in 'true') else '228' if (type3 in 'system' or type3 in 'favouriteaddons' or type3 in 'favourite' or type3 in 'weatherdaily' or type3 in 'weatherhourly') and (triplelarge in 'true' or triple3 in 'false') else '182'</property>
         <property name="aspect3" tag="property" attribute="name|widgetType.3" value="system|nextaired">keep</property>
         <property name="aspect3">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility3" tag="property" attribute="name|widgetType.3" value="nextaired">false</property>
         <property name="textboxvisibility3">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth3" tag="property" attribute="name|widgetTriple.3" value="true">158</property>
-		<property name="textboxwidth3">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight3" tag="property" attribute="name|widgetTriple.3" value="true">48</property>
-		<property name="textboxheight3">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight3" tag="property" attribute="name|widgetTriple.3" value="true">56</property>
-		<property name="textbackheight3">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont3" tag="property" attribute="name|widgetTriple.3" value="true">ListDetailsSmall</property>
 		<property name="textboxfont3">Shelf_Label</property>
@@ -1172,15 +1103,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]3</param>
 					<param name="label">$SKINSHORTCUTS[label3]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]3">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]3,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],4,home)</onup>
@@ -1200,11 +1131,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont3]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility3]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont3]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth3]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight3]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight3]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth3]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight3]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight3]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
 					</include>
                     <content>
 						<item>
@@ -1238,44 +1169,35 @@
 		<property name="sortby4" tag="property" attribute="name|widgetSortBy.4" />
 		<property name="sortorder4" tag="property" attribute="name|widgetSortOrder.4" />
 		<property name="limit4" tag="property" attribute="name|widgetLimit.4" />
-        <property name="triple4" tag="property" attribute="name|widgetTriple.4" />
+        <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="triple4" tag="property" attribute="name|widgetTriple.4" />
+		<property name="double4" tag="property" attribute="name|widgetDouble.4" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.5" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.4" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.4" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '170' if (double4 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.4" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.4" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple4 in 'true') else '756' if (triplelarge in 'false' and triple4 in 'true') else '630' if (double4 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.4" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple4 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.4" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple4 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.4" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.4" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple4 in 'true') else '817' if (triplelarge in 'false' and triple4 in 'true') else '690' if (double4 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth4">'158' if (triple4 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight4">'48' if (triple4 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple4 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight4">'56' if (triple4 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple4 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight4">'315' if (type4 in 'nextaired' or type4 in 'swrecommendedeps') and (triple4 in 'false') else '252' if (type4 in 'nextaired' or type4 in 'swrecommendedeps') and (triple4 in 'true') else '228' if (type4 in 'system' or type4 in 'favouriteaddons' or type4 in 'favourite' or type4 in 'weatherdaily' or type4 in 'weatherhourly') and (triple4 in 'false') else '182'</property>
+		<property name="iconheight4">'315' if (type4 in 'nextaired' or type4 in 'swrecommendedeps') and (triplelarge in 'true' or triple4 in 'false') else '252' if (type4 in 'nextaired' or type4 in 'swrecommendedeps') and (triplelarge in 'false' and triple4 in 'true') else '228' if (type4 in 'system' or type4 in 'favouriteaddons' or type4 in 'favourite' or type4 in 'weatherdaily' or type4 in 'weatherhourly') and (triplelarge in 'true' or triple4 in 'false') else '182'</property>
         <property name="aspect4" tag="property" attribute="name|widgetType.4" value="system|nextaired">keep</property>
         <property name="aspect4">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility4" tag="property" attribute="name|widgetType.4" value="nextaired">false</property>
         <property name="textboxvisibility4">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth4" tag="property" attribute="name|widgetTriple.4" value="true">158</property>
-		<property name="textboxwidth4">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight4" tag="property" attribute="name|widgetTriple.4" value="true">48</property>
-		<property name="textboxheight4">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight4" tag="property" attribute="name|widgetTriple.4" value="true">56</property>
-		<property name="textbackheight4">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont4" tag="property" attribute="name|widgetTriple.4" value="true">ListDetailsSmall</property>
 		<property name="textboxfont4">Shelf_Label</property>
@@ -1293,15 +1215,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]4</param>
 					<param name="label">$SKINSHORTCUTS[label4]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]4">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]4,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],5,home)</onup>
@@ -1321,11 +1243,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont4]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility4]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont4]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth4]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight4]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight4]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth4]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight4]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight4]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
 					</include>
                     <content>
 						<item>
@@ -1360,44 +1282,35 @@
 		<property name="sortby5" tag="property" attribute="name|widgetSortBy.5" />
 		<property name="sortorder5" tag="property" attribute="name|widgetSortOrder.5" />
 		<property name="limit5" tag="property" attribute="name|widgetLimit.5" />
+		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple5" tag="property" attribute="name|widgetTriple.5" />
+		<property name="double5" tag="property" attribute="name|widgetDouble.5" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.6" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.5" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.5" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '170' if (double5 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.5" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.5" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple5 in 'true') else '756' if (triplelarge in 'false' and triple5 in 'true') else '630' if (double5 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.5" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple5 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.5" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple5 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.5" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.5" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple5 in 'true') else '817' if (triplelarge in 'false' and triple5 in 'true') else '690' if (double5 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth5">'158' if (triple5 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight5">'48' if (triple5 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple5 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight5">'56' if (triple5 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple5 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight5">'315' if (type5 in 'nextaired' or type5 in 'swrecommendedeps') and (triple5 in 'false') else '252' if (type5 in 'nextaired' or type5 in 'swrecommendedeps') and (triple5 in 'true') else '228' if (type5 in 'system' or type5 in 'favouriteaddons' or type5 in 'favourite' or type5 in 'weatherdaily' or type5 in 'weatherhourly') and (triple5 in 'false') else '182'</property>
+		<property name="iconheight5">'315' if (type5 in 'nextaired' or type5 in 'swrecommendedeps') and (triplelarge in 'true' or triple5 in 'false') else '252' if (type5 in 'nextaired' or type5 in 'swrecommendedeps') and (triplelarge in 'false' and triple5 in 'true') else '228' if (type5 in 'system' or type5 in 'favouriteaddons' or type5 in 'favourite' or type5 in 'weatherdaily' or type5 in 'weatherhourly') and (triplelarge in 'true' or triple5 in 'false') else '182'</property>
         <property name="aspect5" tag="property" attribute="name|widgetType.5" value="system|nextaired">keep</property>
         <property name="aspect5">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility5" tag="property" attribute="name|widgetType.5" value="nextaired">false</property>
         <property name="textboxvisibility5">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth5" tag="property" attribute="name|widgetTriple.5" value="true">158</property>
-		<property name="textboxwidth5">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight5" tag="property" attribute="name|widgetTriple.5" value="true">48</property>
-		<property name="textboxheight5">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight5" tag="property" attribute="name|widgetTriple.5" value="true">56</property>
-		<property name="textbackheight5">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont5" tag="property" attribute="name|widgetTriple.5" value="true">ListDetailsSmall</property>
 		<property name="textboxfont5">Shelf_Label</property>
@@ -1415,15 +1328,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]5</param>
 					<param name="label">$SKINSHORTCUTS[label5]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]5">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]5,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],6,home)</onup>
@@ -1443,11 +1356,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont5]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility5]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont5]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth5]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight5]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight5]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth5]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight5]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight5]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
 					</include>
                     <content>
 						<item>
@@ -1483,41 +1396,32 @@
 		<property name="sortby6" tag="property" attribute="name|widgetSortBy.6" />
 		<property name="sortorder6" tag="property" attribute="name|widgetSortOrder.6" />
 		<property name="limit6" tag="property" attribute="name|widgetLimit.6" />
+		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple6" tag="property" attribute="name|widgetTriple.6" />
+		<property name="double6" tag="property" attribute="name|widgetDouble.6" />
 		<!-- Top -->
-		<property name="top" tag="property" attribute="name|widgetDouble.6" value="true">170</property>
-		<property name="top" tag="property" attribute="name|widgetTriple.6" value="true">110</property>
-		<property name="top">327</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '170' if (double6 in 'true') else '327'</property>
 		<!-- Height -->
-		<property name="height" tag="property" attribute="name|widgetDouble.6" value="true">630</property>
-		<property name="height" tag="property" attribute="name|widgetTriple.6" value="true">756</property>
-		<property name="height">315</property>
+		<property name="height">'945' if (triplelarge in 'true' and triple6 in 'true') else '756' if (triplelarge in 'false' and triple6 in 'true') else '630' if (double6 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
-		<property name="layoutheight" tag="property" attribute="name|widgetTriple.6" value="true">252</property>
-		<property name="layoutheight">315</property>
+		<property name="layoutheight">'252' if (triple6 in 'true' and triplelarge in 'false') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Width -->
-		<property name="layoutwidth" tag="property" attribute="name|widgetTriple.6" value="true">182</property>
-		<property name="layoutwidth">228</property>
+		<property name="layoutwidth">'182' if (triple6 in 'true' and triplelarge in 'false') else '228'</property>
 		<!-- Background Height -->
-		<property name="backgroundheight" tag="property" attribute="name|widgetDouble.6" value="true">690</property>
-		<property name="backgroundheight" tag="property" attribute="name|widgetTriple.6" value="true">817</property>
-		<property name="backgroundheight">375</property>
+		<property name="backgroundheight">'1005' if (triplelarge in 'true' and triple6 in 'true') else '817' if (triplelarge in 'false' and triple6 in 'true') else '690' if (double6 in 'true') else '375'</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth6">'158' if (triple6 in 'true' and triplelarge in 'false') else '204'</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight6">'48' if (triple6 in 'true' and triplelarge in 'false') else '54' if (triplelarge in 'true' and triple6 in 'true') else '64'</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight6">'56' if (triple6 in 'true' and triplelarge in 'false') else '64' if (triplelarge in 'true' and triple6 in 'true') else '74'</property>
 		<!-- Icon Properties -->
-		<property name="iconheight6">'315' if (type6 in 'nextaired' or type6 in 'swrecommendedeps') and (triple6 in 'false') else '252' if (type6 in 'nextaired' or type6 in 'swrecommendedeps') and (triple6 in 'true') else '228' if (type6 in 'system' or type6 in 'favouriteaddons' or type6 in 'favourite' or type6 in 'weatherdaily' or type6 in 'weatherhourly') and (triple6 in 'false') else '182'</property>
+		<property name="iconheight6">'315' if (type6 in 'nextaired' or type6 in 'swrecommendedeps') and (triplelarge in 'true' or triple6 in 'false') else '252' if (type6 in 'nextaired' or type6 in 'swrecommendedeps') and (triplelarge in 'false' and triple6 in 'true') else '228' if (type6 in 'system' or type6 in 'favouriteaddons' or type6 in 'favourite' or type6 in 'weatherdaily' or type6 in 'weatherhourly') and (triplelarge in 'true' or triple6 in 'false') else '182'</property>
         <property name="aspect6" tag="property" attribute="name|widgetType.6" value="system|nextaired">keep</property>
         <property name="aspect6">scale</property>
         <!-- Below Textbox -->
         <property name="textboxvisibility6" tag="property" attribute="name|widgetType.6" value="nextaired">false</property>
         <property name="textboxvisibility6">true</property> 
-        <!-- Below textbox width -->
-		<property name="textboxwidth6" tag="property" attribute="name|widgetTriple.6" value="true">158</property>
-		<property name="textboxwidth6">204</property>
-		<!-- Below textbox height -->
-		<property name="textboxheight6" tag="property" attribute="name|widgetTriple.6" value="true">48</property>
-		<property name="textboxheight6">64</property>
-		<!-- Below textbox background height -->
-		<property name="textbackheight6" tag="property" attribute="name|widgetTriple.6" value="true">56</property>
-		<property name="textbackheight6">74</property>
 		<!-- Below textbox font -->
 		<property name="textboxfont6" tag="property" attribute="name|widgetTriple.6" value="true">ListDetailsSmall</property>
 		<property name="textboxfont6">Shelf_Label</property>
@@ -1535,15 +1439,15 @@
 				<include content="WidgetBackground">
 					<param name="id">1600$SKINSHORTCUTS[id]6</param>
 					<param name="label">$SKINSHORTCUTS[label6]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					<param name="top">$PYTHON[$SKINSHORTCUTS[top]]</param>
+					<param name="height">$PYTHON[$SKINSHORTCUTS[backgroundheight]]</param>
 					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
 				</include>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]6">
-					<top>$SKINSHORTCUTS[top]</top>
+					<top>$PYTHON[$SKINSHORTCUTS[top]]</top>
 					<left>32</left>
 					<right>0</right>
-					<height>$SKINSHORTCUTS[height]</height>
+					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]6,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
                     <onup>ClearProperty(WidgetFocus$SKINSHORTCUTS[id],home)</onup>
@@ -1561,11 +1465,11 @@
                         <param name="labelfont">$SKINSHORTCUTS[labelfont6]</param>
 						<param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility6]</param>
                         <param name="textboxfont">$SKINSHORTCUTS[textboxfont6]</param>
-						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth6]</param>
-						<param name="textboxheight">$SKINSHORTCUTS[textboxheight6]</param>
-						<param name="textbackheight">$SKINSHORTCUTS[textbackheight6]</param>
-						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
-                        <param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="textboxwidth">$PYTHON[$SKINSHORTCUTS[textboxwidth6]]</param>
+						<param name="textboxheight">$PYTHON[$SKINSHORTCUTS[textboxheight6]]</param>
+						<param name="textbackheight">$PYTHON[$SKINSHORTCUTS[textbackheight6]]</param>
+						<param name="layoutheight">$PYTHON[$SKINSHORTCUTS[layoutheight]]</param>
+                        <param name="layoutwidth">$PYTHON[$SKINSHORTCUTS[layoutwidth]]</param>
 					</include>
                     <content>
 						<item>
@@ -1634,7 +1538,7 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'video' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -1707,7 +1611,7 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'video' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -1894,6 +1798,7 @@
 	<other include="shelfgroup3shelvesbackground">
 		<!-- Widget condition -->
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
 		<!-- Retrieve properties -->
 		<property name="id" tag="mainmenuid" />
@@ -1920,6 +1825,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
 		<condition tag="property" attribute="name|widgetPath" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent">default</condition>
 		<!-- Retrieve properties -->
@@ -1966,7 +1872,7 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'video' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -2019,6 +1925,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
 		<condition tag="property" attribute="name|widgetPath.2" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent.2">default</condition>
 		<!-- Retrieve properties -->
@@ -2060,7 +1967,7 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'video' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -2114,6 +2021,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
 		<condition tag="property" attribute="name|widgetPath.3" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent.3">default</condition>
 		<!-- Retrieve properties -->
@@ -2155,7 +2063,7 @@
         <property name="isYear3">'true' if path3 in 'years' else 'false'</property>
         <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
-        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'video' and target3 in 'videos') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -2211,6 +2119,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and static -->
 		<condition tag="property" attribute="name|widgetPath" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent">static</condition>
 		<!-- Retrieve properties -->
@@ -2307,6 +2216,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and static -->
 		<condition tag="property" attribute="name|widgetPath.2" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent.2">static</condition>
 		<!-- Retrieve properties -->
@@ -2400,6 +2310,7 @@
 		<!-- Widget conditions: a path is needed, three shelves together and static -->
 		<condition tag="property" attribute="name|widgetPath.3" />
 		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">false</condition>
 		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
         <condition tag="property" attribute="name|widgetContent.3">static</condition>
 		<!-- Retrieve properties -->
@@ -2441,6 +2352,576 @@
         <property name="textboxvisibility3">true</property>  
         <property name="textboxfont3" tag="property" attribute="name|widgetType.2" value="none">Shelf_Label</property>
 		<property name="textboxfont3">ListDetailsSmall</property>
+        <property name="content3" tag="property" attribute="name|widgetType.3" value="weatherdaily|weatherhourly">Shelf_GenericStaticWeather</property>
+        <property name="content3">Shelf_GenericStatic</property>
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]3">
+					<top>$SKINSHORTCUTS[paneltop]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]3,Home)</onfocus>
+					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + !Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$SKINSHORTCUTS[content3]">
+						<param name="id1">1600$SKINSHORTCUTS[id]3</param>
+                        <param name="iconheight">$PYTHON[$SKINSHORTCUTS[iconheight3]]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect3]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility3]</param>
+                        <param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility3]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont3]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont3]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth3]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight3]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight3]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="isTripleRow">true</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]3).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content>$SKINSHORTCUTS[path3]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+	
+	<!-- Three Shelves Together, Larger Posters -->
+	
+	<!-- Background for three shelves together, larger posters -->
+	<other include="shelfgroup3shelvesbackgroundlarge">
+		<!-- Widget condition -->
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label1" tag="property" attribute="name|widgetName" />
+		<property name="label2" tag="property" attribute="name|widgetName.2" />
+		<property name="label3" tag="property" attribute="name|widgetName.3" />
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<include content="WidgetBackground3Large">
+					<param name="id1">1600$SKINSHORTCUTS[id]1</param>
+					<param name="id2">1600$SKINSHORTCUTS[id]2</param>
+					<param name="id3">1600$SKINSHORTCUTS[id]3</param>
+					<param name="label1">$SKINSHORTCUTS[label1]</param>
+					<param name="label2">$SKINSHORTCUTS[label2]</param>
+					<param name="label3">$SKINSHORTCUTS[label3]</param>
+				</include>
+			</control>
+		</controls>
+	</other>
+    
+    <!-- Widgets 1 - 3, Dynamic Content, Three shelves together, Large Poster -->
+	<other include="shelfgroup1">
+		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
+		<condition tag="property" attribute="name|widgetPath" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent">default</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label1" tag="property" attribute="name|widgetName" />
+		<property name="path1" tag="property" attribute="name|widgetPath" />
+		<property name="target1" tag="property" attribute="name|widgetTarget" />
+		<property name="type1" tag="property" attribute="name|widgetType" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="widget1" tag="property" attribute="name|widget" />
+		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
+		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
+		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+        <!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none') else '485' if (type2 in 'none' or type3 in 'none') else '640'</property>
+		<!-- Below textbox width -->
+		<property name="textboxwidth1">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight1">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight1">74</property>
+		<!-- Content -->
+        <property name="labelvisibility1" tag="property" attribute="name|widgetType" value="episodes|people">true</property>
+        <property name="labelvisibility1">false</property>
+		<property name="labelfont1" tag="property" attribute="name|widgetType" value="episodes|people">ListDetailsSmall</property>
+		<property name="labelfont1">Shelf_Label</property>
+		<property name="textboxfont1" tag="property" attribute="name|widgetType" value="favourites">ListDetailsSmall</property>
+		<property name="textboxfont1">Shelf_Label</property>
+        <property name="aspect1" tag="property" attribute="name|widgetType" value="musicvideos">scale</property>
+        <property name="aspect1">keep</property>        
+        <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
+        <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
+        <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
+        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,-158" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
+					<top>$PYTHON[$SKINSHORTCUTS[paneltop]]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
+					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
+                    <onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</onup>
+					<onup condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]3).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]3)</onup>
+					<ondown>300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$PYTHON[$SKINSHORTCUTS[content1]]">
+						<param name="id1">1600$SKINSHORTCUTS[id]1</param>
+                        <param name="isYear">$PYTHON[$SKINSHORTCUTS[isYear1]]</param>
+                        <param name="isPlaylist">$PYTHON[$SKINSHORTCUTS[isPlaylist1]]</param>
+                        <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre1]]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility1]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect1]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont1]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont1]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth1]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight1]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight1]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]1).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content sortby="$SKINSHORTCUTS[sortby1]" sortorder="$SKINSHORTCUTS[sortorder1]" limit="$SKINSHORTCUTS[limit1]" target="$SKINSHORTCUTS[target1]">$SKINSHORTCUTS[path1]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+	<other include="shelfgroup2">
+		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
+		<condition tag="property" attribute="name|widgetPath.2" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent.2">default</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label2" tag="property" attribute="name|widgetName.2" />
+		<property name="path2" tag="property" attribute="name|widgetPath.2" />
+		<property name="target2" tag="property" attribute="name|widgetTarget.2" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="widget2" tag="property" attribute="name|widget.2" />
+		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
+		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
+		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
+        <!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop" tag="property" attribute="name|widgetType.3" value="none">170</property>
+		<property name="paneltop">325</property>
+		<!-- Content -->
+        <property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="episodes|people">true</property>
+        <property name="labelvisibility2">false</property>
+		<property name="labelfont2" tag="property" attribute="name|widgetType.2" value="episodes|people">ListDetailsSmall</property>
+		<property name="labelfont2">Shelf_Label</property>
+		<property name="textboxfont2" tag="property" attribute="name|widgetType.2" value="favourites">ListDetailsSmall</property>
+		<property name="textboxfont2">Shelf_Label</property>
+        <!-- Below textbox width -->
+		<property name="textboxwidth2">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight2">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight2">74</property>
+        <property name="aspect2" tag="property" attribute="name|widgetType.2" value="musicvideos">scale</property>
+        <property name="aspect2">keep</property>        
+        <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
+        <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
+        <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
+					<top>$SKINSHORTCUTS[paneltop]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
+					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
+                    <onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]3).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]3)</onup>
+					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$PYTHON[$SKINSHORTCUTS[content2]]">
+						<param name="id1">1600$SKINSHORTCUTS[id]2</param>
+                        <param name="isYear">$PYTHON[$SKINSHORTCUTS[isYear2]]</param>
+                        <param name="isPlaylist">$PYTHON[$SKINSHORTCUTS[isPlaylist2]]</param>
+                        <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre2]]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility2]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect2]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont2]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont2]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth2]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight2]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight2]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]2).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content sortby="$SKINSHORTCUTS[sortby2]" sortorder="$SKINSHORTCUTS[sortorder2]" limit="$SKINSHORTCUTS[limit2]" target="$SKINSHORTCUTS[target2]">$SKINSHORTCUTS[path2]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+	<other include="shelfgroup3">
+		<!-- Widget conditions: a path is needed, three shelves together and dynamic content -->
+		<condition tag="property" attribute="name|widgetPath.3" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent.3">default</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label3" tag="property" attribute="name|widgetName.3" />
+		<property name="path3" tag="property" attribute="name|widgetPath.3" />
+		<property name="target3" tag="property" attribute="name|widgetTarget.3" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="widget3" tag="property" attribute="name|widget.3" />
+		<property name="sortby3" tag="property" attribute="name|widgetSortBy.3" />
+		<property name="sortorder3" tag="property" attribute="name|widgetSortOrder.3" />
+		<property name="limit3" tag="property" attribute="name|widgetLimit.3" />
+        <!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop" tag="property" attribute="name|widgetType.2" value="none">170</property>
+		<property name="paneltop">10</property>
+		<!-- Below textbox width -->
+		<property name="textboxwidth3">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight3">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight3">74</property>
+		<!-- Content -->
+        <property name="labelvisibility3" tag="property" attribute="name|widgetType.3" value="episodes|people">true</property>
+        <property name="labelvisibility3">false</property>
+		<property name="labelfont3" tag="property" attribute="name|widgetType.3" value="episodes|people">ListDetailsSmall</property>
+		<property name="labelfont3">Shelf_Label</property>
+		<property name="textboxfont3" tag="property" attribute="name|widgetType.3" value="favourites">ListDetailsSmall</property>
+		<property name="textboxfont3">Shelf_Label</property>
+        <property name="aspect3" tag="property" attribute="name|widgetType.3" value="musicvideos">scale</property>
+        <property name="aspect3">keep</property>        
+        <property name="isYear3">'true' if path3 in 'years' else 'false'</property>
+        <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
+        <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
+        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
+
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]3">
+					<top>$SKINSHORTCUTS[paneltop]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]3,Home)</onfocus>
+					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
+                    <ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + !Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$PYTHON[$SKINSHORTCUTS[content3]]">
+						<param name="id1">1600$SKINSHORTCUTS[id]3</param>
+                        <param name="isYear">$PYTHON[$SKINSHORTCUTS[isYear3]]</param>
+                        <param name="isPlaylist">$PYTHON[$SKINSHORTCUTS[isPlaylist3]]</param>
+                        <param name="isMusicGenre">$PYTHON[$SKINSHORTCUTS[isMusicGenre3]]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility3]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect3]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont3]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont3]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth3]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight3]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight3]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]3).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content sortby="$SKINSHORTCUTS[sortby3]" sortorder="$SKINSHORTCUTS[sortorder3]" limit="$SKINSHORTCUTS[limit3]" target="$SKINSHORTCUTS[target3]">$SKINSHORTCUTS[path3]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+    
+    <!-- Widgets 1 - 3, Static Content, Three shelves together, larger poster -->
+	<other include="shelfgroup1">
+		<!-- Widget conditions: a path is needed, three shelves together and static -->
+		<condition tag="property" attribute="name|widgetPath" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent">static</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label1" tag="property" attribute="name|widgetName" />
+		<property name="path1" tag="property" attribute="name|widgetPath" />
+		<property name="target1" tag="property" attribute="name|widgetTarget" />
+		<property name="type1" tag="property" attribute="name|widgetType" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="widget1" tag="property" attribute="name|widget" />
+		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
+		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
+		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+        <!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none') else '485' if (type2 in 'none' or type3 in 'none') else '640'</property>
+		<!-- Below textbox width -->
+		<property name="textboxwidth1">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight1">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight1">74</property>
+		<!-- Content -->
+		<property name="iconheight1">'315' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') else '228'</property>
+		<property name="aspect1" tag="property" attribute="name|widgetType" value="system|nextaired">keep</property>
+        <property name="aspect1">scale</property>
+        <!-- Overlay Label and Below Icon Textbox -->
+		<property name="labelvisibility1" tag="property" attribute="name|widgetType" value="nextaired|swrecommendedeps">true</property>
+        <property name="labelvisibility1">false</property>
+        <property name="textboxvisibility1" tag="property" attribute="name|widgetType" value="nextaired">false</property>
+        <property name="textboxvisibility1">true</property>        
+        <property name="labelfont1" tag="property" attribute="name|widgetType" value="episodes|people">ListDetailsSmall</property>
+		<property name="labelfont1">Shelf_Label</property>
+		<property name="textboxfont1">Shelf_Label</property>
+		<property name="content1" tag="property" attribute="name|widgetType" value="weatherdaily|weatherhourly">Shelf_GenericStaticWeather</property>
+        <property name="content1">Shelf_GenericStatic</property>
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,-158" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
+					<top>$PYTHON[$SKINSHORTCUTS[paneltop]]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
+					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</onup>
+					<onup condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0) + Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]3).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]3)</onup>
+					<ondown>300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$SKINSHORTCUTS[content1]">
+						<param name="id1">1600$SKINSHORTCUTS[id]1</param>
+                        <param name="iconheight">$PYTHON[$SKINSHORTCUTS[iconheight1]]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect1]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility1]</param>
+                        <param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility1]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont1]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont1]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth1]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight1]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight1]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="isTripleRow">true</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]1).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content>$SKINSHORTCUTS[path1]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+	<other include="shelfgroup2">
+		<!-- Widget conditions: a path is needed, three shelves together and static -->
+		<condition tag="property" attribute="name|widgetPath.2" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent.2">static</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label2" tag="property" attribute="name|widgetName.2" />
+		<property name="path2" tag="property" attribute="name|widgetPath.2" />
+		<property name="target2" tag="property" attribute="name|widgetTarget.2" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="widget2" tag="property" attribute="name|widget.2" />
+		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
+		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
+		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
+		<!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop" tag="property" attribute="name|widgetType.3" value="none">170</property>
+		<property name="paneltop">325</property>
+		<!-- Below textbox width -->
+		<property name="textboxwidth2">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight2">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight2">74</property>
+		<!-- Content -->
+		<property name="iconheight2">'315' if (type2 in 'nextaired' or type2 in 'swrecommendedeps') else '228'</property>
+        <property name="aspect2" tag="property" attribute="name|widgetType.2" value="system|nextaired">keep</property>
+        <property name="aspect2">scale</property>
+        <!-- Overlay Label and Below Icon Textbox -->
+		<property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="nextaired|swrecommendedeps">true</property>
+        <property name="labelvisibility2">false</property>
+        <property name="textboxvisibility2" tag="property" attribute="name|widgetType.2" value="nextaired">false</property>
+        <property name="textboxvisibility2">true</property>        
+		<property name="textboxfont2">Shelf_Label</property>
+		<property name="content2" tag="property" attribute="name|widgetType.2" value="weatherdaily|weatherhourly">Shelf_GenericStaticWeather</property>
+        <property name="content2">Shelf_GenericStatic</property>
+		<controls>
+			<control type="group">
+				<skinshortcuts>visibility</skinshortcuts>
+				<animation effect="fade" time="200">VisibleChange</animation>
+<!--				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">conditional</animation> -->
+				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
+					<top>$SKINSHORTCUTS[paneltop]</top>
+					<left>32</left>
+					<right>0</right>
+					<height>$SKINSHORTCUTS[layoutheight]</height>
+                    <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
+					<onclick condition="System.HasAddon(script.playalbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
+					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]3).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]3)</onup>
+					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
+					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
+					<onback>300</onback>
+					<preloaditems>2</preloaditems>
+					<orientation>horizontal</orientation>
+					<include content="$SKINSHORTCUTS[content2]">
+						<param name="id1">1600$SKINSHORTCUTS[id]2</param>
+                        <param name="iconheight">$PYTHON[$SKINSHORTCUTS[iconheight2]]</param>
+                        <param name="aspect">$SKINSHORTCUTS[aspect2]</param>
+                        <param name="labelvisibility">$SKINSHORTCUTS[labelvisibility2]</param>
+                        <param name="textboxvisibility">$SKINSHORTCUTS[textboxvisibility2]</param>
+						<param name="labelfont">$SKINSHORTCUTS[labelfont2]</param>
+						<param name="textboxfont">$SKINSHORTCUTS[textboxfont2]</param>
+						<param name="textboxwidth">$SKINSHORTCUTS[textboxwidth2]</param>
+						<param name="textboxheight">$SKINSHORTCUTS[textboxheight2]</param>
+						<param name="textbackheight">$SKINSHORTCUTS[textbackheight2]</param>
+						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
+						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
+						<param name="isTripleRow">true</param>
+					</include>
+                    <content>
+						<item>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>String.IsEmpty(Container(1600$SKINSHORTCUTS[id]2).ListItem(1).Label)</visible>
+						</item>
+					</content>                    
+					<content>$SKINSHORTCUTS[path2]</content>
+				</control>
+			</control>
+		</controls>
+	</other>
+    <other include="shelfgroup3">
+		<!-- Widget conditions: a path is needed, three shelves together and static -->
+		<condition tag="property" attribute="name|widgetPath.3" />
+		<condition tag="property" attribute="name|widgetThreeShelves">true</condition>
+		<condition tag="property" attribute="name|widgetThreeShelvesLarge">true</condition>
+		<condition tag="property" attribute="name|widgetTwoShelves">false</condition>
+        <condition tag="property" attribute="name|widgetContent.3">static</condition>
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="label3" tag="property" attribute="name|widgetName.3" />
+		<property name="path3" tag="property" attribute="name|widgetPath.3" />
+		<property name="target3" tag="property" attribute="name|widgetTarget.3" />
+		<property name="type3" tag="property" attribute="name|widgetType.3" />
+		<property name="type2" tag="property" attribute="name|widgetType.2" />
+		<property name="widget3" tag="property" attribute="name|widget.3" />
+		<property name="sortby3" tag="property" attribute="name|widgetSortBy.3" />
+		<property name="sortorder3" tag="property" attribute="name|widgetSortOrder.3" />
+		<property name="limit3" tag="property" attribute="name|widgetLimit.3" />
+		<!-- Itemlayout/Focusedlayout Height/Width -->
+		<property name="layoutheight">315</property>
+		<property name="layoutwidth">228</property>
+		<!-- Panel top -->
+		<property name="paneltop" tag="property" attribute="name|widgetType.2" value="none">170</property>
+		<property name="paneltop">10</property>
+		<!-- Below textbox width -->
+		<property name="textboxwidth3">204</property>
+		<!-- Below textbox height -->
+		<property name="textboxheight3">64</property>
+		<!-- Below textbox background height -->
+		<property name="textbackheight3">74</property>
+		<!-- Content -->
+		<property name="iconheight3">'315' if (type3 in 'nextaired' or type3 in 'swrecommendedeps') else '228'</property>
+        <property name="aspect3" tag="property" attribute="name|widgetType.3" value="system|nextaired">keep</property>
+        <property name="aspect3">scale</property>
+        <!-- Overlay Label and Below Icon Textbox -->
+		<property name="labelvisibility3" tag="property" attribute="name|widgetType.3" value="nextaired|swrecommendedeps">true</property>
+        <property name="labelvisibility3">false</property>
+        <property name="textboxvisibility3" tag="property" attribute="name|widgetType.3" value="nextaired">false</property>
+        <property name="textboxvisibility3">true</property>  
+		<property name="textboxfont3">Shelf_Label</property>
         <property name="content3" tag="property" attribute="name|widgetType.3" value="weatherdaily|weatherhourly">Shelf_GenericStaticWeather</property>
         <property name="content3">Shelf_GenericStatic</property>
 		<controls>

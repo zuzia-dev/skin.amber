@@ -377,6 +377,27 @@
 							<onclick>SetProperty(CustomSelectDefaultView,True)</onclick>
 							<onclick>ActivateWindow(1135)</onclick>
 						</item>
+						<item id="34" description="Use New View Selector - SkinVariables present">
+                            <visible>Skin.HasSetting(Enable.NewViewSelector) + System.HasAddon(script.skinvariables)</visible>
+                            <label>[B]$LOCALIZE[32272][/B]</label>
+                            <label2>$LOCALIZE[107]</label2>
+							<onclick>Skin.Reset(Enable.NewViewSelector)</onclick>
+                        </item>
+                        <item id="34" description="Use New View Selector - SkinVariables present">
+                            <visible>!Skin.HasSetting(Enable.NewViewSelector) | !System.HasAddon(script.skinvariables)</visible>
+                            <label>[B]$LOCALIZE[32272][/B]</label>
+                            <label2>$LOCALIZE[106]</label2>
+                            <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerHeader,$LOCALIZE[32255],Home)</onclick>
+                            <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerSubHeader,$LOCALIZE[32273],[I],[/I]],Home)</onclick>
+					        <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerContent,$LOCALIZE[32274],Home)</onclick>
+                            <onclick condition="!System.HasAddon(script.skinvariables)">ActivateWindow(1124)</onclick>
+                            <onclick condition="System.HasAddon(script.skinvariables) + !Skin.HasSetting(Enable.NewViewSelector)">Skin.SetBool(Enable.NewViewSelector)</onclick>
+                        </item>
+						<item id="35" description="Configure Media Views">
+							<label>      $LOCALIZE[32275]</label>
+							<onclick>RunScript(script.skinvariables,action=buildviews,configure)</onclick>
+							<visible>Skin.HasSetting(Enable.NewViewSelector)</visible>
+						</item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="2"/>
 							<param name="itemlabel" value="$LOCALIZE[32219]"/>
@@ -1226,6 +1247,15 @@
 					    <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(TextViewerContent,$LOCALIZE[32257],Home)</onclick>
                         <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">ActivateWindow(1124)</onclick>
 						<selected>System.HasAddon(plugin.video.themoviedb.helper)</selected>
+					</control>
+					<control type="radiobutton" id="911225">
+						<label>script.skinvariables</label>
+						<label2>$INFO[System.AddonVersion(script.skinvariables)]        </label2>
+						<onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerHeader,$LOCALIZE[32255],Home)</onclick>
+                        <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerSubHeader,$LOCALIZE[32273],[I],[/I]],Home)</onclick>
+					    <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerContent,$LOCALIZE[32274],Home)</onclick>
+                        <onclick condition="!System.HasAddon(script.skinvariables)">ActivateWindow(1124)</onclick>
+						<selected>System.HasAddon(script.skinvariables)</selected>
 					</control>
 				</control>
 			</control>
