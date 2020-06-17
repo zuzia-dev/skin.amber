@@ -7,7 +7,6 @@
     <onload condition="String.IsEqual(ListItem.DBTYPE,movie) + System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
     <onload condition="System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9000||90050||9009||91001||910001||91002||91003||91004||91005||91006||91007||91008||91009||910010)</onload>
     <onunload condition="System.HasAddon(script.embuary.helper)">ClearProperty(EncodedTitle,home)</onunload>
-	<onunload>Container.Update(path)</onunload>
 
     <controls>
 
@@ -16,7 +15,7 @@
                             !String.IsEmpty(ListItem.DBID)">EmbuaryHelperTVShowDetails</include>
 
         <!-- Hide default cast list 50, using a custom cast -->
-        <include>HiddenCast</include>
+       <include condition="!Skin.HasSetting(Disable.ExtendedInfo)">HiddenCast</include>
 
         <!-- Hide some of the default video info buttons, we are using custom ones -->
 		<control type="button" id="13" description="Director">
@@ -357,6 +356,53 @@
                     <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[ListItem.UserRating]</label>
                 </control>
+            </control>
+            <control type="grouplist" description="Awards">
+                <width>115</width>
+                <orientation>horizontal</orientation>
+                <itemgap>1</itemgap>
+				<align>left</align>
+                <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)] | 
+				         [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+				<visible>Skin.HasSetting(ShowRatingAwards)</visible>
+                <control type="image" description="Oscars logo">
+                    <height>40</height>
+                    <width>30</width>
+                    <aligny>center</aligny>
+                    <align>right</align>
+                    <aspectratio>keep</aspectratio>
+                    <texture>badges/ratings/oscars.png</texture>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)]</visible>
+                </control>
+                <control type="label" description="Oscar wins">
+                    <width>30</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <align>left</align>
+					<aligny>center</aligny>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)]</label>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)]</visible>
+                </control>
+				<control type="image" description="Golden Globes logo">
+                    <height>40</height>
+                    <width>30</width>
+                    <aligny>center</aligny>
+                    <align>right</align>
+                    <aspectratio>keep</aspectratio>
+                    <texture>badges/ratings/goldenglobes.png</texture>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+                </control>
+                <control type="label" description="Golden Globe wins">
+                    <width>20</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <align>left</align>
+					<aligny>center</aligny>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)]</label>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+                </control>
             </control>            
         </control>
 
@@ -496,7 +542,54 @@
                     <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.imdb_rating)]</label>
                     <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.imdb_rating)) + [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.imdb_votes)) | String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.imdb_votes),0)]</visible>
                 </control>                
-            </control>            
+            </control>
+            <control type="grouplist" description="Awards">
+                <width>115</width>
+                <orientation>horizontal</orientation>
+                <itemgap>1</itemgap>
+				<align>left</align>
+                <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)] | 
+				         [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+				<visible>Skin.HasSetting(ShowRatingAwards)</visible>
+                <control type="image" description="Oscars logo">
+                    <height>40</height>
+                    <width>30</width>
+                    <aligny>center</aligny>
+                    <align>right</align>
+                    <aspectratio>keep</aspectratio>
+                    <texture>badges/ratings/oscars.png</texture>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)]</visible>
+                </control>
+                <control type="label" description="Oscar wins">
+                    <width>30</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <align>left</align>
+					<aligny>center</aligny>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)]</label>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)]</visible>
+                </control>
+				<control type="image" description="Golden Globes logo">
+                    <height>40</height>
+                    <width>30</width>
+                    <aligny>center</aligny>
+                    <align>right</align>
+                    <aspectratio>keep</aspectratio>
+                    <texture>badges/ratings/goldenglobes.png</texture>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+                </control>
+                <control type="label" description="Golden Globe wins">
+                    <width>20</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <align>left</align>
+					<aligny>center</aligny>
+                    <label>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)]</label>
+					<visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
+                </control>
+            </control>
         </control>
 
         <!-- Certification Flag for local items -->        
@@ -1393,6 +1486,30 @@
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.revenue)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.revenue),N/A)</visible>
                         </item>
+						<item>
+                            <label>$LOCALIZE[32278]:</label>
+                            <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)]</label2>
+                            <onclick>noop</onclick>
+                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)</visible>
+                        </item>
+						<item>
+                            <label>$LOCALIZE[32279]:</label>
+                            <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)]</label2>
+                            <onclick>noop</onclick>
+                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations),N/A)</visible>
+                        </item>
+						<item>
+                            <label>$LOCALIZE[32280]:</label>
+                            <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)]</label2>
+                            <onclick>noop</onclick>
+                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)</visible>
+                        </item>
+						<item>
+                            <label>$LOCALIZE[32281]:</label>
+                            <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)]</label2>
+                            <onclick>noop</onclick>
+                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobes_Nominations),N/A)</visible>
+                        </item>
                         <item>
                             <label>$LOCALIZE[32075]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.awards)]</label2>
@@ -1482,7 +1599,7 @@
                 <onclick condition="!String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))">Action(Close)</onclick>
 				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
-				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.FileNameAndPath])</onclick>
+				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
                 <onclick condition="!System.HasAddon(script.embuary.helper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="!System.HasAddon(script.embuary.helper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				<onclick condition="System.HasAddon(script.embuary.helper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
@@ -1609,10 +1726,13 @@
             <usecontrolcoords>true</usecontrolcoords>
             <onup>9000</onup>
 			<scrolltime tween="quadratic">400</scrolltime>
-			<defaultcontrol always="true">90050</defaultcontrol>
+			<defaultcontrol always="true">50</defaultcontrol>
 			<control type="group" id="89000"></control>
-			<include condition="!String.IsEqual(ListItem.DBTYPE,set) + !String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))">DefaultCast</include>
-			<include condition="!String.IsEqual(ListItem.DBTYPE,set) + !String.IsEmpty(ListItem.Property(tmdb_id))">CustomCast</include>
+			<!-- If show only local info, use Kodi's default cast container and behavior -->
+			<include condition="Skin.HasSetting(Disable.ExtendedInfo)">DefaultCastKodi</include>
+			<!-- If not show only local info, use custom cast container. Allow searching locally or online for onclick -->
+			<include condition="!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEqual(ListItem.DBTYPE,set) + !String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))">DefaultCast</include>
+			<include condition="!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEqual(ListItem.DBTYPE,set) + !String.IsEmpty(ListItem.Property(tmdb_id))">CustomCast</include>
             <!-- Movies in Set -->
             <include content="VideoInfoPosterWidget" condition="!String.IsEmpty(ListItem.Set) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Set)) | ListItem.IsCollection">
                 <param name="id">9100001</param>

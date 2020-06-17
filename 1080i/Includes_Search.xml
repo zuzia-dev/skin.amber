@@ -76,16 +76,15 @@
 		            </control>
 				</control>
             </control>				
-			<control type="fixedlist" id="$PARAM[id]">
+			<control type="panel" id="$PARAM[id]">
 			    <height>$PARAM[height]</height>
 				<visible>Integer.IsGreater(Container($PARAM[id]).NumItems,0) | Container($PARAM[id]).IsUpdating</visible>
 				<movement>6</movement>
 				<top>40</top>
 				<left>10</left>
 				<width>100%</width>
-				<scrolltime>300</scrolltime>
-				<orientation>horizontal</orientation>
-				<preloaditems>4</preloaditems>
+                <scrolltime>200</scrolltime>
+                <orientation>horizontal</orientation>
 				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Dialog.Close(1122)</onclick>
 				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEmpty(Container.ListItem.DBID) | String.IsEqual(Container.ListItem.DBType,musicvideo)]">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[Container.ListItem.FileNameAndPath])</onclick>
                 <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container.ListItem.DBID) + String.IsEqual(Container.ListItem.DBType,episode)">RunScript(plugin.video.themoviedb.helper,add_path=videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22tvshow%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.TvShowTitle]%22%5d%7d%2c%7b%22field%22%3a%22season%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Season]%22%5d%7d%2c%7b%22field%22%3a%22episode%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[Container.ListItem.Episode]%22%5d%7d%5d%7d%2c%22type%22%3a%22episodes%22%7d,call_auto=1134)</onclick>

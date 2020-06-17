@@ -161,8 +161,7 @@
     </variable>
 
     <variable name="Overlay" description="Overlay image">
-        <value condition="[[Window.IsActive(DialogVideoInfo.xml) + !Window.IsActive(Custom_1122_Search.xml) + !Window.IsActive(Custom_1131_SingleSearch.xml)] | 
-		                  String.StartsWith(Container.ListItem.FolderPath,plugin://)] + !String.IsEmpty(Container.ListItem.DBID)">library.png</value>
+		<value condition="!String.IsEmpty(ListItem.Property(Container.Info)) + !String.IsEmpty(ListItem.DBID)">library.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + !String.IsEqual(ListItem.Overlay,OverlayWatched.png)">Collection.png</value>
         <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
         <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">$VAR[SoloInProgress]</value>
@@ -235,29 +234,37 @@
     <variable name="MovieGenres">
         <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.IsEqual(Skin.String(moviegenreiconsResource.ext),.png)">$INFO[Skin.String(moviegenreiconsresource.path)]$INFO[ListItem.Label,,.png]</value>
         <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.IsEqual(Skin.String(moviegenreiconsResource.ext),.jpg)">$INFO[Skin.String(moviegenreiconsresource.path)]$INFO[ListItem.Label,,.jpg]</value>
-        <value>DefaultGenre.png</value>
+        <value condition="!String.IsEmpty(Skin.String(CustomVideoGenreIconsPath))">$INFO[Skin.String(CustomVideoGenreIconsPath)]$INFO[ListItem.Label,,.jpg]</value>
+		<value>DefaultGenre.png</value>
     </variable>
 
-    <variable name="MovieGenresContainer">
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),arctic.zephyr)">resource://resource.images.moviegenreicons.arctic.zephyr/$INFO[Listitem.Label,,.png]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),coloured)">resource://resource.images.moviegenreicons.coloured/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),filmstrip)">resource://resource.images.moviegenreicons.filmstrip/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),grey)">resource://resource.images.moviegenreicons.grey/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),poster)">resource://resource.images.moviegenreicons.poster/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),transparent)">resource://resource.images.moviegenreicons.transparent/$INFO[Listitem.Label,,.png]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),white)">resource://resource.images.moviegenreicons.white/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),xzener-flat)">resource://resource.images.moviegenreicons.xzener-flat/$INFO[Listitem.Label,,.png]</value>
-        <value condition="!String.IsEmpty(Skin.String(moviegenreiconsResource.path)) + String.Contains(Skin.String(moviegenreiconsResource.path),xzener-reflection)">resource://resource.images.moviegenreicons.xzener-reflection/$INFO[Listitem.Label,,.png]</value>
-        <value>DefaultGenre.png</value>
-    </variable>
+    <variable name="VideoGenreIconsLabel">
+	    <value condition="!String.IsEmpty(Skin.String(CustomVideoGenreIconsPath))">$INFO[Skin.String(CustomVideoGenreIconsPath)]</value>
+		<value condition="!String.IsEmpty(Skin.String(moviegenreiconsresource.name))">$INFO[Skin.String(moviegenreiconsresource.name)]</value>
+	</variable>
 
     <variable name="MusicGenres">
-        <value condition="!String.IsEmpty(Skin.String(musicgenreiconsResource.path)) + String.Contains(Skin.String(musicgenreiconsResource.path),grey)">resource://resource.images.musicgenreicons.grey/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(musicgenreiconsResource.path)) + String.Contains(Skin.String(musicgenreiconsResource.path),poster)">resource://resource.images.musicgenreicons.poster/$INFO[Listitem.Label,,.jpg]</value>
-        <value condition="!String.IsEmpty(Skin.String(musicgenreiconsResource.path)) + String.Contains(Skin.String(musicgenreiconsResource.path),text)">resource://resource.images.musicgenreicons.text/$INFO[Listitem.Label,,.jpg]</value>
+        <value condition="!String.IsEmpty(Skin.String(musicgenreiconsResource.path)) + String.IsEqual(Skin.String(musicenreiconsResource.ext),.png)">$INFO[Skin.String(musicgenreiconsresource.path)]$INFO[ListItem.Label,,.png]</value>
+        <value condition="!String.IsEmpty(Skin.String(musicgenreiconsResource.path)) + String.IsEqual(Skin.String(musicgenreiconsResource.ext),.jpg)">$INFO[Skin.String(musicgenreiconsresource.path)]$INFO[ListItem.Label,,.jpg]</value>
+        <value condition="!String.IsEmpty(Skin.String(CustomMusicGenreIconsPath))">$INFO[Skin.String(CustomMusicGenreIconsPath)]$INFO[ListItem.Label,,.jpg]</value>
         <value>DefaultMusicGenres.png</value>
     </variable>
 
+    <variable name="MusicGenreIconsLabel">
+	    <value condition="!String.IsEmpty(Skin.String(CustomMusicGenreIconsPath))">$INFO[Skin.String(CustomMusicGenreIconsPath)]</value>
+		<value condition="!String.IsEmpty(Skin.String(musicgenreiconsresource.name))">$INFO[Skin.String(musicgenreiconsresource.name)]</value>
+	</variable>
+	
+	<variable name="VideoGenreFanartLabel">
+	    <value condition="!String.IsEmpty(Skin.String(CustomVideoGenreFanartPath))">$INFO[Skin.String(CustomVideoGenreFanartPath)]</value>
+		<value condition="!String.IsEmpty(Skin.String(moviegenrefanartresource.name))">$INFO[Skin.String(moviegenrefanartresource.name)]</value>
+	</variable>
+	
+	<variable name="MusicGenreFanartLabel">
+	    <value condition="!String.IsEmpty(Skin.String(CustomMusicGenreFanartPath))">$INFO[Skin.String(CustomMusicGenreFanartPath)]</value>
+		<value condition="!String.IsEmpty(Skin.String(musicgenrefanartresource.name))">$INFO[Skin.String(musicgenrefanartresource.name)]</value>
+	</variable>
+	
     <variable name="WidgetArtVar">
         <value condition="String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)">$VAR[Poster]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)">$VAR[SeasonPoster]</value>
@@ -920,6 +927,7 @@
     <variable name="CustomInfoSelectHeader">
         <value condition="!String.IsEmpty(Window(movieinformation).Property(ActorID))">$INFO[Window(movieinformation).Property(ActorName)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(DoInfoExtras))">$LOCALIZE[32135]</value>
+		<value condition="!String.IsEmpty(Window(skinsettings).Property(CustomSelectVideoGenreIcons))">$LOCALIZE[31941]</value>
         <value>$LOCALIZE[22080]</value>
     </variable>
 

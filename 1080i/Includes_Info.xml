@@ -1383,11 +1383,12 @@
         </include>
         <include content="DefaultCastItem">
             <param name="CastListItemID">53</param>
-        </include>		
+        </include>	
     </include>
     <!-- Cast Panel: Always use a Custom cast panel to have control over actions -->
     <include name="DefaultCast">
-        <control type="group" id="90049">
+        <!-- Cast header label and busy loader -->
+		<control type="group" id="90049">
 		    <top>44</top>
 			<height>44</height>
 		    <visible>Container(50).IsUpdating | Container(90050).IsUpdating | Integer.IsGreater(Container(90050).NumItems,0) | Integer.IsGreater(Container(50).NumItems,0)</visible>
@@ -1416,13 +1417,13 @@
 		        </control>
 			</control>	
         </control>	
-        <control type="panel" id="90050">
+        <!-- Cast panel -->
+		<control type="panel" id="90050">
             <top>44</top>
             <left>10</left>
             <width>1180</width>
             <height>410</height>
             <onup>9000</onup>
-<!--            <onback>9000</onback> -->
 			<preloaditems>2</preloaditems>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
             <orientation>horizontal</orientation>
@@ -1449,16 +1450,74 @@
             </content>
         </control>
     </include>
+	
+	<!-- Default Cast: Kodi standard container and behavior -->
+    <include name="DefaultCastKodi">
+        <!-- Cast header label, busy loader -->
+		<control type="group" id="90049">
+		    <top>44</top>
+			<height>44</height>
+		    <visible>Container(50).IsUpdating | Integer.IsGreater(Container(50).NumItems,0)</visible>
+            <control type="group">
+			    <top>-410</top>
+				<height>410</height>
+                <visible>Container(50).IsUpdating</visible>
+                <include>InfoLoading</include>
+            </control>
+			<control type="group">
+			    <visible>Integer.IsGreater(Container(50).NumItems,0)</visible>
+			    <control type="label">
+                    <left>8</left>
+                    <top>0</top>
+                    <height>30</height>
+                    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[206] $INFO[Container(50).NumItems,(,)][/COLOR]</label>
+                    <font>ListDetails</font>
+                </control>
+                <control type="image" description="Line Split">
+		            <top>40</top>
+                    <left>10</left>
+		            <width>1180</width>
+		            <height>1</height>
+		            <texture>img/LineL.png</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+			</control>	
+        </control>	
+		<!-- Cast panel -->
+        <control type="panel" id="50">
+            <top>44</top>
+            <left>10</left>
+            <width>1180</width>
+            <height>410</height>
+            <onup>9000</onup>
+			<preloaditems>2</preloaditems>
+			<scrolltime tween="quadratic" easing="out">300</scrolltime>
+            <orientation>horizontal</orientation>
+			<visible>Container(50).IsUpdating | Integer.IsGreater(Container(50).NumItems,0)</visible>
+			<animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(50).NumItems,0) | Container(50).IsUpdating">Conditional</animation>
+			<include content="CastLayout">
+                <param name="viewid">50</param>
+                <param name="belowdoublelabelvisibility">true</param>
+                <param name="belowdoublelabel1">$INFO[Container(50).ListItem.Label]</param>
+			    <param name="belowdoublelabel2">[I]$INFO[Container(50).ListItem.Label2][/I]</param>
+                <param name="belowlabelvisibility">false</param>
+            </include>
+        </control>
+    </include>
+	
     <!-- Cast source for online widget items -->	
 	<variable name="TMDb_Cast">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.IMDBNumber) + String.StartsWith(ListItem.IMDBNumber,tt)">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;imdb_id=$INFO[ListItem.IMDBNumber]</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;query=$INFO[ListItem.Title]&amp;year=$INFO[ListItem.Year]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Property(imdb_id))">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;imdb_id=$INFO[ListItem.Property(imdb_id)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Property(tmdb_id))">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;tmdb_id=$INFO[ListItem.Property(tmdb_id)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.IMDBNumber) + String.StartsWith(ListItem.IMDBNumber,tt)">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;imdb_id=$INFO[ListItem.IMDBNumber]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=movie&amp;query=$INFO[ListItem.Title]&amp;year=$INFO[ListItem.Year]</value>
         <value condition="[String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow)] + String.IsEmpty(ListItem.Property(tmdb_id))">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=tv&amp;query=$INFO[ListItem.TvShowTitle]&amp;year=$INFO[ListItem.Year]</value>
 		<value condition="[String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,tvshow)] + !String.IsEmpty(ListItem.Property(tmdb_id))">plugin://plugin.video.themoviedb.helper?info=cast&amp;type=tv&amp;tmdb_id=$INFO[ListItem.Property(tmdb_id)]</value>
     </variable>
     <!-- Custom Cast Panel -->
     <include name="CustomCast">
-        <control type="group" id="90049">
+        <!-- Cast Header label and busy loader -->
+		<control type="group" id="90049">
 		    <top>44</top>
 			<height>44</height>
 		    <visible>Container(90050).IsUpdating | Integer.IsGreater(Container(90050).NumItems,0)</visible>
@@ -1487,7 +1546,8 @@
 		        </control>
 			</control>	
         </control>	
-        <control type="panel" id="90050">
+        <!-- Cast Panel -->
+		<control type="panel" id="90050">
             <top>44</top>
             <left>10</left>
             <width>1180</width>
@@ -1513,7 +1573,7 @@
 			    <param name="belowdoublelabel2">[I]$INFO[Container(90050).ListItem.Property(Role)][/I]</param>
                 <param name="belowlabelvisibility">false</param>
             </include>
-            <content>$VAR[TMDb_Cast]</content>
+            <content limit="25">$VAR[TMDb_Cast]</content>
         </control>
     </include>
 	
@@ -1871,7 +1931,7 @@
     </include>
 
     <!-- Onclick actions for most custom info lists -->
-    <include name="InfoList_OnClick">
+	<include name="InfoList_OnClick">
         <definition>
             <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEmpty(ListItem.DBID) | [!String.IsEqual(ListItem.DBType,movie) + !String.IsEqual(ListItem.DBType,tvshow)]]">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.FolderPath],call_auto=1134)</onclick>
             <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,movie)">RunScript(plugin.video.themoviedb.helper,add_path=$INFO[ListItem.Label,videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22,%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D],call_auto=1134)</onclick>
