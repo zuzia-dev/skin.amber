@@ -745,7 +745,8 @@
 						    <font>Details</font>
 						    <scroll>false</scroll>
 						    <label>$VAR[panelsubheading2]</label>
-                            <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | [Container.Content(movies) | Container.Content(episodes)]</visible>
+                            <visible>!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | 
+							[[Container.Content(movies) | Container.Content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]]</visible>
 					    </control>                    
 					    <control type="label" description="Genre">
 						    <posy>235</posy>

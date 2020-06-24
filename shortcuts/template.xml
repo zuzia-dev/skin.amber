@@ -79,6 +79,28 @@
 		<property name="target5">true</property>
 		<property name="target6" tag="property" attribute="name|widgetTarget.6" value="false">false</property>
 		<property name="target6">true</property>
+		<property name="top" propertyValue="535">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetTwoShelves" value="false" />
+			<rule tag="property" attribute="name|widgetThreeShelves" value="false" />
+			<match>all</match>
+        </property>
+		<property name="top" propertyValue="535">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetTwoShelves" value="true" />
+			<rule tag="property" attribute="name|widgetThreeShelves" value="false" />
+			<rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="top" propertyValue="535">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetTwoShelves" value="false" />
+			<rule tag="property" attribute="name|widgetThreeShelves" value="true" />
+			<rule tag="property" attribute="name|widgetType.2" value="none" />
+			<rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
+		<property name="top">315</property>
 		<!-- Retrieve properties -->
 		<property name="id" tag="mainmenuid" />
 		<controls>
@@ -87,7 +109,7 @@
 				<animation effect="fade" time="200">VisibleChange</animation>
                 <!-- Shelf indicator -->
 				<control type="grouplist">
-					<top>315</top>
+					<top>$SKINSHORTCUTS[top]</top>
 					<left>10</left>
 					<width>16</width>
 					<height>339</height>
@@ -181,11 +203,12 @@
 		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple1" tag="property" attribute="name|widgetTriple" />
 		<property name="double1" tag="property" attribute="name|widgetDouble" />
+		<property name="widgetlow1" tag="property" attribute="name|horizontalWidgetPos" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.2" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '170' if (double1 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '232' if (double1 in 'true' and widgetlow1 in 'Low') else '170' if (double1 in 'true')  else '547' if (double1 in 'false' and widgetlow1 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple1 in 'true') else '756' if (triplelarge in 'false' and triple1 in 'true') else '630' if (double1 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -213,7 +236,7 @@
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
         <property name="isTripleMedium1">'true'if (triple1 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'videos' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -288,11 +311,12 @@
 		<property name="triple2" tag="property" attribute="name|widgetTriple.2" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="double2" tag="property" attribute="name|widgetDouble.2" />
+		<property name="widgetlow2" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.3" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '170' if (double2 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '232' if (double2 in 'true' and widgetlow2 in 'Low') else '170' if (double2 in 'true')  else '547' if (double2 in 'false' and widgetlow2 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple2 in 'true') else '756' if (triplelarge in 'false' and triple2 in 'true') else '630' if (double2 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -320,7 +344,7 @@
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
         <property name="isTripleMedium2">'true'if (triple2 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'videos' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -398,11 +422,12 @@
         <property name="triple3" tag="property" attribute="name|widgetTriple.3" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="double3" tag="property" attribute="name|widgetDouble.3" />
+		<property name="widgetlow3" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.4" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '170' if (double3 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '232' if (double3 in 'true' and widgetlow3 in 'Low') else '170' if (double3 in 'true')  else '547' if (double3 in 'false' and widgetlow3 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple3 in 'true') else '756' if (triplelarge in 'false' and triple3 in 'true') else '630' if (double3 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -430,7 +455,7 @@
         <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
         <property name="isTripleMedium3">'true'if (triple3 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'videos' and target3 in 'videos') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -509,11 +534,12 @@
         <property name="triple4" tag="property" attribute="name|widgetTriple.4" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="double4" tag="property" attribute="name|widgetDouble.4" />
+		<property name="widgetlow4" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.5" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '170' if (double4 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '232' if (double4 in 'true' and widgetlow4 in 'Low') else '170' if (double4 in 'true')  else '547' if (double4 in 'false' and widgetlow4 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple4 in 'true') else '756' if (triplelarge in 'false' and triple4 in 'true') else '630' if (double4 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -541,7 +567,7 @@
         <property name="isPlaylist4">'true' if (path4 in 'videoplaylists' or path4 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre4">'true' if target4 in 'music' and path4 in 'genres' else 'false'</property>
         <property name="isTripleMedium4">'true'if (triple4 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content4">'Shelf_GenericSquare' if (type4 in 'movies' or type4 in 'tvshows' or type4 in 'episodes') and (path4 in 'tags' or path4 in 'genres' or path4 in 'studios' or path4 in 'actors' or path4 in 'directors' or path4 in 'country' or path4 in 'years') else 'Shelf_GenericSquare' if (type4 in 'custom' or type4 in 'picture' or type4 in 'favourite' or type4 in 'addons' or type4 in 'games' or type4 in 'musicvideos' or target4 in 'music' or target4 in 'pvr' or target4 in 'tvguide' or target4 in 'radioguide' or path4 in 'videoplaylists' or path4 in 'musicplaylists' or path4 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content4">'Shelf_GenericSquare' if (type4 in 'movies' or type4 in 'tvshows' or type4 in 'episodes') and (path4 in 'tags' or path4 in 'genres' or path4 in 'studios' or path4 in 'actors' or path4 in 'directors' or path4 in 'country' or path4 in 'years') else 'Shelf_GenericSquare' if (type4 in 'videos' and target4 in 'videos') else 'Shelf_GenericSquare' if (type4 in 'custom' or type4 in 'picture' or type4 in 'favourite' or type4 in 'addons' or type4 in 'games' or type4 in 'musicvideos' or target4 in 'music' or target4 in 'pvr' or target4 in 'tvguide' or target4 in 'radioguide' or path4 in 'videoplaylists' or path4 in 'musicplaylists' or path4 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -621,11 +647,12 @@
         <property name="triple5" tag="property" attribute="name|widgetTriple.5" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="double5" tag="property" attribute="name|widgetDouble.5" />
+		<property name="widgetlow5" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.6" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '170' if (double5 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '232' if (double5 in 'true' and widgetlow5 in 'Low') else '170' if (double5 in 'true')  else '547' if (double5 in 'false' and widgetlow5 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple5 in 'true') else '756' if (triplelarge in 'false' and triple5 in 'true') else '630' if (double5 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -653,7 +680,7 @@
         <property name="isPlaylist5">'true' if (path5 in 'videoplaylists' or path5 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre5">'true' if target5 in 'music' and path5 in 'genres' else 'false'</property>
         <property name="isTripleMedium5">'true'if (triple5 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content5">'Shelf_GenericSquare' if (type5 in 'movies' or type5 in 'tvshows' or type5 in 'episodes') and (path5 in 'tags' or path5 in 'genres' or path5 in 'studios' or path5 in 'actors' or path5 in 'directors' or path5 in 'country' or path5 in 'years') else 'Shelf_GenericSquare' if (type5 in 'custom' or type5 in 'picture' or type5 in 'favourite' or type5 in 'addons' or type5 in 'games' or type5 in 'musicvideos' or target5 in 'music' or target5 in 'pvr' or target5 in 'tvguide' or target5 in 'radioguide' or path5 in 'videoplaylists' or path5 in 'musicplaylists' or path5 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content5">'Shelf_GenericSquare' if (type5 in 'movies' or type5 in 'tvshows' or type5 in 'episodes') and (path5 in 'tags' or path5 in 'genres' or path5 in 'studios' or path5 in 'actors' or path5 in 'directors' or path5 in 'country' or path5 in 'years') else 'Shelf_GenericSquare' if (type5 in 'videos' and target5 in 'videos') else 'Shelf_GenericSquare' if (type5 in 'custom' or type5 in 'picture' or type5 in 'favourite' or type5 in 'addons' or type5 in 'games' or type5 in 'musicvideos' or target5 in 'music' or target5 in 'pvr' or target5 in 'tvguide' or target5 in 'radioguide' or path5 in 'videoplaylists' or path5 in 'musicplaylists' or path5 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -734,8 +761,9 @@
 		<property name="triple6" tag="property" attribute="name|widgetTriple.6" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="double6" tag="property" attribute="name|widgetDouble.6" />
+		<property name="widgetlow6" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '170' if (double6 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '232' if (double6 in 'true' and widgetlow6 in 'Low') else '170' if (double6 in 'true')  else '547' if (double6 in 'false' and widgetlow6 in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple6 in 'true') else '756' if (triplelarge in 'false' and triple6 in 'true') else '630' if (double6 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -763,7 +791,7 @@
         <property name="isPlaylist6">'true' if (path6 in 'videoplaylists' or path6 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre6">'true' if target6 in 'music' and path6 in 'genres' else 'false'</property>
         <property name="isTripleMedium6">'true'if (triple6 in 'true' and triplelarge in 'false') else 'false'</property>
-		<property name="content6">'Shelf_GenericSquare' if (type6 in 'movies' or type6 in 'tvshows' or type6 in 'episodes') and (path6 in 'tags' or path6 in 'genres' or path6 in 'studios' or path6 in 'actors' or path6 in 'directors' or path6 in 'country' or path6 in 'years') else 'Shelf_GenericSquare' if (type6 in 'picture' or type6 in 'favourite' or type6 in 'addons' or type6 in 'games' or type6 in 'musicvideos' or target6 in 'music' or target6 in 'pvr' or target6 in 'tvguide' or target6 in 'radioguide' or path6 in 'videoplaylists' or path6 in 'musicplaylists' or path6 in 'sources') else 'Shelf_GenericPoster'</property>
+		<property name="content6">'Shelf_GenericSquare' if (type6 in 'movies' or type6 in 'tvshows' or type6 in 'episodes') and (path6 in 'tags' or path6 in 'genres' or path6 in 'studios' or path6 in 'actors' or path6 in 'directors' or path6 in 'country' or path6 in 'years') else 'Shelf_GenericSquare' if (type6 in 'videos' and target6 in 'videos') else 'Shelf_GenericSquare' if (type6 in 'picture' or type6 in 'favourite' or type6 in 'addons' or type6 in 'games' or type6 in 'musicvideos' or target6 in 'music' or target6 in 'pvr' or target6 in 'tvguide' or target6 in 'radioguide' or path6 in 'videoplaylists' or path6 in 'musicplaylists' or path6 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -839,12 +867,13 @@
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
 		<property name="triple1" tag="property" attribute="name|widgetTriple" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
 		<property name="double1" tag="property" attribute="name|widgetDouble" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.2" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '170' if (double1 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple1 in 'true') else '110' if (triplelarge in 'false' and triple1 in 'true') else '232' if (double1 in 'true' and widgetlow in 'Low') else '170' if (double1 in 'true')  else '547' if (double1 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple1 in 'true') else '756' if (triplelarge in 'false' and triple1 in 'true') else '630' if (double1 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -949,11 +978,12 @@
 		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple2" tag="property" attribute="name|widgetTriple.2" />
 		<property name="double2" tag="property" attribute="name|widgetDouble.2" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
+		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.3" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '170' if (double2 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple2 in 'true') else '110' if (triplelarge in 'false' and triple2 in 'true') else '232' if (double2 in 'true' and widgetlow in 'Low') else '170' if (double2 in 'true')  else '547' if (double2 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple2 in 'true') else '756' if (triplelarge in 'false' and triple2 in 'true') else '630' if (double2 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -1060,11 +1090,12 @@
 		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
 		<property name="triple3" tag="property" attribute="name|widgetTriple.3" />
 		<property name="double3" tag="property" attribute="name|widgetDouble.3" />
-        <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
+        <property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />      
+	   <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.4" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '170' if (double3 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple3 in 'true') else '110' if (triplelarge in 'false' and triple3 in 'true') else '232' if (double3 in 'true' and widgetlow in 'Low') else '170' if (double3 in 'true')  else '547' if (double3 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple3 in 'true') else '756' if (triplelarge in 'false' and triple3 in 'true') else '630' if (double3 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -1170,13 +1201,14 @@
 		<property name="sortorder4" tag="property" attribute="name|widgetSortOrder.4" />
 		<property name="limit4" tag="property" attribute="name|widgetLimit.4" />
         <property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
 		<property name="triple4" tag="property" attribute="name|widgetTriple.4" />
 		<property name="double4" tag="property" attribute="name|widgetDouble.4" />
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.5" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '170' if (double4 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple4 in 'true') else '110' if (triplelarge in 'false' and triple4 in 'true') else '232' if (double4 in 'true' and widgetlow in 'Low') else '170' if (double4 in 'true')  else '547' if (double4 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple4 in 'true') else '756' if (triplelarge in 'false' and triple4 in 'true') else '630' if (double4 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -1283,13 +1315,14 @@
 		<property name="sortorder5" tag="property" attribute="name|widgetSortOrder.5" />
 		<property name="limit5" tag="property" attribute="name|widgetLimit.5" />
 		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
 		<property name="triple5" tag="property" attribute="name|widgetTriple.5" />
 		<property name="double5" tag="property" attribute="name|widgetDouble.5" />
         <!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.6" value="none">false</property>
 		<property name="onup">true</property>
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '170' if (double5 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple5 in 'true') else '110' if (triplelarge in 'false' and triple5 in 'true') else '232' if (double5 in 'true' and widgetlow in 'Low') else '170' if (double5 in 'true')  else '547' if (double5 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple5 in 'true') else '756' if (triplelarge in 'false' and triple5 in 'true') else '630' if (double5 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -1397,10 +1430,11 @@
 		<property name="sortorder6" tag="property" attribute="name|widgetSortOrder.6" />
 		<property name="limit6" tag="property" attribute="name|widgetLimit.6" />
 		<property name="triplelarge" tag="property" attribute="name|widgetThreeShelvesLarge" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
 		<property name="triple6" tag="property" attribute="name|widgetTriple.6" />
 		<property name="double6" tag="property" attribute="name|widgetDouble.6" />
 		<!-- Top -->
-		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '170' if (double6 in 'true') else '327'</property>
+		<property name="top">'10' if (triplelarge in 'true' and triple6 in 'true') else '110' if (triplelarge in 'false' and triple6 in 'true') else '232' if (double6 in 'true' and widgetlow in 'Low') else '170' if (double6 in 'true')  else '547' if (double6 in 'false' and widgetlow in 'Low') else '327'</property>
 		<!-- Height -->
 		<property name="height">'945' if (triplelarge in 'true' and triple6 in 'true') else '756' if (triplelarge in 'false' and triple6 in 'true') else '630' if (double6 in 'true') else '315'</property>
 		<!-- Itemlayout/Focusedlayout Height -->
@@ -1494,6 +1528,10 @@
 		<property name="id" tag="mainmenuid" />
 		<property name="label1" tag="property" attribute="name|widgetName" />
 		<property name="label2" tag="property" attribute="name|widgetName.2" />
+		<property name="topdouble" tag="property" attribute="name|horizontalWidgetPos" value="Low">190</property>
+		<property name="topdouble">170</property>
+		<property name="topsingle" tag="property" attribute="name|horizontalWidgetPos" value="Low">547</property>
+		<property name="topsingle">327</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -1502,6 +1540,8 @@
 					<param name="id2">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label1">$SKINSHORTCUTS[label1]</param>
 					<param name="label2">$SKINSHORTCUTS[label2]</param>
+					<param name="topdouble">$SKINSHORTCUTS[topdouble]</param>
+					<param name="topsingle">$SKINSHORTCUTS[topsingle]</param>
 				</include>
 			</control>
 		</controls>
@@ -1524,6 +1564,13 @@
 		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+		<property name="top" propertyValue="703">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="top" tag="property" attribute="name|horizontalWidgetPos" value="Low">505</property>
+		<property name="top">485</property>
         <!-- Itemlayout/Focusedlayout Height -->
 		<property name="layoutheight">315</property>
 		<!-- Content -->
@@ -1538,14 +1585,14 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'videos' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<animation effect="fade" time="200">VisibleChange</animation>
 				<animation effect="slide" end="0,-158" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
-					<top>485</top>
+					<top>$SKINSHORTCUTS[top]</top>
 					<left>32</left>
 					<right>0</right>
 					<height>315</height>
@@ -1597,7 +1644,9 @@
 		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
 		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
 		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
-        <!-- Itemlayout/Focusedlayout Height -->
+        <property name="top"  tag="property" attribute="name|horizontalWidgetPos" value="Low">190</property>
+		<property name="top">170</property>
+		<!-- Itemlayout/Focusedlayout Height -->
 		<property name="layoutheight">315</property>
 		<!-- Content -->
         <property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="episodes|people">true</property>
@@ -1611,7 +1660,7 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'videos' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -1619,7 +1668,7 @@
 				<animation effect="fade" time="200">VisibleChange</animation>
 				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">conditional</animation>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
-					<top>170</top>
+					<top>$SKINSHORTCUTS[top]</top>
 					<left>32</left>
 					<right>0</right>
 					<height>315</height>
@@ -1673,6 +1722,13 @@
 		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+		<property name="top" propertyValue="547">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="top"  tag="property" attribute="name|horizontalWidgetPos" value="Low">505</property>
+		<property name="top">485</property>
 		<!-- Itemlayout/Focusedlayout Height -->
 		<property name="layoutheight">315</property>
 		<!-- Content -->
@@ -1691,9 +1747,9 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<animation effect="fade" time="200">VisibleChange</animation>
-				<animation effect="slide" end="0,-158" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation>
+<!--				<animation effect="slide" end="0,-158" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">conditional</animation> -->
 				<control type="panel" id="1600$SKINSHORTCUTS[id]1">
-					<top>485</top>
+					<top>$SKINSHORTCUTS[top]</top>
 					<left>32</left>
 					<right>0</right>
 					<height>315</height>
@@ -1741,6 +1797,8 @@
 		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
 		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
 		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
+		<property name="top"  tag="property" attribute="name|horizontalWidgetPos" value="Low">190</property>
+		<property name="top">170</property>
 		<!-- Itemlayout/Focusedlayout Height -->
 		<property name="layoutheight">315</property>
 		<!-- Content -->
@@ -1761,7 +1819,7 @@
 				<animation effect="fade" time="200">VisibleChange</animation>
 				<animation effect="slide" end="0,157" condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">conditional</animation>
 				<control type="panel" id="1600$SKINSHORTCUTS[id]2">
-					<top>170</top>
+					<top>$SKINSHORTCUTS[top]</top>
 					<left>32</left>
 					<right>0</right>
 					<height>315</height>
@@ -1805,6 +1863,10 @@
 		<property name="label1" tag="property" attribute="name|widgetName" />
 		<property name="label2" tag="property" attribute="name|widgetName.2" />
 		<property name="label3" tag="property" attribute="name|widgetName.3" />
+		<property name="topdouble" tag="property" attribute="name|horizontalWidgetPos" value="Low">190</property>
+		<property name="topdouble">170</property>
+		<property name="topsingle" tag="property" attribute="name|horizontalWidgetPos" value="Low">547</property>
+		<property name="topsingle">327</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -1815,6 +1877,8 @@
 					<param name="label1">$SKINSHORTCUTS[label1]</param>
 					<param name="label2">$SKINSHORTCUTS[label2]</param>
 					<param name="label3">$SKINSHORTCUTS[label3]</param>
+					<param name="topdouble">$SKINSHORTCUTS[topdouble]</param>
+					<param name="topsingle">$SKINSHORTCUTS[topsingle]</param>
 				</include>
 			</control>
 		</controls>
@@ -1840,6 +1904,7 @@
 		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
         <!-- Itemlayout/Focusedlayout Height/Width -->
 		<property name="layoutheight" tag="property" attribute="name|widgetType.2" value="none">315</property>
 		<property name="layoutheight" tag="property" attribute="name|widgetType.3" value="none">315</property>
@@ -1848,19 +1913,31 @@
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.3" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none') else '485' if (type2 in 'none' or type3 in 'none') else '610'</property>
+		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none' and widgetlow in 'Standard') else '547' if (type2 in 'none' and type3 in 'none' and widgetlow in 'Low') else '485' if (type2 in 'none' and widgetlow in 'Standard')  else '485' if (type3 in 'none' and widgetlow in 'Standard') else '510' if (type2 in 'none' and widgetlow in 'Low')  else '510' if (type3 in 'none' and widgetlow in 'Low') else '610'</property>
 		<!-- Below textbox width -->
-		<property name="textboxwidth1" tag="property" attribute="name|widgetType.2" value="none">204</property>
-		<property name="textboxwidth1" tag="property" attribute="name|widgetType.3" value="none">204</property>
+		<property name="textboxwidth1" propertyValue="204">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textboxwidth1" tag="property" attribute="name|horizontalWidgetPos" value="Low">204</property>
 		<property name="textboxwidth1">135</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight1" tag="property" attribute="name|widgetType.2" value="none">64</property>
-		<property name="textboxheight1" tag="property" attribute="name|widgetType.3" value="none">64</property>
-		<property name="textboxheight1">34</property>
+		<property name="textboxheight1" propertyValue="64">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textboxheight1" tag="property" attribute="name|horizontalWidgetPos" value="Low">64</property>
+		<property name="textboxheight1">47</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight1" tag="property" attribute="name|widgetType.2" value="none">74</property>
-		<property name="textbackheight1" tag="property" attribute="name|widgetType.3" value="none">74</property>
-		<property name="textbackheight1">44</property>
+		<property name="textbackheight1" propertyValue="74">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textbackheight1" tag="property" attribute="name|horizontalWidgetPos" value="Low">74</property>
+		<property name="textbackheight1">56</property>
 		<!-- Content -->
         <property name="labelvisibility1" tag="property" attribute="name|widgetType" value="episodes|people">true</property>
         <property name="labelvisibility1">false</property>
@@ -1872,7 +1949,18 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="isLowWidget" propertyValue="true">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="isLowWidget" propertyValue="true">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
+        <property name="isLowWidget">false</property> 
+		<property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'videos' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -1908,6 +1996,7 @@
 						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
 						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
 						<param name="isTripleRow">true</param>
+						<param name="isLowWidget">$SKINSHORTCUTS[isLowWidget]</param>
 					</include>
                     <content>
 						<item>
@@ -1945,10 +2034,25 @@
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.3" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop" tag="property" attribute="name|widgetType.3" value="none">170</property>
+		<property name="paneltop" propertyValue="190">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
+		<property name="paneltop" propertyValue="170">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
 		<property name="paneltop">385</property>
 		<!-- Content -->
-        <property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="episodes|people">true</property>
+        <property name="isLowWidget" propertyValue="true">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
+		<property name="isLowWidget">false</property> 
+		<property name="labelvisibility2" tag="property" attribute="name|widgetType.2" value="episodes|people">true</property>
         <property name="labelvisibility2">false</property>
 		<property name="labelfont2" tag="property" attribute="name|widgetType.2" value="episodes|people">ListDetailsSmall</property>
 		<property name="labelfont2">Shelf_Label</property>
@@ -1967,7 +2071,7 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'videos' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -2004,6 +2108,7 @@
 						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
 						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
 						<param name="isTripleRow">true</param>
+						<param name="isLowWidget">$SKINSHORTCUTS[isLowWidget]</param>
 					</include>
                     <content>
 						<item>
@@ -2041,7 +2146,16 @@
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.2" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop" tag="property" attribute="name|widgetType.2" value="none">170</property>
+		<property name="paneltop" propertyValue="190">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="paneltop" propertyValue="170">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
 		<property name="paneltop">110</property>
 		<!-- Below textbox width -->
 		<property name="textboxwidth3" tag="property" attribute="name|widgetType.2" value="none">204</property>
@@ -2053,7 +2167,13 @@
 		<property name="textbackheight3" tag="property" attribute="name|widgetType.2" value="none">74</property>
 		<property name="textbackheight3">44</property>
 		<!-- Content -->
-        <property name="labelvisibility3" tag="property" attribute="name|widgetType.3" value="episodes|people">true</property>
+		<property name="isLowWidget" propertyValue="true">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="isLowWidget">false</property>
+		<property name="labelvisibility3" tag="property" attribute="name|widgetType.3" value="episodes|people">true</property>
         <property name="labelvisibility3">false</property>
 		<property name="labelfont3" tag="property" attribute="name|widgetType.3" value="episodes|people">ListDetailsSmall</property>
 		<property name="labelfont3">Shelf_Label</property>
@@ -2063,7 +2183,7 @@
         <property name="isYear3">'true' if path3 in 'years' else 'false'</property>
         <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
-        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'videos' and target3 in 'videos') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -2100,6 +2220,7 @@
 						<param name="layoutheight">$SKINSHORTCUTS[layoutheight]</param>
 						<param name="layoutwidth">$SKINSHORTCUTS[layoutwidth]</param>
 						<param name="isTripleRow">true</param>
+						<param name="isLowWidget">$SKINSHORTCUTS[isLowWidget]</param>
 					</include>
                     <content>
 						<item>
@@ -2134,6 +2255,7 @@
 		<property name="sortby1" tag="property" attribute="name|widgetSortBy" />
 		<property name="sortorder1" tag="property" attribute="name|widgetSortOrder" />
 		<property name="limit1" tag="property" attribute="name|widgetLimit" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
         <!-- Itemlayout/Focusedlayout Height/Width -->
 		<property name="layoutheight" tag="property" attribute="name|widgetType.2" value="none">315</property>
 		<property name="layoutheight" tag="property" attribute="name|widgetType.3" value="none">315</property>
@@ -2142,15 +2264,30 @@
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.3" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none') else '485' if (type2 in 'none' or type3 in 'none') else '610'</property>
+		<property name="paneltop">'327' if (type2 in 'none' and type3 in 'none' and widgetlow in 'Standard') else '547' if (type2 in 'none' and type3 in 'none' and widgetlow in 'Low') else '485' if (type2 in 'none' and widgetlow in 'Standard')  else '485' if (type3 in 'none' and widgetlow in 'Standard') else '510' if (type2 in 'none' and widgetlow in 'Low')  else '510' if (type3 in 'none' and widgetlow in 'Low') else '610'</property>
 		<!-- Below textbox width -->
-		<property name="textboxwidth1" tag="property" attribute="name|widgetType.2" value="none">204</property>
+		<property name="textboxwidth1" propertyValue="204">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textboxwidth1" tag="property" attribute="name|horizontalWidgetPos" value="Low">204</property>
 		<property name="textboxwidth1">135</property>
 		<!-- Below textbox height -->
-		<property name="textboxheight1" tag="property" attribute="name|widgetType.2" value="none">64</property>
+		<property name="textboxheight1" propertyValue="64">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textboxheight1" tag="property" attribute="name|horizontalWidgetPos" value="Low">64</property>
 		<property name="textboxheight1">47</property>
 		<!-- Below textbox background height -->
-		<property name="textbackheight1" tag="property" attribute="name|widgetType.2" value="none">74</property>
+		<property name="textbackheight1" propertyValue="74">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="textbackheight1" tag="property" attribute="name|horizontalWidgetPos" value="Low">74</property>
 		<property name="textbackheight1">56</property>
 		<!-- Content -->
 		<property name="iconheight1">'315' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') and (type2 in 'none' or type3 in 'none') else '228' if (type1 in 'system' or type1 in 'favouriteaddons' or type1 in 'favourite' or type1 in 'weatherdaily' or type1 in 'weatherhourly') and (type2 in 'none' or type3 in 'none') else '220' if (type1 in 'nextaired' or type1 in 'swrecommendedeps') else '159'</property>
@@ -2230,13 +2367,23 @@
 		<property name="sortby2" tag="property" attribute="name|widgetSortBy.2" />
 		<property name="sortorder2" tag="property" attribute="name|widgetSortOrder.2" />
 		<property name="limit2" tag="property" attribute="name|widgetLimit.2" />
+		<property name="widgetlow" tag="property" attribute="name|horizontalWidgetPos" />
 		<!-- Itemlayout/Focusedlayout Height/Width -->
 		<property name="layoutheight" tag="property" attribute="name|widgetType.3" value="none">315</property>
 		<property name="layoutheight">220</property>
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.3" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop" tag="property" attribute="name|widgetType.3" value="none">170</property>
+		<property name="paneltop" propertyValue="190">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
+		<property name="paneltop" propertyValue="170">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.3" value="none" />
+			<match>all</match>
+        </property>
 		<property name="paneltop">385</property>
 		<!-- Below textbox width -->
 		<property name="textboxwidth2" tag="property" attribute="name|widgetType.3" value="none">204</property>
@@ -2330,7 +2477,16 @@
 		<property name="layoutwidth" tag="property" attribute="name|widgetType.2" value="none">228</property>
 		<property name="layoutwidth">159</property>
 		<!-- Panel top -->
-		<property name="paneltop" tag="property" attribute="name|widgetType.2" value="none">170</property>
+		<property name="paneltop" propertyValue="190">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
+		<property name="paneltop" propertyValue="170">
+	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
+	        <rule tag="property" attribute="name|widgetType.2" value="none" />
+			<match>all</match>
+        </property>
 		<property name="paneltop">110</property>
 		<!-- Below textbox width -->
 		<property name="textboxwidth3" tag="property" attribute="name|widgetType.2" value="none">204</property>
@@ -2472,7 +2628,7 @@
         <property name="isYear1">'true' if path1 in 'years' else 'false'</property>
         <property name="isPlaylist1">'true' if (path1 in 'videoplaylists' or path1 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre1">'true' if target1 in 'music' and path1 in 'genres' else 'false'</property>
-        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content1">'Shelf_GenericSquare' if (type1 in 'movies' or type1 in 'tvshows' or type1 in 'episodes') and (path1 in 'tags' or path1 in 'genres' or path1 in 'studios' or path1 in 'actors' or path1 in 'directors' or path1 in 'country' or path1 in 'years') else 'Shelf_GenericSquare' if (type1 in 'videos' and target1 in 'videos') else 'Shelf_GenericSquare' if (type1 in 'custom' or type1 in 'picture' or type1 in 'favourite' or type1 in 'addons' or type1 in 'games' or type1 in 'musicvideos' or target1 in 'music' or target1 in 'pvr' or target1 in 'tvguide' or target1 in 'radioguide' or path1 in 'videoplaylists' or path1 in 'musicplaylists' or path1 in 'sources') else 'Shelf_GenericPoster'</property>
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
@@ -2562,7 +2718,7 @@
         <property name="isYear2">'true' if path2 in 'years' else 'false'</property>
         <property name="isPlaylist2">'true' if (path2 in 'videoplaylists' or path2 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre2">'true' if target2 in 'music' and path2 in 'genres' else 'false'</property>
-        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content2">'Shelf_GenericSquare' if (type2 in 'movies' or type2 in 'tvshows' or type2 in 'episodes') and (path2 in 'tags' or path2 in 'genres' or path2 in 'studios' or path2 in 'actors' or path2 in 'directors' or path2 in 'country' or path2 in 'years') else 'Shelf_GenericSquare' if (type2 in 'videos' and target2 in 'videos') else 'Shelf_GenericSquare' if (type2 in 'custom' or type2 in 'picture' or type2 in 'favourite' or type2 in 'addons' or type2 in 'games' or type2 in 'musicvideos' or target2 in 'music' or target2 in 'pvr' or target2 in 'tvguide' or target2 in 'radioguide' or path2 in 'videoplaylists' or path2 in 'musicplaylists' or path2 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">
@@ -2653,7 +2809,7 @@
         <property name="isYear3">'true' if path3 in 'years' else 'false'</property>
         <property name="isPlaylist3">'true' if (path3 in 'videoplaylists' or path3 in 'musicplaylists')  else 'false'</property>
         <property name="isMusicGenre3">'true' if target3 in 'music' and path3 in 'genres' else 'false'</property>
-        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
+        <property name="content3">'Shelf_GenericSquare' if (type3 in 'movies' or type3 in 'tvshows' or type3 in 'episodes') and (path3 in 'tags' or path3 in 'genres' or path3 in 'studios' or path3 in 'actors' or path3 in 'directors' or path3 in 'country' or path3 in 'years') else 'Shelf_GenericSquare' if (type3 in 'video' and target3 in 'videos') else 'Shelf_GenericSquare' if (type3 in 'custom' or type3 in 'picture' or type3 in 'favourite' or type3 in 'addons' or type3 in 'games' or type3 in 'musicvideos' or target3 in 'music' or target3 in 'pvr' or target3 in 'tvguide' or target3 in 'radioguide' or path3 in 'videoplaylists' or path3 in 'musicplaylists' or path3 in 'sources') else 'Shelf_GenericPoster'</property>
 
 		<controls>
 			<control type="group">

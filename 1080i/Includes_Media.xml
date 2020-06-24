@@ -788,6 +788,7 @@
 		<param name="isSearch">false</param>
 		<param name="isTripleRow">false</param>
 		<param name="isTripleRowMedium">false</param>
+		<param name="isLowWidget">false</param>
 		<param name="iconwidth"/>
 		<param name="iconheight"/>
 		<param name="iconoffset"/>
@@ -858,6 +859,7 @@
 					<param name="isWideIcon">$PARAM[isWideIcon]</param>
 					<param name="isTripleRow">$PARAM[isTripleRow]</param>
 					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isLowWidget">$PARAM[isLowWidget]</param>
 				</include>	
 				<include content="GenericThumbLabelTemplate">
 					<param name="isFocused">$PARAM[isFocused]</param>
@@ -940,6 +942,7 @@
 		<param name="isBanner">false</param>
 		<param name="isTripleRow">false</param>
 		<param name="isTripleRowMedium">false</param>
+		<param name="isLowWidget">false</param>
 		<definition>
 		    <!-- Overlay for small icons in custom video lists in info dialog -->
 			<control type="group">
@@ -1289,9 +1292,9 @@
 					<!-- Poster in widgets -->
 					<control type="group">
 					    <visible>!$PARAM[isBanner] + String.IsEmpty(Container.Viewmode)</visible>
-						<!-- Single or double row -->
+						<!-- Single or double row, standard widget pos -->
 						<control type="label" description="l2">
-					        <visible>$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
+					        <visible>$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
 					        <posx>94r</posx>
 				            <posy>-244</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1304,7 +1307,7 @@
 					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
-					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
+					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
 					        <posx>94r</posx>
 				            <posy>-244</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1314,9 +1317,34 @@
 					        <label>$VAR[UnwatchedEpisodes]</label>
 					        <textcolor>White2</textcolor>
 				        </control>
-						<!-- Triple row small -->
+						<!-- Single or double row, low widget pos -->
+						<control type="label" description="l2">
+					        <visible>$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
+					        <posx>94r</posx>
+				            <posy>-284</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>$VAR[HighlightColor]</textcolor>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        </control>
 				        <control type="label" description="l2">
-					        <visible>$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
+					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
+					        <posx>94r</posx>
+				            <posy>-284</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+						<!-- Triple row small, widget in standard pos -->
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
 					        <posx>94r</posx>
 				            <posy>-150</posy>
 					        <height>$PARAM[itemheight]</height>
@@ -1329,9 +1357,34 @@
 					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
-					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]</visible>
+					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
 					        <posx>94r</posx>
 				            <posy>-150</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+						<!-- Triple row small, widget in low pos -->
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
+					        <posx>94r</posx>
+				            <posy>-244</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[UnwatchedEpisodes]</label>
+					        <textcolor>$VAR[HighlightColor]</textcolor>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
+					        <posx>94r</posx>
+				            <posy>-244</posy>
 					        <height>$PARAM[itemheight]</height>
 					        <width>100</width>
 					        <font>ListDetailsSmall</font>
