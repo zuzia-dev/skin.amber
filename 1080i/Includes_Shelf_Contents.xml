@@ -261,7 +261,7 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
-			<control type="group">
+<!--			<control type="group">
 				<visible>!Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
 				<top>$PARAM[topsingle]</top>
 				<control type="image">
@@ -314,7 +314,7 @@
 					<textcolor>$VAR[HighlightColor]</textcolor>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
-                <!-- Info Line -->
+                
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
 					<top>-54</top>
@@ -325,7 +325,7 @@
 					<textcolor>$VAR[HighlightColor]</textcolor>
 					<label>$VAR[LibraryStats]</label>
 				</control>                
-			</control>
+			</control> -->
 		</definition>
 	</include>
 
@@ -1359,13 +1359,17 @@
 		<param name="textboxwidth">204</param>
 		<param name="textboxheight">64</param>
 		<param name="textbackheight">74</param>
+		<param name="isLowWidget">false</param>
+		<param name="isTripleRow">false</param>
+		<param name="isTripleRowMedium">false</param>
+		<param name="isTripleRowLarge">false</param>
 		<definition>  
 			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">false</param>
-                    <param name="iconimage">$VAR[WidgetArtVar]</param>
+                    <param name="iconimage">$VAR[Square]</param>
                     <param name="aspect">$PARAM[aspect]</param>
-                    <param name="fallbackicon">$VAR[WidgetArtVar]</param>
+                    <param name="fallbackicon">$VAR[Square]</param>
 				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
@@ -1378,14 +1382,20 @@
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
 					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
 					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
+					<param name="isSmallIcon">true</param>
+					<param name="isSquare">true</param>
+					<param name="isLowWidget">$PARAM[isLowWidget]</param>
+					<param name="isTripleRow">$PARAM[isTripleRow]</param>
+					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
 			    </include>				
 			</itemlayout>
 			<focusedlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="![$PARAM[isYear] | $PARAM[isMusicGenre] | $PARAM[isPlaylist]]">
 			    <include content="GenericThumbIconTemplate">
 				    <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
-                    <param name="iconimage">$VAR[WidgetArtVar]</param>
+                    <param name="iconimage">$VAR[Square]</param>
                     <param name="aspect">$PARAM[aspect]</param>
-                    <param name="fallbackicon">$VAR[WidgetArtVar]</param>
+                    <param name="fallbackicon">$VAR[Square]</param>
 				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[layoutwidth]</param>
 				    <param name="iconoffset">0</param>
@@ -1398,6 +1408,12 @@
 					<param name="belowtextboxfont">$PARAM[textboxfont]</param>
 					<param name="belowtextboxheight">$PARAM[textboxheight]</param>
 					<param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
+					<param name="isSmallIcon">true</param>
+					<param name="isSquare">true</param>
+					<param name="isLowWidget">$PARAM[isLowWidget]</param>
+					<param name="isTripleRow">$PARAM[isTripleRow]</param>
+					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
 			    </include>				            
 			</focusedlayout>
 			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]" condition="$PARAM[isYear]">
@@ -1533,7 +1549,9 @@
 		<param name="layoutwidth">228</param>
 		<param name="isTripleRow">false</param>
 		<param name="isTripleRowMedium">false</param>
+		<param name="isTripleRowLarge">false</param>
 		<param name="isLowWidget">false</param>
+		<param name="aspect">scale</param>
 		<definition>  
 			<itemlayout height="$PARAM[layoutheight]" width="$PARAM[layoutwidth]">
 			    <include content="GenericThumbIconTemplate">
@@ -1541,9 +1559,10 @@
 					<param name="isSmallIcon">true</param>
 					<param name="isTripleRow">$PARAM[isTripleRow]</param>
 					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
 					<param name="isLowWidget">$PARAM[isLowWidget]</param>
                     <param name="iconimage">$VAR[Poster]</param>
-                    <param name="aspect">scale</param>
+                    <param name="aspect">$PARAM[aspect]</param>
                     <param name="fallbackicon">$VAR[Poster]</param>
 				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[layoutheight]</param>
@@ -1566,9 +1585,10 @@
                     <param name="isSmallIcon">true</param>
 					<param name="isTripleRow">$PARAM[isTripleRow]</param>
 					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
 					<param name="isLowWidget">$PARAM[isLowWidget]</param>
 					<param name="iconimage">$VAR[Poster]</param>
-                    <param name="aspect">scale</param>
+                    <param name="aspect">$PARAM[aspect]</param>
                     <param name="fallbackicon">$VAR[Poster]</param>
 				    <param name="iconwidth">$PARAM[layoutwidth]</param>
 				    <param name="iconheight">$PARAM[layoutheight]</param>

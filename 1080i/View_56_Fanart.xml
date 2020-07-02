@@ -410,6 +410,7 @@
 	
 	<include name="View_56_Fanart">
 	    <param name="focusposition">2</param>
+		<param name="listposy">609</param>
 		<definition>
 		    <control type="group">
 			    <visible>Control.IsVisible(56)</visible>
@@ -447,7 +448,7 @@
     					<animation effect="slide" easing="out" start="0,0" end="0,800" time="350" delay="0" center="120,350" reversible="true" condition="!String.IsEmpty(Window.Property(gallery))">Conditional</animation>
 				    <!--	<animation effect="slide" easing="out" start="0,0" end="0,36" time="0" reversible="true" condition="$EXP[56_FanartViewInfo]">Conditional</animation> -->
 					    <visible>[$EXP[Exp_View_56] + Skin.HasSetting(Enable.NewViewSelector)] | [!Skin.HasSetting(hide.fanartview) + !Skin.HasSetting(Enable.NewViewSelector)]</visible>
-	    				<posy>609</posy>
+						<posy>$PARAM[listposy]</posy>
 		    			<width>1920</width>
 			    		<height>471</height>
 				    	<onleft>56</onleft>
@@ -713,7 +714,8 @@
                     </control>                
                 
 			    </control>
-			    <control type="group" description="item details">
+			    <!-- Info panel details -->
+				<control type="group" description="item details">
 				    <include>ContentFade</include>
 				    <visible>!Window.IsActive(MyPics.xml) + String.IsEmpty(Window.Property(gallery)) + [$EXP[56_FanartViewInfo]]</visible>
 				    <animation effect="fade" delay="200" time="300">Visible</animation>
@@ -731,15 +733,25 @@
 						    <label>$VAR[panelheading]</label>
 					    </control>
 					    <control type="label" description="Details">
-						    <posy>154</posy>
+						    <posy>150</posy>
 						    <height>33</height>
 						    <width>900</width>
 						    <font>Details</font>
 						    <scroll>false</scroll>
 						    <label>$VAR[panelsubheading]</label>
+							<visible>!Container.Content(Artists)</visible>
+					    </control>
+						<control type="label" description="Details">
+						    <posy>154</posy>
+						    <height>66</height>
+						    <width>900</width>
+						    <font>Details</font>
+						    <scroll>false</scroll>
+						    <label>$VAR[panelsubheading]</label>
+							<visible>Container.Content(Artists)</visible>
 					    </control>
 					    <control type="label" description="Next Episode">
-						    <posy>195</posy>
+						    <posy>187</posy>
 						    <height>33</height>
 						    <width>900</width>
 						    <font>Details</font>
@@ -749,21 +761,40 @@
 							[[Container.Content(movies) | Container.Content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]]</visible>
 					    </control>                    
 					    <control type="label" description="Genre">
-						    <posy>235</posy>
-						    <visible>!Container.Content(Artists)</visible>
+						    <posy>220</posy>
+						    <visible>![Container.Content(Artists) | Container.Content(albums)]</visible>
 						    <height>33</height>
 						    <width>900</width>
 						    <font>Details</font>
 						    <scroll>false</scroll>
-						    <label>$INFO[ListItem.Genre]</label>
+						    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]:[/COLOR] $INFO[ListItem.Genre]</label>
+					    </control>
+						<control type="label" description="Genre">
+						    <posy>187</posy>
+						    <visible>Container.Content(albums)</visible>
+						    <height>33</height>
+						    <width>900</width>
+						    <font>Details</font>
+						    <scroll>false</scroll>
+						    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]:[/COLOR] $INFO[ListItem.Genre]</label>
 					    </control>
 					    <control type="textbox" description="Plot">
-						    <posy>290</posy>
+						    <posy>260</posy>
 						    <width>900</width>
-						    <height>164</height>
+						    <height>194</height>
 						    <align>justify</align>
 						    <label>$VAR[Plots]</label>
                             <autoscroll delay="3000" time="3000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+							<visible>![Container.Content(Artists) | Container.Content(albums)]</visible>
+					    </control>
+						<control type="textbox" description="Plot">
+						    <posy>230</posy>
+						    <width>900</width>
+						    <height>240</height>
+						    <align>justify</align>
+						    <label>$VAR[Plots]</label>
+                            <autoscroll delay="3000" time="3000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+							<visible>[Container.Content(Artists) | Container.Content(albums)]</visible>
 					    </control>
 						<!-- Movies in collection when the plot is empty -->
 						<control type="panel">
