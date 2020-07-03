@@ -9,6 +9,9 @@
 	                                         [container.content(episodes) + Skin.HasSetting(56_Episodes_Gallery)] | 
 											 [[container.content(MusicVideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Gallery)]</expression>
 	
+	<expression name="56_FanartIsAllItems">[String.IsEqual(ListItem.Label,$LOCALIZE[15102]) | String.IsEqual(ListItem.Label,$LOCALIZE[15103]) | String.IsEqual(ListItem.Label,$LOCALIZE[15104]) | String.IsEqual(ListItem.Label,$LOCALIZE[15105]) | 
+	                                         String.IsEqual(ListItem.Label,$LOCALIZE[20366])]</expression>
+	
 	<include name="FocusSquare">
 	    <focusposition>2</focusposition>
 	</include>
@@ -747,6 +750,7 @@
 						    <width>900</width>
 						    <font>Details</font>
 						    <scroll>false</scroll>
+							<aligny>center</aligny>
 						    <label>$VAR[panelsubheading]</label>
 							<visible>Container.Content(Artists)</visible>
 					    </control>
@@ -762,7 +766,7 @@
 					    </control>                    
 					    <control type="label" description="Genre">
 						    <posy>220</posy>
-						    <visible>![Container.Content(Artists) | Container.Content(albums)]</visible>
+						    <visible>![Container.Content(Artists) | Container.Content(albums)] + !ListItem.IsParentFolder + ![$EXP[56_FanartIsAllItems]]</visible>
 						    <height>33</height>
 						    <width>900</width>
 						    <font>Details</font>
@@ -771,7 +775,7 @@
 					    </control>
 						<control type="label" description="Genre">
 						    <posy>187</posy>
-						    <visible>Container.Content(albums)</visible>
+						    <visible>Container.Content(albums) + !ListItem.IsParentFolder + ![$EXP[56_FanartIsAllItems]]</visible>
 						    <height>33</height>
 						    <width>900</width>
 						    <font>Details</font>
