@@ -5,9 +5,13 @@
 	<include name="WidgetBackground">
 		<param name="id"></param>
 		<param name="label"></param>
+		<param name="labelscroll">true</param>
 		<param name="top"></param>
 		<param name="height"></param>
 		<param name="visible"></param>
+		<param name="ShowLargeLogo">false</param>
+		<param name="ShowMediumLogo">false</param>
+		<param name="ShowMedium2Logo">false</param>
 		<definition>
             <visible>$PARAM[visible]</visible>
 			<control type="group">
@@ -62,6 +66,7 @@
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
 					<label>$VAR[HomeWidgetLabel]</label>
+					<scroll>$PARAM[labelscroll]</scroll>
 				</control>
                 <!-- Info Line -->
 				<control type="label">
@@ -75,6 +80,12 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
+			<!-- Widget Logo -->
+			<include content="HomeWidgetLogo">
+				<param name="ShowMediumLogo">$PARAM[ShowMediumLogo]</param>
+				<param name="ShowMedium2Logo">$PARAM[ShowMedium2Logo]</param>
+				<param name="ShowLargeLogo">$PARAM[ShowLargeLogo]</param>
+			</include>
 		</definition>
 	</include>
 
@@ -84,9 +95,18 @@
 		<param name="id2"></param>
 		<param name="label1"></param>
 		<param name="label2"></param>
+		<param name="labelscroll1">true</param>
+		<param name="labelscroll2">true</param>
 		<param name="topdouble">170</param>
 		<param name="topsingle">327</param>
+		<param name="heightdouble">727</param>
+		<param name="label1topdouble">636</param>
+		<param name="heightsingle">375</param>
+		<param name="ShowMediumLogo">false</param>
+		<param name="ShowMedium2Logo">false</param>
+		<param name="ShowLargeLogo">false</param>
 		<definition>
+			<!-- Both widgets have items -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
 				<animation effect="fade" time="200">VisibleChange</animation>
@@ -94,7 +114,7 @@
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>727</height>
+					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
@@ -132,7 +152,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
 				</control>                
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -143,7 +163,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -154,7 +174,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -172,16 +192,18 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll2]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
@@ -196,13 +218,14 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
+			<!-- Widget 1 has items, widget 2 does not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
 				<top>$PARAM[topsingle]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>375</height>
+					<height>$PARAM[heightsingle]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
 				</control>
@@ -247,6 +270,7 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
@@ -261,71 +285,12 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
-<!--			<control type="group">
-				<visible>!Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
-				<top>$PARAM[topsingle]</top>
-				<control type="image">
-					<top>-48</top>
-					<width>1920</width>
-					<height>375</height>
-					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
-					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
-				</control>
-				<control type="label">
-					<top>-54</top>
-					<right>32</right>
-					<width>900</width>
-					<height>45</height>
-					<align>right</align>
-					<font>Shelf_Title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<label>$PARAM[label2]</label>
-                    <visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
-				</control>
-				<control type="label">
-					<top>-54</top>
-					<right>32</right>
-					<width>900</width>
-					<height>45</height>
-					<align>right</align>
-					<font>Shelf_Title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31497] ,]</label>
-                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,movie)</visible>
-				</control>
-				<control type="label">
-					<top>-54</top>
-					<right>32</right>
-					<width>900</width>
-					<height>45</height>
-					<align>right</align>
-					<font>Shelf_Title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<label>$INFO[Container($PARAM[id2]).ListItem.Property(searchstring),$LOCALIZE[31517] ,]</label>
-                    <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
-				</control>                
-				<control type="label">
-					<visible>Control.HasFocus($PARAM[id2])</visible>
-					<top>-54</top>
-					<left>32</left>
-					<width>900</width>
-					<height>45</height>
-					<font>Shelf_Title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<label>$VAR[HomeWidgetLabel]</label>
-				</control>
-                
-				<control type="label">
-					<visible>!Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
-					<top>-54</top>
-					<left>32</left>
-					<width>900</width>
-					<height>45</height>
-					<font>Shelf_Title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<label>$VAR[LibraryStats]</label>
-				</control>                
-			</control> -->
+			<!-- Widget Logo -->
+			<include content="HomeWidgetLogo">
+				<param name="ShowMediumLogo">$PARAM[ShowMediumLogo]</param>
+				<param name="ShowMedium2Logo">$PARAM[ShowMedium2Logo]</param>
+				<param name="ShowLargeLogo">$PARAM[ShowLargeLogo]</param>
+			</include>
 		</definition>
 	</include>
 
@@ -337,30 +302,49 @@
 		<param name="label1"></param>
 		<param name="label2"></param>
 		<param name="label3"></param>
-		<param name="topdouble">170</param>
-		<param name="topsingle">327</param>
+		<param name="labelscroll1">true</param>
+		<param name="labelscroll2">true</param>
+		<param name="labelscroll3">true</param>
+		<param name="grouptoptriple">110</param>
+		<param name="grouptopdouble">170</param>
+		<param name="grouptopsingle">327</param>
+		<param name="heighttripletop">280</param>
+		<param name="toptripletop">-48</param>
+		<param name="toptriplebottom">230</param>
+		<param name="heighttriplebottom">537</param>
+		<param name="toplabel1triple">725</param>
+		<param name="toplabel2triple">225</param>
+		<param name="toplabel3triple">-54</param>
+		<param name="heightdouble">727</param>
+		<param name="label1topdouble">636</param>
+		<param name="heightsingle">375</param>
+		<param name="ShowSmallLogo">false</param>
+		<param name="ShowMediumLogo">false</param>
+		<param name="ShowMedium2Logo">false</param>
+		<param name="ShowLargeLogo">false</param>
+		<param name="ShowLarge2Logo">false</param>
 		<definition>
 			<!-- All three widgets have items -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
 				<animation effect="fade" time="200">VisibleChange</animation>
-				<top>110</top>
+				<top>$PARAM[grouptoptriple]</top>
 				<control type="image">
-					<top>-48</top>
+					<top>$PARAM[toptripletop]</top>
 					<width>1920</width>
-					<height>280</height>
+					<height>$PARAM[heighttripletop]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
 				</control>
 				<control type="image">
-					<top>230</top>
+					<top>$PARAM[toptriplebottom]</top>
 					<width>1920</width>
-					<height>537</height>
+					<height>$PARAM[heighttriplebottom]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
 			    <control type="label">
-					<top>-54</top>
+					<top>$PARAM[toplabel3triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -371,7 +355,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[toplabel3triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -382,7 +366,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[toplabel3triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -393,7 +377,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,tvshow)</visible>
 				</control>                
 				<control type="label">
-					<top>225</top>
+					<top>$PARAM[toplabel2triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -404,7 +388,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>225</top>
+					<top>$PARAM[toplabel2triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -415,7 +399,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>225</top>
+					<top>$PARAM[toplabel2triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -426,7 +410,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
 				</control>
                 <control type="label">
-					<top>725</top>
+					<top>$PARAM[toplabel1triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -437,7 +421,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>725</top>
+					<top>$PARAM[toplabel1triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -448,7 +432,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>725</top>
+					<top>$PARAM[toplabel1triple]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -460,38 +444,41 @@
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id3])</visible>
-					<top>-54</top>
+					<top>$PARAM[toplabel3triple]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll3]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id2])</visible>
-					<top>225</top>
+					<top>$PARAM[toplabel2triple]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll2]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>725</top>
+					<top>$PARAM[toplabel1triple]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + !Control.HasFocus($PARAM[id3]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
-					<top>-54</top>
+					<top>$PARAM[toplabel3triple]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
@@ -504,11 +491,11 @@
 			<!-- Widget 1 and 3 have items, widget 2 does not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>$PARAM[topdouble]</top>
+				<top>$PARAM[grouptopdouble]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>727</height>
+					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
@@ -586,6 +573,7 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll3]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
@@ -596,6 +584,7 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
@@ -614,11 +603,11 @@
 			<!-- Widgets 1 and 2 have items, widget 3 does not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>$PARAM[topdouble]</top>
+				<top>$PARAM[grouptopdouble]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>727</height>
+					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
@@ -656,7 +645,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
 				</control>                
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -667,7 +656,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -678,7 +667,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -696,16 +685,18 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll2]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
@@ -724,11 +715,11 @@
 			<!-- Widget 1 has items, widget 2 and widget 3 do not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>$PARAM[topsingle]</top>
+				<top>$PARAM[grouptopsingle]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>375</height>
+					<height>$PARAM[heightsingle]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
 				</control>
@@ -773,6 +764,7 @@
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
@@ -787,6 +779,13 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
+			<!-- Widget Logo -->
+			<include content="HomeWidgetLogo">
+				<param name="ShowMediumLogo">$PARAM[ShowMediumLogo]</param>
+				<param name="ShowMedium2Logo">$PARAM[ShowMedium2Logo]</param>
+				<param name="ShowLargeLogo">$PARAM[ShowLargeLogo]</param>
+				<param name="ShowLarge2Logo">$PARAM[ShowLarge2Logo]</param>
+			</include>
 		</definition>
 	</include>
 
@@ -798,16 +797,34 @@
 		<param name="label1"></param>
 		<param name="label2"></param>
 		<param name="label3"></param>
+		<param name="labelscroll1">true</param>
+		<param name="labelscroll2">true</param>
+		<param name="labelscroll3">true</param>
+		<param name="grouptoptriple">100</param>
+		<param name="grouptopdouble">170</param>
+		<param name="grouptopsingle">327</param>
+		<param name="heighttriple">1005</param>
+		<param name="heightdouble">727</param>
+		<param name="heightsingle">375</param>
+		<param name="label3topdouble">-54</param>
+		<param name="label2topdouble">-54</param>
+		<param name="label1topdouble">636</param>
+		<param name="label1topsingle">-54</param>
+		<param name="ShowSmallLogo">false</param>
+		<param name="ShowMediumLogo">false</param>
+		<param name="ShowMedium2Logo">false</param>
+		<param name="ShowLargeLogo">false</param>
+		<param name="ShowLarge2Logo">false</param>
 		<definition>
 			<!-- All three widgets have items -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
 				<animation effect="fade" time="200">VisibleChange</animation>
-				<top>10</top>
+				<top>$PARAM[grouptoptriple]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>1005</height>
+					<height>$PARAM[heighttriple]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
 				</control>
@@ -955,6 +972,7 @@
 					    <height>45</height>
 					    <font>Shelf_Title</font>
 					    <textcolor>$VAR[HighlightColor]</textcolor>
+						<scroll>$PARAM[labelscroll1]</scroll>
 					    <label>$VAR[HomeWidgetLabel]</label>
 				    </control>
 				</control>
@@ -1000,6 +1018,7 @@
 					    <height>45</height>
 					    <font>Shelf_Title</font>
 					    <textcolor>$VAR[HighlightColor]</textcolor>
+						<scroll>$PARAM[labelscroll2]</scroll>
 					    <label>$VAR[HomeWidgetLabel]</label>
 				    </control>
 				</control>
@@ -1045,6 +1064,7 @@
 					    <height>45</height>
 					    <font>Shelf_Title</font>
 					    <textcolor>$VAR[HighlightColor]</textcolor>
+						<scroll>$PARAM[labelscroll3]</scroll>
 					    <label>$VAR[HomeWidgetLabel]</label>
 				    </control>
 				</control>				
@@ -1053,16 +1073,16 @@
 			<!-- Widget 1 and 3 have items, widget 2 does not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>170</top>
+				<top>$PARAM[grouptopdouble]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>727</height>
+					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label3topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1073,7 +1093,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label3topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1084,7 +1104,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label3topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1095,7 +1115,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id3]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id3]).ListItem.DBType,tvshow)</visible>
 				</control>                
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1106,7 +1126,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1117,7 +1137,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1129,28 +1149,30 @@
 				</control>                
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id3])</visible>
-					<top>-54</top>
+					<top>$PARAM[label3topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll3]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id3]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
-					<top>-54</top>
+					<top>$PARAM[label3topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
@@ -1163,16 +1185,16 @@
 			<!-- Widgets 1 and 2 have items, widget 3 does not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>170</top>
+				<top>$PARAM[grouptopdouble]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>727</height>
+					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label2topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1183,7 +1205,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label2topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1194,7 +1216,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label2topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1205,7 +1227,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id2]).ListItem.DBType,tvshow)</visible>
 				</control>                
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1216,7 +1238,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1227,7 +1249,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1239,28 +1261,30 @@
 				</control>                
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id2])</visible>
-					<top>-54</top>
+					<top>$PARAM[label2topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll2]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>636</top>
+					<top>$PARAM[label1topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
-					<top>-54</top>
+					<top>$PARAM[label2topdouble]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
@@ -1273,16 +1297,16 @@
 			<!-- Widget 1 has items, widget 2 and widget 3 do not -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id2]).NumItems,0) + !Integer.IsGreater(Container($PARAM[id3]).NumItems,0)</visible>
-				<top>327</top>
+				<top>$PARAM[grouptopsingle]</top>
 				<control type="image">
 					<top>-48</top>
 					<width>1920</width>
-					<height>375</height>
+					<height>$PARAM[heightsingle]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,0">home/ShelfBackground.png</texture>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label1topsingle]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1293,7 +1317,7 @@
                     <visible>String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring))</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label1topsingle]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1304,7 +1328,7 @@
                     <visible>!String.IsEmpty(Container($PARAM[id1]).ListItem.Property(searchstring)) + String.IsEqual(Container($PARAM[id1]).ListItem.DBType,movie)</visible>
 				</control>
 				<control type="label">
-					<top>-54</top>
+					<top>$PARAM[label1topsingle]</top>
 					<right>32</right>
 					<width>900</width>
 					<height>45</height>
@@ -1316,18 +1340,19 @@
 				</control>                
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id1])</visible>
-					<top>-54</top>
+					<top>$PARAM[label1topsingle]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
 					<font>Shelf_Title</font>
 					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll1]</scroll>
 					<label>$VAR[HomeWidgetLabel]</label>
 				</control>
                 <!-- Info Line -->
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id1]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
-					<top>-54</top>
+					<top>$PARAM[label1topsingle]</top>
 					<left>32</left>
 					<width>900</width>
 					<height>45</height>
@@ -1336,6 +1361,13 @@
 					<label>$VAR[LibraryStats]</label>
 				</control>                
 			</control>
+			<!-- Widget Logo -->
+			<include content="HomeWidgetLogo">
+				<param name="ShowMediumLogo">$PARAM[ShowMediumLogo]</param>
+				<param name="ShowMedium2Logo">$PARAM[ShowMedium2Logo]</param>
+				<param name="ShowLargeLogo">$PARAM[ShowLargeLogo]</param>
+				<param name="ShowLarge2Logo">$PARAM[ShowLarge2Logo]</param>
+			</include>
 		</definition>
 	</include>    
 	
@@ -1350,6 +1382,7 @@
 		<param name="labelheight">45</param>
 		<param name="labelalign">center</param>
 		<param name="labelfont">Shelf_Label</param>
+		<param name="labelscroll">false</param>
 		<param name="textboxvisibility">false</param>
 		<param name="textboxfont">Shelf_Label</param>
         <param name="aspect">keep</param>
@@ -1399,6 +1432,7 @@
 					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
+						<param name="overlaylabelscroll">$PARAM[labelscroll]</param>
 					    <param name="overlaylabelyoffset">55r</param>
 					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
@@ -1448,7 +1482,8 @@
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
 					    <param name="overlaylabelyoffset">55r</param>
-					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
+						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -1505,7 +1540,8 @@
 					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
-					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
+						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -1552,7 +1588,8 @@
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
 					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
+						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -1609,7 +1646,8 @@
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
 					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
+						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -1656,7 +1694,8 @@
 					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
                         <param name="overlaylabelheight">$PARAM[labelheight]</param>
 					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
+						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>

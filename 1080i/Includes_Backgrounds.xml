@@ -47,6 +47,27 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground) + String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper) + !String.IsEmpty(Container(9992).ListItem.Art(clearlogo))">$INFO[Container(9992).ListItem.Art(clearlogo)]</value>
     </variable>
 	
+	<variable name="WidgetLogo">
+	    <value condition="String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.TVShowTitle) + 
+		                  !String.IsEmpty(ListItem.Art(tvshow.clearlogo)) + String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.TVShowTitle) + 
+		                  !String.IsEmpty(ListItem.Art(clearlogo))+ String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[ListItem.Art(clearlogo)]</value>						  
+        <value condition="String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(Container.ListItem.Art(clearlogo)) + 
+		                  String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[Container.ListItem.Art(clearlogo)]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.Property(nextairedclearlogo)) + String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[ListItem.Property(nextairedclearlogo)]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + !String.IsEmpty(ListItem.Property(recommendedclearlogo)) + String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[ListItem.Property(recommendedclearlogo)]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(artist.clearlogo)) + String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))">$INFO[ListItem.Art(artist.clearlogo)]</value>
+		
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + String.IsEqual(Container.ListItem.Property(background),playlistBackground) + [!String.IsEqual(Container.ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9993).ListItem.Art(tvshow.clearlogo))">$INFO[Container(9993).ListItem.Art(tvshow.clearlogo)]</value>
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + String.IsEqual(Container.ListItem.Property(background),playlistBackground) + [!String.IsEqual(Container.ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9993).ListItem.Art(clearlogo))">$INFO[Container(9993).ListItem.Art(clearlogo)]</value>
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + String.IsEqual(Container.ListItem.Property(background),playlistBackground) + String.IsEqual(Container.ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper) + !String.IsEmpty(Container(9995).ListItem.Art(clearlogo))">$INFO[Container(9995).ListItem.Art(clearlogo)]</value>
+		
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + String.IsEqual(Container.ListItem.Property(background),nodeBackground) + [!String.IsEqual(Container.ListItem.Property(EHPlaylistFanart),true) | !System.HasAddon(script.embuary.helper)] + !String.IsEmpty(Container(9994).ListItem.Art(clearlogo))">$INFO[Container(9994).ListItem.Art(clearlogo)]</value>
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + String.IsEqual(Container.ListItem.Property(background),nodeBackground) + String.IsEqual(Container.ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper) + !String.IsEmpty(Container(9996).ListItem.Art(clearlogo))">$INFO[Container(9996).ListItem.Art(clearlogo)]</value>
+		
+		<value condition="String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart))"></value>
+	</variable>
+	
 	<variable name="LibraryStats">
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),movies)">$LOCALIZE[20342]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Movies.Count)][/COLOR]  •  $LOCALIZE[16102]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Movies.Watched)][/COLOR]  •  $LOCALIZE[32260]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Movies.UnWatched)][/COLOR]</value>
         <value condition="String.IsEqual(Container(300).ListItem.Property(InfoLine),tvshows)">$LOCALIZE[20343]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(TVShows.Count)][/COLOR]  •  $LOCALIZE[20360]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Episodes.Count)][/COLOR]  •  $LOCALIZE[32260]: [COLOR=$VAR[HighlightColor]]$INFO[Window(Home).Property(Episodes.UnWatched)][/COLOR]</value>
@@ -317,140 +338,143 @@
     <!-- Movie/TV Show Logo for Home Window -->
 	<include name="HomeClearLogo">
 	    <control type="group">
-	    <visible>Control.HasFocus(300) | ControlGroup(700).HasFocus</visible>
-		<!-- Logo for vert. menu, no widgets -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>320</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>![$EXP[widgetsAreShowing]] + Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo for horiz. menu, no widgets -->
-		<control type="image">
-            <posy>60</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>200</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>![$EXP[widgetsAreShowing]] + !Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo for vert. menu, single-row widget -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>320</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[widgetsAreShowing] + $EXP[singleWidgetRowShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowSmallShowing]] + ![$EXP[tripleWidgetRowLargeShowing]] + Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo for horiz. menu, single-row widget -->
-		<control type="image">
-            <posy>60</posy>
-		    <posx>1400</posx>
-            <width>500</width>
-            <height>200</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[widgetsAreShowing] + $EXP[singleWidgetRowShowing] + ![$EXP[doubleWidgetRowShowing]] + ![$EXP[tripleWidgetRowSmallShowing]] + !Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo when double shelf and fanart title in top bar -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1480</posx>
-            <width>420</width>
-            <height>160</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
-        </control>
-		<!-- Logo when double shelf and fanart title below top bar, info line in shelf -->
-		<control type="image">
-            <posy>50</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>160</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
-        </control>
-		<!-- Logo when double shelf and fanart title below top bar, info line below top bar -->
-		<control type="image">
-            <posy>90</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>100</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
-        </control>
-		<!-- Logo when double shelf and horizontal menu -->
-		<control type="image">
-            <posy>45</posy>
-		    <posx>1500</posx>
-            <width>400</width>
-            <height>75</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[doubleWidgetRowShowing] + $EXP[widgetsAreShowing] + !Skin.HasSetting(VerticalHome)</visible>
-        </control>
-		<!-- Logo when triple shelf and fanart title in top bar -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1480</posx>
-            <width>420</width>
-            <height>115</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[tripleWidgetRowSmallShowing] + $EXP[widgetsAreShowing] +  Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
-        </control>
-		<!-- Logo when triple shelf and fanart title below top bar, info line in shelf -->
-		<control type="image">
-            <posy>40</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>115</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[tripleWidgetRowSmallShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
-        </control>
-		<!-- Logo when triple shelf and fanart title below top bar, info line below top bar -->
-		<control type="image">
-            <posy>50</posy>
-		    <posx>1060</posx>
-            <width>420</width>
-            <height>100</height>
-            <texture  background="true">$VAR[HomeClearLogo]</texture>
-		    <aspectratio>keep</aspectratio>
-			<align>center</align>
-			<aligny>center</aligny>
-            <visible>$EXP[tripleWidgetRowSmallShowing] + $EXP[widgetsAreShowing] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
-        </control>
+	        <visible>Control.HasFocus(300) | ControlGroup(700).HasFocus</visible>
+		    <!-- Logo for vert. menu, no widgets -->
+		    <control type="image">
+                <posy>40</posy>
+		        <posx>1400</posx>
+                <width>500</width>
+                <height>320</height>
+                <texture  background="true">$VAR[HomeClearLogo]</texture>
+		        <aspectratio>keep</aspectratio>
+			    <align>center</align>
+			    <aligny>center</aligny>
+                <visible>![$EXP[widgetsAreShowing]] + Skin.HasSetting(VerticalHome)</visible>
+            </control>
+		    <!-- Logo for horiz. menu, no widgets -->
+		    <control type="image">
+                <posy>60</posy>
+		        <posx>1400</posx>
+                <width>500</width>
+                <height>200</height>
+                <texture  background="true">$VAR[HomeClearLogo]</texture>
+		        <aspectratio>keep</aspectratio>
+			    <align>center</align>
+			    <aligny>center</aligny>
+                <visible>![$EXP[widgetsAreShowing]] + !Skin.HasSetting(VerticalHome)</visible>
+            </control>
 		</control>
+    </include>		
+	
+	<!-- Movie/TV Show Widget Logo for Home Window -->
+	<include name="HomeWidgetLogo">
+		<param name="ShowMediumLogo">false</param>
+		<param name="ShowMedium2Logo">false</param>
+		<param name="ShowLargeLogo">false</param>
+		<param name="ShowLarge2Logo">false</param>
+	    <definition>
+		    <control type="group">
+	            <visible>Skin.HasSetting(ShowHomeLogo)</visible>
+		        <!-- Logo for vert. menu, single-row widget -->
+		        <control type="image">
+                    <posy>-30</posy>
+		            <posx>940</posx>
+                    <width>500</width>
+                    <height>280</height>
+                    <texture background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>[$PARAM[ShowLargeLogo] | $PARAM[ShowLarge2Logo]] + Skin.HasSetting(VerticalHome)</visible>
+                </control>
+		        <!-- Logo for horiz. menu, single-row widget -->
+		        <control type="image">
+                    <posy>60</posy>
+		            <posx>1400</posx>
+                    <width>500</width>
+                    <height>200</height>
+                    <texture background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>$PARAM[ShowLargeLogo] + !Skin.HasSetting(VerticalHome)</visible>
+                </control>
+				<!-- Slightly smaller large logo when double shelf and horizontal menu -->
+		        <control type="image">
+                    <posy>55</posy>
+		            <posx>1500</posx>
+                    <width>400</width>
+                    <height>160</height>
+                    <texture  background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>$PARAM[ShowLarge2Logo] + !Skin.HasSetting(VerticalHome)</visible>
+                </control>
+		        <!-- Logo when double shelf and fanart title in top bar -->
+		        <control type="image">
+                    <posy>-25</posy>
+		            <posx>1160</posx>
+                    <width>300</width>
+                    <height>100</height>
+                    <texture background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>[$PARAM[ShowMediumLogo] | $PARAM[ShowMedium2Logo]] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + Skin.HasSetting(FanartTitle.InTopBar)</visible>
+                </control>
+		        <!-- Logo when double shelf and fanart title below top bar, info line in shelf -->
+		        <control type="image">
+                    <posy>50</posy>
+		            <posx>1060</posx>
+                    <width>420</width>
+                    <height>160</height>
+                    <texture  background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>$PARAM[ShowMediumLogo] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + 
+					         [[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | !Skin.HasSetting(ShowInfoLine)]</visible>
+                </control>
+		        <!-- Logo when double shelf and fanart title below top bar, info line below top bar -->
+		        <control type="image">
+                    <posy>10</posy>
+		            <posx>1060</posx>
+                    <width>420</width>
+                    <height>100</height>
+                    <texture  background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>[$PARAM[ShowMediumLogo] | $PARAM[ShowMedium2Logo]] + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.FanartTitle) + !Skin.HasSetting(FanartTitle.InTopBar) + 
+					         Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)</visible>
+                </control>
+		        <!-- Logo when double shelf and horizontal menu -->
+		        <control type="image">
+                    <posy>45</posy>
+		            <posx>1500</posx>
+                    <width>400</width>
+                    <height>75</height>
+                    <texture  background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>$PARAM[ShowMediumLogo] + !Skin.HasSetting(VerticalHome)</visible>
+                </control>
+				<!-- Slightly larger logo when double shelf and horizontal menu -->
+		        <control type="image">
+                    <posy>50</posy>
+		            <posx>1500</posx>
+                    <width>400</width>
+                    <height>100</height>
+                    <texture  background="true">$VAR[HomeClearLogo]</texture>
+		            <aspectratio>keep</aspectratio>
+			        <align>center</align>
+			        <aligny>center</aligny>
+                    <visible>$PARAM[ShowMedium2Logo] + !Skin.HasSetting(VerticalHome)</visible>
+                </control>
+		     </control>
+		</definition>	 
 	</include>
 
     <include name="HomeBackgroundLists">

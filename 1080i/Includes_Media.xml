@@ -810,6 +810,7 @@
 		<param name="overlaylabelalign">left</param>
 		<param name="overlaylabelyoffset">65r</param>
 		<param name="overlaylabelfont">Shelf_Label</param>
+		<param name="overlaylabelscroll">false</param>
 		<param name="belowlabel"></param>
 		<param name="belowlabelfont">Shelf_Label</param>
         <param name="belowlabelheight"></param>
@@ -881,6 +882,7 @@
 					<param name="labeltext">$PARAM[overlaylabel]</param>
 					<param name="labelalign">$PARAM[overlaylabelalign]</param>
 					<param name="labelfont">$PARAM[overlaylabelfont]</param>
+					<param name="labelscroll">$PARAM[overlaylabelscroll]</param>
 					<param name="bordersize">$PARAM[bordersizeLT],0,$PARAM[bordersizeRB],0</param>
 				</include>
 				<include content="GenericBelowLabelTemplate">
@@ -2015,6 +2017,7 @@
 		<param name="labelalign"/>
 		<param name="bordersize"/>
 		<param name="labelfont">Shelf_Label</param>
+		<param name="labelscroll">false</param>
 		<definition>
 			<control type="group">
 				<visible>$PARAM[labelvisibility]</visible>
@@ -2035,7 +2038,7 @@
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
 					<font>$PARAM[labelfont]</font>
-					<scroll>false</scroll>
+					<scroll>$PARAM[labelscroll]</scroll>
 				</control>
 				<control type="label">
 					<visible>$PARAM[isFocused]</visible>
@@ -2046,7 +2049,7 @@
 					<font>$PARAM[labelfont]</font>
 					<label>$PARAM[labeltext]</label>
 					<align>$PARAM[labelalign]</align>
-					<scroll>false</scroll>
+					<scroll>$PARAM[labelscroll]</scroll>
 				</control>
 			</control>
 		</definition>
@@ -2312,13 +2315,19 @@
 		<param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
 		<param name="isWideIcon">false</param>
+		<param name="aspect">keep</param>
+		<param name="iconwidth">310</param>
+		<param name="iconheight">310</param>
+		<param name="belowtextboxwidth">272</param>
+		<param name="belowtextboxheight">64</param>
+		<param name="belowtextboxbackheight">74</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
 				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="isWideIcon">$PARAM[isWideIcon]</param>
-				<param name="iconwidth">310</param>
-				<param name="iconheight">310</param>
+				<param name="iconwidth">$PARAM[iconwidth]</param>
+				<param name="iconheight">$PARAM[iconheight]</param>
 				<param name="iconoffset">0</param>
 				<param name="iconimage">$VAR[Square]</param>
 				<param name="shadowoffset">8</param>
@@ -2326,11 +2335,11 @@
 				<param name="bordersizeRB">24</param>
 				<param name="belowtextboxvisibility">true</param>
 				<param name="belowtextbox">$INFO[ListItem.Label]</param>
-				<param name="belowtextboxwidth">272</param>
+				<param name="belowtextboxwidth">$PARAM[belowtextboxwidth]</param>
 				<param name="belowtextboxfont">Shelf_Label</param>
-		        <param name="belowtextboxheight">64</param>
-		        <param name="belowtextboxbackheight">74</param>
-				<param name="aspect">keep</param>
+		        <param name="belowtextboxheight">$PARAM[belowtextboxheight]</param>
+		        <param name="belowtextboxbackheight">$PARAM[belowtextboxbackheight]</param>
+				<param name="aspect">$PARAM[aspect]</param>
 			</include>
 		</definition>
 	</include>
@@ -2339,13 +2348,20 @@
 		<param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
 		<param name="isWideIcon">false</param>
+		<param name="aspect">keep</param>
+		<param name="iconwidth">232.5</param>
+		<param name="iconheight">232.5</param>
+		<param name="belowtextboxwidth">208</param>
+		<param name="belowtextboxheight">64</param>
+		<param name="belowtextboxbackheight">74</param>
+		<param name="aspect">keep</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
 				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 				<param name="isWideIcon">$PARAM[isWideIcon]</param>
-				<param name="iconwidth">232.5</param>
-				<param name="iconheight">232.5</param>
+				<param name="iconwidth">$PARAM[iconwidth]</param>
+				<param name="iconheight">$PARAM[iconheight]</param>
 				<param name="iconoffset">0</param>
 				<param name="iconimage">$VAR[Square]</param>
 				<param name="shadowoffset">8</param>
@@ -2353,11 +2369,11 @@
 				<param name="bordersizeRB">20</param>
 				<param name="belowtextboxvisibility">true</param>
 				<param name="belowtextbox">$INFO[ListItem.Label]</param>
-				<param name="belowtextboxwidth">208</param>
+				<param name="belowtextboxwidth">$PARAM[belowtextboxwidth]</param>
 				<param name="belowtextboxfont">ListDetailsSmall</param>
-		        <param name="belowtextboxheight">64</param>
-		        <param name="belowtextboxbackheight">74</param>
-				<param name="aspect">keep</param>
+		        <param name="belowtextboxheight">$PARAM[belowtextboxheight]</param>
+		        <param name="belowtextboxbackheight">$PARAM[belowtextboxbackheight]</param>
+				<param name="aspect">$PARAM[aspect]</param>
 			</include>
 		</definition>
 	</include>
@@ -3031,32 +3047,48 @@
     <include name="VideoLayout">
 		<param name="viewid"/>
 		<definition>
-			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="400" width="310">
+			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="400" width="420">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">false</param>
 					<param name="isWideIcon">true</param>
+					<param name="aspect">scale</param>
+					<param name="iconwidth">420</param>
+					<param name="belowtextboxwidth">400</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="400" width="310">
+			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="400" width="420">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">false</param>
 					<param name="isWideIcon">true</param>
+					<param name="aspect">scale</param>
+					<param name="iconwidth">420</param>
+					<param name="belowtextboxwidth">400</param>
 				</include>
 			</focusedlayout>
-			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="320" width="232.5">
+			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="320" width="300">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">true</param>
 					<param name="isWideIcon">true</param>
+					<param name="aspect">scale</param>
+					<param name="iconwidth">300</param>
+					<param name="belowtextboxwidth">280</param>
+					<param name="belowtextboxheight">54</param>
+		            <param name="belowtextboxbackheight">64</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="320" width="232.5">
+			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + container.content(videos)" height="320" width="300">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">true</param>
 					<param name="isWideIcon">true</param>
+					<param name="aspect">scale</param>
+					<param name="iconwidth">300</param>
+					<param name="belowtextboxwidth">280</param>
+					<param name="belowtextboxheight">54</param>
+		            <param name="belowtextboxbackheight">64</param>
 				</include>
 			</focusedlayout>
 		</definition>
