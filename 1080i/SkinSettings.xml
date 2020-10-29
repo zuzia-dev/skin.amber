@@ -172,6 +172,11 @@
 							<param name="itemlabel" value="$LOCALIZE[32052]"/>
 							<param name="skinsetting" value="Show.Info.OnPause"/>
 						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="16"/>
+							<param name="itemlabel" value="$LOCALIZE[32290]"/>
+							<param name="skinsetting" value="enable.bottomseekbar"/>
+						</include>
                         <include content="YesNoSettingItem">
 							<param name="itemid" value="8"/>
 							<param name="itemlabel" value="[B]$LOCALIZE[32071][/B]"/>
@@ -372,18 +377,13 @@
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
-<!--						<item id="1" description="Set Default View">
-							<label>$LOCALIZE[32204]</label>
-							<onclick>SetProperty(CustomSelectDefaultView,True)</onclick>
-							<onclick>ActivateWindow(1135)</onclick>
-						</item> -->
 						<item id="34" description="Use New View Selector - SkinVariables present">
                             <visible>Skin.HasSetting(Enable.NewViewSelector) + System.HasAddon(script.skinvariables)</visible>
                             <label>[B]$LOCALIZE[32272][/B]</label>
                             <label2>$LOCALIZE[107]</label2>
 							<onclick>Skin.Reset(Enable.NewViewSelector)</onclick>
                         </item>
-                        <item id="34" description="Use New View Selector - SkinVariables present">
+                        <item id="34" description="Use New View Selector - SkinVariables not present">
                             <visible>!Skin.HasSetting(Enable.NewViewSelector) | !System.HasAddon(script.skinvariables)</visible>
                             <label>[B]$LOCALIZE[32272][/B]</label>
                             <label2>$LOCALIZE[106]</label2>
@@ -662,6 +662,11 @@
 							<param name="itemlabel" value="$LOCALIZE[31035]"/>
 							<param name="skinsetting" value="Hide.MediaFlagsVideo"/>
 						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="37"/>
+							<param name="itemlabel" value="$LOCALIZE[32291]"/>
+							<param name="skinsetting" value="Show.ColorRangeFlags"/>
+						</include>
 <!--						<include content="YesNoSettingItem">
 							<param name="itemid" value="11"/>
 							<param name="itemlabel" value="$LOCALIZE[31150]"/>
@@ -711,6 +716,11 @@
 							<param name="itemid" value="29"/>
 							<param name="itemlabel" value="$LOCALIZE[31156]"/>
 							<param name="skinsetting" value="hide.fanartview"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="36"/>
+							<param name="itemlabel" value="$LOCALIZE[31633]"/>
+							<param name="skinsetting" value="hide.simplelistview"/>
 						</include>
 					</content>
 				</control>
@@ -864,6 +874,26 @@
 							<param name="ColorString">$VAR[HighlightColor]</param>
 						</include>
 					</control>
+					<control type="button" id="9107101">
+					    <width>1350</width>
+						<height>60</height>
+						<texturenofocus />
+						<textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(MatchPosterColors)</onclick>
+			            <label>    $LOCALIZE[32289]</label>
+			            <label2>$LOCALIZE[107]</label2>
+						<visible>System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(MatchPosterColors)</visible>
+		            </control>
+					<control type="button" id="9107102">
+					    <width>1350</width>
+						<height>60</height>
+						<texturenofocus />
+						<textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(MatchPosterColors)</onclick>
+			            <label>    $LOCALIZE[32289]</label>
+			            <label2>$LOCALIZE[106]</label2>
+						<visible>System.HasAddon(plugin.video.themoviedb.helper) + !Skin.HasSetting(MatchPosterColors)</visible>
+		            </control>
 					<control type="radiobutton" id="91072">
 						<label>$LOCALIZE[32212]</label>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32212])</onclick>

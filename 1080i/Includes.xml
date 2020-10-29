@@ -27,6 +27,7 @@
     <include file="Includes_Info.xml" />
 	<include file="Includes_TVGuide.xml" />
 	<include file="Includes_Backgrounds.xml" />
+	<include file="Includes_FullScreen.xml" />
 
     <include file="Includes_Media.xml" />
     <include file="Includes_List.xml" />
@@ -40,6 +41,7 @@
 	<include file="View_551_BigPanel2.xml" />
     <include file="View_56_Fanart.xml" />
     <include file="View_501_TallList.xml" />
+	<include file="View_57_SimpleList.xml" />
     <include file="View_PVR.xml" />
 
     <include name="ContentFade">
@@ -576,12 +578,20 @@
                 <texture border="45">dialogs/TinyDialog.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,10)</visible>
+            </control>
+            <control type="image">
+                <posy>92</posy>
+                <width>300</width>
+                <height>644</height>
+                <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                <visible>Integer.IsEqual(Container(9600).NumItems,11)</visible>
             </control>            
             <control type="grouplist" id="9600">
                 <posx>26</posx>
                 <posy>116</posy>
                 <width>248</width>
-                <height>564</height>
+                <height>644</height>
                 <onleft>9000</onleft>
                 <onright condition="control.isvisible(52)">52</onright>
 		        <onright condition="control.isvisible(50)">50</onright>
@@ -593,6 +603,7 @@
 		        <onright condition="control.isvisible(501)">501</onright>
 		        <onright condition="control.isvisible(53)">53</onright>
 		        <onright condition="control.isvisible(56)">56</onright>
+				<onright condition="control.isvisible(57)">57</onright>
                 <onup>9600</onup>
                 <ondown>9600</ondown>
                 <onback>9000</onback>
@@ -667,6 +678,13 @@
                     <label>$LOCALIZE[20445]</label>
                     <onclick>Container.SetViewMode(56)</onclick>
                     <visible>!Skin.HasSetting(hide.fanartview)</visible>
+                </control>
+				<control type="button" id="96057">
+                    <description>Set View 57</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[31632]</label>
+                    <onclick>Container.SetViewMode(57)</onclick>
+                    <visible>!Skin.HasSetting(hide.simplelistview)</visible>
                 </control>
             </control>
         </control>
@@ -1060,6 +1078,17 @@
             <label>- $LOCALIZE[31970]</label>
         </control>
     </include>
+	
+	<include name="IconViewTitleSwitch">
+	    <control type="radiobutton" id="9131" description="Icon View: Swap Title with File name">
+            <visible>Control.IsVisible(53)</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(53_FileNameNotTitle)</onclick>
+            <selected>Skin.HasSetting(53_FileNameNotTitle)</selected>
+            <label>- $LOCALIZE[32292]</label>
+        </control>
+    </include>
 
 
     <variable name="ViewModeSwitch">
@@ -1086,6 +1115,7 @@
 		<onright condition="Control.IsVisible(501)">501</onright>
 		<onright condition="Control.IsVisible(53)">53</onright>
 		<onright condition="Control.IsVisible(56)">56</onright>
+		<onright condition="Control.IsVisible(57)">57</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
 	    <onback condition="Control.IsVisible(52)">52</onback>
@@ -1098,6 +1128,7 @@
 		<onback condition="Control.IsVisible(501)">501</onback>
 		<onback condition="Control.IsVisible(53)">53</onback>
 		<onback condition="Control.IsVisible(56)">56</onback>
+		<onback condition="Control.IsVisible(57)">57</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
         <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
@@ -1150,10 +1181,12 @@
         </include>
         
 		<include content="ViewSettingsSwapPanel">
-			    <param name="viewid">52</param>
+			<param name="viewid">52</param>
 		</include>
 			
         <include>FanartViewSwitches</include>
+		
+		<include>IconViewTitleSwitch</include>
 
         <control type="button" id="6053">
             <include>9000SysButtons</include>
@@ -1749,7 +1782,7 @@
                         <top>5</top>
 						<visible>[!Skin.HasSetting(ShowAudioSub) + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
 						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
-								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
+								 [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						<align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>
@@ -1767,7 +1800,7 @@
 					<control type="textbox">
 					    <top>40</top>
 						<visible>!$PARAM[lowpanel] + [[Skin.HasSetting(ShowAudioSub) + [!String.IsEmpty(ListItem.Property(AudioLanguage.1)) | !String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
-						         [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						         [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
 						<height>$PARAM[plotheight]</height>
                         <align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
@@ -1778,7 +1811,7 @@
 					<control type="textbox">
 					    <top>40</top>
 						<visible>$PARAM[lowpanel] + [[Skin.HasSetting(ShowAudioSub) + Container.Content(episodes) + 
-						         ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						         ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
 						<height>160</height>
                         <align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
@@ -1882,7 +1915,11 @@
                     <itemgap>20</itemgap>
                     <orientation>horizontal</orientation>
                     <align>left</align>
-                    <include content="MediaFlagItems">
+                    <include condition="Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
+                        <param name="diffuse">$VAR[LabelTextColor]</param>
+						<param name="itemwidth">70</param>
+                    </include>
+					<include condition="!Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
                     </include>
                 </control>
@@ -1980,7 +2017,7 @@
                         <top>5</top>
 						<visible>[!Skin.HasSetting(ShowAudioSub) + [Container.Content(movies) | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
 						         [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
-								 [String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
+								 [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						<align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>
@@ -1990,7 +2027,7 @@
 					<control type="textbox" id="4001">
 					    <top>40</top>
 						<visible>[[Skin.HasSetting(ShowAudioSub) + [!String.IsEmpty(ListItem.Property(AudioLanguage.1)) | !String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
-						         [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
+						         [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
 						<height>$PARAM[plotheight]</height>
                         <align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
@@ -2241,6 +2278,7 @@
         <param name="width"></param>
         <param name="visibility">true</param>
         <param name="showratingbadge">true</param>
+		<param name="itemwidth">90</param>
         <definition>
             <control type="grouplist" description="Flags">
                 <posy>$PARAM[top]</posy>
@@ -2255,6 +2293,7 @@
                 <include content="MediaFlagItems">
                     <param name="diffuse">$VAR[LabelTextColor]</param>
                     <param name="showratingbadge">$PARAM[showratingbadge]</param>
+					<param name="itemwidth">$PARAM[itemwidth]</param>
                 </include>
             </control>
         </definition>
@@ -3098,6 +3137,7 @@
 				    <onright condition="Control.IsVisible(55)">55</onright>
 				    <onright condition="Control.IsVisible(551)">551</onright>
 				    <onright condition="Control.IsVisible(53)">53</onright>
+					<onright condition="Control.IsVisible(57)">57</onright>
 				    <itemlayout height="37" width="40">
 					    <control type="label">
 						    <height>37</height>
@@ -3171,7 +3211,7 @@
     </include>
 	
 	<include name="ViewIDs">
-        <views>50,51,511,52,53,54,55,551,56,501</views>
+        <views>50,51,511,52,53,54,55,551,56,501,57</views>
 		<defaultcontrol>50</defaultcontrol>
 		<onload>SetFocus(50)</onload>
     </include>

@@ -156,7 +156,7 @@
 	
     <variable name="EpisodeLabel">
         <value condition="String.IsEqual(ListItem.DBType,season)">[B]$INFO[ListItem.Label][/B]</value>
-        <value condition="String.IsEqual(ListItem.DBType,episode)">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode) + [!String.IsEmpty(ListItem.Season) | !String.IsEmpty(ListItem.Episode)]">[B]$LOCALIZE[31973] $INFO[ListItem.Season,,.]$INFO[ListItem.Episode][/B]</value>
         <value condition="String.IsEmpty(ListItem.DBType)">$INFO[ListItem.Label]</value>
     </variable>
 
@@ -429,8 +429,9 @@
 		<value condition="Container.content(studios) | String.IsEqual(ListItem.DBType,studio)">$VAR[Studios]</value>
         <value condition="Container.content(countries) | String.IsEqual(ListItem.DBType,country)">$VAR[Countries]</value>
         <value condition="Container.content(years) | String.IsEqual(ListItem.DBType,year) | [String.IsEmpty(ListItem.DBType) + String.Contains(ListItem.FolderPath,years)]">DefaultYear.png</value>
-        <value condition="Container.content(directors) | String.IsEqual(ListItem.DBType,director)">DefaultDirector.png</value>
-		<value condition="Container.content(actors) | String.IsEqual(ListItem.DBType,actor) + String.IsEmpty(ListItem.Thumb)">DefaultActor.png</value>
+        <value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + !System.HasAddon(resource.images.moviedirectorthumbs)">DefaultDirector.png</value>
+		<value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + System.HasAddon(resource.images.moviedirectorthumbs)">$INFO[ListItem.Label,resource://resource.images.moviedirectorthumbs/,.jpg]</value>
+		<value condition="[Container.content(actors) | String.IsEqual(ListItem.DBType,actor)] + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Icon)">DefaultActor.png</value>
         <value condition="[Container.content(genres) | String.IsEqual(ListItem.DBType,genre)] + ![String.Contains(ListItem.Icon,Music) | String.Contains(ListItem.FolderPath,music)]">$VAR[MovieGenres]</value>
 		<value condition="[Container.content(genres) | String.IsEqual(ListItem.DBType,genre)] + [String.Contains(ListItem.Icon,Music) | String.Contains(ListItem.FolderPath,music)]">$VAR[MusicGenres]</value>
         <value condition="Container.content(tags) | String.IsEqual(ListItem.DBType,tag)">DefaultTags.png</value>
@@ -617,7 +618,8 @@
     </variable>
 
     <variable name="panelheading">
-        <value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !String.IsEqual(Container.ListItem.DBType,episode) + !Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)][B]$INFO[Container.ListItem.Top250, #,][/B]</value>
+        <value condition="Control.IsVisible(53) + Skin.HasSetting(53_FileNameNotTitle)">$INFO[ListItem.Filename]</value>
+		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !String.IsEqual(Container.ListItem.DBType,episode) + !Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)][B]$INFO[Container.ListItem.Top250, #,][/B]</value>
 		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !String.IsEqual(Container.ListItem.DBType,episode) + Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)]</value>
 		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + String.IsEqual(Container.ListItem.DBType,episode)">$INFO[Container.ListItem.TVShowTitle,, • ]$INFO[Container.ListItem.Label]</value>
         <value condition="Window.IsActive(1122) + String.IsEqual(ListItem.DBType,album)">$INFO[Container.ListItem.Artist,, • ]$INFO[Container.ListItem.Label]</value>
@@ -821,7 +823,7 @@
     </variable>
 
     <variable name="panelsubheading2">
-        <value condition="[Container.Content(Seasons) | Container.Content(TVShows)] + !String.IsEmpty(Window(Home).Property(NextAired.NextDate))">[COLOR=$VAR[HighlightColor]]$LOCALIZE[32009]: [/COLOR]$INFO[Window(Home).Property(NextAired.NextNumber)] - $INFO[Window(Home).Property(NextAired.NextTitle)] - $INFO[Window(Home).Property(NextAired.NextDate)]</value>
+        <value condition="[Container.Content(Seasons) | Container.Content(TVShows)] + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired))">[COLOR=$VAR[HighlightColor]]$LOCALIZE[32009]: [/COLOR]$INFO[Window(Home).Property(TMDBHelper.ListItem.Next_Aired.Season)]x$INFO[Window(Home).Property(TMDBHelper.ListItem.Next_Aired.Episode)] - $INFO[Window(Home).Property(TMDBHelper.ListItem.Next_Aired.Name)] - $INFO[Window(Home).Property(TMDBHelper.ListItem.Next_Aired)]</value>
 		<value condition="[Container.Content(Seasons) | Container.Content(TVShows)] + !String.IsEmpty(ListItem.Status)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[126]: [/COLOR]$INFO[ListItem.Status]</value>
 		<value condition="Container.Content(Seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem(1).Status)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[126]: [/COLOR]$INFO[ListItem(1).Status]</value>
 		<value condition="[Container.Content(movies) | Container.Content(episodes)]">$VAR[AudioVar]$VAR[SubtitleVar]</value>
@@ -1177,6 +1179,11 @@
 		<value condition="String.IsEqual(Skin.CurrentColourTheme,Blue)">FF456DB8</value>
 		<value condition="String.IsEqual(Skin.CurrentColourTheme,Green)">FF45B864</value>
 		<value condition="String.IsEqual(Skin.CurrentColourTheme,White)">FFF1F1F1</value>
+	</variable>
+	
+	<variable name="MediaWidgetsHighlightColor">
+		<value condition="Skin.HasSetting(MatchPosterColors)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Colors.Main)]</value>
+		<value condition="!Skin.HasSetting(MatchPosterColors)">$VAR[HighlightColor]</value>
 	</variable>
 	
 	<variable name="GlowBarsColor">
@@ -1712,6 +1719,16 @@
 												  
 	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | 
 	                                     Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
+										 
+										 
+	<expression name="ContainerIsHDR">[String.Contains(Container.ListItem.Filename,hdr) | String.Contains(Container.ListItem.Filename,sdr)] | 
+	                                  [[String.Contains(Container.ListItem.Filename,8bit) | String.Contains(Container.ListItem.Filename,8-bit)] | 
+									   [String.Contains(Container.ListItem.Filename,10bit) | String.Contains(Container.ListItem.Filename,10-bit)] | 
+									   [String.Contains(Container.ListItem.Filename,12bit) | String.Contains(Container.ListItem.Filename,12-bit)]]</expression>
+									   
+	<expression name="ListItemIsHDR">[String.Contains(ListItem.Filename,hdr) | String.Contains(ListItem.Filename,sdr)] | 
+	                                  [[String.Contains(ListItem.Filename,8bit) | String.Contains(ListItem.Filename,8-bit)] | 
+									   [String.Contains(ListItem.Filename,10bit) | String.Contains(ListItem.Filename,10-bit)] | 
+									   [String.Contains(ListItem.Filename,12bit) | String.Contains(ListItem.Filename,12-bit)]]</expression>
 	
-
 </includes>

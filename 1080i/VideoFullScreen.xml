@@ -21,7 +21,10 @@
 			</control>
 		</control>
 		<control type="group" id="2">
-			<posy>820</posy>
+			
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerFullScreenInfo</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularFullScreenInfo</include>
+			
 			<include>OSDFade</include>
 			<onup>101</onup>
 			<ondown>101</ondown>
@@ -29,10 +32,17 @@
 			<animation effect="fade" time="200">VisibleChange</animation>
 			<control type="image" id="21">
 				<width>1920</width>
+				<height>380</height>
+				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+			</control>
+			<control type="image" id="21">
+				<width>1920</width>
 				<height>260</height>
 				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
-				<visible>Skin.HasSetting(OSDInfo)</visible>
+				<visible>Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
 			</control>
 			<control type="image" id="22">
 				<posy>-150</posy>
@@ -60,23 +70,47 @@
 				<label>$VAR[VideoFullScreenPlot]</label>
 				<visible>!Skin.HasSetting(OSDInfo)</visible>
 			</control>
-			<control type="image" id="24">
-				<posx>539r</posx>
-				<posy>666r</posy>
-				<width>509</width>
-				<height>636</height>
-				<texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
-				<aspectratio align="center" aligny="bottom">keep</aspectratio>
-				<colordiffuse>HeavyShadow</colordiffuse>
-			</control>
-			<control type="image" id="25">
-				<posx>555r</posx>
-				<posy>682r</posy>
-				<width>509</width>
-				<height>636</height>
-				<texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
-				<aspectratio align="center" aligny="bottom">keep</aspectratio>
-			</control>
+			    
+				<control type="image" id="24">
+				    <left>539r</left>
+				    <top>-406</top>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+				    <colordiffuse>HeavyShadow</colordiffuse>
+					<visible>Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			    <control type="image" id="25">
+				    <left>555r</left>
+				    <top>-422</top>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+					<visible>Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			
+				<control type="image" id="24">
+				    <posx>539r</posx>
+				    <posy>666r</posy>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+				    <colordiffuse>HeavyShadow</colordiffuse>
+					<visible>!Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			    <control type="image" id="25">
+				    <posx>555r</posx>
+				    <posy>682r</posy>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$INFO[Player.Icon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+					<visible>!Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			
 			<control type="label" id="26">
 				<description>Movie Info Studio</description>
 				<posx>30</posx>

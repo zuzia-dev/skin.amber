@@ -3137,5 +3137,96 @@
 		    </control>
 		</definition>
 	</include>
+	
+	
+	<!-- =========================== -->
+    <!-- =   Simple List Layouts   = -->
+    <!-- =========================== -->
+	
+	<include name="SimpleList_Layout">
+	    <param name="id">57</param>
+        <param name="ListLabelFont"></param>
+        <param name="ListLabel2Font"></param>
+        <param name="itemheight"></param>
+        <param name="BGposy"></param>
+		<definition>
+		    
+		    <itemlayout height="$PARAM[itemheight]" width="570">
+			    <control type="image" description="BG">
+    				<posy>0</posy>
+				    <posx>0</posx>
+				    <width>570</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture flipy="true" border="3">list/ListNF.png</texture>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>531</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>![Container.Content(tvshows) | Container.Content(seasons)]</visible>
+				</control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>511</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+				    <textoffsetx>16</textoffsetx>
+                    <font>$PARAM[ListLabelFont]</font>
+				    <label>$VAR[MediaListLabel]</label>
+					<visible>[Container.Content(tvshows) | Container.Content(seasons)]</visible>
+				</control>				
+			    <include content="SimpleListWatchedOverlay">
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+                </include>
+		    </itemlayout>
+		    <focusedlayout  height="$PARAM[itemheight]" width="570">
+			    <control type="image" description="BG">
+    				<posx>9</posx>
+					<posy>0</posy>
+					<height>$PARAM[itemheight]</height>
+                    <width>570</width>
+					<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+				    <animation effect="fade" start="100" end="50" time="100" condition="!Control.HasFocus($PARAM[id])">Conditional</animation>
+			    </control>
+                <control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>531</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>![Container.Content(tvshows) | Container.Content(seasons)]</visible>
+				</control>
+				<control type="label" description="Main Label">
+    				<posx>9</posx>
+				    <height>$PARAM[itemheight]</height>
+				    <width>511</width>
+				    <scroll>$VAR[LongLabelScroll]</scroll>
+					<textoffsetx>16</textoffsetx>
+					<textcolor>$VAR[FocusedTextColor]</textcolor>
+					<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					<shadowcolor></shadowcolor>
+                    <font>$PARAM[ListLabelFont]</font>
+					<label>$VAR[MediaListLabel]</label>
+					<visible>[Container.Content(tvshows) | Container.Content(seasons)]</visible>
+				</control>
+				<include content ="SimpleListWatchedOverlay">
+					<param name="isFocused">true</param>
+                    <param name="itemheight">$PARAM[itemheight]</param>
+                    <param name="BGposy">$PARAM[BGposy]</param>
+				</include>
+			</focusedlayout>
+			
+		</definition>
+	</include>
 
 </includes>

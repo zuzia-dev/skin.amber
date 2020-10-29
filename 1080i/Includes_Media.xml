@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <variable name="VideoResolutionFlagVar">
+		<value condition="String.Contains(Container.ListItem.filename,uhd) | String.Contains(Container.ListItem.filename,4k)">badges/videoresolution/4k.png</value>
+		<value condition="String.Contains(Container.ListItem.filename,8k)">badges/videoresolution/8k.png</value>
+		<value>$INFO[Container.ListItem.VideoResolution,badges/videoresolution/,.png]</value>
+	</variable>
+	
+	<variable name="MediaInfoVideoResolutionFlagVar">
+		<value condition="String.Contains(ListItem.filename,uhd) | String.Contains(ListItem.filename,4k)">badges/videoresolution/4k.png</value>
+		<value condition="String.Contains(ListItem.filename,8k)">badges/videoresolution/8k.png</value>
+		<value>$INFO[ListItem.VideoResolution,badges/videoresolution/,.png]</value>
+	</variable>
+	
+	<variable name="VideoCodecFlagVar">
+		<value condition="[String.Contains(Container.ListItem.filename,pdtv) | String.Contains(Container.ListItem.filename,sdtv) | String.Contains(ListItem.filename,sd-tv)]">badges/videocodec/sdtv.png</value>
+		<value condition="[String.Contains(Container.ListItem.Filename,hdtv) | String.Contains(Container.ListItem.Filename,hd-tv)]">badges/videocodec/hdtv.png</value>
+		<value condition="[String.Contains(Container.ListItem.Filename,hddvd) | String.Contains(Container.ListItem.Filename,hd-dvd)]">badges/videocodec/hddvd.png</value>
+		<value condition="[String.Contains(Container.ListItem.Filename,bluray) | String.Contains(Container.ListItem.Filename,blu-ray) | String.Contains(Container.ListItem.Filename,bdrip) | String.Contains(Container.ListItem.Filename,brrip) | String.IsEqual(Container.ListItem.FileExtension,bdmv)]">badges/videocodec/bluray.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,webrip)">badges/videocodec/webdl.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,dvd) | String.IsEqual(Container.ListItem.FileExtension,iso) | String.IsEqual(Container.ListItem.FileExtension,ifo)">badges/videocodec/dvd.png</value>
+		<value>$INFO[Container.ListItem.VideoCodec,badges/videocodec/,.png]</value>
+	</variable>
+	
+	<variable name="MediaInfoVideoCodecFlagVar">
+		<value condition="[String.Contains(ListItem.filename,pdtv) | String.Contains(ListItem.filename,sdtv) | String.Contains(ListItem.filename,sd-tv)]">badges/videocodec/sdtv.png</value>
+		<value condition="[String.Contains(ListItem.Filename,hdtv) | String.Contains(ListItem.Filename,hd-tv)]">badges/videocodec/hdtv.png</value>
+		<value condition="[String.Contains(ListItem.Filename,hddvd) | String.Contains(ListItem.Filename,hd-dvd)]">badges/videocodec/hddvd.png</value>
+		<value condition="[String.Contains(ListItem.Filename,bluray) | String.Contains(ListItem.Filename,blu-ray) | String.Contains(ListItem.Filename,bdrip) | String.Contains(ListItem.Filename,brrip) | String.IsEqual(ListItem.FileExtension,bdmv)]">badges/videocodec/bluray.png</value>
+		<value condition="String.Contains(ListItem.Filename,web-dl) | String.Contains(ListItem.Filename,webdl) | String.Contains(ListItem.Filename,webrip)">badges/videocodec/webdl.png</value>
+		<value condition="String.Contains(ListItem.Filename,dvd) | String.IsEqual(ListItem.FileExtension,iso) | String.IsEqual(ListItem.FileExtension,ifo)">badges/videocodec/dvd.png</value>
+		<value>$INFO[ListItem.VideoCodec,badges/videocodec/,.png]</value>
+	</variable>
+	
+	<variable name="AudioCodecFlagVar">
+		<value condition="String.Contains(Container.ListItem.Filename,atmos)">badges/audiocodec/atmos.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,dtsx) | String.Contains(Container.ListItem.Filename,dts-x)">badges/audiocodec/dtsx.png</value>
+		<value>$INFO[Container.ListItem.AudioCodec,badges/audiocodec/,.png]</value>
+	</variable>
+	
+	<variable name="MediaInfoAudioCodecFlagVar">
+		<value condition="String.Contains(ListItem.Filename,atmos)">badges/audiocodec/atmos.png</value>
+		<value condition="String.Contains(ListItem.Filename,dtsx) | String.Contains(ListItem.Filename,dts-x)">badges/audiocodec/dtsx.png</value>
+		<value>$INFO[ListItem.AudioCodec,badges/audiocodec/,.png]</value>
+	</variable>
+	
+	<variable name="HDRFlagVar">
+		<value condition="String.Contains(Container.ListItem.Filename,hdr)">badges/colorrange/hdr.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,sdr)">badges/colorrange/sdr.png</value>
+	</variable>
+	
+	<variable name="MediaInfoHDRFlagVar">
+		<value condition="String.Contains(ListItem.Filename,hdr)">badges/colorrange/hdr.png</value>
+		<value condition="String.Contains(ListItem.Filename,sdr)">badges/colorrange/sdr.png</value>
+	</variable>
+	
+	<variable name="BitDepthFlagVar">
+		<value condition="String.Contains(Container.ListItem.Filename,8bit) | String.Contains(Container.ListItem.Filename,8-bit)">badges/colorrange/8bit.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,10bit) | String.Contains(Container.ListItem.Filename,10-bit)">badges/colorrange/10bit.png</value>
+		<value condition="String.Contains(Container.ListItem.Filename,12bit) | String.Contains(Container.ListItem.Filename,12-bit)">badges/colorrange/12bit.png</value>
+	</variable>
+	
+	<variable name="MediaInfoBitDepthFlagVar">
+		<value condition="String.Contains(ListItem.Filename,8bit) | String.Contains(ListItem.Filename,8-bit)">badges/colorrange/8bit.png</value>
+		<value condition="String.Contains(ListItem.Filename,10bit) | String.Contains(ListItem.Filename,10-bit)">badges/colorrange/10bit.png</value>
+		<value condition="String.Contains(ListItem.Filename,12bit) | String.Contains(ListItem.Filename,12-bit)">badges/colorrange/12bit.png</value>
+	</variable>
+
 	<include name="ListWatchedOverlay">
 		<param name="isFocused">false</param>
         <param name="itemheight">72</param>
@@ -594,6 +660,81 @@
 		</definition>
 	</include>
 
+    <include name="SimpleListWatchedOverlay">
+		<param name="isFocused">false</param>
+        <param name="itemheight">72</param>
+        <param name="BGposy">15</param>
+		<definition>
+		    
+			<control type="group">
+			    <visible>[Container.Content(videos) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(addons)]</visible>
+			    <!-- Overlay image when panel is in original position -->
+			    <control type="image">
+				    <visible>[![Container.Content(tvshows) | container.content(seasons) | Container.Content(addons)] | 
+				              [[Container.Content(tvshows) | container.content(seasons)] + !Integer.IsGreater(Listitem.Property(UnwatchedEpisodes),0)]]</visible>
+				    <posx>535</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[Overlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+			    </control>
+			    <!-- Overlay image for addons when panel is original position -->
+			    <control type="image">
+				    <visible>Container.Content(addons)</visible>
+				    <posx>535</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[AddonOverlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+			    </control>
+			    <!-- Number of unwatched episodes for tv shows when panel is in oiginal position -->
+			    <control type="group">
+				    <visible>!ListItem.IsParentFolder + [Container.content(tvshows) | container.content(seasons)]</visible>
+				    <visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+				    <control type="image" description="Label2 BG">
+					    <visible>$PARAM[isFocused]</visible>
+					    <posx>520</posx>
+					    <posy>$PARAM[BGposy]</posy>
+					    <width>50</width>
+					    <height>42</height>
+					    <texture border="3">img/WhiteRoundedT.png</texture>
+					    <colordiffuse>$VAR[FocusedTextColor]</colordiffuse>
+				    </control>
+				    <control type="image" description="Label2 BG">
+					    <visible>!$PARAM[isFocused]</visible>
+					    <posx>520</posx>
+					    <posy>$PARAM[BGposy]</posy>
+					    <width>50</width>
+					    <height>42</height>
+					    <texture border="3">img/WhiteRoundedT.png</texture>
+				    </control>
+				    <control type="label" description="l2">
+					    <visible>$PARAM[isFocused]</visible>
+					    <posx>495</posx>
+					    <height>$PARAM[itemheight]</height>
+					    <width>100</width>
+					    <font>ListDetails</font>
+					    <align>center</align>
+					    <textcolor>$VAR[FocusedTextColor]</textcolor>
+					    <shadowcolor></shadowcolor>
+					    <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+				    </control>
+				    <control type="label" description="l2">
+					    <visible>!$PARAM[isFocused]</visible>
+					    <posx>495</posx>
+					    <height>$PARAM[itemheight]</height>
+					    <width>100</width>
+					    <font>ListDetails</font>
+					    <align>center</align>
+					    <textcolor>$VAR[HighlightColor]</textcolor>
+					    <label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+				    </control>
+			    </control>
+			</control>
+		</definition>
+	</include>
+
+
 	<include name="RecOverlay">
 		<control type="image">
 			<posx>880</posx>
@@ -612,7 +753,7 @@
 		<param name="showvideobadge">true</param>
 		<param name="showaudiobadge">true</param>
 		<param name="showratingbadge">true</param>
-		<param name="type">ListItem</param>
+		<param name="type">Container.ListItem</param>
 		<definition>
 			<control type="image" id="89001">
 				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
@@ -623,7 +764,7 @@
 				<bordersize>3</bordersize>
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-				<texture>$INFO[$PARAM[type].VideoResolution,badges/videoresolution/,.png]</texture>
+				<texture>$VAR[VideoResolutionFlagVar]</texture>
 			</control>
 			<control type="image" id="89002">
 				<visible>!String.IsEmpty($PARAM[type].VideoCodec)</visible>
@@ -634,7 +775,7 @@
 				<bordersize>3</bordersize>
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-				<texture>$INFO[$PARAM[type].VideoCodec,badges/videocodec/,.png]</texture>
+				<texture>$VAR[VideoCodecFlagVar]</texture>
 			</control>
 			<control type="image" id="89003">
 				<visible>!String.IsEmpty($PARAM[type].VideoAspect)</visible>
@@ -667,7 +808,7 @@
 				<bordersize>3</bordersize>
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-				<texture>$INFO[$PARAM[type].AudioCodec,badges/audiocodec/,.png]</texture>
+				<texture>$VAR[AudioCodecFlagVar]</texture>
 			</control>
 			<control type="image" id="89005">
 				<visible>!String.IsEmpty($PARAM[type].FileExtension)</visible>
@@ -700,6 +841,148 @@
 				<aspectratio>keep</aspectratio>
 				<texture>$VAR[$PARAM[type].ratingbadge]</texture>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+			</control>
+			<control type="image" id="89007">
+				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[HDRFlagVar]</texture>
+			</control>
+			<control type="image" id="89008">
+				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[BitDepthFlagVar]</texture>
+			</control>
+		</definition>
+	</include>
+	
+	<include name="MediaInfoMediaFlagItems">
+		<param name="itemwidth" default="90"/>
+		<param name="itemheight" default="45"/>
+		<param name="diffuse">Silver</param>
+		<param name="showvideobadge">true</param>
+		<param name="showaudiobadge">true</param>
+		<param name="showratingbadge">true</param>
+		<definition>
+			<control type="image" id="89001">
+				<visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaInfoVideoResolutionFlagVar]</texture>
+			</control>
+			<control type="image" id="89002">
+				<visible>!String.IsEmpty(ListItem.VideoCodec)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaInfoVideoCodecFlagVar]</texture>
+			</control>
+			<control type="image" id="89003">
+				<visible>!String.IsEmpty(ListItem.VideoAspect)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$INFO[ListItem.VideoAspect,badges/aspectratio/,.png]</texture>
+			</control>
+			<control type="image">
+				<visible>ListItem.IsStereoscopic</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>badges/3D.png</texture>
+			</control>            
+			<control type="image" id="89004">
+				<visible>!String.IsEmpty(ListItem.AudioCodec)</visible>
+				<visible>$PARAM[showaudiobadge]</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaInfoAudioCodecFlagVar]</texture>
+			</control>
+			<control type="image" id="89005">
+				<visible>!String.IsEmpty(ListItem.FileExtension)</visible>
+				<visible>Container.Content(songs)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showaudiobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$INFO[ListItem.FileExtension,badges/audiocodec/,.png]</texture>
+			</control>
+			<control type="image" id="89006">
+				<visible>!String.IsEmpty(ListItem.AudioChannels)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showaudiobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$INFO[ListItem.AudioChannels,badges/audiochannels/channels,.png]</texture>
+			</control>
+			<control type="image" description="Stars">
+				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<texture>$VAR[ListItem.ratingbadge]</texture>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+			</control>
+			<control type="image" id="89007">
+				<visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ListItemIsHDR]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaInfoHDRFlagVar]</texture>
+			</control>
+			<control type="image" id="89008">
+				<visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ListItemIsHDR]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaInfoBitDepthFlagVar]</texture>
 			</control>
 		</definition>
 	</include>
@@ -791,7 +1074,7 @@
 		<param name="isTripleRowMedium">false</param>
 		<param name="isTripleRowLarge">false</param>
 		<param name="isTripleShelvesTogether">false</param>
-		<param name="showTopRightMarks">true</param>
+		<param name="showOverlay">true</param>
 		<param name="isLowWidget">false</param>
 		<param name="iconwidth"/>
 		<param name="iconheight"/>
@@ -848,7 +1131,7 @@
 				<control type="image">
 					<visible>$PARAM[isFocused]</visible>
 					<texture background="true" fallback="$PARAM[fallbackicon]">$PARAM[iconimage]</texture>
-					<bordertexture colordiffuse="$VAR[HighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
+					<bordertexture colordiffuse="$VAR[MediaWidgetsHighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
 					<bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
 					<aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
 				</control>
@@ -859,7 +1142,7 @@
 					<aspectratio align="$PARAM[align]" aligny="$PARAM[aligny]">$PARAM[aspect]</aspectratio>
 					<colordiffuse>eeeeeeee</colordiffuse>
 				</control>
-				<include condition="Skin.HasSetting(ShowTopRightOverlays) + !ListItem.IsRecording + !String.StartsWith(ListItem.FolderPath,pvr) + $PARAM[showTopRightMarks]" content="TopRightOverlayTemplate">
+				<include condition="Skin.HasSetting(ShowTopRightOverlays) + !ListItem.IsRecording + !String.StartsWith(ListItem.FolderPath,pvr) + $PARAM[showOverlay]" content="TopRightOverlayTemplate">
 				    <param name="isFocused">$PARAM[isFocused]</param>
 					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 					<param name="isSearch">$PARAM[isSearch]</param>
@@ -925,7 +1208,7 @@
 					<param name="backgroundheight">$PARAM[belowtextboxbackheight]</param>
 				</include>
 				<control type="image" description="Watched Overlay">
-					<visible>!$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
+					<visible>!$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
 					<width>30</width>
@@ -934,13 +1217,13 @@
 					<aspectratio>keep</aspectratio>
 				</control>
 				<control type="image" description="Watched Overlay">
-					<visible>$PARAM[isFocused] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
+					<visible>$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
 					<left>60r</left>
 					<top>60r</top>
 					<width>30</width>
 					<height>30</height>
 					<texture>$VAR[Overlay]</texture>
-					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+    				<colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 					<aspectratio>keep</aspectratio>
 				</control>
 			</control>
@@ -981,7 +1264,7 @@
 				        <posy>12</posy>
 				        <height>82</height>
 				        <width>82</width>
-				        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        <aspectratio>keep</aspectratio>
 			        </control>
 				</control>
@@ -991,7 +1274,8 @@
 			    <visible>[!Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(Custom_1122_Search.xml) | Window.IsActive(Custom_1131_SingleSearch.xml)] + 
 				         [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,tvshow) | 
 				                                                  String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season) | 
-																  String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,album)] + $EXP[IsIconView]</visible>
+																  String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,album) | 
+																  String.IsEqual(ListItem.DBType,video)] + $EXP[IsIconView]</visible>
 				<!-- Normal Overlay for search results -->
 			    <control type="group">
 				    <visible>$PARAM[isSearch]</visible>
@@ -1013,7 +1297,7 @@
 				        <posy>12</posy>
 				        <height>82</height>
 				        <width>82</width>
-				        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        <aspectratio>keep</aspectratio>
 			        </control>
 				</control>
@@ -1036,14 +1320,14 @@
 				        <posy>16</posy>
 				        <height>72</height>
 				        <width>72</width>
-				        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			        </control>
 					<!-- wide icons -->
 			        <control type="image">
 				        <visible>!$PARAM[isFocused] + $PARAM[isWideIcon]</visible>
 				        <texture background="true">$VAR[TopRightOverlay]</texture>
 				        <posx>96r</posx>
-				        <posy>46</posy>
+				        <posy>16</posy>
 				        <height>72</height>
 				        <width>72</width>
 			        </control>
@@ -1051,10 +1335,10 @@
 				        <visible>$PARAM[isFocused] + $PARAM[isWideIcon]</visible>
 				        <texture background="true">$VAR[TopRightOverlay]</texture>
 				        <posx>96r</posx>
-				        <posy>46</posy>
+				        <posy>16</posy>
 				        <height>72</height>
 				        <width>72</width>
-				        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			        </control>
                 </control>
                 <!-- Normal overlay for small icons -->
@@ -1079,7 +1363,7 @@
 				            <posy>12</posy>
 				            <height>72</height>
 				            <width>72</width>
-				            <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				            <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			            </control>
 					</control>
 					<!-- wide icons, media views -->
@@ -1089,7 +1373,7 @@
 				            <visible>!$PARAM[isFocused]</visible>
 				            <texture background="true">$VAR[TopRightOverlay]</texture>
 				            <posx>92r</posx>
-				            <posy>42</posy>
+				            <posy>12</posy>
 				            <height>72</height>
 				            <width>72</width>
 			            </control>
@@ -1097,10 +1381,10 @@
 				            <visible>$PARAM[isFocused]</visible>
 				            <texture background="true">$VAR[TopRightOverlay]</texture>
 				            <posx>92r</posx>
-				            <posy>42</posy>
+				            <posy>12</posy>
 				            <height>72</height>
 				            <width>72</width>
-				            <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				            <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			            </control>
 					</control>
 					<!-- Widgets -->
@@ -1122,7 +1406,7 @@
 				            <posy>12</posy>
 				            <height>82</height>
 				            <width>82</width>
-				            <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				            <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				            <aspectratio>keep</aspectratio>
 			            </control>
 					</control>
@@ -1147,7 +1431,7 @@
 				        <posy>16</posy>
 				        <height>82</height>
 				        <width>82</width>
-					    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			        </control>
 					<!-- Poster -->
 					<control type="group">
@@ -1163,7 +1447,7 @@
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
 					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 						<control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
@@ -1197,8 +1481,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 					</control>
 					<!-- Banner -->
@@ -1214,8 +1498,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
@@ -1238,8 +1522,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isBanner] + !Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),99)</visible>
@@ -1270,7 +1554,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightempty2.png</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
 				            <posx>101r</posx>
 				            <posy>12</posy>
 				            <height>82</height>
@@ -1290,8 +1574,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused]</visible>
@@ -1319,8 +1603,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
@@ -1344,8 +1628,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
@@ -1369,8 +1653,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge] + !$PARAM[isLowWidget]</visible>
@@ -1394,8 +1678,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge] + $PARAM[isLowWidget]</visible>
@@ -1419,8 +1703,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
@@ -1444,8 +1728,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isTripleRowLarge]</visible>
@@ -1473,8 +1757,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
@@ -1498,8 +1782,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
@@ -1523,8 +1807,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]  + !$PARAM[isTripleRowLarge] + !$PARAM[isLowWidget]</visible>
@@ -1548,8 +1832,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]  + !$PARAM[isTripleRowLarge] + $PARAM[isLowWidget]</visible>
@@ -1573,8 +1857,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + $PARAM[isTripleRowMedium]  + !$PARAM[isTripleRowLarge]</visible>
@@ -1598,8 +1882,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium]  + $PARAM[isTripleRowLarge]</visible>
@@ -1627,8 +1911,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isLowWidget]</visible>
@@ -1652,8 +1936,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + !$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isLowWidget]</visible>
@@ -1677,8 +1961,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge] + !$PARAM[isLowWidget] + !$PARAM[isTripleShelvesTogether]</visible>
@@ -1702,8 +1986,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge] + $PARAM[isLowWidget] + !$PARAM[isTripleShelvesTogether]</visible>
@@ -1727,8 +2011,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
@@ -1752,8 +2036,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + $PARAM[isTripleRowLarge]</visible>
@@ -1777,8 +2061,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused] + $PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge] + $PARAM[isTripleShelvesTogether]</visible>
@@ -1805,8 +2089,8 @@
 					        <align>center</align>
 					        <shadowcolor></shadowcolor>
 					        <label>$VAR[UnwatchedEpisodes]</label>
-					        <textcolor>$VAR[HighlightColor]</textcolor>
-					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				        </control>
 				        <control type="label" description="l2">
 					        <visible>!$PARAM[isFocused]</visible>
@@ -1843,7 +2127,7 @@
 				        <height>82</height>
 				        <width>82</width>
 					    <aspectratio>keep</aspectratio>
-					    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 			        </control>
 				    <control type="label" description="l2">
 					    <visible>$PARAM[isFocused]</visible>
@@ -1855,8 +2139,8 @@
 					    <align>center</align>
 					    <shadowcolor></shadowcolor>
 					    <label>$VAR[UnwatchedEpisodes]</label>
-					    <textcolor>$VAR[HighlightColor]</textcolor>
-					    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					    <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				    </control>
 				    <control type="label" description="l2">
 					    <visible>!$PARAM[isFocused]</visible>
@@ -1886,7 +2170,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightInProgress]</texture>
 				            <posx>96r</posx>
 				            <posy>16</posy>
 				            <height>72</height>
@@ -1906,7 +2190,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightInProgress]</texture>
 				            <posx>92r</posx>
 				            <posy>12</posy>
 				            <height>72</height>
@@ -1927,7 +2211,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightInProgress]</texture>
 				            <posx>98r</posx>
 				            <posy>12</posy>
 				            <height>82</height>
@@ -1949,7 +2233,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightInProgress]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightInProgress]</texture>
 				            <posx>98r</posx>
 				            <posy>12</posy>
 				            <height>82</height>
@@ -1974,7 +2258,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightOverlay]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightOverlay]</texture>
 				            <posx>96r</posx>
 				            <posy>16</posy>
 				            <height>72</height>
@@ -1994,7 +2278,7 @@
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">$VAR[TopRightOverlay]</texture>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightOverlay]</texture>
 				            <posx>92r</posx>
 				            <posy>12</posy>
 				            <height>72</height>
@@ -2549,7 +2833,7 @@
 				<param name="shadowoffset">8</param>
 				<param name="bordersizeLT">16</param>
 				<param name="bordersizeRB">24</param>
-				<param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
+				<param name="overlaylabelvisibility">!ListItem.IsParentFolder + [[String.IsEqual(ListItem.DBType,episode) + [!String.IsEmpty(ListItem.Season) | !String.IsEmpty(ListItem.Episode)]] | String.IsEmpty(listitem.DBType)]</param>
 				<param name="overlaylabel">$VAR[EpisodeLabel]</param>
 			</include>
 		</definition>
@@ -2569,7 +2853,7 @@
 				<param name="shadowoffset">8</param>
 				<param name="bordersizeLT">12</param>
 				<param name="bordersizeRB">20</param>
-				<param name="overlaylabelvisibility">!ListItem.IsParentFolder + [String.IsEqual(ListItem.DBType,episode) | String.IsEmpty(listitem.DBType)]</param>
+				<param name="overlaylabelvisibility">!ListItem.IsParentFolder + [[String.IsEqual(ListItem.DBType,episode) + [!String.IsEmpty(ListItem.Season) | !String.IsEmpty(ListItem.Episode)]] | String.IsEmpty(listitem.DBType)]</param>
 				<param name="overlaylabel">$VAR[EpisodeLabel]</param>
 			</include>
 		</definition>
@@ -2755,6 +3039,8 @@
 		<param name="belowlabel" />
         <param name="belowlabelheight">35</param>
 		<param name="isSmallIcon">true</param>
+		<param name="iconimage">$INFO[ListItem.Icon]</param>
+		<param name="aspect">scale</param>
 		<definition>
 			<itemlayout height="410" width="232.5">
 			    <include content="GenericThumbIconTemplate">
@@ -2762,7 +3048,7 @@
 				    <param name="iconwidth">232.5</param>
 				    <param name="iconheight">326</param>
 				    <param name="iconoffset">0</param>
-				    <param name="iconimage">$INFO[ListItem.Icon]</param>
+				    <param name="iconimage">$PARAM[iconimage]</param>
 				    <param name="fallbackicon">DefaultActorPoster.png</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
@@ -2775,7 +3061,7 @@
                     <param name="belowdoublelabel2">$PARAM[belowdoublelabel2]</param>
                     <param name="labelfont1">ListDetailsSmall</param>
                     <param name="labelfont2">ListDetailsSmall</param>
-				    <param name="aspect">scale</param>
+				    <param name="aspect">$PARAM[aspect]</param>
 					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 			    </include>
 			</itemlayout>
@@ -2785,7 +3071,7 @@
 				    <param name="iconwidth">232.5</param>
 				    <param name="iconheight">326</param>
 				    <param name="iconoffset">0</param>
-				    <param name="iconimage">$INFO[ListItem.Icon]</param>
+				    <param name="iconimage">$PARAM[iconimage]</param>
 				    <param name="fallbackicon">DefaultActorPoster.png</param>
 				    <param name="shadowoffset">8</param>
 				    <param name="bordersizeLT">12</param>
@@ -2798,7 +3084,7 @@
                     <param name="belowdoublelabel2">$PARAM[belowdoublelabel2]</param>
                     <param name="labelfont1">ListDetailsSmall</param>
                     <param name="labelfont2">ListDetailsSmall</param>
-				    <param name="aspect">scale</param>
+				    <param name="aspect">$PARAM[aspect]</param>
 					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
 			    </include>                
 			</focusedlayout>
@@ -3129,13 +3415,13 @@
 		<control type="group" description="Media Info Lite">
 			<include>ContentFade</include>
 			<posy>943</posy>
-			<posx>390</posx>
-			<width>1140</width>
+			<posx>150</posx>
+			<width>1620</width>
 			<control type="label" description="Title shadow">
 				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
 				<left>4</left>
 				<top>4</top>
-				<width>1140</width>
+				<width>1620</width>
 				<height>50</height>
 				<align>center</align>
 				<textcolor>Black</textcolor>
@@ -3146,7 +3432,7 @@
 			</control>
 			<control type="label" description="Title Label">
 				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
-				<width>1140</width>
+				<width>1620</width>
 				<height>50</height>
 				<align>center</align>
 				<textcolor>$VAR[HighlightColor]</textcolor>
@@ -3158,7 +3444,7 @@
 			<control type="label" description="Details">
 				<visible>Control.IsVisible(53) | [Control.IsVisible(56) + ![$EXP[56_FanartViewInfo]]]</visible>
 				<posy>59</posy>
-				<width>1140</width>
+				<width>1620</width>
 				<height>30</height>
 				<align>center</align>
 				<shadowcolor>Black</shadowcolor>
@@ -3167,9 +3453,9 @@
 			<control type="label" description="Details2">
 				<visible>[Control.IsVisible(53) | [Control.IsVisible(56) + !Control.IsVisible(66561) + ![$EXP[56_FanartViewInfo]]]]</visible>
 				<visible>[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | 
-				         [Container.content(tvshows) | Container.content(seasons)] + [!String.IsEmpty(Window(Home).Property(NextAired.NextDate)) | !String.IsEmpty(ListItem.Status)]</visible>
+				         [Container.content(tvshows) | Container.content(seasons)] + [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) | !String.IsEmpty(ListItem.Status)]</visible>
 				<posy>100</posy>
-                <width>1140</width>
+                <width>1620</width>
 				<height>30</height>
 				<align>center</align>
 				<shadowcolor>Black</shadowcolor>

@@ -156,17 +156,35 @@
                                      Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
         </include>
         <!-- Media flags -->		
-        <control type="grouplist" description="Flags">
-            <top>1010</top>
+        <!-- Item does not have HDR/SDR or bit depth in file name -->
+		<control type="grouplist" description="Flags">
+            <visible>!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ListItemIsHDR]]</visible>
+			<top>1010</top>
             <left>24</left>
             <width>619</width>
             <height>45</height>
             <itemgap>30</itemgap>
             <orientation>horizontal</orientation>
             <align>center</align>
-            <include content="MediaFlagItems">
+            <include content="MediaInfoMediaFlagItems">
                 <param name="showratingbadge">false</param>
 				<param name="diffuse">$VAR[LabelTextColor]</param>
+            </include>
+        </control>
+		<!-- Item has HDR/SDR or bit depth in file name -->
+		<control type="grouplist" description="Flags">
+            <visible>Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ListItemIsHDR]</visible>
+			<top>1010</top>
+            <left>24</left>
+            <width>619</width>
+            <height>45</height>
+            <itemgap>20</itemgap>
+            <orientation>horizontal</orientation>
+            <align>center</align>
+            <include content="MediaInfoMediaFlagItems">
+                <param name="showratingbadge">false</param>
+				<param name="diffuse">$VAR[LabelTextColor]</param>
+				<param name="itemwidth">71</param>
             </include>
         </control>
 
@@ -1782,6 +1800,7 @@
                 <param name="belowdoublelabel2">[I]$INFO[ListItem.Property(job)][/I]</param>
                 <param name="content">$VAR[TMDbCrewMembers]</param>
                 <param name="visibility1">!Skin.HasSetting(DisableInfoListCrew)</param>
+				<param name="iconimage">$INFO[Container.ListItem.Icon]</param>
             </include>
             <!-- Movies from Director -->
             <include content="VideoInfoPosterWidget" condition="!String.IsEmpty(ListItem.Director) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))">
@@ -1868,6 +1887,7 @@
                 <param name="onclickinclude">InfoList_OnClickPosters</param>
 				<param name="visibility1">!Skin.HasSetting(DisableInfoListPosters)</param>
                 <param name="content">$VAR[TMDbPosters]</param>
+				<param name="iconimage">$INFO[Container.ListItem.Icon]</param>
             </include>
             <!-- Person Info Widget Lists -->
 			<!-- Cast in Movies-->
@@ -1919,6 +1939,7 @@
                 <param name="belowlabelvisibility">true</param>
                 <param name="onclickinclude">InfoList_OnClickPictures</param>
                 <param name="content">$VAR[InfoCastList05]</param>
+				<param name="iconimage">$INFO[Container.ListItem.Icon]</param>
             </include>
         </control>
 		

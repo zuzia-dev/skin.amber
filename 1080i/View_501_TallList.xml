@@ -234,7 +234,7 @@
 					<param name="subheading2">$VAR[panelsubheading2]</param>
 					<param name="plotgrouptop">150</param>
 					<param name="footertop">815</param>
-					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</param>
+					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired))</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="visibility">![$EXP[TallListPanelIsDisabled]] + ![$EXP[TallListPanelIsSwapped]] + [Container.content(tvshows) | Container.Content(seasons)]</param>
@@ -242,7 +242,7 @@
 				<include content="PanelTemplateTall">
 					<param name="top">118</param>
 					<param name="left">605</param>
-					<param name="height">410</param>
+					<param name="height">680</param>
 					<param name="width">590</param>
 					<param name="plotgrouptop">150</param>
 					<param name="footertop">845</param>
@@ -362,7 +362,7 @@
 					<param name="subheading2">$VAR[panelsubheading2]</param>
 					<param name="plotgrouptop">150</param>
 					<param name="footertop">815</param>
-					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(NextAired.NextDate))</param>
+					<param name="subheading2_visible">!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired))</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="visibility">![$EXP[TallListPanelIsDisabled]] + $EXP[TallListPanelIsSwapped] + [Container.content(tvshows) | Container.Content(seasons)]</param>
@@ -473,15 +473,31 @@
 					<param name="top">1005</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">!String.IsEqual(ListItem.DBType,episode)</param>
+					<param name="visibility">!String.IsEqual(ListItem.DBType,episode) + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
 					<param name="showratingbadge">false</param>
 				</include>
 				<include content="MediaFlags">
 					<param name="top">735</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">String.IsEqual(ListItem.DBType,episode)</param>
+					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
 					<param name="showratingbadge">false</param>
+				</include>
+				<include content="MediaFlags">
+					<param name="top">1005</param>
+					<param name="left">20</param>
+					<param name="width">560</param>
+					<param name="visibility">!String.IsEqual(ListItem.DBType,episode) + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
+					<param name="showratingbadge">false</param>
+					<param name="itemwidth">60</param>
+				</include>
+				<include content="MediaFlags">
+					<param name="top">735</param>
+					<param name="left">20</param>
+					<param name="width">560</param>
+					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
+					<param name="showratingbadge">false</param>
+					<param name="itemwidth">60</param>
 				</include>
 			</control>
 		</definition>
