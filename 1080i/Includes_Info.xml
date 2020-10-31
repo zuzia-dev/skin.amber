@@ -861,10 +861,10 @@
     </variable>
     <!-- Media type for themoviedb.helper: movie or tvshow -->
     <variable name="TMDbMediaType">
-        <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">type=movie</value>
-        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">type=movie</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">type=tv</value>
-        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">type=tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">movie</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">tv</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">tv</value>
     </variable>
     <!-- Studio call for themoviedb.helper: companies for movies, networks for tv shows -->
     <variable name="TMDbStudioCall">
@@ -873,13 +873,13 @@
     </variable>
     
     <variable name="TMDbFanart">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=fanart&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=fanart&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
 
     <include name="TMDbFanartList"><content target="images">$VAR[TMDbFanart]</content></include>
 
     <variable name="TMDbPosters">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=posters&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=posters&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
     <!-- List content for Sets custom info list -->
     <variable name="VideoInfoSets">
@@ -891,7 +891,7 @@
     </variable>
     <!-- Similar custom info list content -->
     <variable name="VideoInfoSimilar">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=similar&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=similar&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
         <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.DBID)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=movie</value>
 		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.DBID)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=tvshow</value>
     </variable>
@@ -903,7 +903,7 @@
     </variable>
     <!-- Crew custom info list content.  Online only -->
     <variable name="TMDbCrewMembers">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=crew&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=crew&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
 
     <variable name="Info_Youtube">
@@ -935,14 +935,14 @@
     </variable>
     <!-- More in genre custom info list content -->
     <variable name="VideoInfoFromGenre">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre))">plugin://plugin.video.themoviedb.helper?info=discover&amp;$VAR[TMDbMediaType]&amp;with_genres=$INFO[Window(Home).Property(TMDbHelper.ListItem.Genre)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[Window(Home).Property(TMDbHelper.ListItem.Genre)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
         <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[ListItem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Listitem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
     </variable>
     <!-- Recommended custom info list content.  Online only -->
     <variable name="TMDbRecommended">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + System.HasAddon(plugin.video.themoviedb.helper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
     <!-- Studio header, either local or online -->
     <variable name="InfoListStudioHeader">
@@ -1002,7 +1002,7 @@
     </variable>
     <!-- Single Search content sources -->
     <variable name="SingleSearchContent">
-        <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),Online)">plugin://plugin.video.themoviedb.helper?info=discover&amp;$INFO[Skin.String(OnlineMediaType)]&amp;$INFO[Skin.String(OnlineCallType)]=$INFO[Skin.String(SingleSearchTerm)]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),Online)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$INFO[Skin.String(OnlineMediaType)]&amp;$INFO[Skin.String(OnlineCallType)]=$INFO[Skin.String(SingleSearchTerm)]&amp;nextpage=false</value>
 		<value condition="String.IsEqual(Window(Home).Property(SingleSearchType),OnlineTotals)">plugin://plugin.video.themoviedb.helper?info=$INFO[Skin.String(OnlineTotalsCall)]&amp;type=person&amp;tmdb_id=$INFO[Skin.String(SingleSearchID)]&amp;nextpage=false</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalMovieGenre)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
         <value condition="String.IsEqual(Window(Home).Property(SingleSearchType),LocalTVShowGenre)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Skin.String(SingleSearchTerm)]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
@@ -1926,7 +1926,7 @@
             <height>1</height>
             <itemlayout height="1" width="1" />
             <focusedlayout height="1" width="1" />
-            <content>plugin://plugin.video.themoviedb.helper/?info=details&amp;$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</content>
+            <content>plugin://plugin.video.themoviedb.helper/?info=details&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]</content>
         </control>
     </include>
 
