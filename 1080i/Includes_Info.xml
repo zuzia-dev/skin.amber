@@ -1146,18 +1146,20 @@
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.NumItems.DBID.Episodes))">$INFO[Window(Home).Property(TMDbHelper.ListItem.NumItems.DBID.Episodes)]</value>
 	</variable>
 
+    <!-- Begin Matrix change -->
     
     <variable name="VideoInfoButton8">
         <value condition="String.IsEmpty(ListItem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))">$LOCALIZE[15067]</value>
         <value condition="!String.IsEmpty(ListItem.Property(tmdb_id))">$LOCALIZE[15067]</value>
 		<value condition="String.IsEqual(ListItem.DBType,season)">$LOCALIZE[20360]</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[1024]</value>
-		<value condition="String.IsEqual(ListItem.DBType,set)">$LOCALIZE[342]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set)">$LOCALIZE[1024]</value>
 		<value condition="ListItem.IsResumable">$LOCALIZE[13404]</value>
 		<value condition="ListItem.IsFolder">$LOCALIZE[1024]</value>
 		<value>$LOCALIZE[208]</value>
 	</variable>
     
+	<!-- End Matrix change -->
+	
     <variable name="VideoInfoBackground">
         <value condition="Skin.HasSetting(Enable.BlurredVideoInfo)">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
         <value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
