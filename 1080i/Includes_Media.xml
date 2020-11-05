@@ -111,6 +111,16 @@
 		<value condition="String.Contains(VideoPlayer.FileNameAndPath,10bit) | String.Contains(VideoPlayer.FileNameAndPath,10-bit)">badges/colorrange/10bit.png</value>
 		<value condition="String.Contains(VideoPlayer.FileNameAndPath,12bit) | String.Contains(VideoPlayer.FileNameAndPath,12-bit)">badges/colorrange/12bit.png</value>
 	</variable>
+	
+	<!-- Begin Matrix change -->
+	
+	<variable name="PVRStatusImageVar">
+		<value condition="ListItem.IsRecording">img/PVR-IsRecording</value>
+		<value condition="ListItem.HasTimer | ListItem.HasTimerSchedule">img/PVR-HasTimer</value>
+		<value condition="ListItem.HasArchive">img/PVR-HasArchive</value>
+	</variable>
+	
+	<!-- End Matrix change -->
 
 	<include name="ListWatchedOverlay">
 		<param name="isFocused">false</param>
@@ -779,17 +789,20 @@
 		</definition>
 	</include>
 
-
+    <!-- Begin Matrix change -->
+	
 	<include name="RecOverlay">
 		<control type="image">
 			<posx>880</posx>
 			<width>24</width>
 			<height>99</height>
-			<texture>img/PVR-IsRecording.png</texture>
+			<texture>$VAR[PVRStatusImageVar]</texture>
 			<aspectratio>keep</aspectratio>
-			<visible>ListItem.IsRecording</visible>
+			<visible>ListItem.IsRecording | ListItem.HasTimer | ListItem.HasTimerSchedule | ListItem.HasArchive</visible>
 		</control>
 	</include>
+	
+	<!-- End Matrix change -->
 
 	<include name="MediaFlagItems">
 		<param name="itemwidth" default="90"/>
