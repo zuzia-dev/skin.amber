@@ -589,14 +589,21 @@
 
     <variable name="PVROverlay" description="PVR Overlay image">
         <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
-        <value condition="ListItem.HasTimer | ListItem.HasTimerSchedule">img/PVR-HasTimer.png</value>
+        
+		<!-- Begin Matrix changes -->
+        <value condition="ListItem.HasReminder">img/PVR-HasReminder.png</value>
+		<value condition="ListItem.IsPlayable">img/PVR-HasArchive.png</value>
+		<value condition="ListItem.HasTimerSchedule + ListItem.TimerHasError">img/PVR-HasTimerScheduleError.png</value>
+		<value condition="ListItem.HasTimer + ListItem.TimerHasError">img/PVR-HasTimerError.png</value>
+		<value condition="ListItem.HasTimerSchedule + ListItem.TimerHasConflict">img/PVR-HasTimerScheduleConflict.png</value>
+		<value condition="ListItem.HasTimer + ListItem.TimerHasConflict">img/PVR-HasTimerConflict.png</value>
+		<value condition="ListItem.HasRecording">img/PVR-HasRecording.png</value>
+		<value condition="ListItem.HasTimerSchedule + !ListItem.TimerIsActive">img/PVR-HasTimerScheduleDisabled.png</value>
+		<value condition="ListItem.HasTimer + !ListItem.TimerIsActive">img/PVR-HasTimerDisabled.png</value>
+		<value condition="ListItem.HasTimerSchedule">img/PVR-HasTimerSchedule.png</value>
+		<!-- End Matrix changes -->
     </variable>
 
-    <variable name="PVROverlay(Focused)" description="PVR Overlay image">
-        <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
-        <value condition="ListItem.HasTimer | ListItem.HasTimerSchedule">img/PVR-HasTimer(focused).png</value>
-    </variable>
-	
     <variable name="ListItem.ratingbadge">
         <value condition="!String.IsEmpty(ListItem.UserRating)">$INFO[ListItem.UserRating,badges/ratings/rating,.png]</value>
         <value condition="String.IsEmpty(ListItem.UserRating) + !String.IsEmpty(ListItem.dbtype)">badges/ratings/ratingNR.png</value>
