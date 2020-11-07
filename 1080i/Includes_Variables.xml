@@ -604,6 +604,15 @@
 		<value condition="ListItem.IsNew | ListItem.IsPremiere | ListItem.IsFinale | ListItem.IsLive">img/PVR-Premiere</value>
 		<!-- End Matrix changes -->
     </variable>
+	
+	<!-- Begin Matrix change -->
+	<variable name="NewLiveFinaleLabel">
+		<value condition="ListItem.IsPremiere">[B][COLOR=$VAR[HighlightColor]]$LOCALIZE[838][/COLOR][/B]</value>
+		<value condition="ListItem.IsFinale">[B][COLOR=$VAR[HighlightColor]]$LOCALIZE[849][/COLOR][/B]</value>
+		<value condition="ListItem.IsLive">[B][COLOR=$VAR[HighlightColor]]$LOCALIZE[839][/COLOR][/B]</value>
+		<value condition="ListItem.IsNew">[B][COLOR=$VAR[HighlightColor]]$LOCALIZE[842][/COLOR][/B]</value>
+	</variable>
+	<!-- End Matrix change -->
 
     <variable name="ListItem.ratingbadge">
         <value condition="!String.IsEmpty(ListItem.UserRating)">$INFO[ListItem.UserRating,badges/ratings/rating,.png]</value>
@@ -749,7 +758,11 @@
         <value condition="String.IsEqual(ListItem.DBType,artist) + !Skin.HasSetting(Hide.Label2.Lists)">$VAR[BornLabelVar]$VAR[FormedLabelVar]</value>
         <value condition="String.IsEqual(ListItem.DBType,artist) + Skin.HasSetting(Hide.Label2.Lists)">$VAR[BornLabelVar]$VAR[FormedLabelVar] $VAR[AddedLabelVar]</value>
         <value condition="Container.Content(images) + !ListItem.IsFolder">$INFO[Listitem.Size]$INFO[ListItem.PictureDateTime, • ,]</value>
-        <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] </value>
+        
+		<!-- Begin Matrix change -->
+		<value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[142] [/COLOR]$INFO[ListItem.StartTime,, / ]$INFO[ListItem.EndTime] $VAR[NewLiveFinaleLabel]</value>
+		<!-- End Matrix change -->
+		
         <value condition="Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml)">$INFO[ListItem.Date] $INFO[ListItem.ChannelName,  •  ]</value>
         <value condition="Window.IsActive(MyPVRRecordings.xml) + !Skin.HasSetting(Enable.HourMinutes)">$INFO[ListItem.Duration,[COLOR=Grey3] [/COLOR]]</value>
         <value condition="Window.IsActive(MyPVRRecordings.xml) + Skin.HasSetting(Enable.HourMinutes)">$VAR[ItemDurationHrMins,[COLOR=Grey3] [/COLOR]]</value>
