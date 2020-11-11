@@ -199,6 +199,11 @@
         <value condition="!String.IsEmpty(Container.Art(fanart))">$INFO[Container.Art(fanart)]</value>
         <value>$VAR[SubDefaultBackground]</value>
     </variable>
+	
+	<variable name="ExtraFanart.Art">
+		<value condition="!String.IsEmpty(Control.GetLabel(4411))">$INFO[Control.GetLabel(4411)]</value>
+		<value condition="!String.IsEmpty(Control.GetLabel(4410))">$INFO[Control.GetLabel(4410)]</value>
+	</variable>
 
     <variable name="SubBackground">
 		<value condition="Window.IsActive(service-LibreELEC-Settings-mainWindow.xml)">special://skin/backgrounds/LibreELEC.jpg</value>
@@ -313,6 +318,16 @@
 		<value condition="String.IsEqual(Container(300).ListItem.Property(background),nodeBackground) + String.IsEqual(Container(300).ListItem.Property(EHPlaylistFanart),true) + System.HasAddon(script.embuary.helper)">$INFO[Container(9992).ListItem.Label]</value>
 		<value></value>
     </variable>
+	
+	<expression name="ExtraFanartPresent">!String.IsEmpty(ListItem.Art(fanart1)) | !String.IsEmpty(Container.ListItem.Art(fanart1)) | 
+	                                      !String.IsEmpty(ListItem.Art(tvshow.fanart1)) | !String.IsEmpty(Container.ListItem.Art(tvshow.fanart1)) | 
+										  !String.IsEmpty(ListItem.Art(artist.fanart1)) | !String.IsEmpty(Container.ListItem.Art(artist.fanart1)) | 
+										  !String.IsEmpty(ListItem.Art(albumartist.fanart1)) | !String.IsEmpty(Container.ListItem.Art(albumartist.fanart1))</expression>
+										  
+	<expression name="ShowExtraFanartOnInfo">[Container.Content(episodes) + Skin.HasSetting(56_Episodes_Info_ExtraFanart)] | 
+	                                         [[Container.Content(albums) | Container.Content(artists)] + Skin.HasSetting(56_Music_Info_ExtraFanart)] | 
+											 [[Container.Content(musicvideos) | Container.Content(movies) | container.content(sets) | Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(56_Posters_Info_ExtraFanart)]</expression>
+
 
 
     <include name="DefaultBackground">

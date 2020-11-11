@@ -105,140 +105,15 @@
                     <onup>9009</onup>
                     <ondown>9009</ondown>
                     <onleft>90003</onleft>
+					
+					<!-- Begin Matrix change -->
 					<content>
-						<item>
-							<label>$LOCALIZE[557]:</label>
-							<label2>$INFO[ListItem.Artist]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Artist) + !Container.Content(artists)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[558]:</label>
-							<label2>$INFO[ListItem.Album]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Album)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[562]:</label>
-							<label2>$INFO[ListItem.Year]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Year)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[38018]:</label>
-							<label2>$INFO[ListItem.UserRating]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.UserRating)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[563]:</label>
-							<label2>$INFO[ListItem.RatingAndVotes]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.RatingAndVotes)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[175]:</label>
-							<label2>$INFO[ListItem.Property(Album_Mood)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Album_Mood))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[176]:</label>
-							<label2>$INFO[ListItem.Property(Album_Style)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Album_Style))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21895]:</label>
-							<label2>$INFO[ListItem.Property(Album_Theme)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Album_Theme))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[146]:</label>
-							<label2>$INFO[ListItem.Property(Album_Type)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Album_Type))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21899]:</label>
-							<label2>$INFO[ListItem.Property(Album_Label)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21893]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Born)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Born))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21894]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Formed)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Formed))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[515]:</label>
-							<label2>$INFO[ListItem.Genre]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Genre)</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[175]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Mood)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[176]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Style)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Style))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21892]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Instrument)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Instrument))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21897]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Died)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Died))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21896]:</label>
-							<label2>$INFO[ListItem.Property(Artist_Disbanded)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_Disbanded))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[21898]:</label>
-							<label2>$INFO[ListItem.Property(Artist_YearsActive)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[562]:</label>
-							<label2>$INFO[ListItem.Property(ListItem.Year)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(ListItem.Year))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[554]:</label>
-							<label2>$INFO[ListItem.Property(ListItem.TrackNumber)]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Property(ListItem.TrackNumber))</visible>
-						</item>
-						<item>
-							<label>$LOCALIZE[573]:</label>
-							<label2>$INFO[ListItem.Path]</label2>
-							<onclick>noop</onclick>
-							<visible>!String.IsEmpty(ListItem.Path)</visible>
-						</item>
+						<include condition="String.IsEqual(ListItem.DBTYPE,artist)">MusicInfoArtistInfo</include>
+						<include condition="String.IsEqual(ListItem.DBTYPE,album)">MusicInfoAlbumInfo</include>
+						<include condition="String.IsEqual(ListItem.DBTYPE,song)">MusicInfoSongInfo</include>
 					</content>
+					<!-- End Matrix change -->
+					
 				</control>
 			</control>
 		</control>

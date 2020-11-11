@@ -38,7 +38,7 @@
 	</include>
 	<include name="MovieFanartThumb">
 		<texture background="true">$VAR[Poster]</texture>
-		<aspectratio aligny="top">scale</aspectratio>
+		<aspectratio aligny="top">stretch</aspectratio>
 	</include>
 	<include name="MovieFanartReflection">
 		<posx>15</posx>
@@ -47,7 +47,7 @@
 		<height>312</height>
 		<colordiffuse>229e9e9e</colordiffuse>
 		<texture background="true" flipy="true">$VAR[Poster]</texture>
-		<aspectratio aligny="top">scale</aspectratio>
+		<aspectratio aligny="top">stretch</aspectratio>
 	</include>
 	
 	<include name="SquareFanartThumbDimensions">
@@ -717,6 +717,7 @@
                     </control>                
                 
 			    </control>
+				
 			    <!-- Info panel details -->
 				<control type="group" description="item details">
 				    <include>ContentFade</include>
@@ -839,14 +840,26 @@
 							    <texture border="8">img/WhiteRoundedST2.png</texture>
 							    <aspectratio>stretch</aspectratio>
 						    </control>
-						    <control type="multiimage" description="FA">
+						    <control type="image" description="Single Fanart">
 							    <posx>1023</posx>
 							    <posy>105</posy>
 							    <width>628</width>
 							    <height>348</height>
-							    <include>BG.Defaults</include>
-							    <imagepath background="true">$VAR[Fanart.Art]</imagepath>
+							    <texture>$VAR[Fanart.Art]</texture>
 							    <aspectratio aligny="top">scale</aspectratio>
+								<visible>![$EXP[ShowExtraFanartOnInfo]] | ![$EXP[ExtraFanartPresent]]</visible>
+						    </control>
+						    <control type="multiimage" description="Extra Fanart">
+							    <posx>1023</posx>
+							    <posy>105</posy>
+							    <width>628</width>
+							    <height>348</height>
+								<timeperimage>8000</timeperimage>
+                                <fadetime>400</fadetime>
+								<randomize>true</randomize>
+							    <imagepath background="true">$VAR[ExtraFanart.Art]</imagepath>
+							    <aspectratio aligny="top">scale</aspectratio>
+								<visible>$EXP[ShowExtraFanartOnInfo] + $EXP[ExtraFanartPresent]</visible>
 						    </control>
 					    </control>
 				    </control>
