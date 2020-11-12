@@ -209,15 +209,23 @@
 		<value condition="Integer.IsGreaterOrEqual(ListItem.PercentPlayed,90) + Integer.IsLess(ListItem.PercentPlayed,100)">overlays/toprightinprogress90.png</value>
     </variable>
 
-    <variable name="AddonOverlay" description="Overlay image">
-        <value condition="!String.IsEmpty(ListItem.AddonBroken)">QuitNF.png</value>
+    <!-- Begin Matrix change: changes in addon lifecycle -->
+    <variable name="AddonLifecycleType">
+		<value condition="String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24170])">[COLOR=$VAR[HighlightColor]]$LOCALIZE[24170][/COLOR][CR]$INFO[ListItem.AddonLifecycleDesc]</value> <!-- Deprecated -->
+		<value condition="String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24171])">[COLOR=$VAR[HighlightColor]]$LOCALIZE[24171][/COLOR][CR]$INFO[ListItem.AddonLifecycleDesc]</value> <!-- Broken -->
+	</variable>
+	<variable name="AddonOverlay" description="Overlay image">
+        <value condition="[String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24170]) | String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24171])] + !ListItem.Property(addon.isenabled)">QuitNF.png</value>
         <value condition="ListItem.Property(addon.orphaned)">icons/orphan.png</value>
         <value condition="ListItem.Property(addon.downloading)">OverlayInProgress.png</value>
-        <value condition="ListItem.Property(addon.isinstalled) + !ListItem.Property(addon.isenabled)">addondisabled.png</value>
-        <value condition="ListItem.Property(addon.hasupdate)">RestartNF.png</value>
-        <value condition="ListItem.Property(addon.isinstalled)">OverlayWatched.png</value>
+        <value condition="ListItem.Property(addon.isinstalled) + !ListItem.Property(addon.isenabled) + Window.IsActive(addonbrowser)">addondisabled.png</value>
+        <value condition="ListItem.Property(addon.hasupdate) | ListItem.Property(addon.isupdate)">RestartNF.png</value>
+        <value condition="ListItem.Property(addon.isenabled) + String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24169])">OverlayWatched.png</value>
+		<value condition="ListItem.Property(addon.isenabled) + String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24170])">icons/enabled-deprecated.png</value>
+		<value condition="ListItem.Property(addon.isenabled) + String.IsEqual(ListItem.AddonLifecycleType,$LOCALIZE[24171])">icons/enabled-broken.png</value>
         <value condition="!ListItem.IsParentFolder">OverlayUnwatched.png</value>
     </variable>
+    <!-- End Matrix changes -->
 
     <variable name="Countries">
         <value condition="!String.IsEmpty(Skin.String(moviecountryiconsResource.path)) + String.IsEqual(Skin.String(moviecountryiconsResource.ext),.png)">$INFO[Skin.String(moviecountryiconsresource.path)]$INFO[ListItem.Label,,.png]</value>
