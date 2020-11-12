@@ -951,10 +951,11 @@
         <value condition="String.IsEmpty(ListItem.Property(Art(landscape)))">$INFO[ListItem.Property(Art(fanart))]</value>
     </variable>
 
+    <!-- Begin Matrix change: Specials are now season 0 -->
     <variable name="SeasonEpisodeLabel">
         <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(air_day))">$INFO[ListItem.Property(air_time)]$INFO[ListItem.Property(Studio.1.Name), @ ,]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(airday))">$INFO[ListItem.Property(airtime)]$INFO[ListItem.Studio, @ ,]</value>
-		<value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + [String.IsEmpty(ListItem.Season) | String.Contains(ListItem.Episode,s)]">$INFO[ListItem.Episode]</value>
+		<value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + String.IsEmpty(ListItem.Season)">$INFO[ListItem.Episode]</value>
         <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + Integer.IsLess(ListItem.Episode,10) + Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,s0,]$INFO[ListItem.Episode,e0,]</value>
         <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + Integer.IsLess(ListItem.Episode,10) + !Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,s,]$INFO[ListItem.Episode,e0,]</value>
         <value condition="[Container.Content(episodes) | String.IsEqual(ListItem.DBType,episode)] + !Integer.IsLess(ListItem.Episode,10) + Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,s0,]$INFO[ListItem.Episode,e,]</value>
@@ -963,13 +964,13 @@
     </variable>
 	
 	<variable name="SeasonLabel2">
-		<value condition="[String.IsEmpty(ListItem.Season) | String.Contains(ListItem.Episode,s)]"></value>
+		<value condition="String.IsEmpty(ListItem.Season)"></value>
         <value condition="Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,s0,e]</value>
         <value condition="!Integer.IsLess(ListItem.Season,10)">$INFO[ListItem.Season,s,e]</value>
     </variable>
 
     <variable name="PlayerSeasonEpisodeLabel">
-        <value condition="[String.IsEmpty(Player.Season) | String.Contains(Player.Episode,s)]">$INFO[Player.Episode]</value>
+        <value condition="String.IsEmpty(Player.Season)">$INFO[Player.Episode]</value>
         <value condition="Integer.IsLess(Player.Episode,10) + Integer.IsLess(Player.Season,10)">$INFO[Player.Season,s0,]$INFO[Player.Episode,e0,]</value>
         <value condition="Integer.IsLess(Player.Episode,10) + !Integer.IsLess(Player.Season,10)">$INFO[Player.Season,s,]$INFO[Player.Episode,e0,]</value>
         <value condition="!Integer.IsLess(Player.Episode,10) + Integer.IsLess(Player.Season,10)">$INFO[Player.Season,s0,]$INFO[Player.Episode,e,]</value>
@@ -977,12 +978,13 @@
     </variable>
 
     <variable name="UpNextSeasonEpisodeLabel">
-        <value condition="[String.IsEmpty(Window.Property(Season)) | String.Contains(Window.Property(Episode),s)]">$INFO[Window.Property(Episode)]</value>
+        <value condition="String.IsEmpty(Window.Property(Season))">$INFO[Window.Property(Episode)]</value>
         <value condition="Integer.IsLess(Window.Property(Episode),10) + Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),s0,]$INFO[Window.Property(Episode),e0,]</value>
         <value condition="Integer.IsLess(Window.Property(Episode),10) + !Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),s,]$INFO[Window.Property(Episode),e0,]</value>
         <value condition="!Integer.IsLess(Window.Property(Episode),10) + Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),s0,]$INFO[Window.Property(Episode),e,]</value>
         <value condition="!Integer.IsLess(Window.Property(Episode),10) + !Integer.IsLess(Window.Property(Season),10)">$INFO[Window.Property(Season),s,]$INFO[Window.Property(Episode),e,]</value>
     </variable>
+	<!-- End Matrix change -->
 
     <variable name="UpNextThumbVar">
         <value condition="String.IsEmpty(Window.Property(fanart)) + String.IsEmpty(Window.Property(landscape))">$INFO[Window.Property(Thumb)]</value>
