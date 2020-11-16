@@ -42,6 +42,7 @@
     <include file="View_56_Fanart.xml" />
     <include file="View_501_TallList.xml" />
 	<include file="View_57_SimpleList.xml" />
+	<include file="View_600_Triple.xml" />
     <include file="View_PVR.xml" />
 
     <include name="ContentFade">
@@ -586,12 +587,20 @@
                 <texture border="45">dialogs/TinyDialog.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                 <visible>Integer.IsEqual(Container(9600).NumItems,11)</visible>
+            </control>
+            <control type="image">
+                <posy>92</posy>
+                <width>300</width>
+                <height>702</height>
+                <texture border="45">dialogs/TinyDialog.png</texture>
+				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                <visible>Integer.IsEqual(Container(9600).NumItems,12)</visible>
             </control>            
             <control type="grouplist" id="9600">
                 <posx>26</posx>
                 <posy>116</posy>
                 <width>248</width>
-                <height>644</height>
+                <height>702</height>
                 <onleft>9000</onleft>
                 <onright condition="control.isvisible(52)">52</onright>
 		        <onright condition="control.isvisible(50)">50</onright>
@@ -604,6 +613,7 @@
 		        <onright condition="control.isvisible(53)">53</onright>
 		        <onright condition="control.isvisible(56)">56</onright>
 				<onright condition="control.isvisible(57)">57</onright>
+				<onright condition="control.isvisible(600)">600</onright>
                 <onup>9600</onup>
                 <ondown>9600</ondown>
                 <onback>9000</onback>
@@ -685,6 +695,13 @@
                     <label>$LOCALIZE[31632]</label>
                     <onclick>Container.SetViewMode(57)</onclick>
                     <visible>!Skin.HasSetting(hide.simplelistview)</visible>
+                </control>
+				<control type="button" id="96600">
+                    <description>Set View 600</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[31157]</label>
+                    <onclick>Container.SetViewMode(600)</onclick>
+                    <visible>!Skin.HasSetting(hide.tripleview) + [Container.Content(tvshows) | Container.Content(artists)]</visible>
                 </control>
             </control>
         </control>
@@ -1140,6 +1157,7 @@
 		<onright condition="Control.IsVisible(53)">53</onright>
 		<onright condition="Control.IsVisible(56)">56</onright>
 		<onright condition="Control.IsVisible(57)">57</onright>
+		<onright condition="Control.IsVisible(600)">600</onright>
         <onup>9000</onup>
         <ondown>9000</ondown>
 	    <onback condition="Control.IsVisible(52)">52</onback>
@@ -1153,6 +1171,7 @@
 		<onback condition="Control.IsVisible(53)">53</onback>
 		<onback condition="Control.IsVisible(56)">56</onback>
 		<onback condition="Control.IsVisible(57)">57</onback>
+		<onback condition="Control.IsVisible(600)">600</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
         <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
@@ -3112,8 +3131,10 @@
 
 	<include name="ScriptJumpToLetter">
 		<control type="group">
-			<visible>System.HasAddon(script.embuary.helper)</visible>
-			<visible>[Container.HasNext | Container.HasPrevious] + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+			<visible>System.HasAddon(script.embuary.helper) + !String.IsEqual(Container.Viewmode,$LOCALIZE[31157]) + 
+			         [Container.HasNext | Container.HasPrevious] + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | 
+					                                                String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | 
+																	String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
 			<control type="button" id="61501">
 				<visible>!Control.IsVisible(56)</visible>
 				<label />
@@ -3147,6 +3168,9 @@
                     <texture border="0,30,0,0">common/viewmenu.png</texture> 
                 </control>
 			    <control type="list" id="615">
+				    <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | 
+					          String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | 
+							  String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
 				    <top>43</top>
 				    <width>40</width>
 				    <height>1040</height>
@@ -3195,6 +3219,9 @@
 					<effect type="slide" start="0" end="0,-40" time="480" tween="cubic" easing="out" />
 				</animation>
 				<control type="list" id="616">
+				    <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | 
+					          String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | 
+							  String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
 				    <left>430</left>
 				    <width>1080</width>
 				    <height>40</height>
@@ -3232,10 +3259,76 @@
 			    </control>
 			</control>
 		</control>
+		<!-- Jump to letter for Triple view -->
+		<control type="group">
+			<visible>System.HasAddon(script.embuary.helper) + String.IsEqual(Container.Viewmode,$LOCALIZE[31157]) + 
+			         [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | 
+					  String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | 
+					  String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+			<control type="button" id="61701">
+				<label />
+				<left>1</left>
+				<width>40</width>
+				<height>1040</height>
+				<texturefocus />
+				<texturenofocus />
+			</control>
+			<control type="group">
+			    <left>-40</left>
+			    <height>1040</height>
+			    <animation type="Conditional" condition="[Control.HasFocus(617) | Control.HasFocus(61701)] + !System.HasActiveModalDialog" reversible="true">
+    				<effect type="slide" start="0" end="40" time="480" tween="cubic" easing="out" />
+			    </animation>
+			    <control type="image" description="background overlay">
+                    <visible>Control.IsVisible(617)</visible>
+                    <left>1</left>
+                    <top>41</top>
+                    <width>40</width>
+                    <height>1040</height>
+                    <texture border="0,30,0,0">common/viewmenu.png</texture> 
+                </control>
+			    <control type="list" id="617">
+				    <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | 
+					          String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | 
+							  String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+					<top>43</top>
+				    <width>40</width>
+				    <height>1040</height>
+                    <onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
+                    <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
+                    <onback>SetFocus(600)</onback>
+                    <onright condition="Control.IsVisible(600)">600</onright>
+				    <itemlayout height="37" width="40">
+					    <control type="label">
+						    <height>37</height>
+						    <align>center</align>
+						    <font>ListDetails</font>
+						    <label>$INFO[ListItem.Label]</label>
+					    </control>
+				    </itemlayout>
+				    <focusedlayout height="37" width="40">
+			            <control type="image">
+				            <left>-4</left>
+				            <width>44</width>
+				            <height>41</height>
+				            <texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+			            </control>					
+                        <control type="label">
+						    <height>37</height>
+						    <align>center</align>
+						    <font>ListDetails</font>
+						    <textcolor>$VAR[FocusedTextColor]</textcolor>
+						    <label>$INFO[ListItem.Label]</label>
+					    </control>
+				    </focusedlayout>
+				    <content>plugin://script.embuary.helper/?info=jumptoletter&amp;showall=true&amp;reload=$INFO[Container.NumItems]</content>
+			    </control>
+			</control>
+		</control>	
     </include>
 	
 	<include name="ViewIDs">
-        <views>50,51,511,52,53,54,55,551,56,501,57</views>
+        <views>50,51,511,52,53,54,55,551,56,501,57,600</views>
 		<defaultcontrol>50</defaultcontrol>
 		<onload>SetFocus(50)</onload>
     </include>
