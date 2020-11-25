@@ -64,6 +64,8 @@
 	<variable name="AudioCodecFlagVar">
 		<value condition="String.Contains(Container.ListItem.FileNameAndPath,atmos)">badges/audiocodec/atmos.png</value>
 		<value condition="String.Contains(Container.ListItem.FileNameAndPath,dtsx) | String.Contains(Container.ListItem.FileNameAndPath,dts-x)">badges/audiocodec/dtsx.png</value>
+		<value condition="String.Contains(Container.ListItem.AudioCodec,aac)">badges/audiocodec/aac.png</value>
+		<value condition="[String.Contains(Container.ListItem.AudioCodec,ac3) | String.Contains(Container.ListItem.AudioCodec,ac-3) | String.Contains(Container.ListItem.AudioCodec,a-c-3)]">badges/audiocodec/ac3.png</value>
 		<value>$INFO[Container.ListItem.AudioCodec,badges/audiocodec/,.png]</value>
 	</variable>
 	
@@ -856,7 +858,29 @@
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 				<texture>badges/3D.png</texture>
-			</control>            
+			</control> 
+            <control type="image" id="89007">
+				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[HDRFlagVar]</texture>
+			</control>
+			<control type="image" id="89008">
+				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
+				<visible>$PARAM[showvideobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[BitDepthFlagVar]</texture>
+			</control>			
 			<control type="image" id="89004">
 				<visible>!String.IsEmpty($PARAM[type].AudioCodec)</visible>
 				<visible>$PARAM[showaudiobadge]</visible>
@@ -900,28 +924,7 @@
 				<texture>$VAR[$PARAM[type].ratingbadge]</texture>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 			</control>
-			<control type="image" id="89007">
-				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
-				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
-				<visible>$PARAM[showvideobadge]</visible>
-				<height>$PARAM[itemheight]</height>
-				<width>$PARAM[itemwidth]</width>
-				<bordersize>3</bordersize>
-				<aspectratio>keep</aspectratio>
-				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-				<texture>$VAR[HDRFlagVar]</texture>
-			</control>
-			<control type="image" id="89008">
-				<visible>!String.IsEmpty($PARAM[type].VideoResolution)</visible>
-				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo) + Skin.HasSetting(Show.ColorRangeFlags) + [$EXP[ContainerIsHDR] | $EXP[ListItemIsHDR]]</visible>
-				<visible>$PARAM[showvideobadge]</visible>
-				<height>$PARAM[itemheight]</height>
-				<width>$PARAM[itemwidth]</width>
-				<bordersize>3</bordersize>
-				<aspectratio>keep</aspectratio>
-				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-				<texture>$VAR[BitDepthFlagVar]</texture>
-			</control>
+			
 		</definition>
 	</include>
 	
@@ -3596,7 +3599,7 @@
 			<posx>150</posx>
 			<width>1620</width>
 			<control type="label" description="Title shadow">
-				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]">Conditional</animation>
 				<left>4</left>
 				<top>4</top>
 				<width>1620</width>
@@ -3609,7 +3612,7 @@
 				<label>$VAR[panelheading]</label>
 			</control>
 			<control type="label" description="Title Label">
-				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo]]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]">Conditional</animation>
 				<width>1620</width>
 				<height>50</height>
 				<align>center</align>
@@ -3620,8 +3623,17 @@
 				<label>$VAR[panelheading]</label>
 			</control>
 			<control type="label" description="Details">
-				<visible>Control.IsVisible(53) | [Control.IsVisible(56) + ![$EXP[56_FanartViewInfo]]]</visible>
+				<visible>Control.IsVisible(53) | [Control.IsVisible(56) + [![$EXP[56_FanartViewInfo]] + ![$EXP[56_FanartViewNetflix]]]]</visible>
 				<posy>59</posy>
+				<width>1620</width>
+				<height>30</height>
+				<align>center</align>
+				<shadowcolor>Black</shadowcolor>
+				<label>$VAR[panelsubheading]</label>
+			</control>
+			<control type="label" description="Details">
+				<visible>[Control.IsVisible(56) + $EXP[56_FanartViewNetflix] + ListItem.IsCollection]</visible>
+				<posy>79</posy>
 				<width>1620</width>
 				<height>30</height>
 				<align>center</align>
