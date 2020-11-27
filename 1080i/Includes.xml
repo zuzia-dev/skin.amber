@@ -89,7 +89,7 @@
             <effect type="zoom" tween="cubic" easing="in" start="100" end="30" center="960,540" time="140" />
         </animation>
     </include>
-    <include name="WeatherAni0">
+    <include name="WeatherAni1">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" />
         </animation>
@@ -98,7 +98,7 @@
         </animation>
         <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
     </include>
-    <include name="WeatherAni1">
+    <include name="WeatherAni2">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="150" />
         </animation>
@@ -107,7 +107,7 @@
         </animation>
         <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
     </include>
-    <include name="WeatherAni2">
+    <include name="WeatherAni3">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="300" />
         </animation>
@@ -116,7 +116,7 @@
         </animation>
         <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
     </include>
-    <include name="WeatherAni3">
+    <include name="WeatherAni4">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="450" />
         </animation>
@@ -125,7 +125,7 @@
         </animation>
         <animation effect="slide" start="0,0" end="0,-450" time="200" condition="Skin.HasSetting(Weather8DayForecast)">Conditional</animation>
     </include>
-    <include name="WeatherAni4">
+    <include name="WeatherAni5">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="600" />
         </animation>
@@ -133,7 +133,7 @@
             <effect type="fade" start="100" end="0" time="100" delay="600" />
         </animation>
     </include>
-    <include name="WeatherAni5">
+    <include name="WeatherAni6">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="750" />
         </animation>
@@ -141,7 +141,7 @@
             <effect type="fade" start="100" end="0" time="100" delay="750" />
         </animation>
     </include>
-    <include name="WeatherAni6">
+    <include name="WeatherAni7">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="900" />
         </animation>
@@ -149,7 +149,7 @@
             <effect type="fade" start="100" end="0" time="100" delay="900" />
         </animation>
     </include>
-    <include name="WeatherAni7">
+    <include name="WeatherAni8">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="1050" />
         </animation>
@@ -157,7 +157,7 @@
             <effect type="fade" start="100" end="0" time="100" delay="1050" />
         </animation>
     </include>
-    <include name="WeatherAni8">
+    <include name="WeatherAni9">
         <animation type="WindowOpen">
             <effect type="fade" start="80" end="100" time="200" delay="1200" />
         </animation>
@@ -188,7 +188,7 @@
         <control type="image">
             <width>1920</width>
             <height>1080</height>
-            <texture>img/BlackDotT.png</texture>
+            <texture>img/blackdott1.png</texture>
         </control>
     </include>
     <include name="Dimensions_Fullscreen">
@@ -1489,7 +1489,7 @@
                     <font>WeatherTitle</font>
                     <shadowcolor>ShadowDark</shadowcolor>
                     <align>center</align>
-                    <label>$INFO[Window.Property(Day$PARAM[dayid].Title)]</label>
+                    <label>$INFO[Window.Property(Daily.$PARAM[dayid].LongDay)]</label>
                 </control>
                 <control type="label" description="High Temp">
                     <posx>540</posx>
@@ -1497,10 +1497,10 @@
                     <height>150</height>
                     <width>140</width>
                     <font>MainMenu</font>
-                    <textcolor>Red</textcolor>
+                    <textcolor>Blue</textcolor>
                     <align>center</align>
                     <shadowcolor>ShadowDark</shadowcolor>
-                    <label>$INFO[Window.Property(Day$PARAM[dayid].HighTemp)]</label>
+                    <label>$INFO[Window.Property(Daily.$PARAM[dayid].LowTemperature)]</label>
                 </control>
                 <control type="label" description="Low temp">
                     <posx>690</posx>
@@ -1508,17 +1508,17 @@
                     <height>150</height>
                     <width>140</width>
                     <font>MainMenu</font>
-                    <textcolor>Blue</textcolor>
+                    <textcolor>Red</textcolor>
                     <align>center</align>
                     <shadowcolor>ShadowDark</shadowcolor>
-                    <label>$INFO[Window.Property(Day$PARAM[dayid].LowTemp)]</label>
+                    <label>$INFO[Window.Property(Daily.$PARAM[dayid].HighTemperature)]</label>
                 </control>
                 <control type="multiimage" description="Icon">
                     <posx>555</posx>
                     <posy>745</posy>
                     <height>120</height>
                     <width>260</width>
-                    <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Day$PARAM[dayid].FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                    <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Daily.$PARAM[dayid].FanartCode)]$VAR[WeatherIconExt]</imagepath>
                     <aspectratio>keep</aspectratio>
                     <timeperimage>70</timeperimage>
                     <fadetime>1</fadetime>
@@ -1533,7 +1533,7 @@
                     <aligny>center</aligny>
                     <shadowcolor>ShadowDark</shadowcolor>
                     <wrapmultiline>true</wrapmultiline>
-                    <label>$INFO[Window.Property(Day$PARAM[dayid].Outlook)]</label>
+                    <label>$INFO[Window.Property(Daily.$PARAM[dayid].Outlook)]</label>
                 </control>
             </control>
         </definition>
