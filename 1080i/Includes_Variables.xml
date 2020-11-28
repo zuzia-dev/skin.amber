@@ -348,7 +348,7 @@
 	</variable>
 	
 	<variable name="Landscape">
-	    <value condition="String.IsEqual(ListItem.Label,$LOCALIZE[20366])">defaultepisode.png</value>
+	    <value condition="String.IsEqual(ListItem.Label,$LOCALIZE[20366])">DefaultEpisode.png</value>
 		<value condition="!String.IsEmpty(ListItem.Thumb) + Container.Content(episodes)">$INFO[ListItem.Thumb]</value>
 		<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
@@ -1710,7 +1710,14 @@
 	</variable>
 	<!-- End Matrix change -->
 	
-    <expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
+    <variable name="DefaultFontLabel">
+	    <value condition="Skin.HasSetting(Smaller.Fonts)">$LOCALIZE[31118]</value>
+		<value condition="Skin.HasSetting(Regular.Fonts)">$LOCALIZE[31119]</value>
+		<value condition="Skin.HasSetting(Large.Fonts)">$LOCALIZE[31120]</value>
+		<value>$LOCALIZE[31119]</value>
+	</variable>
+	
+	<expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
     
     <expression name="SortLetterIsNumber">[String.IsEqual(ListItem.SortLetter,$NUMBER[0]) | String.IsEqual(ListItem.SortLetter,$NUMBER[1]) | String.IsEqual(ListItem.SortLetter,$NUMBER[2]) | String.IsEqual(ListItem.SortLetter,$NUMBER[3]) | String.IsEqual(ListItem.SortLetter,$NUMBER[4]) | String.IsEqual(ListItem.SortLetter,$NUMBER[5]) | String.IsEqual(ListItem.SortLetter,$NUMBER[6]) | String.IsEqual(ListItem.SortLetter,$NUMBER[7]) | String.IsEqual(ListItem.SortLetter,$NUMBER[8]) | String.IsEqual(ListItem.SortLetter,$NUMBER[9])]</expression>
     
@@ -1772,8 +1779,8 @@
 	                              String.IsEqual(Container.ViewMode,$LOCALIZE[31963]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32245]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32246])</expression>
 	<expression name="widgetsAreShowing">ControlGroup(700).HasFocus | [Control.HasFocus(300) + !Container(300).ListItem.Property(widgetsHide) + !String.IsEmpty(Container(300).ListItem.Property(widgetPath))]</expression>
 												  
-	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | 
-	                                     Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
+	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(tags) | Container.Content(actors) | 
+	                                     Container.Content(directors) | Container.Content(years) | Container.Content(countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
 										 
 										 
 	<expression name="ContainerIsHDR">[String.Contains(Container.ListItem.Filename,hdr) | String.Contains(Container.ListItem.Filename,sdr)] | 
