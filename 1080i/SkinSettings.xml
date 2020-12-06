@@ -88,27 +88,31 @@
 						<label>$LOCALIZE[32123]</label>
 						<onclick>noop</onclick>
 					</item>
-                    <item id="6" description="Video Info Options">
+					<item id="6" description="Now Playing Options">
+						<label>$LOCALIZE[32300]</label>
+						<onclick>noop</onclick>
+					</item>
+                    <item id="7" description="Video Info Options">
 						<label>$LOCALIZE[32107]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="7" description="Color Options">
+					<item id="8" description="Color Options">
 						<label>$LOCALIZE[32266]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="8" description="Search">
+					<item id="9" description="Search">
 						<label>$LOCALIZE[137]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="9" description="Advanced">
+					<item id="10" description="Advanced">
 						<label>$LOCALIZE[31985]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="10" description="Backup/Restore">
+					<item id="11" description="Backup/Restore">
 						<label>$LOCALIZE[32064]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="11" description="Manage dependencies">
+					<item id="12" description="Manage dependencies">
 						<label>$LOCALIZE[24996]</label>
 						<onclick>noop</onclick>
 					</item>
@@ -366,11 +370,6 @@
 							<param name="itemid" value="6"/>
 							<param name="itemlabel" value="$LOCALIZE[31949]"/>
 							<param name="skinsetting" value="SkinHelper.EnableExtraFanart"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="10"/>
-							<param name="itemlabel" value="$LOCALIZE[31991]"/>
-							<param name="skinsetting" value="Show_Player"/>
 						</include>
 					</content>
 				</control>
@@ -764,14 +763,238 @@
 							<param name="itemlabel" value="$LOCALIZE[31040]"/>
 							<param name="skinsetting" value="Hide.RecordingTitleBar"/>
 						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="5"/>
+							<param name="itemlabel" value="$LOCALIZE[32301]"/>
+							<param name="skinsetting" value="Hide.TitleBarNowPlaying"/>
+						</include>
 					</content>
 				</control>
-                <!-- 9000 6 Video Info options -->
-				<control type="panel" id="9106">
+				<!-- 9000 6 Now Playing Options -->
+				<control type="grouplist" id="9106">
 					<visible>Container(9000).HasFocus(6)</visible>
-					<onright>500</onright>
+                    <posx>495</posx>
+                    <posy>120</posy>
+                    <width>1350</width>
+                    <height>860</height>
+                    <onleft>9000</onleft>
+                    <scrolltime>280</scrolltime>
 					<onup>9106</onup>
 					<ondown>9106</ondown>
+					<control type="button" id="9106100">
+					    <width>1350</width>
+					    <height>60</height>
+						<texturenofocus />
+						<textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Hide.NowPlaying)</onclick>
+						<onclick>Skin.Reset(Hide.TitleBarNowPlaying)</onclick>
+			            <label>$LOCALIZE[32327]</label>
+			            <label2>$LOCALIZE[107]</label2>
+						<visible>Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="9106101">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Hide.NowPlaying)</onclick>
+			            <label>$LOCALIZE[32327]</label>
+			            <label2>$LOCALIZE[106]</label2>
+					    <visible>!Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910601">
+					    <width>1350</width>
+					    <height>60</height>
+						<texturenofocus />
+						<textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Show_VideoBackground)</onclick>
+			            <label>$LOCALIZE[32318]</label>
+			            <label2>$LOCALIZE[107]</label2>
+						<visible>Skin.HasSetting(Show_VideoBackground)</visible>
+		            </control>
+					<control type="button" id="910602">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Show_VideoBackground)</onclick>
+						<onclick>Skin.SetString(NowPlayingMovieInfo,info)</onclick>
+						<onclick>Skin.SetString(NowPlayingVideoInfo,info)</onclick>
+			            <onclick>Skin.Reset(Hide.TitleBarNowPlaying)</onclick>
+						<label>$LOCALIZE[32318]</label>
+			            <label2>$LOCALIZE[106]</label2>
+					    <visible>!Skin.HasSetting(Show_VideoBackground)</visible>
+		            </control>
+					<control type="button" id="910603">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Show_MusicVizBackground)</onclick>
+			            <label>$LOCALIZE[32319]</label>
+			            <label2>$LOCALIZE[107]</label2>
+					    <visible>Skin.HasSetting(Show_MusicVizBackground)</visible>
+		            </control>
+					<control type="button" id="910604">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(Show_MusicVizBackground)</onclick>
+			            <label>$LOCALIZE[32319]</label>
+			            <label2>$LOCALIZE[106]</label2>
+					    <visible>!Skin.HasSetting(Show_MusicVizBackground)</visible>
+		            </control>
+				    <control type="button" id="9106104">
+				        <width>1350</width>
+				        <height>60</height>
+				        <texturenofocus />
+				        <textoffsetx>30</textoffsetx>
+		                <onclick>Skin.ToggleSetting(Zoom.VideoPreview)</onclick>
+		                <label>$LOCALIZE[32334]</label>
+		                <label2>$LOCALIZE[107]</label2>
+				        <visible>Skin.HasSetting(Zoom.VideoPreview)</visible>
+	                </control>
+				    <control type="button" id="9106105">
+				        <width>1350</width>
+				        <height>60</height>
+				        <texturenofocus />
+				        <textoffsetx>30</textoffsetx>
+		                <onclick>Skin.ToggleSetting(Zoom.VideoPreview)</onclick>
+		                <label>$LOCALIZE[32334]</label>
+		                <label2>$LOCALIZE[106]</label2>
+				        <visible>!Skin.HasSetting(Zoom.VideoPreview)</visible>
+	                </control>
+					<control type="button" id="910605">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>$LOCALIZE[32315]</label>
+						<label2>$VAR[NowPlayingHomeMovieInfoLabelVar]</label2>
+						<onclick>SetProperty(CustomSelectNowPlayingMovieInfo,True)</onclick>
+						<onclick>ActivateWindow(1128)</onclick>
+						<visible>!Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910606">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>$LOCALIZE[32316]</label>
+						<label2>$VAR[NowPlayingHomeVideoInfoLabelVar]</label2>
+						<onclick>SetProperty(CustomSelectNowPlayingVideoInfo,True)</onclick>
+						<onclick>ActivateWindow(1128)</onclick>
+						<visible>!Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910607">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>$LOCALIZE[32317]</label>
+						<label2>$VAR[NowPlayingHomeMusicInfoLabelVar]</label2>
+						<onclick>SetProperty(CustomSelectNowPlayingMusicInfo,True)</onclick>
+						<onclick>ActivateWindow(1128)</onclick>
+						<visible>!Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910608">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>[B]$LOCALIZE[32320][/B]</label>
+			            <label2>$LOCALIZE[107]</label2>
+						<onclick>Skin.ToggleSetting(NowPlaying.ExtraArtVideo)</onclick>
+						<onclick>Skin.Reset(NowPlaying.VideoLogo)</onclick>
+						<onclick>Skin.Reset(NowPlaying.VideoDiscArt)</onclick>
+					    <visible>Skin.HasSetting(NowPlaying.ExtraArtVideo) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910609">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(NowPlaying.ExtraArtVideo)</onclick>
+			            <label>[B]$LOCALIZE[32320][/B]</label>
+			            <label2>$LOCALIZE[106]</label2>
+					    <visible>!Skin.HasSetting(NowPlaying.ExtraArtVideo) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="radiobutton" id="910610">
+					    <label>      $LOCALIZE[32322]</label>
+					    <onclick>Skin.ToggleSetting(NowPlaying.VideoLogo)</onclick>
+					    <selected>Skin.HasSetting(NowPlaying.VideoLogo)</selected>
+						<visible>Skin.HasSetting(NowPlaying.ExtraArtVideo) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+					</control>
+					<control type="radiobutton" id="910612">
+					    <label>      [B]$LOCALIZE[32324][/B]</label>
+					    <onclick>Skin.ToggleSetting(NowPlaying.VideoDiscArt)</onclick>
+					    <selected>Skin.HasSetting(NowPlaying.VideoDiscArt)</selected>
+						<visible>Skin.HasSetting(NowPlaying.ExtraArtVideo) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+					</control>
+					<control type="button" id="910613">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>         $LOCALIZE[32325]</label>
+						<label2>$VAR[NowPlayingVideoDiscArtLabelVar]</label2>
+						<onclick>SetProperty(CustomSelectVideoDiscArtFallback,True)</onclick>
+						<onclick>ActivateWindow(1128)</onclick>
+					    <visible>Skin.HasSetting(NowPlaying.ExtraArtVideo) + Skin.HasSetting(NowPlaying.VideoDiscArt) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910614">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(NowPlaying.ExtraArtMusic)</onclick>
+			            <onclick>Skin.Reset(NowPlaying.MusicLogo)</onclick>
+						<onclick>Skin.Reset(NowPlaying.MusicDiscArt)</onclick>
+						<label>[B]$LOCALIZE[32321][/B]</label>
+			            <label2>$LOCALIZE[107]</label2>
+					    <visible>Skin.HasSetting(NowPlaying.ExtraArtMusic) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="button" id="910615">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <onclick>Skin.ToggleSetting(NowPlaying.ExtraArtMusic)</onclick>
+			            <label>[B]$LOCALIZE[32321][/B]</label>
+			            <label2>$LOCALIZE[106]</label2>
+					    <visible>!Skin.HasSetting(NowPlaying.ExtraArtMusic) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+					<control type="radiobutton" id="910616">
+					    <label>      $LOCALIZE[32322]</label>
+					    <onclick>Skin.ToggleSetting(NowPlaying.MusicLogo)</onclick>
+					    <selected>Skin.HasSetting(NowPlaying.MusicLogo)</selected>
+						<visible>Skin.HasSetting(NowPlaying.ExtraArtMusic) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+					</control>
+					<control type="radiobutton" id="910617">
+					    <label>      [B]$LOCALIZE[32324][/B]</label>
+					    <onclick>Skin.ToggleSetting(NowPlaying.MusicDiscArt)</onclick>
+					    <selected>Skin.HasSetting(NowPlaying.MusicDiscArt)</selected>
+						<visible>Skin.HasSetting(NowPlaying.ExtraArtMusic) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+					</control>
+					<control type="button" id="910618">
+					    <width>1350</width>
+					    <height>60</height>
+					    <texturenofocus />
+					    <textoffsetx>30</textoffsetx>
+			            <label>         $LOCALIZE[32326]</label>
+						<label2>$VAR[NowPlayingMusicDiscArtLabelVar]</label2>
+						<onclick>SetProperty(CustomSelectMusicDiscArtFallback,True)</onclick>
+						<onclick>ActivateWindow(1128)</onclick>
+					    <visible>Skin.HasSetting(NowPlaying.ExtraArtMusic) + Skin.HasSetting(NowPlaying.MusicDiscArt) + !Skin.HasSetting(Hide.NowPlaying)</visible>
+		            </control>
+				</control>	
+                <!-- 9000 7 Video Info options -->
+				<control type="panel" id="9107">
+					<visible>Container(9000).HasFocus(7)</visible>
+					<onright>500</onright>
+					<onup>9107</onup>
+					<ondown>9107</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -846,9 +1069,9 @@
 						</item>
 					</content>
 				</control>
-				<!-- 9000 7 - Color Options -->
-				<control type="grouplist" id="9107">
-					<visible>Container(9000).HasFocus(07)</visible>
+				<!-- 9000 8 - Color Options -->
+				<control type="grouplist" id="9108">
+					<visible>Container(9000).HasFocus(8)</visible>
 					<onright>500</onright>
                     <posx>495</posx>
                     <posy>120</posy>
@@ -856,9 +1079,9 @@
                     <height>860</height>
                     <onleft>9000</onleft>
                     <scrolltime>280</scrolltime>
-					<onup>9107</onup>
-					<ondown>9107</ondown>
-					<control type="button" id="91070">
+					<onup>9108</onup>
+					<ondown>9108</ondown>
+					<control type="button" id="91080">
 					    <width>1350</width>
 						<height>60</height>
 						<texturenofocus />
@@ -876,7 +1099,7 @@
 			            <label2>$VAR[SkinColorTheme]</label2>
 						<visible>System.HasAddon(script.embuary.helper)</visible>
 		            </control>
-                    <control type="radiobutton" id="91071">
+                    <control type="radiobutton" id="91081">
 						<label>$LOCALIZE[32205]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32205])</onclick>
@@ -886,7 +1109,7 @@
 							<param name="ColorString">$VAR[HighlightColor]</param>
 						</include>
 					</control>
-					<control type="button" id="9107101">
+					<control type="button" id="9108101">
 					    <width>1350</width>
 						<height>60</height>
 						<font>ListDetails</font>
@@ -897,7 +1120,7 @@
 			            <label2>$LOCALIZE[107]</label2>
 						<visible>System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(MatchPosterColors)</visible>
 		            </control>
-					<control type="button" id="9107102">
+					<control type="button" id="9108102">
 					    <width>1350</width>
 						<height>60</height>
 						<font>ListDetails</font>
@@ -908,7 +1131,7 @@
 			            <label2>$LOCALIZE[106]</label2>
 						<visible>System.HasAddon(plugin.video.themoviedb.helper) + !Skin.HasSetting(MatchPosterColors)</visible>
 		            </control>
-					<control type="radiobutton" id="91072">
+					<control type="radiobutton" id="91082">
 						<font>ListDetails</font>
 						<label>$LOCALIZE[32212]</label>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32212])</onclick>
@@ -918,7 +1141,7 @@
 							<param name="ColorString">$VAR[LabelTextColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91073">
+					<control type="radiobutton" id="91083">
 						<label>$LOCALIZE[32213]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32213])</onclick>
@@ -928,7 +1151,7 @@
 							<param name="ColorString">$VAR[FocusedTextColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91074">
+					<control type="radiobutton" id="91084">
 						<label>$LOCALIZE[32214]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32214])</onclick>
@@ -938,7 +1161,7 @@
 							<param name="ColorString">$VAR[SelectedTextColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91075">
+                    <control type="radiobutton" id="91085">
 						<label>$LOCALIZE[32206]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32206])</onclick>
@@ -948,7 +1171,7 @@
 							<param name="ColorString">$VAR[GlowBarsColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91076">
+                    <control type="radiobutton" id="91086">
 						<label>$LOCALIZE[32207]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32207])</onclick>
@@ -958,7 +1181,7 @@
 							<param name="ColorString">$VAR[MenuBarColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91077">
+                    <control type="radiobutton" id="91087">
 						<label>$LOCALIZE[32208]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32208])</onclick>
@@ -968,7 +1191,7 @@
 							<param name="ColorString">$VAR[VertMenuBladeColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91078">
+					<control type="radiobutton" id="91088">
 						<label>$LOCALIZE[32209]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32209])</onclick>
@@ -978,7 +1201,7 @@
 							<param name="ColorString">$VAR[TopBarColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91079">
+                    <control type="radiobutton" id="91089">
 						<label>$LOCALIZE[32211]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32211])</onclick>
@@ -988,7 +1211,7 @@
 							<param name="ColorString">$VAR[DialogBGColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="910710">
+					<control type="radiobutton" id="910810">
 						<label>$LOCALIZE[32215]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32215])</onclick>
@@ -998,7 +1221,7 @@
 							<param name="ColorString">$VAR[WidgetBGColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="910711">
+                    <control type="radiobutton" id="910811">
 						<label>$LOCALIZE[32221]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32221])</onclick>
@@ -1009,12 +1232,12 @@
 						</include>
 					</control>					
 				</control>
-				<!-- 9000 8 Search -->
-				<control type="panel" id="9108">
-					<visible>Container(9000).HasFocus(8)</visible>
+				<!-- 9000 9 Search -->
+				<control type="panel" id="9109">
+					<visible>Container(9000).HasFocus(9)</visible>
 					<onright>500</onright>
-					<onup>9108</onup>
-					<ondown>9108</ondown>
+					<onup>9109</onup>
+					<ondown>9109</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1036,12 +1259,12 @@
 						</item>
 					</content>
 				</control>
-				<!-- 9000 9 Advanced options -->
-				<control type="panel" id="9109">
-					<visible>Container(9000).HasFocus(9)</visible>
+				<!-- 9000 10 Advanced options -->
+				<control type="panel" id="9110">
+					<visible>Container(9000).HasFocus(10)</visible>
 					<onright>500</onright>
-					<onup>9109</onup>
-					<ondown>9109</ondown>
+					<onup>9110</onup>
+					<ondown>9110</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1137,12 +1360,12 @@
 						</include>
 					</content>
 				</control>
-				<!-- 9000 10 - Backup/Restore -->
-				<control type="panel" id="9110">
-					<visible>Container(9000).HasFocus(10)</visible>
+				<!-- 9000 11 - Backup/Restore -->
+				<control type="panel" id="9111">
+					<visible>Container(9000).HasFocus(11)</visible>
 					<onright>500</onright>
-					<onup>9110</onup>
-					<ondown>9110</ondown>
+					<onup>9111</onup>
+					<ondown>9111</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1172,13 +1395,13 @@
 						</item>
 					</content>
 				</control>                
-				<!-- 9000 11 - Manage Dependencies -->
-				<control type="grouplist" id="9111">
-					<visible>Container(9000).HasFocus(11)</visible>
+				<!-- 9000 12 - Manage Dependencies -->
+				<control type="grouplist" id="9112">
+					<visible>Container(9000).HasFocus(12)</visible>
 					<onright>500</onright>
                     <include>SettingsListCommons</include>
-					<onup>9111</onup>
-					<ondown>9111</ondown>                    
+					<onup>9112</onup>
+					<ondown>9112</ondown>                    
 					<control type="radiobutton" id="91121">
 						<label>script.favourites</label>
 						<label2>$INFO[System.AddonVersion(script.favourites)]             </label2>

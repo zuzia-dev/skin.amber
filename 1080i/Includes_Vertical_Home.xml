@@ -119,9 +119,26 @@
 	</include>
 
 	<include name="Vertical_Home_Layout">
+	
+	    <!-- Now Playing -->
+		<control type="group">
+			<visible>Player.HasMedia + ![Skin.HasSetting(Hide.NowPlaying) | Window.Next(musicplaylist) | Window.Next(visualisation)]</visible>
+			<include>AnimationVisibleFade</include>
+			<include content="AnimationSlideBottomWindow">
+				<param name="slide">540</param>
+			</include>
+			<include content="AnimationSlideBottomVisible">
+				<param name="slide">540</param>
+			</include>
+			<include>HomeNowPlaying</include>
+		</control>
+		
+		<!-- Widgets -->
 		<control type="group" id="700">
             <visible>!Skin.HasSetting(Hide.AllShelves)</visible>
-            <animation effect="fade" start="100" end="0" condition="!String.IsEmpty(Container(300).ListItem.Property(widgetsHide)) + !ControlGroup(700).HasFocus">Conditional</animation>
+            <animation effect="fade" start="100" end="0" time="480" condition="[!Skin.HasSetting(Hide.NowPlaying) + Player.HasAudio + !ControlGroup(700).HasFocus] | 
+			                                                                   [!Skin.HasSetting(Hide.NowPlaying) + Player.HasVideo + !ControlGroup(700).HasFocus] | 
+																			   [!String.IsEmpty(Container(300).ListItem.Property(widgetsHide)) + !ControlGroup(700).HasFocus]">Conditional</animation>
 			<top>95</top>
 			<left>431</left>
 			<include>skinshortcuts-template-shelfgroup2shelvesbackground</include>
