@@ -8,6 +8,20 @@
 	<onunload>ClearProperty(PopupMenu2Active,Home)</onunload>
 	<include>OSDFade</include>
 	<controls>
+	
+	    <control type="button" id="99220">
+            <top>-1000</top>
+            <left>-1000</left>
+            <width>1</width>
+            <height>1</height>
+			<texturefocus />
+            <texturenofocus />
+            <font />
+			<visible allowhiddenfocus="true">False</visible>
+            <onfocus>SetFocus(603)</onfocus>
+            <onfocus condition="Window.IsVisible(videoosd)">Action(Close)</onfocus>
+        </control>
+		
 		<control type="group">
 			<visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
 			<control type="slider">
@@ -50,7 +64,8 @@
 					    </include>
 					    <onup>1200</onup>
 					    <ondown>101</ondown>
-					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+					    <include>OSDButtonOnFocus</include>
+						<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="656">
 					    <include content="OSDButtons">
@@ -59,6 +74,7 @@
 					    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
 					    <ondown>101</ondown>
 					    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
+						<include>OSDButtonOnFocus</include>
 						<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
 					    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
 						<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
@@ -69,6 +85,7 @@
 						    <param name="icon">OSD/OSDChannelsNF.png</param>
 					    </include>
 					    <ondown>101</ondown>
+					    <include>OSDButtonOnFocus</include>
 					    <onclick>ActivateWindow(PVROSDChannels)</onclick>
 					    <onclick>Dialog.Close(VideoOSD)</onclick>
 					    <visible>VideoPlayer.Content(livetv)</visible>
@@ -79,7 +96,8 @@
 						    <param name="icon">OSD/OSDEpgNF.png</param>
 					    </include>
 					    <ondown>101</ondown>
-					    <onclick>ActivateWindow(PVRChannelGuide)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(PVRChannelGuide)</onclick>
 					    <onclick>Dialog.Close(VideoOSD)</onclick>
 					    <visible>VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
@@ -89,7 +107,8 @@
 						    <param name="icon">OSD/OSDTeletextNF.png</param>
 					    </include>
 					    <ondown>101</ondown>
-					    <onclick>Dialog.Close(VideoOSD)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>Dialog.Close(VideoOSD)</onclick>
 					    <onclick>ActivateWindow(Teletext)</onclick>
 					    <visible>VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
@@ -99,7 +118,8 @@
 						    <param name="icon">OSD/OSDBookmarksNF.png</param>
 					    </include>
 					    <ondown>101</ondown>
-					    <onclick>ActivateWindow(VideoBookmarks)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(VideoBookmarks)</onclick>
 					    <visible>!VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
@@ -108,7 +128,8 @@
 	    					<param name="icon">OSD/OSDInfoNF.png</param>
 		    			</include>
 			    		<ondown>101</ondown>
-				    	<onclick>Skin.ToggleSetting(OSDInfo)</onclick>
+				    	<include>OSDButtonOnFocus</include>
+						<onclick>Skin.ToggleSetting(OSDInfo)</onclick>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="659">
@@ -119,7 +140,8 @@
 					    <ondown>101</ondown>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 						<onfocus>ClearProperty(PopupMenu2Active,Home)</onfocus>
-				        <onclick>SetProperty(PopupMenu2Active,Yes,Home)</onclick>
+				        <include>OSDButtonOnFocus</include>
+						<onclick>SetProperty(PopupMenu2Active,Yes,Home)</onclick>
 				        <onclick>SetFocus(1010)</onclick>
 				    </control>
 			    </control>
@@ -139,7 +161,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PlayerControl(Previous)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Previous)</onclick>
 					    <visible>VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
@@ -149,7 +172,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PlayerControl(Next)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Next)</onclick>
 					    <visible>VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
@@ -159,7 +183,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PlayerControl(Previous)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Previous)</onclick>
 					    <visible>!VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
@@ -170,7 +195,8 @@
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
 					    <enable>Player.SeekEnabled</enable>
-					    <onclick>PlayerControl(Rewind)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Rewind)</onclick>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="602">
@@ -189,7 +215,8 @@
 					    <radioposy>0</radioposy>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 					    <selected>[Player.Paused | Player.Rewinding | Player.Forwarding]</selected>
-					    <onclick>PlayerControl(Play)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Play)</onclick>
 					    <visible>Player.PauseEnabled</visible>
 				    </control>
 				    <control type="radiobutton" id="603">
@@ -198,7 +225,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PlayerControl(Stop)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Stop)</onclick>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="604">
@@ -208,7 +236,8 @@
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
 					    <enable>Player.SeekEnabled</enable>
-					    <onclick>PlayerControl(Forward)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(Forward)</onclick>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="605">
@@ -218,7 +247,8 @@
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
 					    <onclick>PlayerControl(Next)</onclick>
-					    <visible>!VideoPlayer.Content(livetv)</visible>
+					    <include>OSDButtonOnFocus</include>
+						<visible>!VideoPlayer.Content(livetv)</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="661">
@@ -227,7 +257,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PlayerControl(ShowVideoMenu)</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PlayerControl(ShowVideoMenu)</onclick>
 					    <visible>!VideoPlayer.Content(livetv) + VideoPlayer.HasMenu</visible>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
@@ -239,7 +270,8 @@
 					    </include>
 					    <onup>100</onup>
 					    <ondown>Close</ondown>
-					    <onclick>PVR.ToggleRecordPlayingChannel</onclick>
+					    <include>OSDButtonOnFocus</include>
+						<onclick>PVR.ToggleRecordPlayingChannel</onclick>
 					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 			    </control>
@@ -281,7 +313,8 @@
 						    <width>470</width>
 						    <font>Details</font>
 						    <label>$LOCALIZE[13396]</label>
-						    <onclick>ActivateWindow(osdaudiosettings)</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>ActivateWindow(osdaudiosettings)</onclick>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 					    </control>
 					    <control type="button" id="1012">
@@ -289,7 +322,8 @@
 						    <width>470</width>
 						    <font>Details</font>
 						    <label>$LOCALIZE[13395]</label>
-						    <onclick>ActivateWindow(osdvideosettings)</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>ActivateWindow(osdvideosettings)</onclick>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 					    </control>
 					    <control type="button" id="1015">
@@ -297,7 +331,8 @@
 						    <width>470</width>
 						    <font>Details</font>
 						    <label>$LOCALIZE[36560]</label>
-						    <onclick>ActivateWindow(osdcmssettings)</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>ActivateWindow(osdcmssettings)</onclick>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 						    <visible>System.HasCMS</visible>
 					    </control>
@@ -307,7 +342,8 @@
 						    <font>Details</font>
 						    <label>$LOCALIZE[31133]</label>
 						    <label2>$INFO[VideoPlayer.AudioLanguage,[COLOR=Hghlight],[/COLOR]]</label2>
-						    <onclick>AudioNextLanguage</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>AudioNextLanguage</onclick>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 					    </control>
 				    </control>
@@ -352,7 +388,8 @@
 						    <height>80</height>
 						    <width>470</width>
 						    <label>$LOCALIZE[22006]</label>
-						    <onclick>SubtitleDelay</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>SubtitleDelay</onclick>
 						    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
 						    <font>Details</font>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
@@ -362,7 +399,8 @@
 						    <width>470</width>
 						    <label>$LOCALIZE[32004]</label>
 						    <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[VideoPlayer.SubtitlesLanguage][/COLOR]</label2>
-						    <onclick>CycleSubtitle</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>CycleSubtitle</onclick>
 						    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
 						    <font>Details</font>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
@@ -372,7 +410,8 @@
 						    <width>470</width>
 						    <label>$LOCALIZE[449]</label>
 						    <radioposx>380</radioposx>
-						    <onclick>ShowSubtitles</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>ShowSubtitles</onclick>
 						    <selected>VideoPlayer.SubtitlesEnabled + VideoPlayer.HasSubtitles</selected>
 						    <enable>VideoPlayer.HasSubtitles</enable>
 						    <font>Details</font>
@@ -398,7 +437,8 @@
 						    <width>470</width>
 						    <radioposx>380</radioposx>
 						    <label>$LOCALIZE[24022]</label>
-						    <onclick>ToggleStereoMode</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>ToggleStereoMode</onclick>
 						    <selected>Integer.IsGreater(System.StereoscopicMode,0)</selected>
 						    <font>Details</font>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
@@ -408,7 +448,8 @@
 						    <width>470</width>
 						    <label>$LOCALIZE[31135]</label>
 						    <label2>$INFO[VideoPlayer.StereoscopicMode]</label2>
-						    <onclick>StereoMode</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>StereoMode</onclick>
 						    <font>Details</font>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 					    </control>
@@ -417,7 +458,8 @@
 						    <width>470</width>
 						    <radioposx>380</radioposx>
 						    <label>$LOCALIZE[31136]</label>
-						    <onclick>StereoModeToMono</onclick>
+						    <include>OSDButtonOnFocus</include>
+							<onclick>StereoModeToMono</onclick>
 						    <selected>Integer.IsEqual(System.StereoscopicMode,9)</selected>
 						    <font>Details</font>
 						    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>

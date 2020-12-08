@@ -92,34 +92,38 @@
 						<label>$LOCALIZE[32300]</label>
 						<onclick>noop</onclick>
 					</item>
-                    <item id="7" description="Video Info Options">
+					<item id="7" description="Full Screen Options">
+						<label>$LOCALIZE[32336]</label>
+						<onclick>noop</onclick>
+					</item>
+                    <item id="8" description="Video Info Options">
 						<label>$LOCALIZE[32107]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="8" description="Color Options">
+					<item id="9" description="Color Options">
 						<label>$LOCALIZE[32266]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="9" description="Search">
+					<item id="10" description="Search">
 						<label>$LOCALIZE[137]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="10" description="Advanced">
+					<item id="11" description="Advanced">
 						<label>$LOCALIZE[31985]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="11" description="Backup/Restore">
+					<item id="12" description="Backup/Restore">
 						<label>$LOCALIZE[32064]</label>
 						<onclick>noop</onclick>
 					</item>
-					<item id="12" description="Manage dependencies">
+					<item id="13" description="Manage dependencies">
 						<label>$LOCALIZE[24996]</label>
 						<onclick>noop</onclick>
 					</item>
 				</content>
 			</control>
 			<control type="label" id="7001">
-				<top>880</top>
+				<top>920</top>
 				<width>412</width>
 				<left>60</left>
 				<height>30</height>
@@ -128,7 +132,7 @@
 				<label>[B]Amber[/B]</label>
 			</control>
 			<control type="label" id="7002">
-				<top>920</top>
+				<top>960</top>
 				<width>412</width>
 				<left>60</left>
 				<height>30</height>
@@ -163,11 +167,6 @@
 							<param name="skinsetting" value="FullscreenMusic"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="4"/>
-							<param name="itemlabel" value="$LOCALIZE[32224]"/>
-							<param name="skinsetting" value="SubtitleOpensSettings"/>
-						</include>
-						<include content="YesNoSettingItem">
 							<param name="itemid" value="5"/>
 							<param name="itemlabel" value="$LOCALIZE[32122]"/>
 							<param name="skinsetting" value="ShowABinContextMenu"/>
@@ -176,16 +175,6 @@
 							<param name="itemid" value="6"/>
 							<param name="itemlabel" value="$LOCALIZE[32038]"/>
 							<param name="skinsetting" value="Show.Options.Button"/>
-						</include>
-                        <include content="YesNoSettingItem">
-							<param name="itemid" value="7"/>
-							<param name="itemlabel" value="$LOCALIZE[32052]"/>
-							<param name="skinsetting" value="Show.Info.OnPause"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="8"/>
-							<param name="itemlabel" value="$LOCALIZE[32290]"/>
-							<param name="skinsetting" value="enable.bottomseekbar"/>
 						</include>
                         <include content="YesNoSettingItem">
 							<param name="itemid" value="9"/>
@@ -403,11 +392,12 @@
 							<onclick>RunScript(script.skinvariables,action=buildviews,configure)</onclick>
 							<visible>Skin.HasSetting(Enable.NewViewSelector)</visible>
 						</item>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="2"/>
-							<param name="itemlabel" value="$LOCALIZE[32219]"/>
-							<param name="skinsetting" value="ShowLogoMediaViews"/>
-						</include>
+						<item id="2" description="Select Extra Art for Media Views">
+						    <label>$LOCALIZE[32335]</label>
+						    <label2>$VAR[MediaViewsExtraArtLabelVar]</label2>
+						    <onclick>SetProperty(CustomSelectMediaViewsExtraArt,True)</onclick>
+						    <onclick>ActivateWindow(1121)</onclick>
+		                </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="3"/>
 							<param name="itemlabel" value="$LOCALIZE[32223]"/>
@@ -988,13 +978,45 @@
 						<onclick>ActivateWindow(1128)</onclick>
 					    <visible>Skin.HasSetting(NowPlaying.ExtraArtMusic) + Skin.HasSetting(NowPlaying.MusicDiscArt) + !Skin.HasSetting(Hide.NowPlaying)</visible>
 		            </control>
-				</control>	
-                <!-- 9000 7 Video Info options -->
+				</control>
+                <!-- 9000 7 Full Screen/OSD options -->
 				<control type="panel" id="9107">
 					<visible>Container(9000).HasFocus(7)</visible>
 					<onright>500</onright>
 					<onup>9107</onup>
 					<ondown>9107</ondown>
+					<pagecontrol></pagecontrol>
+					<include>SettingsListCommons</include>
+					<content>
+                        <include content="YesNoSettingItem">
+							<param name="itemid" value="1"/>
+							<param name="itemlabel" value="$LOCALIZE[32052]"/>
+							<param name="skinsetting" value="Show.Info.OnPause"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="2"/>
+							<param name="itemlabel" value="$LOCALIZE[32290]"/>
+							<param name="skinsetting" value="enable.bottomseekbar"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="3"/>
+							<param name="itemlabel" value="$LOCALIZE[32224]"/>
+							<param name="skinsetting" value="SubtitleOpensSettings"/>
+						</include>
+						<item id="4" description="Select Interval for Auto Closing OSD">
+						    <label>$LOCALIZE[32337]</label>
+						    <label2>$VAR[OSDTimeoutLabelVar]</label2>
+						    <onclick>SetProperty(CustomSelectOSDTimeout,True)</onclick>
+						    <onclick>ActivateWindow(1121)</onclick>
+		                </item>
+					</content>
+				</control>				
+                <!-- 9000 8 Video Info options -->
+				<control type="panel" id="9108">
+					<visible>Container(9000).HasFocus(8)</visible>
+					<onright>500</onright>
+					<onup>9108</onup>
+					<ondown>9108</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1069,9 +1091,9 @@
 						</item>
 					</content>
 				</control>
-				<!-- 9000 8 - Color Options -->
-				<control type="grouplist" id="9108">
-					<visible>Container(9000).HasFocus(8)</visible>
+				<!-- 9000 9 - Color Options -->
+				<control type="grouplist" id="9109">
+					<visible>Container(9000).HasFocus(9)</visible>
 					<onright>500</onright>
                     <posx>495</posx>
                     <posy>120</posy>
@@ -1079,8 +1101,8 @@
                     <height>860</height>
                     <onleft>9000</onleft>
                     <scrolltime>280</scrolltime>
-					<onup>9108</onup>
-					<ondown>9108</ondown>
+					<onup>9109</onup>
+					<ondown>9109</ondown>
 					<control type="button" id="91080">
 					    <width>1350</width>
 						<height>60</height>
@@ -1099,7 +1121,7 @@
 			            <label2>$VAR[SkinColorTheme]</label2>
 						<visible>System.HasAddon(script.embuary.helper)</visible>
 		            </control>
-                    <control type="radiobutton" id="91081">
+                    <control type="radiobutton" id="91091">
 						<label>$LOCALIZE[32205]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32205])</onclick>
@@ -1109,7 +1131,7 @@
 							<param name="ColorString">$VAR[HighlightColor]</param>
 						</include>
 					</control>
-					<control type="button" id="9108101">
+					<control type="button" id="9109101">
 					    <width>1350</width>
 						<height>60</height>
 						<font>ListDetails</font>
@@ -1120,7 +1142,7 @@
 			            <label2>$LOCALIZE[107]</label2>
 						<visible>System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(MatchPosterColors)</visible>
 		            </control>
-					<control type="button" id="9108102">
+					<control type="button" id="9109102">
 					    <width>1350</width>
 						<height>60</height>
 						<font>ListDetails</font>
@@ -1131,7 +1153,7 @@
 			            <label2>$LOCALIZE[106]</label2>
 						<visible>System.HasAddon(plugin.video.themoviedb.helper) + !Skin.HasSetting(MatchPosterColors)</visible>
 		            </control>
-					<control type="radiobutton" id="91082">
+					<control type="radiobutton" id="91092">
 						<font>ListDetails</font>
 						<label>$LOCALIZE[32212]</label>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32212])</onclick>
@@ -1141,7 +1163,7 @@
 							<param name="ColorString">$VAR[LabelTextColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91083">
+					<control type="radiobutton" id="91093">
 						<label>$LOCALIZE[32213]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32213])</onclick>
@@ -1151,7 +1173,7 @@
 							<param name="ColorString">$VAR[FocusedTextColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91084">
+					<control type="radiobutton" id="91094">
 						<label>$LOCALIZE[32214]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32214])</onclick>
@@ -1161,7 +1183,7 @@
 							<param name="ColorString">$VAR[SelectedTextColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91085">
+                    <control type="radiobutton" id="91095">
 						<label>$LOCALIZE[32206]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32206])</onclick>
@@ -1171,7 +1193,7 @@
 							<param name="ColorString">$VAR[GlowBarsColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91086">
+                    <control type="radiobutton" id="91096">
 						<label>$LOCALIZE[32207]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32207])</onclick>
@@ -1181,7 +1203,7 @@
 							<param name="ColorString">$VAR[MenuBarColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91087">
+                    <control type="radiobutton" id="91097">
 						<label>$LOCALIZE[32208]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32208])</onclick>
@@ -1191,7 +1213,7 @@
 							<param name="ColorString">$VAR[VertMenuBladeColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="91088">
+					<control type="radiobutton" id="91098">
 						<label>$LOCALIZE[32209]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32209])</onclick>
@@ -1201,7 +1223,7 @@
 							<param name="ColorString">$VAR[TopBarColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="91089">
+                    <control type="radiobutton" id="91099">
 						<label>$LOCALIZE[32211]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32211])</onclick>
@@ -1211,7 +1233,7 @@
 							<param name="ColorString">$VAR[DialogBGColor]</param>
 						</include>
 					</control>					
-					<control type="radiobutton" id="910810">
+					<control type="radiobutton" id="910910">
 						<label>$LOCALIZE[32215]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32215])</onclick>
@@ -1221,7 +1243,7 @@
 							<param name="ColorString">$VAR[WidgetBGColor]</param>
 						</include>
 					</control>
-                    <control type="radiobutton" id="910811">
+                    <control type="radiobutton" id="910911">
 						<label>$LOCALIZE[32221]</label>
 						<font>ListDetails</font>
 						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32221])</onclick>
@@ -1232,12 +1254,12 @@
 						</include>
 					</control>					
 				</control>
-				<!-- 9000 9 Search -->
-				<control type="panel" id="9109">
-					<visible>Container(9000).HasFocus(9)</visible>
+				<!-- 9000 10 Search -->
+				<control type="panel" id="9110">
+					<visible>Container(9000).HasFocus(10)</visible>
 					<onright>500</onright>
-					<onup>9109</onup>
-					<ondown>9109</ondown>
+					<onup>9110</onup>
+					<ondown>9110</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1259,12 +1281,12 @@
 						</item>
 					</content>
 				</control>
-				<!-- 9000 10 Advanced options -->
-				<control type="panel" id="9110">
-					<visible>Container(9000).HasFocus(10)</visible>
+				<!-- 9000 11 Advanced options -->
+				<control type="panel" id="9111">
+					<visible>Container(9000).HasFocus(11)</visible>
 					<onright>500</onright>
-					<onup>9110</onup>
-					<ondown>9110</ondown>
+					<onup>9111</onup>
+					<ondown>9111</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1360,12 +1382,12 @@
 						</include>
 					</content>
 				</control>
-				<!-- 9000 11 - Backup/Restore -->
-				<control type="panel" id="9111">
-					<visible>Container(9000).HasFocus(11)</visible>
+				<!-- 9000 12 - Backup/Restore -->
+				<control type="panel" id="9112">
+					<visible>Container(9000).HasFocus(12)</visible>
 					<onright>500</onright>
-					<onup>9111</onup>
-					<ondown>9111</ondown>
+					<onup>9112</onup>
+					<ondown>9112</ondown>
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
@@ -1395,13 +1417,13 @@
 						</item>
 					</content>
 				</control>                
-				<!-- 9000 12 - Manage Dependencies -->
-				<control type="grouplist" id="9112">
-					<visible>Container(9000).HasFocus(12)</visible>
+				<!-- 9000 13 - Manage Dependencies -->
+				<control type="grouplist" id="9113">
+					<visible>Container(9000).HasFocus(13)</visible>
 					<onright>500</onright>
                     <include>SettingsListCommons</include>
-					<onup>9112</onup>
-					<ondown>9112</ondown>                    
+					<onup>9113</onup>
+					<ondown>9113</ondown>                    
 					<control type="radiobutton" id="91121">
 						<label>script.favourites</label>
 						<label2>$INFO[System.AddonVersion(script.favourites)]             </label2>
