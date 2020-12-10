@@ -1003,11 +1003,30 @@
 							<param name="itemlabel" value="$LOCALIZE[32224]"/>
 							<param name="skinsetting" value="SubtitleOpensSettings"/>
 						</include>
-						<item id="4" description="Select Interval for Auto Closing OSD">
-						    <label>$LOCALIZE[32337]</label>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="4"/>
+							<param name="itemlabel" value="[B]$LOCALIZE[32342][/B]"/>
+							<param name="skinsetting" value="AutoClose.VideoOSD"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="5"/>
+							<param name="itemlabel" value="   [B]$LOCALIZE[32341][/B]"/>
+							<param name="skinsetting" value="AutoClose.withInfoService"/>
+							<param name="itemvisibility" value="System.HasAddon(script.skin.info.service) + Skin.HasSetting(AutoClose.VideoOSD)"/>
+						</include>
+						<item id="6" description="Select Interval for Auto Closing OSD">
+						    <label>      $LOCALIZE[32337]</label>
+						    <label2>$VAR[OSDTimeout2LabelVar]</label2>
+						    <onclick>SetProperty(CustomSelectOSDTimeout2,True)</onclick>
+						    <onclick>ActivateWindow(1121)</onclick>
+							<visible>System.HasAddon(script.skin.info.service) + Skin.HasSetting(AutoClose.withInfoService)</visible>
+		                </item>
+						<item id="6" description="Select Interval for Auto Closing OSD">
+						    <label>   $LOCALIZE[32337]</label>
 						    <label2>$VAR[OSDTimeoutLabelVar]</label2>
 						    <onclick>SetProperty(CustomSelectOSDTimeout,True)</onclick>
 						    <onclick>ActivateWindow(1121)</onclick>
+							<visible>Skin.HasSetting(AutoClose.VideoOSD) + ![System.HasAddon(script.skin.info.service) + Skin.HasSetting(AutoClose.withInfoService)]</visible>
 		                </item>
 					</content>
 				</control>				
