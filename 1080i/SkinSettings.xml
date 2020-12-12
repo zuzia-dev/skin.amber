@@ -1003,11 +1003,20 @@
 							<param name="itemlabel" value="$LOCALIZE[32224]"/>
 							<param name="skinsetting" value="SubtitleOpensSettings"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="4"/>
-							<param name="itemlabel" value="[B]$LOCALIZE[32342][/B]"/>
-							<param name="skinsetting" value="AutoClose.VideoOSD"/>
-						</include>
+						<item id="4">
+			                <onclick>Skin.ToggleSetting(AutoClose.VideoOSD)</onclick>
+						    <onclick>Skin.Reset(SkinInfo.AutoCloseVideoOSD)</onclick>
+							<onclick>Skin.Reset(OSDTimeout)</onclick>
+			                <label>[B]$LOCALIZE[32342][/B]</label>
+			                <label2>$LOCALIZE[107]</label2>
+						    <visible>Skin.HasSetting(AutoClose.VideoOSD)</visible>
+		                </item>
+					    <item id="4">
+			                <onclick>Skin.ToggleSetting(AutoClose.VideoOSD)</onclick>
+			                <label>[B]$LOCALIZE[32342][/B]</label>
+			                <label2>$LOCALIZE[106]</label2>
+					        <visible>!Skin.HasSetting(AutoClose.VideoOSD)</visible>
+		                </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="5"/>
 							<param name="itemlabel" value="   [B]$LOCALIZE[32341][/B]"/>
@@ -1019,7 +1028,7 @@
 						    <label2>$VAR[OSDTimeout2LabelVar]</label2>
 						    <onclick>SetProperty(CustomSelectOSDTimeout2,True)</onclick>
 						    <onclick>ActivateWindow(1121)</onclick>
-							<visible>System.HasAddon(script.skin.info.service) + Skin.HasSetting(AutoClose.withInfoService)</visible>
+							<visible>Skin.HasSetting(AutoClose.VideoOSD) + System.HasAddon(script.skin.info.service) + Skin.HasSetting(AutoClose.withInfoService)</visible>
 		                </item>
 						<item id="6" description="Select Interval for Auto Closing OSD">
 						    <label>   $LOCALIZE[32337]</label>
@@ -1412,28 +1421,28 @@
 					<content>
 						<item id="1" description="Backup Skin Settings">
 							<label>$LOCALIZE[32065]</label>
-							<onclick>RunScript(script.skin.helper.skinbackup,action=backup)</onclick>
-                            <onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
+							<onclick>RunScript(script.xbmcbackup,mode=backup)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
 						</item>
 						<item id="2" description="Restore Skin Settings Backup">
 							<label>$LOCALIZE[32066]</label>
-							<onclick>RunScript(script.skin.helper.skinbackup,action=restore)</onclick>
-                            <onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
+							<onclick>RunScript(script.xbmcbackup,mode=restore)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
 							<onclick>ReloadSkin()</onclick>
 						</item>
 						<item id="3" description="Backup/Restore Config">
 							<label>$LOCALIZE[32067]</label>
-							<onclick>Addon.OpenSettings(script.skin.helper.skinbackup)</onclick>
-							<onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
+							<onclick>Addon.OpenSettings(script.xbmcbackup)</onclick>
+							<onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
 						</item>
-						<item id="4" description="Reset all settings to default">
+<!--						<item id="4" description="Reset all settings to default">
 							<label>$LOCALIZE[31038]</label>
 							<icon>DefaultIconWarning.png</icon>
 							<onclick>Skin.ResetSettings</onclick>
 							<onclick>RunScript(script.skin.helper.skinbackup,action=reset)</onclick>
                             <onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
 							<onclick>ReloadSkin()</onclick>
-						</item>
+						</item> -->
 					</content>
 				</control>                
 				<!-- 9000 13 - Manage Dependencies -->
@@ -1533,17 +1542,11 @@
 						<selected>System.HasAddon(service.library.data.provider)</selected>
 					</control>
 					<control type="radiobutton" id="911217">
-						<label>script.skin.helper.skinbackup</label>
-						<label2>$INFO[System.AddonVersion(script.skin.helper.skinbackup)]             </label2>
-						<onclick>Addon.OpenSettings(script.skin.helper.skinbackup)</onclick>
-						<onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
-						<selected>System.HasAddon(script.skin.helper.skinbackup)</selected>
-					</control>
-					<control type="radiobutton" id="911218">
-						<label>script.skin.helper.colorpicker</label>
-						<label2>$INFO[System.AddonVersion(script.skin.helper.colorpicker)]             </label2>
-						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
-						<selected>System.HasAddon(script.skin.helper.colorpicker)</selected>
+						<label>script.xbmcbackup</label>
+						<label2>$INFO[System.AddonVersion(script.xbmcbackup)]             </label2>
+						<onclick>Addon.OpenSettings(script.xbmcbackup)</onclick>
+						<onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
+						<selected>System.HasAddon(script.xbmcbackup)</selected>
 					</control>
 					<control type="radiobutton" id="911219">
 						<label>script.skin.info.service</label>
