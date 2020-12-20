@@ -3582,7 +3582,7 @@
 			<posx>150</posx>
 			<width>1620</width>
 			<control type="label" description="Title shadow">
-				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,27" time="0" condition="[Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]]">Conditional</animation>
 				<left>4</left>
 				<top>4</top>
 				<width>1620</width>
@@ -3595,7 +3595,7 @@
 				<label>$VAR[panelheading]</label>
 			</control>
 			<control type="label" description="Title Label">
-				<animation effect="slide" start="0,0" end="0,27" time="0" condition="Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]">Conditional</animation>
+				<animation effect="slide" start="0,0" end="0,27" time="0" condition="[Control.IsVisible(56) + [$EXP[56_FanartViewInfo] | $EXP[56_FanartViewNetflix]]]">Conditional</animation>
 				<width>1620</width>
 				<height>50</height>
 				<align>center</align>
@@ -3606,7 +3606,7 @@
 				<label>$VAR[panelheading]</label>
 			</control>
 			<control type="label" description="Details">
-				<visible>Control.IsVisible(53) | [Control.IsVisible(56) + [![$EXP[56_FanartViewInfo]] + ![$EXP[56_FanartViewNetflix]]]]</visible>
+				<visible>Control.IsVisible(58) | Control.IsVisible(53) | [Control.IsVisible(56) + [![$EXP[56_FanartViewInfo]] + ![$EXP[56_FanartViewNetflix]]]]</visible>
 				<posy>59</posy>
 				<width>1620</width>
 				<height>30</height>
@@ -3626,15 +3626,18 @@
 				<label>$VAR[panelsubheading]</label>
 			</control>
 			<control type="label" description="Details2">
-				<visible>[Control.IsVisible(53) | [Control.IsVisible(56) + !Control.IsVisible(66561) + ![$EXP[56_FanartViewInfo]]]]</visible>
+			    <animation effect="fade" start="100" end="0" time="480" condition="[Control.HasFocus(6058) + Control.IsVisible(6058581)] | 
+				                                                                   [Control.HasFocus(66) + Control.IsVisible(66561)]">Conditional</animation>
+				<visible>[[Control.IsVisible(58)] | Control.IsVisible(53) | [Control.IsVisible(56) + ![$EXP[56_FanartViewInfo]]]]</visible>
 				<visible>[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]] | 
 				         [Container.content(tvshows) | Container.content(seasons)] + [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) | !String.IsEmpty(ListItem.Status)]</visible>
 				<posy>100</posy>
                 <width>1620</width>
 				<height>30</height>
 				<align>center</align>
-				<font>font16</font>
 				<shadowcolor>Black</shadowcolor>
+				<font>font16</font>
+									
 				<label>$VAR[panelsubheading2]</label>
 			</control>            
 		</control>
