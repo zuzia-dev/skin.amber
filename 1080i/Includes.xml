@@ -1162,7 +1162,7 @@
         </control>
 
         <control type="radiobutton" id="91567" description="Fanart view: Enable Info for POSTERS">
-            <visible>Control.IsVisible(56) + [container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + ![Skin.HasSetting(56_Posters_Netflix) | Skin.HasSetting(56_Posters_Logo)]</visible>
+            <visible>Control.IsVisible(56) + [container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + !Skin.HasSetting(56_Posters_Netflix)</visible>
             <font>ListDetails</font>
             <include>9000SysButtons</include>
             <onclick>Skin.ToggleSetting(56_Posters_Info)</onclick>
@@ -1835,7 +1835,7 @@
         <param name="subheading2"></param>
         <param name="subheading2_visible">false</param>
         <param name="plot">$INFO[ListItem.Plot]</param>
-		<param name="plotheight">400</param>
+		<param name="plotheight">355</param>
 		<param name="plotheightlow">200</param>
         <param name="subcontent_label1">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
         <param name="subcontent_label2">$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</param>
@@ -1849,8 +1849,8 @@
         <param name="visibility"></param>
         <param name="showfooter">true</param>
         <param name="showflags">true</param>
-		<param name="footertop">960</param>
-		<param name="footerheight">115</param>
+		<param name="footertop">920</param>
+		<param name="footerheight">155</param>
         <definition>
             <control type="grouplist" id="4000" description="Media Info Panel">
                 <include>OpenClose</include>
@@ -1983,7 +1983,7 @@
 					<control type="textbox">
 					    <top>40</top>
 						<visible>$PARAM[lowpanel] + [Skin.HasSetting(ShowAudioSub) + Container.Content(movies) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</visible>
-						<height>165</height>
+						<height>160</height>
                         <align>justify</align>
                         <label fallback="19055">$PARAM[plot]</label>
                         <font>InfoPlot</font>
@@ -2059,14 +2059,42 @@
                 <width>$PARAM[width]</width>
 				<height>$PARAM[footerheight]</height>
 				<itemgap>5</itemgap>
-                <orientation>vertical</orientation>			
+                <orientation>vertical</orientation>	
+				<control type="label" description="Footer">
+                    <visible>[Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos)]</visible>
+                    <width>$PARAM[width]</width>
+                    <height>30</height>
+                    <font>ListDetails</font>
+                    <label>$VAR[panelfooter2]</label>
+                </control>				
                 <control type="label" description="Footer">
+                    <visible>$PARAM[showfooter] + !$PARAM[lowpanel]</visible>
+                    <width>$PARAM[width]</width>
+                    <height>60</height>
+                    <font>ListDetails</font>
+                    <label>$PARAM[footer]</label>
+                    <wrapmultiline>true</wrapmultiline>
+				    <aligny>top</aligny>
+					<visible>!Container.Content(episodes)</visible>
+                </control>
+				<control type="label" description="Footer">
+                    <visible>$PARAM[showfooter] + $PARAM[lowpanel]</visible>
+                    <width>$PARAM[width]</width>
+                    <height>30</height>
+                    <font>ListDetails</font>
+                    <label>$PARAM[footer]</label>
+				    <aligny>top</aligny>
+					<visible>!Container.Content(episodes)</visible>
+                </control>
+				<control type="label" description="Footer">
                     <visible>$PARAM[showfooter]</visible>
                     <width>$PARAM[width]</width>
                     <height>60</height>
                     <font>ListDetails</font>
                     <label>$PARAM[footer]</label>
                     <wrapmultiline>true</wrapmultiline>
+				    <aligny>top</aligny>
+					<visible>Container.Content(episodes)</visible>
                 </control>
                 <control type="grouplist" description="Flags">
                     <visible>$PARAM[showflags]</visible>
@@ -2110,10 +2138,13 @@
         <param name="subcontent_image_visible">true</param>
         <param name="subcontent_image_texture">$VAR[Overlay]</param>
         <param name="footer"></param>
+		<param name="footer2"></param>
         <param name="visibility"></param>
         <param name="showfooter">true</param>
+		<param name="showfooter2">true</param>
         <param name="showflags">true</param>
 		<param name="footertop">845</param>
+		<param name="footer2top">885</param>
         <param name="flagstop"></param>
 		<param name="footerheight">115</param>
         <definition>
@@ -2261,8 +2292,18 @@
                         <content sortby="$PARAM[subcontent_sortby]" sortorder="$PARAM[subcontent_order]">$PARAM[subcontent_path]</content>
                     </control>
                 </control>                
-                <control type="label" description="Footer">
+                <control type="label" description="Footer 2">
                     <top>$PARAM[footertop]</top>
+					<visible>$PARAM[showfooter2]</visible>
+					<visible>[Container.Content(sets) | Container.Content(movies) | Container.Content(episodes) | Container.Content(musicvideos)]</visible>
+                    <width>$PARAM[width]</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <label>$PARAM[footer2]</label>
+                    <aligny>top</aligny>
+                </control>
+				<control type="label" description="Footer">
+                    <top>$PARAM[footer2top]</top>
                     <visible>$PARAM[showfooter]</visible>
 					<visible>[!String.IsEmpty(Listitem.Duration) | !String.IsEmpty(Listitem.Genre) | !String.IsEmpty(Listitem.Year) | !String.IsEmpty(ListItem.Episode)] | 
 				         [Container.Content(seasons) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem.Episode)]</visible>
@@ -2323,19 +2364,55 @@
 					<param name="height">399</param>
 					<param name="texture">$VAR[Fanart]</param>
 				</include>
-                <control type="label" description="Subheading Label">
-                    <top>520</top>
-                    <left>47</left>
-                    <width>$PARAM[labelwidth]</width>
-                    <height>60</height>
-                    <aligny>center</aligny>
-                    <align>center</align>
-                    <font>ListDetails</font>
-                    <wrapmultiline>true</wrapmultiline>
-                    <label>$VAR[panelfooter]</label>
-                </control>
+                <control type="group">
+				    <visible>String.IsEqual(ListItem.DBType,episode)</visible>
+					<control type="label" description="Subheading Label">
+                        <top>520</top>
+                        <left>47</left>
+                        <width>$PARAM[labelwidth]</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <align>center</align>
+                        <font>ListDetails</font>
+                        <label>$VAR[panelfooter]</label>
+                    </control>
+					<control type="label" description="Subheading Label">
+                        <top>580</top>
+                        <left>47</left>
+                        <width>$PARAM[labelwidth]</width>
+                        <height>30</height>
+                        <aligny>center</aligny>
+                        <align>center</align>
+                        <font>ListDetails</font>
+                        <label>$VAR[panelfooter2]</label>
+					    <visible>String.IsEqual(ListItem.DBType,episode)</visible>
+                    </control>
+				</control>
+				<control type="group">
+				    <visible>!String.IsEqual(ListItem.DBType,episode)</visible>
+					<control type="label" description="Subheading Label">
+                        <top>520</top>
+                        <left>47</left>
+                        <width>$PARAM[labelwidth]</width>
+                        <height>30</height>
+                        <aligny>center</aligny>
+                        <align>center</align>
+                        <font>ListDetails</font>
+                        <label>$VAR[panelfooter2]</label>
+                    </control>
+				    <control type="label" description="Subheading Label">
+                        <top>550</top>
+                        <left>47</left>
+                        <width>$PARAM[labelwidth]</width>
+                        <height>60</height>
+                        <aligny>center</aligny>
+                        <align>center</align>
+                        <font>ListDetails</font>
+                        <label>$VAR[panelfooter]</label>
+                    </control>
+				</control>
                 <control type="label" description="Subheading2">
-                    <top>585</top>
+                    <top>610</top>
 					<left>47</left>
                     <visible>$PARAM[subheading2_visible]</visible>
                     <width>$PARAM[labelwidth]</width>
@@ -2348,7 +2425,7 @@
                     <width>$PARAM[plotwidth]</width>
                     <height>$PARAM[plotheight]</height>
                     <left>30</left>
-                    <top>630</top>
+                    <top>650</top>
                     <control type="textbox" id="4001">
                         <align>justify</align>
                         <label>$PARAM[plot]</label>
@@ -2416,7 +2493,7 @@
                     </control>
                 </control>
 		        <control type="grouplist" description="Flags">
-			        <top>975</top>
+			        <top>995</top>
 			        <left>40</left>
 			        <width>$PARAM[labelwidth]</width>
 			        <height>45</height>
