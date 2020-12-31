@@ -1615,19 +1615,13 @@
                 <label>$VAR[VideoInfoButton8]</label>
                 <!-- Online item -->
 				<onclick condition="String.IsEmpty(ListItem.DBID)">Action(Close)</onclick>
-                <!-- Local item, but from a tmdb plugin widget -->
-				<onclick condition="!String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))">Action(Close)</onclick>
-				<!-- Standard library Play when tmdb helper not active -->
-				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
-				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
+                <!-- Local item -->
+				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				<!-- tmdb helper active, path is not empty -->
 				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(ListItem.FileNameAndPath) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
-                <!-- tmdb helper active, path is empty, tmdb_id present -->
-				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=plugin://plugin.video.themoviedb.helper/?info=play&amp;type=movie&amp;tmdb_id=$INFO[ListItem.Property(tmdb_id)])</onclick>
-                <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Property(tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=plugin://plugin.video.themoviedb.helper/?info=play&amp;type=episode&amp;tmdb_id=$INFO[ListItem.Property(tvshow.tmdb_id)]&amp;season=$INFO[ListItem.Season]&amp;episode=$INFO[ListItem.Episode])</onclick>
-                <!-- tmdb helper active, path is empty, no tmdb_id -->
-			    <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEqual(ListItem.DBType,movie) + String.IsEmpty(ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=plugin://plugin.video.themoviedb.helper/?info=play&amp;type=movie&amp;query=$INFO[ListItem.Title])</onclick>
-                <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Property(tvshow.tmdb_id))">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=plugin://plugin.video.themoviedb.helper/?info=play&amp;type=episode&amp;query=$INFO[ListItem.TvShowTitle]&amp;season=$INFO[ListItem.Season]&amp;episode=$INFO[ListItem.Episode])</onclick>
+                <!-- tmdb helper active, path is empty -->
+				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(ListItem.FileNameAndPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
 				<!-- Browse TV Show, embuary helper not active -->
 				<onclick condition="!System.HasAddon(script.embuary.helper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="!System.HasAddon(script.embuary.helper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
@@ -1640,7 +1634,7 @@
 				<onclick condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				
-				<!-- En d Matrix change -->
+				<!-- End Matrix change -->
 				
             </control>
             <control type="button" id="8001" description="Set">
@@ -1669,7 +1663,9 @@
                 <font>Details</font>
                 <align>center</align>
                 <label>$LOCALIZE[20410]</label>
-				<onclick>RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.Trailer])</onclick>
+				<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.Trailer])</onclick>
+				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">SendClick(11)</onclick>
+				<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">Dialog.Close(all)</onclick>
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
             </control>
             <control type="button" id="6" description="Refresh">
