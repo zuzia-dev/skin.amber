@@ -185,8 +185,8 @@
     </variable>
 	
 	<variable name="TopRightOverlay" description="Overlay image">
-        <value condition="[[Window.IsActive(DialogVideoInfo.xml) + !Window.IsActive(Custom_1122_Search.xml) + !Window.IsActive(Custom_1131_SingleSearch.xml)] | 
-		                  String.StartsWith(Container.ListItem.FolderPath,plugin://)] + !String.IsEmpty(Container.ListItem.DBID)">overlays/toprightlibrary.png</value>
+        <value condition="[[Window.IsActive(DialogVideoInfo.xml) + !Window.IsActive(Custom_1122_Search.xml) + !Window.IsActive(Custom_1131_SingleSearch.xml)] + 
+		                  !String.IsEmpty(ListItem.Property(Container.Info))] + !String.IsEmpty(Container.ListItem.DBID)">overlays/toprightlibrary.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + !String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/toprightcollectionsnf.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/toprightwatched.png</value>
         <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(ListItem.Overlay) + ListItem.IsResumable">overlays/toprightinprogress.png</value>
@@ -924,7 +924,14 @@
         <value condition="String.IsEqual(ListItem.DBType,song) + Control.IsVisible(52)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[558]: [/COLOR]$INFO[Listitem.Album] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
         <value condition="!String.IsEmpty(ListItem.Genre)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
 	</variable>
-
+	
+	<variable name="panelfooter2">
+		<value condition="String.IsEqual(ListItem.DBType,set) + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Director))">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339](s): [/COLOR]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Director)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]: [/COLOR]$INFO[Listitem.Director]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,episode) | Container.Content(episodes)] + !String.IsEmpty(ListItem.Director)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]: [/COLOR]$INFO[ListItem.Director]</value>
+        <value condition="String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEmpty(ListItem.Director)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]: [/COLOR]$INFO[ListItem.Director]</value>
+	</variable>
+	
     <variable name="listmediaheader">
         <value condition="Container.Content(songs)">$INFO[Listitem.Album]$INFO[ListItem.Year, (,)]</value>
     </variable>
