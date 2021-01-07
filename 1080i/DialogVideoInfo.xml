@@ -383,6 +383,7 @@
                 <visible>[!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)] | 
 				         [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)]</visible>
 				<visible>Skin.HasSetting(ShowRatingAwards)</visible>
+				<visible>!Skin.HasSetting(Disable.ExtendedInfo)</visible>
                 <control type="image" description="Oscars logo">
                     <height>40</height>
                     <width>30</width>
@@ -433,7 +434,7 @@
             <itemgap>8</itemgap>
             <orientation>horizontal</orientation>
             <align>left</align>
-            <visible>!String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+            <visible>!String.IsEmpty(ListItem.Property(tmdb_id)) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
             <control type="grouplist" description="Main Rating, TMDB">
                 <width>320</width>
                 <orientation>horizontal</orientation>
@@ -654,6 +655,7 @@
         <control type="group">
             <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.MPAA))</visible>
 			<visible>Skin.HasSetting(ShowMPAAVideoInfo)</visible>
+			<visible>!Skin.HasSetting(Disable.ExtendedInfo)</visible>
             <control type="image" description="Certification flag USA">
                 <top>70</top>
                 <left>1738</left>
@@ -1097,7 +1099,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(TMDbHelper.ListItem.Director)])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">Dialog.Close(all)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">ActivateWindow(1122)</onclick>
-							<visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))</visible>
+							<visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[20339](s):</label>
@@ -1154,7 +1156,7 @@
                             <onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(TMDbHelper.ListItem.Writer)])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">Dialog.Close(all)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">ActivateWindow(1122)</onclick>
-							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer))</visible>
+							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20417](s):</label>
@@ -1233,7 +1235,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">Dialog.Close(All)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">ActivateWindow(1131)</onclick>
-							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre)) + !String.IsEqual(ListItem.DBType,set)</visible>
+							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre)) + !String.IsEqual(ListItem.DBType,set) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[515](s):</label>
@@ -1273,7 +1275,7 @@
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration)] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[2050]:</label>
@@ -1297,7 +1299,7 @@
                             <label>$LOCALIZE[126]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Status)]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + String.IsEqual(ListItem.DBType,tvshow)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + String.IsEqual(ListItem.DBType,tvshow)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[21875]:</label>
@@ -1323,7 +1325,7 @@
                             <onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">Skin.SetString(SingleSearchHeader,$LOCALIZE[32035])</onclick>
                             <onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">Dialog.Close(All)</onclick>
 							<onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">ActivateWindow(1131)</onclick>
-                            <visible>String.IsEmpty(ListItem.Country) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country))</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Country) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[572]:</label>
@@ -1383,7 +1385,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">Dialog.Close(All)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">ActivateWindow(1131)</onclick>
-							<visible>String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[29909](s):</label>
@@ -1423,7 +1425,7 @@
                             <label>$LOCALIZE[33054]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.season)]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalSeasons)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.season))</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalSeasons)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.season))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20360]:</label>
@@ -1435,7 +1437,7 @@
                             <label>$LOCALIZE[20360]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.episode)]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.episode))</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.episode))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[31037]:</label>
@@ -1449,7 +1451,7 @@
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.MPAA)]</label2>
                             <onclick>noop</onclick>
                             <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.MPAA))</visible>
-							<visible>Skin.HasSetting(ShowMPAA)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowMPAA)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[292]:</label>
@@ -1472,7 +1474,7 @@
                             <label>$LOCALIZE[20457]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.set.name)]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.set.name))</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.set.name))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20459]:</label>
@@ -1490,43 +1492,43 @@
                             <label>$LOCALIZE[126]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Status)]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + !String.IsEqual(ListItem.DBType,tvshow)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + !String.IsEqual(ListItem.DBType,tvshow)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32073]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.budget)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.budget)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.budget),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.budget)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.budget),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32074]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.revenue)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.revenue)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.revenue),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.revenue)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.revenue),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32278]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32279]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32280]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32281]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobes_Nominations),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobes_Nominations),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32075]:</label>
@@ -1535,28 +1537,28 @@
                             <onclick>SetProperty(TextViewerSubHeader,$VAR[AwardsLabel],Home)</onclick>
                             <onclick>SetProperty(TextViewerContent,$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.awards)],Home)</onclick>
                             <onclick>ActivateWindow(1124)</onclick>
-                            <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.awards)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.awards),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.awards)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.awards),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32077]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal),N/A)</visible>
-							<visible>Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32078]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh),N/A)</visible>
-							<visible>Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32079]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten),N/A)</visible>
-							<visible>Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32080]:</label>
@@ -1566,14 +1568,14 @@
                             <onclick>SetProperty(TextViewerContent,$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus)],Home)</onclick>
                             <onclick>ActivateWindow(1124)</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus),N/A)</visible>
-							<visible>Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[32081]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews),N/A)</visible>
-							<visible>Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[573]:</label>
@@ -1614,7 +1616,10 @@
                 <align>center</align>
                 <font>Details</font>
                 <label>$VAR[VideoInfoButton8]</label>
-                <!-- Online item -->
+                <!-- PKC On Deck: No FileName or FolderPath -->
+				<onclick condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
+				<onclick condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
+				<!-- Online item -->
 				<onclick condition="String.IsEmpty(ListItem.DBID)">Action(Close)</onclick>
                 <!-- Local item -->
 				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
@@ -1622,7 +1627,7 @@
 				<!-- tmdb helper active, path is not empty -->
 				<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.FileNameAndPath) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
                 <!-- tmdb helper active, path is empty -->
-				<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.FileNameAndPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
+				<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEmpty(ListItem.FolderPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
 				<!-- Browse TV Show, embuary helper not active -->
 				<onclick condition="!Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="!Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
@@ -1908,7 +1913,7 @@
                 <param name="sortorder">descending</param>
             </include>
             <!-- Crew in Movies -->
-            <include content="VideoInfoPosterWidget" condition="String.Contains(ListItem.FolderPath,type=person) + Skin.HasSetting(Enable.TMDbHelper))">
+            <include content="VideoInfoPosterWidget" condition="String.Contains(ListItem.FolderPath,type=person) + Skin.HasSetting(Enable.TMDbHelper)">
                 <param name="id">910013</param>
     			<param name="labelid">9100131</param>
                 <param name="headinglabel">$LOCALIZE[32089]</param>

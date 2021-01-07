@@ -1755,6 +1755,22 @@
 		<value>$LOCALIZE[13113]</value>
 	</variable>
 	
+	<variable name="PVRGuideIcon">
+	    <value condition="!String.IsEmpty(ListItem.EPGEventIcon)">$INFO[ListItem.EPGEventIcon]</value>
+	    <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Fanart))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Fanart)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Thumb)]</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Poster))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Poster)]</value>
+		<value>$INFO[ListItem.Icon]</value>
+	</variable>
+	
+	<variable name="VideoPlayerIcon">
+	    <value condition="!String.IsEmpty(PVR.EPGEventIcon)">$INFO[PVR.EPGEventIcon]</value>
+	    <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Fanart))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Fanart)]</value>
+		<value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Thumb)]</value>
+		<value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Poster))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Poster)]</value>
+		<value>$INFO[Player.Icon]</value>
+	</variable>
+	
 	<expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
     
     <expression name="SortLetterIsNumber">[String.IsEqual(ListItem.SortLetter,$NUMBER[0]) | String.IsEqual(ListItem.SortLetter,$NUMBER[1]) | String.IsEqual(ListItem.SortLetter,$NUMBER[2]) | String.IsEqual(ListItem.SortLetter,$NUMBER[3]) | String.IsEqual(ListItem.SortLetter,$NUMBER[4]) | String.IsEqual(ListItem.SortLetter,$NUMBER[5]) | String.IsEqual(ListItem.SortLetter,$NUMBER[6]) | String.IsEqual(ListItem.SortLetter,$NUMBER[7]) | String.IsEqual(ListItem.SortLetter,$NUMBER[8]) | String.IsEqual(ListItem.SortLetter,$NUMBER[9])]</expression>
@@ -1835,5 +1851,16 @@
 	                                  [[String.Contains(VideoPlayer.Filename,8bit) | String.Contains(VideoPlayer.Filename,8-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,10bit) | String.Contains(VideoPlayer.Filename,10-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,12bit) | String.Contains(VideoPlayer.Filename,12-bit)]]</expression>
+	
+    <expression name="SeekbarShouldShow">!Player.HasGame + 
+	                                     [[[VideoPlayer.IsFullscreen + [!Skin.HasSetting(Hide.SeekBarWhenPaused) | !Player.Paused]] | 
+	                                       [VideoPlayer.IsFullscreen + Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)]] | 
+										   Window.IsVisible(MusicVisualisation.xml)] + 
+	                                     [Window.IsVisible(videoosd) | Window.IsVisible(musicosd) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | 
+			                              Player.Caching | Player.ShowInfo | Player.Seeking | Player.DisplayAfterSeek | 
+			                              [[Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
+			                               [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
+										  Player.Forwarding | Player.Rewinding | 
+			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression>	
 	
 </includes>
