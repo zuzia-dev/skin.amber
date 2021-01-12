@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+	<defaultcontrol always="true">110</defaultcontrol>
+	<zorder>0</zorder>
 	<include>OpenClose</include>
 	<controls>
 		<control type="group">
-			<control type="label" description="Header">
+		    <control type="label" description="Header">
 				<posx>30</posx>
 				<posy>150</posy>
 				<width>1860</width>
@@ -14,7 +16,6 @@
 				<aligny>center</aligny>
 				<textcolor>$VAR[HighlightColor]</textcolor>
 			</control>
-			<!-- ** Required ** Do not change <id> or <type> (Smooth scrolling list for lyrics) -->
 			<control type="list" id="110">
 				<posx>30</posx>
 				<posy>210</posy>
@@ -25,27 +26,13 @@
 				<onup>110</onup>
 				<ondown>110</ondown>
 				<scrolltime>200</scrolltime>
-				<itemlayout height="40">
-					<control type="label">
-						<width>1860</width>
-						<height>40</height>
-						<aligny>center</aligny>
-						<align>center</align>
-						<textcolor>$VAR[LabelTextColor]</textcolor>
-						<shadowcolor>ShadowDark</shadowcolor>
-						<label fallback="--">[B]$INFO[ListItem.Label][/B]</label>
-					</control>
+				<itemlayout height="100">
+					<include condition="!Skin.HasSetting(Enable.VideoLyrics)">NormalLyrics</include>
 				</itemlayout>
-				<focusedlayout height="40">
-					<control type="label">
-						<width>1860</width>
-						<height>40</height>
-						<aligny>center</aligny>
-						<align>center</align>
-						<textcolor>$VAR[HighlightColor]</textcolor>
-						<shadowcolor>ShadowDark</shadowcolor>
-						<label fallback="- -">[B]$INFO[ListItem.Label][/B]</label>
-					</control>
+				<focusedlayout height="100">
+					<include condition="!Skin.HasSetting(Enable.VideoLyrics)" content="NormalLyrics">
+						<param name="textcolor">$VAR[HighlightColor]</param>
+					</include>
 				</focusedlayout>
 			</control>
 			<control type="spincontrol" id="111">
@@ -61,19 +48,71 @@
 				<showonepage>true</showonepage>
 				<visible>Control.IsVisible(110)</visible>
 			</control>
-			<control type="label" id="2">
-				<description>Pick label</description>
-				<posx>30</posx>
-				<posy>130</posy>
-				<width>550</width>
-				<height>30</height>
-				<align>center</align>
-				<aligny>center</aligny>
-				<label>$ADDON[script.cu.lrclyrics 32005]</label>
-				<textcolor>$VAR[LabelTextColor]</textcolor>
-				<visible>!Control.IsVisible(110)</visible>
+			<control type="label">
+				<left>870</left>
+				<top>1020</top>
+				<width>825</width>
+				<height>45</height>
+				<label>$LOCALIZE[31205] - $INFO[Control.GetLabel(200)]</label>
+				<font>font12_title</font>
+				<align>right</align>
+				<textcolor>grey2</textcolor>
+				<visible>false</visible>
 			</control>
-<!--			<control type="spincontrol" id="121">
+			<control type="label" id="200">
+				<visible>false</visible>
+			</control>
+		</control>
+		<include condition="Skin.HasSetting(Enable.VideoLyrics)">VideoLyrics</include>
+		<control type="group">
+		    <control type="list" id="120">
+				<posx>30</posx>
+				<posy>170</posy>
+				<width>550</width>
+				<height>440</height>
+				<onleft>121</onleft>
+				<onright>121</onright>
+				<onup>120</onup>
+				<ondown>120</ondown>
+				<pagecontrol>121</pagecontrol>
+				<scrolltime>200</scrolltime>
+				<animation effect="slide" start="0,0" end="20,0" time="0" condition="!Control.IsVisible(121)">Conditional</animation>
+				<itemlayout height="40">
+					<control type="image">
+						<width>550</width>
+						<height>40</height>
+						<texture flipy="true" border="3">list/ListNF.png</texture>
+					</control>
+					<control type="label">
+						<posx>10</posx>
+						<width>530</width>
+						<height>40</height>
+						<align>left</align>
+						<aligny>center</aligny>
+						<selectedcolor>$VAR[SelectedTextColor]</selectedcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="40">
+					<control type="image">
+						<width>550</width>
+						<height>40</height>
+						<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+					</control>
+					<control type="label">
+						<posx>10</posx>
+						<width>530</width>
+						<height>40</height>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+						<shadowcolor></shadowcolor>
+						<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="spincontrol" id="121">
 				<visible>false</visible>
 				<description>Next page button</description>
 				<posx>520</posx>
@@ -85,10 +124,18 @@
 				<onup>120</onup>
 				<showonepage>true</showonepage>
 				<visible>Control.IsVisible(120)</visible>
-			</control> -->
-			<control type="label" id="200">
-				<description>Scraper label</description>
-				<visible>false</visible>
+			</control>
+			<control type="label" id="2">
+				<description>Pick label</description>
+				<posx>30</posx>
+				<posy>130</posy>
+				<width>550</width>
+				<height>30</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>$ADDON[script.cu.lrclyrics 32005]</label>
+				<textcolor>$VAR[LabelTextColor]</textcolor>
+				<visible>Control.IsVisible(120) + !Control.IsVisible(110)</visible>
 			</control>
 		</control>
 	</controls>
