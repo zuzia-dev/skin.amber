@@ -1016,7 +1016,9 @@
             <visible>[[String.IsEqual(Container(300).ListItem.Property(background),nodeBackground) | String.IsEqual(Container(300).ListItem.Property(background),playlistBackground) | String.EndsWith(Container(300).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)] | 
 			         [ControlGroup(700).HasFocus + String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + String.IsEqual(Container(300).ListItem.Property(widgetType),custom) + 
 					  [[String.IsEqual(Container.ListItem.Property(background),nodeBackground) | String.IsEqual(Container.ListItem.Property(background),playlistBackground) | String.EndsWith(Container.ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(300).ListItem.Property(background),Weather.Fanart)]]</visible>
-		    <control type="image">
+		    <visible>[Skin.HasSetting(VerticalHome) + [!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]] | 
+			         [!Skin.HasSetting(VerticalHome) + [![$EXP[tripleWidgetIsShowing]]] + [!Container(300).ListItem.Property(widgetThreeShelves)] | [Container(300).ListItem.Property(widgetThreeShelves) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]]</visible>
+			<control type="image">
                 <left>0</left>
                 <top>41.3</top>
                 <height>98</height>
@@ -1060,6 +1062,7 @@
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<visible>![Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] | 
 			          [Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf) + String.IsEmpty(Container(300).ListItem.Property(InfoLine))]</visible>
+			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>40</posy>
@@ -1082,6 +1085,7 @@
 		<control type="group" description="Icon Menu Item Label">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<visible>[Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] + !String.IsEmpty(Container(300).ListItem.Property(InfoLine))</visible>
+			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>82</posy>
