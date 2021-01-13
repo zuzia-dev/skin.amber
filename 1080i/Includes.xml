@@ -327,7 +327,8 @@
                     <height>48</height>
                     <texture colordiffuse="$VAR[TopBarColor]">common/TopStripe.png</texture>
                 </control>
-                <control type="label">
+                <!-- Sub window title -->
+				<control type="label">
                     <visible>!Player.HasMedia</visible>
                     <include>VisibleFadeEffect</include>
                     <posx>30</posx>
@@ -336,8 +337,21 @@
                     <font>Details</font>
                     <label>$VAR[GlobalHeadings]</label>
                 </control>
+				<!-- Icon menu label -->
+                <control type="label" id="12002">
+                    <posx>20</posx>
+                    <height>35</height>
+                    <width>370</width>
+                    <font>Details</font>
+                    <align>left</align>
+                    <label>[B]$INFO[Container(300).ListItem.Label][/B]</label>
+				    <textcolor>$VAR[HighlightColor]</textcolor>
+					<visible>Skin.HasSetting(VerticalHome) + Skin.HasSetting(IconShowLabel.InTopBar) + Window.Is(home) + [!Player.HasMedia | 
+					         [Player.HasMedia + [Skin.HasSetting(Hide.TitleBarNowPlaying) | ![$EXP[widgetsAreShowing]]]]]</visible>
+                </control>
+				<!-- RSS feed -->
                 <control type="rss" description="RSS Feed">
-                    <visible>Window.Is(home) + system.getbool(lookandfeel.enablerssfeeds) + !Player.HasMedia</visible>
+                    <visible>Window.Is(home) + system.getbool(lookandfeel.enablerssfeeds) + !Player.HasMedia + !Control.IsVisible(12002)</visible>
                     <posx>30</posx>
                     <width>1200</width>
                     <height>35</height>
@@ -348,7 +362,8 @@
                     <headlinecolor>White2</headlinecolor>
                     <textcolor>$VAR[LabelTextColor]</textcolor>
                 </control>
-                <control type="grouplist">
+                <!-- Now Playing info -->
+				<control type="grouplist">
 					<visible>Player.HasMedia + [!Skin.HasSetting(Hide.TitleBarNowPlaying) | $EXP[widgetsAreShowing]]</visible>
                     <include>VisibleFadeEffect</include>
 					<orientation>horizontal</orientation>
@@ -374,7 +389,8 @@
 						<label>$VAR[TopBarMedia2]</label>
 					</control>
                 </control>
-                <control type="grouplist">
+                <!-- Right side content for top bar: recording icon, weather, time and date -->
+				<control type="grouplist">
                     <left>1100</left>
                     <top>-3</top>
                     <height>40</height>
