@@ -1055,8 +1055,8 @@
                 <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)</visible>
             </control>            
             <control type="button" id="12001">
-                <include condition="Skin.HasSetting(FanartTitle.InTopBar) + [!Skin.HasSetting(VerticalHome) | ![Skin.HasSetting(VerticalHome) + Skin.HasSetting(IconShowLabel.InTopBar)]]">TitleButtonTopBar</include>
-				<include condition="Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome) + Skin.HasSetting(IconShowLabel.InTopBar)">TitleButtonTopBarIcon</include>
+                <include condition="Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">TitleButtonTopBar</include>
+				<include condition="Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">TitleButtonTopBarIcon</include>
                 <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">HorizTitleButtonBelowTopBar</include>
                 <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">VertTitleButtonBelowTopBar</include>
                 <aligny>center</aligny>
@@ -1081,11 +1081,12 @@
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<visible>![Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] | 
 			          [Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf) + String.IsEmpty(Container(300).ListItem.Property(InfoLine))]</visible>
-			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]</visible>
+			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + ![$EXP[widgetsAreShowing]]]</visible>
+			<visible>![$EXP[TopBarIconLabelShouldShow]]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>40</posy>
-                <width>370</width>
+                <width>600</width>
                 <height>110</height>
                 <texture flipx="true" flipy="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
             </control>
@@ -1093,10 +1094,10 @@
                 <posx>124</posx>
                 <posy>34</posy>
                 <height>60</height>
-                <width>370</width>
+                <width>600</width>
                 <font>font16</font>
                 <align>center</align>
-                <label>[B]$INFO[Container(300).ListItem.Label][/B]</label>
+                <label>$VAR[IconMenuLabelVar]</label>
 				<textcolor>$VAR[HighlightColor]</textcolor>
                 <shadowcolor>ShadowDark</shadowcolor>
             </control>
@@ -1104,11 +1105,12 @@
 		<control type="group" description="Icon Menu Item Label">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
 			<visible>[Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] + !String.IsEmpty(Container(300).ListItem.Property(InfoLine))</visible>
-			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + Control.HasFocus(300) + Container(300).ListItem.Property(widgetsHide)]</visible>
+			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + ![$EXP[widgetsAreShowing]]]</visible>
+			<visible>![$EXP[TopBarIconLabelShouldShow]]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>82</posy>
-                <width>370</width>
+                <width>600</width>
                 <height>110</height>
                 <texture flipx="true" flipy="true" colordiffuse="$VAR[GlowBarsColor]" border="100,0,0,0">common/TimePanel.png</texture>
             </control>
@@ -1116,10 +1118,10 @@
                 <posx>124</posx>
                 <posy>76</posy>
                 <height>60</height>
-                <width>370</width>
+                <width>600</width>
                 <font>font16</font>
                 <align>center</align>
-                <label>[B]$INFO[Container(300).ListItem.Label][/B]</label>
+                <label>$VAR[IconMenuLabelVar]</label>
 				<textcolor>$VAR[HighlightColor]</textcolor>
                 <shadowcolor>ShadowDark</shadowcolor>
             </control>

@@ -1769,13 +1769,18 @@
 	    <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Fanart))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Fanart)]</value>
 		<value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Thumb))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Thumb)]</value>
 		<value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Poster))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Poster)]</value>
-		<value condition="VideoPlayer.Content(movies) + !String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
-		<value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(Player.Art(thumb))">$INFO[Player.Art(thumb)]</value>
-		<value condition="VideoPlayer.Content(episodes) + String.IsEmpty(Player.Art(thumb)) + !String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
+		<value condition="!VideoPlayer.Content(livetv) + VideoPlayer.Content(movies) + !String.IsEmpty(Player.Art(poster))">$INFO[Player.Art(poster)]</value>
+		<value condition="!VideoPlayer.Content(livetv) + VideoPlayer.Content(episodes) + !String.IsEmpty(Player.Art(thumb))">$INFO[Player.Art(thumb)]</value>
+		<value condition="!VideoPlayer.Content(livetv) + VideoPlayer.Content(episodes) + String.IsEmpty(Player.Art(thumb)) + !String.IsEmpty(Player.Art(tvshow.poster))">$INFO[Player.Art(tvshow.poster)]</value>
 		<value>$INFO[Player.Icon]</value>
 	</variable>
 	
-	<expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
+	<variable name="IconMenuLabelVar">
+	    <value condition="Control.HasFocus(300)">[B]$INFO[Container(300).ListItem.Label][/B]</value>
+		<value condition="Control.HasFocus(9001)">[B]$INFO[Container(300).ListItem.Label][/B]  •  [B]$INFO[Container(9001).ListItem.Label][/B]</value>
+	</variable>
+	
+    <expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
     
     <expression name="SortLetterIsNumber">[String.IsEqual(ListItem.SortLetter,$NUMBER[0]) | String.IsEqual(ListItem.SortLetter,$NUMBER[1]) | String.IsEqual(ListItem.SortLetter,$NUMBER[2]) | String.IsEqual(ListItem.SortLetter,$NUMBER[3]) | String.IsEqual(ListItem.SortLetter,$NUMBER[4]) | String.IsEqual(ListItem.SortLetter,$NUMBER[5]) | String.IsEqual(ListItem.SortLetter,$NUMBER[6]) | String.IsEqual(ListItem.SortLetter,$NUMBER[7]) | String.IsEqual(ListItem.SortLetter,$NUMBER[8]) | String.IsEqual(ListItem.SortLetter,$NUMBER[9])]</expression>
     
@@ -1835,14 +1840,14 @@
 	
 	<expression name="IsIconView">[Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(Custom_1122_Search.xml) | Window.IsActive(Custom_1131_SingleSearch.xml) | String.IsEmpty(Container.ViewMode)] | String.IsEqual(Container.ViewMode,$LOCALIZE[536]) | String.IsEqual(Container.ViewMode,$LOCALIZE[20445]) | String.IsEqual(Container.ViewMode,$LOCALIZE[31958]) | 
 	                              String.IsEqual(Container.ViewMode,$LOCALIZE[31963]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32245]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32246])</expression>
-	<expression name="widgetsAreShowing">ControlGroup(700).HasFocus | [Control.HasFocus(300) + !Container(300).ListItem.Property(widgetsHide) + !String.IsEmpty(Container(300).ListItem.Property(widgetPath)) + !Skin.HasSetting(Hide.AllShelves)]</expression>
+	
+	<expression name="widgetsAreShowing">ControlGroup(700).HasFocus | [[Control.HasFocus(300) | Control.HasFocus(9001) | Control.HasFocus(12001)] + !Container(300).ListItem.Property(widgetsHide) + !String.IsEmpty(Container(300).ListItem.Property(widgetPath)) + !Skin.HasSetting(Hide.AllShelves)]</expression>
 	
 	<expression name="tripleWidgetIsShowing">ControlGroup(700).HasFocus + [Container(300).ListItem.Property(widgetTriple) | Container(300).ListItem.Property(widgetTriple.2) | Container(300).ListItem.Property(widgetTriple.3) | 
 	                                                                       Container(300).ListItem.Property(widgetTriple.4) | Container(300).ListItem.Property(widgetTriple.5) | Container(300).ListItem.Property(widgetTriple.6)]</expression>
 												  
 	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(tags) | Container.Content(actors) | 
 	                                     Container.Content(directors) | Container.Content(years) | Container.Content(countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
-										 
 										 
 	<expression name="ContainerIsHDR">[String.Contains(Container.ListItem.Filename,hdr) | String.Contains(Container.ListItem.Filename,sdr)] | 
 	                                  [[String.Contains(Container.ListItem.Filename,8bit) | String.Contains(Container.ListItem.Filename,8-bit)] | 
@@ -1868,6 +1873,12 @@
 			                              [[Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
 			                               [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
 										  Player.Forwarding | Player.Rewinding | 
-			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression>	
+			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression>
+	
+    <expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
+	                                             [!Skin.HasSetting(IconShowLabel.InTopBar) + $EXP[widgetsAreShowing] + [String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) | 
+												                                                                        [Container(300).ListItem.Property(widgetThreeShelves) + Container(300).ListItem.Property(widgetThreeShelvesLarge)]]]] + 
+												 [!Player.HasMedia | 
+					                             [Player.HasMedia + [Skin.HasSetting(Hide.TitleBarNowPlaying) | ![$EXP[widgetsAreShowing]]]]]</expression>	
 	
 </includes>
