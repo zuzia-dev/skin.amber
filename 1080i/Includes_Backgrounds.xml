@@ -1075,14 +1075,13 @@
         </control>
 	</include>
 	
-	<!-- Label for menu items in vertical icon-only -->
+	<!-- Below Top Bar Label for menu items in vertical icon-only -->
 	<include name="ShowIconMenuLabel">
         <control type="group" description="Icon Menu Item Label">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
-			<visible>![Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] | 
-			          [Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf) + String.IsEmpty(Container(300).ListItem.Property(InfoLine))]</visible>
-			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + ![$EXP[widgetsAreShowing]]]</visible>
-			<visible>![$EXP[TopBarIconLabelShouldShow]]</visible>
+			<visible>[Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)] | 
+			         [Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf) + String.IsEmpty(Container(300).ListItem.Property(InfoLine))]</visible>
+			<visible>$EXP[BelowIconLabelShouldShow]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>40</posy>
@@ -1104,9 +1103,8 @@
         </control>
 		<control type="group" description="Icon Menu Item Label">
             <animation effect="slide" tween="cubic" easing="inout" start="0,0" end="0,120" time="240">Conditional</animation>
-			<visible>[Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf)] + !String.IsEmpty(Container(300).ListItem.Property(InfoLine))</visible>
-			<visible>[!Container(300).ListItem.Property(widgetThreeShelvesLarge)] | [Container(300).ListItem.Property(widgetThreeShelvesLarge) + ![$EXP[widgetsAreShowing]]]</visible>
-			<visible>![$EXP[TopBarIconLabelShouldShow]]</visible>
+			<visible>Skin.HasSetting(ShowInfoLine) + !Skin.HasSetting(ShowInfoLineShelf) + !String.IsEmpty(Container(300).ListItem.Property(InfoLine))</visible>
+			<visible>$EXP[BelowIconLabelShouldShow]</visible>
 			<control type="image">
                 <posx>134</posx>
                 <posy>82</posy>

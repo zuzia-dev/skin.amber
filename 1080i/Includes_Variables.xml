@@ -1776,8 +1776,8 @@
 	</variable>
 	
 	<variable name="IconMenuLabelVar">
-	    <value condition="Control.HasFocus(300)">[B]$INFO[Container(300).ListItem.Label][/B]</value>
 		<value condition="Control.HasFocus(9001)">[B]$INFO[Container(300).ListItem.Label][/B]  •  [B]$INFO[Container(9001).ListItem.Label][/B]</value>
+		<value>[B]$INFO[Container(300).ListItem.Label][/B]</value>
 	</variable>
 	
     <expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
@@ -1842,10 +1842,10 @@
 	                              String.IsEqual(Container.ViewMode,$LOCALIZE[31963]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32245]) | String.IsEqual(Container.ViewMode,$LOCALIZE[32246])</expression>
 	
 	<expression name="widgetsAreShowing">ControlGroup(700).HasFocus | [[Control.HasFocus(300) | Control.HasFocus(9001) | Control.HasFocus(12001)] + !Container(300).ListItem.Property(widgetsHide) + !String.IsEmpty(Container(300).ListItem.Property(widgetPath)) + !Skin.HasSetting(Hide.AllShelves)]</expression>
-	
+												  
 	<expression name="tripleWidgetIsShowing">ControlGroup(700).HasFocus + [Container(300).ListItem.Property(widgetTriple) | Container(300).ListItem.Property(widgetTriple.2) | Container(300).ListItem.Property(widgetTriple.3) | 
 	                                                                       Container(300).ListItem.Property(widgetTriple.4) | Container(300).ListItem.Property(widgetTriple.5) | Container(300).ListItem.Property(widgetTriple.6)]</expression>
-												  
+	
 	<expression name="isSpecialContent">[Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(tags) | Container.Content(actors) | 
 	                                     Container.Content(directors) | Container.Content(years) | Container.Content(countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]</expression>
 										 
@@ -1863,8 +1863,8 @@
 	                                  [[String.Contains(VideoPlayer.Filename,8bit) | String.Contains(VideoPlayer.Filename,8-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,10bit) | String.Contains(VideoPlayer.Filename,10-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,12bit) | String.Contains(VideoPlayer.Filename,12-bit)]]</expression>
-	
-    <expression name="SeekbarShouldShow">!Player.HasGame + 
+									   
+	<expression name="SeekbarShouldShow">!Player.HasGame + 
 	                                     [[[VideoPlayer.IsFullscreen + [!Skin.HasSetting(Hide.SeekBarWhenPaused) | !Player.Paused]] | 
 	                                       [VideoPlayer.IsFullscreen + Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)]] | 
 										   Window.IsVisible(MusicVisualisation.xml)] + 
@@ -1874,11 +1874,15 @@
 			                               [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
 										  Player.Forwarding | Player.Rewinding | 
 			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression>
-	
-    <expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
+										  
+	<expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + Skin.HasSetting(Vertical.IconOnly) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
 	                                             [!Skin.HasSetting(IconShowLabel.InTopBar) + $EXP[widgetsAreShowing] + [String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) | 
 												                                                                        [Container(300).ListItem.Property(widgetThreeShelves) + Container(300).ListItem.Property(widgetThreeShelvesLarge)]]]] + 
 												 [!Player.HasMedia | 
-					                             [Player.HasMedia + [Skin.HasSetting(Hide.TitleBarNowPlaying) | ![$EXP[widgetsAreShowing]]]]]</expression>	
+					                             [Player.HasMedia + [Skin.HasSetting(Hide.TitleBarNowPlaying) | ![$EXP[widgetsAreShowing]]]]]</expression>
+
+    <expression name="BelowIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(IconShowLabel.InTopBar) + [![$EXP[widgetsAreShowing]] | 
+	                                            [$EXP[widgetsAreShowing] + !String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) + 
+												 !Container(300).ListItem.Property(widgetThreeShelves) + !Container(300).ListItem.Property(widgetThreeShelvesLarge)]]</expression>
 	
 </includes>
