@@ -702,7 +702,10 @@
     <include name="SimpleListWatchedOverlay">
 		<param name="isFocused">false</param>
         <param name="itemheight">72</param>
-        <param name="BGposy">15</param>
+        <param name="overlaypos">535</param>
+		<param name="episodesbackgroundpos">520</param>
+		<param name="episodeslabelpos">495</param>
+		<param name="BGposy">15</param>
 		<definition>
 		    
 			<control type="group">
@@ -711,7 +714,7 @@
 			    <control type="image">
 				    <visible>[![Container.Content(tvshows) | container.content(seasons) | Container.Content(addons)] | 
 				              [[Container.Content(tvshows) | container.content(seasons)] + !Integer.IsGreater(Listitem.Property(UnwatchedEpisodes),0)]]</visible>
-				    <posx>535</posx>
+				    <posx>$PARAM[overlaypos]</posx>
 				    <width>30</width>
 				    <height>$PARAM[itemheight]</height>
 				    <texture>$VAR[Overlay]</texture>
@@ -720,7 +723,7 @@
 			    <!-- Overlay image for addons when panel is original position -->
 			    <control type="image">
 				    <visible>Container.Content(addons)</visible>
-				    <posx>535</posx>
+				    <posx>$PARAM[overlaypos]</posx>
 				    <width>30</width>
 				    <height>$PARAM[itemheight]</height>
 				    <texture>$VAR[AddonOverlay]</texture>
@@ -732,7 +735,7 @@
 				    <visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
 				    <control type="image" description="Label2 BG">
 					    <visible>$PARAM[isFocused]</visible>
-					    <posx>520</posx>
+					    <posx>$PARAM[episodesbackgroundpos]</posx>
 					    <posy>$PARAM[BGposy]</posy>
 					    <width>50</width>
 					    <height>42</height>
@@ -741,7 +744,7 @@
 				    </control>
 				    <control type="image" description="Label2 BG">
 					    <visible>!$PARAM[isFocused]</visible>
-					    <posx>520</posx>
+					    <posx>$PARAM[episodesbackgroundpos]</posx>
 					    <posy>$PARAM[BGposy]</posy>
 					    <width>50</width>
 					    <height>42</height>
@@ -749,7 +752,7 @@
 				    </control>
 				    <control type="label" description="l2">
 					    <visible>$PARAM[isFocused]</visible>
-					    <posx>495</posx>
+					    <posx>$PARAM[episodeslabelpos]</posx>
 					    <height>$PARAM[itemheight]</height>
 					    <width>100</width>
 					    <font>ListDetails</font>
@@ -760,7 +763,7 @@
 				    </control>
 				    <control type="label" description="l2">
 					    <visible>!$PARAM[isFocused]</visible>
-					    <posx>495</posx>
+					    <posx>$PARAM[episodeslabelpos]</posx>
 					    <height>$PARAM[itemheight]</height>
 					    <width>100</width>
 					    <font>ListDetails</font>

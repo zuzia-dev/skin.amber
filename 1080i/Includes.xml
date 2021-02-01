@@ -1270,6 +1270,18 @@
             <label>- $LOCALIZE[32348]</label>
         </control>
     </include>
+	
+	<include name="SimpleListViewSwitch">
+	    <control type="radiobutton" id="915701" description="Simple List View: Single Clumn">
+            <visible>Control.IsVisible(57)</visible>
+            <font>ListDetails</font>
+            <include>9000SysButtons</include>
+            <onclick>Skin.ToggleSetting(57_SingleColumn)</onclick>
+            <onclick>ReloadSkin()</onclick>
+			<selected>Skin.HasSetting(57_SingleColumn)</selected>
+            <label>- $LOCALIZE[32361]</label>
+        </control>
+    </include>
 
 
     <variable name="ViewModeSwitch">
@@ -1333,7 +1345,7 @@
 			<onclick condition="Skin.HasSetting(Enable.NewViewSelector)">Runscript(script.skinvariables,action=buildviews,contentid=$VAR[ViewModeSwitch],pluginname=$INFO[Container.PluginName])</onclick>
         </control>
 
-        <include content="IconViewSwitches">
+		<include content="IconViewSwitches">
             <param name="viewid">53</param>
         </include>
 
@@ -1374,6 +1386,8 @@
 		<include>IconViewTitleSwitch</include>
 		
 		<include>LogoViewSwitches</include>
+		
+		<include>SimpleListViewSwitch</include>
 
         <control type="button" id="6053">
             <include>9000SysButtons</include>

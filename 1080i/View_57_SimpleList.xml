@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
-    <include name="View_57_SimpleList">
+    
+	<include name="SimpleListWidthOneColumn">
+	    <left>25</left>
+		<width>1870</width>
+	</include>
+	
+	<include name="SimpleListWidthMultipleColumns">
+	    <left>85</left>
+		<width>1730</width>
+	</include>
+	
+	
+	<include name="View_57_SimpleList">
         <control type="group" description="Content">
             <include content="BackgroundOverlay">
                 <param name="parentid" value="57"/>
@@ -10,9 +22,11 @@
             
             <control type="panel" id="57" description="Simple List">
                 <viewtype label="$LOCALIZE[31632]">list</viewtype>
-                <left>85</left>
                 <top>60</top>
-                <width>1730</width>
+				
+				<include condition="!Skin.HasSetting(57_SingleColumn)">SimpleListWidthMultipleColumns</include>
+				<include condition="Skin.HasSetting(57_SingleColumn)">SimpleListWidthOneColumn</include>
+                
                 <height>990</height>
                 <orientation>vertical</orientation>
 				<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
@@ -26,10 +40,29 @@
                 <pagecontrol>657</pagecontrol>
 				<visible>[$EXP[Exp_View_57] + Skin.HasSetting(Enable.NewViewSelector)] | [!Skin.HasSetting(hide.simplelistview) + !Skin.HasSetting(Enable.NewViewSelector)]</visible>
                 
-				<include content="SimpleList_Layout">
+				<include content="SimpleList_Layout" condition="!Skin.HasSetting(57_SingleColumn)">
 					<param name="ListLabelFont">font16</param>
 					<param name="ListLabel2Font">ListDetails</param>
 					<param name="itemheight">72</param>
+					<param name="itemwidth">570</param>
+					<param name="label1width">531</param>
+					<param name="label2width">511</param>
+					<param name="overlaypos">535</param>
+		            <param name="episodesbackgroundpos">520</param>
+		            <param name="episodeslabelpos">495</param>
+					<param name="BGposy">15</param>
+				</include>
+				
+				<include content="SimpleList_Layout" condition="Skin.HasSetting(57_SingleColumn)">
+					<param name="ListLabelFont">font16</param>
+					<param name="ListLabel2Font">ListDetails</param>
+					<param name="itemheight">72</param>
+					<param name="itemwidth">1850</param>
+					<param name="label1width">1811</param>
+					<param name="label2width">1791</param>
+					<param name="overlaypos">1815</param>
+		            <param name="episodesbackgroundpos">1800</param>
+		            <param name="episodeslabelpos">1775</param>
 					<param name="BGposy">15</param>
 				</include>
                 
