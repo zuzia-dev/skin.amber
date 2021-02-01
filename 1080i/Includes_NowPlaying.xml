@@ -823,9 +823,14 @@
 		<right>30</right>
 	</include>
 	
-	<include name="NowPlayingPositionVertical">
+	<include name="NowPlayingPositionVerticalText">
 	    <top>180</top>
 		<left>450</left>
+	</include>
+	
+	<include name="NowPlayingPositionVerticalIcon">
+	    <top>180</top>
+		<left>150</left>
 	</include>
 	
 	<include name="GradientPositionHorizontal">
@@ -851,7 +856,8 @@
 		</control>
 		<control type="group" id="701">
 			<visible>!ControlGroup(700).HasFocus</visible>
-			<include condition="Skin.HasSetting(VerticalHome)">NowPlayingPositionVertical</include>
+			<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">NowPlayingPositionVerticalText</include>
+			<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">NowPlayingPositionVerticalIcon</include>
 			<include condition="!Skin.HasSetting(VerticalHome)">NowPlayingPositionHorizontal</include>
 			<include>AnimationVisibleFade</include>
 			<!-- Video -->
