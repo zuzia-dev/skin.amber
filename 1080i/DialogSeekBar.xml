@@ -17,7 +17,25 @@
 				<height>148</height>
 				<texture flipy="true" border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>!Skin.HasSetting(ShowInfoWithSeekBar) | [Window.isVisible(Custom_1123_PausedOverlay.xml) | Window.isVisible(VideoOSD)]</visible>
 			</control>
+			<control type="image" description="Background">
+				<top>0</top>
+				<width>1920</width>
+				<height>228</height>
+				<texture flipy="true" border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+			</control>
+			<control type="image" description="Background">
+				<top>-130</top>
+				<width>1920</width>
+				<height>298</height>
+				<texture border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+			</control>
+			
 			<control type="label" description="Clock">
 				<left>1615</left>
 				<top>20</top>
@@ -28,6 +46,51 @@
 				<font>MainMenu</font>
 				<shadowcolor>Black</shadowcolor>
 				<label>$INFO[System.Time]</label>
+			</control>
+			
+			<control type="group">
+			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+				<top>130</top>
+			    <control type="image">
+				    <top>0</top>
+					<posx>10</posx>
+				    <width>1900</width>
+				    <height>1</height>
+				    <texture>img/LineST.png</texture>
+			    </control>
+			    <control type="label">
+			        <top>5</top>
+				    <posx>10</posx>
+				    <height>60</height>
+			        <width>1900</width>
+			        <align>center</align>
+				    <aligny>center</aligny>
+			        <label>$VAR[FullScreenTitle]</label>
+			        <font>MainLabelBigTitle</font>
+			        <shadowcolor>Black</shadowcolor>
+			    </control>
+			</control>
+            <control type="group">
+			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_Overlay.xml) + !Window.isVisible(VideoOSD)</visible>
+				<top>-90</top>
+			    <control type="label">
+			        <top>0</top>
+				    <posx>10</posx>
+				    <height>60</height>
+			        <width>1900</width>
+			        <align>center</align>
+				    <aligny>center</aligny>
+			        <label>$VAR[FullScreenTitle]</label>
+			        <font>MainLabelBigTitle</font>
+			        <shadowcolor>Black</shadowcolor>
+			    </control>
+				<control type="image">
+				    <top>65</top>
+					<posx>10</posx>
+				    <width>1900</width>
+				    <height>1</height>
+				    <texture>img/LineST.png</texture>
+			    </control>
 			</control>
 			
 			<control type="group">

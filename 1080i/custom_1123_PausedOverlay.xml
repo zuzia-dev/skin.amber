@@ -5,7 +5,166 @@
 
 	<include>OSDFade</include>
 	<controls>
-		<control type="group">
+	
+	    <control type="group" id="2">
+			
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerFullScreenInfo</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularFullScreenInfo</include>
+			
+			<include>OSDFade</include>
+			<visible>!Window.IsVisible(playerprocessinfo)</visible>
+			<animation effect="fade" time="200">VisibleChange</animation>
+			<control type="image" id="21">
+				<width>1920</width>
+				<height>380</height>
+				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+			</control>
+			<control type="image" id="21">
+				<width>1920</width>
+				<height>260</height>
+				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
+			</control>
+			<control type="image" id="22">
+				<posy>-150</posy>
+				<width>1920</width>
+				<height>410</height>
+				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>!Skin.HasSetting(OSDInfo)</visible>
+			</control>
+			<control type="image" id="23">
+				<posx>30</posx>
+				<posy>25</posy>
+				<width>1305</width>
+				<height>1</height>
+				<texture>img/LineST.png</texture>
+				<visible>!Skin.HasSetting(OSDInfo)</visible>
+			</control>
+			<control type="textbox" description="Plot" id="1">
+				<posx>30</posx>
+				<posy>-110</posy>
+				<width>1305</width>
+				<height>120</height>
+				<align>justify</align>
+				<font>InfoPlot</font>
+				<label>$VAR[VideoFullScreenPlot]</label>
+				<autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
+				<visible>!Skin.HasSetting(OSDInfo)</visible>
+			</control>
+			    
+				<control type="image" id="24">
+				    <left>539r</left>
+				    <top>-406</top>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$VAR[VideoPlayerIcon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+				    <colordiffuse>HeavyShadow</colordiffuse>
+					<visible>Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			    <control type="image" id="25">
+				    <left>555r</left>
+				    <top>-422</top>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$VAR[VideoPlayerIcon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+					<visible>Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			
+				<control type="image" id="24">
+				    <posx>539r</posx>
+				    <posy>666r</posy>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$VAR[VideoPlayerIcon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+				    <colordiffuse>HeavyShadow</colordiffuse>
+					<visible>!Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			    <control type="image" id="25">
+				    <posx>555r</posx>
+				    <posy>682r</posy>
+				    <width>509</width>
+				    <height>636</height>
+				    <texture fallback="DefaultVideoCover.png">$VAR[VideoPlayerIcon]</texture>
+				    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+					<visible>!Skin.HasSetting(enable.bottomseekbar)</visible>
+			    </control>
+			
+			<control type="label" id="26">
+				<description>Movie Info Studio</description>
+				<posx>30</posx>
+				<posy>50</posy>
+				<width>900</width>
+				<height>40</height>
+				<align>left</align>
+				<label>$VAR[VideoTopHeading]</label>
+				<font>InfoTitle</font>
+				<textcolor>grey</textcolor>
+			</control>
+			<control type="grouplist" id="3">
+				<top>50</top>
+				<posx>708</posx>
+				<height>35</height>
+				<width>605</width>
+				<orientation>horizontal</orientation>
+				<itemgap>15</itemgap>
+				<align>right</align>
+				<onup>101</onup>
+			    <ondown>101</ondown>
+				<include content="PlayerMediaFlagItems">
+					<param name="itemheight" value="35"/>
+     				<param name="itemwidth" value="85"/>
+					<param name="diffuse">$VAR[LabelTextColor]</param>
+				</include>
+			</control>
+			<control type="grouplist" id="4">
+				<left>30</left>
+				<top>100</top>
+				<width>905</width>
+				<height>60</height>
+				<orientation>horizontal</orientation>
+				<control type="image" id="41">
+					<width>40</width>
+					<aspectratio align="center" aligny="center">keep</aspectratio>
+					<texture>img/PVR-IsRecording.png</texture>
+					<visible>VideoPlayer.Content(livetv) + PVR.IsRecordingPlayingChannel</visible>
+				</control>
+				<control type="image" id="42">
+					<width>20</width>
+					<texture></texture>
+					<visible>VideoPlayer.Content(livetv) + PVR.IsRecordingPlayingChannel</visible>
+				</control>
+				<control type="label" id="43">
+					<width>850</width>
+					<height>60</height>
+					<font>MainLabelBigTitle</font>
+					<label>$VAR[VideoPlayerTitle]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>true</scroll>
+					<scrollspeed>25</scrollspeed>
+				</control>
+			</control>
+			<control type="label" id="5">
+				<posx>30</posx>
+				<posy>176</posy>
+				<width>640</width>
+				<height>40</height>
+				<align>left</align>
+				<label>$VAR[VideoBottomHeading]</label>
+				<font>Details</font>
+				<scroll>true</scroll>
+				<textcolor>grey</textcolor>
+			</control>
+		</control>
+	
+	
+<!--		<control type="group">
 			<visible>!Window.IsVisible(playerprocessinfo)</visible>
 			<top>720</top>
 			<control type="image" description="Background">
@@ -58,6 +217,6 @@
 					</control>
 				</control>
 			</control>
-		</control>
+		</control> -->
 	</controls>
 </window>
