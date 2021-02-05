@@ -443,12 +443,18 @@
 						<param name="visibility">Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)</param>
 					</include>
 					<include content="ShadowedImage">
+						<param name="width">560</param>
+						<param name="height">890</param>
+						<param name="texture">$VAR[Poster]</param>
+						<param name="visibility">Container.Content(episodes) + Skin.HasSetting(EpisodesUsePoster)</param>
+					</include>
+					<include content="ShadowedImage">
 						<param name="top">260</param>
 						<param name="width">560</param>
 						<param name="height">315</param>
 						<param name="aspect">keep</param>
 						<param name="texture">$VAR[Episode]</param>
-						<param name="visibility">Container.Content(episodes)</param>
+						<param name="visibility">Container.Content(episodes) + !Skin.HasSetting(EpisodesUsePoster)</param>
 					</include>
 					<include content="ShadowedImage">
 						<param name="width">560</param>
@@ -481,21 +487,21 @@
 					<param name="top">1005</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">!String.IsEqual(ListItem.DBType,episode) + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
+					<param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | [String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(EpisodesUsePoster)]] + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
 					<param name="showratingbadge">false</param>
 				</include>
 				<include content="MediaFlags">
 					<param name="top">750</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
+					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + !Skin.HasSetting(EpisodesUsePoster) + [!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[ContainerIsHDR]]]</param>
 					<param name="showratingbadge">false</param>
 				</include>
 				<include content="MediaFlags">
 					<param name="top">1005</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">!String.IsEqual(ListItem.DBType,episode) + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
+					<param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | [String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(EpisodesUsePoster)]] + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
 					<param name="showratingbadge">false</param>
 					<param name="itemwidth">60</param>
 				</include>
@@ -503,7 +509,7 @@
 					<param name="top">750</param>
 					<param name="left">20</param>
 					<param name="width">560</param>
-					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
+					<param name="visibility">String.IsEqual(ListItem.DBType,episode) + !Skin.HasSetting(EpisodesUsePoster) + [Skin.HasSetting(Show.ColorRangeFlags) + $EXP[ContainerIsHDR]]</param>
 					<param name="showratingbadge">false</param>
 					<param name="itemwidth">60</param>
 				</include>
