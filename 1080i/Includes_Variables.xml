@@ -1756,6 +1756,20 @@
 		<value>$LOCALIZE[13113]</value>
 	</variable>
 	
+	<variable name="SeekBarInitLabelVar">
+	    <value condition="Skin.String(SeekBarInit,two)">2 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,three)">3 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,four)">4 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,five)">5 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,six)">6 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,seven)">7 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,eight)">8 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,ten)">10 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,fifteen)">15 $LOCALIZE[32047]</value>
+		<value condition="Skin.String(SeekBarInit,twenty)">20 $LOCALIZE[32047]</value>
+		<value>2 $LOCALIZE[32047]</value>
+	</variable>
+	
 	<variable name="PVRGuideIcon">
 	    <value condition="!String.IsEmpty(ListItem.EPGEventIcon)">$INFO[ListItem.EPGEventIcon]</value>
 	    <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Fanart))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Fanart)]</value>
@@ -1865,8 +1879,8 @@
 									   [String.Contains(VideoPlayer.Filename,10bit) | String.Contains(VideoPlayer.Filename,10-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,12bit) | String.Contains(VideoPlayer.Filename,12-bit)]]</expression>
 									   
-	<expression name="SeekbarShouldShow">!Player.HasGame + 
-	                                     [[[VideoPlayer.IsFullscreen + [!Skin.HasSetting(Hide.SeekBarWhenPaused) | !Player.Paused]] | 
+<!--	<expression name="SeekbarShouldShow">!Player.HasGame +  
+	                                     [[[VideoPlayer.IsFullscreen + [!Skin.HasSetting(Hide.SeekBarWhenPaused) | !Player.Paused | !String.IsEmpty(Window(home).Property(ShowOSD))]] | 
 	                                       [VideoPlayer.IsFullscreen + Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)]] | 
 										   Window.IsVisible(MusicVisualisation.xml)] + 
 	                                     [Window.IsVisible(videoosd) | Window.IsVisible(musicosd) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | 
@@ -1874,7 +1888,17 @@
 			                              [[Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
 			                               [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
 										  Player.Forwarding | Player.Rewinding | 
-			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression>
+			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression> -->
+										  
+	<expression name="SeekbarShouldShow">!Player.HasGame +  
+	                                     [VideoPlayer.IsFullscreen + 
+										 [[!Player.Paused + !String.IsEmpty(Window(home).Property(ShowOSD))] |  
+										  [Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
+										  [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
+										  [Window.IsVisible(MusicVisualisation.xml) | Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)] | 
+										  [Window.IsVisible(videoosd) | Window.IsVisible(musicosd)] | 
+										  [!String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput)] | 
+										  [Player.Caching | Player.ShowInfo | Player.Seeking | Player.DisplayAfterSeek | Player.Forwarding | Player.Rewinding]]</expression>
 										  
 	<expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + Skin.HasSetting(Vertical.IconOnly) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
 	                                             [!Skin.HasSetting(IconShowLabel.InTopBar) + $EXP[widgetsAreShowing] + [String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) | 
