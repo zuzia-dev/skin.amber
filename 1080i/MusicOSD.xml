@@ -2,15 +2,17 @@
 <window>
     <defaultcontrol always="true">1015</defaultcontrol>
     <onload condition="!Player.PauseEnabled">SetFocus(1016)</onload>
+	<onload>ClearProperty(AutoCloseMusicOSD,Home)</onload>
 	<onunload>ClearProperty(PopupMenuActive,Home)</onunload>
     <include>OSDFade</include>
     <controls>
-        <control type="slider" id="87">
+        
+<!--		<control type="slider" id="87">
             <description>Seek Slider</description>
             <posx>30</posx>
             
-			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDSlider</include>
-			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularOSDSlider</include>
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerMusicOSDSlider</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularMusicOSDSlider</include>
 						
             <width>1570</width>
             <height>18</height>
@@ -21,7 +23,7 @@
             <textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
             <textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
             <visible>Player.SeekEnabled</visible>
-        </control>
+        </control> -->
 		
 		<control type="group">
 		
@@ -41,7 +43,7 @@
                     </include>
                     <onup>101</onup>
                     <ondown>101</ondown>
-                    <onclick>setrating</onclick>
+					<onclick>setrating</onclick>
                 </control>
                 <control type="radiobutton" id="1002">
                     <include content="OSDButtons">
@@ -50,7 +52,7 @@
                     <left>100</left>
                     <onup>2010</onup>
 				    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
-				    <onclick>SetProperty(PopupMenuActive,Yes,Home)</onclick>
+					<onclick>SetProperty(PopupMenuActive,Yes,Home)</onclick>
 				    <onclick>SetFocus(2010)</onclick>
                     <ondown>101</ondown>
                 </control>
@@ -81,7 +83,7 @@
                         <ondown>100</ondown>
                         <onleft>1019</onleft>
                         <onright>1012</onright>
-                        <onclick>PlayerControl(Repeat)</onclick>
+						<onclick>PlayerControl(Repeat)</onclick>
                     </control>
                     <control type="image">
                         <visible>!Control.HasFocus(1011)</visible>
@@ -111,7 +113,7 @@
                     <radioposx>0.1</radioposx>
                     <radioposy>0</radioposy>
                     <selected>Playlist.IsRandom</selected>
-                    <onclick>PlayerControl(Random)</onclick>
+					<onclick>PlayerControl(Random)</onclick>
                     <onup>100</onup>
                     <ondown>Close</ondown>
                 </control>
@@ -122,14 +124,14 @@
                     <onup>100</onup>
                     <ondown>Close</ondown>
                     <enable>Player.SeekEnabled</enable>
-                    <onclick>PlayerControl(Rewind)</onclick>
+					<onclick>PlayerControl(Rewind)</onclick>
                 </control>
                 <control type="radiobutton" id="1014">
                     <include content="OSDButtons">
                         <param name="icon">OSD/OSDPreviousNF.png</param>
                     </include>
                     <onup>100</onup>
-                    <ondown>Close</ondown>
+					<ondown>Close</ondown>
                     <onclick>PlayerControl(Previous)</onclick>
                 </control>
                 <control type="radiobutton" id="1015">
@@ -147,7 +149,7 @@
                     <radioposx>0.1</radioposx>
                     <radioposy>0</radioposy>
                     <selected>Player.Paused</selected>
-                    <onclick>PlayerControl(Play)</onclick>
+					<onclick>PlayerControl(Play)</onclick>
                     <visible>Player.PauseEnabled</visible>
                     <onup>100</onup>
                     <ondown>Close</ondown>
@@ -158,7 +160,7 @@
                     </include>
                     <onup>100</onup>
                     <ondown>Close</ondown>
-                    <onclick>PlayerControl(Stop)</onclick>
+					<onclick>PlayerControl(Stop)</onclick>
                 </control>
                 <control type="radiobutton" id="1017">
                     <include content="OSDButtons">
@@ -166,7 +168,7 @@
                     </include>
                     <onup>100</onup>
                     <ondown>Close</ondown>
-                    <onclick>PlayerControl(Next)</onclick>
+					<onclick>PlayerControl(Next)</onclick>
                 </control>
                 <control type="radiobutton" id="1018">
                     <include content="OSDButtons">
@@ -175,7 +177,7 @@
                     <onup>100</onup>
                     <ondown>Close</ondown>
                     <enable>Player.SeekEnabled</enable>
-                    <onclick>PlayerControl(Forward)</onclick>
+					<onclick>PlayerControl(Forward)</onclick>
                 </control>
                 <control type="radiobutton" id="1019">
                     <visible>PVR.CanRecordPlayingChannel</visible>
@@ -185,7 +187,7 @@
                     </include>
                     <onup>100</onup>
                     <ondown>Close</ondown>
-                    <onclick>PVR.ToggleRecordPlayingChannel</onclick>
+					<onclick>PVR.ToggleRecordPlayingChannel</onclick>
                 </control>
             </control>
 		</control>
@@ -229,7 +231,7 @@
                         <font>Details</font>
                         <label>$LOCALIZE[24013]</label>
                         <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[Skin.String(LyricPath)][/COLOR]</label2>
-                        <onclick>Close</onclick>
+						<onclick>Close</onclick>
                         <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
                         <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
@@ -238,7 +240,7 @@
                         <width>470</width>
                         <font>Details</font>
                         <label>$LOCALIZE[559]</label>
-                        <onclick>Close</onclick>
+						<onclick>Close</onclick>
                         <onclick>ActivateWindow(MusicPlaylist)</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
                     </control>
@@ -247,7 +249,7 @@
                         <font>Details</font>
                         <label>$LOCALIZE[20445]</label>
                         <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[MusicPlayingFanartLabel2][/COLOR]</label2>
-                        <onclick>Skin.ToggleSetting(MusicPlayingFanart)</onclick>
+						<onclick>Skin.ToggleSetting(MusicPlayingFanart)</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
                     </control>
                     <control type="button" id="500">
@@ -255,14 +257,14 @@
                         <font>Details</font>
                         <label>$LOCALIZE[250]</label>
                         <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[VisualisationName][/COLOR]</label2>
-                        <onclick>Dialog.Close(all)</onclick>
+						<onclick>Dialog.Close(all)</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
                     </control>
                     <control type="button" id="2016">
                         <width>470</width>
                         <font>Details</font>
                         <label>$LOCALIZE[250] $LOCALIZE[10004]</label>
-                        <onclick>Addon.Default.OpenSettings(xbmc.player.musicviz)</onclick>
+						<onclick>Addon.Default.OpenSettings(xbmc.player.musicviz)</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
                         <visible>Visualisation.Enabled</visible>
                     </control>
@@ -270,7 +272,7 @@
                         <width>470</width>
                         <font>Details</font>
                         <label>$LOCALIZE[31048]</label>
-                        <onclick>ActivateWindow(visualisationpresetlist)</onclick>
+						<onclick>ActivateWindow(visualisationpresetlist)</onclick>
                         <visible>Visualisation.HasPresets</visible>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
                     </control>

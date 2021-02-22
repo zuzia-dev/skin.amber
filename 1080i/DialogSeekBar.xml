@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 
-	<visible>$EXP[SeekbarShouldShow]</visible>
+    <visible>$EXP[SeekbarShouldShow]</visible>
     <include>OSDFade</include>
 	<zorder>0</zorder>
 	<controls>
@@ -17,7 +17,7 @@
 				<height>148</height>
 				<texture flipy="true" border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
-				<visible>!Skin.HasSetting(ShowInfoWithSeekBar) | [Window.isVisible(Custom_1123_PausedOverlay.xml) | Window.isVisible(VideoOSD)]</visible>
+				<visible>!Skin.HasSetting(ShowInfoWithSeekBar) | [Window.isVisible(Custom_1123_PausedOverlay.xml) | Window.IsVisible(VideoOSD) | Window.IsVisible(MusicOSD)]</visible>
 			</control>
 			<control type="image" description="Background">
 				<top>0</top>
@@ -25,7 +25,7 @@
 				<height>228</height>
 				<texture flipy="true" border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
-				<visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+				<visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + ![Window.isVisible(VideoOSD) | Window.IsVisible(MusicOSD)]</visible>
 			</control>
 			<control type="image" description="Background">
 				<top>-130</top>
@@ -33,7 +33,7 @@
 				<height>298</height>
 				<texture border="0,0,0,0">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
-				<visible>Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+				<visible>Player.HasVideo + Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
 			</control>
 			
 			<control type="label" description="Clock">
@@ -49,7 +49,7 @@
 			</control>
 			
 			<control type="group">
-			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)</visible>
+			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + ![Window.isVisible(VideoOSD) | Window.IsVisible(MusicOSD)]</visible>
 				<top>130</top>
 			    <control type="image">
 				    <top>0</top>
@@ -71,7 +71,7 @@
 			    </control>
 			</control>
             <control type="group">
-			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_Overlay.xml) + !Window.isVisible(VideoOSD)</visible>
+			    <visible>Player.HasVideo + Skin.HasSetting(ShowInfoWithSeekBar) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_Overlay.xml) + !Window.isVisible(VideoOSD)</visible>
 				<top>-90</top>
 			    <control type="label">
 			        <top>0</top>
@@ -91,7 +91,7 @@
 				    <height>1</height>
 				    <texture>img/LineST.png</texture>
 			    </control>
-			</control>
+			</control>			
 			
 			<control type="group">
 				<top>10</top>
