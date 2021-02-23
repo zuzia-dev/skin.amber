@@ -1015,9 +1015,37 @@
         <wrapmultiline>true</wrapmultiline>
         <label>[I]$VAR[FanartTitleVar][/I]</label>
     </include>
+	<include name="HorizTitleButtonBelowNoTopBar">
+        <left>0</left>
+        <top>0</top>
+        <height>46</height>
+        <width>325</width>
+        <texturefocus />
+        <texturenofocus />
+        <align>center</align>
+        <font>FanartTitleFont</font>
+        <textcolor>FFDFDFDF</textcolor>
+        <focusedcolor>$VAR[HighlightColor]</focusedcolor>
+        <wrapmultiline>true</wrapmultiline>
+        <label>[I]$VAR[FanartTitleVar][/I]</label>
+    </include>
     <include name="VertTitleButtonBelowTopBar">
         <left>1600</left>
         <top>39</top>
+        <height>46</height>
+        <width>325</width>
+        <texturefocus />
+        <texturenofocus />
+        <align>center</align>
+        <font>FanartTitleFont</font>
+        <textcolor>FFDFDFDF</textcolor>
+        <focusedcolor>$VAR[HighlightColor]</focusedcolor>
+        <wrapmultiline>true</wrapmultiline>
+        <label>[I]$VAR[FanartTitleVar][/I]</label>    
+    </include>
+	<include name="VertTitleButtonBelowNoTopBar">
+        <left>1600</left>
+        <top>0</top>
         <height>46</height>
         <width>325</width>
         <texturefocus />
@@ -1045,7 +1073,16 @@
                 <width>350</width>
                 <texture flipx="true" flipy="true">common/TimePanel.png</texture>
                 <colordiffuse>dfcebe9e</colordiffuse>
-                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)</visible>
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Hide.TopBar.Main)</visible>
+            </control>
+			<control type="image">
+                <left>0</left>
+                <top>0</top>
+                <height>98</height>
+                <width>350</width>
+                <texture flipx="true" flipy="true">common/TimePanel.png</texture>
+                <colordiffuse>dfcebe9e</colordiffuse>
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Hide.TopBar.Main)</visible>
             </control>
 		    <control type="image">
                 <left>1570</left>
@@ -1054,13 +1091,24 @@
                 <width>350</width>
                 <texture flipy="true">common/TimePanel.png</texture>
                 <colordiffuse>dfcebe9e</colordiffuse>
-                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)</visible>
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Hide.TopBar.Main)</visible>
+            </control>
+            <control type="image">
+                <left>1570</left>
+                <top>0</top>
+                <height>98</height>
+                <width>350</width>
+                <texture flipy="true">common/TimePanel.png</texture>
+                <colordiffuse>dfcebe9e</colordiffuse>
+                <visible>!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Hide.TopBar.Main)</visible>
             </control>            
             <control type="button" id="12001">
                 <include condition="Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">TitleButtonTopBar</include>
 				<include condition="Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">TitleButtonTopBarIcon</include>
-                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome)">HorizTitleButtonBelowTopBar</include>
-                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome)">VertTitleButtonBelowTopBar</include>
+                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Hide.TopBar.Main)">HorizTitleButtonBelowTopBar</include>
+				<include condition="!Skin.HasSetting(FanartTitle.InTopBar) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Hide.TopBar.Main)">HorizTitleButtonBelowNoTopBar</include>
+                <include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Hide.TopBar.Main)">VertTitleButtonBelowTopBar</include>
+				<include condition="!Skin.HasSetting(FanartTitle.InTopBar) + Skin.HasSetting(VerticalHome) + Skin.HasSetting(Hide.TopBar.Main)">VertTitleButtonBelowNoTopBar</include>
                 <aligny>center</aligny>
                 <textoffsetx>10</textoffsetx>
                 <include>ContentFade</include>
