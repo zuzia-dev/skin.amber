@@ -3689,5 +3689,60 @@
         <onunfocus>CancelAlarm(osd_timeout,true)</onunfocus>
     </include>
 	
+	<include name="AutoCompleteSuggestions">
+	    <!-- Autocompletion suggestions -->
+        <control type="group">
+            <width>1440</width>
+            <height>240</height>
+            <posy>663</posy>
+            <posx>94</posx>
+            <visible>![Control.IsVisible(313) + System.HasHiddenInput] + Skin.HasSetting(Enable.Autocompletion)</visible>
+            <control type="panel" id="8000">
+                <height>230</height>
+                <top>10</top>
+                <left>0</left>
+                <onup>8001</onup>
+                <ondown>312</ondown>
+                <itemgap>20</itemgap>
+                <orientation>horizontal</orientation>
+                <itemlayout height="70" width="460">
+                    <control type="group">
+                        <control type="image">
+                            <width>450</width>
+                            <height>60</height>
+                            <texture border="4">img/WhiteRoundedT.png</texture>
+                        </control>
+                        <control type="label">
+                            <height>60</height>
+                            <width>420</width>
+                            <aligny>center</aligny>
+                            <align>center</align>
+                            <textcolor>$VAR[LabelTextColor]</textcolor>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="70" width="460">
+                    <control type="group">
+                        <control type="image">
+                            <width>450</width>
+                            <height>60</height>
+                            <texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+                        </control>
+                        <control type="label">
+                            <height>60</height>
+                            <width>420</width>
+                            <aligny>center</aligny>
+                            <align>center</align>
+                            <textcolor>$VAR[FocusedTextColor]</textcolor>
+                            <label>$INFO[ListItem.Label]</label>
+                        </control>
+                    </control>
+                </focusedlayout>
+                <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=9</content>
+            </control>
+        </control>
+	</include>
+	
 
 </includes>
