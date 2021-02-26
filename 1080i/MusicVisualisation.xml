@@ -4,11 +4,13 @@
     <onload condition="Skin.HasSetting(Use_Artist_Slideshow) + system.hasaddon(script.artistslideshow)">RunScript(script.artistslideshow)</onload>
     <defaultcontrol></defaultcontrol>
     <controls>
-        <control type="visualisation" description="Visualisation">
+        
+		<control type="visualisation" id="2" description="Visualisation">
             <width>1920</width>
             <height>1080</height>
-            <visible>Player.HasAudio</visible>
+            <visible>Player.HasAudio + [String.IsEqual(Visualisation.Name,waveform) | String.Contains(Visualisation.Name,spectrum)]</visible>
         </control>
+		
         <control type="image" description="Slideshow - AS 3.0">
             <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))</visible>
             <include>Dimensions_Fullscreen</include>
@@ -24,6 +26,7 @@
                 <effect type="fade" start="0" end="80" time="0" />
             </animation>
         </control>
+		
 		<control type="multiimage" description="Slideshow - AS 2.x">
 		    <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.ArtworkReady))</visible>
             <include>Dimensions_Fullscreen</include>
@@ -42,6 +45,7 @@
                 <effect type="fade" start="0" end="80" time="0" />
             </animation>
         </control>
+		
         <control type="image" description="Fanart only">
             <visible>Skin.HasSetting(MusicPlayingFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
             <include>Dimensions_Fullscreen</include>
@@ -57,6 +61,7 @@
                 <effect type="fade" start="0" end="80" time="0" />
             </animation>
         </control>
+		
 		<!-- Artist Logo -->
 		<control type="image">
             <posy>15</posy>
@@ -74,7 +79,7 @@
             <height>1200</height>
             <texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
             <colordiffuse>ccE2E2E2</colordiffuse>
-            <visible>Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
+            <visible>Window.IsVisible(script-cu-lrclyrics-main.xml) + Skin.HasSetting(Music.DimWithLyrics)</visible>
         </control>
 		
         <control type="group">
@@ -124,7 +129,7 @@
             </include>
 			
             <control type="image" description="Dim icon for lyrics visibility if active">
-                <visible>Window.IsVisible(script-cu-lrclyrics-main.xml) + !Skin.HasSetting(enable.bottomseekbar)</visible>
+                <visible>Window.IsVisible(script-cu-lrclyrics-main.xml) + !Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(Music.DimWithLyrics)</visible>
                 <include>VisibleFadeEffectDelay</include>
                 <top>682r</top>
                 <left>555r</left>
@@ -136,7 +141,7 @@
             </control>
 			
 			<control type="image" description="Dim icon for lyrics visibility if active">
-                <visible>Window.IsVisible(script-cu-lrclyrics-main.xml) + Skin.HasSetting(enable.bottomseekbar)</visible>
+                <visible>Window.IsVisible(script-cu-lrclyrics-main.xml) + Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(Music.DimWithLyrics)</visible>
                 <include>VisibleFadeEffectDelay</include>
                 <top>-422</top>
                 <left>555r</left>
@@ -182,37 +187,6 @@
                     <colordiffuse>silver</colordiffuse>
                     <visible>!Player.ChannelPreviewActive</visible>
                 </control>
-				
-				<!-- Begin Matrix change: sample rate, bit rate, bits per sample -->
-				<control type="label">
-					<width>100</width>
-					<label>$INFO[MusicPlayer.SampleRate, ,kHz]</label>
-					<font>font13</font>
-					<aligny>top</aligny>
-					<align>left</align>
-					<textcolor>White</textcolor>
-					<visible>!String.IsEmpty(MusicPlayer.SampleRate)</visible>
-				</control>
-				<control type="label">
-					<width>115</width>
-					<label>$INFO[MusicPlayer.BitRate, ,kbps]</label>
-					<font>font13</font>
-					<aligny>top</aligny>
-					<align>left</align>
-					<textcolor>White</textcolor>
-					<visible>!String.IsEmpty(MusicPlayer.BitRate)</visible>
-				</control>
-				<control type="label">
-					<width>95</width>
-					<label>$INFO[MusicPlayer.BitsPerSample, ,bit]</label>
-					<font>font13</font>
-					<aligny>top</aligny>
-					<align>left</align>
-					<textcolor>White</textcolor>
-					<visible>!String.IsEmpty(MusicPlayer.BitsPerSample)</visible>
-				</control>
-				<!-- End Matrix change -->
-				
             </control>
 			
             <control type="grouplist">
@@ -243,14 +217,13 @@
                 </control>
             </control>
 			
-			<!-- Begin Matrix change -->
             <control type="label">
                 <posx>30</posx>
                 <posy>176</posy>
                 <width>740</width>
                 <height>40</height>
                 <align>left</align>
-                <label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year, (,) ]$VAR[MultiDiscVar]</label>
+                <label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year, (,) ]</label>
                 <font>InfoTitle</font>
                 <scroll>true</scroll>
                 <textcolor>grey</textcolor>
@@ -262,13 +235,12 @@
                 <width>1205</width>
                 <height>40</height>
                 <align>left</align>
-                <label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year, (,) ]$VAR[MultiDiscVar]</label>
+                <label>$INFO[MusicPlayer.Album]$INFO[MusicPlayer.Year, (,) ]</label>
                 <font>InfoTitle</font>
                 <scroll>true</scroll>
                 <textcolor>grey</textcolor>
                 <visible>!Window.IsVisible(MusicOSD)</visible>
             </control>
-			<!-- End Matrix change -->
 			
         </control>
     </controls>
