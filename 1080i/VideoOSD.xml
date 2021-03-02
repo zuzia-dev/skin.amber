@@ -22,25 +22,23 @@
             <onfocus condition="Window.IsVisible(videoosd)">Action(Close)</onfocus>
         </control>
 		
+		<control type="slider">
+			<left>30</left>
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDSlider</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularOSDSlider</include>
+			<width>1570</width>
+			<height>18</height>
+			<onup>noop</onup>
+			<ondown>100</ondown>
+			<info>Player.Progress</info>
+			<action>seek</action>
+			<texturesliderbar>OSD/seekslider.png</texturesliderbar>
+			<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
+			<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+		</control>
+		
 		<control type="group">
 			<visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
-<!--			<control type="slider">
-				<description>Seek Slider</description>
-				<left>30</left>
-				
-				<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDSlider</include>
-			    <include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularOSDSlider</include>
-				
-				<width>1570</width>
-				<height>18</height>
-				<onup>noop</onup>
-				<ondown>100</ondown>
-				<action>seek</action>
-				<texturesliderbar>OSD/seekslider.png</texturesliderbar>
-				<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
-				<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
-				<visible>Player.SeekEnabled + $EXP[SeekbarShouldShow]</visible>
-			</control> -->
 			<control type="group">
 			
 			    <include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDButtons</include>
