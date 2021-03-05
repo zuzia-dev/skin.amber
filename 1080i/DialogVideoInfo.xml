@@ -7,6 +7,7 @@
     <onload condition="String.IsEqual(ListItem.DBTYPE,movie) + System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
     <onload condition="System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9000||90050||9009||91001||910001||91002||91003||91004||91005||91006||91007||91008||91009||910010)</onload>
     <onunload condition="System.HasAddon(script.embuary.helper)">ClearProperty(EncodedTitle,home)</onunload>
+	<onunload condition="Skin.HasSetting(Disable.ExtendedInfo)">ClearProperty(KodiDefaultCastSearch,home)</onunload>
 
     <controls>
 
@@ -1627,7 +1628,8 @@
             <height>90</height>
             <align>center</align>
             <onup>90003</onup>
-            <ondown>91001</ondown>
+			<ondown condition="Skin.HasSetting(Disable.ExtendedInfo)">SetProperty(KodiDefaultCastSearch,true,home)</ondown>
+		    <ondown>91001</ondown>
             <orientation>horizontal</orientation>
             <defaultcontrol always="true">8000</defaultcontrol>
             <itemgap>16</itemgap>

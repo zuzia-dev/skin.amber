@@ -1132,7 +1132,6 @@
     </variable>
     
     <variable name="ItemDurationHrMins">
-<!--		<value condition="[String.IsEqual(ListItem.DBTYPE,tvshow) | String.IsEqual(ListItem.DBTYPE,season)] + !String.IsEmpty(Window(Home).Property(NextAired.Runtime))">$INFO[Window(Home).Property(NextAired.Runtime)] $VAR[NextAiredMinuteLabel]</value> -->
 		<value condition="Integer.IsEqual(ListItem.Duration(mins),60) | Integer.IsEqual(ListItem.Duration(mins),120) | Integer.IsEqual(ListItem.Duration(mins),180) | Integer.IsEqual(ListItem.Duration(mins),240) | Integer.IsEqual(ListItem.Duration(mins),300) | Integer.IsEqual(ListItem.Duration(mins),360) | Integer.IsEqual(ListItem.Duration(mins),420) | Integer.IsEqual(ListItem.Duration(mins),480) | Integer.IsEqual(ListItem.Duration(mins),540) | Integer.IsEqual(ListItem.Duration(mins),600)">$INFO[ListItem.Duration(hours)] $VAR[HourLabel]</value>
 		<value condition="Integer.IsLess(ListItem.Duration(mins),60) + !String.IsEqual(ListItem.Duration(m),0)">$INFO[ListItem.Duration(m)] $VAR[MinuteLabel]</value>
 		<value condition="!String.isEqual(ListItem.Duration(h),0) + String.IsEqual(ListItem.Duration(m),0) + !String.IsEqual(ListItem.Duration(ss),0)">$INFO[ListItem.Duration(h)] $VAR[HourLabel], $INFO[ListItem.Duration(ss)] $LOCALIZE[32047]</value>
@@ -1142,7 +1141,6 @@
 	</variable>
 	
 	<variable name="ContainerItemDurationHrMins">
-		<value condition="[String.IsEqual(Container.ListItem.DBTYPE,tvshow) | String.IsEqual(Container.ListItem.DBTYPE,season)] + !String.IsEmpty(Window(Home).Property(NextAired.Runtime))">$INFO[Window(Home).Property(NextAired.Runtime)] $VAR[NextAiredMinuteLabel]</value>
 		<value condition="Integer.IsEqual(Container.ListItem.Duration(mins),60) | Integer.IsEqual(Container.ListItem.Duration(mins),120) | Integer.IsEqual(Container.ListItem.Duration(mins),180) | Integer.IsEqual(Container.ListItem.Duration(mins),240) | Integer.IsEqual(Container.ListItem.Duration(mins),300) | Integer.IsEqual(Container.ListItem.Duration(mins),360) | Integer.IsEqual(Container.ListItem.Duration(mins),420) | Integer.IsEqual(Container.ListItem.Duration(mins),480) | Integer.IsEqual(Container.ListItem.Duration(mins),540) | Integer.IsEqual(Container.ListItem.Duration(mins),600)">$INFO[Container.ListItem.Duration(hours)] $VAR[ContainerHourLabel]</value>
 		<value condition="Integer.IsLess(Container.ListItem.Duration(mins),60)">$INFO[Container.ListItem.Duration(m)] $VAR[ContainerMinuteLabel]</value>
 		<value condition="!String.isEqual(Container.ListItem.Duration(h),0) + String.IsEqual(Container.ListItem.Duration(m),0) + !String.IsEqual(Container.ListItem.Duration(ss),0)">$INFO[Container.ListItem.Duration(h)] $VAR[ContainerHourLabel], $INFO[Container.ListItem.Duration(ss)] $LOCALIZE[32047]</value>
@@ -1880,29 +1878,7 @@
 									   [String.Contains(VideoPlayer.Filename,10bit) | String.Contains(VideoPlayer.Filename,10-bit)] | 
 									   [String.Contains(VideoPlayer.Filename,12bit) | String.Contains(VideoPlayer.Filename,12-bit)]]</expression>
 									   
-<!--	<expression name="SeekbarShouldShow">!Player.HasGame +  
-	                                     [[[VideoPlayer.IsFullscreen + [!Skin.HasSetting(Hide.SeekBarWhenPaused) | !Player.Paused | !String.IsEmpty(Window(home).Property(ShowOSD))]] | 
-	                                       [VideoPlayer.IsFullscreen + Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)]] | 
-										   Window.IsVisible(MusicVisualisation.xml)] + 
-	                                     [Window.IsVisible(videoosd) | Window.IsVisible(musicosd) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | 
-			                              Player.Caching | Player.ShowInfo | Player.Seeking | Player.DisplayAfterSeek | 
-			                              [[Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
-			                               [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
-										  Player.Forwarding | Player.Rewinding | 
-			                              Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)]</expression> -->
-										  
-	<expression name="SeekbarShouldShow">!Player.HasGame +  
-	                                     [[VideoPlayer.IsFullscreen | Window.IsVisible(MusicVisualisation.xml)] + 
-										 [[!Player.Paused + !String.IsEmpty(Window(home).Property(ShowOSD))] |  
-										  [Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | 
-										  [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]] | 
-										  [Window.IsActive(DialogFullScreenInfo.xml) | Window.IsVisible(DialogPlayerProcessInfo.xml)] | 
-										  [Window.IsVisible(videoosd) | Window.IsVisible(musicosd)] | 
-										  [!String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput)] | 
-										  [!Player.Paused + Player.DisplayAferSeek] | 
-										  [Player.Caching | Player.ShowInfo | Player.Seeking | Player.Forwarding | Player.Rewinding]]</expression>									  
-										  
-	<expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + Skin.HasSetting(Vertical.IconOnly) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
+ 	<expression name="TopBarIconLabelShouldShow">Skin.HasSetting(VerticalHome) + Window.Is(home) + Skin.HasSetting(Vertical.IconOnly) + [Skin.HasSetting(IconShowLabel.InTopBar) | 
 	                                             [!Skin.HasSetting(IconShowLabel.InTopBar) + $EXP[widgetsAreShowing] + [String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) | 
 												                                                                        [Container(300).ListItem.Property(widgetThreeShelves) + Container(300).ListItem.Property(widgetThreeShelvesLarge)]]]] + 
 												 [!Player.HasMedia | 
