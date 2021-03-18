@@ -1,5 +1,5 @@
 <window type="dialog" id="1195">
-    <visible>Player.HasVideo + Skin.HasSetting(ShowSeekBarOnPlayback) + [String.IsEqual(Player.TimeRemaining(hh:mm:ss),00:00:01) | String.IsEqual(Player.Time(hh:mm:ss),00:00:01)]</visible>
+    <visible>Player.HasVideo + Skin.HasSetting(ShowSeekBarOnPlayback) + String.IsEmpty(Window(Home).Property(ShowOSD)) + [String.IsEqual(Player.TimeRemaining(hh:mm:ss),00:00:01) | String.IsEqual(Player.Time(hh:mm:ss),00:00:01)]</visible>
     
 	<onload condition="Skin.HasSetting(ShowSeekBarOnPlayback)">SetProperty(ShowOSD,true,home)</onload>
 	<onload condition="Skin.HasSetting(ShowSeekBarOnPlayback) + String.IsEmpty(Skin.String(SeekBarInit))">AlarmClock(ShowOSD,ClearProperty(ShowOSD,home),00:01,silent)</onload>
