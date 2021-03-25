@@ -265,11 +265,19 @@
 					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="1"/>
-							<param name="itemlabel" value="[B]$LOCALIZE[31994][/B]"/>
-							<param name="skinsetting" value="VerticalHome"/>
-						</include>
+						<item id="1">
+                            <visible>Skin.HasSetting(VerticalHome)</visible>
+                            <label>[B]$LOCALIZE[31994][/B]</label>
+                            <label2>$LOCALIZE[107]</label2>
+                            <onclick>Skin.ToggleSetting(VerticalHome)</onclick>
+							<onclick>Skin.Reset(Enable.BottomShortcuts)</onclick>
+                        </item>
+                        <item id="1">
+                            <visible>!Skin.HasSetting(VerticalHome)</visible>
+                            <label>[B]$LOCALIZE[31994][/B]</label>
+                            <label2>$LOCALIZE[106]</label2>
+                            <onclick>Skin.ToggleSetting(VerticalHome)</onclick>
+                        </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="2"/>
 							<param name="itemlabel" value="      $LOCALIZE[31363]"/>
@@ -335,6 +343,7 @@
 							<param name="itemid" value="18"/>
 							<param name="itemlabel" value="Enable Bottom Shortcuts"/>
 							<param name="skinsetting" value="Enable.BottomShortcuts"/>
+							<param name="itemvisibility" value="!Skin.HasSetting(VerticalHome)"/>
 						</include>
                         <include content="YesNoSettingItem">
 							<param name="itemid" value="11"/>
