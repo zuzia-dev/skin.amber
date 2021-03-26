@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	
-	<include name="TopBottomShortcuts">
+	<include name="TopWithBottomShortcuts">
 	    <posy>-60</posy>
 	</include>
 	
@@ -42,7 +42,7 @@
 		
         <!-- Main Menu/Submenu -->		
 		<control type="group">
-			<include condition="Skin.HasSetting(Enable.BottomShortcuts)">TopBottomShortcuts</include>
+			<include condition="Skin.HasSetting(Enable.BottomShortcuts)">TopWithBottomShortcuts</include>
 			<posy>220</posy>
 			<!-- Main menu bar textures -->
 			<control type="group" description="Furniture">
@@ -132,9 +132,8 @@
 				<onup>300</onup>
 				<onback>SetFocus(300)</onback>
                 <ondown condition="Skin.HasSetting(Enable.BottomShortcuts)">800</ondown>
-				<ondown condition="!Skin.HasSetting(Enable.BottomShortcuts)">700</ondown>
-<!--				<ondown condition="Control.IsVisible(12001)">12001</ondown>
-                <ondown condition="!Control.IsVisible(12001)">700</ondown> -->
+				<ondown condition="!Skin.HasSetting(Enable.BottomShortcuts) + !Control.IsVisible(12001)">700</ondown>
+				<ondown condition="!Skin.HasSetting(Enable.BottomShortcuts) + Control.IsVisible(12001)">12001</ondown>
 				<itemlayout width="256" height="50">
 					<control type="label">
 						<posx>3</posx>
