@@ -270,9 +270,25 @@
 					<font>ListDetails</font>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
 				</control>
+				<control type="radiobutton" id="8406">
+					<label>Use Bottom Shortcuts</label>
+					<description>Activate Bottom Shortcuts for this menu item</description>
+					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(UseBottomShortcuts))">SetProperty(customProperty,UseBottomShortcuts)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(UseBottomShortcuts),true)">SetProperty(customProperty,UseBottomShortcuts)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(UseBottomShortcuts),false)">SetProperty(customValue,true)</onclick>
+					<onclick>SendClick(404)</onclick>
+					<selected>String.IsEqual(Container(211).ListItem.Property(UseBottomShortcuts),true)</selected>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
+					<visible>!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)</visible>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+				</control>
 				<control type="button" id="406">
 					<description>Customize Bottom Shortcuts</description>
-					<label>$LOCALIZE[31635]</label>
+					<label> - $LOCALIZE[31635]</label>
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
 					<onfocus>SetProperty(ShortcutsCurrentItem,$INFO[Container(211).ListItem.Label],Home)</onfocus>
 					<height>60</height>
@@ -281,6 +297,7 @@
 					<font>ListDetails</font>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
 					<visible>!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)</visible>
+					<visible>String.IsEqual(Container(211).ListItem.Property(UseBottomShortcuts),true)</visible>
 				</control>
 				<control type="button" id="310">
 					<description>Background</description>

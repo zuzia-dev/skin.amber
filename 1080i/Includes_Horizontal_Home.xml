@@ -2,7 +2,7 @@
 <includes>
 	
 	<include name="TopBottomShortcuts">
-	    <posy>-180</posy>
+	    <posy>-60</posy>
 	</include>
 	
 	<include name="Horizontal_Home_Layout">
@@ -76,7 +76,8 @@
 				<height>225</height>
 				<onleft>300</onleft>
 				<onright>300</onright>
-				<ondown>9001</ondown>
+				<ondown condition="Integer.IsGreater(Container(9001).NumItems,0)">9001</ondown>
+				<ondown condition="!Integer.IsGreater(Container(9001).NumItems,0) + Skin.HasSetting(Enable.BottomShortcuts)">800</ondown>
                 <include condition="!Skin.HasSetting(Hide.AllShelves)">skinshortcuts-template-ShelfOnUpMainMenu</include>
 				<pagecontrol></pagecontrol>
 				<focusposition>2</focusposition>
@@ -130,8 +131,10 @@
 				<movement>3</movement>
 				<onup>300</onup>
 				<onback>SetFocus(300)</onback>
-                <ondown condition="Control.IsVisible(12001)">12001</ondown>
-                <ondown condition="!Control.IsVisible(12001)">700</ondown>
+                <ondown condition="Skin.HasSetting(Enable.BottomShortcuts)">800</ondown>
+				<ondown condition="!Skin.HasSetting(Enable.BottomShortcuts)">700</ondown>
+<!--				<ondown condition="Control.IsVisible(12001)">12001</ondown>
+                <ondown condition="!Control.IsVisible(12001)">700</ondown> -->
 				<itemlayout width="256" height="50">
 					<control type="label">
 						<posx>3</posx>
@@ -196,5 +199,9 @@
 				</content>
 			</control>
 		</control>
+		<!-- Bottom Shortcuts -->
+		<control type="group" id="800">
+		    <include condition="Skin.HasSetting(Enable.BottomShortcuts)">skinshortcuts-template-BottomShortcuts</include>
+		</control>	
 	</include>
 </includes>
