@@ -486,10 +486,7 @@
                             <visible>!Skin.HasSetting(Enable.NewViewSelector) | !System.HasAddon(script.skinvariables)</visible>
                             <label>[B]$LOCALIZE[32272][/B]</label>
                             <label2>$LOCALIZE[106]</label2>
-                            <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerHeader,$LOCALIZE[32255],Home)</onclick>
-                            <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerSubHeader,$LOCALIZE[32273],[I],[/I]],Home)</onclick>
-					        <onclick condition="!System.HasAddon(script.skinvariables)">SetProperty(TextViewerContent,$LOCALIZE[32274],Home)</onclick>
-                            <onclick condition="!System.HasAddon(script.skinvariables)">ActivateWindow(1124)</onclick>
+                            <onclick condition="!System.HasAddon(script.skinvariables)">InstallAddon(script.skinvariables)</onclick>
                             <onclick condition="System.HasAddon(script.skinvariables) + !Skin.HasSetting(Enable.NewViewSelector)">Skin.SetBool(Enable.NewViewSelector)</onclick>
                         </item>
 						<item id="2" description="Configure Media Views">
@@ -1269,13 +1266,10 @@
                             <visible>!Skin.HasSetting(Enable.BlurredVideoInfo) | !Skin.HasSetting(Enable.TMDbHelper)</visible>
                             <label>[B]$LOCALIZE[32156][/B]</label>
                             <label2>$LOCALIZE[106]</label2>
-                            <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(TextViewerHeader,$LOCALIZE[32255],Home)</onclick>
-                            <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(TextViewerSubHeader,$LOCALIZE[32256],[I],[/I]],Home)</onclick>
-					        <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">SetProperty(TextViewerContent,$LOCALIZE[32257],Home)</onclick>
-                            <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">ActivateWindow(1124)</onclick>
-							<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">Skin.SetBool(TMDbHelper.EnableBlur)</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">SetProperty(TMDbHelper.Blur.SourceImage,fanart,Home)</onclick>
-                            <onclick condition="Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">Skin.SetBool(Enable.BlurredVideoInfo)</onclick>
+                            <onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">Skin.SetBool(TMDbHelper.EnableBlur)</onclick>
+                            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">SetProperty(TMDbHelper.Blur.SourceImage,fanart,Home)</onclick>
+                            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + Skin.HasSetting(Enable.TMDbHelper) + !Skin.HasSetting(Enable.BlurredVideoInfo)">Skin.SetBool(Enable.BlurredVideoInfo)</onclick>
                         </item>
                         <item id="7" description="Blur Poster">
                             <visible>Skin.HasSetting(Enable.BlurredVideoInfo) + Skin.HasSetting(Blur.UsePoster)</visible>
