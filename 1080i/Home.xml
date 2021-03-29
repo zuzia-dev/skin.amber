@@ -9,6 +9,9 @@
     <!-- Build include for viewtype visiblity -->
 	<onload condition="System.HasAddon(script.skinvariables)">RunScript(script.skinvariables,action=buildviews)</onload>
 	<!-- Remember what the focused menu item background is -->
+	
+	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onload>
+	
 	<onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">Skin.SetString(FocusedMenu.BackgroundPlaylist,$INFO[Container(300).ListItem.Property(backgroundPlaylist)])</onunload>
 	<!-- Clear TMDbHelper widgetcontainer id -->

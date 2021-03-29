@@ -56,6 +56,23 @@
 	<include name="RegularMusicFullScreenInfo">
 	    <top>820</top>
 	</include>
-
+    
+    <!-- Includes for opening Video Info Dialog from OSD -->	
+	<variable name="VideoOSDInfoButtonListType">
+		<value condition="VideoPlayer.Content(movies)">movie</value>
+		<value condition="VideoPlayer.Content(episodes)">episode</value>
+		<value></value>
+	</variable>
+	<include name="VideoOSDInfoButtonList">
+		<control type="list" id="43260">
+			<left>0</left>
+			<top>0</top>
+			<width>1</width>
+			<height>1</height>
+			<itemlayout/>
+			<focusedlayout/>
+			<content>plugin://service.library.data.provider?type=$VAR[VideoOSDInfoButtonListType]&amp;dbid=$INFO[VideoPlayer.DBID]&amp;dbtype=$VAR[VideoOSDInfoButtonListType]</content>
+		</control>
+	</include>
 
 </includes>

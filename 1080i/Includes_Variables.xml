@@ -581,6 +581,7 @@
         <value condition="Window.IsActive(script-globalsearch.xml)">$INFO[System.AddonTitle(script.globalsearch)] - $LOCALIZE[32014][COLOR=$VAR[HighlightColor]]$INFO[Window.Property(GlobalSearch.SearchString)][/COLOR]</value>
 		<value condition="Window.IsActive(1136)">$LOCALIZE[32226]</value>
 		<value condition="Window.IsActive(1137)">$LOCALIZE[32227]</value>
+		<value condition="Window.IsActive(weather)">$INFO[Weather.Location]</value>
     </variable>
 
     <variable name="CurrentBackgroundSetting">
@@ -1902,5 +1903,7 @@
 												 
     <expression name="ShowPVROverlay">ListItem.IsRecording | ListItem.HasReminder | ListItem.IsPlayable | ListItem.HasTimer | ListItem.HasTimerSchedule | ListItem.HasRecording | 
 	                                  ListItem.IsNew | ListItem.IsPremiere | ListItem.IsFinale | ListItem.IsLive</expression>
+									  
+	<expression name="canShowVideoinfooSD">!String.IsEmpty(Container(43260).ListItem.Label) + [VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)] + !String.IsEmpty(VideoPlayer.DBID)</expression>								  
 	
 </includes>

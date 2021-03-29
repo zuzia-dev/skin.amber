@@ -9,7 +9,10 @@
 	<include>OSDFade</include>
 	<controls>
 	
-	    <control type="button" id="99220">
+	    <!-- Hidden List to Show Video Info Dialog on info button, uses service.library.data.provider -->
+		<include condition="Skin.HasSetting(InfoOpensVideoInfo) + [VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)] + !String.IsEmpty(VideoPlayer.DBID)">VideoOSDInfoButtonList</include>
+		
+		<control type="button" id="99220">
             <top>-1000</top>
             <left>-1000</left>
             <width>1</width>
@@ -127,8 +130,15 @@
 		    			</include>
 			    		<ondown>101</ondown>
 						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
-						<onclick>Skin.ToggleSetting(OSDInfo)</onclick>
-					    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+						<onclick condition="!Skin.HasSetting(InfoOpensVideoInfo)">Skin.ToggleSetting(OSDInfo)</onclick>
+					    <!-- If setting enabled, set focus to hidden list from library data provider to be able to open video info dialog -->
+						<onclick condition="Skin.HasSetting(InfoOpensVideoInfo)">SetFocus(43260)</onclick>
+				        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo)">SetProperty(OSDinfodialogButtonActive,True,home)</onclick>
+				        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + Skin.HasSetting(PauseOnVideoInfo) + !Player.Paused">Pause</onclick>
+				        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo)">SetFocus(43260)</onclick>
+				        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo)">SetFocus(43260)</onclick>
+				        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo)">Action(Info)</onclick>
+						<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 				    </control>
 				    <control type="radiobutton" id="659">
 					    <include content="OSDButtons">

@@ -6,7 +6,14 @@
     <onload condition="[String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | String.IsEqual(ListItem.DBTYPE,tvshow)] + System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.TVShowTitle]"',prop=EncodeddTitle)</onload>
     <onload condition="String.IsEqual(ListItem.DBTYPE,movie) + System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=encode,string='"$INFO[ListItem.Title]"',prop=EncodedTitle)</onload>
     <onload condition="System.HasAddon(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9000||90050||9009||91001||910001||91002||91003||91004||91005||91006||91007||91008||91009||910010)</onload>
-    <onunload condition="System.HasAddon(script.embuary.helper)">ClearProperty(EncodedTitle,home)</onunload>
+    
+	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(VideoOSD,true)</onload>
+	
+	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onunload>
+	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(PauseOnVideoInfo) + Player.Paused">Play</onunload>
+	
+	
+	<onunload condition="System.HasAddon(script.embuary.helper)">ClearProperty(EncodedTitle,home)</onunload>
 	<onunload condition="Skin.HasSetting(Disable.ExtendedInfo)">ClearProperty(KodiDefaultCastSearch,home)</onunload>
 
     <controls>
@@ -82,6 +89,15 @@
                 <aspectratio align="center">scale</aspectratio>
 			    <texture background="true">$VAR[VideoInfoBackground]</texture>
 			    <fadetime>IconCrossfadeTime</fadetime>
+				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
+            </control>
+			<control type="image">
+                <width>100%</width>
+                <height>100%</height>
+                <aspectratio align="center">scale</aspectratio>
+				<texture background="true">$INFO[Player.Art(fanart)]</texture>
+			    <fadetime>IconCrossfadeTime</fadetime>
+				<visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
             </control>
             <include content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
@@ -110,11 +126,20 @@
             <param name="height">960</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoPoster]</param>
-            <param name="visibility">!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)</param>
+            <param name="visibility">String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
+        </include>
+		<include content="ShadowedImage">
+            <param name="top">24</param>
+            <param name="left">24</param>
+            <param name="width">619</param>
+            <param name="height">960</param>
+            <param name="shadowoffset">16</param>
+			<param name="texture">$INFO[Player.Art(poster)]</param>
+            <param name="visibility">!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
         </include>
 		<!-- Episode images -->
-        <control type="group" description="episode images">
-            <visible>String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
+        <control type="group" description="episode images, regular info dialog">
+            <visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
             <include content="ShadowedImage">
                 <param name="top">83</param>
                 <param name="left">24</param>
@@ -143,6 +168,36 @@
                 <param name="visibility">String.IsEmpty(ListItem.Art(tvshow.banner))</param>
             </include>            
         </control>
+		<control type="group" description="episode images, info dialog called from OSD">
+            <visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
+            <include content="ShadowedImage">
+                <param name="top">83</param>
+                <param name="left">24</param>
+                <param name="width">619</param>
+                <param name="height">114</param>
+                <param name="shadowoffset">16</param>
+                <param name="texture">$INFO[Player.Art(tvshow.banner)]</param>
+                <param name="visibility">!String.IsEmpty(Player.Art(tvshow.banner))</param>
+            </include>            
+            <include content="ShadowedImage">
+                <param name="top">390</param>
+                <param name="left">24</param>
+                <param name="width">619</param>
+                <param name="height">348</param>
+                <param name="shadowoffset">16</param>
+                <param name="texture">$INFO[Player.Art(thumb)]</param>
+                <param name="visibility">!String.IsEmpty(Player.Art(tvshow.banner))</param>
+            </include>
+            <include content="ShadowedImage">
+                <param name="top">340</param>
+                <param name="left">24</param>
+                <param name="width">619</param>
+                <param name="height">348</param>
+                <param name="shadowoffset">16</param>
+                <param name="texture">$INFO[Player.Art(thumb)]</param>
+                <param name="visibility">String.IsEmpty(Player.Art(tvshow.banner))</param>
+            </include>            
+        </control>
 		<!-- TV Show banner if there is no cast and seasons list is disabled -->
         <include content="ShadowedImage">
             <param name="top">740</param>
@@ -151,7 +206,19 @@
             <param name="height">200</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-            <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
+            <param name="visibility">String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,tvshow) | 
+                                     String.IsEqual(ListItem.DBType,season) | 
+                                     String.IsEqual(ListItem.DBType,episode)] + 
+                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
+        </include>
+		<include content="ShadowedImage">
+            <param name="top">740</param>
+            <param name="left">885</param>
+            <param name="width">800</param>
+            <param name="height">200</param>
+            <param name="shadowoffset">16</param>
+            <param name="texture">$INFO[Player.Art(tvshow.banner)]</param>
+            <param name="visibility">!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,tvshow) | 
                                      String.IsEqual(ListItem.DBType,season) | 
                                      String.IsEqual(ListItem.DBType,episode)] + 
                                      Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
@@ -1640,23 +1707,25 @@
                 <align>center</align>
                 <font>Details</font>
                 <label>$VAR[VideoInfoButton8]</label>
-                <!-- PKC On Deck: No FileName or FolderPath -->
-				<onclick condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
-				<onclick condition="[String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
+                <!-- Called from OSD -->
+				<onclick condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(all)</onclick>
+				<!-- PKC On Deck: No FileName or FolderPath -->
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
 				<!-- Online item -->
-				<onclick condition="String.IsEmpty(ListItem.DBID)">Action(Close)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID)">Action(Close)</onclick>
                 <!-- Local item -->
-				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
-				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				<!-- tmdb helper active, path is not empty -->
-				<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.FileNameAndPath) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.FileNameAndPath) + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo)] + !String.IsEmpty(ListItem.DBID)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
                 <!-- tmdb helper active, path is empty -->
-				<onclick condition="Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEmpty(ListItem.FolderPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEmpty(ListItem.FolderPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
 				<!-- Browse TV Show, embuary helper not active -->
-				<onclick condition="!Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
-				<onclick condition="!Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				<!-- Browse TV Show, embuary helper active -->
-				<onclick condition="Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
             </control>
             <control type="button" id="8001" description="Set">
                 <height>90</height>
@@ -1667,7 +1736,7 @@
 				<onclick condition="Skin.HasSetting(Enable.EmbuaryHelper)">RunScript(script.embuary.helper,action=goto,path='"videodb://movies/sets/$INFO[ListItem.SetId]/?setid=$INFO[ListItem.SetId]"',target=videos)</onclick>
                 <visible>System.HasAddon(script.embuary.helper) + !String.IsEmpty(ListItem.SetId) + !String.IsEmpty(ListItem.DBID)</visible>
             </control>
-            <control type="button" id="8100" description="Search">
+            <control type="button" id="8002" description="Search">
                 <height>90</height>
                 <width min="210">auto</width>
                 <font>Details</font>
@@ -1678,7 +1747,7 @@
                 <onclick>ActivateWindow(1122)</onclick>
                 <visible>!String.IsEmpty(ListItem.DBID) + !String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             </control>
-            <control type="button" id="8011" description="Trailer">
+            <control type="button" id="8003" description="Trailer">
                 <height>90</height>
                 <width min="210">auto</width>
                 <font>Details</font>
@@ -1697,7 +1766,7 @@
                 <label>$LOCALIZE[184]</label>
                 <visible>Control.IsEnabled(6)</visible>
                 <visible>!Skin.HasSetting(KioskMode.Enabled)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             </control>
             <control type="button" id="295" description="Embuary Info">
                 <height>90</height>
@@ -1720,7 +1789,7 @@
                 <label>$LOCALIZE[32007]</label>
                 <onclick>Dialog.Close(1121)</onclick>
                 <onclick>RunScript(plugin.video.specialfeatures,listitem)</onclick>
-                <visible>Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true) + 
+                <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.SpecialFeatures) + String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true) + 
                         [!String.isEqual(ListItem.DBType,set) + !String.IsEmpty(Listitem.DBID)]</visible>
             </control>
             <control type="button" id="297" description="Extras">
@@ -1766,7 +1835,7 @@
                 <font>Details</font>
                 <label>$LOCALIZE[38023]</label>
                 <visible>!String.IsEqual(Listitem.DBType,set)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+                <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
             </control>
         </control>
         
@@ -2016,7 +2085,7 @@
         </control>
 		
         <control type="group">
-            <visible>Control.HasFocus(10)</visible>
+            <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Control.HasFocus(10)</visible>
             <include>VisibleFadeEffectDelay</include>
             <posx>700</posx>
             <posy>640</posy>
