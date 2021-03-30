@@ -126,20 +126,11 @@
             <param name="height">960</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoPoster]</param>
-            <param name="visibility">String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
-        </include>
-		<include content="ShadowedImage">
-            <param name="top">24</param>
-            <param name="left">24</param>
-            <param name="width">619</param>
-            <param name="height">960</param>
-            <param name="shadowoffset">16</param>
-			<param name="texture">$VAR[PlayerDialogVideoInfoPoster]</param>
-            <param name="visibility">!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
+            <param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
         </include>
 		<!-- Episode images -->
         <control type="group" description="episode images, regular info dialog">
-            <visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
+            <visible>String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
             <include content="ShadowedImage">
                 <param name="top">83</param>
                 <param name="left">24</param>
@@ -147,7 +138,7 @@
                 <param name="height">114</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-                <param name="visibility">!String.IsEmpty(ListItem.Art(tvshow.banner))</param>
+                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>            
             <include content="ShadowedImage">
                 <param name="top">390</param>
@@ -156,7 +147,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">!String.IsEmpty(ListItem.Art(tvshow.banner))</param>
+                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>
             <include content="ShadowedImage">
                 <param name="top">340</param>
@@ -165,37 +156,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">String.IsEmpty(ListItem.Art(tvshow.banner))</param>
-            </include>            
-        </control>
-		<control type="group" description="episode images, info dialog called from OSD">
-            <visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
-            <include content="ShadowedImage">
-                <param name="top">83</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">114</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$INFO[Player.Art(tvshow.banner)]</param>
-                <param name="visibility">!String.IsEmpty(Player.Art(tvshow.banner))</param>
-            </include>            
-            <include content="ShadowedImage">
-                <param name="top">390</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">348</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$INFO[Player.Art(thumb)]</param>
-                <param name="visibility">!String.IsEmpty(Player.Art(tvshow.banner))</param>
-            </include>
-            <include content="ShadowedImage">
-                <param name="top">340</param>
-                <param name="left">24</param>
-                <param name="width">619</param>
-                <param name="height">348</param>
-                <param name="shadowoffset">16</param>
-                <param name="texture">$INFO[Player.Art(thumb)]</param>
-                <param name="visibility">String.IsEmpty(Player.Art(tvshow.banner))</param>
+                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>            
         </control>
 		<!-- TV Show banner if there is no cast and seasons list is disabled -->
@@ -206,19 +167,7 @@
             <param name="height">200</param>
             <param name="shadowoffset">16</param>
             <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-            <param name="visibility">String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,tvshow) | 
-                                     String.IsEqual(ListItem.DBType,season) | 
-                                     String.IsEqual(ListItem.DBType,episode)] + 
-                                     Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
-        </include>
-		<include content="ShadowedImage">
-            <param name="top">740</param>
-            <param name="left">885</param>
-            <param name="width">800</param>
-            <param name="height">200</param>
-            <param name="shadowoffset">16</param>
-            <param name="texture">$INFO[Player.Art(tvshow.banner)]</param>
-            <param name="visibility">!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,tvshow) | 
+            <param name="visibility">[String.IsEqual(ListItem.DBType,tvshow) | 
                                      String.IsEqual(ListItem.DBType,season) | 
                                      String.IsEqual(ListItem.DBType,episode)] + 
                                      Integer.IsEqual(Container(50).NumItems,0) + Integer.IsEqual(Container(90050).NumItems,0) + Skin.HasSetting(DisableInfoListSeasons) + !Control.HasFocus(10)</param>
