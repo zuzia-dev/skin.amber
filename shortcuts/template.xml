@@ -753,7 +753,7 @@
 					<right>0</right>
 					<height>$PYTHON[$SKINSHORTCUTS[height]]</height>
 					<autoscroll time="$SKINSHORTCUTS[autoscroll1]">!Control.HasFocus(1600$SKINSHORTCUTS[id]1)</autoscroll>
-					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
+					<onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + Skin.HasSetting(Shelf.PlayAlbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick>
                     <onup condition="$SKINSHORTCUTS[onup]">SetProperty(WidgetFocus$SKINSHORTCUTS[id],2,home)</onup>
@@ -13511,6 +13511,14 @@
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
+				<control type="image">
+				    <left>10</left>
+					<width>100%</width>
+				    <top>760</top>
+					<height>286</height>
+				    <texture colordiffuse="FFFFFFFF">common/list_shadow.png</texture>
+					<visible>Skin.HasSetting(UseBackgroundBottomShortcuts)</visible>
+     			</control>
 				<control type="fixedlist" id="1700$SKINSHORTCUTS[id]1">
 					<animation effect="slide" start="0,0" end="-90,0" time="0" condition="Integer.IsEqual(Container(1700$SKINSHORTCUTS[id]1).NumItems,2) | 
 					                                                                      Integer.IsEqual(Container(1700$SKINSHORTCUTS[id]1).NumItems,4) | 

@@ -3307,21 +3307,12 @@
 	<include name="Shelf_Shortcuts1">
 		<param name="id1"/>
         <param name="iconimage" />
-		<param name="overlaylabel">$VAR[SeasonEpisodeLabel]</param>
-		<param name="labelvisibility">false</param>
-		<param name="labelheight">45</param>
-		<param name="labelalign">center</param>
-		<param name="labelfont">Shelf_Label</param>
-		<param name="labelscroll">false</param>
-		<param name="textboxvisibility">false</param>
+		<param name="textboxvisibility">true</param>
 		<param name="textboxfont">Shelf_Label</param>
         <param name="aspect">keep</param>
-		<param name="layoutheight">315</param>
-		<param name="layoutwidth">560</param>
 		<param name="textboxwidth">204</param>
 		<param name="textboxheight">64</param>
 		<param name="textbackheight">74</param>
-		<param name="showLabelFallback">false</param>
 		<param name="artworkheightmed" />
 		<param name="artworkwidthmed" />
 		<param name="iconheightmed" />
@@ -3330,16 +3321,6 @@
 		<definition>  
 			<itemlayout height="$PARAM[artworkheightmed]" width="$PARAM[artworkwidthmed]">
 			    <control type="group">
-				    <visible>!$PARAM[showLabelFallback] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)</visible>
-<!--				    <control type="image">
-					    <left>7</left>
-					    <top>7</top>
-					    <width>$PARAM[artworkwidthmed]</width>
-					    <height>$PARAM[artworkwidthmed]</height>
-					    <texture border="1">img/blackdot1.png</texture>
-					    <colordiffuse>99FFFFFF</colordiffuse>
-					    <bordersize>8</bordersize>
-					</control> -->
 					<include content="GenericThumbIconTemplate">
 				        <param name="isFocused">false</param>
                         <param name="iconimage">$PARAM[iconimage]</param>
@@ -3353,13 +3334,7 @@
 				        <param name="shadowoffset">8</param>
 				        <param name="bordersizeLT">12</param>
 				        <param name="bordersizeRB">20</param>
-				        <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-                        <param name="overlaylabel">[B]$PARAM[overlaylabel][/B]</param>
-					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
-                        <param name="overlaylabelheight">$PARAM[labelheight]</param>
-					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
-						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+						<param name="belowtextboxvisibility">$PARAM[textboxvisibility]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -3369,53 +3344,10 @@
 					    <param name="isSmallIcon">true</param>
 			        </include>
 				</control>
-                <control type="group">
-				    <visible>!$PARAM[showLabelFallback] + String.IsEqual(ListItem.Icon,DefaultAddonNone.png)</visible>
-				    <include content="GenericThumbIconTemplate">
-				        <param name="isFocused">false</param>
-                        <param name="iconimage">$PARAM[iconimage]</param>
-                        <param name="aspect">scale</param>
-					    <param name="align">$PARAM[align]</param>
-                        <param name="aligny">$PARAM[aligny]</param>
-						<param name="fallbackicon">DefaultNoPreview.png</param>
-				        <param name="iconwidth">$PARAM[artworkwidthmed]</param>
-				        <param name="iconheight">$PARAM[iconheightmed]</param>
-				        <param name="iconoffset">0</param>
-				        <param name="shadowoffset">8</param>
-				        <param name="bordersizeLT">12</param>
-				        <param name="bordersizeRB">20</param>
-				        <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-                        <param name="overlaylabel">[B]$PARAM[overlaylabel][/B]</param>
-					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
-                        <param name="overlaylabelheight">$PARAM[labelheight]</param>
-					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
-						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
-					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
-					    <param name="belowtextboxheight">$PARAM[textboxheight]</param>
-					    <param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
-						<param name="belowtextboxbackwidth">$PARAM[artworkwidthmed]</param>
-					    <param name="isSmallIcon">true</param>
-			        </include>
-				</control>				
-                <control type="group">
-				    <visible>$PARAM[showLabelFallback]</visible>
-					<control type="textbox">
-					    <height>$PARAM[artworkheightmed]</height>
-						<width>$PARAM[artworkwidthmed]</width>
-						<align>center</align>
-						<aligny>center</aligny>
-						<label>[B][I]$INFO[ListItem.Label][/I][/B]</label>
-						<font>ListDetails</font>
-					</control>
-                </control>								
 			</itemlayout>
 			<focusedlayout height="$PARAM[artworkheightmed]" width="$PARAM[artworkwidthmed]">
 			    <control type="group">
-				    <visible>!$PARAM[showLabelFallback] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)</visible>
-				    <include content="GenericThumbIconTemplate">
+					<include content="GenericThumbIconTemplate">
 				        <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                         <param name="iconimage">$PARAM[iconimage]</param>
                         <param name="aspect">$PARAM[aspect]</param>
@@ -3428,13 +3360,7 @@
 				        <param name="shadowoffset">8</param>
 				        <param name="bordersizeLT">12</param>
 				        <param name="bordersizeRB">20</param>
-				        <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-                        <param name="overlaylabel">[B]$PARAM[overlaylabel][/B]</param>
-					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
-                        <param name="overlaylabelheight">$PARAM[labelheight]</param>
-					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
-						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
+						<param name="belowtextboxvisibility">$PARAM[textboxvisibility]</param>
 				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
 				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
 					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
@@ -3442,71 +3368,8 @@
 					    <param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
 						<param name="belowtextboxbackwidth">$PARAM[artworkwidthmed]</param>
 					    <param name="isSmallIcon">true</param>
-						<param name="isWideIcon">$PARAM[isWideIcon]</param>
-					    <param name="isLowWidget">$PARAM[isLowWidget]</param>
-					    <param name="isTripleRow">$PARAM[isTripleRow]</param>
-					    <param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
-					    <param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
-					    <param name="showOverlay">$PARAM[showOverlay]</param>
 			        </include>
 				</control>
-                <control type="group">
-				    <visible>!$PARAM[showLabelFallback] + String.IsEqual(ListItem.Icon,DefaultAddonNone.png)</visible>
-				    <include content="GenericThumbIconTemplate">
-				        <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
-                        <param name="iconimage">$PARAM[iconimage]</param>
-                        <param name="aspect">scale</param>
-					    <param name="align">$PARAM[align]</param>
-                        <param name="aligny">$PARAM[aligny]</param>
-						<param name="fallbackicon">DefaultNoPreview.png</param>
-				        <param name="iconwidth">$PARAM[artworkwidthmed]</param>
-				        <param name="iconheight">$PARAM[iconheightmed]</param>
-				        <param name="iconoffset">0</param>
-				        <param name="shadowoffset">8</param>
-				        <param name="bordersizeLT">12</param>
-				        <param name="bordersizeRB">20</param>
-				        <param name="overlaylabelvisibility">[$PARAM[labelvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-                        <param name="overlaylabel">[B]$PARAM[overlaylabel][/B]</param>
-					    <param name="overlaylabelfont">$PARAM[labelfont]</param>
-                        <param name="overlaylabelheight">$PARAM[labelheight]</param>
-					    <param name="overlaylabelalign">$PARAM[labelalign]</param>
-					    <param name="overlaylabelscroll">$PARAM[labelscroll]</param>
-						<param name="belowtextboxvisibility">[$PARAM[textboxvisibility] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)]</param>
-				        <param name="belowtextbox">$VAR[WidgetItemLabel]</param>
-				        <param name="belowtextboxwidth">$PARAM[textboxwidth]</param>
-					    <param name="belowtextboxfont">$PARAM[textboxfont]</param>
-					    <param name="belowtextboxheight">$PARAM[textboxheight]</param>
-					    <param name="belowtextboxbackheight">$PARAM[textbackheight]</param>
-						<param name="belowtextboxbackwidth">$PARAM[artworkwidthmed]</param>
-					    <param name="isSmallIcon">true</param>
-						<param name="isWideIcon">$PARAM[isWideIcon]</param>
-					    <param name="isLowWidget">$PARAM[isLowWidget]</param>
-					    <param name="isTripleRow">$PARAM[isTripleRow]</param>
-					    <param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
-					    <param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
-					    <param name="showOverlay">$PARAM[showOverlay]</param>
-			        </include>
-				</control>				
-                <control type="group">
-				    <visible>$PARAM[showLabelFallback]</visible>
-					<control type="image">
-					    <texture background="true">thumbs/labelback.png</texture>
-					    <bordertexture colordiffuse="$VAR[HighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
-					    <bordersize>$PARAM[bordersizeLT],$PARAM[bordersizeLT],$PARAM[bordersizeRB],$PARAM[bordersizeRB]</bordersize>
-					    <aspectratio align="center" aligny="center">stretch</aspectratio>
-						<height>$PARAM[artworkheightmed]</height>
-						<width>$PARAM[artworkwidthmed]</width>
-				    </control>
-					<control type="textbox">
-					    <height>$PARAM[artworkheightmed]</height>
-						<width>$PARAM[artworkwidthmed]</width>
-						<align>center</align>
-						<aligny>center</aligny>
-						<label>[B][I]$INFO[ListItem.Label][/I][/B]</label>
-						<textcolor>$VAR[HighlightColor]</textcolor>
-						<font>ListDetails</font>
-					</control>
-                </control>								
 			</focusedlayout>
 		</definition>
 	</include>
