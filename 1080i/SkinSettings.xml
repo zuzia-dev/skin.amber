@@ -334,12 +334,21 @@
 							<param name="itemlabel" value="$LOCALIZE[31920]"/>
 							<param name="skinsetting" value="Hide.AllShelves"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="18"/>
-							<param name="itemlabel" value="[B]$LOCALIZE[31637][/B]"/>
-							<param name="skinsetting" value="Enable.BottomShortcuts"/>
-							<param name="itemvisibility" value="!Skin.HasSetting(VerticalHome)"/>
-						</include>
+						<item id="18">
+                            <visible>Skin.HasSetting(Enable.BottomShortcuts)</visible>
+                            <label>[B]$LOCALIZE[31637][/B]</label>
+                            <label2>$LOCALIZE[107]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.BottomShortcuts)</onclick>
+							<visible>!Skin.HasSetting(VerticalHome)</visible>
+                        </item>
+                        <item id="18">
+                            <visible>!Skin.HasSetting(Enable.BottomShortcuts)</visible>
+                            <label>[B]$LOCALIZE[31637][/B]</label>
+                            <label2>$LOCALIZE[106]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.BottomShortcuts)</onclick>
+							<onclick>Skin.Reset(Zoom.VideoPreview)</onclick>
+							<visible>!Skin.HasSetting(VerticalHome)</visible>
+                        </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="19"/>
 							<param name="itemlabel" value="      $LOCALIZE[32374]"/>
@@ -976,7 +985,7 @@
 		                <onclick>Skin.ToggleSetting(Zoom.VideoPreview)</onclick>
 		                <label>$LOCALIZE[32334]</label>
 		                <label2>$LOCALIZE[107]</label2>
-				        <visible>Skin.HasSetting(Zoom.VideoPreview)</visible>
+				        <visible>Skin.HasSetting(Zoom.VideoPreview) + !Skin.HasSetting(Enable.BottomShortcuts)</visible>
 	                </control>
 				    <control type="button" id="910606">
 				        <width>1350</width>
@@ -986,7 +995,7 @@
 		                <onclick>Skin.ToggleSetting(Zoom.VideoPreview)</onclick>
 		                <label>$LOCALIZE[32334]</label>
 		                <label2>$LOCALIZE[106]</label2>
-				        <visible>!Skin.HasSetting(Zoom.VideoPreview)</visible>
+				        <visible>!Skin.HasSetting(Zoom.VideoPreview) + !Skin.HasSetting(Enable.BottomShortcuts)</visible>
 	                </control>
 					<control type="button" id="910607">
 				        <width>1350</width>
