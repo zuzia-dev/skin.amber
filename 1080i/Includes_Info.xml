@@ -1174,6 +1174,18 @@
 	</variable>
 	
     <constant name="IconCrossfadeTime">400</constant>
+	
+	<variable name="WidgetItemType">
+	    <value condition="String.IsEqual(ListItem.DBType,movie)">movie</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode)">tv</value>
+	</variable>
+	
+	<variable name="TMDbHelperQuery">
+	    <value condition="!String.IsEmpty(ListItem.Property(tmdb_id))">tmdb_id=$INFO[ListItem.Property(tmdb_id)]</value>
+		<value condition="!String.IsEmpty(ListItem.IMDBNumber))">imdb_id=$INFO[ListItem.IMDBNumber]</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie)">query=$INFO[ListItem.Title]&amp;year=$INFO[ListItem.Year]</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode)">query=$INFO[ListItem.TVShowTitle]</value>
+	</variable>
     
     <!-- List layout for video info media details -->
     <include name="List_9009_Commons" description="Video Info metadata container">

@@ -3080,25 +3080,27 @@
     </include>
 
     <include name="TouchButtons">
-        <control type="grouplist" id="700">
+        <control type="grouplist" id="7900">
             <orientation>horizontal</orientation>
             <visible>Skin.HasSetting(Show.Options.Button)</visible>
             <itemgap>20</itemgap>
             <top>0</top>
             <left>860</left>
-            <width>180</width>
+            <width>280</width>
             <height>40</height>
             <onup>noop</onup>
-            <ondown>9000</ondown>
+            <ondown condition="!Window.IsActive(Home)">9000</ondown>
+			<ondown condition="Window.IsActive(Home)">300</ondown>
             <align>justify</align>
             <usecontrolcoords>true</usecontrolcoords>
             <control type="button" id="10000">
-                <description>Go Back</description>
+                <description>Home</description>
                 <width>40</width>
                 <height>40</height>
                 <texturefocus colordiffuse="$VAR[HighlightColor]">icons/home.png</texturefocus>
                 <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/home.png</texturenofocus>
                 <onclick>ActivateWindow(home)</onclick>
+				<visible>!Window.IsActive(Home)</visible>
             </control>
             <control type="button" id="10001">
                 <description>Go Back</description>
@@ -3116,6 +3118,7 @@
                 <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/settings.png</texturenofocus>
                 <onclick condition="!Skin.HasSetting(KioskMode.Enabled)">SetFocus(9000)</onclick>
                 <onclick condition="Skin.HasSetting(KioskMode.Enabled)">noop</onclick>
+				<visible>!Window.IsActive(Home)</visible>
             </control>
         </control>
     </include>
