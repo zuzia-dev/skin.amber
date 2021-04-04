@@ -104,29 +104,27 @@
                 <texture>img/blackdot1.png</texture>
                 <aspectratio>scale</aspectratio>
             </control>
-            <control type="image">
+            <!-- Use listitem fanart if not called from the OSD, or showing info for item different than the playing item -->
+			<control type="image">
                 <width>100%</width>
                 <height>100%</height>
                 <aspectratio align="center">scale</aspectratio>
 			    <texture background="true">$VAR[VideoInfoBackground]</texture>
 			    <fadetime>IconCrossfadeTime</fadetime>
-				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
+				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)</visible>
             </control>
+			<!-- Use playing item fanart if info dialog called from the OSD and showing info for the playing item -->
 			<control type="image">
                 <width>100%</width>
                 <height>100%</height>
                 <aspectratio align="center">scale</aspectratio>
 				<texture background="true">$INFO[Player.Art(fanart)]</texture>
 			    <fadetime>IconCrossfadeTime</fadetime>
-				<visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
+				<visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)</visible>
             </control>
             <include content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
             </include>
-<!--            <include condition="Skin.HasSetting(Enable.BlurredVideoInfo) + Skin.HasSetting(Blur.UsePoster)" content="BackgroundOverlayVideoInfo">
-                <param name="parentid" value="9000"/>
-                <param name="colordiffuse" value="9FC8C8C8"/>
-            </include> -->
         </control>
         <!-- Powered by TMDb for Person info -->
 		<control type="image" description="Powered by TMDb">
@@ -159,7 +157,7 @@
                 <param name="height">114</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoBanner]</param>
-                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
+                <param name="visibility">[[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>            
             <include content="ShadowedImage">
                 <param name="top">390</param>
@@ -168,7 +166,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
+                <param name="visibility">[[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>
             <include content="ShadowedImage">
                 <param name="top">340</param>
@@ -177,7 +175,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.Art(tvshow.banner))] | [!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(Player.Art(tvshow.banner))]</param>
+                <param name="visibility">[[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>            
         </control>
 		<!-- TV Show banner if there is no cast and seasons list is disabled -->
@@ -1323,31 +1321,25 @@
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [!String.IsEmpty(ListItem.Duration) + !String.IsEqual(ListItem.Duration,0) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
+                            <visible>[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(ListItem.Duration) + !String.IsEqual(ListItem.Duration,0) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[Player.Duration] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + !Skin.HasSetting(Enable.HourMinutes)]</visible>
-                        </item>
-                        <item>
-                            <label>$LOCALIZE[2050]:</label>
-                            <label2>$VAR[ItemDurationHrMins]</label2>
-                            <onclick>noop</onclick>
-                            <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [!String.IsEmpty(Container.Viewmode) + !String.IsEmpty(ListItem.Duration) + !String.IsEqual(ListItem.Duration,0) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
+                            <visible>[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + !Skin.HasSetting(Enable.HourMinutes)]</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$VAR[WidgetItemDurationHrMins]</label2>
                             <onclick>noop</onclick>
-                            <visible>String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEmpty(Container.Viewmode) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
+                            <visible>[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Window(Home).Property(WidgetItemDuration)) + !String.IsEqual(Window(Home).Property(WidgetItemDuration),0) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$VAR[PlayerDurationHrMins]</label2>
                             <onclick>noop</onclick>
-                            <visible>!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + Skin.HasSetting(Enable.HourMinutes)]</visible>
+                            <visible>[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + Skin.HasSetting(Enable.HourMinutes)]</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[2050]:</label>
