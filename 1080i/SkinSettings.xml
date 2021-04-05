@@ -142,12 +142,15 @@
 			</control>
 			<control type="group" id="9100">
 				<!--9000 1 General Options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9101</param>
+				</include>
 				<control type="panel" id="9101">
 					<visible>Container(9000).HasFocus(1)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9101</onup>
 					<ondown>9101</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<item id="1" description="Set Default Font Size">
@@ -156,25 +159,31 @@
 							<onclick>SetProperty(CustomSelectDefaultFont,True)</onclick>
 							<onclick>ActivateWindow(1121)</onclick>
 						</item>
-						<item id="2" description="Lyrics">
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="2"/>
+							<param name="itemlabel" value="$LOCALIZE[32376]"/>
+							<param name="skinsetting" value="Disable.Lyrics"/>
+						</include>
+						<item id="3" description="Lyrics">
 							<label>$LOCALIZE[24020] $LOCALIZE[31132]</label>
 							<label2>$INFO[Skin.String(LyricPath)]</label2>
 							<onclick>Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
+							<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
 						</item>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="3"/>
+							<param name="itemid" value="4"/>
 							<param name="itemlabel" value="$LOCALIZE[32357]"/>
 							<param name="skinsetting" value="Enable.VideoLyrics"/>
-							<param name="itemvisibility" value="System.HasAddon(script.cu.lrclyrics)"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="4"/>
-							<param name="itemlabel" value="$LOCALIZE[32368]"/>
-							<param name="skinsetting" value="Music.DimWithLyrics"/>
-							<param name="itemvisibility" value="System.HasAddon(script.cu.lrclyrics)"/>
+							<param name="itemvisibility" value="!Skin.HasSetting(Disable.Lyrics) + System.HasAddon(script.cu.lrclyrics)"/>
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="5"/>
+							<param name="itemlabel" value="$LOCALIZE[32368]"/>
+							<param name="skinsetting" value="Music.DimWithLyrics"/>
+							<param name="itemvisibility" value="!Skin.HasSetting(Disable.Lyrics) + System.HasAddon(script.cu.lrclyrics)"/>
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="6"/>
 							<param name="itemlabel" value="$LOCALIZE[31959]"/>
 							<param name="skinsetting" value="FullscreenMusic"/>
 						</include>
@@ -251,13 +260,13 @@
 						</include>
 					</content>
 				</control>
-                <!-- 9000 2 - Home Menu optiuons -->
+				<!-- 9000 2 - Home Menu optiuons -->
 				<control type="panel" id="9102">
 					<visible>Container(9000).HasFocus(2)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9102</onup>
 					<ondown>9102</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<item id="1">
@@ -394,12 +403,15 @@
 					</content>
 				</control>
                 <!-- 9000 3 Background options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9103</param>
+				</include>
 				<control type="panel" id="9103">
 					<visible>Container(9000).HasFocus(3)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9103</onup>
 					<ondown>9103</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<include content="YesNoSettingItem">
@@ -478,12 +490,15 @@
 					</content>
 				</control>
 				<!--9000 4 Media Views Options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9104</param>
+				</include>
 				<control type="panel" id="9104">
 					<visible>Container(9000).HasFocus(4)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9104</onup>
 					<ondown>9104</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<item id="1" description="Use New View Selector - SkinVariables present">
@@ -847,12 +862,15 @@
 					</content>
 				</control>
                 <!--9000 5 Top Bar Options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9105</param>
+				</include>
 				<control type="panel" id="9105">
 					<visible>Container(9000).HasFocus(5)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9105</onup>
 					<ondown>9105</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 					    <item id="1">
@@ -903,9 +921,14 @@
 					</content>
 				</control>
 				<!-- 9000 6 Now Playing Options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9106</param>
+				</include>
 				<control type="grouplist" id="9106">
 					<visible>Container(9000).HasFocus(6)</visible>
-                    <posx>495</posx>
+                    <onright>500</onright>
+					<pagecontrol>500</pagecontrol>
+					<posx>495</posx>
                     <posy>120</posy>
                     <width>1350</width>
                     <height>860</height>
@@ -1162,12 +1185,15 @@
 		            </control>
 				</control>
                 <!-- 9000 7 Full Screen/OSD options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9107</param>
+				</include>
 				<control type="panel" id="9107">
 					<visible>Container(9000).HasFocus(7)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9107</onup>
 					<ondown>9107</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
                         <include content="YesNoSettingItem">
@@ -1261,12 +1287,15 @@
 					</content>
 				</control>				
                 <!-- 9000 8 Video Info options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9108</param>
+				</include>
 				<control type="panel" id="9108">
 					<visible>Container(9000).HasFocus(8)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9108</onup>
 					<ondown>9108</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
                         <include content="YesNoSettingItem">
@@ -1338,9 +1367,13 @@
 					</content>
 				</control>
 				<!-- 9000 9 - Color Options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9109</param>
+				</include>
 				<control type="grouplist" id="9109">
 					<visible>Container(9000).HasFocus(9)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
                     <posx>495</posx>
                     <posy>120</posy>
                     <width>1350</width>
@@ -1504,9 +1537,9 @@
 				<control type="panel" id="9110">
 					<visible>Container(9000).HasFocus(10)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9110</onup>
 					<ondown>9110</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<include content="YesNoSettingItemAddon">
@@ -1528,12 +1561,15 @@
 					</content>
 				</control>
 				<!-- 9000 11 Advanced options -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9111</param>
+				</include>
 				<control type="panel" id="9111">
 					<visible>Container(9000).HasFocus(11)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9111</onup>
 					<ondown>9111</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<include content="YesNoSettingItem">
@@ -1632,9 +1668,9 @@
 				<control type="panel" id="9112">
 					<visible>Container(9000).HasFocus(12)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
 					<onup>9112</onup>
 					<ondown>9112</ondown>
-					<pagecontrol></pagecontrol>
 					<include>SettingsListCommons</include>
 					<content>
 						<item id="1" description="Backup Skin Settings">
@@ -1664,9 +1700,13 @@
 					</content>
 				</control>                
 				<!-- 9000 13 - Manage Dependencies -->
+				<include content="SkinSettingsArrows">
+				    <param name="panelid">9113</param>
+				</include>
 				<control type="grouplist" id="9113">
 					<visible>Container(9000).HasFocus(13)</visible>
 					<onright>500</onright>
+					<pagecontrol>500</pagecontrol>
                     <include>SettingsListCommons</include>
 					<onup>9113</onup>
 					<ondown>9113</ondown>                    
@@ -1802,6 +1842,19 @@
 					</control>
 				</control>
 			</control>
+		</control>
+		<control type="scrollbar" id="500">
+			<left>1845</left>
+			<top>100</top>
+			<width>36</width>
+			<height>900</height>
+			<texturesliderbackground></texturesliderbackground>
+			<texturesliderbar></texturesliderbar>
+			<texturesliderbarfocus></texturesliderbarfocus>
+			<textureslidernib border="18">OSD/ScrollbarNibNF.png</textureslidernib>
+			<textureslidernibfocus border="18" colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus>
+			<orientation>vertical</orientation>
+			<onleft>9100</onleft>
 		</control>
 		<control type="group" description="Holiday theme">
 			<visible>Skin.HasSetting(holiday)</visible>
