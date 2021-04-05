@@ -347,6 +347,7 @@
 		<param name="textcolor" default="white" />
 		<definition>
 			<control type="label">
+				<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
 				<width>1860</width>
 				<height>40</height>
 				<font>lyr0</font>
@@ -360,7 +361,7 @@
 	
 	<include name="VideoLyrics">
 		<control type="group">
-			<visible>!String.IsEmpty(Container(110).ListItem.Label)</visible>
+			<visible>!String.IsEmpty(Container(110).ListItem.Label) + !Skin.HasSetting(Disable.Lyrics)</visible>
 			<control type="group">
 				<visible>[!String.IsEmpty(Window(Home).Property(culrc.islrc)) + Integer.IsGreater(Container(110).ListItem.Property(duration),299) + !Integer.IsGreater(Container(110).ListItem.Property(duration),1449)] | String.IsEmpty(Container(110).ListItem.Property(part4))</visible>
 				<!-- Short LINE 1 -->

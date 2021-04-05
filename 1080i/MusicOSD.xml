@@ -226,7 +226,17 @@
                     <onup>1002</onup>
                     <ondown>1002</ondown>
                     <orientation>vertical</orientation>
-                    <control type="button" id="2011">
+                    <control type="radiobutton" id="201101">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>Activate Lyrics</label>
+					    <radioposx>380</radioposx>
+						<onclick>Skin.ToggleSetting(Disable.Lyrics)</onclick>
+					    <selected>!Skin.HasSetting(Disable.Lyrics)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+					</control>
+					<control type="button" id="2011">
                         <width>470</width>
                         <font>Details</font>
                         <label>$LOCALIZE[24013]</label>
@@ -235,6 +245,7 @@
                         <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
                         <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
                         <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+						<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
                     </control>
                     <control type="button" id="2012">
                         <width>470</width>
