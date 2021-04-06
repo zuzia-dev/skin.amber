@@ -9,33 +9,12 @@
     
 	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(VideoOSD,true)</onload>
 	
-	<!-- Set these so I have the duration when called from a widget and the extras or other dialog pops up -->
-	<onload>SetProperty(WidgetItemDuration,$INFO[ListItem.Duration],Home)</onload>
-	<onload>SetProperty(WidgetItemDurationHr,$INFO[ListItem.Duration(h)],Home)</onload>
-	<onload>SetProperty(WidgetItemDurationMin,$INFO[ListItem.Duration(m)],Home)</onload>
-	<onload>SetProperty(WidgetItemDurationMins,$INFO[ListItem.Duration(mins)],Home)</onload>
-	<onload>SetProperty(WidgetItemDurationSec,$INFO[ListItem.Duration(ss)],Home)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,episode)">SetProperty(WidgetItemSeason,$INFO[ListItem.Season],Home)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,episode)">SetProperty(WidgetItemEpisode,$INFO[ListItem.Episode],Home)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,episode)">SetProperty(WidgetItemTVShowTitle,$INFO[ListItem.TVShowTitle],Home)</onload>
-	
-	
 	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onunload>
 	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(PauseOnVideoInfo) + Player.Paused">Play</onunload>
-	
 	
 	<onunload condition="System.HasAddon(script.embuary.helper)">ClearProperty(EncodedTitle,home)</onunload>
 	<onunload condition="Skin.HasSetting(Disable.ExtendedInfo)">ClearProperty(KodiDefaultCastSearch,home)</onunload>
 	
-	<onunload>ClearProperty(WidgetItemDuration,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemDurationHr,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemDurationMin,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemDurationMins,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemDurationSec,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemSeason,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemEpisode,Home)</onunload>
-	<onunload>ClearProperty(WidgetItemTVShowTitle,Home)</onunload>
-
     <controls>
 
         <!-- Get additional TV Show details from Embuary Helper script to be able to jump to season from an episode info - Container 5200 -->
@@ -1321,25 +1300,13 @@
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[ListItem.Duration] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(ListItem.Duration) + !String.IsEqual(ListItem.Duration,0) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
+                            <visible>!Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[2050]:</label>
-                            <label2>$INFO[Player.Duration] $LOCALIZE[12391]</label2>
+                            <label2>$VAR[ItemDurationVar]</label2>
                             <onclick>noop</onclick>
-                            <visible>[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + !Skin.HasSetting(Enable.HourMinutes)]</visible>
-                        </item>
-						<item>
-                            <label>$LOCALIZE[2050]:</label>
-                            <label2>$VAR[WidgetItemDurationHrMins]</label2>
-                            <onclick>noop</onclick>
-                            <visible>[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Window(Home).Property(WidgetItemDuration)) + !String.IsEqual(Window(Home).Property(WidgetItemDuration),0) + Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)]</visible>
-                        </item>
-						<item>
-                            <label>$LOCALIZE[2050]:</label>
-                            <label2>$VAR[PlayerDurationHrMins]</label2>
-                            <onclick>noop</onclick>
-                            <visible>[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.DBID,VideoPlayer.DBID)] + [!String.IsEmpty(Player.Duration) + !String.IsEqual(Player.Duration,0) + Skin.HasSetting(Enable.HourMinutes)]</visible>
+                            <visible>Skin.HasSetting(Enable.HourMinutes) + !String.IsEqual(ListItem.DBType,set)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[2050]:</label>
