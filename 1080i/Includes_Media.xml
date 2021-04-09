@@ -1167,12 +1167,14 @@
 		<param name="isTripleShevesTogether">false</param>
 		<param name="isLowWidget">false</param>
 		<definition>
-		    <!-- Overlay for small icons in custom video lists in info dialog -->
+		    <!-- Overlays for small icons in custom video lists in info dialog -->
 			<control type="group">
-			    <visible>Window.IsActive(DialogVideoInfo.xml) + [String.IsEqual(Container.ListItem.DBType,movie) | String.IsEqual(Container.ListItem.DBType,tvshow)] + 
-						 [String.StartsWith(Container.ListItem.FolderPath,plugin://) | String.StartsWith(Container.ListItem.FolderPath,videodb)] + !String.IsEmpty(Container.ListItem.DBID)</visible>
-			    <control type="group">
-				    <control type="image">
+			    <visible>Window.IsActive(DialogVideoInfo.xml) + [String.IsEqual(Container.ListItem.DBType,movie) | String.IsEqual(Container.ListItem.DBType,tvshow) | String.IsEqual(Container.ListItem.DBType,season)] + 
+				         [String.StartsWith(Container.ListItem.FolderPath,plugin://) | String.StartsWith(Container.ListItem.FolderPath,videodb)] + !String.IsEmpty(Container.ListItem.DBID)</visible>
+			    <!-- Regular Overlay -->
+				<control type="group">
+				    <visible>!Integer.IsGreater(Container.ListItem.Property(UnwatchedEpisodes),0) + !Container.ListItem.IsResumable</visible>
+					<control type="image">
 				        <visible>!$PARAM[isFocused]</visible>
 				        <texture background="true">$VAR[TopRightOverlay]</texture>
 				        <posx>98r</posx>
@@ -1192,7 +1194,78 @@
 				        <aspectratio>keep</aspectratio>
 			        </control>
 				</control>
+				<!-- Unwatched episodes overlay -->
+				<control type="group">
+				    <visible>Integer.IsGreater(Container.ListItem.Property(UnwatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+				    <control type="group">
+					    <control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true">overlays/toprightempty2.png</texture>
+				            <posx>101r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>101r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+					</control>
+					<control type="group">
+					    <control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>94r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[VideoInfoUnwatchedEpisodes]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>94r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[VideoInfoUnwatchedEpisodes]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+					</control>
+				</control>
+				<!-- In-Progress overlay -->
+				<control type="group">
+				    <visible>Integer.IsGreater(Container.ListItem.PercentPlayed,0) + !Skin.HasSetting(Hide_InProgress_Marks)</visible>
+					<control type="group">
+				        <control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true">$VAR[VideoInfoTopRightInProgress]</texture>
+				            <posx>92r</posx>
+				            <posy>12</posy>
+				            <height>72</height>
+				            <width>72</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[VideoInfoTopRightInProgress]</texture>
+				            <posx>92r</posx>
+				            <posy>12</posy>
+				            <height>72</height>
+				            <width>72</width>
+			            </control>
+			        </control>
+				</control>	
 			</control>
+			
 			<!-- Overlay for all other use cases -->
 			<control type="group">
 			    <visible>[!Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(Custom_1122_Search.xml) | Window.IsActive(Custom_1131_SingleSearch.xml)] + 
@@ -1361,7 +1434,8 @@
 			                </control>
 						</control>
 					</control>
-                </control>				
+                </control>
+				
 			    <!-- Unwatched episode count for regular icons -->
 				<control type="group">
 				    <visible>![$PARAM[isSmallIcon]] + ![$PARAM[isSearch]]</visible>
@@ -1489,6 +1563,7 @@
 				        </control>
 					</control>
 				</control>
+				
 				<!-- Unwatched episode count for small icons -->
 			    <control type="group">
 				    <visible>$PARAM[isSmallIcon] + ![$PARAM[isSearch]]</visible>
