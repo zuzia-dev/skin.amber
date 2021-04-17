@@ -10,9 +10,9 @@
 			<animation effect="fade" time="250">WindowOpen</animation>
 			<animation effect="fade" time="250">WindowClose</animation>
 			<control type="image" description="Left Menu background">
-				<left>60</left>
+				<left>20</left>
 				<top>60</top>
-				<width>412</width>
+				<width>462</width>
 				<height>980</height>
 				<texture border="45">dialogs/TinyDialog.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
@@ -27,7 +27,7 @@
 			</control>
 			<!-- Left Content -->
 			<control type="label">
-				<posx>100</posx>
+				<posx>65</posx>
 				<posy>80</posy>
 				<textcolor>$VAR[HighlightColor]</textcolor>
 				<label>[B]$VAR[SkinShortcutsLeftLabelVar][/B]</label>
@@ -35,9 +35,9 @@
 
 			<!-- List of Menu/Submenu items -->
 			<control type="list" id="211">
-				<posx>105</posx>
+				<posx>65</posx>
 				<posy>180</posy>
-				<width>322</width>
+				<width>382</width>
 				<height>780</height>
 
 				<onright condition="String.IsEmpty(Window(Home).Property(skinshortcuts-Widget))">90001</onright>
@@ -48,67 +48,71 @@
 				<onright condition="String.IsEqual(Window(Home).Property(skinshortcuts-Widget),5)">7000</onright>
 				<onright condition="String.IsEqual(Window(Home).Property(skinshortcuts-Widget),6)">8000</onright>                
                 
-				<itemlayout width="322" height="60">
+				<itemlayout width="382" height="60">
 					<control type="image">
-						<width>322</width>
+						<width>382</width>
 						<height>60</height>
 						<texture border="3">buttons/ButtonNF.png</texture>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
-						<width>301</width>
+						<width>292</width>
 						<height>60</height>
                         <font>ListDetails</font>
 						<label>$VAR[ShortcutsDisabled]$INFO[ListItem.Label]</label>
 						<visible>!Skin.HasSetting(VerticalHome) | !Skin.HasSetting(Vertical.IconOnly) | String.IsEmpty(Window.Property(groupname)) | String.IsEqual(Window.Property(groupname),mainmenu)</visible>
+						<scroll>false</scroll>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
-						<width>251</width>
+						<width>292</width>
 						<height>60</height>
                         <font>ListDetails</font>
 						<label>$VAR[ShortcutsDisabled]$INFO[ListItem.Label]</label>
 						<visible>[!String.IsEmpty(Window.Property(groupname)) + !String.IsEqual(Window.Property(groupname),mainmenu)] | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)]</visible>
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<visible>[!String.IsEmpty(Window.Property(groupname)) + !String.IsEqual(Window.Property(groupname),mainmenu)] | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)]</visible>
-						<posx>251</posx>
+						<posx>321</posx>
 						<posy>5</posy>
 						<width>50</width>
 						<height>50</height>
 						<texture>$INFO[ListItem.Icon]</texture>
 					</control>
 				</itemlayout>
-				<focusedlayout width="322" height="60">
+				<focusedlayout width="382" height="60">
 					<control type="image" description="fa overlay">
 						<animation effect="fade" start="100" end="40" time="100" condition="!Control.HasFocus(211)">Conditional</animation>
-						<width>322</width>
+						<width>382</width>
 						<height>60</height>
 						<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
-						<width>301</width>
+						<width>292</width>
 						<height>60</height>
 						<textcolor>$VAR[FocusedTextColor]</textcolor>
 						<shadowcolor></shadowcolor>
                         <font>ListDetails</font>
 						<label>$VAR[ShortcutsDisabled]$INFO[ListItem.Label]</label>
 						<visible>!Skin.HasSetting(VerticalHome) | !Skin.HasSetting(Vertical.IconOnly) | String.IsEmpty(Window.Property(groupname)) | String.IsEqual(Window.Property(groupname),mainmenu)</visible>
+						<scroll>false</scroll>
 					</control>
 					<control type="label" description="Main Label">
 						<posx>10</posx>
-						<width>251</width>
+						<width>292</width>
 						<height>60</height>
 						<textcolor>$VAR[FocusedTextColor]</textcolor>
 						<shadowcolor></shadowcolor>
                         <font>ListDetails</font>
 						<label>$VAR[ShortcutsDisabled]$INFO[ListItem.Label]</label>
 						<visible>[!String.IsEmpty(Window.Property(groupname)) + !String.IsEqual(Window.Property(groupname),mainmenu)] | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)]</visible>
+						<scroll>false</scroll>
 					</control>
 					<control type="image">
 						<visible>[!String.IsEmpty(Window.Property(groupname)) + !String.IsEqual(Window.Property(groupname),mainmenu)] | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)]</visible>
-						<posx>251</posx>
+						<posx>321</posx>
 						<posy>5</posy>
 						<width>50</width>
 						<height>50</height>
@@ -754,19 +758,6 @@
 					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 					<font>ListDetails</font>
 				</control>
-				<control type="radiobutton" id="3011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + String.IsEqual(Container(211).ListItem.Property(widget),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget))">SetProperty(customProperty,shortStaticWidget)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget),true)">SetProperty(customProperty,shortStaticWidget)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
-				</control>
 				<control type="button" id="3003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEqual(Container(211).ListItem.Property(widget),static) + 
 					         !String.IsEqual(Container(211).ListItem.Property(widgetType),custom)</visible>
@@ -944,19 +935,6 @@
 				    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 				    <font>ListDetails</font>
 			    </control>
-				<control type="radiobutton" id="4011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + String.IsEqual(Container(211).ListItem.Property(widget.2),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget.2))">SetProperty(customProperty,shortStaticWidget.2)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.2),true)">SetProperty(customProperty,shortStaticWidget.2)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.2),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.2),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
-				</control>
 				<control type="button" id="4003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + !String.IsEqual(Container(211).ListItem.Property(widget.2),static) + 
 					         !String.IsEqual(Container(211).ListItem.Property(widgetType.2),custom)</visible>
@@ -1135,19 +1113,6 @@
 			        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 			        <font>ListDetails</font>
 		        </control>
-				<control type="radiobutton" id="5011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + String.IsEqual(Container(211).ListItem.Property(widget.3),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget.3))">SetProperty(customProperty,shortStaticWidget.3)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.3),true)">SetProperty(customProperty,shortStaticWidget.3)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.3),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.3),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
-				</control>
 				<control type="button" id="5003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.3)) + !String.IsEqual(Container(211).ListItem.Property(widget.3),static) + 
 					         !String.IsEqual(Container(211).ListItem.Property(widgetType.3),custom)</visible>
@@ -1321,19 +1286,6 @@
 				    <width>1340</width>
 				    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 				    <font>ListDetails</font>
-				</control>
-				<control type="radiobutton" id="6011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.4)) + String.IsEqual(Container(211).ListItem.Property(widget.4),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget.4))">SetProperty(customProperty,shortStaticWidget.4)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.4),true)">SetProperty(customProperty,shortStaticWidget.4)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.4),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.4),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
 				</control>
 				<control type="button" id="6003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.4)) + !String.IsEqual(Container(211).ListItem.Property(widget.4),static) + 
@@ -1509,19 +1461,6 @@
 			        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 			        <font>ListDetails</font>
 			    </control>
-				<control type="radiobutton" id="7011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.5)) + String.IsEqual(Container(211).ListItem.Property(widget.5),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget.5))">SetProperty(customProperty,shortStaticWidget.5)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.5),true)">SetProperty(customProperty,shortStaticWidget.5)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.5),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.5),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
-				</control>
 				<control type="button" id="7003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.5)) + !String.IsEqual(Container(211).ListItem.Property(widget.5),static) + 
 					         !String.IsEqual(Container(211).ListItem.Property(widgetType.5),custom)</visible>
@@ -1695,19 +1634,6 @@
 				    <width>1340</width>
 				    <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 				    <font>ListDetails</font>
-				</control>
-				<control type="radiobutton" id="8011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.6)) + String.IsEqual(Container(211).ListItem.Property(widget.6),static)</visible>
-					<label>$LOCALIZE[31639]</label>
-					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(shortStaticWidget.6))">SetProperty(customProperty,shortStaticWidget.6)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.6),true)">SetProperty(customProperty,shortStaticWidget.6)</onclick>
-					<onclick condition="String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.6),false)">SetProperty(customValue,true)</onclick>
-					<onclick>SendClick(404)</onclick>
-					<selected>!String.IsEqual(Container(211).ListItem.Property(shortStaticWidget.6),false)</selected>
-					<height>60</height>
-					<width>1340</width>
-					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-					<font>ListDetails</font>
 				</control>
 				<control type="button" id="8003">
 					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.6)) + !String.IsEqual(Container(211).ListItem.Property(widget.6),static)</visible>
