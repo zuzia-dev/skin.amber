@@ -930,15 +930,15 @@
             <orientation>horizontal</orientation>
             <defaultcontrol always="true">8000</defaultcontrol>
             <itemgap>16</itemgap>
-            <control type="button" id="8000" description="Play/browse">
+            <control type="button" id="8000" description="Play/Browse/Close">
                 <visible>Control.IsEnabled(8)</visible>
 				<height>90</height>
                 <width min="210">auto</width>
                 <align>center</align>
                 <font>Details</font>
                 <label>$VAR[VideoInfoButton8]</label>
-                <!-- Called from OSD -->
-				<onclick condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(all)</onclick>
+                <!-- Called from OSD or Person Info Dialog -->
+				<onclick condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) | String.Contains(ListItem.FolderPath,type=person)">Dialog.Close(all)</onclick>
 				<!-- PKC On Deck: No FileName or FolderPath -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
