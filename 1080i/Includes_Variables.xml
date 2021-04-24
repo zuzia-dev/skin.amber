@@ -685,7 +685,9 @@
 		<value condition="[String.IsEqual(ListItem.DBType,movie) | Container.Content(movies)] + String.IsEmpty(ListItem.Title)">$INFO[Listitem.Label,[B],[/B]]</value>
         <value condition="[String.IsEqual(ListItem.DBType,tvshow) | Container.Content(tvshows)] + !Control.IsVisible(52) + !String.IsEmpty(ListItem.Title)">$INFO[Listitem.Title,[B],[/B] ]$INFO[ListItem.Year,(,)]</value>
         <value condition="[String.IsEqual(ListItem.DBType,tvshow) | Container.Content(tvshows)] + Control.IsVisible(52) + !String.IsEmpty(ListItem.Title)">$INFO[Listitem.Title,, ]$INFO[ListItem.Year,(,)]</value>
-        <value condition="String.IsEqual(ListItem.DBType,album) + [Control.IsVisible(53) | Control.IsVisible(56)]">[B]$INFO[Listitem.AlbumArtist,, - ]$INFO[Listitem.Label][/B]</value>
+        <value condition="String.IsEqual(ListItem.DBType,album) + [Control.IsVisible(53) | [Control.IsVisible(56) + !Skin.HasSetting(56_Music_Netflix)]]">[B]$INFO[Listitem.AlbumArtist,, - ]$INFO[Listitem.Label][/B]</value>
+		<value condition="String.IsEqual(ListItem.DBType,album) + [Control.IsVisible(56) + Skin.HasSetting(56_Music_Netflix)]">[B]$INFO[Listitem.Album][/B]</value>
+		<value condition="String.IsEqual(ListItem.DBType,artist) + [Control.IsVisible(56) + Skin.HasSetting(56_Music_Netflix)]">[B]$INFO[Listitem.Artist][/B]</value>
 		<value condition="String.IsEqual(ListItem.DBType,song)">[B]$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title][/B]</value>
         <value condition="String.IsEqual(ListItem.DBType,msicvideo)">$INFO[Listitem.Label,[B],[/B] ]$INFO[ListItem.Year,(,)]</value>
         <value condition="String.IsEqual(ListItem.DBType,album) + Window.IsActive(script-globalsearch.xml)">$INFO[ListItem.Artist,, • ]$INFO[ListItem.Label]</value>

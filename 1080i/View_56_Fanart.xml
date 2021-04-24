@@ -8,6 +8,8 @@
 	
 	<variable name="AmberFlixTitleLabelVar">
 		<value condition="Container.Content(tvshows) | Container.Content(episodes)">$INFO[ListItem.TVShowTitle]</value>
+		<value condition="Container.Content(albums)">$INFO[ListItem.Album]</value>
+		<value condition="Container.Content(artists)">$INFO[ListItem.Artist]</value>
 		<value>$INFO[ListItem.Title]</value>
 	</variable>
 	
@@ -57,7 +59,8 @@
 											 [[Container.Content(musicvideos) | Container.Content(movies) | container.content(sets) | Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(56_Posters_Info_ExtraFanart)]</expression>
 	
 	<expression name="56_FanartViewNetflix">[[container.content(episodes) + Skin.HasSetting(56_Episodes_Netflix)] | 
-										  [[container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Netflix)]]</expression>
+										  [[container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Netflix)] | 
+										   [[container.content(artists) | container.content(albums)] + Skin.HasSetting(56_Music_Netflix)]]</expression>
 
 	
 	<include name="FocusSquare">
@@ -820,13 +823,25 @@
 					    <height>204</height>
 					    <aspectratio align="left" aligny="bottom">keep</aspectratio>
 					    <texture background="true">$VAR[ClearLogo]</texture>
-						<visible>[!Container.Content(episodes) + Skin.HasSetting(56_Posters_Netflix_Logo)] | [Container.Content(episodes) + Skin.HasSetting(56_Episodes_Netflix_Logo)]</visible>
+						<visible>[[container.content(episodes) + Skin.HasSetting(56_Episodes_Netflix_Logo)] | 
+								 [[container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Netflix_Logo)]]</visible>
+				    </control>
+					<control type="image" id="56889">
+					    <left>22</left>
+					    <top>50</top>
+					    <width>486</width>
+					    <height>160</height>
+					    <aspectratio align="left" aligny="bottom">keep</aspectratio>
+					    <texture background="true">$VAR[ClearLogo]</texture>
+						<visible>[container.content(artists)] + Skin.HasSetting(56_Music_Netflix_Logo)</visible>
 				    </control>
 				    <control type="group">
 					    <top>70</top>
-					    <animation effect="slide" start="0" end="0,60" condition="![[!Container.Content(episodes) + Skin.HasSetting(56_Posters_Netflix_Logo)] | [Container.Content(episodes) + Skin.HasSetting(56_Episodes_Netflix_Logo)]]">Conditional</animation>
+					    <animation effect="slide" start="0" end="0,60" condition="![[container.content(episodes) + Skin.HasSetting(56_Episodes_Netflix_Logo)] | 
+								                                                    [[container.content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)] + Skin.HasSetting(56_Posters_Netflix_Logo)] | 
+								                                                    [[container.content(artists)] + Skin.HasSetting(56_Music_Netflix_Logo)]]">Conditional</animation>
 					    <control type="group">
-						    <visible>!Control.IsVisible(56888) | String.IsEmpty(Control.GetLabel(56888))</visible>
+						    <visible>[!Control.IsVisible(56888) | String.IsEmpty(Control.GetLabel(56888))] + ![Container.Content(albums) | Container.Content(artists)]</visible>
 						    <left>25</left>
 							<control type="group">
 							    <visible>![Container.Content(seasons) | Container.Content(episodes)]</visible>
@@ -929,9 +944,68 @@
 			                    </control>
 							</control>
 					    </control>
+						<control type="group">
+						    <visible>Container.Content(albums)</visible>
+						    <top>-60</top>
+							<left>25</left>
+							<control type="group">
+							    <control type="label" description="Title shadow">
+				                    <left>4</left>
+				                    <top>4</top>
+            				        <width>700</width>
+								    <height>124</height>
+				                    <wrapmultiline>true</wrapmultiline>
+								    <textcolor>Black</textcolor>
+				                    <shadowcolor></shadowcolor>
+				                    <font>MainLabelBigTitle</font>
+				                    <scroll>false</scroll>
+				                    <label>$VAR[panelheading]</label>
+			                    </control>
+			                    <control type="label" description="Title Label">
+				                    <height>124</height>
+				                    <width>700</width>
+								    <wrapmultiline>true</wrapmultiline>
+								    <textcolor>$VAR[HighlightColor]</textcolor>
+				                    <shadowcolor></shadowcolor>
+				                    <font>MainLabelBigTitle</font>
+				                    <scroll>false</scroll>
+				                    <label>$VAR[panelheading]</label>
+			                    </control>
+							</control>
+					    </control>
+						<control type="group">
+						    <visible>[[!Control.IsVisible(56889) | String.IsEmpty(Control.GetLabel(56889))] + Container.Content(artists)]</visible>
+							<left>25</left>
+							<control type="group">
+							    <control type="label" description="Title shadow">
+				                    <left>4</left>
+				                    <top>4</top>
+            				        <width>700</width>
+								    <height>124</height>
+				                    <wrapmultiline>true</wrapmultiline>
+								    <textcolor>Black</textcolor>
+				                    <shadowcolor></shadowcolor>
+				                    <font>MainLabelBigTitle</font>
+				                    <scroll>false</scroll>
+				                    <label>$VAR[panelheading]</label>
+			                    </control>
+			                    <control type="label" description="Title Label">
+				                    <height>124</height>
+				                    <width>700</width>
+								    <wrapmultiline>true</wrapmultiline>
+								    <textcolor>$VAR[HighlightColor]</textcolor>
+				                    <shadowcolor></shadowcolor>
+				                    <font>MainLabelBigTitle</font>
+				                    <scroll>false</scroll>
+				                    <label>$VAR[panelheading]</label>
+			                    </control>
+							</control>
+					    </control>
 				    </control>
 				</control>
+				<!-- Info for video items -->
 				<control type="group">
+					<visible>[Container.Content(movies) | Container.Content(sets) | Container.Content(musicvideos) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
 					<left>30</left>
 					<top>258</top>
 					<width>1000</width>
@@ -1120,6 +1194,7 @@
 							<autoscroll delay="3000" time="3000" repeat="4000">true</autoscroll>
 						</control>
 					</control>
+					<!-- Plot for tv shows or episodes -->
 					<control type="textbox">
 						<top>100</top>
 						<width>800</width>
@@ -1131,6 +1206,135 @@
 						<visible>Container.Content(tvshows) | Container.Content(episodes)</visible>
 					</control>
 				</control>
+				<!-- Info for music items -->
+				<control type="group">
+					<visible>[Container.Content(albums) | Container.Content(artists)]</visible>
+					<left>30</left>
+					<top>228</top>
+					<width>1000</width>
+					<height>270</height>
+					<!-- Info for artists -->
+					<control type="group">
+						<visible>Container.Content(artists)</visible>
+						<control type="grouplist">
+						    <orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<control type="grouplist">
+							    <orientation>horizontal</orientation>
+								<control type="label">
+								    <width>400</width>
+								    <height>45</height>
+								    <font>font20_title</font>
+								    <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[135]: [/COLOR]$INFO[ListItem.Genre]</label>
+								    <visible>!String.IsEmpty(ListItem.Genre)</visible>
+							    </control>
+								<control type="label">
+								    <width>400</width>
+								    <height>45</height>
+								    <font>font20_title</font>
+								    <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[21898]: [/COLOR]$INFO[ListItem.Property(Artist_YearsActive)]</label>
+								    <visible>!String.IsEmpty(ListItem.Property(Artist_YearsActive))</visible>
+							    </control>
+							</control>
+							<control type="label">
+								<top>35</top>
+								<width>800</width>
+								<height>45</height>
+								<font>font20_title</font>
+								<scroll>false</scroll>
+								<label>[COLOR $VAR[HighlightColor]]$LOCALIZE[176]: [/COLOR]$INFO[ListItem.Property(Artist_Style)]</label>
+								<visible>!String.IsEmpty(ListItem.Property(Artist_Style))</visible>
+							</control>
+							<control type="label">
+								<top>-7</top>
+								<width>800</width>
+								<height>45</height>
+								<font>font20_title</font>
+								<scroll>false</scroll>
+								<label>[COLOR $VAR[HighlightColor]]$LOCALIZE[175]: [/COLOR]$INFO[ListItem.Property(Artist_Mood)]</label>
+								<visible>!String.IsEmpty(ListItem.Property(Artist_Mood))</visible>
+							</control>
+						</control>
+						<control type="textbox">
+							<top>170</top>
+							<width>800</width>
+							<height>160</height>
+							<label>$VAR[Plots]</label>
+							<autoscroll delay="3000" time="3000" repeat="4000">true</autoscroll>
+						</control>
+					</control>
+					<!-- Info for albums -->
+					<control type="group">
+						<visible>Container.Content(albums)</visible>
+						<control type="grouplist">
+						    <orientation>vertical</orientation>
+							<itemgap>5</itemgap>
+							<usecontrolcoords>true</usecontrolcoords>
+							<control type="grouplist">
+							    <orientation>horizontal</orientation>
+								<itemgap>20</itemgap>
+								<control type="label">
+								    <width max="135">auto</width>
+								    <height>45</height>
+								    <font>font20_title</font>
+								    <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[345]: [/COLOR]$INFO[ListItem.Year]</label>
+								    <visible>!String.IsEmpty(ListItem.Year)</visible>
+							    </control>
+								<control type="label">
+								    <width max="250">auto</width>
+								    <height>45</height>
+								    <font>font20_title</font>
+								    <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[180]: [/COLOR]$INFO[ListItem.Duration]</label>
+								    <visible>!String.IsEmpty(ListItem.Duration)</visible>
+									<align>left</align>
+							    </control>
+								<control type="label">
+								    <width>360</width>
+								    <height>45</height>
+								    <font>font20_title</font>
+								    <label>[COLOR $VAR[HighlightColor]]$LOCALIZE[135]: [/COLOR]$INFO[ListItem.Genre]</label>
+								    <visible>!String.IsEmpty(ListItem.Genre)</visible>
+									<scroll>false</scroll>
+							    </control>
+							</control>
+							<control type="label">
+								<top>35</top>
+								<width>800</width>
+								<height>45</height>
+								<font>font20_title</font>
+								<scroll>false</scroll>
+								<label>[COLOR $VAR[HighlightColor]]$LOCALIZE[21899]: [/COLOR]$INFO[ListItem.Property(Album_Label)]</label>
+								<visible>!String.IsEmpty(ListItem.Property(Album_Label))</visible>
+							</control>
+							<control type="label">
+								<top>-7</top>
+								<width>800</width>
+								<height>45</height>
+								<font>font20_title</font>
+								<scroll>false</scroll>
+								<label>[COLOR $VAR[HighlightColor]]$LOCALIZE[21895]: [/COLOR]$INFO[ListItem.Property(Album_Theme)]</label>
+								<visible>!String.IsEmpty(ListItem.Property(Album_Theme))</visible>
+							</control>
+						</control>
+						<control type="textbox">
+							<top>170</top>
+							<width>600</width>
+							<height>160</height>
+							<label>$VAR[Plots]</label>
+							<autoscroll delay="3000" time="3000" repeat="4000">true</autoscroll>
+						</control>
+						<control type="image" id="56890">
+					        <left>622</left>
+					        <top>170</top>
+					        <width>300</width>
+					        <height>116</height>
+					        <aspectratio align="center" aligny="center">keep</aspectratio>
+					        <texture background="true">$VAR[ClearLogo]</texture>
+						    <visible>!String.IsEmpty(ListItem.Art(artist.clearlogo))</visible>
+				        </control>
+					</control>
+				</control>	
 			</control>	
 		</definition>
 	</include>
