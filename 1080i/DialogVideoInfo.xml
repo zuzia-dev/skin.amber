@@ -939,23 +939,24 @@
                 <label>$VAR[VideoInfoButton8]</label>
                 <!-- Called from OSD -->
 				<onclick condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(all)</onclick>
+				<!-- Browse TV Show, embuary helper active -->
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
 				<!-- PKC On Deck: No FileName or FolderPath -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
 				<!-- Online item, tmdb helper not active, or Person Info dialog -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID) + [!Skin.HasSetting(Enable.TMDbHelper) | String.Contains(ListItem.FolderPath,type=person)]">Action(Close)</onclick>
                 <!-- Local item -->
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
 				<!-- tmdb helper active, path is not empty -->
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.TMDbHelper) + !String.Contains(ListItem.FolderPath,type=person) + !String.IsEmpty(ListItem.FileNameAndPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID) + Skin.HasSetting(Enable.TMDbHelper) + !String.Contains(ListItem.FolderPath,type=person) + !String.IsEmpty(ListItem.FileNameAndPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
                 <!-- tmdb helper active, path is empty -->
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.TMDbHelper) + !String.Contains(ListItem.FolderPath,type=person) + String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEmpty(ListItem.FolderPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID) + Skin.HasSetting(Enable.TMDbHelper) + !String.Contains(ListItem.FolderPath,type=person) + String.IsEmpty(ListItem.FileNameAndPath) + !String.IsEmpty(ListItem.FolderPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FolderPath]')</onclick>
 				<!-- Browse TV Show, embuary helper not active -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
-				<!-- Browse TV Show, embuary helper active -->
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
+				
             </control>
             <control type="button" id="8001" description="Set">
                 <height>90</height>
