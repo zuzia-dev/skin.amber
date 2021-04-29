@@ -334,7 +334,7 @@
     </variable>
 
     <variable name="Fanart">
-        <value condition="String.IsEqual(ListItem.DBType,season) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(ListItem(1).Art(fanart))">$INFO[ListItem(1).Art(fanart)]</value>
+        <value condition="String.IsEqual(ListItem.DBType,season) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + String.IsEmpty(ListItem.Art(fanart)) + !String.IsEmpty(ListItem(1).Art(fanart))">$INFO[ListItem(1).Art(fanart)]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(thumb)) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(fanart)) + !String.IsEmpty(ListItem.Art(tvshow.anart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
@@ -415,7 +415,7 @@
 	</variable>
 	
     <variable name="Poster" description="Poster">
-<!--        <value condition="[String.IsEqual(ListItem.DBType,season) | Container.Content(seasons)] + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + !String.IsEmpty(Container.ListItem(1).Art(tvshow.poster))">$INFO[Container.ListItem(1).Art(tvshow.poster)]</value> -->
+        <value condition="[String.IsEqual(ListItem.DBType,season) | Container.Content(seasons)] + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(Container.ListItem(1).Art(tvshow.poster))">$INFO[Container.ListItem(1).Art(tvshow.poster)]</value>
 		<value condition="ListItem.IsParentFolder">DefaultPosterBack.png</value>
 		<value condition="String.IsEqual(ListItem.DBType,studio)">$VAR[Studios]</value>
         <value condition="String.IsEqual(ListItem.DBType,country)">$VAR[Countries]</value>
