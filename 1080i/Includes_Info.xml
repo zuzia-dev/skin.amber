@@ -1846,7 +1846,8 @@
                     <orientation>horizontal</orientation>
 			        <visible>Container(50).IsUpdating | Container(90050).IsUpdating | Integer.IsGreater(Container(90050).NumItems,0) | Integer.IsGreater(Container(50).NumItems,0)</visible>
 			        <animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container(50).NumItems,0) | Container(50).IsUpdating | !Integer.IsGreater(Container(90050).NumItems,0) | Container(90050).IsUpdating">Conditional</animation>
-                    <onclick condition="System.HasAddon(script.playalbum)">RunScript(script.playalbum,albumid=$INFO[Window(Home).Property(AlbumDBID)]&amp;tracknr=$INFO[Container(90050).ListItem.Label2])</onclick>
+                    <onclick condition="!System.HasAddon(script.playalbum)">InstallAddon(script.playalbum)</onclick>
+			 		<onclick condition="System.HasAddon(script.playalbum)">RunScript(script.playalbum,albumid=$INFO[Window(Home).Property(AlbumDBID)]&amp;tracknr=$INFO[Container(90050).ListItem.Label2])</onclick>
 			        <onclick condition="System.HasAddon(script.playalbum)">Action(Close)</onclick>
 			        <itemlayout height="62" width="590">
 				        <control type="label">
