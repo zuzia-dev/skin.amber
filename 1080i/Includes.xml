@@ -32,6 +32,7 @@
 	<include file="Includes_ColorPicker.xml" />
 	<include file="Includes_VideoLyrics.xml" />
 	<include file="Includes_Favourites.xml" />
+	<include file="Includes_TouchSupport.xml" />
 
     <include file="Includes_Media.xml" />
     <include file="Includes_List.xml" />
@@ -520,8 +521,16 @@
             <onfocus>SetFocus(50)</onfocus>
         </control>
     </include>
+	
+	<include name="PopoutTopTouch">
+	    <posy>176</posy>
+	</include>
+	
+	<include name="PopoutTopStandard">
+	    <posy>116</posy>
+	</include>
 
-    <include name="9000NavCommons" description="Regular BG">
+    <include name="9000NavCommons">
         <control type="button" id="3">
             <description>Viewtype Toggle</description>
             <left>-3000</left>
@@ -545,107 +554,220 @@
             <font></font>
         </control>
         <control type="group" description="ViewsPopOut">
-            <visible>ControlGroup(9600).HasFocus()</visible>
+            <visible>ControlGroup(9600).HasFocus() | Control.HasFocus(909091)</visible>
             <include>VisibleFadeEffect</include>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>154</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>208</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>262</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>316</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>370</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>424</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,7)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>478</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,8)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>532</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,9)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>586</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,10)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>644</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,11)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>702</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,12)</visible>
-            </control>
-            <control type="image">
-                <posy>92</posy>
-                <width>300</width>
-                <height>760</height>
-                <texture border="45">dialogs/TinyDialog.png</texture>
-				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
-                <visible>Integer.IsEqual(Container(9600).NumItems,13)</visible>
-            </control>            
+			<control type="group">
+			    <visible>!Skin.HasSetting(Enable.TouchSupport)</visible>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>154</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>208</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>262</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>316</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>370</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>424</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,7)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>478</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,8)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>532</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,9)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>586</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,10)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>644</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,11)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>702</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,12)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>760</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,13)</visible>
+                </control>
+			</control>	
+			<control type="group">
+			    <visible>Skin.HasSetting(Enable.TouchSupport)</visible>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>214</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,2)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>268</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,3)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>322</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,4)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>376</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,5)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>430</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,6)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>484</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,7)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>538</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,8)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>592</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,9)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>646</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,10)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>704</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,11)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>762</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,12)</visible>
+                </control>
+                <control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>820</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,13)</visible>
+                </control>
+			</control>	
+            <control type="group">
+			    <posx>215</posx>
+			    <posy>93</posy>
+			    <include condition="Skin.HasSetting(Enable.TouchSupport)" content="DialogCloseButtonCommons">
+				    <param name="Action">SetFocus(9000)</param>
+					<param name="id">909091</param>
+					<param name="ondown">9600</param>
+				</include>	
+				<visible>Skin.HasSetting(Enable.TouchSupport)</visible>
+		    </control>            
             <control type="grouplist" id="9600">
                 <posx>26</posx>
-                <posy>116</posy>
+                <include condition="Skin.HasSetting(Enable.TouchSupport)">PopoutTopTouch</include>
+				<include condition="!Skin.HasSetting(Enable.TouchSupport)">PopoutTopStandard</include>
                 <width>248</width>
                 <height>760</height>
                 <onleft>9000</onleft>
@@ -662,7 +784,8 @@
 				<onright condition="control.isvisible(57)">57</onright>
 				<onright condition="control.isvisible(600)">600</onright>
 				<onright condition="control.isvisible(58)">58</onright>
-                <onup>9600</onup>
+                <onup condition="Skin.HasSetting(Enable.TouchSupport)">909091</onup>
+				<onup condition="!Skin.HasSetting(Enable.TouchSupport)">9600</onup>
                 <ondown>9600</ondown>
                 <onback>9000</onback>
                 <scrolltime>200</scrolltime>
@@ -1352,7 +1475,8 @@
 		<onright condition="Control.IsVisible(57)">57</onright>
 		<onright condition="Control.IsVisible(58)">58</onright>
 		<onright condition="Control.IsVisible(600)">600</onright>
-        <onup>9000</onup>
+        <onup condition="Skin.HasSetting(Enable.TouchSupport)">909090</onup>
+		<onup condition="!Skin.HasSetting(Enable.TouchSupport)">9000</onup>
         <ondown>9000</ondown>
 	    <onback condition="Control.IsVisible(52)">52</onback>
 		<onback condition="Control.IsVisible(50)">50</onback>
@@ -1369,7 +1493,7 @@
 		<onback condition="Control.IsVisible(600)">600</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
-        <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="!ControlGroup(9000).HasFocus()">Conditional</animation>
+        <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="[!ControlGroup(9000).HasFocus() + !Control.HasFocus(909090)]">Conditional</animation>
         <control type="label" id="9140">
             <textcolor>$VAR[HighlightColor]</textcolor>
             <textoffsetx>10</textoffsetx>
@@ -3215,7 +3339,7 @@
     <include name="TouchButtons">
         <control type="grouplist" id="7900">
             <orientation>horizontal</orientation>
-            <visible>Skin.HasSetting(Show.Options.Button)</visible>
+            <visible>Skin.HasSetting(Enable.TouchSupport)</visible>
             <itemgap>20</itemgap>
             <top>0</top>
             <left>860</left>

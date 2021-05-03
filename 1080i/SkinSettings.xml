@@ -187,11 +187,20 @@
 							<param name="itemlabel" value="$LOCALIZE[31959]"/>
 							<param name="skinsetting" value="FullscreenMusic"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="7"/>
-							<param name="itemlabel" value="$LOCALIZE[32038]"/>
-							<param name="skinsetting" value="Show.Options.Button"/>
-						</include>
+						<item id="7">
+                            <visible>Skin.HasSetting(Enable.TouchSupport)</visible>
+                            <label>$LOCALIZE[32386]</label>
+                            <label2>$LOCALIZE[107]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.TouchSupport)</onclick>
+                        </item>
+                        <item id="7">
+                            <visible>!Skin.HasSetting(Enable.TouchSupport)</visible>
+                            <label>$LOCALIZE[32386]</label>
+                            <label2>$LOCALIZE[106]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.TouchSupport)</onclick>
+							<onclick>Skin.Reset(HorizontalNavWrap)</onclick>
+							<onclick>Skin.Reset(VerticalNavWrap)</onclick>
+                        </item>
                         <include content="YesNoSettingItem">
 							<param name="itemid" value="8"/>
 							<param name="itemlabel" value="[B]$LOCALIZE[32071][/B]"/>
@@ -306,7 +315,7 @@
 							<param name="itemlabel" value="            $LOCALIZE[32055]"/>
                             <param name="font" value="font13"/>
 							<param name="skinsetting" value="VerticalNavWrap"/>
-							<param name="itemvisibility" value="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.BiggerFont)"/>
+							<param name="itemvisibility" value="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.BiggerFont) + !Skin.HasSetting(Enable.TouchSupport)"/>
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="5"/>
@@ -347,7 +356,7 @@
 							<param name="itemid" value="10"/>
 							<param name="itemlabel" value="$LOCALIZE[32055]"/>
 							<param name="skinsetting" value="HorizontalNavWrap"/>
-							<param name="itemvisibility" value="!Skin.HasSetting(VerticalHome)"/>
+							<param name="itemvisibility" value="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.TouchSupport)"/>
 						</include>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="11"/>
