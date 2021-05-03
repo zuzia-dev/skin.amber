@@ -17,6 +17,14 @@
 	    <posy>116</posy>
 	</include>
 	
+	<include name="ButtonsTopIcons">
+	    <top>930</top>
+	</include>
+	
+	<include name="ButtonsTopOther">
+	    <top>980</top>
+	</include>
+	
 	<include name="DialogCloseButtonCommons">
 	    <param name="Action">Action(Back)</param>
 		<param name="id">909090</param>
@@ -44,4 +52,56 @@
 		    </control>
 		</definition>	
 	</include>
+	
+	<include name="TouchButtons">
+	    <param name="ButtonsTop">980</param>
+		<param name="id">51</param>
+		<definition>
+            <control type="grouplist" id="7900">
+                <orientation>horizontal</orientation>
+                <visible>Skin.HasSetting(Enable.TouchSupport)</visible>
+                <itemgap>15</itemgap>
+                <top>$PARAM[ButtonsTop]</top>
+			    <left>1540</left>
+                <width>400</width>
+                <height>85</height>
+                <onup>SetFocus($PARAM[id])</onup>
+			    <ondown>SetFocus($PARAM[id])</ondown>
+			    <onleft>SetFocus($PARAM[id])</onleft>
+			    <onright>SetFocus($PARAM[id])</onright>
+			    <onback>SetFocus($PARAM[id])</onback>
+                <align>justify</align>
+                <usecontrolcoords>true</usecontrolcoords>
+                <control type="button" id="10000">
+                    <description>Home</description>
+                    <width>85</width>
+                    <height>85</height>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">icons/home.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/home.png</texturenofocus>
+                    <onclick>ActivateWindow(home)</onclick>
+				    <visible>!Window.IsActive(Home)</visible>
+                </control>
+                <control type="button" id="10001">
+                    <description>Go Back</description>
+                    <width>85</width>
+                    <height>85</height>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">icons/back.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/back.png</texturenofocus>
+                    <onclick>Action(back)</onclick>
+                </control>                
+                <control type="button" id="10002">
+                    <description>Open Side Menu</description>
+                    <width>85</width>
+                    <height>85</height>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">icons/settings.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">icons/settings.png</texturenofocus>
+                    <onclick condition="!Skin.HasSetting(KioskMode.Enabled)">SetFocus(9000)</onclick>
+                    <onclick condition="Skin.HasSetting(KioskMode.Enabled)">noop</onclick>
+				    <visible>!Window.IsActive(Home)</visible>
+                </control>
+            </control>
+		</definition>	
+    </include>
+	
+	
 </includes>	

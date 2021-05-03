@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 	
+	<include name="PanelHeightTouch">
+	    <height>620</height>
+	</include>
+	
+	<include name="PanelHeightStandard">
+	    <height>700</height>
+	</include>
+	
 	<include name="View_51_Panel">
 		<include content="BackgroundOverlay">
 			<param name="parentid" value="51"/>
@@ -16,7 +24,8 @@
 				<posx>950</posx>
 				<posy>351</posy>
 				<width>930</width>
-				<height>700</height>
+				<include condition="!Skin.HasSetting(Enable.TouchSupport)">PanelHeightStandard</include>
+				<include condition="Skin.HasSetting(Enable.TouchSupport)">PanelHeightTouch</include>
 				<orientation>vertical</orientation>
 				<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
                 <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
@@ -262,6 +271,10 @@
 				<param name="clearartheight">260</param>
 			</include>
 			
+			<include condition="Skin.HasSetting(Enable.TouchSupport)" content="TouchButtons">
+			    <param name="ButtonsTop">980</param>
+				<param name="id">51</param>
+			</include>
 		</control>
 	</include>
 </includes>
