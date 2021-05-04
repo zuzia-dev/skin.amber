@@ -13,7 +13,8 @@
                 <left>945</left>
                 <top>60</top>
                 <width>930</width>
-                <height>990</height>
+                <include condition="!Skin.HasSetting(Enable.TouchSupport)">BigPanelHeightStandard</include>
+				<include condition="Skin.HasSetting(Enable.TouchSupport)">BigPanelHeightTouch</include>
                 <orientation>vertical</orientation>
 				<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
                 <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
@@ -166,7 +167,6 @@
                 <onright>55</onright>
                 <visible>!Skin.HasSetting(Show.JumpToLetter) | ![String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
             </control>
-        </control>
         
             <control type="button" id="65">
                 <visible>Control.IsVisible(55)</visible>
@@ -265,7 +265,13 @@
                 <animation effect="fade" start="100" end="0" condition="![String.IsEqual(ListItem.SortLetter,O) | String.IsEqual(ListItem.SortLetter,P) | String.IsEqual(ListItem.SortLetter,Q) | String.IsEqual(ListItem.SortLetter,R) | String.IsEqual(ListItem.SortLetter,S) | String.IsEqual(ListItem.SortLetter,T) | String.IsEqual(ListItem.SortLetter,U) | String.IsEqual(ListItem.SortLetter,V) | String.IsEqual(ListItem.SortLetter,W) | String.IsEqual(ListItem.SortLetter,X) | String.IsEqual(ListItem.SortLetter,Y) | String.IsEqual(ListItem.SortLetter,Z)]">Conditional</animation>
                 <visible>Control.IsVisible(55)</visible>
                 <visible>Skin.HasSetting(Show.JumpToLetter) + !Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
-            </control>        
+            </control>
+
+            <include condition="Skin.HasSetting(Enable.TouchSupport)" content="TouchButtons">
+		        <param name="ButtonsTop">990</param>
+			    <param name="id">55</param>
+		    </include>			
         
+		</control>
     </include>
 </includes>
