@@ -15,7 +15,8 @@
 					<posx>30</posx>
                     <width>1860</width>					
 				    <posy>40</posy>
-				    <height>1040</height>
+				    <include condition="!Skin.HasSetting(Enable.TouchSupport)">BigListHeightStandard</include>
+				    <include condition="Skin.HasSetting(Enable.TouchSupport)">BigListHeightTouch</include>
 				    <pagecontrol>62</pagecontrol>
                     <onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
                     <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
@@ -434,6 +435,21 @@
 				    <param name="subcontent_image_visible">false</param>
 				    <param name="visibility">$EXP[BigListPanelIsSwapped] + Container.content(albums)</param>
 			    </include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">985</param>
+			        <param name="id">52</param>
+					<param name="left">1525</param>
+					<param name="visibility">![$EXP[BigListPanelIsSwapped]]</param>
+		        </include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">985</param>
+			        <param name="id">52</param>
+					<param name="left">-10</param>
+					<param name="visibility">$EXP[BigListPanelIsSwapped]</param>
+		        </include>
+				
 		    </control>
 		</definition>	
 	</include>

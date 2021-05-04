@@ -16,7 +16,8 @@
 					<viewtype label="$LOCALIZE[32060]">list</viewtype>
 					<posx>540</posx>
 					<posy>105</posy>
-					<height>949</height>
+					<include condition="!Skin.HasSetting(Enable.TouchSupport)">TallListHeightStandard</include>
+				    <include condition="Skin.HasSetting(Enable.TouchSupport)">TallListHeightTouch</include>
 					<width>1340</width>
 					<pagecontrol>6501</pagecontrol>
 					<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
@@ -527,6 +528,20 @@
 					<param name="itemwidth">70</param>
 					<param name="itemheight">65</param>
 				</include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">980</param>
+			        <param name="id">501</param>
+					<param name="visibility">[![$EXP[TallListPanelIsSwapped]] | $EXP[TallListPanelIsDisabled]]</param>
+		        </include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">980</param>
+			        <param name="id">501</param>
+					<param name="left">740</param>
+					<param name="visibility">[$EXP[TallListPanelIsSwapped] + ![$EXP[TallListPanelIsDisabled]]]</param>
+		        </include>
+				
 			</control>
 		</definition>
 	</include>

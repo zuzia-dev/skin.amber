@@ -18,7 +18,8 @@
 					<posx>540</posx>
 					<posy>406</posy>
 					<width>1340</width>
-					<height>648</height>
+					<include condition="!Skin.HasSetting(Enable.TouchSupport)">ListHeightStandard</include>
+				    <include condition="Skin.HasSetting(Enable.TouchSupport)">ListHeightTouch</include>
 					<pagecontrol>60</pagecontrol>
 					<onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
 					<onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
@@ -394,6 +395,20 @@
 					<param name="clearartwidth">463</param>
 					<param name="clearartheight">260</param>
 				</include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">980</param>
+			        <param name="id">501</param>
+					<param name="left">1520</param>
+					<param name="visibility">[![$EXP[ListPanelIsSwapped]] | $EXP[ListPanelIsDisabled]]</param>
+		        </include>
+				
+				<include content="TouchButtons">
+		            <param name="ButtonsTop">980</param>
+			        <param name="id">501</param>
+					<param name="left">670</param>
+					<param name="visibility">[$EXP[ListPanelIsSwapped] + ![$EXP[ListPanelIsDisabled]]]</param>
+		        </include>
 				
 			</control>
 			
