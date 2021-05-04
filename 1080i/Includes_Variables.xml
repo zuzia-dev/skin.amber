@@ -668,10 +668,10 @@
 
     <variable name="panelheading">
         <value condition="Control.IsVisible(53) + Skin.HasSetting(53_FileNameNotTitle) + !ListItem.IsFolder + !String.StartsWith(Container.FolderPath,plugin) + [Container.Content() | Container.Content(files) | Container.Content(movies) | Container.Content(episodes) | Container.Content(videos) | Container.Content(images)]">$INFO[ListItem.Filename]</value>
-		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !Window.IsActive(movieinformation) + !String.IsEqual(Container.ListItem.DBType,episode) + !Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)][B]$INFO[Container.ListItem.Top250, #,][/B]</value>
-		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !Window.IsActive(movieinformation) + !String.IsEqual(Container.ListItem.DBType,episode) + Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)]</value>
-		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !Window.IsActive(movieinformation) + String.IsEqual(Container.ListItem.DBType,episode)">$INFO[Container.ListItem.TVShowTitle,, • ]$INFO[Container.ListItem.Label]</value>
-        <value condition="Window.IsActive(1122) + !Window.IsActive(movieinformation) + String.IsEqual(ListItem.DBType,album)">$INFO[Container.ListItem.Artist,, • ]$INFO[Container.ListItem.Label]</value>
+		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !String.IsEqual(Container.ListItem.DBType,episode) + !Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)][B]$INFO[Container.ListItem.Top250, #,][/B]</value>
+		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + !String.IsEqual(Container.ListItem.DBType,episode) + Skin.HasSetting(HideTop250MediaViews)">$INFO[Container.Listitem.Title] $INFO[Container.ListItem.Year,(,)]</value>
+		<value condition="[Window.IsActive(1122) | Window.IsActive(1131)] + String.IsEqual(Container.ListItem.DBType,episode)">$INFO[Container.ListItem.TVShowTitle,, • ]$INFO[Container.ListItem.Label]</value>
+        <value condition="Window.IsActive(1122) + String.IsEqual(ListItem.DBType,album)">$INFO[Container.ListItem.Artist,, • ]$INFO[Container.ListItem.Label]</value>
 		<value condition="Window.IsActive(script-embuary-video.xml)">$INFO[Container(10051).ListItem.Title,[B],[/B] ]$INFO[Container(10051).ListItem.Year,(,)]</value>
         <value condition="ListItem.IsParentFolder">..</value>
 		<value condition="String.IsEqual(ListItem.DBType,set) + !Control.IsVisible(52)">$INFO[Listitem.Title,[B],[/B]]</value>
@@ -972,12 +972,12 @@
         <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
         <value condition="!String.IsEmpty(ListItem.PlotOutline)">$INFO[ListItem.PlotOutline]</value>
     </variable>
-	
+ 
 	<variable name="PVRInfoSubheader">
 	    <value condition="!String.IsEmpty(ListItem.Season) | !String.IsEmpty(ListItem.Episode)">$INFO[ListItem.Season, S]$INFO[ListItem.Episode, E,: ]</value>
 		<value condition="!String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]</value>
 		<value condition="!String.IsEmpty(ListItem.Director)">$LOCALIZE[20339]: $INFO[ListItem.Director]</value>
-	</variable>
+	</variable>							   
 
     <variable name="panelfooter">
         <value condition="String.IsEqual(ListItem.DBType,set) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Count)) + !Integer.IsGreater(Container(4450).NumItems,0) + Control.IsVisible(52)">$LOCALIZE[20457]</value>
@@ -1008,7 +1008,7 @@
         <value condition="[String.IsEqual(ListItem.DBType,episode) | Container.Content(episodes)] + !String.IsEmpty(ListItem.Director)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]: [/COLOR]$INFO[ListItem.Director]</value>
         <value condition="String.IsEqual(ListItem.DBType,musicvideo) + !String.IsEmpty(ListItem.Director)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]: [/COLOR]$INFO[ListItem.Director]</value>
 	</variable>
-	
+
     <variable name="listmediaheader">
         <value condition="Container.Content(songs)">$INFO[Listitem.Album]$INFO[ListItem.Year, (,)]</value>
     </variable>
