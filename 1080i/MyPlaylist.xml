@@ -105,8 +105,8 @@
 						<height>720</height>
 						<onleft>50</onleft>
 						<onright>60</onright>
-						<onup>9000</onup>
-						<ondown>9000</ondown>
+						<onup condition="Skin.HasSetting(Enable.TouchSupport)">909090</onup>
+		                <onup condition="!Skin.HasSetting(Enable.TouchSupport)">9000</onup>
 						<scrolltime>200</scrolltime>
 						<control type="radiobutton" id="20" description="shuffle">
 							<width>330</width>
@@ -129,14 +129,15 @@
 							<label>$LOCALIZE[486]</label>
 							<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 						</control>
-						<control type="button" id="200" description="Close">
-							<width>330</width>
-							<label>$LOCALIZE[15067]</label>
-							<onclick>Action(Back)</onclick>
-							<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
-							<visible>Skin.HasSetting(Enable.TouchSupport)</visible>
-						</control>
 					</control>
+					<control type="group">
+			            <posx>1793</posx>
+			            <posy>48</posy>
+			            <include condition="Skin.HasSetting(Enable.TouchSupport)" content="DialogCloseButtonCommons">
+			                <param name="Action">Action(Back)</param>
+				            <param name="ondown">9000</param>
+			            </include>
+		            </control>
 				</control>
 			</control>
 			<control type="label" id="12">
