@@ -9,6 +9,15 @@
 				<label></label>
 				<height>1</height>
 			</control>
+			<control type="group">
+			    <posx>-60</posx>
+			    <posy>-13</posy>
+			    <include condition="Skin.HasSetting(Enable.TouchSupport)" content="DialogCloseButtonCommons">
+				    <param name="Action">SetFocus(50)</param>
+					<param name="ondown">9000</param>
+				</include>
+				<animation effect="fade" time="200" start="100" end="20" reversible="true" condition="[!ControlGroup(9000).HasFocus() + !Control.HasFocus(909090)">Conditional</animation>
+		    </control>
 			<control type="grouplist" id="9000">
 				<posx>-491</posx>
 				<posy>60</posy>
@@ -17,7 +26,8 @@
 				<itemgap>0</itemgap>
 				<onleft>9001</onleft>
 				<onright>50</onright>
-				<onup>9000</onup>
+				<onup condition="Skin.HasSetting(Enable.TouchSupport)">909090</onup>
+		        <onup condition="!Skin.HasSetting(Enable.TouchSupport)">9000</onup>
 				<ondown>9000</ondown>
 				<onback>50</onback>
 				<scrolltime>200</scrolltime>
@@ -189,9 +199,9 @@
 				<viewtype label="$LOCALIZE[19032]">list</viewtype> 
 				<description>EPG Grid</description> 
 				<posx>30</posx>
-				<bottom>25</bottom>
 				<width>1850</width>
-				<height>703</height>
+				<include condition="!Skin.HasSetting(Enable.TouchSupport)">EPGHeightStandard</include>
+				<include condition="Skin.HasSetting(Enable.TouchSupport)">EPGHeightTouch</include>
 				<scrolltime tween="quadratic" easing="out">300</scrolltime>
 				<timeblocks>34</timeblocks>
 				<rulerunit>6</rulerunit>
@@ -496,6 +506,7 @@
 					</focusedlayout>
 				</control>
 			</control>
+			<include condition="Skin.HasSetting(Enable.TouchSupport)">TouchButtons</include>
 		</control>
 	</include>
 </includes>
