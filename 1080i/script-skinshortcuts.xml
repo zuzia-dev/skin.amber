@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
 	<defaultcontrol always="true">90001</defaultcontrol>
+	<onload>ClearProperty(DefaultMenuPosition,Home)</onload>
 	<onload>ClearProperty(skinshortcuts-Widget,Home)</onload>
 	<onunload>ClearProperty(skinshortcuts-Widget,Home)</onunload>
+	<onunload condition="!String.IsEmpty(Window(Home).Property(DefaultMenuPosition))">Skin.SetString(InitPos,$INFO[Window(Home).Property(DefaultMenuPosition)])</onunload>
     <include>ClearWidgetNavProperties1</include>
 	<controls>
 		<control type="group">
@@ -31,6 +33,13 @@
 				<posy>80</posy>
 				<textcolor>$VAR[HighlightColor]</textcolor>
 				<label>[B]$VAR[SkinShortcutsLeftLabelVar][/B]</label>
+			</control>
+			<control type="label">
+				<posx>1055</posx>
+				<posy>80</posy>
+				<width>780</width>
+				<label>$LOCALIZE[31646]: [B][COLOR=$VAR[HighlightColor]]$INFO[Skin.String(InitPosName)][/COLOR][/B]</label>
+				<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
 			</control>
 
 			<!-- List of Menu/Submenu items -->
@@ -273,6 +282,22 @@
 					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
 					<font>ListDetails</font>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
+				</control>
+				<control type="button" id="8405">
+					<description>Edit submenu</description>
+					<label>$LOCALIZE[31645]</label>
+					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<onclick>ClearProperty(DefaultMenuPosition,Home)</onclick>
+					<onclick>Skin.Reset(InitPos)</onclick>
+					<onclick>Skin.Reset(InitPosName)</onclick>
+					<onclick>RunScript(script.embuary.helper,action=calc,do='"$INFO[Container(211).CurrentItem] - 1"',prop=DefaultMenuPosition)</onclick>
+					<onclick>Skin.SetString(InitPos,$INFO[Window(Home).Property(DefaultMenuPosition)])</onclick>
+					<onclick>Skin.SetString(InitPosName,$INFO[Container(211).ListItem.Label])</onclick>
+					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True) + System.HasAddon(script.embuary.helper)</visible>
 				</control>
 				<control type="radiobutton" id="8406">
 					<label>$LOCALIZE[31638]</label>

@@ -8,12 +8,14 @@
 	<onload condition="System.HasAddon(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
     <!-- Build include for viewtype visiblity -->
 	<onload condition="System.HasAddon(script.skinvariables)">RunScript(script.skinvariables,action=buildviews)</onload>
-	<!-- Remember what the focused menu item background is -->
-	
+    <!-- Reset flag that the info button from the video OSD is active -->	
 	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onload>
-	
+	<!-- Reset what the focused menu item playlist is -->
 	<onload condition="!String.IsEmpty(Skin.String(FocusedMenu.BackgroundPlaylist))">Skin.Reset(FocusedMenu.BackgroundPlaylist)</onload>
+	<!-- Move menu to default menu item -->
+	<onload condition="Window.Previous(Startup) | Window.Previous(Home)">Control.SetFocus(300,$INFO[Skin.String(InitPos)],absolute)</onload>
 	
+	<!-- Remember what the focused menu item background is -->
 	<onunload condition="!String.IsEmpty(Container(300).ListItem.Property(Background))">Skin.SetString(FocusedMenu.Background,$INFO[Container(300).ListItem.Property(Background)])</onunload>
     <onunload condition="!String.IsEmpty(Container(300).ListItem.Property(backgroundPlaylist))">Skin.SetString(FocusedMenu.BackgroundPlaylist,$INFO[Container(300).ListItem.Property(backgroundPlaylist)])</onunload>
 	<!-- Clear TMDbHelper widgetcontainer id -->
