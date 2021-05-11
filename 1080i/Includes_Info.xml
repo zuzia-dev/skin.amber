@@ -865,8 +865,8 @@
     </variable>
     <!-- Media type for themoviedb.helper: movie or tvshow -->
     <variable name="TMDbMediaType">
-        <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection">movie</value>
-        <value condition="Window.IsActive(script-embuary-video.xml) + String.IsEqual(Container(10051).ListItem.DBType,movie)">movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) | ListItem.IsCollection | String.IsEqual(ListItem.DBType,set)">movie</value>
+        <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,movie) | String.IsEqual(Container(10051).ListItem.DBType,set)]">movie</value>
         <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">tv</value>
         <value condition="Window.IsActive(script-embuary-video.xml) + [String.IsEqual(Container(10051).ListItem.DBType,tvshow) | String.IsEqual(Container(10051).ListItem.DBType,season)]">tv</value>
     </variable>
@@ -877,37 +877,37 @@
     </variable>
     
     <variable name="TMDbFanart">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=fanart&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=fanart&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
 
     <include name="TMDbFanartList"><content target="images">$VAR[TMDbFanart]</content></include>
 
     <variable name="TMDbPosters">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=posters&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + !Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=posters&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
     <!-- List content for Sets custom info list -->
     <variable name="VideoInfoSets">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Set)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Set]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Set))">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[Window(Home).Property(TMDbHelper.ListItem.Set)]&amp;nextpage=false</value>
-        <value condition="ListItem.IsCollection + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Title)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,set) + [Skin.HasSetting(Disable.ExtendedInfo) | !Skin.HasSetting(Enable.TMDbHelper)] + !String.IsEmpty(ListItem.DBID)">$INFO[ListItem.DBID,videodb://movies/sets/,/]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Set)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Set]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Set))">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[Window(Home).Property(TMDbHelper.ListItem.Set)]&amp;nextpage=false</value>
+        <value condition="ListItem.IsCollection + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Title)">plugin://plugin.video.themoviedb.helper/?info=collection&amp;type=movie&amp;query=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,set) + [Skin.HasSetting(Disable.OnlineTMDbInfo) | !Skin.HasSetting(Enable.TMDbHelper)] + !String.IsEmpty(ListItem.DBID)">$INFO[ListItem.DBID,videodb://movies/sets/,/]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.SetID)">$INFO[ListItem.SetID,videodb://movies/sets/,/]</value>
     </variable>
     <!-- Similar custom info list content -->
     <variable name="VideoInfoSimilar">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=similar&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.DBID)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=movie</value>
-		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.DBID)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=tvshow</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=similar&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.DBID) + Skin.HasSetting(Enable.EmbuaryHelper)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=movie</value>
+		<value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.DBID) + Skin.HasSetting(Enable.EmbuaryHelper)">plugin://script.embuary.helper/?info=getsimilar&amp;dbid=$INFO[ListItem.DBID]&amp;type=tvshow</value>
     </variable>
     <!-- Cast also appears in custom info list content -->
     <variable name="VideoInfoCastFeatured">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(Container(50).ListItemAbsolute(0).Label)">plugin://plugin.video.themoviedb.helper/?info=discover&amp;type=movie&amp;with_cast=$INFO[Container(50).ListItemAbsolute(0).Label]$INFO[Container(50).ListItemAbsolute(1).Label, / ,]$INFO[Container(50).ListItemAbsolute(2).Label, / ,]&amp;with_separator=OR&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(Container(50).ListItemAbsolute(0).Label) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name))">plugin://plugin.video.themoviedb.helper/?info=discover&amp;type=movie&amp;with_cast=$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Name), / ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.3.Name), / ,]&amp;with_separator=OR&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">plugin://script.embuary.helper/?info=getbyargs&amp;filter_args=%7B%22and%22%3A%20%5B%7B%22or%22%3A%20%5B%7B%22operator%22%3A%20%22is%22%2C%20%22field%22%3A%20%22actor%22%2C%20%22value%22%3A%20%22$INFO[Container(50).ListItemAbsolute(0).Label]%22%7D%2C%7B%22operator%22%3A%20%22is%22%2C%20%22field%22%3A%20%22actor%22%2C%20%22value%22%3A%20%22$INFO[Container(50).ListItemAbsolute(1).Label]%22%7D%2C%7B%22operator%22%3A%20%22is%22%2C%20%22field%22%3A%20%22actor%22%2C%20%22value%22%3A%20%22$INFO[Container(50).ListItemAbsolute(2).Label]%22%7D%5D%7D%2C%20%7B%22operator%22%3A%20%22isnot%22%2C%20%22field%22%3A%20%22title%22%2C%20%22value%22%3A%20%22$INFO[Window(Home).Property(EncodedTitle)]%22%7D%5D%7D&amp;type=movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(Container(50).ListItemAbsolute(0).Label)">plugin://plugin.video.themoviedb.helper/?info=discover&amp;type=movie&amp;with_cast=$INFO[Container(50).ListItemAbsolute(0).Label]$INFO[Container(50).ListItemAbsolute(1).Label, / ,]$INFO[Container(50).ListItemAbsolute(2).Label, / ,]&amp;with_separator=OR&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(Container(50).ListItemAbsolute(0).Label) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name))">plugin://plugin.video.themoviedb.helper/?info=discover&amp;type=movie&amp;with_cast=$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.1.Name)]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.2.Name), / ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Cast.3.Name), / ,]&amp;with_separator=OR&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22or%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(0).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(1).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(2).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(3).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(4).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(5).Label]%22%5D%7D%2C%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22$INFO[Container(50).ListItemAbsolute(6).Label]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
     </variable>
     <!-- Crew custom info list content.  Online only -->
     <variable name="TMDbCrewMembers">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=crew&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=crew&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
 
     <variable name="Info_Youtube">
@@ -918,35 +918,36 @@
     </variable>
     <!-- Also directed by custom info list content -->
     <variable name="VideoInfoFromDirector">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Director)">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[ListItem.Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[Window(Home).Property(TMDbHelper.ListItem.Director)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22director%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Director]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Director)">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[ListItem.Director]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director))">plugin://plugin.video.themoviedb.helper/?info=crew_in_movies&amp;type=person&amp;filter_key=job&amp;filter_value=Director&amp;query=$INFO[Window(Home).Property(TMDbHelper.ListItem.Director)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22director%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Director]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
     </variable>
-    <!-- More from studio custom info list content - Movies only -->
+    <!-- More from studio custom info list content -->
     <variable name="VideoInfoFromStudio">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + !Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;with_id=True&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !Skin.HasSetting(DisableExtendedInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;with_networks=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;with_id=True&amp;nextpage=false</value>
-		<value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+		<value condition="String.IsEqual(ListItem.DBType,movie) + !Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;with_companies=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;with_id=True&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;with_networks=$INFO[Window(Home).Property(TMDBHelper.ListItem.Studio.1.TMDB_ID)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;with_id=True&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
 	</variable>
     <!-- More from year custom info list content -->
     <variable name="VideoInfoFromYear">
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Year)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;primary_release_year=$INFO[ListItem.Year]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Year) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Year))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;primary_release_year=$INFO[Window(Home).Property(TMDbHelper.ListItem.Year)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Year)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;first_air_date_year=$INFO[ListItem.Year]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.TVShowTitle]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Year) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Year))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;first_air_date_year=$INFO[Window(Home).Property(TMDbHelper.ListItem.Year)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.TVShowTitle]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.Title]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[ListItem.Year]%22%5D%7D%2C%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22isnot%22%2C%22value%22%3A%5B%22$INFO[ListItem.TVShowTitle]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
-    </variable>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Year)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;primary_release_year=$INFO[ListItem.Year]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Year) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Year))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=movie&amp;primary_release_year=$INFO[Window(Home).Property(TMDbHelper.ListItem.Year)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Year)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;first_air_date_year=$INFO[ListItem.Year]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Year) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Year))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=tv&amp;first_air_date_year=$INFO[Window(Home).Property(TMDbHelper.ListItem.Year)]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22year%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Year]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22year%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Year]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
+	</variable>
     <!-- More in genre custom info list content -->
     <variable name="VideoInfoFromGenre">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[Window(Home).Property(TMDbHelper.ListItem.Genre)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
-        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[ListItem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22$INFO[Listitem.Genre]%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + !String.IsEmpty(ListItem.Genre)">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[ListItem.Genre]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre))">plugin://plugin.video.themoviedb.helper?info=discover&amp;type=$VAR[TMDbMediaType]&amp;with_genres=$INFO[Window(Home).Property(TMDbHelper.ListItem.Genre)]&amp;exclude_key=title&amp;exclude_value=$INFO[ListItem.Title]&amp;nextpage=false</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22genre%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Genre]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22genre%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Genre]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
     </variable>
     <!-- Recommended custom info list content.  Online only -->
     <variable name="TMDbRecommended">
-        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.ExtendedInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
+        <value condition="[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + [!Skin.HasSetting(Disable.OnlineTMDbInfo) | !String.IsEmpty(ListItem.Property(tmdb_id))] + Skin.HasSetting(Enable.TMDbHelper)">plugin://plugin.video.themoviedb.helper/?info=recommendations&amp;type=$VAR[TMDbMediaType]&amp;$VAR[TMDbParam]&amp;nextpage=false</value>
     </variable>
     <!-- Studio header, either local or online -->
     <variable name="InfoListStudioHeader">
@@ -2833,7 +2834,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(TMDbHelper.ListItem.Director)])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">Dialog.Close(all)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Director), / )">ActivateWindow(1122)</onclick>
-							<visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
+							<visible>String.IsEmpty(ListItem.Director) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Director)) + !Skin.HasSetting(Disable.OnlineTMDbInfo)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[20339](s):</label>
@@ -2890,7 +2891,7 @@
                             <onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">Skin.SetString(CustomSearchTerm,$INFO[Window(Home).Property(TMDbHelper.ListItem.Writer)])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">Dialog.Close(all)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Writer), / )">ActivateWindow(1122)</onclick>
-							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
+							<visible>String.IsEmpty(ListItem.Writer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Writer)) + !Skin.HasSetting(Disable.OnlineTMDbInfo)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20417](s):</label>
@@ -2969,7 +2970,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">Skin.SetString(SingleSearchHeader,$VAR[GenreOnlineHeaderVar])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">Dialog.Close(All)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Genre), / )">ActivateWindow(1131)</onclick>
-							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre)) + !String.IsEqual(ListItem.DBType,set) + !Skin.HasSetting(Disable.ExtendedInfo)</visible>
+							<visible>String.IsEmpty(ListItem.Genre) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Genre)) + !String.IsEqual(ListItem.DBType,set) + !Skin.HasSetting(Disable.OnlineTMDbInfo)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[515](s):</label>
@@ -3009,7 +3010,7 @@
                             <label>$LOCALIZE[2050]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration)] $LOCALIZE[12391]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Duration) + !Skin.HasSetting(Enable.HourMinutes) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[2050]:</label>
@@ -3033,7 +3034,7 @@
                             <label>$LOCALIZE[126]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Status)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + String.IsEqual(ListItem.DBType,tvshow)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + String.IsEqual(ListItem.DBType,tvshow)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[21875]:</label>
@@ -3059,7 +3060,7 @@
                             <onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">Skin.SetString(SingleSearchHeader,$LOCALIZE[32035])</onclick>
                             <onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">Dialog.Close(All)</onclick>
 							<onclick condition="String.IsEqual(ListItem.DBType,movie) + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Country), / )">ActivateWindow(1131)</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Country) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country))</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Country) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Country))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[572]:</label>
@@ -3119,7 +3120,7 @@
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">Skin.SetString(SingleSearchHeader,$VAR[StudioOnlineHeaderVar])</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">Dialog.Close(All)</onclick>
 							<onclick condition="[Skin.HasSetting(OnlyLocalSearches) | ![Skin.HasSetting(Enable.TMDbHelper) + Skin.HasSetting(Enable.EmbuaryHelper)]] + !String.Contains(Window(Home).Property(TMDbHelper.ListItem.Studio), / )">ActivateWindow(1131)</onclick>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Studio) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Studio))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[29909](s):</label>
@@ -3159,7 +3160,7 @@
                             <label>$LOCALIZE[33054]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.season)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalSeasons)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.season))</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalSeasons)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.season))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20360]:</label>
@@ -3171,7 +3172,7 @@
                             <label>$LOCALIZE[20360]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.episode)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.episode))</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.Property(TotalEpisodes)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.episode))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[31037]:</label>
@@ -3185,7 +3186,7 @@
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.MPAA)]</label2>
                             <onclick>noop</onclick>
                             <visible>String.IsEmpty(ListItem.MPAA) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.MPAA))</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowMPAA)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowMPAA)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[292]:</label>
@@ -3208,7 +3209,7 @@
                             <label>$LOCALIZE[20457]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.set.name)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.set.name))</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Set) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.set.name))</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[20459]:</label>
@@ -3226,43 +3227,43 @@
                             <label>$LOCALIZE[126]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Status)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + !String.IsEqual(ListItem.DBType,tvshow)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + String.IsEmpty(ListItem.Status) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Status)) + !String.IsEqual(ListItem.DBType,tvshow)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32073]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.budget)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.budget)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.budget),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.budget)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.budget),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32074]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.revenue)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.revenue)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.revenue),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.revenue)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.revenue),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32278]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Wins),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32279]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Oscar_Nominations),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32280]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Wins),N/A)</visible>
                         </item>
 						<item>
                             <label>$LOCALIZE[32281]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)]</label2>
                             <onclick>noop</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobes_Nominations),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobe_Nominations)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.GoldenGlobes_Nominations),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32075]:</label>
@@ -3271,28 +3272,28 @@
                             <onclick>SetProperty(TextViewerSubHeader,$VAR[AwardsLabel],Home)</onclick>
                             <onclick>SetProperty(TextViewerContent,$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.awards)],Home)</onclick>
                             <onclick>ActivateWindow(1124)</onclick>
-                            <visible>!Skin.HasSetting(Disable.ExtendedInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.awards)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.awards),N/A)</visible>
+                            <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.awards)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.awards),N/A)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32077]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewtotal),N/A)</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32078]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsfresh),N/A)</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32079]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_reviewsrotten),N/A)</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>
                         <item>
                             <label>$LOCALIZE[32080]:</label>
@@ -3302,14 +3303,14 @@
                             <onclick>SetProperty(TextViewerContent,$ESCINFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus)],Home)</onclick>
                             <onclick>ActivateWindow(1124)</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_consensus),N/A)</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[32081]:</label>
                             <label2>$INFO[Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews)]</label2>
                             <onclick>noop</onclick>
                             <visible>!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.rottentomatoes_userreviews),N/A)</visible>
-							<visible>!Skin.HasSetting(Disable.ExtendedInfo) + Skin.HasSetting(ShowRatingRT)</visible>
+							<visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(ShowRatingRT)</visible>
                         </item>                        
                         <item>
                             <label>$LOCALIZE[573]:</label>

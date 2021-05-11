@@ -45,7 +45,14 @@
                 <itemgap>0</itemgap>
                 <orientation>vertical</orientation>
                 <usecontrolcoords>true</usecontrolcoords>
-                <control type="radiobutton" id="901011">
+                <control type="radiobutton" id="9010101">
+                    <label>$LOCALIZE[206]</label>
+                    <radioposx>605</radioposx>
+                    <onclick>Skin.ToggleSetting(DisableInfoListCast)</onclick>
+					<onclick condition="!Skin.HasSetting(DisableInfoListCast)">Skin.SetBool(DisableInfoListCastFeature)</onclick>
+                    <selected>!Skin.HasSetting(DisableInfoListCast)</selected>
+                </control>
+				<control type="radiobutton" id="901011">
                     <label>$LOCALIZE[31429]</label>
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListSets)</onclick>
@@ -62,13 +69,14 @@
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListSimilar)</onclick>
                     <selected>!Skin.HasSetting(DisableInfoListSimilar)</selected>
+					<visible>[Skin.HasSetting(Enable.TMDbHelper) | Skin.HasSetting(Enable.EmbuaryHelper)]</visible>
                 </control>
                 <control type="radiobutton" id="901014">
                     <label>$LOCALIZE[31966]</label>
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListRecommended)</onclick>
                     <selected>!Skin.HasSetting(DisableInfoListRecommended)</selected>
-                    <visible>!Skin.HasSetting(Disable.ExtendedInfo)</visible>
+                    <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)</visible>
                 </control>
                 <control type="radiobutton" id="901015">
                     <label>$LOCALIZE[20339]</label>
@@ -99,20 +107,21 @@
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListCastFeature)</onclick>
                     <selected>!Skin.HasSetting(DisableInfoListCastFeature)</selected>
+					<visible>!Skin.HasSetting(DisableInfoListCast)</visible>
                 </control>
                 <control type="radiobutton" id="9010110">
                     <label>$LOCALIZE[32099]</label>
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListCrew)</onclick>
                     <selected>!Skin.HasSetting(DisableInfoListCrew)</selected>
-                    <visible>!Skin.HasSetting(Disable.ExtendedInfo)</visible>
+                    <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)</visible>
                 </control>
 				<control type="radiobutton" id="9010111">
                     <label>$LOCALIZE[32130]</label>
                     <radioposx>605</radioposx>
                     <onclick>Skin.ToggleSetting(DisableInfoListPosters)</onclick>
                     <selected>!Skin.HasSetting(DisableInfoListPosters)</selected>
-                    <visible>!Skin.HasSetting(Disable.ExtendedInfo)</visible>
+                    <visible>!Skin.HasSetting(Disable.OnlineTMDbInfo) + Skin.HasSetting(Enable.TMDbHelper)</visible>
                 </control>
             </control>
 		</control>
