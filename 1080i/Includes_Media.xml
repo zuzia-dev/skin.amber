@@ -1466,7 +1466,7 @@
 						</control>
 						<!-- All other artwork -->
 						<control type="group">
-						    <visible>![$PARAM[isWideIcon]]</visible>
+						    <visible>![$PARAM[isWideIcon]] + ![$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]]</visible>
 							<control type="image">
 				                <visible>!$PARAM[isFocused]</visible>
 				                <texture background="true">$VAR[TopRightOverlay]</texture>
@@ -1483,6 +1483,28 @@
 				                <posy>12</posy>
 				                <height>82</height>
 				                <width>82</width>
+				                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                <aspectratio>keep</aspectratio>
+			                </control>
+						</control>
+						<control type="group">
+						    <visible>![$PARAM[isWideIcon]] + [$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]]</visible>
+							<control type="image">
+				                <visible>!$PARAM[isFocused]</visible>
+				                <texture background="true">$VAR[TopRightOverlay]</texture>
+				                <posx>86r</posx>
+				                <posy>12</posy>
+				                <height>68</height>
+				                <width>68</width>
+				                <aspectratio>keep</aspectratio>
+			                </control>
+			                <control type="image">
+				                <visible>$PARAM[isFocused]</visible>
+				                <texture background="true">$VAR[TopRightOverlay]</texture>
+				                <posx>86r</posx>
+				                <posy>12</posy>
+				                <height>68</height>
+				                <width>68</width>
 				                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
 				                <aspectratio>keep</aspectratio>
 			                </control>
@@ -2283,19 +2305,19 @@
 				        <control type="image">
 				            <visible>!$PARAM[isFocused]</visible>
 				            <texture background="true">$VAR[TopRightInProgress]</texture>
-				            <posx>98r</posx>
+				            <posx>86r</posx>
 				            <posy>12</posy>
-				            <height>82</height>
-				            <width>82</width>
+				            <height>68</height>
+				            <width>68</width>
 				            <aspectratio>keep</aspectratio>
 			            </control>
 				        <control type="image">
 				            <visible>$PARAM[isFocused]</visible>
 				            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">$VAR[TopRightInProgress]</texture>
-				            <posx>98r</posx>
+				            <posx>86r</posx>
 				            <posy>12</posy>
-				            <height>82</height>
-				            <width>82</width>
+				            <height>68</height>
+				            <width>68</width>
 				            <aspectratio>keep</aspectratio>
 			            </control>
 			        </control>
@@ -2365,6 +2387,1504 @@
 				            <width>72</width>
 			            </control>
 					</control>	
+				</control>
+			</control>
+		</definition>
+	</include>
+	
+	<include name="RatingOverlayTemplate">
+	    <param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
+		<param name="isWideIcon">false</param>
+		<param name="isSearch">false</param>
+		<param name="isBanner">false</param>
+		<param name="isSquare">false</param>
+		<param name="isThumb">false</param>
+		<param name="isTripleRow">false</param>
+		<param name="isTripleRowMedium">false</param>
+		<param name="isTripleRowLarge">false</param>
+		<param name="isTripleShevesTogether">false</param>
+		<param name="isLowWidget">false</param>
+		<definition>
+		    <!-- Overlay for small icons in custom video lists in info dialog -->
+			<control type="group">
+			    <visible>Window.IsActive(DialogVideoInfo.xml) + [String.IsEqual(Container.ListItem.DBType,movie) | String.IsEqual(Container.ListItem.DBType,tvshow)] + 
+				         [String.StartsWith(Container.ListItem.FolderPath,plugin://) | String.StartsWith(Container.ListItem.FolderPath,videodb)] + $EXP[canShowContainerRatingOverlay]</visible>
+				<control type="group">
+				    <control type="group">
+					    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true">common/box.png</texture>
+				            <posx>211r</posx>
+				            <posy>0</posy>
+				            <height>42</height>
+				            <width>42</width>
+							<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			            </control>
+					    <control type="label" description="l2">
+					        <posx>239r</posx>
+				            <posy>-285</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>[B]$VAR[ContainerRatingOverlayVar][/B]</label>
+					        <shadowcolor></shadowcolor>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+					    <control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+					    <control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>246r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[ContainerRatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>246r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[ContainerRatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+					</control>
+				</control>
+			</control>
+			
+			<!-- Overlay for all other use cases -->
+			<control type="group">
+			    <visible>[!Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(Custom_1122_Search.xml) | Window.IsActive(Custom_1131_SingleSearch.xml)] + 
+				         [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,tvshow) | 
+				                                                  String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEqual(ListItem.DBType,album) | 
+																  String.IsEqual(ListItem.DBType,video)] + $EXP[IsIconView] + $EXP[canShowRatingOverlay]</visible>
+				
+			    <!-- Regular icons -->
+				
+				<control type="group">
+				    <visible>![$PARAM[isSmallIcon]] + ![$PARAM[isSearch]]</visible>
+				    <visible>!ListItem.IsParentFolder</visible>
+					<!-- Poster -->
+					<control type="group">
+					    <visible>!$PARAM[isBanner] + !$PARAM[isThumb]</visible>
+						<visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true">common/box.png</texture>
+				            <posx>284r</posx>
+				            <posy>2</posy>
+				            <height>42</height>
+				            <width>42</width>
+							<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>313r</posx>
+				            <posy>-396</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+							<shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>!$PARAM[isBanner] + !$PARAM[isThumb]</visible>
+						<visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>294r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>294r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>319.5r</posx>
+				            <posy>-358</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>319.5r</posx>
+				            <posy>-358</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+					</control>
+					<!-- Banner -->
+					<control type="group">
+					    <visible>$PARAM[isBanner]</visible>
+						<visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true">common/box.png</texture>
+				            <posx>904r</posx>
+				            <posy>2</posy>
+				            <height>42</height>
+				            <width>42</width>
+							<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>932r</posx>
+				            <posy>-160</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+							<textcolor>$VAR[FocusedTextColor]</textcolor>
+					        <shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>$PARAM[isBanner]</visible>
+						<visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>914r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>914r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>939r</posx>
+				            <posy>-126</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>939r</posx>
+				            <posy>-126</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+					</control>
+					<!-- Thumb -->
+					<control type="group">
+					    <visible>$PARAM[isThumb]</visible>
+						<visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true">common/box.png</texture>
+				            <posx>284r</posx>
+				            <posy>0</posy>
+				            <height>42</height>
+				            <width>42</width>
+							<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>312r</posx>
+				            <posy>-186</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+							<shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>$PARAM[isThumb]</visible>
+						<visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>294r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>294r</posx>
+				            <posy>16</posy>
+				            <height>82</height>
+				            <width>82</width>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>319.5r</posx>
+				            <posy>-146</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>319.5r</posx>
+				            <posy>-146</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+					</control>
+				</control>
+				
+				<!-- Small icons -->
+			    <control type="group">
+				    <visible>$PARAM[isSmallIcon] + ![$PARAM[isSearch]]</visible>
+				    <visible>!ListItem.IsParentFolder</visible>
+					<!-- Poster in media view -->
+					<control type="group">
+					    <visible>!$PARAM[isBanner] + !$PARAM[isThumb] + !String.IsEmpty(Container.Viewmode)</visible>
+				        <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				            <posx>211r</posx>
+				            <posy>0</posy>
+				            <height>42</height>
+				            <width>42</width>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>239r</posx>
+				            <posy>-285</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+                    <control type="group">
+        				<visible>!$PARAM[isBanner] + !$PARAM[isThumb] + !String.IsEmpty(Container.Viewmode)</visible>
+				        <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>	
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>245.5r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>245.5r</posx>
+				            <posy>-255</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+					</control>
+					<!-- Banner in media views -->
+					<control type="group">
+					    <visible>$PARAM[isBanner] + !String.IsEmpty(Container.Viewmode)</visible>
+				        <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				            <posx>443r</posx>
+				            <posy>0</posy>
+				            <height>42</height>
+				            <width>42</width>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>472r</posx>
+				            <posy>-72</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>$PARAM[isBanner] + !String.IsEmpty(Container.Viewmode)</visible>
+				        <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>453r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>453r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>478r</posx>
+				            <posy>-42</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>478r</posx>
+				            <posy>-42</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+					</control>
+					<!-- Thumb in media views -->
+					<control type="group">
+					    <visible>$PARAM[isThumb] + !String.IsEmpty(Container.Viewmode)</visible>
+						<visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <texture background="true">common/box.png</texture>
+				            <posx>211r</posx>
+				            <posy>0</posy>
+				            <height>42</height>
+				            <width>42</width>
+							<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <posx>239r</posx>
+				            <posy>-130</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+							<shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
+					</control>
+					<control type="group">
+					    <visible>$PARAM[isThumb] + !String.IsEmpty(Container.Viewmode)</visible>
+						<visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>246r</posx>
+				            <posy>-98</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>246r</posx>
+				            <posy>-98</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+					</control>
+					
+					<!-- Poster in widgets -->
+					<control type="group">
+					    <visible>!$PARAM[isBanner] + !$PARAM[isSquare] + !$PARAM[isThumb] + String.IsEmpty(Container.Viewmode)</visible>
+						<!-- Single, Double or Large Triple Row -->
+						<control type="group">
+						    <visible>!$PARAM[isTripleRow] | [$PARAM[isTripleRow] + $PARAM[isTripleRowLarge]]</visible>
+						    <control type="group">
+					            <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>206r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>234r</posx>
+				                    <posy>-270</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+					        </control>
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>216r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>216r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>241r</posx>
+				                    <posy>-244</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>241r</posx>
+				                    <posy>-244</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+						    </control>
+						</control>	
+						
+						<!-- Triple row, small -->
+						<control type="group">
+					        <visible>$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>142r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>170r</posx>
+				                    <posy>-176</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+					        <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>147r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>147r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="label" description="l2">
+					                <visible>$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>175r</posx>
+				                    <posy>-156</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+    					            <visible>!$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>175r</posx>
+				                    <posy>-156</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>	
+						
+						<!-- Triple row medium -->
+				        <control type="group">
+					        <visible>$PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>161r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>189r</posx>
+				                    <posy>-208</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+					        </control>
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>170r</posx>
+				                    <posy>12</posy>
+				                    <height>76</height>
+				                    <width>76</width>
+			                    </control>
+				                <control type="image">
+    				                <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>170r</posx>
+				                    <posy>12</posy>
+				                    <height>76</height>
+				                    <width>76</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>197r</posx>
+				                    <posy>-185</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>197r</posx>
+				                    <posy>-185</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+					</control>
+					
+					<!-- Square in widgets -->
+					<control type="group">
+					    <visible>$PARAM[isSquare] + String.IsEmpty(Container.Viewmode)</visible>
+						
+						<!-- Single, Double, or Large Triple row -->
+						<control type="group">
+						    <visible>!$PARAM[isTripleRow] | [$PARAM[isTripleRow] + $PARAM[isTripleRowLarge]]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>206r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>234r</posx>
+				                    <posy>-180</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+    							<visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+	    						<control type="image">
+		    		                <visible>!$PARAM[isFocused]</visible>
+			    	                <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>216r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>216r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>241r</posx>
+				                    <posy>-155</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>241r</posx>
+				                    <posy>-155</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+						
+						<!-- Triple row, small -->
+						<control type="group">
+					        <visible>$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>140r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>168r</posx>
+				                    <posy>-115</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>147r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="image">
+    				                <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>147r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="label" description="l2">
+					                <visible>$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>175r</posx>
+				                    <posy>-96</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+    					            <visible>!$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>175r</posx>
+				                    <posy>-96</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>	
+						
+						<!-- Triple row medium -->
+				        <control type="group">
+					        <visible>$PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>161r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>189r</posx>
+				                    <posy>-138</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+						        <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>170r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+    				                <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>170r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+					                <visible>$PARAM[isFocused]</visible>
+					                <posx>195r</posx>
+				                    <posy>-111</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+    					            <visible>!$PARAM[isFocused]</visible>
+					                <posx>195r</posx>
+				                    <posy>-111</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+					</control>
+					
+					<!-- Thumb in widgets (Fanart or Thumb Artwork) -->
+					<control type="group">
+					    <visible>$PARAM[isThumb] + String.IsEmpty(Container.Viewmode)</visible>
+						<!-- Single, Double or Triple row large -->
+						<control type="group">
+						    <visible>!$PARAM[isTripleRow] | [$PARAM[isTripleRow] + $PARAM[isTripleRowLarge]]</visible>
+						    <control type="group">
+					            <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+    							<control type="image">
+	    			                <texture background="true">common/box.png</texture>
+		    		                <posx>476r</posx>
+			    	                <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+						    	    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>504r</posx>
+				                    <posy>-270</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>488r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>488r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>513r</posx>
+				                    <posy>-242</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>513r</posx>
+				                    <posy>-242</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+						
+						<!-- Triple row, small -->
+						<control type="group">
+					        <visible>$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <texture background="true">common/box.png</texture>
+				                    <posx>310r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>338r</posx>
+				                    <posy>-176</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>319r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>319r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="label" description="l2">
+					                <visible>$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>347r</posx>
+				                    <posy>-156</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+    					            <visible>!$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>347r</posx>
+				                    <posy>-156</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>	
+						
+						<!-- Triple row medium -->
+				        <control type="group">
+					        <visible>$PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>336r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>364r</posx>
+				                    <posy>-207</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[ContainerRatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>346r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>346r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>371r</posx>
+				                    <posy>-180</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>371r</posx>
+				                    <posy>-180</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+					</control>
+					
+					<!-- Banner in widgets -->
+					<control type="group">
+					    <visible>$PARAM[isBanner] + String.IsEmpty(Container.Viewmode)</visible>
+						<!-- Single, Double or Triple row large -->
+						<control type="group">
+						    <visible>!$PARAM[isTripleRow]</visible>
+						    <control type="group">
+					            <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+    							<control type="image">
+	    			                <texture background="true">common/box.png</texture>
+		    		                <posx>645r</posx>
+			    	                <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+						    	    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>674r</posx>
+				                    <posy>-112</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>655r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>655r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>680r</posx>
+				                    <posy>-85</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>680r</posx>
+				                    <posy>-85</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+						
+						<!-- Triple row, small -->
+						<control type="group">
+					        <visible>$PARAM[isTripleRow] + !$PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <texture background="true">common/box.png</texture>
+				                    <posx>400r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>429r</posx>
+				                    <posy>-66</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+    				                <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>412r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>412r</posx>
+				                    <posy>12</posy>
+				                    <height>70</height>
+				                    <width>70</width>
+			                    </control>
+				                <control type="label" description="l2">
+					                <visible>$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>440r</posx>
+				                    <posy>-45</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+    					            <visible>!$PARAM[isFocused] + !$PARAM[isLowWidget]</visible>
+					                <posx>440r</posx>
+				                    <posy>-45</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsExtraSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>	
+						
+						<!-- Triple row medium -->
+				        <control type="group">
+					        <visible>$PARAM[isTripleRow] + $PARAM[isTripleRowMedium] + !$PARAM[isTripleRowLarge]</visible>
+							<control type="group">
+							    <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <texture background="true">common/box.png</texture>
+				                    <posx>606r</posx>
+				                    <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+							        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>634r</posx>
+				                    <posy>-106</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[ContainerRatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>622r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>622r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>647r</posx>
+				                    <posy>-79</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>647r</posx>
+				                    <posy>-79</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+						
+						<!-- Triple row large -->
+						<control type="group">
+						    <visible>[$PARAM[isTripleRow] + $PARAM[isTripleRowLarge]]</visible>
+						    <control type="group">
+					            <visible>Skin.HasSetting(AltRatingOverlayStyle)</visible>
+    							<control type="image">
+	    			                <texture background="true">common/box.png</texture>
+		    		                <posx>655r</posx>
+			    	                <posy>2</posy>
+				                    <height>42</height>
+				                    <width>42</width>
+						    	    <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			                    </control>
+					            <control type="label" description="l2">
+					                <posx>684r</posx>
+				                    <posy>-112</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					                <shadowcolor></shadowcolor>
+					                <textcolor>$VAR[FocusedTextColor]</textcolor>
+				                </control>
+							</control>	
+						    <control type="group">
+							    <visible>!Skin.HasSetting(AltRatingOverlayStyle)</visible>
+							    <control type="image">
+				                    <visible>!$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				                    <posx>672r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+				                <control type="image">
+				                    <visible>$PARAM[isFocused]</visible>
+				                    <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				                    <posx>672r</posx>
+				                    <posy>12</posy>
+				                    <height>82</height>
+				                    <width>82</width>
+			                    </control>
+						        <control type="label" description="l2">
+    					            <visible>$PARAM[isFocused]</visible>
+					                <posx>697r</posx>
+				                    <posy>-85</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <shadowcolor></shadowcolor>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					                <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				                </control>
+				                <control type="label" description="l2">
+					                <visible>!$PARAM[isFocused]</visible>
+					                <posx>697r</posx>
+				                    <posy>-85</posy>
+					                <height>$PARAM[itemheight]</height>
+					                <width>100</width>
+					                <font>ListDetailsSmall</font>
+					                <align>center</align>
+					                <label>$VAR[RatingOverlayVar]</label>
+					                <textcolor>White2</textcolor>
+				                </control>
+							</control>	
+						</control>
+					</control>
+					
+					
+				</control>	
+			    <!-- Unwatched episode count for search -->
+			    <control type="group">
+				    <visible>$PARAM[isSearch]</visible>
+				    <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
+				    <visible>Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+					<control type="image">
+				        <visible>!$PARAM[isFocused]</visible>
+				        <texture background="true">overlays/toprightempty2.png</texture>
+				        <posx>98r</posx>
+				        <posy>12</posy>
+				        <height>82</height>
+				        <width>82</width>
+					    <aspectratio>keep</aspectratio>
+			        </control>
+				    <control type="image">
+				        <visible>$PARAM[isFocused]</visible>
+				        <texture background="true">overlays/toprightempty2.png</texture>
+				        <posx>98r</posx>
+				        <posy>12</posy>
+				        <height>82</height>
+				        <width>82</width>
+					    <aspectratio>keep</aspectratio>
+					    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			        </control>
+				    <control type="label" description="l2">
+					    <visible>$PARAM[isFocused]</visible>
+					    <posx>92r</posx>
+				        <posy>-255</posy>
+					    <height>$PARAM[itemheight]</height>
+					    <width>100</width>
+					    <font>ListDetailsSmall</font>
+					    <align>center</align>
+					    <shadowcolor></shadowcolor>
+					    <label>$VAR[UnwatchedEpisodes]</label>
+					    <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				    </control>
+				    <control type="label" description="l2">
+					    <visible>!$PARAM[isFocused]</visible>
+					    <posx>92r</posx>
+				        <posy>-255</posy>
+					    <height>$PARAM[itemheight]</height>
+					    <width>100</width>
+					    <font>ListDetailsSmall</font>
+					    <align>center</align>
+					    <label>$VAR[UnwatchedEpisodes]</label>
+					    <textcolor>White2</textcolor>
+				    </control>
 				</control>
 			</control>
 		</definition>
@@ -2452,6 +3972,7 @@
 		<param name="isWideIcon">false</param>
 		<param name="isBanner">false</param>
 		<param name="isSquare">false</param>
+		<param name="isThumb">false</param>
 		<param name="isSearch">false</param>
 		<param name="isTripleRow">false</param>
 		<param name="isTripleRowMedium">false</param>
@@ -2539,7 +4060,21 @@
 					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
 					<param name="isTripleShelvesTogether">$PARAM[isTripleShelvesTogether]</param>
 					<param name="isLowWidget">$PARAM[isLowWidget]</param>
-				</include>	
+				</include>
+                <include condition="Skin.HasSetting(ShowRatingOverlays) + !ListItem.IsRecording + !String.StartsWith(ListItem.FolderPath,pvr) + $PARAM[showOverlay]" content="RatingOverlayTemplate">
+				    <param name="isFocused">$PARAM[isFocused]</param>
+					<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+					<param name="isSearch">$PARAM[isSearch]</param>
+					<param name="isBanner">$PARAM[isBanner]</param>
+					<param name="isSquare">$PARAM[isSquare]</param>
+					<param name="isThumb">$PARAM[isThumb]</param>
+					<param name="isWideIcon">$PARAM[isWideIcon]</param>
+					<param name="isTripleRow">$PARAM[isTripleRow]</param>
+					<param name="isTripleRowMedium">$PARAM[isTripleRowMedium]</param>
+					<param name="isTripleRowLarge">$PARAM[isTripleRowLarge]</param>
+					<param name="isTripleShelvesTogether">$PARAM[isTripleShelvesTogether]</param>
+					<param name="isLowWidget">$PARAM[isLowWidget]</param>
+				</include>				
 				<include content="GenericThumbLabelTemplate">
 					<param name="isFocused">$PARAM[isFocused]</param>
 					<param name="yoffset">$PARAM[overlaylabelyoffset]</param>
@@ -3190,6 +4725,7 @@
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
 				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				<param name="isThumb">true</param>
 				<param name="iconwidth">310</param>
 				<param name="iconheight">226</param>
 				<param name="iconoffset">0</param>
@@ -3210,6 +4746,7 @@
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
 				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				<param name="isThumb">true</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">170</param>
 				<param name="iconoffset">0</param>
@@ -3246,7 +4783,16 @@
 				<width>360</width>
 				<height>140</height>
                 <texture background="true">$VAR[ClearLogo]</texture>
-                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner))</visible>
+                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner)) + [!Skin.HasSetting(ShowRatingOverlays) | [!Skin.HasSetting(ShowRatingOverlays) + !$EXP[canShowRatingOverlay]]]</visible>
+            </control>
+			<control type="image">
+                <aspectratio align="center">keep</aspectratio>
+                <left>45</left>
+				<top>30</top>
+				<width>360</width>
+				<height>140</height>
+                <texture background="true">$VAR[ClearLogo]</texture>
+                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner)) + Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
             </control>
 		</definition>
 	</include>
@@ -3274,7 +4820,16 @@
 				<width>150</width>
 				<height>80</height>
                 <texture background="true">$VAR[ClearLogo]</texture>
-                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner))</visible>
+                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner)) + [!Skin.HasSetting(ShowRatingOverlays) | [!Skin.HasSetting(ShowRatingOverlays) + !$EXP[canShowRatingOverlay]]]</visible>
+            </control>
+			<control type="image">
+                <aspectratio align="center">keep</aspectratio>
+                <left>70</left>
+				<top>15</top>
+				<width>150</width>
+				<height>80</height>
+                <texture background="true">$VAR[ClearLogo]</texture>
+                <visible>String.IsEmpty(ListItem.Art(banner)) + String.IsEmpty(ListItem.Art(tvshow.banner)) + [Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]]</visible>
             </control>
 		</definition>
 	</include>

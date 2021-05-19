@@ -377,6 +377,52 @@
 						<label>$VAR[listmediafooter]</label>
 						<textcolor>$VAR[HighlightColor]</textcolor>
 					</control>
+					<control type="group">
+					    <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
+						<control type="group">
+						    <visible>[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,tvshow) | 
+							          [String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(EpisodesUsePoster)]]</visible>
+							<control type="image">
+				                <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				                <posx>50</posx>
+				                <posy>-20</posy>
+				                <height>52</height>
+				                <width>52</width>
+			                </control>
+						    <control type="label" description="l2">
+					            <posx>26</posx>
+				                <posy>-9</posy>
+					            <height>30</height>
+					            <width>100</width>
+					            <font>font20_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					            <textcolor>$VAR[FocusedTextColor]</textcolor>
+				            </control>		  
+						</control>
+						<control type="group">
+						    <visible>String.IsEqual(ListItem.DBType,episode) + !Skin.HasSetting(EpisodesUsePoster)</visible>
+							<control type="image">
+				                <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				                <posx>15</posx>
+				                <posy>180</posy>
+				                <height>52</height>
+				                <width>52</width>
+			                </control>
+						    <control type="label" description="l2">
+					            <posx>-9</posx>
+				                <posy>191</posy>
+					            <height>30</height>
+					            <width>100</width>
+					            <font>font20_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					            <textcolor>$VAR[FocusedTextColor]</textcolor>
+				            </control>		  
+						</control>
+					</control>
 				</control>
 				
 				<include condition="!Skin.String(MediaViewsExtraArt,none)" content="ShowMediaViewsExtraArt">

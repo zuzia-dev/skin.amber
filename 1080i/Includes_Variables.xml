@@ -1932,6 +1932,16 @@
 		<value>[B]$INFO[Container(300).ListItem.Label][/B]</value>
 	</variable>
 	
+	<variable name="ContainerRatingOverlayVar">
+		<value condition="Skin.HasSetting(UserRatingOverlay)">$INFO[Container.ListItem.UserRating]</value>
+		<value>$INFO[Container.ListItem.Rating]</value>
+	</variable>
+	
+	<variable name="RatingOverlayVar">
+		<value condition="Skin.HasSetting(UserRatingOverlay)">$INFO[ListItem.UserRating]</value>
+		<value>$INFO[ListItem.Rating]</value>
+	</variable>
+	
 	
 	
     <expression name="WidgetFanartVisible">String.IsEmpty(Container(300).ListItem.Property(widgetDisableFanart)) + ControlGroup(700).HasFocus</expression>
@@ -2031,6 +2041,10 @@
     <expression name="ShowPVROverlay">ListItem.IsRecording | ListItem.HasReminder | ListItem.IsPlayable | ListItem.HasTimer | ListItem.HasTimerSchedule | ListItem.HasRecording | 
 	                                  ListItem.IsNew | ListItem.IsPremiere | ListItem.IsFinale | ListItem.IsLive</expression>
 									  
-	<expression name="canShowVideoinfooSD">!String.IsEmpty(Container(43260).ListItem.Label) + [VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)] + !String.IsEmpty(VideoPlayer.DBID)</expression>								  
+	<expression name="canShowVideoinfooSD">!String.IsEmpty(Container(43260).ListItem.Label) + [VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)] + !String.IsEmpty(VideoPlayer.DBID)</expression>
+
+    <expression name="canShowContainerRatingOverlay">!String.IsEmpty(Container.ListItem.Rating) | [Skin.HasSetting(UserRatingOverlay) + !String.IsEmpty(Container.ListItem.UserRating)]</expression>
+
+    <expression name="canShowRatingOverlay">!String.IsEmpty(ListItem.Rating) | [Skin.HasSetting(UserRatingOverlay) + !String.IsEmpty(ListItem.UserRating)]</expression>	
 	
 </includes>
