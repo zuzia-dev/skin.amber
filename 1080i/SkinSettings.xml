@@ -259,18 +259,33 @@
 							<param name="itemlabel" value="$LOCALIZE[32369]"/>
 							<param name="skinsetting" value="Favourites.AlternateLayout"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="17"/>
-							<param name="itemlabel" value="$LOCALIZE[32352]"/>
-							<param name="skinsetting" value="Enable.TMDbHelper"/>
-							<param name="itemvisibility" value="System.HasAddon(plugin.video.themoviedb.helper)"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="18"/>
-							<param name="itemlabel" value="$LOCALIZE[32353]"/>
-							<param name="skinsetting" value="Enable.EmbuaryHelper"/>
-							<param name="itemvisibility" value="System.HasAddon(script.embuary.helper)"/>
-						</include>
+						<item id="17">
+                            <visible>Skin.HasSetting(Enable.TMDbHelper) + System.HasAddon(plugin.video.themoviedb.helper)</visible>
+                            <label>$LOCALIZE[32352]</label>
+                            <label2>$LOCALIZE[107]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.TMDbHelper)</onclick>
+                        </item>
+                        <item id="17">
+                            <visible>!Skin.HasSetting(Enable.TMDbHelper) | !System.HasAddon(plugin.video.themoviedb.helper)</visible>
+                            <label>$LOCALIZE[32352]</label>
+                            <label2>$LOCALIZE[106]</label2>
+							<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper)">InstallAddon(plugin.video.themoviedb.helper)</onclick>
+                            <onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">Skin.ToggleSetting(Enable.TMDbHelper)</onclick>
+                        </item>
+						<item id="18">
+                            <visible>Skin.HasSetting(Enable.EmbuaryHelper) + System.HasAddon(script.embuary.helper)</visible>
+                            <label>$LOCALIZE[32353]</label>
+                            <label2>$LOCALIZE[107]</label2>
+                            <onclick>Skin.ToggleSetting(Enable.EmbuaryHelper)</onclick>
+							<onclick>Skin.Reset(Show.EHJumpToLetter)</onclick>
+                        </item>
+                        <item id="18">
+                            <visible>!Skin.HasSetting(Enable.EmbuaryHelper) | !System.HasAddon(script.embuary.helper)</visible>
+                            <label>$LOCALIZE[32353]</label>
+                            <label2>$LOCALIZE[106]</label2>
+							<onclick condition="!System.HasAddon(script.embuary.helper)">InstallAddon(script.embuary.helper)</onclick>
+                            <onclick condition="System.HasAddon(script.embuary.helper)">Skin.ToggleSetting(Enable.EmbuaryHelper)</onclick>
+                        </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="19"/>
 							<param name="itemlabel" value="$LOCALIZE[32378]"/>
@@ -576,221 +591,26 @@
 						    <onclick>SetProperty(CustomSelectMediaViewsExtraArt,True)</onclick>
 						    <onclick>ActivateWindow(1121)</onclick>
 		                </item>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="4"/>
-							<param name="itemlabel" value="$LOCALIZE[32223]"/>
-							<param name="skinsetting" value="ShowAudioSub"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="5"/>
-							<param name="itemlabel" value="$LOCALIZE[32233]"/>
-							<param name="skinsetting" value="ShowRatingUser"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="6"/>
-							<param name="itemlabel" value="$LOCALIZE[32234]"/>
-							<param name="skinsetting" value="ShowRatingMain"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="7"/>
-							<param name="itemlabel" value="$LOCALIZE[32236]"/>
-							<param name="skinsetting" value="ShowMPAA"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="8"/>
-							<param name="itemlabel" value="$LOCALIZE[32254]"/>
-							<param name="skinsetting" value="HideTop250MediaViews"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="9"/>
-							<param name="itemlabel" value="$LOCALIZE[32263]"/>
-							<param name="skinsetting" value="ShowSetCount"/>
-						</include>
+						<item id="4" description="Select Items to Show/Hide in Views">
+						    <label>[B]$LOCALIZE[32390][/B]</label>
+						    <onclick>SetProperty(CustomSelectViewsItems,True)</onclick>
+						    <onclick>ActivateWindow(1139)</onclick>
+		                </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="10"/>
 							<param name="itemlabel" value="$LOCALIZE[32264]"/>
 							<param name="skinsetting" value="ShowSpecialFanart"/>
 						</include>
 						<include content="YesNoSettingItem">
-							<param name="itemid" value="11"/>
-							<param name="itemlabel" value="$LOCALIZE[32265]"/>
-							<param name="skinsetting" value="ShowPlayCount"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="12"/>
-							<param name="itemlabel" value="$LOCALIZE[32373]"/>
-							<param name="skinsetting" value="ShowEndTime"/>
-						</include>
-						<include content="YesNoSettingItem">
 							<param name="itemid" value="13"/>
 							<param name="itemlabel" value="$LOCALIZE[32270]"/>
 							<param name="skinsetting" value="FanartCenterFocus"/>
 						</include>
-						<item id="14">
-                            <visible>Skin.HasSetting(DisableListPanel)</visible>
-                            <label>$LOCALIZE[32225]</label>
-                            <label2>$LOCALIZE[107]</label2>
-                            <onclick>Skin.Reset(DisableListPanel)</onclick>
-							<onclick>Skin.Reset(50_Movies_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Addons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Music_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Images_DisablePanel)</onclick>
-							<onclick>Skin.Reset(50_Others_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Movies_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Addons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Music_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Images_DisablePanel)</onclick>
-							<onclick>Skin.Reset(54_Others_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Movies_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Addons_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Music_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Images_DisablePanel)</onclick>
-							<onclick>Skin.Reset(501_Others_DisablePanel)</onclick>
-                        </item>
-                        <item id="14">
-                            <visible>!Skin.HasSetting(DisableListPanel)</visible>
-                            <label>$LOCALIZE[32225]</label>
-                            <label2>$LOCALIZE[106]</label2>
-                            <onclick>Skin.SetBool(DisableListPanel)</onclick>
-							<onclick>Skin.SetBool(50_Movies_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Addons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Music_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Images_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(50_Others_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Movies_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Addons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Music_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Images_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(54_Others_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Movies_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_TVShows_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Seasons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Episodes_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Addons_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Music_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_MusicVideos_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Images_DisablePanel)</onclick>
-							<onclick>Skin.SetBool(501_Others_DisablePanel)</onclick>
-                        </item>
-						<item id="15">
-                            <visible>Skin.HasSetting(SwapListPanel) + !Skin.HasSetting(DisableListPanel)</visible>
-                            <label>$LOCALIZE[32243]</label>
-                            <label2>$LOCALIZE[107]</label2>
-                            <onclick>Skin.Reset(SwapListPanel)</onclick>
-							<onclick>Skin.Reset(50_Movies_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Addons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Music_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Images_SwapPanel)</onclick>
-							<onclick>Skin.Reset(50_Others_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Movies_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Addons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Music_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Images_SwapPanel)</onclick>
-							<onclick>Skin.Reset(52_Others_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Movies_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Addons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Music_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Images_SwapPanel)</onclick>
-							<onclick>Skin.Reset(54_Others_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Movies_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Addons_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Music_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Images_SwapPanel)</onclick>
-							<onclick>Skin.Reset(501_Others_SwapPanel)</onclick>
-                        </item>
-                        <item id="15">
-                            <visible>!Skin.HasSetting(SwapListPanel) + !Skin.HasSetting(DisableListPanel)</visible>
-                            <label>$LOCALIZE[32243]</label>
-                            <label2>$LOCALIZE[106]</label2>
-                            <onclick>Skin.SetBool(SwapListPanel)</onclick>
-							<onclick>Skin.SetBool(50_Movies_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Addons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Music_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Images_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(50_Others_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Movies_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Addons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Music_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Images_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(52_Others_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Movies_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Addons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Music_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Images_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(54_Others_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Movies_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_TVShows_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Seasons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Episodes_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Addons_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Music_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_MusicVideos_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Images_SwapPanel)</onclick>
-							<onclick>Skin.SetBool(501_Others_SwapPanel)</onclick>
-                        </item>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="16"/>
-							<param name="itemlabel" value="$LOCALIZE[32020]"/>
-							<param name="skinsetting" value="Hide.Label2.Lists"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="17"/>
-							<param name="itemlabel" value="$LOCALIZE[32056]"/>
-							<param name="skinsetting" value="Show.MoreItems.List"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="18"/>
-							<param name="itemlabel" value="$LOCALIZE[32217]"/>
-							<param name="skinsetting" value="ListCenterFocus"/>
-						</include>
+						<item id="14" description="Select List Views Options">
+						    <label>[B]$LOCALIZE[32393][/B]</label>
+						    <onclick>SetProperty(CustomSelectListOptions,True)</onclick>
+						    <onclick>ActivateWindow(1139)</onclick>
+		                </item>
 						<include content="YesNoSettingItem">
 							<param name="itemid" value="19"/>
 							<param name="itemlabel" value="$LOCALIZE[20189]"/>
@@ -801,132 +621,17 @@
 							<param name="itemlabel" value="$LOCALIZE[31514]"/>
 							<param name="skinsetting" value="EpisodesUsePoster"/>
 						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="21"/>
-							<param name="itemlabel" value="[B]$LOCALIZE[32387][/B]"/>
-							<param name="skinsetting" value="ShowRatingOverlays"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="22"/>
-							<param name="itemlabel" value="      $LOCALIZE[32388]"/>
-							<param name="skinsetting" value="UserRatingOverlay"/>
-							<param name="itemvisibility" value="Skin.HasSetting(ShowRatingOverlays)"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="23"/>
-							<param name="itemlabel" value="      $LOCALIZE[32389]"/>
-							<param name="skinsetting" value="AltRatingOverlayStyle"/>
-							<param name="itemvisibility" value="Skin.HasSetting(ShowRatingOverlays)"/>
-						</include>
-                        <include content="YesNoSettingItem">
-							<param name="itemid" value="24"/>
-							<param name="itemlabel" value="$LOCALIZE[32251]"/>
-							<param name="skinsetting" value="ShowTopRightOverlays"/>
-						</include>						
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="25"/>
-							<param name="itemlabel" value="$LOCALIZE[31981]"/>
-							<param name="itemicon" value="OverlayWatched.png"/>
-							<param name="skinsetting" value="Hide_Watched_Marks"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="26"/>
-							<param name="itemlabel" value="$LOCALIZE[31980]"/>
-							<param name="itemicon" value="OverlayUnwatched.png"/>
-							<param name="skinsetting" value="Hide_Unwatched_Marks"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="27"/>
-							<param name="itemlabel" value="$LOCALIZE[31972]"/>
-							<param name="itemicon" value="OverlayInProgress.png"/>
-							<param name="skinsetting" value="Hide_InProgress_Marks"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="28"/>
-							<param name="itemlabel" value="$LOCALIZE[32239]"/>
-							<param name="itemicon" value="Collection.png"/>
-							<param name="skinsetting" value="Hide_Collection_Marks"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="29"/>
-							<param name="itemlabel" value="$LOCALIZE[32252]"/>
-							<param name="skinsetting" value="Hide_Episode_Marks"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="30"/>
-							<param name="itemlabel" value="$LOCALIZE[31035]"/>
-							<param name="skinsetting" value="Hide.MediaFlagsVideo"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="31"/>
-							<param name="itemlabel" value="$LOCALIZE[32291]"/>
-							<param name="skinsetting" value="Show.ColorRangeFlags"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="32"/>
-							<param name="itemlabel" value="$LOCALIZE[31150]"/>
-							<param name="skinsetting" value="hide.listview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="33"/>
-							<param name="itemlabel" value="$LOCALIZE[31154]"/>
-							<param name="skinsetting" value="hide.lowlistview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="34"/>
-							<param name="itemlabel" value="$LOCALIZE[31152]"/>
-							<param name="skinsetting" value="hide.biglistview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="35"/>
-							<param name="itemlabel" value="$LOCALIZE[32059]"/>
-							<param name="skinsetting" value="hide.talllistview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="36"/>
-							<param name="itemlabel" value="$LOCALIZE[31151]"/>
-							<param name="skinsetting" value="hide.panelview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="37"/>
-							<param name="itemlabel" value="$LOCALIZE[32247]"/>
-							<param name="skinsetting" value="hide.panel2view"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="38"/>
-							<param name="itemlabel" value="$LOCALIZE[31155]"/>
-							<param name="skinsetting" value="hide.bigpanelview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="39"/>
-							<param name="itemlabel" value="$LOCALIZE[32248]"/>
-							<param name="skinsetting" value="hide.bigpanel2view"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="40"/>
-							<param name="itemlabel" value="$LOCALIZE[31153]"/>
-							<param name="skinsetting" value="hide.iconsview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="41"/>
-							<param name="itemlabel" value="$LOCALIZE[31156]"/>
-							<param name="skinsetting" value="hide.fanartview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="42"/>
-							<param name="itemlabel" value="$LOCALIZE[31633]"/>
-							<param name="skinsetting" value="hide.simplelistview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="43"/>
-							<param name="itemlabel" value="$LOCALIZE[31158]"/>
-							<param name="skinsetting" value="hide.tripleview"/>
-						</include>
-						<include content="YesNoSettingItem">
-							<param name="itemid" value="44"/>
-							<param name="itemlabel" value="$LOCALIZE[31160]"/>
-							<param name="skinsetting" value="hide.logoview"/>
-						</include>
+						<item id="21" description="Select Marks and Overlays">
+						    <label>[B]$LOCALIZE[32394][/B]</label>
+						    <onclick>SetProperty(CustomSelectMarksOverlays,True)</onclick>
+						    <onclick>ActivateWindow(1139)</onclick>
+		                </item>
+						<item id="30" description="Select Views to Enable">
+						    <label>[B]$LOCALIZE[32396][/B]</label>
+						    <onclick>SetProperty(CustomSelectEnabledViews,True)</onclick>
+						    <onclick>ActivateWindow(1139)</onclick>
+		                </item>
+						
 					</content>
 				</control>
                 <!--9000 5 Top Bar Options -->
