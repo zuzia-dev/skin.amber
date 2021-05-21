@@ -30,7 +30,7 @@
 		<!-- Hidden lists if using script.embuary.helper for random fanart backgrounds and statistics lines -->
 		<include condition="Skin.HasSetting(Enable.EmbuaryHelper) + Skin.HasSetting(UseEHBackgrounds)">HomeEHBackgroundLists</include>
 		<include condition="Skin.HasSetting(Enable.EmbuaryHelper) + Skin.HasSetting(UseEHInfoLine)">HomeEHInfoLineLists</include>
-		 
+		<!-- Background --> 
 		<control type="multiimage">
 			<visible>![Player.HasVideo + Skin.HasSetting(Show_VideoBackground)]</visible>
 			<include>Dimensions_Fullscreen</include>
@@ -42,14 +42,17 @@
 			<animation effect="zoom" start="110" end="130" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="Skin.HasSetting(Use.KenBurnsEffect)">Conditional</animation>
             <animation effect="slide" start="-30,-30" end="30,30" time="6000" tween="sine" easing="inout" pulse="true" condition="Skin.HasSetting(Use.KenBurnsEffect)">Conditional</animation>
 		</control>
+		<!-- Music visualization -->
 		<control type="visualisation">
 			<visible>Player.HasAudio + Skin.HasSetting(Show_MusicVizBackground)</visible>
 			<include>Dimensions_Fullscreen</include>
 		</control>
+		<!-- Now Playing peview video -->
 		<control type="videowindow" id="350">
 			<visible>Player.HasVideo + Skin.HasSetting(Show_VideoBackground)</visible>
 			<include>Dimensions_Fullscreen</include>
 		</control>
+		<!-- Menu/Submenu/Widgets -->
 		<control type="group" description="Content">
 			<animation effect="fade" start="0" end="100" time="1000" condition="Window.Previous(Startup.xml)">Conditional</animation>
 			<animation effect="fade" start="0" end="100" time="200" condition="!Window.Previous(Startup.xml)">Conditional</animation>
@@ -59,7 +62,7 @@
 			<!-- Fanart background title -->
 			<include condition="[!Skin.HasSetting(HomeDefaultBG) + Skin.HasSetting(Enable.FanartTitle)]">ShowFanartTitle</include>
 			<!-- Logo in home window -->
-			<include condition="[!Skin.HasSetting(HomeDefaultBG) + Skin.HasSetting(ShowHomeLogo)]">HomeClearLogo</include>
+			<include condition="Skin.HasSetting(ShowHomeLogo)">HomeClearLogo</include>
 		</control>
 		<include condition="Skin.HasSetting(holiday)">Holiday</include>
 	</controls>
