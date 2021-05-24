@@ -1492,28 +1492,32 @@
 					<content>
 						<item id="1" description="Backup Skin Settings">
 							<label>$LOCALIZE[32065]</label>
-							<onclick>RunScript(script.xbmcbackup,mode=backup)</onclick>
-                            <onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
+							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.xbmcbackup,mode=backup)</onclick>
+							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.skin.helper.skinbackup,action=backup)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
 						</item>
 						<item id="2" description="Restore Skin Settings Backup">
 							<label>$LOCALIZE[32066]</label>
-							<onclick>RunScript(script.xbmcbackup,mode=restore)</onclick>
-                            <onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
+							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.xbmcbackup,mode=restore)</onclick>
+							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.skin.helper.skinbackup,action=restore)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
 							<onclick>ReloadSkin()</onclick>
 						</item>
 						<item id="3" description="Backup/Restore Config">
 							<label>$LOCALIZE[32067]</label>
-							<onclick>Addon.OpenSettings(script.xbmcbackup)</onclick>
-							<onclick condition="!System.HasAddon(script.xbmcbackup)">InstallAddon(script.xbmcbackup)</onclick>
+							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">Addon.OpenSettings(script.xbmcbackup)</onclick>
+							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">Addon.OpenSettings(script.skin.helper.skinbackup)</onclick>
+							<onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
+							
 						</item>
-<!--						<item id="4" description="Reset all settings to default">
+						<item id="4" description="Reset all settings to default">
 							<label>$LOCALIZE[31038]</label>
 							<icon>DefaultIconWarning.png</icon>
 							<onclick>Skin.ResetSettings</onclick>
 							<onclick>RunScript(script.skin.helper.skinbackup,action=reset)</onclick>
-                            <onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
 							<onclick>ReloadSkin()</onclick>
-						</item> -->
+							<visible>System.HasAddon(script.skin.helper.skinbackup)</visible>
+						</item>
 					</content>
 				</control>                
 				<!-- 9000 13 - Manage Dependencies -->
@@ -1554,20 +1558,6 @@
 						<onclick condition="!System.HasAddon(script.globalsearch)">InstallAddon(script.globalsearch)</onclick>
 						<selected>System.HasAddon(script.globalsearch)</selected>
 					</control>
-<!--					<control type="radiobutton" id="91126">
-						<label>script.tv.show.next.aired</label>
-						<label2>$INFO[System.AddonVersion(script.tv.show.next.aired)]             </label2>
-						<onclick>Addon.OpenSettings(script.tv.show.next.aired)</onclick>
-						<onclick condition="!System.HasAddon(script.tv.show.next.aired)">InstallAddon(script.tv.show.next.aired)</onclick>
-						<selected>System.HasAddon(script.tv.show.next.aired)</selected>
-					</control>
-					<control type="radiobutton" id="91128">
-						<label>script.skin.helper.widgets</label>
-						<label2>$INFO[System.AddonVersion(script.skin.helper.widgets)]             </label2>
-						<onclick>Addon.OpenSettings(script.skin.helper.widgets)</onclick>
-						<onclick condition="!System.HasAddon(service.skin.widgets)">InstallAddon(script.skin.helper.widgets)</onclick>
-						<selected>System.HasAddon(script.skin.helper.widgets)</selected>
-					</control> -->
 					<control type="radiobutton" id="911211">
 						<label>script.cu.lrclyrics</label>
 						<label2>$INFO[System.AddonVersion(script.cu.lrclyrics)]             </label2>
@@ -1665,11 +1655,31 @@
 						<onclick condition="!System.HasAddon(script.playrandomvideos)">InstallAddon(script.playrandomvideos)</onclick>
 						<selected>System.HasAddon(script.playrandomvideos)</selected>
 					</control>
+					<control type="radiobutton" id="91126">
+						<label>script.tv.show.next.aired</label>
+						<label2>$INFO[System.AddonVersion(script.tv.show.next.aired)]             </label2>
+						<onclick>Addon.OpenSettings(script.tv.show.next.aired)</onclick>
+						<onclick condition="!System.HasAddon(script.tv.show.next.aired)">InstallAddon(script.tv.show.next.aired)</onclick>
+						<selected>System.HasAddon(script.tv.show.next.aired)</selected>
+					</control>
+					<control type="radiobutton" id="91128">
+						<label>script.skin.helper.widgets</label>
+						<label2>$INFO[System.AddonVersion(script.skin.helper.widgets)]             </label2>
+						<onclick>Addon.OpenSettings(script.skin.helper.widgets)</onclick>
+						<onclick condition="!System.HasAddon(service.skin.widgets)">InstallAddon(script.skin.helper.widgets)</onclick>
+						<selected>System.HasAddon(script.skin.helper.widgets)</selected>
+					</control>
 					<control type="radiobutton" id="911227">
 						<label>script.skin.helper.colorpicker</label>
-						<label2>$INFO[System.AddonVersion(script.skin.helper.colorpicker)]        </label2>
+						<label2>$INFO[System.AddonVersion(script.skin.helper.colorpicker)]            </label2>
 						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
 						<selected>System.HasAddon(script.skin.helper.colorpicker)</selected>
+					</control>
+					<control type="radiobutton" id="911228">
+						<label>script.skin.helper.skinbackup</label>
+						<label2>$INFO[System.AddonVersion(script.skin.helper.skinbackup)]            </label2>
+						<onclick condition="!System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
+						<selected>System.HasAddon(script.skin.helper.skinbackup)</selected>
 					</control>
 				</control>
 			</control>
