@@ -5,6 +5,38 @@
     <defaultcontrol></defaultcontrol>
     <controls>
         
+		<control type="fadelabel" id="4444">
+			<top>-100</top>
+			<width>2560</width>
+			<height>0</height>
+			<scrollspeed>20</scrollspeed>
+			<scrollout>false</scrollout>
+			<randomize>true</randomize>
+			<visible>Skin.HasSetting(SkinHelper.EnableExtraFanart)</visible>
+			<include>FadeLabelTime</include>
+			<label>$INFO[Player.Art(artist.fanart1)]</label>
+			<label>$INFO[Player.Art(artist.fanart2)]</label>
+			<label>$INFO[Player.Art(artist.fanart3)]</label>
+			<label>$INFO[Player.Art(artist.fanart4)]</label>
+			<label>$INFO[Player.Art(artist.fanart5)]</label>
+			<label>$INFO[Player.Art(artist.fanart6)]</label>
+			<label>$INFO[Player.Art(artist.fanart7)]</label>
+			<label>$INFO[Player.Art(artist.fanart8)]</label>
+			<label>$INFO[Player.Art(artist.fanart9)]</label>
+			<label>$INFO[Player.Art(artist.fanart10)]</label>
+			<label>$INFO[Player.Art(artist.fanart11)]</label>
+			<label>$INFO[Player.Art(artist.fanart12)]</label>
+			<label>$INFO[Player.Art(artist.fanart13)]</label>
+			<label>$INFO[Player.Art(artist.fanart14)]</label>
+			<label>$INFO[Player.Art(artist.fanart15)]</label>
+			<label>$INFO[Player.Art(artist.fanart16)]</label>
+			<label>$INFO[Player.Art(artist.fanart17)]</label>
+			<label>$INFO[Player.Art(artist.fanart18)]</label>
+			<label>$INFO[Player.Art(artist.fanart19)]</label>
+			<label>$INFO[Player.Art(artist.fanart20)]</label>
+		</control>
+		
+		
 		<control type="visualisation" id="2" description="Visualisation">
             <width>1920</width>
             <height>1080</height>
@@ -27,15 +59,12 @@
             </animation>
         </control>
 		
-		<control type="multiimage" description="Slideshow - AS 2.x">
-		    <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(Use_Artist_Slideshow) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.ArtworkReady))</visible>
+        <control type="image" description="Fanart only">
+            <visible>Skin.HasSetting(MusicPlayingFanart) + !Skin.HasSetting(SkinHelper.EnableExtraFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
             <include>Dimensions_Fullscreen</include>
-            <aspectratio aligny="top">scale</aspectratio>
-			<timeperimage>14000</timeperimage>
-            <fadetime>800</fadetime>
-            <randomize>true</randomize>
-            <loop>yes</loop>
-            <imagepath background="true">$INFO[Window(Visualisation).Property(ArtistSlideshow)]</imagepath>
+            <fadetime>400</fadetime>
+            <aspectratio>scale</aspectratio>
+            <texture background="true">$VAR[MusicNonASFanart]</texture>
             <animation effect="fade" start="0" end="80" time="300">Visible</animation>
             <animation effect="fade" start="80" end="0" time="200">Hidden</animation>
             <animation type="Conditional" condition="Visualisation.Enabled">
@@ -46,12 +75,15 @@
             </animation>
         </control>
 		
-        <control type="image" description="Fanart only">
-            <visible>Skin.HasSetting(MusicPlayingFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
+		<control type="multiimage" description="Artist Extra Fanart">
+		    <visible>Skin.HasSetting(MusicPlayingFanart) + Skin.HasSetting(SkinHelper.EnableExtraFanart) + [!Skin.HasSetting(Use_Artist_Slideshow) | String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
             <include>Dimensions_Fullscreen</include>
-            <fadetime>400</fadetime>
-            <aspectratio>scale</aspectratio>
-            <texture background="true">$VAR[MusicNonASFanart]</texture>
+            <aspectratio aligny="top">scale</aspectratio>
+			<timeperimage>8000</timeperimage>
+            <fadetime>800</fadetime>
+            <randomize>true</randomize>
+            <loop>yes</loop>
+            <imagepath background="true">$INFO[Control.GetLabel(4444)]</imagepath>
             <animation effect="fade" start="0" end="80" time="300">Visible</animation>
             <animation effect="fade" start="80" end="0" time="200">Hidden</animation>
             <animation type="Conditional" condition="Visualisation.Enabled">
