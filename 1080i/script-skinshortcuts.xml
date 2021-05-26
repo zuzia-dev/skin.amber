@@ -5,6 +5,7 @@
 	<onload>ClearProperty(skinshortcuts-Widget,Home)</onload>
 	<onunload>ClearProperty(skinshortcuts-Widget,Home)</onunload>
 	<onunload condition="!String.IsEmpty(Window(Home).Property(DefaultMenuPosition)) + Skin.HasSetting(Enable.DefaultMenu)">Skin.SetString(InitPos,$INFO[Window(Home).Property(DefaultMenuPosition)])</onunload>
+	<onunload condition="!String.IsEmpty(Window(Home).Property(InitPlusOne)) + Skin.HasSetting(Enable.DefaultMenu)">Skin.SetString(InitPosPlusOne,$INFO[Window(Home).Property(InitPlusOne)])</onunload>
 	<include>ClearWidgetNavProperties1</include>
 	<controls>
 		<control type="group">
@@ -161,11 +162,11 @@
 				<left>500</left>
 				<width>1340</width>
 				<height>60</height>
-				<onleft>211</onleft>
 				<onright>60</onright>
 				<onup>308</onup>
 				<ondown>401</ondown>
 				<orientation>horizontal</orientation>
+				<onleft>211</onleft>
 				<control type="button" id="303">
 					<description>Move up</description>
 					<texturefocus />
@@ -293,8 +294,12 @@
 					<font>ListDetails</font>
 					<onclick>ClearProperty(DefaultMenuPosition,Home)</onclick>
 					<onclick>Skin.Reset(InitPos)</onclick>
+					<onclick>Skin.Reset(InitPosPlusOne)</onclick>
 					<onclick>Skin.Reset(InitPosName)</onclick>
+					<onclick>ClearProperty(InitPlusOne,home)</onclick>
+					<onclick>ClearProperty(DefaultMenuPosition,home)</onclick>
 					<onclick>RunScript(script.embuary.helper,action=calc,do='"$INFO[Container(211).CurrentItem] - 1"',prop=DefaultMenuPosition)</onclick>
+					<onclick>SetProperty(InitPlusOne,$INFO[Container(211).CurrentItem],home)</onclick>
 					<onclick>Skin.SetString(InitPos,$INFO[Window(Home).Property(DefaultMenuPosition)])</onclick>
 					<onclick>Skin.SetString(InitPosName,$INFO[Container(211).ListItem.Label])</onclick>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True) + System.HasAddon(script.embuary.helper) + Skin.HasSetting(Enable.DefaultMenu)</visible>

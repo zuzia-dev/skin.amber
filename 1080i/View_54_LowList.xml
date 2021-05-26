@@ -400,6 +400,7 @@
 						<param name="width">295</param>
 						<param name="height">450</param>
 						<param name="texture">$VAR[Poster]</param>
+						<param name="aspect">stretch</param>
 						<param name="visibility">[Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)]</param>
 					</include>
 					<include content="ShadowedImage">
@@ -414,6 +415,7 @@
 						<param name="width">295</param>
 						<param name="height">450</param>
 						<param name="texture">$VAR[Poster]</param>
+						<param name="aspect">stretch</param>
 						<param name="visibility">Container.Content(episodes) + Skin.HasSetting(EpisodesUsePoster)</param>
 					</include>
 					<include content="ShadowedImage">
@@ -450,25 +452,99 @@
 					</control>
 					
 					<control type="group">
-					    <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
-						<control type="image">
-				            <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
-				            <posx>20</posx>
-				            <posy>-30</posy>
-				            <height>42</height>
-				            <width>42</width>
-			            </control>
-						<control type="label" description="l2">
-					        <posx>-9</posx>
-				            <posy>-25</posy>
-					        <height>30</height>
-					        <width>100</width>
-					        <font>font12_title</font>
-					        <align>center</align>
-					        <shadowcolor></shadowcolor>
-					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
-					        <textcolor>$VAR[FocusedTextColor]</textcolor>
-				        </control>
+					    <visible>Skin.HasSetting(ShowRatingOverlays) + Skin.HasSetting(AltRatingOverlayStyle) + $EXP[canShowRatingOverlay]</visible>
+						<control type="group">
+						    <visible>[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,tvshow) | 
+							          [String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(EpisodesUsePoster)]]</visible>
+						    <control type="image">
+				                <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				                <posx>20</posx>
+				                <posy>-30</posy>
+				                <height>42</height>
+				                <width>42</width>
+			                </control>
+						    <control type="label" description="l2">
+					            <posx>-9</posx>
+				                <posy>-25</posy>
+					            <height>30</height>
+					            <width>100</width>
+					            <font>font12_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					            <textcolor>$VAR[FocusedTextColor]</textcolor>
+				            </control>
+						</control>
+						<control type="group">
+				            <visible>[String.IsEqual(ListItem.DBType,episode) + !Skin.HasSetting(EpisodesUsePoster)]</visible>
+							<control type="image">
+				                <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				                <left>15</left>
+				                <top>105</top>
+				                <height>42</height>
+				                <width>42</width>
+			                </control>
+						    <control type="label" description="l2">
+					            <left>-14</left>
+				                <top>110</top>
+					            <height>30</height>
+					            <width>100</width>
+					            <font>font12_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					            <textcolor>$VAR[FocusedTextColor]</textcolor>
+				            </control>
+						</control>	
+					</control>
+					<!-- Standard style -->
+					<control type="group">
+					    <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay] + !Skin.HasSetting(AltRatingOverlayStyle)</visible>
+					    <control type="group">
+				            <visible>[String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,tvshow) | 
+							          [String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(EpisodesUsePoster)]]</visible>
+							<control type="image">
+				                <texture background="true" flipx="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightempty2.png</texture>
+				                <top>-11</top>
+				                <left>0</left>
+				                <height>102</height>
+				                <width>102</width>
+			                </control>
+					        <control type="label" description="l2">
+					            <left>-20</left>
+				                <top>-1</top>
+					            <height>40</height>
+					            <width>100</width>
+					            <font>font12_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>$VAR[ContainerRatingOverlayVar]</label>
+					            <textcolor>$VAR[HighlightColor]</textcolor>
+					            <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				            </control>
+						</control>
+                        <control type="group">
+				            <visible>[String.IsEqual(ListItem.DBType,episode) + !Skin.HasSetting(EpisodesUsePoster)]</visible>
+							<control type="image">
+				                <texture background="true" flipx="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightempty2.png</texture>
+				                <top>131</top>
+				                <left>0</left>
+				                <height>102</height>
+				                <width>102</width>
+			                </control>
+					        <control type="label" description="l2">
+					            <left>-19</left>
+				                <top>141</top>
+					            <height>40</height>
+					            <width>100</width>
+					            <font>font12_title</font>
+					            <align>center</align>
+					            <shadowcolor></shadowcolor>
+					            <label>$VAR[ContainerRatingOverlayVar]</label>
+					            <textcolor>$VAR[HighlightColor]</textcolor>
+					            <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				            </control>
+						</control>						
 					</control>
 					
 				</control>
