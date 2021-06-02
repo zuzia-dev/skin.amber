@@ -190,7 +190,7 @@
 		    <visible>!String.IsEmpty(Window.Property(gallery))</visible>
 		    <animation effect="fade" delay="200" time="300">Visible</animation>
 			<animation effect="fade" time="100">Hidden</animation>
-			<!-- Poster icon and overlay -->
+			<!-- Poster icon and overlays -->
 			<control type="group" description="Thumb">
 			    <posx>40</posx>
 			    <posy>624</posy>
@@ -205,16 +205,18 @@
 					<include>MovieFanartThumb</include>
 			    </control>
 			    <control type="image">
-				    <posx>190</posx>
-				    <posy>291</posy>
+				    <posx>230</posx>
+				    <posy>391</posy>
 				    <width>33</width>
 				    <height>33</height>
 				    <texture>$VAR[Overlay]</texture>
 				    <visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
 			    </control>
 			    <include condition="Skin.HasSetting(ShowTopRightOverlays)" content="TopRightOverlayGallery"></include>
+				<include condition="Skin.HasSetting(ShowRatingOverlays)" content="RatingOverlayGallery"></include>
 			</control>
-			<!-- Square icon, no overlay -->
+			<!-- Square icon, rating overlay if enabled -->
 			<control type="group" description="Thumb">
 			    <posx>0</posx>
 			    <posy>644</posy>
@@ -224,6 +226,9 @@
 					<include>SquareFanartThumbDimensions</include>
 					<include>SquareFanartThumb</include>
 				</control>
+				<include condition="Skin.HasSetting(ShowRatingOverlays)" content="RatingOverlayGallery">
+				    <param name="isSquare">true</param>
+				</include>
 			</control>
 			<!-- Media info -->
 		    <control type="group" description="Media info">
@@ -810,6 +815,65 @@
 					        <label>$VAR[ContainerRatingOverlayVar]</label>
 					        <textcolor>White2</textcolor>
 							<colordiffuse>$VAR[AmberFlixDimLevelVar]</colordiffuse>
+				        </control>
+					</control>
+				</control>
+			</control>
+		</definition>
+	</include>
+	
+	<include name="RatingOverlayGallery">
+	    <param name="isSquare">false</param>
+		<definition>
+			<control type="group">
+			    <visible>$EXP[canShowRatingOverlay] + !ListItem.IsParentFolder</visible>
+				<!-- Poster -->
+				<control type="group">
+				    <visible>!$PARAM[isSquare]</visible>
+					<control type="group">
+				        <control type="image">
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>1890r</posx>
+				            <posy>15</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+					    <control type="label" description="l2">
+					        <posx>1916r</posx>
+				            <posy>-379</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[HighlightColor]</textcolor>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+				        </control>
+					</control>
+				</control>
+				<!-- Square -->
+				<control type="group">
+					<visible>$PARAM[isSquare]</visible>
+					<control type="group">
+				        <control type="image">
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>1905r</posx>
+				            <posy>0</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+					    <control type="label" description="l2">
+					        <posx>1931r</posx>
+				            <posy>-386</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[HighlightColor]</textcolor>
+					        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
 				        </control>
 					</control>
 				</control>
@@ -2105,14 +2169,11 @@
 				    <visible>String.IsEmpty(Window.Property(gallery)) + Control.IsVisible(56)</visible>
     			    <animation effect="fade" start="100" end="0" time="50" delay="0" center="120,350" reversible="false">Hidden</animation>
 				    <animation effect="fade" start="0" end="100" time="450" delay="400" center="120,350" reversible="false">Visible</animation>
-				    
 					<include condition="!Skin.HasSetting(Enable.TouchSupport)">FooterInfo</include>
-					
 					<include condition="Skin.HasSetting(Enable.TouchSupport)" content="FooterInfo">
 			            <param name="width">1280</param>
 						<param name="left">280</param>
 			        </include>
-					
 			    </control>
 				
 				<include condition="Skin.HasSetting(Enable.TouchSupport)" content="TouchButtons">
