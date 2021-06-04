@@ -65,28 +65,50 @@
 				<colordiffuse>FFE2E2E2</colordiffuse>
 				<visible>!Skin.HasSetting(OSDInfo)</visible>
 			</control>
-			<control type="image" id="23">
-				<posx>30</posx>
-				<posy>25</posy>
-				<width>1305</width>
-				<height>1</height>
-				<texture>img/LineST.png</texture>
-				<visible>!Skin.HasSetting(OSDInfo)</visible>
+			<control type="group" id="20">
+			    <visible>!Skin.HasSetting(OSDInfo) + !String.IsEqual(Skin.String(OSDExtraArt),none)</visible>
+			    <control type="image" id="23">
+				    <posx>30</posx>
+				    <posy>25</posy>
+				    <width>1305</width>
+				    <height>1</height>
+				    <texture>img/LineST.png</texture>
+			    </control>
+			    <control type="textbox" description="Plot" id="1">
+				    <posx>30</posx>
+				    <posy>-110</posy>
+				    <width>1305</width>
+				    <height>120</height>
+				    <align>justify</align>
+				    <font>InfoPlot</font>
+				    <label>$VAR[VideoFullScreenPlot]</label>
+				    <autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
+			    </control>
 			</control>
-			<control type="textbox" description="Plot" id="1">
-				<posx>30</posx>
-				<posy>-110</posy>
-				<width>1305</width>
-				<height>120</height>
-				<align>justify</align>
-				<font>InfoPlot</font>
-				<label>$VAR[VideoFullScreenPlot]</label>
-				<autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
-				<visible>!Skin.HasSetting(OSDInfo)</visible>
-			</control>
-			    
+            <control type="group" id="20">
+			    <visible>!Skin.HasSetting(OSDInfo) + String.IsEqual(Skin.String(OSDExtraArt),none)</visible>
+			    <control type="image" id="23">
+				    <posx>30</posx>
+				    <posy>25</posy>
+				    <width>1845</width>
+				    <height>1</height>
+				    <texture>img/LineST.png</texture>
+			    </control>
+			    <control type="textbox" description="Plot" id="1">
+				    <posx>30</posx>
+				    <posy>-110</posy>
+				    <width>1845</width>
+				    <height>120</height>
+				    <align>justify</align>
+				    <font>InfoPlot</font>
+				    <label>$VAR[VideoFullScreenPlot]</label>
+				    <autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
+			    </control>
+			</control>			
+			
+            <!-- Art: Poster/Thumb/Icon -->			
 			<control type="group" id="1">
-			    <visible>Skin.HasSetting(enable.bottomseekbar) + !Skin.HasSetting(HidePosterOSD)</visible>
+			    <visible>Skin.HasSetting(enable.bottomseekbar) + String.IsEqual(Skin.String(OSDExtraArt),poster)</visible>
 				<control type="image" id="24">
 			        <left>459r</left>
 			        <top>-406</top>
@@ -106,7 +128,7 @@
 			    </control>
 			</control>	
 			<control type="group" id="1">
-			    <visible>!Skin.HasSetting(enable.bottomseekbar) + !Skin.HasSetting(HidePosterOSD)</visible>
+			    <visible>!Skin.HasSetting(enable.bottomseekbar) + String.IsEqual(Skin.String(OSDExtraArt),poster)</visible>
 			    <control type="image" id="24">
 			        <posx>459r</posx>
 			        <posy>666r</posy>
@@ -126,7 +148,8 @@
 			        <aspectratio align="center" aligny="bottom">keep</aspectratio>
 				    <visible>!Skin.HasSetting(enable.bottomseekbar)</visible>
 			    </control>
-			</control>	
+			</control>
+            
 			
 			<control type="label" id="26">
 				<description>Movie Info Studio</description>
@@ -229,5 +252,36 @@
 				<textcolor>grey</textcolor>
 			</control>
 		</control>
+		<!-- Art: ClearLogo, ClearArt, CharacterArt or DiscArt -->
+            <control type="group" id="1">
+			    <visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
+				<include>FullScreenExtraArt</include>
+            </control>
+			<control type="group" id="1">
+			    <visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+				<include content="FullScreenExtraArt">
+				    <param name="arttop">580</param>
+					<param name="disctop">590</param>
+					<param name="artheight">360</param>
+				</include>
+            </control>
+            <control type="group" id="1">
+			    <visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
+				<include content="FullScreenExtraArt">
+				    <param name="arttop">860</param>
+					<param name="disctop">870</param>
+					<param name="artheight">200</param>
+					<param name="characterleft">1560</param>
+					<param name="clearartleft">1420</param>
+				</include>
+            </control>
+            <control type="group" id="1">
+			    <visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+				<include content="FullScreenExtraArt">
+				    <param name="arttop">720</param>
+					<param name="disctop">730</param>
+					<param name="artheight">220</param>
+				</include>
+            </control>			
 	</controls>
 </window>

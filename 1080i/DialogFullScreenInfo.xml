@@ -20,7 +20,7 @@
 					<height>652</height>
 					<texture fallback="DefaultVideoCover.png">$VAR[VideoPlayerIcon]</texture>
 					<aspectratio align="center" aligny="bottom">keep</aspectratio>
-					<visible>!Skin.HasSetting(HidePosterOSD)</visible>
+					<visible>String.IsEqual(Skin.String(OSDExtraArt),poster)</visible>
 				</control>
 				<control type="group">
 					<left>30</left>
@@ -42,6 +42,17 @@
 						<label>$VAR[DialogFullScreenPlot]</label>
 						<font>InfoPlot</font>
 						<autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
+						<visible>!String.IsEqual(Skin.String(OSDExtraArt),none)</visible>
+					</control>
+					<control type="textbox">
+						<top>65</top>
+						<width>1845</width>
+						<height>165</height>
+						<align>justify</align>
+						<label>$VAR[DialogFullScreenPlot]</label>
+						<font>InfoPlot</font>
+						<autoscroll delay="3000" time="2000" repeat="10000">true</autoscroll>
+						<visible>String.IsEqual(Skin.String(OSDExtraArt),none)</visible>
 					</control>
 					<control type="grouplist" description="Flags">
 						<top>248</top>
@@ -102,5 +113,13 @@
 				</control>
 			</control>
 		</control>
+		<control type="group">
+		    <visible>!String.IsEqual(Skin.String(OSDExtraArt),none)</visible>
+			<include content="FullScreenExtraArt">
+			    <param name="arttop">740</param>
+				<param name="disctop">750</param>
+				<param name="artheight">320</param>
+			</include>
+        </control>
 	</controls>
 </window>
