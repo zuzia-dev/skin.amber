@@ -817,6 +817,57 @@
 			</control>
 		</definition>
 	</include>
+	
+	<include name="RightListWatchedOverlay">
+		<param name="isFocused">false</param>
+        <param name="itemheight">72</param>
+        <param name="overlaypos">535</param>
+		<param name="posy">5</param>
+		<definition>
+			<control type="group">
+				<visible>[Container.Content(files) | Container.Content(videos) | Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes) | Container.Content(addons)]</visible>
+			    <posy>$PARAM[posy]</posy>
+				<control type="image">
+				    <visible>!Container.Content(addons)</visible>
+					<posx>$PARAM[overlaypos]</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[Overlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+					<visible>!$PARAM[isFocused]</visible>
+			    </control>
+			    <control type="image">
+				    <visible>Container.Content(addons)</visible>
+				    <posx>$PARAM[overlaypos]</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[AddonOverlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+					<visible>!$PARAM[isFocused]</visible>
+			    </control>
+				<control type="image">
+				    <visible>!Container.Content(addons)</visible>
+					<posx>$PARAM[overlaypos]</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[Overlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					<visible>$PARAM[isFocused]</visible>
+			    </control>
+			    <control type="image">
+				    <visible>Container.Content(addons)</visible>
+				    <posx>$PARAM[overlaypos]</posx>
+				    <width>30</width>
+				    <height>$PARAM[itemheight]</height>
+				    <texture>$VAR[AddonOverlay]</texture>
+				    <aspectratio aligny="center">keep</aspectratio>
+					<colordiffuse>$VAR[HighlightColor]</colordiffuse>
+					<visible>$PARAM[isFocused]</visible>
+			    </control>
+			</control>
+		</definition>
+	</include>
 
     <!-- Begin Matrix change -->
 	

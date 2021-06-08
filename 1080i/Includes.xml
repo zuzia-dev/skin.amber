@@ -49,6 +49,7 @@
 	<include file="View_57_SimpleList.xml" />
 	<include file="View_58_Logo.xml" />
 	<include file="View_600_Triple.xml" />
+	<include file="View_502_RightList.xml" />
     <include file="View_PVR.xml" />
 	
 	
@@ -646,6 +647,14 @@
 				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                     <visible>Integer.IsEqual(Container(9600).NumItems,13)</visible>
                 </control>
+				<control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>818</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,14)</visible>
+                </control>
 			</control>	
 			<control type="group">
 			    <visible>Skin.HasSetting(Enable.TouchSupport)</visible>
@@ -745,6 +754,14 @@
 				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
                     <visible>Integer.IsEqual(Container(9600).NumItems,13)</visible>
                 </control>
+				<control type="image">
+                    <posy>92</posy>
+                    <width>300</width>
+                    <height>878</height>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+				    <colordiffuse>$VAR[DialogBGColor]</colordiffuse>
+                    <visible>Integer.IsEqual(Container(9600).NumItems,14)</visible>
+                </control>
 			</control>	
             <control type="group">
 			    <posx>215</posx>
@@ -776,6 +793,7 @@
 				<onright condition="control.isvisible(57)">57</onright>
 				<onright condition="control.isvisible(600)">600</onright>
 				<onright condition="control.isvisible(58)">58</onright>
+				<onright condition="control.isvisible(502)">502</onright>
                 <onup condition="Skin.HasSetting(Enable.TouchSupport)">909091</onup>
 				<onup condition="!Skin.HasSetting(Enable.TouchSupport)">9600</onup>
                 <ondown>9600</ondown>
@@ -809,6 +827,13 @@
                     <label>$LOCALIZE[32060]</label>
                     <onclick>Container.SetViewMode(501)</onclick>
                     <visible>!Skin.HasSetting(hide.talllistview)</visible>
+                </control>
+                <control type="button" id="96502">
+                    <description>Set View 502</description>
+                    <include>9000SysButtons</include>
+                    <label>$LOCALIZE[31648]</label>
+                    <onclick>Container.SetViewMode(502)</onclick>
+                    <visible>!Skin.HasSetting(hide.rightlistview) + [Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(episodes)]</visible>
                 </control>                
                 <control type="button" id="9651">
                     <description>Set View 51</description>
@@ -1438,6 +1463,79 @@
             <label>- $LOCALIZE[32361]</label>
         </control>
     </include>
+	
+	<include name="RightListViewSwitches">
+        <definition>
+            <control type="radiobutton" id="915021" description="Show large poster">
+                <visible>Control.IsVisible(502) + [Container.Content(seasons) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(movies) | Container.Content(sets)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_ShowPoster)</onclick>
+                <selected>Skin.HasSetting(502_ShowPoster)</selected>
+                <label>- $LOCALIZE[32398]</label>
+            </control>
+			<control type="radiobutton" id="915022" description="Show large logo">
+                <visible>Control.IsVisible(502) + [Container.Content(seasons) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(movies) | Container.Content(sets)]</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_ShowLogo)</onclick>
+                <selected>Skin.HasSetting(502_ShowLogo)</selected>
+                <label>- $LOCALIZE[32296]</label>
+            </control>
+			<control type="radiobutton" id="915023" description="Show floor">
+                <visible>Control.IsVisible(502)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_ShowFloor)</onclick>
+                <selected>Skin.HasSetting(502_ShowFloor)</selected>
+                <label>- $LOCALIZE[32407]</label>
+            </control>
+			<control type="button" id="915024" description="List Item Type">
+			    <height>54</height>
+                <width>484</width>
+                <font>Details</font>
+                <textoffsetx>30</textoffsetx>
+                <disabledcolor>Grey</disabledcolor>
+                <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+			    <label>- $LOCALIZE[32401]</label>
+			    <label2>$VAR[RightListItemType]</label2>
+				<onclick condition="!Skin.HasSetting(502_UseBanner) + !Skin.HasSetting(502_UseLogo)">Skin.SetBool(502_UseLogo)</onclick>
+				<onclick condition="Skin.HasSetting(502_UseLogo)">Skin.SetBool(502_UseBanner)</onclick>
+				<onclick condition="Skin.HasSetting(502_UseLogo)">Skin.Reset(502_UseLogo)</onclick>
+				<onclick condition="Skin.HasSetting(502_UseBanner)">Skin.Reset(502_UseBanner)</onclick>
+				<visible>Control.IsVisible(502) + [Container.Content(tvshows) | Container.Content(movies)]</visible>
+		    </control>
+			<control type="radiobutton" id="915025" description="Show info popup">
+                <visible>Control.IsVisible(502)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_ShowInfoPopup)</onclick>
+				<onclick condition="!Skin.HasSetting(502_ShowInfoPopup) + String.IsEmpty(RightlistInfoPopup.Delay)">Skin.SetString(RightListInfoPopup.Delay,2)</onclick>
+                <selected>Skin.HasSetting(502_ShowInfoPopup)</selected>
+                <label>- $LOCALIZE[32405]</label>
+            </control>
+			<control type="button" id="915026" description="Info Popup Delay">
+			    <height>54</height>
+                <width>484</width>
+                <font>Details</font>
+                <textoffsetx>30</textoffsetx>
+                <disabledcolor>Grey</disabledcolor>
+                <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+			    <label>   -- $LOCALIZE[32406]</label>
+			    <label2>$INFO[Skin.String(RightListInfoPopup.Delay),, $LOCALIZE[32047]]</label2>
+				<onclick>$VAR[RightListInfoPopupDelay]</onclick>
+				<visible>Control.IsVisible(502) + Skin.HasSetting(502_ShowInfoPopup)</visible>
+		    </control>
+			<control type="radiobutton" id="915027" description="Fade unfocused">
+                <visible>Control.IsVisible(502)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_FadeUnfocused)</onclick>
+                <selected>Skin.HasSetting(502_FadeUnfocused)</selected>
+                <label>- $LOCALIZE[32347]</label>
+            </control>
+        </definition>
+    </include>
 
 
     <variable name="ViewModeSwitch">
@@ -1467,6 +1565,7 @@
 		<onright condition="Control.IsVisible(57)">57</onright>
 		<onright condition="Control.IsVisible(58)">58</onright>
 		<onright condition="Control.IsVisible(600)">600</onright>
+		<onright condition="Control.IsVisible(502)">502</onright>
         <onup condition="Skin.HasSetting(Enable.TouchSupport)">909090</onup>
 		<onup condition="!Skin.HasSetting(Enable.TouchSupport)">9000</onup>
         <ondown>9000</ondown>
@@ -1483,6 +1582,7 @@
 		<onback condition="Control.IsVisible(57)">57</onback>
 		<onback condition="Control.IsVisible(58)">58</onback>
 		<onback condition="Control.IsVisible(600)">600</onback>
+		<onback condition="Control.IsVisible(502)">502</onback>
         <scrolltime>200</scrolltime>
         <orientation>vertical</orientation>
         <animation effect="fade" time="200" start="100" end="20" reversible="true" condition="[!ControlGroup(9000).HasFocus() + !Control.HasFocus(909090)]">Conditional</animation>
@@ -1545,6 +1645,8 @@
 		<include>LogoViewSwitches</include>
 		
 		<include>SimpleListViewSwitch</include>
+		
+		<include>RightListViewSwitches</include>
 
         <control type="button" id="6053">
             <include>9000SysButtons</include>
@@ -3707,7 +3809,7 @@
                     <texture border="0,30,0,0">common/viewmenu.png</texture> 
                 </control>
 			    <control type="list" id="615">
-				    <visible>[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
+				    <visible>Skin.HasSetting(Show.JumpToLetter) + Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561])]</visible>
 					<top>43</top>
 				    <width>40</width>
 				    <height>1040</height>
@@ -3861,7 +3963,7 @@
     </include>
 	
 	<include name="ViewIDs">
-        <views>50,51,511,52,53,54,55,551,56,501,57,600,58</views>
+        <views>50,51,511,52,53,54,55,551,56,501,57,600,58,502</views>
 		<defaultcontrol>50</defaultcontrol>
 		<onload>SetFocus(50)</onload>
     </include>
