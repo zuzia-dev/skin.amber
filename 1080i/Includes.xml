@@ -1466,7 +1466,18 @@
 	
 	<include name="RightListViewSwitches">
         <definition>
-            <control type="radiobutton" id="915021" description="Show large poster">
+            <control type="radiobutton" id="915021" description="Fixed list">
+                <visible>Control.IsVisible(502)</visible>
+                <font>ListDetails</font>
+                <include>9000SysButtons</include>
+                <onclick>Skin.ToggleSetting(502_FixedList)</onclick>
+		        <onclick>SetProperty(ActiveWindow,videos,home)</onclick>
+		        <onclick>SetProperty(ContainerPath,$ESCINFO[Container.FolderPath],home)</onclick>
+		        <onclick>ReplaceWindow(1140)</onclick>
+                <selected>Skin.HasSetting(502_FixedList)</selected>
+                <label>- $LOCALIZE[32408]</label>
+            </control>
+			<control type="radiobutton" id="915022" description="Show large poster">
                 <visible>Control.IsVisible(502) + [Container.Content(seasons) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(movies) | Container.Content(sets)]</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
@@ -1474,7 +1485,7 @@
                 <selected>Skin.HasSetting(502_ShowPoster)</selected>
                 <label>- $LOCALIZE[32398]</label>
             </control>
-			<control type="radiobutton" id="915022" description="Show large logo">
+			<control type="radiobutton" id="915023" description="Show large logo">
                 <visible>Control.IsVisible(502) + [Container.Content(seasons) | Container.Content(tvshows) | Container.Content(episodes) | Container.Content(movies) | Container.Content(sets)]</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
@@ -1482,7 +1493,7 @@
                 <selected>Skin.HasSetting(502_ShowLogo)</selected>
                 <label>- $LOCALIZE[32296]</label>
             </control>
-			<control type="radiobutton" id="915023" description="Show floor">
+			<control type="radiobutton" id="915024" description="Show floor">
                 <visible>Control.IsVisible(502)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
@@ -1490,7 +1501,7 @@
                 <selected>Skin.HasSetting(502_ShowFloor)</selected>
                 <label>- $LOCALIZE[32407]</label>
             </control>
-			<control type="button" id="915024" description="List Item Type">
+			<control type="button" id="915025" description="List Item Type">
 			    <height>54</height>
                 <width>484</width>
                 <font>Details</font>
@@ -1505,7 +1516,7 @@
 				<onclick condition="Skin.HasSetting(502_UseBanner)">Skin.Reset(502_UseBanner)</onclick>
 				<visible>Control.IsVisible(502) + [Container.Content(tvshows) | Container.Content(movies)]</visible>
 		    </control>
-			<control type="radiobutton" id="915025" description="Show info popup">
+			<control type="radiobutton" id="915026" description="Show info popup">
                 <visible>Control.IsVisible(502)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>
@@ -1514,7 +1525,7 @@
                 <selected>Skin.HasSetting(502_ShowInfoPopup)</selected>
                 <label>- $LOCALIZE[32405]</label>
             </control>
-			<control type="button" id="915026" description="Info Popup Delay">
+			<control type="button" id="915027" description="Info Popup Delay">
 			    <height>54</height>
                 <width>484</width>
                 <font>Details</font>
@@ -1526,7 +1537,7 @@
 				<onclick>$VAR[RightListInfoPopupDelay]</onclick>
 				<visible>Control.IsVisible(502) + Skin.HasSetting(502_ShowInfoPopup)</visible>
 		    </control>
-			<control type="radiobutton" id="915027" description="Fade unfocused">
+			<control type="radiobutton" id="915028" description="Fade unfocused">
                 <visible>Control.IsVisible(502)</visible>
                 <font>ListDetails</font>
                 <include>9000SysButtons</include>

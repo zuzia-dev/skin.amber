@@ -81,6 +81,46 @@
         <animation effect="fade" start="100" end="60" time="100" condition="Skin.HasSetting(502_FadeUnfocused)">Conditional</animation>
 	</include>
 	
+	<include name="RightListFixed">
+		<control type="fixedlist" id="502">
+			<movement>3</movement>
+			<focusposition>3</focusposition>
+			<include>502ListContent</include>
+		</control>
+	</include>
+	<include name="RightListStandard">
+		<control type="list" id="502">
+			<include>502ListContent</include>
+		</control>
+	</include>
+	
+	<include name="502ListContent">
+	    <left>580</left>
+		<top>70</top>
+		<width>1400</width>
+		<height>915</height>
+		<viewtype label="$LOCALIZE[31648]">list</viewtype>
+		<scrolltime>100</scrolltime>
+		<orientation>vertical</orientation>
+		<onup>502</onup>
+		<ondown>502</ondown>
+		<pagecontrol>6502</pagecontrol>
+        <onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
+        <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
+        <oninfo condition="ListItem.IsCollection + !String.Contains(System.BuildVersion,19.0)">ActivateWindow(1127)</oninfo>
+        <onright condition="!Control.IsVisible(615) | [Control.IsVisible(615) + Control.IsVisible(6502)]">6502</onright>
+		<onright condition="Control.IsVisible(615)">615</onright>
+		<preloaditems>2</preloaditems>
+		<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(6502)">Conditional</animation>
+		<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(615)">Conditional</animation>
+		<animation effect="slide" end="-40,-20" time="240" tween="cubic" easing="inout" condition="Container.Content(episodes)">Conditional</animation>
+		<animation effect="slide" end="0,-20" time="240" tween="cubic" easing="inout" condition="Skin.HasSetting(502_UseLogo)">Conditional</animation>
+		<visible>[$EXP[Exp_View_502] + Skin.HasSetting(Enable.NewViewSelector)] | [!Skin.HasSetting(hide.rightlistview) + !Skin.HasSetting(Enable.NewViewSelector)]</visible>
+		<include condition="Window.IsActive(music)">RightListMusicLayouts</include>
+		<include condition="!Window.IsActive(music)">RightListVideoLayouts</include>
+	</include>
+	
+	
 	
 	<!-- Info Popup -->
 	<include name="RightListInfoPopup">
@@ -997,12 +1037,13 @@
 			<visible>Control.IsVisible(502)</visible>
 			<include>ContentFade</include>
 			
+			<!-- Background overlay -->
 			<control type="image">
 			    <width>100%</width>
                 <height>100%</height>
 				<texture>img/episodebgoverlay.png</texture>
 			</control>
-			
+			<!-- Floor image -->
 			<control type="group">
 			    <visible>Skin.HasSetting(502_ShowFloor)</visible>
 			    <control type="image" description="Footer Dim BG">
@@ -1019,42 +1060,38 @@
                 </control>
 			</control>	
 			
-			<control type="fixedlist" id="502">
-				<left>580</left>
-				<top>70</top>
-				<width>1400</width>
-				<height>910</height>
-				<viewtype label="$LOCALIZE[31648]">list</viewtype>
-				<scrolltime>100</scrolltime>
-				<orientation>vertical</orientation>
-				<movement>3</movement>
-				<focusposition>4</focusposition>
-				<onup>502</onup>
-				<ondown>502</ondown>
-				<pagecontrol>6502</pagecontrol>
-                <onleft condition="!Skin.HasSetting(KioskMode.Enabled)">9000</onleft>
-                <onleft condition="Skin.HasSetting(KioskMode.Enabled)">noop</onleft>
-                <oninfo condition="ListItem.IsCollection + !String.Contains(System.BuildVersion,19.0)">ActivateWindow(1127)</oninfo>
-                <onright condition="!Control.IsVisible(615) | [Control.IsVisible(615) + Control.IsVisible(6502)]">6502</onright>
-				<onright condition="Control.IsVisible(615)">615</onright>
-				<preloaditems>2</preloaditems>
-				<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(6502)">Conditional</animation>
-				<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(615)">Conditional</animation>
-				<animation effect="slide" end="-40,-20" time="240" tween="cubic" easing="inout" condition="Container.Content(episodes)">Conditional</animation>
-<!--				<animation effect="slide" end="0,15" time="160" condition="Container(502).Row(0)">Conditional</animation>
-				<animation effect="slide" end="0,8" time="160" condition="Container(502).Row(1)">Conditional</animation>
-				<animation effect="slide" end="0,0" time="160" condition="Container(502).Row(2)">Conditional</animation>
-				<animation effect="slide" end="0,-8" time="160" condition="Container(502).Row(3)">Conditional</animation>
-				<animation effect="slide" end="0,-15" time="160" condition="Container(502).Row(4)">Conditional</animation>
-				<animation effect="slide" end="0,-22" time="160" condition="Container(502).Row(5)">Conditional</animation>
-				<animation effect="slide" end="0,-29" time="160" condition="Container(502).Row(6)">Conditional</animation>
-				<animation effect="slide" end="0,-29" time="160" condition="Container(502).Row(6) + [Skin.HasSetting(502_UseBanner) | Skin.HasSetting(502_UseLogo)] + Container.Content(tvshows)">Conditional</animation>
-				<animation effect="slide" end="0,-36" time="160" condition="Container(502).Row(7)">Conditional</animation>
-				<animation effect="slide" end="0,-43" time="160" condition="Container(502).Row(8)">Conditional</animation> -->
-				<visible>[$EXP[Exp_View_502] + Skin.HasSetting(Enable.NewViewSelector)] | [!Skin.HasSetting(hide.rightlistview) + !Skin.HasSetting(Enable.NewViewSelector)]</visible>
-				<include condition="Window.IsActive(music)">RightListMusicLayouts</include>
-				<include condition="!Window.IsActive(music)">RightListVideoLayouts</include>
+			<!-- Logo -->
+			<control type="image">
+				<left>92</left>
+				<top>50</top>
+				<width>399</width>
+				<height>142</height>
+				<aspectratio>keep</aspectratio>
+				<texture background="true">$VAR[ClearLogo]</texture>
+				<fadetime>400</fadetime>
+				<visible>![Skin.HasSetting(502_UseLogo) + Container.Content(tvshows)] + Skin.HasSetting(502_ShowLogo)</visible>
+				<animation type="Conditional" condition="Window.IsActive(music)">
+					<effect type="zoom" end="130" center="auto" time="320" tween="cubic" easing="inout" />
+					<effect type="slide" end="0,35" time="6000" />
+				</animation>
 			</control>
+			<!-- Poster -->
+			<control type="group">
+				<visible>Window.IsActive(videos)</visible>
+				<visible>Skin.HasSetting(502_ShowPoster)</visible>
+				<include content="ShadowedImage">
+					<param name="top">200</param>
+					<param name="left">49</param>
+					<param name="width">533</param>
+					<param name="height">770</param>
+					<param name="aspect">stretch</param>
+					<param name="texture">$VAR[Poster]</param>
+				</include>
+			</control>
+			
+			<!-- List content, fixed or regular -->
+			<include condition="Skin.HasSetting(502_FixedList)">RightListFixed</include>
+			<include condition="!Skin.HasSetting(502_FixedList)">RightListStandard</include>
 			
 			<control type="scrollbar" id="6502">
 			    <animation effect="slide" start="0,0" end="-8,0" time="150">Focus</animation>
@@ -1172,36 +1209,6 @@
                 <visible>Skin.HasSetting(Show.JumpToLetter) + !Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
             </control>
 
-			<!-- Logo -->
-			<control type="image">
-				<left>92</left>
-				<top>50</top>
-				<width>399</width>
-				<height>142</height>
-				<aspectratio>keep</aspectratio>
-				<texture background="true">$VAR[ClearLogo]</texture>
-				<fadetime>400</fadetime>
-				<visible>![Skin.HasSetting(502_UseLogo) + Container.Content(tvshows)] + Skin.HasSetting(502_ShowLogo)</visible>
-				<animation type="Conditional" condition="Window.IsActive(music)">
-					<effect type="zoom" end="130" center="auto" time="320" tween="cubic" easing="inout" />
-					<effect type="slide" end="0,35" time="6000" />
-				</animation>
-			</control>
-
-			<!-- Poster -->
-			<control type="group">
-				<visible>Window.IsActive(videos)</visible>
-				<visible>Skin.HasSetting(502_ShowPoster)</visible>
-				<include content="ShadowedImage">
-					<param name="top">200</param>
-					<param name="left">49</param>
-					<param name="width">533</param>
-					<param name="height">770</param>
-					<param name="aspect">stretch</param>
-					<param name="texture">$VAR[Poster]</param>
-				</include>
-			</control>
-			
 			<!-- Medial Flags & Floor labels -->
 			<include>RightListFloor</include>
 			
@@ -1470,7 +1477,7 @@
 			</control>	
 		</itemlayout>
 		<!-- Banner layout -->
-		<itemlayout width="950" height="130" condition="Skin.HasSetting(502_UseBanner) + [Container.Content(tvshows) | Container.Content(movies)]">
+		<itemlayout width="950" height="135" condition="Skin.HasSetting(502_UseBanner) + [Container.Content(tvshows) | Container.Content(movies)]">
 			<control type="image" description="BG">
     		    <posy>0</posy>
 			    <posx>430</posx>
@@ -1530,7 +1537,7 @@
 			</control>	
 		</itemlayout>
 		<!-- Clear Logo Layout -->
-		<itemlayout width="950" height="130" condition="Skin.HasSetting(502_UseLogo) + [Container.Content(tvshows) | Container.Content(movies)]">
+		<itemlayout width="950" height="135" condition="Skin.HasSetting(502_UseLogo) + [Container.Content(tvshows) | Container.Content(movies)]">
 			<control type="image" description="BG">
     		    <posy>0</posy>
 			    <posx>430</posx>
