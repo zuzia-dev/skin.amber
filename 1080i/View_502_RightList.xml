@@ -1021,9 +1021,9 @@
 			
 			<control type="fixedlist" id="502">
 				<left>580</left>
-				<top>80</top>
+				<top>70</top>
 				<width>1400</width>
-				<height>895</height>
+				<height>910</height>
 				<viewtype label="$LOCALIZE[31648]">list</viewtype>
 				<scrolltime>100</scrolltime>
 				<orientation>vertical</orientation>
@@ -1040,7 +1040,7 @@
 				<preloaditems>2</preloaditems>
 				<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(6502)">Conditional</animation>
 				<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Control.HasFocus(615)">Conditional</animation>
-				<animation effect="slide" end="-40,0" time="240" tween="cubic" easing="inout" condition="Container.Content(episodes)">Conditional</animation>
+				<animation effect="slide" end="-40,-20" time="240" tween="cubic" easing="inout" condition="Container.Content(episodes)">Conditional</animation>
 <!--				<animation effect="slide" end="0,15" time="160" condition="Container(502).Row(0)">Conditional</animation>
 				<animation effect="slide" end="0,8" time="160" condition="Container(502).Row(1)">Conditional</animation>
 				<animation effect="slide" end="0,0" time="160" condition="Container(502).Row(2)">Conditional</animation>
@@ -1383,47 +1383,90 @@
 			        <height>95</height>
 			        <texture flipy="true" border="3">list/ListNF.png</texture>
 			    </control>
-			    <control type="label">
-				    <left>300</left>
-				    <width>970</width>
-				    <height>45</height>
-				    <align>right</align>
-				    <label>$INFO[ListItem.Title]</label>
-				    <textcolor>$VAR[HighlightColor]</textcolor>
-			    </control>
-			    <control type="label">
-				    <left>310</left>
-				    <top>50</top>
-				    <width>958</width>
-				    <height>45</height>
-				    <align>right</align>
-				    <aligny>bottom</aligny>
-				    <font>ListDetails</font>
-				    <label>$INFO[ListItem.Premiered]$INFO[ListItem.Rating, • ]</label>
-			    </control>
+			    <control type="group">
+				    <visible>!Integer.IsGreater(ListItem.Episode,99)</visible>
+					<control type="label">
+				        <left>300</left>
+				        <width>970</width>
+				        <height>45</height>
+				        <align>right</align>
+				        <label>$INFO[ListItem.Title]</label>
+				        <textcolor>$VAR[HighlightColor]</textcolor>
+			        </control>
+			        <control type="label">
+				        <left>310</left>
+				        <top>50</top>
+				        <width>958</width>
+				        <height>45</height>
+				        <align>right</align>
+				        <aligny>bottom</aligny>
+				        <font>ListDetails</font>
+				        <label>$INFO[ListItem.Premiered]$INFO[ListItem.Rating, • ]</label>
+			        </control>
+				</control>
+                <control type="group">
+				    <visible>Integer.IsGreater(ListItem.Episode,99)</visible>
+					<control type="label">
+				        <left>280</left>
+				        <width>970</width>
+				        <height>45</height>
+				        <align>right</align>
+				        <label>$INFO[ListItem.Title]</label>
+				        <textcolor>$VAR[HighlightColor]</textcolor>
+			        </control>
+			        <control type="label">
+				        <left>290</left>
+				        <top>50</top>
+				        <width>958</width>
+				        <height>45</height>
+				        <align>right</align>
+				        <aligny>bottom</aligny>
+				        <font>ListDetails</font>
+				        <label>$INFO[ListItem.Premiered]$INFO[ListItem.Rating, • ]</label>
+			        </control>
+				</control>				
 			    <control type="group">
 			        <animation type="Conditional" condition="String.IsEqual(ListItem.Overlay,OverlayWatched.png)">
 					    <effect type="fade" end="30" time="0" easing="in" tween="cubic" />
 				    </animation>
+					<visible>!Integer.IsGreater(ListItem.Episode,99)</visible>
 				    <include content="RightListWatchedOverlay">
 			            <param name="isFocused">false</param>
                         <param name="itemheight">42</param>
-                        <param name="overlaypos">1330</param>
+                        <param name="overlaypos">1335</param>
 				        <param name="posy">25</param>
 			        </include>
-			    </control>
-			    <control type="label">
-				    <left>1262</left>
-				    <top>25</top>
-				    <width>80</width>
-				    <height>45</height>
-				    <align>center</align>
-				    <label>$INFO[ListItem.Episode]</label>
-				    <font>font38_title</font>
-				    <animation type="Conditional" condition="String.IsEqual(ListItem.Overlay,OverlayWatched.png)">
+			        <control type="label">
+				        <left>1262</left>
+				        <top>25</top>
+				        <width>80</width>
+				        <height>45</height>
+				        <align>center</align>
+				        <label>$INFO[ListItem.Episode]</label>
+				        <font>font38_title</font>
+			        </control>
+				</control>
+                <control type="group">
+			        <animation type="Conditional" condition="String.IsEqual(ListItem.Overlay,OverlayWatched.png)">
 					    <effect type="fade" end="30" time="0" easing="in" tween="cubic" />
 				    </animation>
-			    </control>
+					<visible>Integer.IsGreater(ListItem.Episode,99)</visible>
+				    <include content="RightListWatchedOverlay">
+			            <param name="isFocused">false</param>
+                        <param name="itemheight">42</param>
+                        <param name="overlaypos">1335</param>
+				        <param name="posy">25</param>
+			        </include>
+			        <control type="label">
+				        <left>1252</left>
+				        <top>25</top>
+				        <width>80</width>
+				        <height>45</height>
+				        <align>center</align>
+				        <label>$INFO[ListItem.Episode]</label>
+				        <font>font38_title</font>
+			        </control>
+				</control>				
 			</control>	
 		</itemlayout>
 		<!-- Banner layout -->
@@ -1549,6 +1592,7 @@
 			    </include>
 			</control>	
 		</itemlayout>
+		
 		<!-- Focused layout for movies, tv shows, seasons -->
 		<focusedlayout width="950" height="246" condition="Container.Content(movies) | Container.Content(tvshows) | Container.Content(seasons)">
 			<include content="RightListWatchedOverlay">
@@ -1640,24 +1684,48 @@
                 <param name="overlaypos">1340</param>
 			    <param name="posy">90</param>
 			</include>
-			<include content="ShadowedImage">
-				<param name="top">11</param>
-				<param name="left">891</param>
-				<param name="width">396</param>
-				<param name="height">226</param>
-				<param name="aspect">keep</param>
-				<param name="texture">$VAR[Thumb]</param>
-				<param name="visibility">!ListItem.IsParentFolder</param>
-			</include>
-			<include content="ShadowedImage">
-				<param name="top">11</param>
-				<param name="left">891</param>
-				<param name="width">396</param>
-				<param name="height">226</param>
-				<param name="aspect">keep</param>
-				<param name="texture">DefaultEpisodeBack.png</param>
-				<param name="visibility">ListItem.IsParentFolder</param>
-			</include>
+			<control type="group">
+			    <visible>!Integer.IsGreater(ListItem.Episode,99)</visible>
+			    <include content="ShadowedImage">
+				    <param name="top">11</param>
+				    <param name="left">879</param>
+				    <param name="width">396</param>
+				    <param name="height">226</param>
+				    <param name="aspect">keep</param>
+				    <param name="texture">$VAR[Thumb]</param>
+				    <param name="visibility">!ListItem.IsParentFolder</param>
+			    </include>
+			    <include content="ShadowedImage">
+				    <param name="top">11</param>
+				    <param name="left">879</param>
+				    <param name="width">396</param>
+				    <param name="height">226</param>
+				    <param name="aspect">keep</param>
+				    <param name="texture">DefaultEpisodeBack.png</param>
+				    <param name="visibility">ListItem.IsParentFolder</param>
+			    </include>
+			</control>
+            <control type="group">
+			    <visible>Integer.IsGreater(ListItem.Episode,99)</visible>
+			    <include content="ShadowedImage">
+				    <param name="top">11</param>
+				    <param name="left">861</param>
+				    <param name="width">396</param>
+				    <param name="height">226</param>
+				    <param name="aspect">keep</param>
+				    <param name="texture">$VAR[Thumb]</param>
+				    <param name="visibility">!ListItem.IsParentFolder</param>
+			    </include>
+			    <include content="ShadowedImage">
+				    <param name="top">11</param>
+				    <param name="left">861</param>
+				    <param name="width">396</param>
+				    <param name="height">226</param>
+				    <param name="aspect">keep</param>
+				    <param name="texture">DefaultEpisodeBack.png</param>
+				    <param name="visibility">ListItem.IsParentFolder</param>
+			    </include>
+			</control>			
 			<control type="label">
 				<left>1270</left>
 				<top>90</top>
@@ -1667,44 +1735,94 @@
 				<label>$INFO[ListItem.Episode]</label>
 				<font>font38_title</font>
 				<textcolor>$VAR[HighlightColor]</textcolor>
-				<visible>Container.Content(episodes)</visible>
+				<visible>!Integer.IsGreater(ListItem.Episode,99)</visible>
+			</control>
+			<control type="label">
+				<left>1260</left>
+				<top>90</top>
+				<width>80</width>
+				<height>45</height>
+				<align>center</align>
+				<label>$INFO[ListItem.Episode]</label>
+				<font>font38_title</font>
+				<textcolor>$VAR[HighlightColor]</textcolor>
+				<visible>Integer.IsGreater(ListItem.Episode,99)</visible>
 			</control>
 			<control type="group">
-				<left>50</left>
 				<animation type="Conditional" reversible="false" condition="Control.HasFocus(502) + [!Container(502).OnNext + !Container(502).OnPrevious]">
 					<effect type="fade" end="100" time="160" />
 				</animation>
-				<control type="label">
-					<left>13</left>
-					<top>22</top>
-					<width>825</width>
-					<align>right</align>
-					<aligny>bottom</aligny>
-					<label>$INFO[ListItem.Title]</label>
-					<font>font30_title</font>
-					<textcolor>$VAR[HighlightColor]</textcolor>
-					<scrollspeed>40</scrollspeed>
-					<visible>!String.IsEmpty(ListItem.Title)</visible>
+				<control type="group">
+				    <left>38</left>
+					<visible>!Integer.IsGreater(ListItem.Episode,99)</visible>
+				    <control type="label">
+					    <left>13</left>
+					    <top>22</top>
+					    <width>825</width>
+					    <align>right</align>
+					    <aligny>bottom</aligny>
+					    <label>$INFO[ListItem.Title]</label>
+					    <font>font30_title</font>
+					    <textcolor>$VAR[HighlightColor]</textcolor>
+					    <scrollspeed>40</scrollspeed>
+					    <visible>!String.IsEmpty(ListItem.Title)</visible>
+				    </control>
+				    <control type="label">
+					    <left>-112</left>
+					    <top>70</top>
+					    <width>950</width>
+					    <height>90</height>
+					    <align>right</align>
+					    <aligny>bottom</aligny>
+					    <label>$INFO[ListItem.Date]$INFO[ListItem.Rating, • ]</label>
+					    <visible>!String.IsEmpty(ListItem.Title)</visible>
+				    </control>
+				    <control type="textbox">
+					    <left>199</left>
+					    <top>122</top>
+					    <width>640</width>
+					    <height>122</height>
+					    <align>right</align>
+					    <font>InfoPlot</font>
+					    <label>$VAR[Plots]</label>
+					    <autoscroll time="2000" delay="6000" repeat="6000">Skin.HasSetting(AutoScroll)</autoscroll>
+				    </control>
 				</control>
-				<control type="label">
-					<left>-112</left>
-					<top>70</top>
-					<width>950</width>
-					<height>90</height>
-					<align>right</align>
-					<aligny>bottom</aligny>
-					<label>$INFO[ListItem.Date]$INFO[ListItem.Rating, • ]</label>
-					<visible>!String.IsEmpty(ListItem.Title)</visible>
-				</control>
-				<control type="textbox">
-					<left>199</left>
-					<top>122</top>
-					<width>640</width>
-					<height>122</height>
-					<align>right</align>
-					<font>InfoPlot</font>
-					<label>$VAR[Plots]</label>
-					<autoscroll time="2000" delay="6000" repeat="6000">Skin.HasSetting(AutoScroll)</autoscroll>
+				<control type="group">
+				    <left>20</left>
+					<visible>Integer.IsGreater(ListItem.Episode,99)</visible>
+				    <control type="label">
+					    <left>13</left>
+					    <top>22</top>
+					    <width>825</width>
+					    <align>right</align>
+					    <aligny>bottom</aligny>
+					    <label>$INFO[ListItem.Title]</label>
+					    <font>font30_title</font>
+					    <textcolor>$VAR[HighlightColor]</textcolor>
+					    <scrollspeed>40</scrollspeed>
+					    <visible>!String.IsEmpty(ListItem.Title)</visible>
+				    </control>
+				    <control type="label">
+					    <left>-112</left>
+					    <top>70</top>
+					    <width>950</width>
+					    <height>90</height>
+					    <align>right</align>
+					    <aligny>bottom</aligny>
+					    <label>$INFO[ListItem.Date]$INFO[ListItem.Rating, • ]</label>
+					    <visible>!String.IsEmpty(ListItem.Title)</visible>
+				    </control>
+				    <control type="textbox">
+					    <left>199</left>
+					    <top>122</top>
+					    <width>640</width>
+					    <height>122</height>
+					    <align>right</align>
+					    <font>InfoPlot</font>
+					    <label>$VAR[Plots]</label>
+					    <autoscroll time="2000" delay="6000" repeat="6000">Skin.HasSetting(AutoScroll)</autoscroll>
+				    </control>
 				</control>
 			</control>
 		</focusedlayout>
