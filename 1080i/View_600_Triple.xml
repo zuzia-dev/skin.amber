@@ -100,6 +100,55 @@
 			</control>
 		</control>
 	</include>
+	
+	<include name="TripleRatingOverlay">
+	    <param name="isFocused">false</param>
+		<definition>
+			<control type="group">
+			    <visible>$EXP[canShowRatingOverlay] + !ListItem.IsParentFolder + Container.Content(tvshows)</visible>
+			    <control type="image">
+		            <visible>!$PARAM[isFocused]</visible>
+		            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+		            <posx>422r</posx>
+		            <posy>0</posy>
+		            <height>82</height>
+		            <width>82</width>
+	            </control>
+		        <control type="image">
+		            <visible>$PARAM[isFocused]</visible>
+		            <texture background="true" flipx="true" colordiffuse="$VAR[HighlightColor]">overlays/toprightempty2.png</texture>
+		            <posx>422r</posx>
+		            <posy>12</posy>
+		            <height>82</height>
+		            <width>82</width>
+	            </control>
+			    <control type="label" description="l2">
+			        <visible>$PARAM[isFocused]</visible>
+			        <posx>447r</posx>
+		            <posy>-185</posy>
+			        <height>$PARAM[itemheight]</height>
+			        <width>100</width>
+			        <font>ListDetailsSmall</font>
+			        <align>center</align>
+			        <shadowcolor></shadowcolor>
+			        <label>$VAR[RatingOverlayVar]</label>
+			        <textcolor>$VAR[HighlightColor]</textcolor>
+			        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+		        </control>
+		        <control type="label" description="l2">
+			        <visible>!$PARAM[isFocused]</visible>
+			        <posx>447r</posx>
+		            <posy>-195</posy>
+			        <height>$PARAM[itemheight]</height>
+			        <width>100</width>
+			        <font>ListDetailsSmall</font>
+			        <align>center</align>
+			        <label>$VAR[RatingOverlayVar]</label>
+			        <textcolor>White2</textcolor>
+		        </control>
+			</control>
+		</definition>
+	</include>
 
     <include name="View_600_Triple">
         <control type="group" description="Triple view">
@@ -234,6 +283,9 @@
 								<font>ListDetails</font>
 								<shadowcolor>black</shadowcolor>
 							</control>
+							<include content="TripleRatingOverlay">
+							    <param name="isFocused">false</param>
+							</include>
 							<control type="image">
 								<visible>!Control.HasFocus(600)</visible>
 								<colordiffuse>65000000</colordiffuse>
@@ -332,6 +384,9 @@
 								<shadowcolor>black</shadowcolor>
 							</control>
 					    </control>
+						<include content="TripleRatingOverlay">
+						    <param name="isFocused">true</param>
+						</include>
 						<include>TripleTopRightOverlay</include>
 				    </focusedlayout>
                 </control>
