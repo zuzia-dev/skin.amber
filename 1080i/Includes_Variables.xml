@@ -92,8 +92,17 @@
     </variable>
 
     <variable name="VideoPlayerTitle">
-        <value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Title,[B],[/B]]$INFO[VideoPlayer.Year, (,)]</value>
+        <value condition="Player.HasAudio">[B]$INFO[MusicPlayer.TrackNumber,,: ]$INFO[Player.Title][/B]</value>
+		<value condition="VideoPlayer.Content(Movies) + !Skin.HasSetting(UseCompactOSD)">$INFO[VideoPlayer.Title,[B],[/B]]$INFO[VideoPlayer.Year, (,)]</value>
         <value>$INFO[VideoPlayer.Title,[B],[/B]]</value>
+    </variable>
+	
+	<variable name="VideoPlayerSecondLine">
+        <value condition="Player.HasAudio">$INFO[MusicPlayer.Artist][COLOR=$VAR[HighlightColor]]  •  [/COLOR]$INFO[MusicPlayer.Album][COLOR=$VAR[HighlightColor]]  •  [/COLOR]$INFO[MusicPlayer.Year]</value>
+		<value condition="VideoPlayer.Content(Movies) + !String.IsEmpty(VideoPlayer.MPAA)">$INFO[VideoPlayer.Year][COLOR=$VAR[HighlightColor]]  •  [/COLOR]$INFO[VideoPlayer.MPAA]</value>
+		<value condition="VideoPlayer.Content(Movies) + String.IsEmpty(VideoPlayer.MPAA)">$INFO[VideoPlayer.Year]</value>
+        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Premiered)">$INFO[VideoPlayer.TVShowtitle][COLOR=$VAR[HighlightColor]]  •  [/COLOR]S$INFO[VideoPlayer.Season]E$INFO[VideoPlayer.Episode][COLOR=$VAR[HighlightColor]]  •  [/COLOR]$INFO[VideoPlayer.Premiered]</value>
+		<value condition="VideoPlayer.Content(episodes) + String.IsEmpty(VideoPlayer.Premiered)">$INFO[VideoPlayer.TVShowtitle][COLOR=$VAR[HighlightColor]]  •  [/COLOR]S$INFO[VideoPlayer.Season]E$INFO[VideoPlayer.Episode]</value>
     </variable>
 
     <variable name="MusicInfoHeader" description="Header for MusicInfo window">

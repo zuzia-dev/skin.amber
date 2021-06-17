@@ -13,6 +13,10 @@
 									 [String.IsEqual(Skin.String(OSDExtraArt),characterart) + String.IsEmpty(Player.Art(tvshow.characterart)) + String.IsEmpty(Player.Art(tvshow.clearart)) + 
 									  String.IsEmpty(Player.Art(clearart)) + String.IsEmpty(Player.Art(clearlogo)) + String.IsEmpty(Player.Art(tvshow.clearlogo))]]]</expression>
 
+	
+	<expression name="showCompactSeekBar">Skin.HasSetting(UseCompactOSD) + [Window.IsVisible(VideoOSD) | Window.IsVisible(MusicOSD)]</expression>
+	
+	
 	<include name="TopSeekBar">
 	    <posy>0</posy>
 	</include>
@@ -86,6 +90,25 @@
 			<content>plugin://service.library.data.provider?type=$VAR[VideoOSDInfoButtonListType]&amp;dbid=$INFO[VideoPlayer.DBID]&amp;dbtype=$VAR[VideoOSDInfoButtonListType]</content>
 		</control>
 	</include>
+	
+	<include name="OSDButtons">
+        <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioonfocus>
+        <textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
+        <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioofffocus>
+        <textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
+        <textureradioondisabled colordiffuse="Disabled">$PARAM[icon]</textureradioondisabled>
+        <textureradiooffdisabled colordiffuse="Disabled">$PARAM[icon]</textureradiooffdisabled>
+        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+        <width>64</width>
+        <height>64</height>
+        <radiowidth>64</radiowidth>
+        <radioheight>64</radioheight>
+        <font></font>
+        <texturenofocus></texturenofocus>
+        <radioposx>0.1</radioposx>
+        <radioposy>0</radioposy>
+        <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+    </include>
 	
 	<include name="FullScreenExtraArt">
 	    <param name="logoleft">1400</param>
@@ -268,6 +291,1352 @@
             </control>
     		
 		</definition>
+	</include>
+	
+	<include name="StandardOSDButtons">
+	    <!-- OSD Buttons -->
+		<control type="group">
+			
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDButtons</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularOSDButtons</include>
+				
+			<control type="grouplist" id="100">
+			    <left>30</left>
+			    <height>64</height>
+			    <width>1305</width>
+			    <align>right</align>
+			    <onup>101</onup>
+			    <ondown>101</ondown>
+			    <onleft>101</onleft>
+			    <onright>101</onright>
+			    <orientation>horizontal</orientation>
+			    <animation effect="fade" time="150">VisibleChange</animation>
+			    <control type="button" id="655">
+				    <visible>VideoPlayer.IsStereoscopic</visible>
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDStereoscopicNF.png</param>
+				    </include>
+				    <onup>1200</onup>
+				    <ondown>101</ondown>
+				    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="656">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDSubtitlesNF.png</param>
+				    </include>
+				    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
+				    <ondown>101</ondown>
+				    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
+				    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
+					<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="606">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelsNF.png</param>
+				    </include>
+				    <ondown>101</ondown>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+				    <onclick>ActivateWindow(PVROSDChannels)</onclick>
+				    <onclick>Dialog.Close(VideoOSD)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="607">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDEpgNF.png</param>
+				    </include>
+				    <ondown>101</ondown>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>ActivateWindow(PVRChannelGuide)</onclick>
+				    <onclick>Dialog.Close(VideoOSD)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="650">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDTeletextNF.png</param>
+				    </include>
+				    <ondown>101</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>Dialog.Close(VideoOSD)</onclick>
+				    <onclick>ActivateWindow(Teletext)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="660">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDBookmarksNF.png</param>
+				    </include>
+				    <ondown>101</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>ActivateWindow(VideoBookmarks)</onclick>
+				    <visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="701">
+    				<include content="OSDButtons">
+	    				<param name="icon">OSD/OSDInfoNF.png</param>
+		    		</include>
+			   		<ondown>101</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick condition="!Skin.HasSetting(InfoOpensVideoInfo) | String.IsEmpty(VideoPlayer.DBID)">Skin.ToggleSetting(OSDInfo)</onclick>
+				    <!-- If setting enabled, set focus to hidden list from library data provider to be able to open video info dialog -->
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">SetProperty(OSDinfodialogButtonActive,True,home)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID) + Skin.HasSetting(PauseOnVideoInfo) + !Player.Paused">PlayerControl(Play)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">SetFocus(43260)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">Action(Info)</onclick>
+					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="659">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDOptionsNF.png</param>
+				    </include>
+				    <onup>1010</onup>
+				    <ondown>101</ondown>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+					<onfocus>ClearProperty(PopupMenu2Active,Home)</onfocus>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>SetProperty(PopupMenu2Active,Yes,Home)</onclick>
+			        <onclick>SetFocus(1010)</onclick>
+			    </control>
+			</control>
+			<control type="grouplist" id="101">
+			    <top>74</top>
+			    <left>30</left>
+			    <height>98</height>
+			    <width>1305</width>
+			    <align>right</align>
+			    <onup>100</onup>
+			    <ondown>Close</ondown>
+			    <orientation>horizontal</orientation>
+			    <animation effect="fade" time="150">VisibleChange</animation>
+			    <control type="radiobutton" id="300">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelDownNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Previous)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="301">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelUpNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Next)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="600">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDPreviousNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Previous)</onclick>
+				    <visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="601">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDRWNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+				    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Rewind)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="602">
+				    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPlayNF.png</textureradioonfocus>
+				    <textureradioonnofocus>OSD/OSDPlayNF.png</textureradioonnofocus>
+				    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPauseNF.png</textureradioofffocus>
+				    <textureradiooffnofocus>OSD/OSDPauseNF.png</textureradiooffnofocus>
+				    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+				    <width>64</width>
+				    <height>64</height>
+				    <radiowidth>64</radiowidth>
+				    <radioheight>64</radioheight>
+				    <font></font>
+				    <texturenofocus></texturenofocus>
+				    <radioposx>0.1</radioposx>
+				    <radioposy>0</radioposy>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+				    <selected>[Player.Paused | Player.Rewinding | Player.Forwarding]</selected>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Play)</onclick>
+				    <visible>Player.PauseEnabled</visible>
+			    </control>
+			    <control type="radiobutton" id="603">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDStopNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Stop)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="604">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDFWNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+				    <enable>Player.SeekEnabled</enable>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Forward)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="605">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDNextNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+				    <onclick>PlayerControl(Next)</onclick>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="661">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDDvdNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(ShowVideoMenu)</onclick>
+				    <visible>!VideoPlayer.Content(livetv) + VideoPlayer.HasMenu</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="700">
+				    <visible>PVR.CanRecordPlayingChannel</visible>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDRecordNF.png</param>
+				    </include>
+				    <onup>100</onup>
+				    <ondown>Close</ondown>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PVR.ToggleRecordPlayingChannel</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			</control>
+		</control>
+		<!-- Menu popups -->	
+		<control type="group">
+			    
+			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerOSDPopups</include>
+		    <include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularOSDPopups</include>
+				
+			<control type="group" id="1000">
+			    <height>74</height>
+			    <width>535</width>
+			    <left>840</left>
+				<visible>!String.IsEmpty(Window(Home).Property(PopupMenu2Active))</visible>
+                   <control type="button">
+			        <description>Hidden button to close the popup when you click outside it</description>
+			        <posx>0</posx>
+			        <posy>0</posy>
+			        <width>1920</width>
+			        <height>960</height>
+			        <texturenofocus></texturenofocus>
+			        <texturefocus></texturefocus>
+			        <onclick>ClearProperty(PopupMenu2Active,Home)</onclick>
+		        </control>
+			    <control type="grouplist" id="1010">
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>659</onleft>
+				    <onright>659</onright>
+				    <onup>659</onup>
+				    <ondown>659</ondown>
+				    <orientation>vertical</orientation>
+				    <align>right</align>
+				    <control type="button" id="1011">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[13396]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdaudiosettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1012">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[13395]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdvideosettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1015">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[36560]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdcmssettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+					    <visible>System.HasCMS</visible>
+				    </control>
+				    <control type="button" id="1014">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[31133]</label>
+					    <label2>$INFO[VideoPlayer.AudioLanguage,[COLOR=Hghlight],[/COLOR]]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>AudioNextLanguage</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+		    <control type="group" id="1100">
+			    <left>830</left>
+				<visible>!String.IsEmpty(Window(Home).Property(PopupMenuActive))</visible>
+                   <control type="button">
+			        <description>Hidden button to close the popup when you click outside it</description>
+			        <posx>0</posx>
+			        <posy>0</posy>
+			        <width>1920</width>
+			        <height>960</height>
+			        <texturenofocus></texturenofocus>
+			        <texturefocus></texturefocus>
+			        <onclick>ClearProperty(PopupMenuActive,Home)</onclick>
+		        </control>
+				<control type="grouplist" id="1110">
+				    <align>right</align>
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>656</onleft>
+				    <onright>656</onright>
+				    <onup>656</onup>
+				    <ondown>656</ondown>
+				    <orientation>vertical</orientation>
+				    <control type="button" id="1111">
+					    <description>Download with Subtitles script</description>
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[33003]</label>
+					    <onclick>Close</onclick>
+					    <onclick>Dialog.Close(VideoOSD)</onclick>
+					    <onclick>ActivateWindow(SubtitleSearch)</onclick>
+					    <enable>!VideoPlayer.Content(livetv)</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1112">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[22006]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>SubtitleDelay</onclick>
+					    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1113">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[32004]</label>
+					    <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[VideoPlayer.SubtitlesLanguage][/COLOR]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>CycleSubtitle</onclick>
+					    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="radiobutton" id="1114">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[449]</label>
+					    <radioposx>380</radioposx>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ShowSubtitles</onclick>
+					    <selected>VideoPlayer.SubtitlesEnabled + VideoPlayer.HasSubtitles</selected>
+					    <enable>VideoPlayer.HasSubtitles</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+			<control type="group" id="1200">
+			    <left>830</left>
+			    <visible>Control.HasFocus(655) | ControlGroup(1210).HasFocus</visible>
+			    <control type="grouplist" id="1210">
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>655</onleft>
+				    <onright>655</onright>
+				    <onup>655</onup>
+				    <ondown>655</ondown>
+				    <align>right</align>
+				    <orientation>vertical</orientation>
+				    <control type="radiobutton" id="1211">
+					    <height>80</height>
+					    <width>470</width>
+					    <radioposx>380</radioposx>
+					    <label>$LOCALIZE[24022]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ToggleStereoMode</onclick>
+					    <selected>Integer.IsGreater(System.StereoscopicMode,0)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1212">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[31135]</label>
+					    <label2>$INFO[VideoPlayer.StereoscopicMode]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>StereoMode</onclick>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="radiobutton" id="1213">
+					    <height>80</height>
+					    <width>470</width>
+					    <radioposx>380</radioposx>
+					    <label>$LOCALIZE[31136]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>StereoModeToMono</onclick>
+					    <selected>Integer.IsEqual(System.StereoscopicMode,9)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+		</control>
+	</include>
+	
+	<include name="CompactOSDButtons">
+	    <!-- OSD Buttons -->
+		<control type="group">
+			<top>1000</top>
+			<control type="grouplist" id="101">
+			    <left>280</left>
+			    <height>98</height>
+			    <width>440</width>
+			    <align>left</align>
+			    <onup>101</onup>
+			    <ondown>Close</ondown>
+			    <onleft>102</onleft>
+			    <onright>102</onright>
+			    <orientation>horizontal</orientation>
+			    <animation effect="fade" time="150">VisibleChange</animation>
+				<control type="radiobutton" id="300">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelDownNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Previous)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="301">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelUpNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Next)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="600">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDPreviousNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Previous)</onclick>
+				    <visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="601">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDRWNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+				    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Rewind)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="602">
+				    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPlayNF.png</textureradioonfocus>
+				    <textureradioonnofocus>OSD/OSDPlayNF.png</textureradioonnofocus>
+				    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPauseNF.png</textureradioofffocus>
+				    <textureradiooffnofocus>OSD/OSDPauseNF.png</textureradiooffnofocus>
+				    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+				    <width>64</width>
+				    <height>64</height>
+				    <radiowidth>64</radiowidth>
+				    <radioheight>64</radioheight>
+				    <font></font>
+				    <texturenofocus></texturenofocus>
+				    <radioposx>0.1</radioposx>
+				    <radioposy>0</radioposy>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+				    <selected>[Player.Paused | Player.Rewinding | Player.Forwarding]</selected>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Play)</onclick>
+				    <visible>Player.PauseEnabled</visible>
+			    </control>
+			    <control type="radiobutton" id="603">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDStopNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Stop)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="604">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDFWNF.png</param>
+				    </include>
+				    <enable>Player.SeekEnabled</enable>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(Forward)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="605">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDNextNF.png</param>
+				    </include>
+				    <onclick>PlayerControl(Next)</onclick>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="661">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDDvdNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PlayerControl(ShowVideoMenu)</onclick>
+				    <visible>!VideoPlayer.Content(livetv) + VideoPlayer.HasMenu</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="700">
+				    <visible>PVR.CanRecordPlayingChannel</visible>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDRecordNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>PVR.ToggleRecordPlayingChannel</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			</control>	
+			<control type="grouplist" id="102">
+			    <left>860</left>
+			    <height>98</height>
+			    <width>440</width>
+			    <align>right</align>
+			    <onup>102</onup>
+			    <ondown>Close</ondown>
+			    <onleft>101</onleft>
+			    <onright>101</onright>
+			    <orientation>horizontal</orientation>
+			    <animation effect="fade" time="150">VisibleChange</animation>
+			    <control type="button" id="655">
+				    <visible>VideoPlayer.IsStereoscopic</visible>
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDStereoscopicNF.png</param>
+				    </include>
+				    <onup>1200</onup>
+				    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="656">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDSubtitlesNF.png</param>
+				    </include>
+				    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
+				    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
+				    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
+					<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="606">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDChannelsNF.png</param>
+				    </include>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+				    <onclick>ActivateWindow(PVROSDChannels)</onclick>
+				    <onclick>Dialog.Close(VideoOSD)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="607">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDEpgNF.png</param>
+				    </include>
+                    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>ActivateWindow(PVRChannelGuide)</onclick>
+				    <onclick>Dialog.Close(VideoOSD)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="650">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDTeletextNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>Dialog.Close(VideoOSD)</onclick>
+				    <onclick>ActivateWindow(Teletext)</onclick>
+				    <visible>VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="660">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDBookmarksNF.png</param>
+				    </include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>ActivateWindow(VideoBookmarks)</onclick>
+				    <visible>!VideoPlayer.Content(livetv)</visible>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="701">
+    				<include content="OSDButtons">
+	    				<param name="icon">OSD/OSDInfoNF.png</param>
+		    		</include>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick condition="!Skin.HasSetting(InfoOpensVideoInfo) | String.IsEmpty(VideoPlayer.DBID)">Skin.ToggleSetting(OSDInfo)</onclick>
+				    <!-- If setting enabled, set focus to hidden list from library data provider to be able to open video info dialog -->
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">SetProperty(OSDinfodialogButtonActive,True,home)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID) + Skin.HasSetting(PauseOnVideoInfo) + !Player.Paused">PlayerControl(Play)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">SetFocus(43260)</onclick>
+			        <onclick condition="Skin.HasSetting(InfoOpensVideoInfo) + !String.IsEmpty(VideoPlayer.DBID)">Action(Info)</onclick>
+					<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			    </control>
+			    <control type="radiobutton" id="659">
+				    <include content="OSDButtons">
+					    <param name="icon">OSD/OSDOptionsNF.png</param>
+				    </include>
+				    <onup>1010</onup>
+				    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+					<onfocus>ClearProperty(PopupMenu2Active,Home)</onfocus>
+					<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+					<onclick>SetProperty(PopupMenu2Active,Yes,Home)</onclick>
+			        <onclick>SetFocus(1010)</onclick>
+			    </control>
+			</control>	
+		</control>
+		<!-- Menu popups -->	
+		<control type="group">
+			<include>LowerOSDPopups</include>
+			<control type="group" id="1000">
+			    <height>310</height>
+			    <width>535</width>
+			    <left>840</left>
+				<visible>!String.IsEmpty(Window(Home).Property(PopupMenu2Active))</visible>
+                   <control type="button">
+			        <description>Hidden button to close the popup when you click outside it</description>
+			        <posx>0</posx>
+			        <posy>0</posy>
+			        <width>1920</width>
+			        <height>960</height>
+			        <texturenofocus></texturenofocus>
+			        <texturefocus></texturefocus>
+			        <onclick>ClearProperty(PopupMenu2Active,Home)</onclick>
+		        </control>
+			    <control type="grouplist" id="1010">
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>659</onleft>
+				    <onright>659</onright>
+				    <onup>659</onup>
+				    <ondown>659</ondown>
+				    <orientation>vertical</orientation>
+				    <align>right</align>
+				    <control type="button" id="1011">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[13396]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdaudiosettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1012">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[13395]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdvideosettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1015">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[36560]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ActivateWindow(osdcmssettings)</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+					    <visible>System.HasCMS</visible>
+				    </control>
+				    <control type="button" id="1014">
+					    <height>80</height>
+					    <width>470</width>
+					    <font>Details</font>
+					    <label>$LOCALIZE[31133]</label>
+					    <label2>$INFO[VideoPlayer.AudioLanguage,[COLOR=Hghlight],[/COLOR]]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>AudioNextLanguage</onclick>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+		    <control type="group" id="1100">
+			    <left>830</left>
+				<visible>!String.IsEmpty(Window(Home).Property(PopupMenuActive))</visible>
+                   <control type="button">
+			        <description>Hidden button to close the popup when you click outside it</description>
+			        <posx>0</posx>
+			        <posy>0</posy>
+			        <width>1920</width>
+			        <height>960</height>
+			        <texturenofocus></texturenofocus>
+			        <texturefocus></texturefocus>
+			        <onclick>ClearProperty(PopupMenuActive,Home)</onclick>
+		        </control>
+				<control type="grouplist" id="1110">
+				    <align>right</align>
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>656</onleft>
+				    <onright>656</onright>
+				    <onup>656</onup>
+				    <ondown>656</ondown>
+				    <orientation>vertical</orientation>
+				    <control type="button" id="1111">
+					    <description>Download with Subtitles script</description>
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[33003]</label>
+					    <onclick>Close</onclick>
+					    <onclick>Dialog.Close(VideoOSD)</onclick>
+					    <onclick>ActivateWindow(SubtitleSearch)</onclick>
+					    <enable>!VideoPlayer.Content(livetv)</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1112">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[22006]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>SubtitleDelay</onclick>
+					    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1113">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[32004]</label>
+					    <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[VideoPlayer.SubtitlesLanguage][/COLOR]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>CycleSubtitle</onclick>
+					    <enable>VideoPlayer.HasSubtitles + VideoPlayer.SubtitlesEnabled</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="radiobutton" id="1114">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[449]</label>
+					    <radioposx>380</radioposx>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ShowSubtitles</onclick>
+					    <selected>VideoPlayer.SubtitlesEnabled + VideoPlayer.HasSubtitles</selected>
+					    <enable>VideoPlayer.HasSubtitles</enable>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+			<control type="group" id="1200">
+			    <left>830</left>
+			    <visible>Control.HasFocus(655) | ControlGroup(1210).HasFocus</visible>
+			    <control type="grouplist" id="1210">
+				    <left>30</left>
+				    <width>470</width>
+				    <height>400</height>
+				    <onleft>655</onleft>
+				    <onright>655</onright>
+				    <onup>655</onup>
+				    <ondown>655</ondown>
+				    <align>right</align>
+				    <orientation>vertical</orientation>
+				    <control type="radiobutton" id="1211">
+					    <height>80</height>
+					    <width>470</width>
+					    <radioposx>380</radioposx>
+					    <label>$LOCALIZE[24022]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>ToggleStereoMode</onclick>
+					    <selected>Integer.IsGreater(System.StereoscopicMode,0)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="button" id="1212">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[31135]</label>
+					    <label2>$INFO[VideoPlayer.StereoscopicMode]</label2>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>StereoMode</onclick>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+				    <control type="radiobutton" id="1213">
+					    <height>80</height>
+					    <width>470</width>
+					    <radioposx>380</radioposx>
+					    <label>$LOCALIZE[31136]</label>
+						<include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+						<onclick>StereoModeToMono</onclick>
+					    <selected>Integer.IsEqual(System.StereoscopicMode,9)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+				    </control>
+			    </control>
+		    </control>
+		</control>
+	</include>
+	
+	<include name="StandardMusicOSDButtons">
+	    <control type="group">
+		
+		    <include condition="Skin.HasSetting(enable.bottomseekbar)">LowerMusicOSDButtons</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularMusicOSDButtons</include>
+		
+		    <control type="grouplist" id="100">
+                <left>30</left>
+                <height>64</height>
+                <width>1305</width>
+                <align>right</align>
+                <orientation>horizontal</orientation>
+                <animation effect="fade" time="150">VisibleChange</animation>
+                <control type="radiobutton" id="1001">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDStarNF.png</param>
+                    </include>
+                    <onup>101</onup>
+                    <ondown>101</ondown>
+					<onclick>setrating</onclick>
+                </control>
+                <control type="radiobutton" id="1002">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDOptionsNF.png</param>
+                    </include>
+                    <left>100</left>
+                    <onup>2010</onup>
+				    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
+					<onclick>SetProperty(PopupMenuActive,Yes,Home)</onclick>
+				    <onclick>SetFocus(2010)</onclick>
+                    <ondown>101</ondown>
+                </control>
+            </control>
+            <control type="grouplist" id="101">
+                <top>64</top>
+                <left>30</left>
+                <height>98</height>
+                <width>1305</width>
+                <align>right</align>
+                <onup>100</onup>
+                <ondown>Close</ondown>
+                <onleft>101</onleft>
+                <onright>101</onright>
+                <orientation>horizontal</orientation>
+                <animation effect="fade" time="150">VisibleChange</animation>
+                <control type="group" id="1010">
+                    <width>64</width>
+                    <height>64</height>
+                    <control type="button" id="1011">
+                        <visible>!MusicPlayer.Content(livetv)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <font></font>
+                        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                        <texturenofocus></texturenofocus>
+                        <onup>100</onup>
+                        <ondown>100</ondown>
+                        <onleft>1019</onleft>
+                        <onright>1012</onright>
+						<onclick>PlayerControl(Repeat)</onclick>
+                    </control>
+                    <control type="image">
+                        <visible>!Control.HasFocus(1011)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <texture>$VAR[MusicRepeat]</texture>
+                    </control>
+                    <control type="image">
+                        <visible>Control.HasFocus(1011)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <texture colordiffuse="$VAR[FocusedTextColor]">$VAR[MusicRepeat]</texture>
+                    </control>
+                </control>
+                <control type="radiobutton" id="1012" description="Random">
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDRandomOnNF.png</textureradioonfocus>
+                    <textureradioonnofocus>OSD/OSDRandomOnNF.png</textureradioonnofocus>
+                    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDRandomOffNF.png</textureradioofffocus>
+                    <textureradiooffnofocus>OSD/OSDRandomOffNF.png</textureradiooffnofocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                    <width>64</width>
+                    <height>64</height>
+                    <radiowidth>64</radiowidth>
+                    <radioheight>64</radioheight>
+                    <font></font>
+                    <texturenofocus></texturenofocus>
+                    <radioposx>0.1</radioposx>
+                    <radioposy>0</radioposy>
+                    <selected>Playlist.IsRandom</selected>
+					<onclick>PlayerControl(Random)</onclick>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+                </control>
+                <control type="radiobutton" id="1013">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDRWNF.png</param>
+                    </include>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+                    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Rewind)</onclick>
+                </control>
+                <control type="radiobutton" id="1014">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDPreviousNF.png</param>
+                    </include>
+                    <onup>100</onup>
+					<ondown>Close</ondown>
+                    <onclick>PlayerControl(Previous)</onclick>
+                </control>
+                <control type="radiobutton" id="1015">
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPlayNF.png</textureradioonfocus>
+                    <textureradioonnofocus>OSD/OSDPlayNF.png</textureradioonnofocus>
+                    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPauseNF.png</textureradioofffocus>
+                    <textureradiooffnofocus>OSD/OSDPauseNF.png</textureradiooffnofocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                    <width>64</width>
+                    <height>64</height>
+                    <radiowidth>64</radiowidth>
+                    <radioheight>64</radioheight>
+                    <font></font>
+                    <texturenofocus></texturenofocus>
+                    <radioposx>0.1</radioposx>
+                    <radioposy>0</radioposy>
+                    <selected>Player.Paused</selected>
+					<onclick>PlayerControl(Play)</onclick>
+                    <visible>Player.PauseEnabled</visible>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+                </control>
+                <control type="radiobutton" id="1016">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDStopNF.png</param>
+                    </include>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+					<onclick>PlayerControl(Stop)</onclick>
+                </control>
+                <control type="radiobutton" id="1017">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDNextNF.png</param>
+                    </include>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+					<onclick>PlayerControl(Next)</onclick>
+                </control>
+                <control type="radiobutton" id="1018">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDFWNF.png</param>
+                    </include>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+                    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Forward)</onclick>
+                </control>
+                <control type="radiobutton" id="1019">
+                    <visible>PVR.CanRecordPlayingChannel</visible>
+                    <visible>MusicPlayer.Content(livetv)</visible>
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDRecordNF.png</param>
+                    </include>
+                    <onup>100</onup>
+                    <ondown>Close</ondown>
+					<onclick>PVR.ToggleRecordPlayingChannel</onclick>
+                </control>
+            </control>
+		</control>
+        
+		<control type="group">
+		
+		    <include condition="Skin.HasSetting(enable.bottomseekbar)">LowerMusicOSDPopups</include>
+			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularMusicOSDPopups</include>
+		
+		    <control type="group" id="2000">
+                <left>830</left>
+<!--            <visible>Control.HasFocus(1002) | ControlGroup(2000).HasFocus</visible> -->
+                <visible>!String.IsEmpty(Window(Home).Property(PopupMenuActive))</visible>
+			    <control type="image" description="Dialog BG">
+                    <height>370</height>
+                    <width>535</width>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+                </control>
+			    <control type="button">
+				    <description>Hidden button to close the popup when you click outside it</description>
+				    <posx>0</posx>
+				    <posy>0</posy>
+				    <width>1920</width>
+				    <height>1080</height>
+				    <texturenofocus></texturenofocus>
+				    <texturefocus></texturefocus>
+				    <onclick>ClearProperty(PopupMenuActive,Home)</onclick>
+			    </control>
+                <control type="grouplist" id="2010">
+                    <left>30</left>
+                    <top>30</top>
+                    <width>470</width>
+                    <height>300</height>
+                    <onleft>1002</onleft>
+                    <onright>1002</onright>
+                    <onup>1002</onup>
+                    <ondown>1002</ondown>
+                    <orientation>vertical</orientation>
+                    <control type="radiobutton" id="201101">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[32377]</label>
+					    <radioposx>380</radioposx>
+						<onclick>Skin.ToggleSetting(Disable.Lyrics)</onclick>
+					    <selected>!Skin.HasSetting(Disable.Lyrics)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+					</control>
+					<control type="button" id="2011">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[24013]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[Skin.String(LyricPath)][/COLOR]</label2>
+						<onclick>Close</onclick>
+                        <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
+                        <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+						<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
+                    </control>
+                    <control type="button" id="2012">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[559]</label>
+						<onclick>Close</onclick>
+                        <onclick>ActivateWindow(MusicPlaylist)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="2015">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[20445]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[MusicPlayingFanartLabel2][/COLOR]</label2>
+						<onclick>Skin.ToggleSetting(MusicPlayingFanart)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="500">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[250]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[VisualisationName][/COLOR]</label2>
+						<onclick>Dialog.Close(all)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="2016">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[250] $LOCALIZE[10004]</label>
+						<onclick>Addon.Default.OpenSettings(xbmc.player.musicviz)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                        <visible>Visualisation.Enabled</visible>
+                    </control>
+                    <control type="button" id="2017">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[31048]</label>
+						<onclick>ActivateWindow(visualisationpresetlist)</onclick>
+                        <visible>Visualisation.HasPresets</visible>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                </control>
+            </control>
+		</control>
+	</include>
+	
+	<include name="CompactMusicOSDButtons">
+	    <control type="group">
+		    <top>1000</top>
+            <control type="grouplist" id="100">
+                <left>200</left>
+                <height>70</height>
+                <width>560</width>
+                <align>left</align>
+                <onup>100</onup>
+                <ondown>Close</ondown>
+                <onleft>101</onleft>
+                <onright>101</onright>
+                <orientation>horizontal</orientation>
+                <animation effect="fade" time="150">VisibleChange</animation>
+                <control type="group" id="1010">
+                    <width>64</width>
+                    <height>64</height>
+                    <control type="button" id="1011">
+                        <visible>!MusicPlayer.Content(livetv)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <font></font>
+                        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                        <texturenofocus></texturenofocus>
+                        <onleft>1019</onleft>
+                        <onright>1012</onright>
+						<onclick>PlayerControl(Repeat)</onclick>
+                    </control>
+                    <control type="image">
+                        <visible>!Control.HasFocus(1011)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <texture>$VAR[MusicRepeat]</texture>
+                    </control>
+                    <control type="image">
+                        <visible>Control.HasFocus(1011)</visible>
+                        <width>64</width>
+                        <height>64</height>
+                        <texture colordiffuse="$VAR[FocusedTextColor]">$VAR[MusicRepeat]</texture>
+                    </control>
+                </control>
+                <control type="radiobutton" id="1012" description="Random">
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDRandomOnNF.png</textureradioonfocus>
+                    <textureradioonnofocus>OSD/OSDRandomOnNF.png</textureradioonnofocus>
+                    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDRandomOffNF.png</textureradioofffocus>
+                    <textureradiooffnofocus>OSD/OSDRandomOffNF.png</textureradiooffnofocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                    <width>64</width>
+                    <height>64</height>
+                    <radiowidth>64</radiowidth>
+                    <radioheight>64</radioheight>
+                    <font></font>
+                    <texturenofocus></texturenofocus>
+                    <radioposx>0.1</radioposx>
+                    <radioposy>0</radioposy>
+                    <selected>Playlist.IsRandom</selected>
+					<onclick>PlayerControl(Random)</onclick>
+                </control>
+                <control type="radiobutton" id="1013">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDRWNF.png</param>
+                    </include>
+                    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Rewind)</onclick>
+                </control>
+                <control type="radiobutton" id="1014">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDPreviousNF.png</param>
+                    </include>
+                    <onclick>PlayerControl(Previous)</onclick>
+                </control>
+                <control type="radiobutton" id="1015">
+                    <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPlayNF.png</textureradioonfocus>
+                    <textureradioonnofocus>OSD/OSDPlayNF.png</textureradioonnofocus>
+                    <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">OSD/OSDPauseNF.png</textureradioofffocus>
+                    <textureradiooffnofocus>OSD/OSDPauseNF.png</textureradiooffnofocus>
+                    <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+                    <width>64</width>
+                    <height>64</height>
+                    <radiowidth>64</radiowidth>
+                    <radioheight>64</radioheight>
+                    <font></font>
+                    <texturenofocus></texturenofocus>
+                    <radioposx>0.1</radioposx>
+                    <radioposy>0</radioposy>
+                    <selected>Player.Paused</selected>
+					<onclick>PlayerControl(Play)</onclick>
+                    <visible>Player.PauseEnabled</visible>
+                </control>
+                <control type="radiobutton" id="1016">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDStopNF.png</param>
+                    </include>
+					<onclick>PlayerControl(Stop)</onclick>
+                </control>
+                <control type="radiobutton" id="1017">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDNextNF.png</param>
+                    </include>
+					<onclick>PlayerControl(Next)</onclick>
+                </control>
+                <control type="radiobutton" id="1018">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDFWNF.png</param>
+                    </include>
+                    <enable>Player.SeekEnabled</enable>
+					<onclick>PlayerControl(Forward)</onclick>
+                </control>
+                <control type="radiobutton" id="1019">
+                    <visible>PVR.CanRecordPlayingChannel</visible>
+                    <visible>MusicPlayer.Content(livetv)</visible>
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDRecordNF.png</param>
+                    </include>
+					<onclick>PVR.ToggleRecordPlayingChannel</onclick>
+                </control>
+            </control>
+			<control type="grouplist" id="101">
+                <left>1200</left>
+                <height>64</height>
+                <width>140</width>
+                <align>right</align>
+				<ondown>Close</ondown>
+                <onleft>100</onleft>
+                <onright>100</onright>
+                <orientation>horizontal</orientation>
+                <animation effect="fade" time="150">VisibleChange</animation>
+                <control type="radiobutton" id="1001">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDStarNF.png</param>
+                    </include>
+					<onclick>setrating</onclick>
+                </control>
+                <control type="radiobutton" id="1002">
+                    <include content="OSDButtons">
+                        <param name="icon">OSD/OSDOptionsNF.png</param>
+                    </include>
+                    <left>100</left>
+                    <onup>2010</onup>
+				    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
+					<onclick>SetProperty(PopupMenuActive,Yes,Home)</onclick>
+				    <onclick>SetFocus(2010)</onclick>
+                    <ondown>Close</ondown>
+                </control>
+            </control>
+		</control>
+        
+		<control type="group">
+		    <include>LowerMusicOSDPopups</include>
+		    <control type="group" id="2000">
+                <left>830</left>
+                <visible>!String.IsEmpty(Window(Home).Property(PopupMenuActive))</visible>
+			    <control type="image" description="Dialog BG">
+                    <height>365</height>
+                    <width>535</width>
+                    <texture border="45">dialogs/TinyDialog.png</texture>
+                </control>
+			    <control type="button">
+				    <description>Hidden button to close the popup when you click outside it</description>
+				    <posx>0</posx>
+				    <posy>0</posy>
+				    <width>1920</width>
+				    <height>1080</height>
+				    <texturenofocus></texturenofocus>
+				    <texturefocus></texturefocus>
+				    <onclick>ClearProperty(PopupMenuActive,Home)</onclick>
+			    </control>
+                <control type="grouplist" id="2010">
+                    <left>30</left>
+                    <top>30</top>
+                    <width>470</width>
+                    <height>300</height>
+                    <onleft>1002</onleft>
+                    <onright>1002</onright>
+                    <onup>1002</onup>
+                    <ondown>1002</ondown>
+                    <orientation>vertical</orientation>
+                    <control type="radiobutton" id="201101">
+					    <height>80</height>
+					    <width>470</width>
+					    <label>$LOCALIZE[32377]</label>
+					    <radioposx>380</radioposx>
+						<onclick>Skin.ToggleSetting(Disable.Lyrics)</onclick>
+					    <selected>!Skin.HasSetting(Disable.Lyrics)</selected>
+					    <font>Details</font>
+					    <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
+					</control>
+					<control type="button" id="2011">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[24013]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$INFO[Skin.String(LyricPath)][/COLOR]</label2>
+						<onclick>Close</onclick>
+                        <onclick condition="String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
+                        <onclick condition="!String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+						<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
+                    </control>
+                    <control type="button" id="2012">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[559]</label>
+						<onclick>Close</onclick>
+                        <onclick>ActivateWindow(MusicPlaylist)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="2015">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[20445]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[MusicPlayingFanartLabel2][/COLOR]</label2>
+						<onclick>Skin.ToggleSetting(MusicPlayingFanart)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="500">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[250]</label>
+                        <label2>[COLOR=$VAR[SelectedTextColor]]$VAR[VisualisationName][/COLOR]</label2>
+						<onclick>Dialog.Close(all)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                    <control type="button" id="2016">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[250] $LOCALIZE[10004]</label>
+						<onclick>Addon.Default.OpenSettings(xbmc.player.musicviz)</onclick>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                        <visible>Visualisation.Enabled</visible>
+                    </control>
+                    <control type="button" id="2017">
+                        <width>470</width>
+                        <font>Details</font>
+                        <label>$LOCALIZE[31048]</label>
+						<onclick>ActivateWindow(visualisationpresetlist)</onclick>
+                        <visible>Visualisation.HasPresets</visible>
+                        <texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+                    </control>
+                </control>
+            </control>
+		</control>
 	</include>
 
 </includes>
