@@ -2430,6 +2430,14 @@
         <param name="itemvisibility" default="true"/>
         <param name="skinsetting"/>
         <param name="area"/>
+		<param name="customonclickYes">false</param>
+		<param name="customonclickNo">false</param>
+		<param name="onclick2Yes">noop</param>
+		<param name="onclick3Yes">noop</param>
+		<param name="onclick4Yes">noop</param>
+		<param name="onclick2No">noop</param>
+		<param name="onclick3No">noop</param>
+		<param name="onclick4No">noop</param>
         <definition>
             <item id="$PARAM[itemid]">
                 <visible>Skin.HasSetting($PARAM[skinsetting])</visible>
@@ -2439,6 +2447,9 @@
                 <icon>$PARAM[itemicon]</icon>
                 <property name="area">$PARAM[area]</property>
                 <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+				<onclick condition="$PARAM[customonclickYes]">$PARAM[onclick2Yes]</onclick>
+				<onclick condition="$PARAM[customonclickYes]">$PARAM[onclick3Yes]</onclick>
+				<onclick condition="$PARAM[customonclickYes]">$PARAM[onclick4Yes]</onclick>
             </item>
             <item id="$PARAM[itemid]">
                 <visible>!Skin.HasSetting($PARAM[skinsetting])</visible>
@@ -2448,6 +2459,9 @@
                 <icon>$PARAM[itemicon]</icon>
                 <property name="area">$PARAM[area]</property>
                 <onclick>Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+				<onclick condition="$PARAM[customonclickNo]">$PARAM[onclick2No]</onclick>
+				<onclick condition="$PARAM[customonclickNo]">$PARAM[onclick3No]</onclick>
+				<onclick condition="$PARAM[customonclickNo]">$PARAM[onclick4No]</onclick>
             </item>
         </definition>
     </include>
@@ -2476,6 +2490,24 @@
                 <icon>$PARAM[itemicon]</icon>
                 <onclick condition="!System.HasAddon($PARAM[addonpath])">InstallAddon($PARAM[addonpath])</onclick>
                 <onclick condition="System.HasAddon($PARAM[addonpath])">Skin.ToggleSetting($PARAM[skinsetting])</onclick>
+            </item>
+        </definition>
+    </include>
+	
+	<include name="CustomDialogSettingItem">
+        <param name="itemid" />
+        <param name="itemlabel" />
+		<param name="itemlabel2" />
+        <param name="itemvisibility" default="true"/>
+        <param name="CustomProperty"/>
+		<param name="CustomDialog"/>
+        <definition>
+            <item id="$PARAM[itemid]">
+                <visible>$PARAM[itemvisibility]</visible>
+                <label>$PARAM[itemlabel]</label>
+                <label2>$PARAM[itemlabel2]</label2>
+                <onclick>SetProperty($PARAM[CustomProperty],True)</onclick>
+				<onclick>ActivateWindow($PARAM[CustomDialog])</onclick>
             </item>
         </definition>
     </include>

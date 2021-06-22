@@ -41,7 +41,7 @@
 <!--			<texturesliderbar>OSD/seekslider.png</texturesliderbar>
 			<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
 			<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus> -->
-			<visible>Player.SeekEnabled + ![$EXP[showCompactSeekBar]]</visible>
+			<visible>Player.SeekEnabled + ![$EXP[showCompactSeekBar]] + !Skin.HasSetting(UseUltraCompactOSD)</visible>
 		</control>
 		
 		<control type="slider">
@@ -59,13 +59,14 @@
 <!--			<texturesliderbar>OSD/seekslider.png</texturesliderbar>
 			<textureslidernib>OSD/ScrollbarNibNF.png</textureslidernib>
 			<textureslidernibfocus colordiffuse="$VAR[HighlightColor]">OSD/ScrollbarNibFO.png</textureslidernibfocus> -->
-			<visible>Player.SeekEnabled + $EXP[showCompactSeekBar]</visible>
+			<visible>Player.SeekEnabled + $EXP[showCompactSeekBar] + !Skin.HasSetting(UseUltraCompactOSD)</visible>
 		</control>
 		
 		<control type="group">
 			<visible>![Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(playerprocessinfo) | Window.IsActive(osdcmssettings)]</visible>
-			<include condition="!Skin.HasSetting(UseCompactOSD)">StandardOSDButtons</include>
+			<include condition="!Skin.HasSetting(UseCompactOSD) + !Skin.HasSetting(UseUltraCompactOSD)">StandardOSDButtons</include>
 			<include condition="Skin.HasSetting(UseCompactOSD)">CompactOSDButtons</include>
+			<include condition="Skin.HasSetting(UseUltraCompactOSD)">UltraCompactOSDButtons</include>
 		</control>
 		
 	</controls>

@@ -40,7 +40,7 @@
 			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularFullScreenInfo</include>
 			
 			<include>OSDFade</include>
-			<visible>![$EXP[showCompactSeekBar]] + [Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
+			<visible>!Skin.HasSetting(UseUltraCompactOSD) + ![$EXP[showCompactSeekBar]] + [Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="200">VisibleChange</animation>
 			
 			<!-- Background -->
@@ -173,7 +173,7 @@
 			    <control type="label" id="26">
     				<description>Movie Info Studio</description>
 				    <posy>50</posy>
-				    <width>900</width>
+				    <width>780</width>
 				    <height>40</height>
 				    <align>left</align>
 				    <label>$VAR[VideoTopHeading]</label>
@@ -220,18 +220,16 @@
 			
 			<!-- Media Flags -->
 			<control type="group" id="1">
-			    <visible>!Skin.HasSetting(OSDInfo)</visible>
+			    <posx>855</posx>
+				<width>480</width>
+<!--			    <visible>!Skin.HasSetting(OSDInfo)</visible> -->
 			    <control type="grouplist" id="3">
 				    <visible>!Skin.HasSetting(Show.ColorRangeFlags) | ![$EXP[PlayerIsHDR]]</visible>
 				    <top>20</top>
-				    <posx>960</posx>
-				    <height>65</height>
-				    <width>405</width>
 				    <orientation>horizontal</orientation>
-				    <itemgap>15</itemgap>
+				    <height>65</height>
+					<itemgap>15</itemgap>
 				    <align>right</align>
-				    <onup>101</onup>
-			        <ondown>101</ondown>
 				    <include content="PlayerMediaFlagItems">
 					    <param name="itemheight" value="65"/>
      				    <param name="itemwidth" value="70"/>
@@ -241,14 +239,10 @@
 			    <control type="grouplist" id="3">
 				    <visible>Skin.HasSetting(Show.ColorRangeFlags) + $EXP[PlayerIsHDR] + !Skin.HasSetting(coloredflags)</visible>
 				    <top>30</top>
-				    <posx>970</posx>
-				    <height>65</height>
-				    <width>505</width>
 				    <orientation>horizontal</orientation>
-				    <itemgap>5</itemgap>
+				    <height>65</height>
+					<itemgap>5</itemgap>
 				    <align>left</align>
-				    <onup>101</onup>
-			        <ondown>101</ondown>
 				    <include content="PlayerMediaFlagItems">
 					    <param name="itemheight" value="65"/>
      				    <param name="itemwidth" value="70"/>
@@ -258,14 +252,10 @@
 			    <control type="grouplist" id="3">
 				    <visible>Skin.HasSetting(Show.ColorRangeFlags) + $EXP[PlayerIsHDR] + Skin.HasSetting(coloredflags)</visible>
 				    <top>30</top>
-				    <posx>970</posx>
-				    <height>65</height>
-				    <width>505</width>
 				    <orientation>horizontal</orientation>
-				    <itemgap>5</itemgap>
+				    <height>65</height>
+					<itemgap>5</itemgap>
 				    <align>left</align>
-				    <onup>101</onup>
-			        <ondown>101</ondown>
 				    <include content="PlayerMediaFlagItems">
 					    <param name="itemheight" value="65"/>
      				    <param name="itemwidth" value="70"/>
@@ -277,7 +267,7 @@
 		
 		<control type="group" id="2">
 			<include>OSDFade</include>
-			<visible>$EXP[showCompactSeekBar] + [Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
+			<visible>!Skin.HasSetting(UseUltraCompactOSD) + $EXP[showCompactSeekBar] + [Player.ShowInfo | Window.IsActive(VideoOSD)] + ![Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVRChannelGuide) | Window.IsVisible(SliderDialog)]</visible>
 			<animation effect="fade" time="200">VisibleChange</animation>
 			<top>700</top>
 			
@@ -368,18 +358,18 @@
         <control type="group" id="1">
             <visible>!$EXP[showCompactSeekBar]</visible>		
 			<control type="group" id="1">
-				<visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + ![$EXP[PlayerIsHDR]] + !Skin.HasSetting(enable.bottomseekbar)</visible>
+				<visible>!Skin.HasSetting(UseUltraCompactOSD) + !String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + ![$EXP[PlayerIsHDR]] + !Skin.HasSetting(enable.bottomseekbar)</visible>
 				<include>FullScreenExtraArt</include>
             </control>
 			<control type="group" id="1">
-				<visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + $EXP[PlayerIsHDR] + !Skin.HasSetting(enable.bottomseekbar)</visible>
+				<visible>!Skin.HasSetting(UseUltraCompactOSD) + !String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + $EXP[PlayerIsHDR] + !Skin.HasSetting(enable.bottomseekbar)</visible>
 				<include content="FullScreenExtraArt">
 				    <param name="logoleft">1460</param>
 					<param name="logowidth">440</param>
 				</include>
             </control>
 			<control type="group" id="1">
-				<visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+				<visible>!Skin.HasSetting(UseUltraCompactOSD) + !String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + !Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
 				<include content="FullScreenExtraArt">
 				    <param name="clearartleft">1450</param>
 					<param name="clearartwidth">440</param>
@@ -389,7 +379,7 @@
 				</include>
             </control>
             <control type="group" id="1">
-				<visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
+				<visible>!Skin.HasSetting(UseUltraCompactOSD) + !String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + !Skin.HasSetting(enable.bottomseekbar)</visible>
 				<include content="FullScreenExtraArt">
 				    <param name="arttop">860</param>
 					<param name="disctop">870</param>
@@ -399,13 +389,19 @@
 				</include>
             </control>
             <control type="group" id="1">
-				<visible>!String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
+				<visible>!Skin.HasSetting(UseUltraCompactOSD) + !String.IsEqual(Skin.String(OSDExtraArt),none) + Window.IsVisible(VideoOSD) + Skin.HasSetting(OSDInfo) + Skin.HasSetting(enable.bottomseekbar)</visible>
 				<include content="FullScreenExtraArt">
 				    <param name="arttop">730</param>
 					<param name="disctop">730</param>
 					<param name="artheight">220</param>
 					<param name="clearartleft">1500</param>
 					<param name="clearartwidth">400</param>
+				</include>
+            </control>
+			<control type="group" id="1">
+				<visible>Skin.HasSetting(UseUltraCompactOSD) + [Window.IsVisible(VideoOSD) | Window.IsVisible(MusicOSD)]</visible>
+				<include content="FullScreenExtraArt">
+				    <param name="arttop">790</param>
 				</include>
             </control>
         </control>			
