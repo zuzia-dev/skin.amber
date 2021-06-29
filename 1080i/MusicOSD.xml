@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">1015</defaultcontrol>
-    <onload condition="!Player.PauseEnabled">SetFocus(1016)</onload>
-	<onload>ClearProperty(AutoCloseMusicOSD,Home)</onload>
-	<onunload>ClearProperty(PopupMenuActive,Home)</onunload>
+    <defaultcontrol always="true">100</defaultcontrol>
+    <onload condition="!Player.PauseEnabled">SetFocus(603)</onload>
+	<onload condition="Player.PauseEnabled">SetFocus(602)</onload>
+	<onunload>ClearProperty(PopupMenu2Active,Home)</onunload>
     <include>OSDFade</include>
     <controls>
         
@@ -23,9 +23,35 @@
 		    <visible>Player.SeekEnabled + ![$EXP[showCompactSeekBar]] + !Skin.HasSetting(UseUltraCompactOSD)</visible>
 		</control>
 		
-		<include condition="!Skin.HasSetting(UseCompactOSD) + !Skin.HasSetting(UseUltraCompactOSD)">StandardMusicOSDButtons</include>
-		<include condition="Skin.HasSetting(UseCompactOSD)">CompactMusicOSDButtons</include>
-		<include condition="Skin.HasSetting(UseUltraCompactOSD)">UltraCompactMusicOSDButtons</include>
+		<include condition="!Skin.HasSetting(UseCompactOSD) + !Skin.HasSetting(UseUltraCompactOSD)">OSDControls</include>
+		
+		<include condition="Skin.HasSetting(UseCompactOSD)" content="OSDControls">
+		    <param name="isStandard">false</param>
+			<param name="isCompact">true</param>
+			<param name="group1top">0</param>
+			<param name="group1left">200</param>
+		    <param name="group1width">560</param>
+			<param name="group1align">left</param>
+		    <param name="group2top">0</param>
+			<param name="group2left">1200</param>
+		    <param name="group2width">140</param>
+			<param name="group2align">right</param>
+		    <param name="popupleft">840</param>
+		</include>
+		
+		<include condition="Skin.HasSetting(UseUltraCompactOSD)" content="OSDControls">
+		    <param name="isStandard">false</param>
+		    <param name="isUltraCompact">true</param>
+			<param name="group1top">84</param>
+		    <param name="group1left">0</param>
+		    <param name="group1width">460</param>
+		    <param name="group1align">center</param>
+		    <param name="group2top">0</param>
+		    <param name="group2left">0</param>
+		    <param name="group2width">460</param>
+		    <param name="group2align">center</param>
+			<param name="popupleft">100</param>
+		</include>
 
     </controls>
 </window>
