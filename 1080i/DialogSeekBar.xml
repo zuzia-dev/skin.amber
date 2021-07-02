@@ -4,7 +4,7 @@
     <visible>[!Player.Paused + !String.IsEmpty(Window(home).Property(ShowOSD))] | 
 	         [[!Skin.HasSetting(UseUltraCompactOSD) | [Skin.HasSetting(UseUltraCompactOSD) + ![Window.IsVisible(VideoOSD) | Window.IsVisible(MusicOSD)]]] + 
 			  [[Player.Paused + Skin.HasSetting(Hide.SeekBarWhenPaused) + !System.IdleTime(5)] | [Player.Paused + !Skin.HasSetting(Hide.SeekBarWhenPaused)]]] | 
-			 Player.Seeking | [Player.DisplayAfterSeek + !Skin.HasSetting(Hide.SeekBarRF)] | 
+			 Player.Seeking | [Player.DisplayAfterSeek + !Player.Paused + !Skin.HasSetting(Hide.SeekBarRF)] | 
 			 [[Player.Forwarding | Player.Rewinding] + !Skin.HasSetting(Hide.SeekBarRF)] | 
 			 Player.ShowInfo | Player.ShowTime | 
 			 [[Window.IsActive(videoosd) | Window.IsActive(musicosd)] + !Skin.HasSetting(UseUltraCompactOSD)] | 
