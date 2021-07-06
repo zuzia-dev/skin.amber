@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1141">
-	<onload condition="!String.IsEmpty(ListItem.VideoCodec) + ![Player.HasVideo + String.IsEqual(Player.DBID,ListItem.DBID)]">PlayMedia($INFO[ListItem.Trailer],1)</onload>
+	<onload condition="!String.IsEmpty(ListItem.VideoCodec) + ![Player.HasVideo + String.IsEqual(VideoPlayer.DBID,ListItem.DBID)]">PlayMedia($INFO[ListItem.Trailer],1)</onload>
 	<onload>SetProperty(MovieTrailerPlaying,true,Home)</onload>
-	<visible>!System.IdleTime(30) + System.IdleTime(4) + !String.IsEmpty(ListItem.Trailer) + !String.IsEmpty(ListItem.VideoCodec) + Skin.HasSetting(AutoPlayTrailer)</visible>
+	<visible>!System.IdleTime(30) + System.IdleTime(4) + !String.IsEmpty(ListItem.Trailer) + !String.IsEmpty(ListItem.VideoCodec) + Skin.HasSetting(AutoPlayTrailer) + String.IsEmpty(Window(Home).Property(MediaMenu))</visible>
 	<visible>!Window.IsActive(movieinformation)</visible>
 	<visible>Container.Content(movies) + !System.HasActiveModalDialog</visible>
 	<visible>!ListItem.IsCollection</visible>
-<!--	<visible>String.IsEqual(Container.Viewmode,Shelf) | String.IsEqual(Container.Viewmode,RightList) | String.IsEqual(Container.Viewmode,Triple) | String.IsEqual(Container.Viewmode,Wall) | String.IsEqual(Container.Viewmode,Banner) | String.IsEqual(Container.Viewmode,Flix)</visible> -->
 	<visible>String.IsEqual(Skin.String(StartTrailerDelay),five) | String.IsEmpty(Skin.String(StartTrailerDelay))</visible>
 	<controls/>
 </window>
