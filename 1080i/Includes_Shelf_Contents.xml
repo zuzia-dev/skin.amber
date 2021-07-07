@@ -1417,6 +1417,7 @@
 		<param name="isWideIcon">false</param>
 		<param name="isSquare">false</param>
 		<param name="isThumb">false</param>
+		<param name="doInfoPopup">false</param>
 		<definition>  
 		    <!-- Triple shelves together, all three have values -->
 			<itemlayout height="$PARAM[artworkheightsmall]" width="$PARAM[artworkwidthsmall]" condition="$PARAM[isTripleShelvesTogether] + !$PARAM[isTripleRowLarge]">
@@ -1915,24 +1916,12 @@
                 </control>								
 			</itemlayout>
 			<focusedlayout height="$PARAM[artworkheightbig]" width="$PARAM[artworkwidthbig]" condition="[!$PARAM[isTripleRow] | [$PARAM[isTripleRow] + $PARAM[isTripleRowLarge]]]">
-			    <control type="button">
-					<include>HiddenButton</include>
-					<onfocus>SetProperty(WidgetItemDuration,$INFO[ListItem.Duration],Home)</onfocus>
-	                <onfocus>SetProperty(WidgetItemDurationHr,$INFO[ListItem.Duration(h)],Home)</onfocus>
-	                <onfocus>SetProperty(WidgetItemDurationMin,$INFO[ListItem.Duration(m)],Home)</onfocus>
-	                <onfocus>SetProperty(WidgetItemDurationMins,$INFO[ListItem.Duration(mins)],Home)</onfocus>
-	                <onfocus>SetProperty(WidgetItemDurationSec,$INFO[ListItem.Duration(ss)],Home)</onfocus>
-				</control>
+			    <include>SetShelfItemDuration</include>
+				<include content="SetShelfPopupProps">
+				    <param name="EnableProp">$PARAM[doInfoPopup]</param>
+				</include>
 				<control type="group">
 				    <visible>!$PARAM[showLabelFallback] + !String.IsEqual(ListItem.Icon,DefaultAddonNone.png)</visible>
-					<control type="button">
-					    <include>HiddenButton</include>
-						<onfocus>SetProperty(WidgetItemDuration,$INFO[ListItem.Duration],Home)</onfocus>
-	                    <onfocus>SetProperty(WidgetItemDurationHr,$INFO[ListItem.Duration(h)],Home)</onfocus>
-	                    <onfocus>SetProperty(WidgetItemDurationMin,$INFO[ListItem.Duration(m)],Home)</onfocus>
-	                    <onfocus>SetProperty(WidgetItemDurationMins,$INFO[ListItem.Duration(mins)],Home)</onfocus>
-	                    <onfocus>SetProperty(WidgetItemDurationSec,$INFO[ListItem.Duration(ss)],Home)</onfocus>
-					</control>
 					<include content="GenericThumbIconTemplate">
 				        <param name="isFocused">Control.HasFocus($PARAM[id1])</param>
                         <param name="iconimage">$PARAM[iconimage]</param>
