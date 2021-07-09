@@ -4,12 +4,21 @@
 	<variable name="ShelfPopupPoster">
         <value condition="String.IsEqual(Window.Property(DBType),episode) + !String.IsEmpty(Window.Property(Art.season.poster))">$INFO[Window.Property(Art.season.poster)]</value>
         <value condition="String.IsEqual(Window.Property(DBType),episode) + String.IsEmpty(Window.Property(Art.season.poster)) + !String.IsEmpty(Window.Property(Art.tvshow.poster))">$INFO[Window.Property(Art.tvshow.poster)]</value>
-		<value>$INFO[Window.Property(Art.Poster)]</value>
+		<value condition="String.IsEqual(Window.Property(DBType),movie) | String.IsEqual(Window.Property(DBType),tvshow)">$INFO[Window.Property(Art.Poster)]</value>
+		<value condition="String.IsEqual(Window.Property(DBType),musicvideo) + !String.IsEmpty(Window.Property(Art.Poster))">$INFO[Window.Property(Art.Poster)]</value>
+		<value condition="String.IsEqual(Window.Property(DBType),musicvideo) + String.IsEmpty(Window.Property(Art.Poster))">$INFO[Window.Property(Art.Thumb)]</value>
+    </variable>
+	
+	<variable name="ShelfPopupSquare">
+        <value condition="!String.IsEmpty(Window.Property(Art.Thumb))">$INFO[Window.Property(Art.Thumb)]</value>
+		<value>$INFO[Window.Property(Icon)]</value>
     </variable>
 	
 	<variable name="ShelfPopupLogo">
-        <value condition="!String.IsEqual(Window.Property(DBType),episode)">$INFO[Window.Property(Art.ClearLogo)]</value>
+        <value condition="String.IsEqual(Window.Property(DBType),movie) | String.IsEqual(Window.Property(DBType),tvshow) | String.IsEqual(Window.Property(DBType),musicvideo) | String.IsEqual(Window.Property(DBType),artist)">$INFO[Window.Property(Art.ClearLogo)]</value>
         <value condition="String.IsEqual(Window.Property(DBType),episode)">$INFO[Window.Property(Art.tvshow.clearlogo)]</value>
+		<value condition="[String.IsEqual(Window.Property(DBType),album) | String.IsEqual(Window.Property(DBType),song)] + !String.IsEmpty(Window.Property(Art.artist.clearlogo))">$INFO[Window.Property(Art.artist.clearlogo)]</value>
+		<value condition="[String.IsEqual(Window.Property(DBType),album) | String.IsEqual(Window.Property(DBType),song)] + String.IsEmpty(Window.Property(Art.artist.clearlogo))">$INFO[Window.Property(Art.albumartist.clearlogo)]</value>
     </variable>
 	
     <variable name="ShelfPopupCertFlag">
@@ -146,6 +155,15 @@
 		<value condition="String.Contains(Window.Property(FileNameAndPath),12bit) | String.Contains(Window.Property(FileNameAndPath),12-bit)">$VAR[MediaFlagsPathVar]/colorrange/12bit.png</value>
 	</variable>
 	
+	<include name="PopupLeftHorizontal">
+	    <left>277</left>
+	</include>
+	
+	<include name="PopupLeftVertical">
+	    <left>397</left>
+	</include>
+	
+	
 	<include name="PopupMediaFlagItems">
 		<param name="itemwidth" default="90"/>
 		<param name="itemheight" default="80"/>
@@ -233,8 +251,7 @@
 				<texture>$VAR[PopupAudioCodecFlagVar]</texture>
 			</control>
 			<control type="image" id="89005">
-				<visible>!String.IsEmpty(Window.Property(FileExtension))</visible>
-				<visible>Container.Content(songs)</visible>
+				<visible>!String.IsEmpty(Window.Property(FileExtension)) + String.IsEqual(Window.Property(DBType),song)</visible>
 				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				<height>$PARAM[itemheight]</height>
 				<width>$PARAM[itemwidth]</width>
@@ -244,7 +261,7 @@
 				<texture>$VAR[MediaFlagsPathVar]/audiocodec/$INFO[Window.Property(FileExtension),,.png]</texture>
 			</control>
 			<control type="image" id="89006">
-				<visible>!String.IsEmpty(Window.Property(AudioChannels))</visible>
+				<visible>!String.IsEmpty(Window.Property(AudioChannels)) + !String.IsEqual(Window.Property(DBType),song)</visible>
 				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				<height>$PARAM[itemheight]</height>
 				<width>$PARAM[itemwidth]</width>
@@ -252,6 +269,16 @@
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[Window.Property(AudioChannels),,.png]</texture>
+			</control>
+			<control type="image" id="89007">
+				<visible>!String.IsEmpty(Window.Property(MusicChannels)) + String.IsEqual(Window.Property(DBType),song)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[Window.Property(MusicChannels),,.png]</texture>
 			</control>
 		</definition>
 	</include>
@@ -268,12 +295,66 @@
 		</control>	
 	</include>
 	
+	<include name="ClearPopupProps">
+        <onfocus>ClearProperty(DBType,1144)</onfocus>
+        <onfocus>ClearProperty(Title,1144)</onfocus>
+	    <onfocus>ClearProperty(Label,1144)</onfocus>
+	    <onfocus>ClearProperty(TVShowTitle,1144)</onfocus>
+        <onfocus>ClearProperty(Director,1144)</onfocus>
+        <onfocus>ClearProperty(Year,1144)</onfocus>
+        <onfocus>ClearProperty(Rating,1144)</onfocus>
+	    <onfocus>ClearProperty(MPAA,1144)</onfocus>
+	    <onfocus>ClearProperty(Genre,1144)</onfocus>
+	    <onfocus>ClearProperty(Top250,144)</onfocus>
+	    <onfocus>ClearProperty(Premiered,1144)</onfocus>
+	    <onfocus>ClearProperty(Plot,1144)</onfocus>
+        <onfocus>ClearProperty(Studio,1144)</onfocus>
+        <onfocus>ClearProperty(Season,1144)</onfocus>
+	    <onfocus>ClearProperty(Episode,1144)</onfocus>
+		<onfocus>ClearProperty(FileNameAndPath,1144)</onfocus>
+		<onfocus>ClearProperty(FileExtension,1144)</onfocus>
+		<onfocus>ClearProperty(VideoAspect,1144)</onfocus>
+		<onfocus>ClearProperty(VideoCodec,1144)</onfocus>
+		<onfocus>ClearProperty(VideoResolution,1144)</onfocus>
+		<onfocus>ClearProperty(IsStereoscopic,1144)</onfocus>
+		<onfocus>ClearProperty(AudioCodec,1144)</onfocus>
+		<onfocus>ClearProperty(AudioChannels,1144)</onfocus>
+		<onfocus>ClearProperty(MusicChannels,1144)</onfocus>
+	    <onfocus>ClearProperty(TotalSeasons,1144)</onfocus>
+	    <onfocus>ClearProperty(TotalEpisodes,1144)</onfocus>
+	    <onfocus>ClearProperty(UnwatchedEpisodes,1144)</onfocus>
+        <onfocus>ClearProperty(Art.ClearLogo,1144)</onfocus>
+	    <onfocus>ClearProperty(Art.tvshow.clearlogo,1144)</onfocus>
+	    <onfocus>ClearProperty(Art.tvshow.poster,1144)</onfocus>
+	    <onfocus>ClearProperty(Art.season.poster,1144)</onfocus>
+        <onfocus>ClearProperty(Art.Poster,1144)</onfocus>
+		<onfocus>ClearProperty(Art.Thumb,1144)</onfocus>
+		<onfocus>ClearProperty(Icon,1144)</onfocus>
+		<onfocus>ClearProperty(Art.artist.clearlogo,1144)</onfocus>
+		<onfocus>ClearProperty(Art.albumartist.clearlogo,1144)</onfocus>
+		<onfocus>ClearProperty(Artist,1144)</onfocus>
+		<onfocus>ClearProperty(Album,1144)</onfocus>
+		<onfocus>ClearProperty(Comment,1144)</onfocus>
+		<onfocus>ClearProperty(TrackNumber,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_Formed,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_YearsActive,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_Genre,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_Style,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_Mood,1144)</onfocus>
+		<onfocus>ClearProperty(Artist_Description,1144)</onfocus>
+		<onfocus>ClearProperty(Album_Description,1144)</onfocus>
+		<onfocus>ClearProperty(Album_Label,1144)</onfocus>
+		<onfocus>ClearProperty(Album_Style,1144)</onfocus>
+		<onfocus>ClearProperty(Album_Mood,1144)</onfocus>
+	</include>
+	
 	<include name="SetShelfPopupProps">
 	    <param name="EnableProp">false</param>
 		<definition>
 	        <control type="button">
 			    <include>HiddenButton</include>
-		        <onfocus>SetProperty(DBType,"$INFO[ListItem.DBType]",1144)</onfocus>
+		        <include>ClearPopupProps</include>
+				<onfocus>SetProperty(DBType,"$INFO[ListItem.DBType]",1144)</onfocus>
                 <onfocus>SetProperty(Title,"$INFO[ListItem.Title]",1144)</onfocus>
 			    <onfocus>SetProperty(Label,"$INFO[ListItem.Label]",1144)</onfocus>
 			    <onfocus>SetProperty(TVShowTitle,"$INFO[ListItem.TVShowTitle]",1144)</onfocus>
@@ -296,6 +377,7 @@
 				<onfocus>SetProperty(IsStereoscopic,"$INFO[ListItem.IsStereoscopic]",1144)</onfocus>
 				<onfocus>SetProperty(AudioCodec,"$INFO[ListItem.AudioCodec]",1144)</onfocus>
 				<onfocus>SetProperty(AudioChannels,"$INFO[ListItem.AudioChannels]",1144)</onfocus>
+				<onfocus>SetProperty(MusicChannels,"$INFO[ListItem.MusicChannels]",1144)</onfocus>
 			    <onfocus>SetProperty(TotalSeasons,"$INFO[ListItem.Property(TotalSeasons)]",1144)</onfocus>
 			    <onfocus>SetProperty(TotalEpisodes,"$INFO[ListItem.Property(TotalEpisodes)]",1144)</onfocus>
 			    <onfocus>SetProperty(UnwatchedEpisodes,"$INFO[ListItem.Property(UnwatchedEpisodes)]",1144)</onfocus>
@@ -304,14 +386,24 @@
 			    <onfocus>SetProperty(Art.tvshow.poster,"$INFO[ListItem.Art(tvshow.poster)]",1144)</onfocus>
 			    <onfocus>SetProperty(Art.season.poster,"$INFO[ListItem.Art(season.poster)]",1144)</onfocus>
                 <onfocus>SetProperty(Art.Poster,"$INFO[ListItem.Art(poster)]",1144)</onfocus>
-				<onfocus>SetProperty(Next_Aired.Season,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired.Season)]",1144)</onfocus>
-				<onfocus>SetProperty(Next_Aired.Episode,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired.Episode)]",1144)</onfocus>
-				<onfocus>SetProperty(Next_Aired.Name,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired.Name)]",1144)</onfocus>
-				<onfocus>SetProperty(Next_Aired,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired)]",1144)</onfocus>
-				<onfocus>SetProperty(Last_Aired.Season,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired.Season)]",1144)</onfocus>
-				<onfocus>SetProperty(Last_Aired.Episode,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired.Episode)]",1144)</onfocus>
-				<onfocus>SetProperty(Last_Aired.Name,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired.Name)]",1144)</onfocus>
-				<onfocus>SetProperty(Last_Aired,"$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired)]",1144)</onfocus>
+				<onfocus>SetProperty(Art.Thumb,"$INFO[ListItem.Art(thumb)]",1144)</onfocus>
+				<onfocus>SetProperty(Icon,"$INFO[ListItem.Icon]",1144)</onfocus>
+				<onfocus>SetProperty(Art.artist.clearlogo,"$INFO[ListItem.Art(artist.clearlogo)]",1144)</onfocus>
+				<onfocus>SetProperty(Art.albumartist.clearlogo,"$INFO[ListItem.Art(albumartist.clearlogo)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist,"$INFO[ListItem.Artist]",1144)</onfocus>
+				<onfocus>SetProperty(Album,"$INFO[ListItem.Album]",1144)</onfocus>
+				<onfocus>SetProperty(Comment,"$INFO[ListItem.Comment]",1144)</onfocus>
+				<onfocus>SetProperty(TrackNumber,"$INFO[ListItem.TrackNumber]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_Formed,"$INFO[ListItem.Property(Artist_Formed)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_YearsActive,"$INFO[ListItem.Property(Artist_YearsActive)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_Genre,"$INFO[ListItem.Property(Artist_Genre)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_Style,"$INFO[ListItem.Property(Artist_Style)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_Mood,"$INFO[ListItem.Property(Artist_Mood)]",1144)</onfocus>
+				<onfocus>SetProperty(Artist_Description,"$INFO[ListItem.Property(Artist_Description)]",1144)</onfocus>
+				<onfocus>SetProperty(Album_Description,"$INFO[ListItem.Property(Album_Description)]",1144)</onfocus>
+				<onfocus>SetProperty(Album_Label,"$INFO[ListItem.Property(Album_Label)]",1144)</onfocus>
+				<onfocus>SetProperty(Album_Style,"$INFO[ListItem.Property(Album_Style)]",1144)</onfocus>
+				<onfocus>SetProperty(Album_Mood,"$INFO[ListItem.Property(Album_Mood)]",1144)</onfocus>
 			    <onfocus condition="$PARAM[EnableProp]">SetProperty(ShowWidgetPopup,True,Home)</onfocus>
 		    </control>
 		</definition>	
