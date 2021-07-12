@@ -51,7 +51,15 @@
 				<width>1920</width>
 				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
 				<colordiffuse>FFE2E2E2</colordiffuse>
-				<visible>Player.HasVideo + [Skin.HasSetting(ShowInfoWithSeekBar) + [!Skin.HasSetting(UseUltraCompactOSD) + Skin.HasSetting(enable.bottomseekbar)] + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD)]</visible>
+				<visible>Player.HasVideo + Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(UseUltraCompactOSD) + Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + !Window.isVisible(VideoOSD) + !Window.IsVisible(DialogFullScreenInfo.xml)</visible>
+			</control>
+			<control type="image" description="Background">
+				<top>-25</top>
+				<height>225</height>
+				<width>1920</width>
+				<texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
+				<colordiffuse>FFE2E2E2</colordiffuse>
+				<visible>Player.HasVideo + Skin.HasSetting(ShowInfoWithSeekBar) + !Skin.HasSetting(UseUltraCompactOSD) + Skin.HasSetting(enable.bottomseekbar) + Window.IsVisible(DialogFullScreenInfo.xml)</visible>
 			</control>
 			
 			<control type="label" description="Clock">
@@ -67,7 +75,10 @@
 			</control>
 			
 			<control type="group">
-			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) +  [Skin.HasSetting(UseUltraCompactOSD) | [!Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + ![Window.isVisible(VideoOSD) | Window.IsVisible(MusicOSD)]]]</visible>
+			    <visible>Skin.HasSetting(ShowInfoWithSeekBar) +  [Skin.HasSetting(UseUltraCompactOSD) | 
+				                                                  [!Skin.HasSetting(enable.bottomseekbar) + !Window.isVisible(Custom_1123_PausedOverlay.xml) + 
+																   ![Window.isVisible(VideoOSD) | Window.IsVisible(MusicOSD)]] | 
+																  [Skin.HasSetting(enable.bottomseekbar) + Window.IsVisible(DialogFullScreenInfo.xml)]]</visible>
 				<top>130</top>
 			    <control type="image">
 				    <top>0</top>
