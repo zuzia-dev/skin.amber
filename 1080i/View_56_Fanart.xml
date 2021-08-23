@@ -45,6 +45,7 @@
 	
 	<variable name="FanartDiscImage">
 		<value condition="!String.IsEmpty(ListItem.Art(discart))">$INFO[ListItem.Art(discart)]</value>
+		<value condition="Container.Content(songs) + !String.IsEmpty(ListItem.Art(album.discart))">$INFO[ListItem.Art(album.discart)]</value>
 		<value condition="String.IsEmpty(ListItem.Art(discart))">$VAR[Square]</value>
 	</variable>
 	
@@ -1990,7 +1991,7 @@
 					    </focusedlayout>
 						
 						<!-- Square type items: Music -->
-					    <itemlayout height="344" width="344" condition="[container.content(artists) | container.content(songs) | [Container.Content(albums) + !Skin.HasSetting(56_Use_Disc)]]">
+					    <itemlayout height="344" width="344" condition="[container.content(artists) | [[Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(56_Use_Disc)]]">
 						    <control type="image">
 							    <include>SquareFanartThumbDimensions</include>
 								<include>SquareFanartThumb</include>
@@ -2012,7 +2013,7 @@
 						        <bordersize>8</bordersize>
 					        </control>
 					    </itemlayout>
-					    <focusedlayout height="344" width="344" condition="[container.content(artists) | container.content(songs) | [Container.Content(albums) + !Skin.HasSetting(56_Use_Disc)]]">
+					    <focusedlayout height="344" width="344" condition="[container.content(artists) | [[Container.Content(albums) | Container.Content(songs)] + !Skin.HasSetting(56_Use_Disc)]]">
 						    <control type="group">
 							    <animation effect="zoom" easing="out" start="100" end="110" time="350" delay="0" center="162,345">Focus</animation>
 							    <animation effect="zoom" easing="in" start="110" end="100" time="250" delay="0" center="162,345">UnFocus</animation>
@@ -2030,8 +2031,8 @@
 						    </control>
 					    </focusedlayout>
 						
-						<!-- Disc type items: Albums -->
-					    <itemlayout height="384" width="384" condition="Container.Content(albums) + Skin.HasSetting(56_Use_Disc)">
+						<!-- Disc type items: Albums or songs -->
+					    <itemlayout height="384" width="384" condition="[Container.Content(albums) | Container.Content(songs)] + Skin.HasSetting(56_Use_Disc)">
 						    <control type="image">
 							    <include>DiscFanartThumbDimensions</include>
 								<include>DiscFanartThumbNF</include>
@@ -2040,7 +2041,7 @@
 							    <include>DiscFanartReflection</include>
 						    </control>
 					    </itemlayout>
-					    <focusedlayout height="384" width="384" condition="Container.Content(albums) + Skin.HasSetting(56_Use_Disc)">
+					    <focusedlayout height="384" width="384" condition="[Container.Content(albums) | Container.Content(songs)] + Skin.HasSetting(56_Use_Disc)">
 						    <control type="group">
 							    <animation effect="zoom" easing="out" start="100" end="110" time="350" delay="0" center="162,345">Focus</animation>
 							    <animation effect="zoom" easing="in" start="110" end="100" time="250" delay="0" center="162,345">UnFocus</animation>
