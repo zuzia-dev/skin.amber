@@ -402,7 +402,7 @@
         <control type="multiimage">
             <visible>![Player.HasVideo + Skin.HasSetting(Show_VideoBackground)]</visible>
 			<visible>[!Control.IsVisible(56) | [Control.IsVisible(56) + ![$EXP[56_FanartViewNetflix]]]]</visible>
-            <width>100%</width>
+			<width>100%</width>
             <height>100%</height>
             <timeperimage>8000</timeperimage>
             <fadetime>400</fadetime>
@@ -431,7 +431,7 @@
             <include>Dimensions_Fullscreen</include>
         </control>
         <control type="videowindow">
-            <visible>[Player.HasVideo + Skin.HasSetting(Show_VideoBackground)] | Skin.HasSetting(AutoPlayTrailer)</visible>
+            <visible>Player.HasVideo + Skin.HasSetting(Show_VideoBackground)] | Skin.HasSetting(AutoPlayTrailer)</visible>
             <include>Dimensions_Fullscreen</include>
         </control>
     </include>
@@ -480,9 +480,10 @@
 	    <definition>
 		    <control type="group">
 	            <visible>Skin.HasSetting(ShowHomeLogo) + !$PARAM[ShowNoLogo]</visible>
-				<animation effect="slide" start="0,0" end="440,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + !Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
-				<animation effect="slide" start="0,0" end="140,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
-		        <!-- Logo for vert. menu, single-row widget, text menu -->
+				<animation effect="slide" start="0,0" end="440,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + !Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
+				<animation effect="slide" start="0,0" end="140,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
+		        <animation effect="fade" start="100" end="0" time="250" tween="sine" easing="out" condition="Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">conditional</animation>
+				<!-- Logo for vert. menu, single-row widget, text menu -->
 		        <control type="image">
                     <posy>-30</posy>
 		            <posx>940</posx>

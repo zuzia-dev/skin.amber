@@ -454,19 +454,36 @@
 							<param name="itemlabel" value="$LOCALIZE[32358]"/>
 							<param name="skinsetting" value="Shelf.PlayAlbum"/>
 							<param name="itemvisibility" value="System.HasAddon(script.playalbum)"/>
-						</include> 
+						</include>
+						<include content="YesNoSettingItem">
+							<param name="itemid" value="21"/>
+							<param name="itemlabel" value="[B]$LOCALIZE[32424][/B]"/>
+							<param name="skinsetting" value="Shelf.PlayTrailers"/>
+							<param name="customonclickYes">True</param>
+							<param name="onclick2Yes">Skin.Reset(ShelfTrailerDelay)</param>
+							<param name="customonclickNo">True</param>
+							<param name="onclick2No">Skin.SetString(ShelfTrailerDelay,00:05)</param>
+						</include>
                         <include content="CustomDialogSettingItem">
-                            <param name="itemid">21</param>
+                            <param name="itemid">22</param>
+                            <param name="itemlabel">      $LOCALIZE[32425]</param>
+		                    <param name="itemlabel2">$VAR[ShelfTrailerDelayLabelVar]</param>
+                            <param name="CustomProperty">CustomSelectShelfTrailerDelay</param>
+		                    <param name="CustomDialog">1121</param>
+							<param name="itemvisibility" value="Skin.HasSetting(Shelf.PlayTrailers)"/>
+						</include>
+                        <include content="CustomDialogSettingItem">
+                            <param name="itemid">23</param>
                             <param name="itemlabel">$LOCALIZE[32062]</param>
 		                    <param name="itemlabel2"></param>
                             <param name="CustomProperty">CustomSelectFavouriteAddons</param>
 		                    <param name="CustomDialog">1125</param>
 						</include>						
-						<item id="22" description="Customize Home Menu">
+						<item id="24" description="Customize Home Menu">
 							<label>$LOCALIZE[32043]</label>
 							<onclick>RunScript(script.skinshortcuts,type=manage&amp;group=mainmenu)</onclick>
 						</item>
-                        <item id="23" description="Customize Power Menu">
+                        <item id="25" description="Customize Power Menu">
 							<label>$LOCALIZE[32166]</label>
 							<onclick>RunScript(script.skinshortcuts,type=manage&amp;group=powermenu)</onclick>
 						</item>
