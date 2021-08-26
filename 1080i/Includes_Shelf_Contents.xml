@@ -6,10 +6,12 @@
 	    <control type="button">
 		    <animation effect="slide" end="0,0" time="2000" reversible="false">Focus</animation>
 		    <include>HiddenObject</include>
-		    <onunfocus condition="Skin.HasSetting(Shelf.PlayTrailers) + Player.HasVideo">PlayerControl(Stop)</onunfocus>
-		    <onunfocus condition="Skin.HasSetting(Shelf.PlayTrailers)">CancelAlarm(PlayShelfTrailer,silent)</onunfocus>
+		    <onunfocus condition="Skin.HasSetting(Shelf.PlayTrailers) + Player.HasVideo + !String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying))">PlayerControl(Stop)</onunfocus>
+		    <onunfocus condition="Skin.HasSetting(Shelf.PlayTrailers) + !String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying))">CancelAlarm(PlayShelfTrailer,silent)</onunfocus>
+			<onunfocus condition="Skin.HasSetting(Shelf.PlayTrailers) + !String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying))">ClearProperty(ShelfTrailerPlaying,Home)</onunfocus>
 		    <onfocus condition="[String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE, tvshow)] + Skin.HasSetting(Shelf.PlayTrailers) + !Player.HasVideo + !String.IsEmpty(ListItem.Trailer)">AlarmClock(PlayShelfTrailer,PlayMedia($ESCINFO[ListItem.Trailer],1),$INFO[Skin.String(ShelfTrailerDelay)],silent)</onfocus>
 		    <onfocus condition="[String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE, tvshow)] + Skin.HasSetting(Shelf.PlayTrailers) + !Player.HasVideo + String.IsEmpty(ListItem.Trailer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))">AlarmClock(PlayTrailer,PlayMedia($ESCINFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)],1),$INFO[Skin.String(ShelfTrailerDelay)],silent)</onfocus>
+			<onfocus condition="[String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE, tvshow)] + Skin.HasSetting(Shelf.PlayTrailers) + !Player.HasVideo + [!String.IsEmpty(ListItem.Trailer) | !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer))]">SetProperty(ShelfTrailerPlaying,True,Home)</onfocus>
 	    </control>
 	</include>
 	
