@@ -81,10 +81,12 @@
 			                                                                   [!Skin.HasSetting(Hide.NowPlaying) + Player.HasVideo + !ControlGroup(700).HasFocus] | 
 																			   [!String.IsEmpty(Container(300).ListItem.Property(widgetsHide)) + !ControlGroup(700).HasFocus]">Conditional</animation>
 			
-			<animation effect="slide" start="0,0" end="0,60" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(Enable.BottomShortcuts) + String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),Low) + Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">Conditional</animation>
+<!--			<animation effect="slide" start="0,0" end="0,60" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(Enable.BottomShortcuts) + String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),Low) + Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">Conditional</animation>
 			<animation effect="slide" start="0,0" end="0,220" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(Enable.BottomShortcuts) + String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),Standard) + Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">Conditional</animation>
-			<animation effect="slide" start="0,0" end="0,420" time="250" tween="sine" easing="in" condition="Skin.HasSetting(Enable.BottomShortcuts) + Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">Conditional</animation>
-			
+			<animation effect="slide" start="0,0" end="0,420" time="250" tween="sine" easing="in" condition="Skin.HasSetting(Enable.BottomShortcuts) + Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">Conditional</animation> -->
+
+            <animation effect="slide" start="0,0" end="0,1080" time="250" tween="sine" easing="in" condition="Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + !String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying)) + ControlGroup(700).HasFocus">Conditional</animation>
+
 			<include>skinshortcuts-template-shelfgroup2shelvesbackground</include>
 			<include>skinshortcuts-template-shelfgroup3shelvesbackground</include>
 			<include>skinshortcuts-template-shelfgroup1</include>
@@ -98,6 +100,11 @@
                 <include>PVRRecordingWidgets</include>
 			</control>
         </control>
+		
+		<include content="ShelfTrailerInfo">
+		    <param name="left">0</param>
+			<param name="top">800</param>
+		</include>
 		
         <!-- Main Menu/Submenu -->		
 		<control type="group">
