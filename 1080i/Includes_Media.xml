@@ -1006,7 +1006,7 @@
 				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[Container.ListItem.AudioChannels,,.png]</texture>
 			</control>
 			<control type="image" id="89010" description="Stars">
-				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser)</visible>
+				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser) + !Skin.HasSetting(coloredflags)</visible>
 				<height>$PARAM[itemheight]</height>
 				<width>$PARAM[itemwidth]</width>
 				<bordersize>3</bordersize>
@@ -1014,7 +1014,29 @@
 				<texture>$VAR[Container.ListItem.ratingbadge]</texture>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 			</control>
-			
+			<control type="grouplist" description="User rating">
+                <visible>$PARAM[showratingbadge] + !String.IsEmpty(Container.ListItem.UserRating) + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser) + Skin.HasSetting(coloredflags)</visible>
+                <width>$PARAM[itemwidth]</width>
+                <height>$PARAM[itemheight]</height>
+				<orientation>horizontal</orientation>
+                <top>18</top>
+				<itemgap>0</itemgap>
+                <align>left</align>                
+                <control type="image" description="User Rating logo">
+                    <height>40</height>
+                    <width>40</width>
+                    <aspectratio>keep</aspectratio>
+					<texture>badges/ratings/userrating2.png</texture>
+                </control>
+                <control type="label" description="User Rating">
+                    <width>40</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <align>left</align>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <label>$INFO[Container.ListItem.UserRating]</label>
+                </control>
+            </control>
 		</definition>
 	</include>
 	
@@ -1024,7 +1046,6 @@
 		<param name="diffuse">Silver</param>
 		<param name="showvideobadge">true</param>
 		<param name="showaudiobadge">true</param>
-		<param name="showratingbadge">true</param>
 		<definition>
 			<control type="image" id="89001">
 				<visible>!String.IsEmpty(ListItem.VideoResolution)</visible>
@@ -1129,16 +1150,6 @@
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[ListItem.AudioChannels,,.png]</texture>
 			</control>
-			<control type="image" id="89010" description="Stars">
-				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser)</visible>
-				<height>$PARAM[itemheight]</height>
-				<width>$PARAM[itemwidth]</width>
-				<bordersize>3</bordersize>
-				<aspectratio>keep</aspectratio>
-				<texture>$VAR[ListItem.ratingbadge]</texture>
-				<colordiffuse>$PARAM[diffuse]</colordiffuse>
-			</control>
-			
 		</definition>
 	</include>
 	
@@ -1254,7 +1265,7 @@
 				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[VideoPlayer.AudioChannels,,.png]</texture>
 			</control>
 			<control type="image" description="Stars">
-				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser)</visible>
+				<visible>$PARAM[showratingbadge] + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser) + !Skin.HasSetting(coloredflags)</visible>
 				<height>$PARAM[itemheight]</height>
 				<width>$PARAM[itemwidth]</width>
 				<bordersize>3</bordersize>
@@ -1262,6 +1273,28 @@
 				<texture>$VAR[VideoPlayer.ratingbadge]</texture>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 			</control>
+			<control type="grouplist" description="User rating">
+                <visible>$PARAM[showratingbadge] + !String.IsEmpty(VideoPlayer.UserRating) + String.IsEmpty(Container.PluginName) + Skin.HasSetting(ShowRatingUser) + Skin.HasSetting(coloredflags)</visible>
+                <width>$PARAM[itemwidth]</width>
+                <height>$PARAM[itemheight]</height>
+				<orientation>horizontal</orientation>
+                <itemgap>0</itemgap>
+                <align>left</align>                
+                <control type="image" description="User Rating logo">
+                    <height>40</height>
+                    <width>40</width>
+                    <aspectratio>keep</aspectratio>
+					<texture>badges/ratings/userrating2.png</texture>
+                </control>
+                <control type="label" description="User Rating">
+                    <width>40</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <align>left</align>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <label>$INFO[VideoPlayer.UserRating]</label>
+                </control>
+            </control>
 		</definition>
 	</include>	
 	
@@ -5070,6 +5103,7 @@
 			    <itemgap>20</itemgap>
 			    <orientation>horizontal</orientation>
 			    <align>right</align>
+				<usecontrolcoords>true</usecontrolcoords>
 			    <include content="MediaFlagItems">
 				    <param name="showvideobadge">false</param>
 				    <param name="showaudiobadge">true</param>
