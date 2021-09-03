@@ -1179,10 +1179,13 @@
         <param name="showflags">true</param>
 		<param name="footertop">920</param>
 		<param name="footerheight">155</param>
-		<param name="flagitemheight">80</param>
-		<param name="flagitemwidth">85</param>
+		<param name="flagitemheight">74</param>
+		<param name="flagitemwidth">78</param>
+		<param name="nonhdrflagitemheight">80</param>
+		<param name="nonhdrflagitemwidth">90</param>
 		<param name="lowflagitemheight">50</param>
 		<param name="lowflagitemwidth">90</param>
+		<param name="nonhdrlowflagitemwidth">95</param>
         <definition>
             <control type="grouplist" id="4000" description="Media Info Panel">
                 <include>OpenClose</include>
@@ -1450,12 +1453,11 @@
                         <param name="diffuse">$VAR[LabelTextColor]</param>
 						<param name="itemwidth">$PARAM[flagitemwidth]</param>
 						<param name="itemheight">$PARAM[flagitemheight]</param>
-						<param name="showratingbadge">false</param>
                     </include>
 					<include condition="!Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
-						<param name="itemwidth">$PARAM[flagitemwidth]</param>
-						<param name="itemheight">$PARAM[flagitemheight]</param>
+						<param name="itemwidth">$PARAM[nonhdrflagitemwidth]</param>
+						<param name="itemheight">$PARAM[nonhdrflagitemheight]</param>
                     </include>
                 </control>
 				<control type="grouplist" description="Flags">
@@ -1467,16 +1469,15 @@
                     <orientation>horizontal</orientation>
                     <align>left</align>
 					<usecontrolcoords>true</usecontrolcoords>
-                    <include condition="Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
+					<include condition="Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
 						<param name="itemwidth">$PARAM[flagitemwidth]</param>
 						<param name="itemheight">$PARAM[flagitemheight]</param>
-						<param name="showratingbadge">false</param>
                     </include>
 					<include condition="!Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
-						<param name="itemwidth">$PARAM[flagitemwidth]</param>
-						<param name="itemheight">$PARAM[flagitemheight]</param>
+						<param name="itemwidth">$PARAM[nonhdrflagitemwidth]</param>
+						<param name="itemheight">$PARAM[nonhdrflagitemheight]</param>
                     </include>
                 </control>
 				<control type="grouplist" description="Flags">
@@ -1493,36 +1494,32 @@
                         <param name="diffuse">$VAR[LabelTextColor]</param>
 						<param name="itemheight">40</param>
 						<param name="itemwidth">$PARAM[lowflagitemwidth]</param>
-						<param name="showratingbadge">false</param>
-						
                     </include>
 					<include condition="!Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
 						<param name="itemwidth">$PARAM[lowflagitemwidth]</param>
 						<param name="itemheight">40</param>
-						<param name="showratingbadge">false</param>
                     </include>
                 </control>
 				<control type="grouplist" description="Flags">
                     <visible>$PARAM[showflags] + $PARAM[lowpanel] + Skin.HasSetting(coloredflags)</visible>
-                    <width>$PARAM[width]</width>
+                    <include>ContentFade</include>
+					<width>$PARAM[width]</width>
                     <height>55</height>
                     <itemgap>10</itemgap>
                     <orientation>horizontal</orientation>
                     <align>left</align>
+					<left>-15</left>
 					<top>-3</top>
-					<usecontrolcoords>true</usecontrolcoords>
 					<include condition="Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
-						<param name="itemheight">45</param>
+						<param name="itemheight">50</param>
 						<param name="itemwidth">$PARAM[lowflagitemwidth]</param>
-						<param name="showratingbadge">false</param>
                     </include>
 					<include condition="!Skin.HasSetting(Show.ColorRangeFlags)" content="MediaFlagItems">
                         <param name="diffuse">$VAR[LabelTextColor]</param>
-						<param name="itemwidth">$PARAM[lowflagitemwidth]</param>
-						<param name="itemheight">45</param>
-						<param name="showratingbadge">false</param>
+						<param name="itemwidth">$PARAM[nonhdrlowflagitemwidth]</param>
+						<param name="itemheight">50</param>
                     </include>
                 </control>
 			</control>	
@@ -1928,16 +1925,15 @@
                 </control>
 		        <control type="grouplist" description="Flags">
 			        <top>975</top>
-			        <left>40</left>
-			        <width>$PARAM[labelwidth]</width>
+			        <left>30</left>
+			        <width>$PARAM[plotwidth]</width>
 			        <height>80</height>
-			        <itemgap>20</itemgap>
+			        <itemgap>15</itemgap>
 			        <orientation>horizontal</orientation>
 			        <align>center</align>
 			        <include content="MediaFlagItems">
 					    <param name="diffuse">$VAR[LabelTextColor]</param>
-				        <param name="showratingbadge">false</param>
-						<param name="itemwidth">95</param>
+						<param name="itemwidth">90</param>
 			        </include>
 		        </control>                
             </control>
@@ -1952,7 +1948,7 @@
         <param name="visibility">true</param>
         <param name="showratingbadge">true</param>
 		<param name="itemwidth">90</param>
-		<param name="itemgap">20</param>
+		<param name="itemgap">10</param>
 		<param name="usecontrolcoords">false</param>
         <definition>
             <control type="grouplist" description="Flags">

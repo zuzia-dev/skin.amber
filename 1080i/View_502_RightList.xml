@@ -863,7 +863,7 @@
                 </control>
             </control>
             <control type="grouplist" description="User rating">
-                <visible>!String.IsEmpty(ListItem.UserRating) + Skin.HasSetting(ShowRatingUser)</visible>
+                <visible>Skin.HasSetting(ShowRatingUser)</visible>
                 <width>80</width>
                 <orientation>horizontal</orientation>
                 <itemgap>0</itemgap>
@@ -880,6 +880,16 @@
                     <align>left</align>
                     <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[ListItem.UserRating]</label>
+					<visible>!String.IsEmpty(ListItem.UserRating)</visible>
+                </control>
+				<control type="label" description="User Rating">
+                    <width>40</width>
+                    <height>40</height>
+                    <font>ListDetails</font>
+                    <align>left</align>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <label>-</label>
+					<visible>String.IsEmpty(ListItem.UserRating)</visible>
                 </control>
             </control>
             <control type="grouplist" description="Awards">
