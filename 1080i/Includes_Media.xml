@@ -891,6 +891,7 @@
 		<param name="showvideobadge">true</param>
 		<param name="showaudiobadge">true</param>
 		<param name="showratingbadge">true</param>
+		<param name="lowpanel">false</param>
 		<definition>
 			<control type="image" id="89001">
 				<visible>!String.IsEmpty(Container.ListItem.VideoResolution)</visible>
@@ -1019,32 +1020,56 @@
                 <width>$PARAM[itemwidth]</width>
                 <height>$PARAM[itemheight]</height>
 				<orientation>horizontal</orientation>
-                <top>18</top>
-				<itemgap>0</itemgap>
-                <align>left</align>                
+				<usecontrolcoords>true</usecontrolcoords>
+				<itemgap>10</itemgap>
+                <align>left</align> 
+                <top>2</top>				
                 <control type="image" description="User Rating logo">
-                    <height>40</height>
                     <width>40</width>
                     <aspectratio>keep</aspectratio>
+					<aligny>center</aligny>
+					<align>center</align>
 					<texture>badges/ratings/userrating2.png</texture>
                 </control>
                 <control type="label" description="User Rating">
                     <width>40</width>
-                    <height>40</height>
                     <font>ListDetails</font>
                     <align>left</align>
+					<top>8</top>
                     <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>$INFO[Container.ListItem.UserRating]</label>
 					<visible>!String.IsEmpty(Container.ListItem.UserRating)</visible>
+					<visible>!$PARAM[lowpanel]</visible>
                 </control>
 				<control type="label" description="User Rating">
                     <width>40</width>
-                    <height>40</height>
                     <font>ListDetails</font>
                     <align>left</align>
+					<top>-5</top>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <label>$INFO[Container.ListItem.UserRating]</label>
+					<visible>!String.IsEmpty(Container.ListItem.UserRating)</visible>
+					<visible>$PARAM[lowpanel]</visible>
+                </control>
+				<control type="label" description="User Rating">
+                    <width>40</width>
+                    <font>ListDetails</font>
+                    <align>left</align>
+					<top>8</top>
                     <textcolor>$VAR[HighlightColor]</textcolor>
                     <label>-</label>
 					<visible>String.IsEmpty(Container.ListItem.UserRating)</visible>
+					<visible>!$PARAM[lowpanel]</visible>
+                </control>
+				<control type="label" description="User Rating">
+                    <width>40</width>
+                    <font>ListDetails</font>
+                    <align>left</align>
+					<top>-5</top>
+                    <textcolor>$VAR[HighlightColor]</textcolor>
+                    <label>-</label>
+					<visible>String.IsEmpty(Container.ListItem.UserRating)</visible>
+					<visible>$PARAM[lowpanel]</visible>
                 </control>
             </control>
 		</definition>
