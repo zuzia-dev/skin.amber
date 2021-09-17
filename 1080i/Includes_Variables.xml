@@ -436,7 +436,8 @@
         <value condition="String.IsEqual(ListItem.DBType,tag)">DefaultTags.png</value>
 		<value condition="ListItem.IsFolder + String.Contains(ListItem.FolderPath,playlists)">DefaultPlaylist.png</value>
 		<value condition="[ListItem.IsFolder + !String.IsEqual(ListItem.DBType,season)] + !ListItem.IsCollection + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Icon)">DefaultFolder.png</value>
-        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(season.poster)) + !Skin.HasSetting(UseTVShowPoster)">$INFO[ListItem.Art(season.poster)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(season.poster)) + Skin.HasSetting(UseTVShowPoster)">$INFO[ListItem.Art(tvshow.poster)]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(season.poster)) + !String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
         <value condition="String.IsEqual(ListItem.DBType,season) + String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
         <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Property(TVShowID)) + !String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>
