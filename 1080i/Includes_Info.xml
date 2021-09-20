@@ -1167,7 +1167,8 @@
 	<!-- End Matrix change -->
 
 	<variable name="VideoInfoBackground">
-		<value condition="Skin.HasSetting(Enable.BlurredVideoInfo)">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value>
+		<value condition="Skin.HasSetting(Enable.BlurredVideoInfo)">$INFO[Window(home).Property(EHBlur_blurred)]</value>
+<!--		<value condition="Skin.HasSetting(Enable.BlurredVideoInfo)">$INFO[Window(Home).Property(TMDbHelper.ListItem.BlurImage)]</value> -->
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
 		<value condition="!String.IsEmpty(Container(10051).ListItem.Art(fanart))">$INFO[Container(10051).ListItem.Art(fanart)]</value>
 	</variable>    
@@ -2078,6 +2079,7 @@
 				<orientation>horizontal</orientation>
 				<visible>Integer.IsGreater(Container($PARAM[id]).NumItems,$PARAM[minnumitems]) | Container($PARAM[id]).IsUpdating</visible>
 				<visible>$PARAM[visibility1]</visible>
+				<onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id],Home)</onfocus>
 				<animation effect="fade" start="100" end="0" condition="!Integer.IsGreater(Container($PARAM[id]).NumItems,$PARAM[minnumitems]) | Container($PARAM[id]).IsUpdating">Conditional</animation>
 				<include content="$PARAM[onclickinclude]"></include>
 				<include content="CastLayout">
@@ -2390,6 +2392,7 @@
 			<visible>!String.IsEmpty(ListItem.Property(Artist_Disambiguation))</visible>
 		</item>
 	</include>
+	
 	<include name="MusicInfoAlbumInfo">
 		<item>
 			<label>$LOCALIZE[557]:</label>
@@ -2477,6 +2480,7 @@
 			<visible>!String.IsEmpty(ListItem.LastPlayed)</visible>
 		</item>
 	</include>
+	
 	<include name="MusicInfoSongInfo">
 		<item>
 			<label>$LOCALIZE[568]</label>
