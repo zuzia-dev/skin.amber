@@ -16,6 +16,10 @@
     
 	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">Dialog.Close(VideoOSD,true)</onload>
 	
+	<onload condition="Skin.HasSetting(Enable.BlurredVideoInfo">RunScript(script.embuary.helper,action=blurimg,file='"$INFO[ListItem.Art(poster)]"',prop=EHBlur,radius=3)</onload>
+	
+	
+	
 	<!-- Close custom search dialogs if they are open so that we can perform searches from here without issue -->
 	<onload condition="Window.IsVisible(Custom_1122_Search.xml)">Dialog.Close(1122,force)</onload>
 	<onload condition="Window.IsVisible(Custom_1131_SingleSearch.xml)">Dialog.Close(1131,force)</onload>
@@ -112,9 +116,15 @@
 			    <fadetime>IconCrossfadeTime</fadetime>
 				<visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)</visible>
             </control>
-            <include content="BackgroundOverlayVideoInfo">
+            
+			<include condition="Skin.HasSetting(Enable.BlurredVideoInfo)" content="BackgroundOverlayVideoInfo">
+                <param name="parentid" value="9000"/>
+				<param name="colordiffuse">8FFFFFFF</param>
+            </include>
+			<include condition="!Skin.HasSetting(Enable.BlurredVideoInfo)" content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
             </include>
+			
         </control>
         <!-- Powered by TMDb for Person info -->
 		<control type="image" description="Powered by TMDb">
