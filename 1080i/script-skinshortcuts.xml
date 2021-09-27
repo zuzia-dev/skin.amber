@@ -291,7 +291,7 @@
 					<include>Disable3ShelvesLarge</include>
 				</control>
 				<control type="button" id="8405">
-					<description>Edit submenu</description>
+					<description>Make Default Menu Item</description>
 					<label>$LOCALIZE[31645]</label>
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible>
 					<height>60</height>
@@ -481,6 +481,37 @@
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
 					<include>Disable3ShelvesLarge</include>
 				</control>
+				<control type="radiobutton" id="813">
+					<visible>[!String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),true) + !String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),true) + 
+							   !String.IsEqual(Container(211).ListItem.Property(widgetThreeShelvesLarge),true) + !String.IsEqual(Container(211).ListItem.Property(UseBottomShortcuts),true)] | 
+							  String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)</visible>
+					<label>$LOCALIZE[31654]</label>
+					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(showShelvesInfo))">SetProperty(customProperty,showShelvesInfo)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,showShelvesInfo)</onclick>
+					<onclick condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),false)">SetProperty(customValue,true)</onclick>
+					<onclick>SendClick(404)</onclick>
+					<selected>!String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),false)</selected>
+					<height>60</height>
+					<width>1340</width>
+					<texturenofocus border="3">buttons/ButtonNF.png</texturenofocus>
+					<font>ListDetails</font>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,horizontalWidgetPos)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customValue,Low)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SendClick(404)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,widgetTwoShelves)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customValue,false)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SendClick(404)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,widgetThreeShelves)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customValue,false)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SendClick(404)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,widgetThreeShelvesLarge)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customValue,false)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SendClick(404)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customProperty,UseBottomShortcuts)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SetProperty(customValue,false)</onunfocus>
+					<onunfocus condition="String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)">SendClick(404)</onunfocus>
+					<include>Disable3ShelvesLarge</include>
+				</control>
 				<control type="button" id="800">
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu) + !Skin.HasSetting(Hide.AllShelves)</visible>
 					<description>Widget</description>
@@ -628,7 +659,7 @@
 				<control type="radiobutton" id="904">
 					<visible>String.IsEqual(Window.Property(groupname),mainmenu) + !Skin.HasSetting(Hide.AllShelves)</visible>
 					<visible>!String.IsEqual(Container(211).ListItem.Property(skinshortcuts-disabled),True)</visible>
-					<description>Disable widgets fanart</description>
+					<description>Hide widgets when not focused</description>
 					<label>$LOCALIZE[31483]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetsHide))">SetProperty(customProperty,widgetsHide)</onclick>
 					<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetsHide))">SetProperty(customProperty,widgetsHide)</onclick>
@@ -802,7 +833,8 @@
 					<font>ListDetails</font>
 				</control>
 				<control type="radiobutton" id="3002">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true) + 
+					         [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
 					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetTriple),false)] | 
 							 [!String.IsEmpty(Container(211).ListItem.Property(widgetDouble)) + String.IsEqual(Container(211).ListItem.Property(widgetTriple),false)]]</visible>
 					<label>$LOCALIZE[31046]</label>
@@ -817,7 +849,8 @@
 					<font>ListDetails</font>
 				</control>
 				<control type="radiobutton" id="3006">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
+					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true) + 
+					         [[String.IsEqual(Container(211).ListItem.Property(widgetTwoShelves),false) + 
 					         String.IsEqual(Container(211).ListItem.Property(widgetThreeShelves),false) + String.IsEqual(Container(211).ListItem.Property(widgetDouble),false)] | 
 							 [!String.IsEmpty(Container(211).ListItem.Property(widgetTriple)) + String.IsEqual(Container(211).ListItem.Property(widgetDouble),false)]]</visible>
 					<label>$LOCALIZE[31045]</label>
@@ -832,7 +865,8 @@
 					<font>ListDetails</font>
 				</control>
 				<control type="radiobutton" id="3011">
-					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEqual(Container(211).ListItem.Property(widget),static)</visible>
+					<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEqual(Container(211).ListItem.Property(widget),static) + 
+					         !String.IsEqual(Container(211).ListItem.Property(showShelvesInfo),true)</visible>
 					<label>$LOCALIZE[31650]</label>
 					<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(doInfoPopup))">SetProperty(customProperty,doInfoPopup)</onclick>
 					<onclick condition="String.IsEqual(Container(211).ListItem.Property(doInfoPopup),true)">SetProperty(customProperty,doInfoPopup)</onclick>
