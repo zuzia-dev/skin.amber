@@ -652,29 +652,24 @@
 		<property name="top" propertyValue="10">
 	        <rule tag="property" attribute="name|widgetThreeShelvesLarge" value="true" />
 	        <rule tag="property" attribute="name|widgetTriple" value="true" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="top" propertyValue="10">
 	        <rule tag="property" attribute="name|horizontalWidgetPos" value="High" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="top" propertyValue="110">
 	        <rule tag="property" attribute="name|widgetThreeShelvesLarge" value="false" />
 	        <rule tag="property" attribute="name|widgetTriple" value="true" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="top" propertyValue="220">
 	        <rule tag="property" attribute="name|widgetDouble" value="true" />
 	        <rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="top" propertyValue="170">
 	        <rule tag="property" attribute="name|widgetDouble" value="true" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="top" propertyValue="688">
@@ -716,7 +711,6 @@
 		<property name="ShowMedium2Logo" propertyValue="true">
 	        <rule tag="property" attribute="name|widgetDouble" value="true" />
 			<rule tag="property" attribute="name|horizontalWidgetPos" value="Low" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="ShowMedium2Logo">false</property>
@@ -724,7 +718,6 @@
 		<property name="ShowMediumLogo" propertyValue="true">
 	        <rule tag="property" attribute="name|widgetDouble" value="true" />
 			<rule tag="property" attribute="name|horizontalWidgetPos" value="Standard" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="ShowMediumLogo">false</property>
@@ -734,7 +727,6 @@
 	        <rule tag="property" attribute="name|widgetTriple" value="false" />
 			<rule tag="property" attribute="name|widgetAutoScroll" value="$NUMBER[7000]|$NUMBER[8000]|$NUMBER[9000]|$NUMBER[10000]|$NUMBER[11000]|$NUMBER[12000]|$NUMBER[15000]||$NUMBER[20000]|$NUMBER[30000]|$NUMBER[60000]" />
 			<rule tag="property" attribute="name|widgetArtwork" value="Banner|ClearLogo" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="ShowLargeLogo" propertyValue="true">
@@ -742,14 +734,12 @@
 	        <rule tag="property" attribute="name|widgetTriple" value="false" />
 			<rule tag="property" attribute="name|widgetAutoScroll" value="none" />
 			<rule tag="property" attribute="name|widgetArtwork" value="Banner|ClearLogo" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="ShowLargeLogo" propertyValue="true">
 	        <rule tag="property" attribute="name|widgetDouble" value="false" />
 	        <rule tag="property" attribute="name|widgetTriple" value="false" />
 			<rule tag="property" attribute="name|widgetArtwork" value="Poster|Square|FanArt|Landscape|ClearArt|Thumb|DiscArt|CharacterArt" />
-			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
 		<property name="ShowLargeLogo">false</property>
@@ -941,7 +931,7 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
 					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]</visible>
 					
@@ -951,28 +941,32 @@
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
 						
-							<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
 					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
 							
 							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include condition="!Skin.HasSetting(VerticalHome)" content="ShelfInfoContent">
-								<param name="left">20</param>
-								<param name="width">1280</param>
-							</include>
-							<include condition="Skin.HasSetting(VerticalHome)" content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
 								<param name="left">20</param>
 								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
 				<!-- Background for when bottom shortcuts are disabled -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]1</param>
 					<param name="label">$SKINSHORTCUTS[label1]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
@@ -996,11 +990,44 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]1</param>
+					<param name="nextid">1600$SKINSHORTCUTS[id]2</param>
+					<param name="label">$SKINSHORTCUTS[label1]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]1</param>
+					<param name="nextid">1600$SKINSHORTCUTS[id]2</param>
+					<param name="label">$SKINSHORTCUTS[label1]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
 				
 				<control type="$SKINSHORTCUTS[containertype1]" id="1600$SKINSHORTCUTS[id]1">
 					
 					<!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
 					<!-- Animations to center widgets for horizontal menu -->
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]1</param>
