@@ -3,6 +3,7 @@
 
 	<variable name="HomeClearLogo">
 		<!-- Widget Item Logo -->
+		<value condition="ControlGroup(700).HasFocus + !String.IsEmpty(Container.ListItem.Art(clearlogo))">$INFO[Container.ListItem.Art(clearlogo)]</value>
 		<value condition="ControlGroup(700).HasFocus + !String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + 
 		                  String.IsEmpty(ListItem.Property(nextairedtvshowtitle)) + !String.IsEmpty(ListItem.TVShowTitle) + !String.IsEmpty(ListItem.Art(tvshow.clearlogo))">$INFO[ListItem.Art(tvshow.clearlogo)]</value>
 		<value condition="ControlGroup(700).HasFocus + !String.IsEmpty(Container(300).ListItem.Property(WidgetType)) + String.IsEmpty(ListItem.Property(recommendedtvshowtitle)) + 
@@ -480,7 +481,7 @@
 		<param name="ShowLargeLogoUnfocused">false</param>
 		<definition>
 			<control type="group">
-	            <visible>Skin.HasSetting(ShowHomeLogo) + !$PARAM[ShowNoLogo] + ![$EXP[widgetsAreShowing] + String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) + !$PARAM[ShowLargeLogoUnfocused]]</visible>
+	            <visible>Skin.HasSetting(ShowHomeLogo) + !$PARAM[ShowNoLogo] + ![$EXP[widgetsAreShowing] + String.IsEqual(Container(300).ListItem.Property(horizontalWidgetPos),High) + !Container(300).ListItem.Property(showShelvesInfo)]</visible>
 				<animation effect="slide" start="0,0" end="440,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + !Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
 				<animation effect="slide" start="0,0" end="140,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
 				<animation effect="fade" start="100" end="0" time="250" tween="sine" easing="out" condition="Player.HasVideo + Skin.HasSetting(Shelf.PlayTrailers) + ControlGroup(700).HasFocus">conditional</animation>

@@ -953,11 +953,13 @@
 						<control type="group">
 						    <!-- Info for horizontal mennu -->
 							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
 								<param name="left">20</param>
 								<param name="width">1400</param>
 							</include>
 							<!-- Info for vertical menu, text -->
 							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
 								<param name="left">20</param>
 								<param name="width">1700</param>
 							</include>
@@ -993,7 +995,6 @@
 				<!-- Background when shelf info is enabled - low and only one row -->
 				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]1</param>
-					<param name="nextid">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label">$SKINSHORTCUTS[label1]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
 					<param name="top">534</param>
@@ -1007,7 +1008,6 @@
 				<!-- Background when shelf info is enabled - low and only one row -->
 				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]1</param>
-					<param name="nextid">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label">$SKINSHORTCUTS[label1]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
 					<param name="top">594</param>
@@ -1275,6 +1275,7 @@
 		<property name="doInfoPopup2" tag="property" attribute="name|doInfoPopup.2" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay2" tag="property" attribute="name|widgetPopupDelay.2" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.3" value="none">false</property>
@@ -1557,29 +1558,43 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
-					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]2)</visible>
-					<top>50</top>
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
-							<top>-30</top>
-							<width>1340</width>
-							<height>480</height>
-							<texture colordiffuse="BFFFFFFF">img/list_shadow.png</texture>
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
 								<param name="left">20</param>
-								<param name="width">1280</param>
+								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]2</param>
 					<param name="label">$SKINSHORTCUTS[label2]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
@@ -1602,10 +1617,41 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]2</param>
+					<param name="label">$SKINSHORTCUTS[label2]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]2</param>
+					<param name="label">$SKINSHORTCUTS[label2]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
 				
 				<control type="$SKINSHORTCUTS[containertype2]" id="1600$SKINSHORTCUTS[id]2">
 				
-				    <include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]2</param>
@@ -1855,6 +1901,7 @@
 		<property name="doInfoPopup3" tag="property" attribute="name|doInfoPopup.3" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay3" tag="property" attribute="name|widgetPopupDelay.3" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.4" value="none">false</property>
@@ -2136,29 +2183,43 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
-					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]3)</visible>
-					<top>50</top>
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]3) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
-							<top>-30</top>
-							<width>1340</width>
-							<height>480</height>
-							<texture colordiffuse="BFFFFFFF">img/list_shadow.png</texture>
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]3</param>
 								<param name="left">20</param>
-								<param name="width">1280</param>
+								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]3</param>
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]3</param>
 					<param name="label">$SKINSHORTCUTS[label3]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
@@ -2181,10 +2242,41 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]3</param>
+					<param name="label">$SKINSHORTCUTS[label3]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]3</param>
+					<param name="label">$SKINSHORTCUTS[label3]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
 				
 				<control type="$SKINSHORTCUTS[containertype3]" id="1600$SKINSHORTCUTS[id]3">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]3</param>
@@ -2433,6 +2525,7 @@
 		<property name="doInfoPopup4" tag="property" attribute="name|doInfoPopup.4" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay4" tag="property" attribute="name|widgetPopupDelay.4" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.5" value="none">false</property>
@@ -2852,29 +2945,43 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
-					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]4)</visible>
-					<top>50</top>
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]4) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
-							<top>-30</top>
-							<width>1340</width>
-							<height>480</height>
-							<texture colordiffuse="BFFFFFFF">img/list_shadow.png</texture>
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]4</param>
 								<param name="left">20</param>
-								<param name="width">1280</param>
+								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]4</param>
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]4</param>
 					<param name="label">$SKINSHORTCUTS[label4]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
@@ -2897,8 +3004,42 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]4</param>
+					<param name="label">$SKINSHORTCUTS[label4]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]4</param>
+					<param name="label">$SKINSHORTCUTS[label4]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
+				
 				<control type="$SKINSHORTCUTS[containertype4]" id="1600$SKINSHORTCUTS[id]4">
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]4</param>
 		                <param name="center228">$SKINSHORTCUTS[center228]</param>
@@ -3138,6 +3279,7 @@
 		<property name="doInfoPopup5" tag="property" attribute="name|doInfoPopup.5" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay5" tag="property" attribute="name|widgetPopupDelay.5" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If target is set to true for next widget navigate to next (fallback if empty set to false in overrides.xml) -->
 		<property name="onup" tag="property" attribute="name|widgetType.6" value="none">false</property>
@@ -3557,29 +3699,43 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
-					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]5)</visible>
-					<top>50</top>
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]5) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
-							<top>-30</top>
-							<width>1340</width>
-							<height>480</height>
-							<texture colordiffuse="BFFFFFFF">img/list_shadow.png</texture>
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]5</param>
 								<param name="left">20</param>
-								<param name="width">1280</param>
+								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]5</param>
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]5</param>
 					<param name="label">$SKINSHORTCUTS[label5]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
@@ -3602,9 +3758,42 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
-				<!-- Container for when bottom shortcuts are not enabled and path is an include -->
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]5</param>
+					<param name="label">$SKINSHORTCUTS[label5]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]5</param>
+					<param name="label">$SKINSHORTCUTS[label5]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
+				
 				<control type="$SKINSHORTCUTS[containertype5]" id="1600$SKINSHORTCUTS[id]5">
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]5</param>
 		                <param name="center228">$SKINSHORTCUTS[center228]</param>
@@ -3845,6 +4034,7 @@
 		<property name="doInfoPopup6" tag="property" attribute="name|doInfoPopup.6" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay6" tag="property" attribute="name|widgetPopupDelay.6" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- Always navigate to widget 1 from here, so set onup to false -->
 		<property name="onup">false</property>
@@ -4264,29 +4454,43 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<!-- Info -->
+				<!-- Shelf Info -->
 				<control type="group">
-					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]6)</visible>
-					<top>50</top>
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]6) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
 					<left>0</left>
 					<control type="group">
 						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
 						<control type="image">
-							<top>-30</top>
-							<width>1340</width>
-							<height>480</height>
-							<texture colordiffuse="BFFFFFFF">img/list_shadow.png</texture>
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)">ShelfInfoBackCoordsVertIcon</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
 						</control>
 						<control type="group">
-							<include content="ShelfInfoContent">
+						    <!-- Info for horizontal mennu -->
+							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]6</param>
 								<param name="left">20</param>
-								<param name="width">1280</param>
+								<param name="width">1400</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]6</param>
+								<param name="left">20</param>
+								<param name="width">1700</param>
 							</include>
 						</control>
 					</control>
 				</control>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
+				<include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
 					<param name="id">1600$SKINSHORTCUTS[id]6</param>
 					<param name="label">$SKINSHORTCUTS[label6]</param>
 					<param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
@@ -4309,9 +4513,42 @@
 					<param name="ShowMedium2Logo">false</param>
 					<param name="ShowLargeLogo">false</param>
 				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]6</param>
+					<param name="label">$SKINSHORTCUTS[label6]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					<param name="top">534</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLarge2Logo">true</param>
+				</include>
+				<!-- Background when shelf info is enabled - low and only one row -->
+				<include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					<param name="id">1600$SKINSHORTCUTS[id]6</param>
+					<param name="label">$SKINSHORTCUTS[label6]</param>
+					<param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					<param name="top">594</param>
+					<param name="height">375</param>
+					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					<param name="ShowMediumLogo">false</param>
+					<param name="ShowMedium2Logo">false</param>
+					<param name="ShowLargeLogo">false</param>
+					<param name="ShowLargeLogoUnfocused">true</param>
+				</include>
 				
 				<control type="$SKINSHORTCUTS[containertype6]" id="1600$SKINSHORTCUTS[id]6">
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]6</param>
 		                <param name="center228">$SKINSHORTCUTS[center228]</param>
