@@ -985,7 +985,7 @@
 			</control>
 			<control type="image" id="89008">
 				<visible>!String.IsEmpty(Container.ListItem.FileExtension)</visible>
-				<visible>Container.Content(songs)</visible>
+				<visible>String.IsEqual(Container.ListItem.DBType,song)</visible>
 				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
 				<visible>$PARAM[showaudiobadge]</visible>
 				<height>$PARAM[itemheight]</height>
@@ -1005,6 +1005,18 @@
 				<aspectratio>keep</aspectratio>
 				<colordiffuse>$PARAM[diffuse]</colordiffuse>
 				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[Container.ListItem.AudioChannels,,.png]</texture>
+			</control>
+			<control type="image" id="89009">
+				<visible>!String.IsEmpty(Container.ListItem.MusicChannels)</visible>
+				<visible>String.IsEqual(Container.ListItem.DBType,song)</visible>
+				<visible>!Skin.HasSetting(Hide.MediaFlagsVideo)</visible>
+				<visible>$PARAM[showaudiobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[Container.ListItem.MusicChannels,,.png]</texture>
 			</control>
 			<control type="image" id="89010" description="Stars">
 				<visible>$PARAM[showratingbadge] + !String.IsEmpty(Container.ListItem.DBID) + Skin.HasSetting(ShowRatingUser) + !Skin.HasSetting(coloredflags)</visible>
