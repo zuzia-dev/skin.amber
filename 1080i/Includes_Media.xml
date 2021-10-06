@@ -2617,7 +2617,7 @@
 				    <visible>!ListItem.IsParentFolder</visible>
 					<!-- Poster -->
 					<control type="group">
-					    <visible>!$PARAM[isBanner] + !$PARAM[isThumb]</visible>
+					    <visible>!$PARAM[isBanner] + !$PARAM[isThumb] + !$PARAM[isSquare]</visible>
 						<control type="image">
 				            <visible>!$PARAM[isFocused]</visible>
 				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
@@ -2758,7 +2758,7 @@
 				    <visible>!ListItem.IsParentFolder</visible>
 					<!-- Poster in media view -->
                     <control type="group">
-        				<visible>!$PARAM[isBanner] + !$PARAM[isThumb] + !String.IsEmpty(Container.Viewmode)</visible>
+        				<visible>!$PARAM[isBanner] + !$PARAM[isThumb] + !$PARAM[isSquare] + !String.IsEmpty(Container.Viewmode)</visible>
 						<control type="image">
 				            <visible>!$PARAM[isFocused]</visible>
 				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
@@ -2887,6 +2887,50 @@
 					        <label>$VAR[RatingOverlayVar]</label>
 					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
 					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+					</control>
+					<!-- Square in media views -->
+					<control type="group">
+					    <visible>$PARAM[isSquare] + !String.IsEmpty(Container.Viewmode)</visible>
+						<control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+				        <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true" flipx="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+				            <posx>221r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+			            </control>
+						<control type="label" description="l2">
+					        <visible>$PARAM[isFocused]</visible>
+					        <posx>246.5r</posx>
+				            <posy>-159</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+					        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				        </control>
+				        <control type="label" description="l2">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <posx>246.5r</posx>
+				            <posy>-159</posy>
+					        <height>$PARAM[itemheight]</height>
+					        <width>100</width>
+					        <font>ListDetailsSmall</font>
+					        <align>center</align>
+					        <label>$VAR[RatingOverlayVar]</label>
+					        <textcolor>White2</textcolor>
 				        </control>
 					</control>
 					
@@ -4304,10 +4348,12 @@
 	<include name="GenericMusicIconSmall">
 		<param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
+		<param name="isSquare">false</param>
 		<definition>
 			<include content="GenericThumbIconTemplate">
 				<param name="isFocused">$PARAM[isFocused]</param>
 				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				<param name="isSquare">$PARAM[isSquare]</param>
 				<param name="iconwidth">232.5</param>
 				<param name="iconheight">232.5</param>
 				<param name="iconoffset">0</param>
@@ -4858,12 +4904,14 @@
 				<include content="GenericMusicIconSmall">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">true</param>
+					<param name="isSquare">true</param>
 				</include>
 			</itemlayout>
 			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_Music_SmallIcons) + [Container.Content(artists) | Container.Content(albums) | Container.Content(songs) | Container.Content(musicvideos)]" height="294" width="232.5">
 				<include content="GenericMusicIconSmall">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">true</param>
+					<param name="isSquare">true</param>
 				</include>
 			</focusedlayout>
 		</definition>
