@@ -67,6 +67,12 @@
 		<condition tag="property" attribute="name|widgetPath.5" />
 		<condition tag="property" attribute="name|widgetPath.6" />
 		<match>any</match>
+		
+		<!-- Retrieve properties -->
+		<property name="id" tag="mainmenuid" />
+		<property name="widgetTwoShelves" tag="property" attribute="name|widgetTwoShelves" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
+		
 		<!-- Check if other widgets are set -->
 		<property name="target1" tag="property" attribute="name|widgetTarget" value="false">false</property>
 		<property name="target1">true</property>
@@ -569,22 +575,18 @@
 			<rule tag="property" attribute="name|showShelvesInfo" value="false" />
 			<match>all</match>
         </property>
-		
-		<!-- Show Info position -->
-		<property name="top" propertyValue="575">
-	        <rule tag="property" attribute="name|showShelvesInfo" value="true" />
-			<match>all</match>
-        </property>
-		
+	
 		<!-- All other scenarios -->
 		<property name="top">315</property>
 		
-		<!-- Retrieve properties -->
-		<property name="id" tag="mainmenuid" />
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				<animation effect="fade" time="200">VisibleChange</animation>
+				
+				<animation effect="slide" start="0,0" end="0,250" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[widgetTwoShelves] + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
+				<animation effect="slide" start="0,0" end="0,-340" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[widgetTwoShelves] + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
+				
 				
 				<include content="widgetsIndicator" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
 	                <param name="top">$SKINSHORTCUTS[top]</param>
@@ -6836,6 +6838,7 @@
 		<condition tag="property" attribute="name|widgetTwoShelves">true</condition>
 		<condition tag="property" attribute="name|widgetThreeShelves">false</condition>
 		<condition tag="property" attribute="name|showShelvesInfo">true</condition>
+		
 		<property name="id" tag="mainmenuid" />
 		<property name="label1" tag="property" attribute="name|widgetName" />
 		<property name="labelscroll1" tag="property" attribute="name|widgetLabelScroll" />
@@ -6869,6 +6872,7 @@
 		<condition tag="property" attribute="name|widgetTwoShelves">true</condition>
 		<condition tag="property" attribute="name|widgetThreeShelves">false</condition>
 		<condition tag="property" attribute="name|showShelvesInfo">true</condition>
+		
 		<property name="id" tag="mainmenuid" />
 		<property name="label2" tag="property" attribute="name|widgetName.2" />
 		<property name="labelscroll2" tag="property" attribute="name|widgetLabelScroll.2" />
@@ -7320,7 +7324,6 @@
 					
 					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
-<!--					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include> -->
 					
 					
 					<animation effect="slide" start="0,0" end="0,90" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
@@ -7380,7 +7383,6 @@
 					<height>315</height>
 					<autoscroll time="$SKINSHORTCUTS[autoscroll1]">!Control.HasFocus(1600$SKINSHORTCUTS[id]1)</autoscroll>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
-<!--					<onclick condition="String.IsEqual(ListItem.DBType,season)">ActivateWindow(Videos,videodb://tvshows/titles/$INFO[ListItem.Property(TVShowID)]/$INFO[ListItem.Property(Season)]/?tvshowid=$INFO[ListItem.Property(TVShowID)])</onclick> -->
                     <onclick condition="System.HasAddon(script.playalbum) + Skin.HasSetting(Shelf.PlayAlbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
 					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetProperty(WidgetFocus$SKINSHORTCUTS[id],2,home)</onup>
 					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</onup>
@@ -7605,7 +7607,7 @@
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
-<!--				<animation effect="fade" time="200">VisibleChange</animation> -->
+				<animation effect="fade" time="200">VisibleChange</animation>
 				
 				<!-- Shelf Info -->
 				<control type="group">
@@ -7736,16 +7738,11 @@
 					<autoscroll time="$SKINSHORTCUTS[autoscroll2]">!Control.HasFocus(1600$SKINSHORTCUTS[id]2)</autoscroll>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
 					<onclick condition="System.HasAddon(script.playalbum) + Skin.HasSetting(Shelf.PlayAlbum) + String.IsEqual(ListItem.DBType,album)">RunScript(script.playalbum,albumid=$INFO[ListItem.DBID])</onclick>
-                    <onup condition="$SKINSHORTCUTS[showShelvesInfo]">ClearProperty(WidgetFocus$SKINSHORTCUTS[id],home)</onup>
-					<onup condition="$SKINSHORTCUTS[showShelvesInfo]">SetFocus(1600$SKINSHORTCUTS[id]1)</onup>
-					<ondown condition="$SKINSHORTCUTS[showShelvesInfo]">300</ondown>
-					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0) + !$SKINSHORTCUTS[showShelvesInfo]">ClearProperty(WidgetFocus$SKINSHORTCUTS[id],home)</ondown>
-					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0) + !$SKINSHORTCUTS[showShelvesInfo]">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
-					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0) + !$SKINSHORTCUTS[showShelvesInfo]">300</ondown>
+					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">ClearProperty(WidgetFocus$SKINSHORTCUTS[id],home)</ondown>
+					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
+					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
 					<ondown condition="!String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying)) + Player.HasVideo">PlayerControl(Stop)</ondown>
 					<ondown condition="!String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying))">ClearProperty(ShelfTrailerPlaying,Home)</ondown>
-					<onup condition="!String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying)) + Player.HasVideo">PlayerControl(Stop)</onup>
-					<onup condition="!String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying))">ClearProperty(ShelfTrailerPlaying,Home)</onup>
 					<onleft condition="Skin.HasSetting(VerticalHome)">300</onleft>
 					<onback>300</onback>
 					<preloaditems>2</preloaditems>
