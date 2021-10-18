@@ -86,9 +86,16 @@
 		<param name="ShowMediumLogo"></param>
 		<param name="ShowMedium2Logo">false</param>
 		<param name="ShowLargeLogoUnfocused">false</param>
+		<param name="twoShelvesTogether">false</param>
+		<param name="showShelvesInfo">false</param>
 		<definition>
 			<visible>$PARAM[visible]</visible>
 			<control type="group">
+				
+				<animation effect="fade" start="100" end="0" time="0" reversible="false" condition="!ControlGroup(700).HasFocus + $PARAM[showShelvesInfo] + $PARAM[twoShelvesTogether]">Conditional</animation>
+				
+				<animation effect="fade" start="0" end="100" time="0" reversible="false" condition="Control.HasFocus($PARAM[id]) + $PARAM[showShelvesInfo] + $PARAM[twoShelvesTogether]">Conditional</animation>
+				
 				<top>$PARAM[top]</top>
 				<control type="image" id="21$PARAM[id]">
 					<top>-48</top>
@@ -185,11 +192,12 @@
 		<param name="ShowMediumLogo">false</param>
 		<param name="ShowMedium2Logo">false</param>
 		<param name="ShowLargeLogo">false</param>
+		<param name="showShelvesInfo">false</param>
 		<definition>
 			<!-- Both widgets have items -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
-				<animation effect="fade" time="200">VisibleChange</animation>
+				<animation effect="fade" start="100" end="0" time="0" condition="ControlGroup(700).HasFocus + $PARAM[showShelvesInfo]">Conditional</animation>
 				<top>$PARAM[topdouble]</top>
 				<control type="image">
 					<top>-48</top>
@@ -378,6 +386,9 @@
 				<param name="ShowMediumLogo">$PARAM[ShowMediumLogo]</param>
 				<param name="ShowMedium2Logo">$PARAM[ShowMedium2Logo]</param>
 				<param name="ShowLargeLogo">$PARAM[ShowLargeLogo]</param>
+				<param name="id1">$PARAM[id1]</param>
+		        <param name="id2">$PARAM[id2]</param>
+				<param name="showShelvesInfo">$PARAM[showShelvesInfo]</param>
 			</include>
 		</definition>
 	</include>
