@@ -91,11 +91,6 @@
 		<definition>
 			<visible>$PARAM[visible]</visible>
 			<control type="group">
-				
-				<animation effect="fade" start="100" end="0" time="0" reversible="false" condition="!ControlGroup(700).HasFocus + $PARAM[showShelvesInfo] + $PARAM[twoShelvesTogether]">Conditional</animation>
-				
-				<animation effect="fade" start="0" end="100" time="0" reversible="false" condition="Control.HasFocus($PARAM[id]) + $PARAM[showShelvesInfo] + $PARAM[twoShelvesTogether]">Conditional</animation>
-				
 				<top>$PARAM[top]</top>
 				<control type="image" id="21$PARAM[id]">
 					<top>-48</top>
@@ -197,7 +192,6 @@
 			<!-- Both widgets have items -->
 			<control type="group">
 				<visible>Integer.IsGreater(Container($PARAM[id1]).NumItems,0) + Integer.IsGreater(Container($PARAM[id2]).NumItems,0)</visible>
-				<animation effect="fade" start="100" end="0" time="0" condition="ControlGroup(700).HasFocus + $PARAM[showShelvesInfo]">Conditional</animation>
 				<top>$PARAM[topdouble]</top>
 				<control type="image">
 					<top>-48</top>
@@ -205,6 +199,15 @@
 					<height>$PARAM[heightdouble]</height>
 					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
 					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+					<visible>[$PARAM[showShelvesInfo] + ![Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]] | !$PARAM[showShelvesInfo]</visible>
+				</control>
+				<control type="image">
+					<top>-108</top>
+					<width>1920</width>
+					<height>787</height>
+					<colordiffuse>$VAR[WidgetBGColor]</colordiffuse>
+					<texture border="0,40,0,40">home/OverlayRA2T.png</texture>
+					<visible>$PARAM[showShelvesInfo] + [Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]</visible>
 				</control>
 				<control type="group">
 					<animation effect="slide" start="0,0" end="420,0" time="250" tween="sine" easing="in" condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves) + ControlGroup(700).HasFocus + !Skin.HasSetting(Vertical.IconOnly)">conditional</animation>
@@ -219,6 +222,19 @@
 						<textcolor>$VAR[HighlightColor]</textcolor>
 						<label>$PARAM[label2]</label>
 						<visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
+						<visible>[$PARAM[showShelvesInfo] + ![Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]] | !$PARAM[showShelvesInfo]</visible>
+					</control>
+					<control type="label">
+						<top>-114</top>
+						<right>12</right>
+						<width>700</width>
+						<height>45</height>
+						<align>right</align>
+						<font>Shelf_Title</font>
+						<textcolor>$VAR[HighlightColor]</textcolor>
+						<label>$PARAM[label2]</label>
+						<visible>String.IsEmpty(Container($PARAM[id2]).ListItem.Property(searchstring))</visible>
+						<visible>$PARAM[showShelvesInfo] + [Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]</visible>
 					</control>
 					<control type="label">
 						<top>-54</top>
@@ -278,7 +294,20 @@
 				</control>					
 				<control type="label">
 					<visible>Control.HasFocus($PARAM[id2])</visible>
+					<visible>[$PARAM[showShelvesInfo] + ![Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]] | !$PARAM[showShelvesInfo]</visible>
 					<top>-54</top>
+					<left>12</left>
+					<width>700</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<scroll>$PARAM[labelscroll2]</scroll>
+					<label>$VAR[HomeWidgetLabel]</label>
+				</control>
+				<control type="label">
+					<visible>Control.HasFocus($PARAM[id2])</visible>
+					<visible>$PARAM[showShelvesInfo] + [Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]</visible>
+					<top>-114</top>
 					<left>12</left>
 					<width>700</width>
 					<height>45</height>
@@ -301,7 +330,19 @@
 				<!-- Info Line -->
 				<control type="label">
 					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<visible>[$PARAM[showShelvesInfo] + ![Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]] | !$PARAM[showShelvesInfo]</visible>
 					<top>-54</top>
+					<left>12</left>
+					<width>1170</width>
+					<height>45</height>
+					<font>Shelf_Title</font>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<label>$VAR[LibraryStats]</label>
+				</control>
+                <control type="label">
+					<visible>!Control.HasFocus($PARAM[id1]) + !Control.HasFocus($PARAM[id2]) + Skin.HasSetting(ShowInfoLine) + Skin.HasSetting(ShowInfoLineShelf)</visible>
+					<visible>$PARAM[showShelvesInfo] + [Control.HasFocus($PARAM[id1]) | Control.HasFocus($PARAM[id2])]</visible>
+					<top>-114</top>
 					<left>12</left>
 					<width>1170</width>
 					<height>45</height>
