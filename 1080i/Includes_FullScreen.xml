@@ -675,6 +675,17 @@
 		    <visible>VideoPlayer.Content(livetv)</visible>
 		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 		</control>
+		<!-- Episode List -->
+		<control type="radiobutton" id="6071">
+		    <include content="OSDButtons">
+			    <param name="icon">OSD/OSDEpgNF.png</param>
+		    </include>
+			<onclick condition="!Player.Paused">PlayerControl(Play)</onclick>
+			<onclick>ActivateWindow(1145)</onclick>
+		    <visible>!VideoPlayer.Content(livetv) + VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TVShowDBID)</visible>
+		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+		    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+		</control>
 		<!-- PVR Teletext -->
 		<control type="radiobutton" id="650">
 		    <include content="OSDButtons">
@@ -795,6 +806,20 @@
 		    <onclick>ActivateWindow(PVRChannelGuide)</onclick>
 		    <onclick>Dialog.Close(VideoOSD)</onclick>
 		    <visible>VideoPlayer.Content(livetv)</visible>
+		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+		    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+		</control>
+		<!-- Episode List -->
+    	<control type="button" id="6071">
+	        <width>64</width>
+            <height>64</height>
+            <label/>
+            <font/>
+            <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/playlist.png</texturefocus>
+            <texturenofocus>OSD/compact/playlist.png</texturenofocus>
+		    <onclick condition="!Player.Paused">PlayerControl(Play)</onclick>
+			<onclick>ActivateWindow(1145)</onclick>
+		    <visible>!VideoPlayer.Content(livetv) + VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TVShowDBID)</visible>
 		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 		    <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
 		</control>
