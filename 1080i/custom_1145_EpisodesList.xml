@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window id="1145" type="dialog">
 
-	<defaultcontrol always="true">6002</defaultcontrol>
+	<defaultcontrol always="true">6001</defaultcontrol>
     <include>DialogOpenClose</include>
 	<onunload condition="Player.Paused">PlayerControl(Play)</onunload>
 	<onunload>ClearProperty(PlayerTVShowID,home)</onunload>
@@ -18,10 +18,10 @@
 		</control>
 		<control type="group">
 			<left>290</left>
-			<top>88</top>
+			<top>28</top>
 			<control type="image" description="Menu BG">
 				<width>1040</width>
-				<height>760</height>
+				<height>820</height>
 				<texture border="0,40,0,40">dialogs/DialogBG.png</texture>
 				<colordiffuse>$VAR[DialogBGColor]</colordiffuse>
 			</control>            
@@ -33,7 +33,7 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<textcolor>$VAR[HighlightColor]</textcolor>
-				<label>[B]$INFO[VideoPlayer.TVShowTitle][/B] - $LOCALIZE[20373] $INFO[VideoPlayer.Season]</label>
+				<label>[B]$INFO[VideoPlayer.TVShowTitle][/B] - $INFO[Container(6001).ListItem.Label]</label>
 			</control>
 			<control type="image" description="Line Split">
 				<left>30</left>
@@ -43,14 +43,84 @@
 				<texture>img/LineL.png</texture>
 				<aspectratio>stretch</aspectratio>
 			</control>
-            <control type="list" id="6002">
-				<width>980</width>
-				<height>600</height>
-				<top>100</top>
-				<left>40</left>
-				<preloaditems>2</preloaditems>
+			<control type="image">
+    		    <posx>20</posx>
+			    <posy>105</posy>
+			    <height>20</height>
+                <width>20</width>
+			    <texture colordiffuse="$VAR[HighlightColor]">arrowleft.png</texture>
+				<visible>Container(6001).HasPrevious</visible>
+			</control>
+			<control type="image">
+    		    <posx>995</posx>
+			    <posy>105</posy>
+			    <height>20</height>
+                <width>20</width>
+			    <texture colordiffuse="$VAR[HighlightColor]">arrowright.png</texture>
+				<visible>Container(6001).HasNext</visible>
+			</control>
+			<control type="list" id="6001">
+				<animation effect="fade" start="100" end="70" condition="!Control.HasFocus(6001)">Conditional</animation>
+				<width>930</width>
+				<height>50</height>
+				<top>90</top>
+				<left>51</left>
+				<orientation>horizontal</orientation>
 				<onup>6002</onup>
 				<ondown>6002</ondown>
+				<onleft>6001</onleft>
+				<onright>6001</onright>
+				<viewtype label="SeasonList">list</viewtype>
+				<itemlayout height="50" width="155">
+				    <control type="label" description="Main Label">
+				        <height>50</height>
+				        <width>155</width>
+                        <textoffsetx>16</textoffsetx>
+						<font>ListDetails</font>
+				        <label>$INFO[ListItem.Label]</label>
+				    </control>
+				</itemlayout>
+				<focusedlayout height="50" width="155">
+				    <control type="image">
+    				    <posx>0</posx>
+					    <posy>0</posy>
+					    <height>50</height>
+                        <width>155</width>
+					    <texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+			        </control>
+                    <control type="label" description="Main Label">
+				        <height>50</height>
+				        <width>155</width>
+					    <textoffsetx>16</textoffsetx>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+					    <selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+					    <shadowcolor></shadowcolor>
+                        <font>ListDetails</font>
+					    <label>[B]$INFO[ListItem.Label][/B]</label>
+				    </control>
+				</focusedlayout>
+				<content target="video" sortby="seasonnumber" sortorder="ascending">videodb://tvshows/titles/$INFO[Window(Home).Property(PlayerTVShowID)]/</content>
+			</control>
+			
+			<control type="image" description="Line Split">
+				<left>30</left>
+                <posy>150</posy>
+				<width>1000</width>
+				<height>1</height>
+				<texture>img/LineL.png</texture>
+				<aspectratio>stretch</aspectratio>
+			</control>
+			
+            <control type="list" id="6002">
+				<animation effect="fade" start="100" end="70" condition="!Control.HasFocus(6002)">Conditional</animation>
+				<width>980</width>
+				<height>600</height>
+				<top>170</top>
+				<left>40</left>
+				<preloaditems>2</preloaditems>
+				<onup>6001</onup>
+				<ondown>6001</ondown>
+				<onleft>6001</onleft>
 				<onright>61</onright>
 				<pagecontrol>61</pagecontrol>
 				<scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -60,9 +130,9 @@
 				<viewtype label="EpisodeList">list</viewtype>
 				<itemlayout height="67.5">
 					<control type="image">
-						<left>-80</left>
+						<left>-50</left>
 						<top>-2</top>
-						<width>980</width>
+						<width>1000</width>
 						<height>67.5</height>
 			            <texture flipy="true" border="3">list/ListNF.png</texture>
 					</control>
@@ -84,7 +154,36 @@
 			            <aspectratio aligny="center">keep</aspectratio>
 		            </control>
 				</itemlayout>
-				<focusedlayout height="270">
+				<focusedlayout height="67.5" condition="!Control.HasFocus(6002)">
+				    <control type="image">
+						<left>-50</left>
+						<top>-2</top>
+						<width>1000</width>
+						<height>67.5</height>
+				        <texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
+					</control>
+					<control type="label">
+						<top>1</top>
+						<left>20</left>
+						<height>58</height>
+						<width>860</width>
+						<align>left</align>
+						<scroll>true</scroll>
+						<label>[B]$INFO[ListItem.Label][/B]  ($INFO[ListItem.Premiered])</label>
+						<textcolor>$VAR[FocusedTextColor]</textcolor>
+					    <selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
+						<font>font14</font>
+						<shadowcolor></shadowcolor>
+					</control>
+					<control type="image">
+				        <left>900</left>
+				        <width>30</width>
+				        <height>67.5</height>
+				        <texture>$VAR[TripleEpisodeOverlay]</texture>
+				        <aspectratio aligny="center">keep</aspectratio>
+			        </control>
+				</focusedlayout>
+				<focusedlayout height="270" condition="Control.HasFocus(6002)">
 					<control type="group">
 						<control type="image">
 							<top>-0.5</top>
@@ -147,7 +246,9 @@
 						</control>
 					</control>
 				</focusedlayout>
-				<content target="video" sortby="episode" sortorder="ascending">videodb://tvshows/titles/$INFO[Window(Home).Property(PlayerTVShowID)]/$INFO[VideoPlayer.Season]/?tvshowid=$INFO[Window(Home).Property(PlayerTVShowID)]</content>
+				<content target="video" sortby="episode" sortorder="ascending">$INFO[Container(6001).ListItem.FolderPath]</content>
+				
+<!--				<content target="video" sortby="episode" sortorder="ascending">videodb://tvshows/titles/$INFO[Window(Home).Property(PlayerTVShowID)]/$INFO[VideoPlayer.Season]/?tvshowid=$INFO[Window(Home).Property(PlayerTVShowID)]</content> -->
 			</control>			
 			<control type="scrollbar" id="61">
 				<left>1012</left>
