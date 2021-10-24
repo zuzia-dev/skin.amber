@@ -21,7 +21,7 @@
 		<control type="button" id="6000">
 			<include>HiddenButton</include>
 			<onfocus condition="Skin.HasSetting(SeasonsEpisodeList)">SetFocus(6001)</onfocus>
-			<onfocus condition="!Skin.HasSetting(SeasonsEpisodeList)">SetFocus(6002)</onfocus>
+			<onfocus condition="!Skin.HasSetting(SeasonsEpisodeList)">SetFocus(6003)</onfocus>
 		</control>
 		
 		<control type="group">
@@ -137,14 +137,16 @@
 			
 			<!-- Episodes list -->
             <control type="list" id="6002">
+				<visible>Skin.HasSetting(SeasonsEpisodeList)</visible>
 				<animation effect="fade" start="100" end="70" condition="!Control.HasFocus(6002)">Conditional</animation>
 				<width>980</width>
 				<left>40</left>
 				<preloaditems>2</preloaditems>
-				
-				<include condition="Skin.HasSetting(SeasonsEpisodeList)">EpisodesCoordSeasons</include>
-				<include condition="!Skin.HasSetting(SeasonsEpisodeList)">EpisodesCoordNoSeasons</include>
-				
+				<height>600</height>
+		        <top>170</top>
+		        <onup>6001</onup>
+		        <ondown>6001</ondown>
+		        <onleft>6001</onleft>
 				<onright>61</onright>
 				<pagecontrol>61</pagecontrol>
 				<scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -178,7 +180,7 @@
 			            <aspectratio aligny="center">keep</aspectratio>
 		            </control>
 				</itemlayout>
-				<focusedlayout height="67.5" condition="Skin.HasSetting(SeasonsEpisodeList) + !Control.HasFocus(6002)">
+				<focusedlayout height="67.5" condition="!Control.HasFocus(6002)">
 				    <control type="image">
 						<left>-50</left>
 						<top>-2</top>
@@ -207,7 +209,7 @@
 				        <aspectratio aligny="center">keep</aspectratio>
 			        </control>
 				</focusedlayout>
-				<focusedlayout height="270" condition="!Skin.HasSetting(SeasonsEpisodeList) | Control.HasFocus(6002)">
+				<focusedlayout height="270" condition="Control.HasFocus(6002)">
 					<control type="group">
 						<control type="image">
 							<top>-0.5</top>
@@ -269,11 +271,117 @@
 						</control>
 					</control>
 				</focusedlayout>
-				
-				<include condition="Skin.HasSetting(SeasonsEpisodeList)">EpisodesContentSeasons</include>
-				<include condition="!Skin.HasSetting(SeasonsEpisodeList)">EpisodesContentNoSeasons</include>
-				
-			</control>			
+				<content target="video" sortby="episode" sortorder="ascending">$INFO[Container(6001).ListItem.FolderPath]</content>
+			</control>
+
+            <!-- Episodes list when no seasons -->
+            <control type="list" id="6003">
+				<visible>!Skin.HasSetting(SeasonsEpisodeList)</visible>
+				<animation effect="fade" start="100" end="70" condition="!Control.HasFocus(6003)">Conditional</animation>
+				<width>980</width>
+				<left>40</left>
+				<preloaditems>2</preloaditems>
+				<height>670</height>
+		        <top>100</top>
+		        <onup>6003</onup>
+		        <ondown>6003</ondown>
+				<onright>61</onright>
+				<pagecontrol>61</pagecontrol>
+				<scrolltime tween="cubic" easing="out">500</scrolltime>
+				<orientation>vertical</orientation>
+				<movement>10</movement>
+				<focusposition>0</focusposition>
+				<viewtype label="EpisodeList">list</viewtype>
+				<itemlayout height="67.5">
+					<control type="image">
+						<left>-50</left>
+						<top>-2</top>
+						<width>1000</width>
+						<height>67.5</height>
+			            <texture flipy="true" border="3">list/ListNF.png</texture>
+					</control>
+					<control type="label">
+						<top>1</top>
+						<left>20</left>
+						<height>58</height>
+						<width>870</width>
+						<align>left</align>
+						<font>font14</font>
+						<shadowcolor></shadowcolor>
+						<label>$INFO[ListItem.Label]  ($INFO[ListItem.Premiered])</label>
+					</control>
+					<control type="image">
+			            <left>900</left>
+			            <width>30</width>
+			            <height>67.5</height>
+			            <texture>$VAR[TripleEpisodeOverlay]</texture>
+			            <aspectratio aligny="center">keep</aspectratio>
+		            </control>
+				</itemlayout>
+				<focusedlayout height="270">
+					<control type="group">
+						<control type="image">
+							<top>-0.5</top>
+							<width>950</width>
+							<height>269.5</height>
+							<texture background="true">thumbs/labelback.png</texture>
+				            <bordertexture colordiffuse="$VAR[HighlightColor]" border="8">thumbs/IconBorder_FO.png</bordertexture>
+				            <bordersize>12,12,20,20</bordersize>
+				            <aspectratio align="center" aligny="center">stretch</aspectratio>
+						</control>
+					</control>
+					<control type="group">
+						<top>19</top>
+						<left>30</left>
+						<include content="ShadowedImage">
+				            <param name="top">43</param>
+				            <param name="left">-8</param>
+				            <param name="width">306</param>
+				            <param name="height">174</param>
+				            <param name="texture">$VAR[Thumb]</param>
+				            <param name="aspect">scale</param>
+			            </include>
+						<control type="label">
+							<top>-18</top>
+							<left>-12</left>
+							<height>58</height>
+							<width>830</width>
+							<align>left</align>
+							<scroll>true</scroll>
+							<label>[B]$INFO[ListItem.Label][/B]  ($INFO[ListItem.Premiered])</label>
+							<textcolor>$VAR[HighlightColor]</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>24</top>
+							<left>317</left>
+							<height>58</height>
+							<width>785</width>
+							<align>left</align>
+							<font>ListDetails</font>
+							<scroll>true</scroll>
+							<label>[B][CAPITALIZE][COLOR=$VAR[HighlightColor]][LOWERCASE]$LOCALIZE[19081]:[/LOWERCASE][/CAPITALIZE][/COLOR][/B] $INFO[ListItem.EndTime]</label>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="textbox">
+							<left>317</left>
+							<top>71</top>
+							<width>578</width>
+							<height>160</height>
+							<align>justify</align>
+							<aligny>top</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>black</selectedcolor>
+							<label>$VAR[Plots]</label>
+						</control>
+					</control>
+				</focusedlayout>
+				<content target="video" sortby="episode" sortorder="ascending">videodb://tvshows/titles/$INFO[Window(Home).Property(PlayerTVShowID)]/$INFO[VideoPlayer.Season]/?tvshowid=$INFO[Window(Home).Property(PlayerTVShowID)]</content>
+			</control>
+			
 			<control type="scrollbar" id="61">
 				<left>1012</left>
 				<top>32</top>
