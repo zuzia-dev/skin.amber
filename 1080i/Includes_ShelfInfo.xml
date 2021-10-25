@@ -798,7 +798,6 @@
 				    <font>font12_title</font>
 				    <label></label>
 				    <visible>!String.IsEmpty(Container.ListItem.Title) + [String.IsEqual(Container.ListItem.DBType,episode) | String.IsEqual(Container.ListItem.DBType,song) | String.IsEqual(Container.ListItem.DBType,musicvideo)]</visible>
-				    <visible>!Skin.HasSetting(VerticalHome)</visible>
 			    </control>
 			    <!-- Episode title and number -->
 				<control type="label">
@@ -1039,7 +1038,16 @@
 			    	<align>justify</align>
 				    <label>$VAR[ShelfInfoPlot]</label>
 				    <autoscroll delay="5000" time="4000" repeat="8000">Skin.HasSetting(AutoScroll)</autoscroll>
-				    <visible>!String.IsEqual(Container.ListItem.DBType,tvshow)</visible>
+				    <visible>!String.IsEqual(Container.ListItem.DBType,tvshow) + !String.IsEqual(Container.ListItem.DBType,musicvideo)</visible>
+			    </control>
+				<control type="textbox">
+				    <width>auto</width>
+        			<height>126</height>
+		    		<font>InfoPlot</font>
+			    	<align>justify</align>
+				    <label>$VAR[ShelfInfoPlot]</label>
+				    <autoscroll delay="5000" time="4000" repeat="8000">Skin.HasSetting(AutoScroll)</autoscroll>
+				    <visible>String.IsEqual(Container.ListItem.DBType,musicvideo)</visible>
 			    </control>
 		    </control>
 		</definition>

@@ -7239,18 +7239,25 @@
 						<animation effect="fade" end="0">WindowClose</animation>
 						<control type="group">
 						    <!-- Info for horizontal mennu -->
-							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContentTwoShelves">
+							<include condition="!Skin.HasSetting(VerticalHome)" content="ShelfInfoContentTwoShelves">
 								<param name="id">1600$SKINSHORTCUTS[id]1</param>
-								<param name="left">30</param>
+								<param name="left">38</param>
 								<param name="width">1850</param>
-								<param name="isTopShelf">false</param>
+								<param name="isTopShelf">true</param>
 							</include>
 							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="left">38</param>
+								<param name="width">1420</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
 							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContentTwoShelves">
 								<param name="id">1600$SKINSHORTCUTS[id]1</param>
-								<param name="left">30</param>
+								<param name="left">38</param>
 								<param name="width">1700</param>
-								<param name="isTopShelf">false</param>
+								<param name="isTopShelf">true</param>
 							</include>
 						</control>
 					</control>
@@ -7567,13 +7574,20 @@
 						<animation effect="fade" end="0">WindowClose</animation>
 						<control type="group">
 						    <!-- Info for horizontal mennu -->
-							<include condition="[!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)]]" content="ShelfInfoContentTwoShelves">
+							<include condition="!Skin.HasSetting(VerticalHome)" content="ShelfInfoContentTwoShelves">
 								<param name="id">1600$SKINSHORTCUTS[id]2</param>
 								<param name="left">38</param>
 								<param name="width">1850</param>
 								<param name="isTopShelf">true</param>
 							</include>
 							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="left">38</param>
+								<param name="width">1420</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
 							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly)" content="ShelfInfoContentTwoShelves">
 								<param name="id">1600$SKINSHORTCUTS[id]2</param>
 								<param name="left">38</param>
@@ -7605,7 +7619,7 @@
 					<animation effect="fade" start="100" end="0" time="0" condition="Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
 					
 					<!-- Slide shelf up when shelves info shown, so there's more room for the shelf info -->
-					<animation effect="slide" start="0,0" end="0,-60" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
+					<animation effect="slide" start="0,0" end="0,-60" time="250" tween="sine" easing="in" condition="Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll]" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]2</param>
