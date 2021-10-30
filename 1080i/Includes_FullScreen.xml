@@ -310,7 +310,7 @@
         <onfocus condition="Skin.String(OSDTimeout,twenty)">AlarmClock(osd_timeout,SetFocus(99220),00:20,silent)</onfocus>
         <onfocus condition="Skin.String(OSDTimeout,thirty)">AlarmClock(osd_timeout,SetFocus(99220),00:30,silent)</onfocus>
         <onfocus condition="Skin.String(OSDTimeout,oneminute)">AlarmClock(osd_timeout,SetFocus(99220),01:00,silent)</onfocus>
-        <onunfocus>CancelAlarm(osd_timeout,true)</onunfocus>
+        <onunfocus condition="String.IsEmpty(Window(Home).Property(ShowingSubtitleSettings))">CancelAlarm(osd_timeout,true)</onunfocus>
     </include>
 	
 	<include name="ButtonGroup1Standard">
@@ -659,10 +659,13 @@
 		    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
 		    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
             <include condition="Skin.HasSetting(AutoClose.VideoOSD) + !Skin.HasSetting(AutoClose.withInfoService)">OSDButtonOnFocus</include>
+			<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">SetProperty(ShowingSubtitleSettings,true,home)</onclick>
 			<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
 		    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
 			<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
-		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+		    <onunfocus condition="!String.IsEmpty(Window(Home).Property(ShowingSubtitleSettings))">ClearProperty(ShowingSubtitleSettings,home)</onunfocus>
+			<onunfocus>CancelAlarm(osd_timeout,true)</onunfocus>
+			<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 			<visible>Window.IsVisible(VideoOSD)</visible>
 		</control>
 		<!-- PVR OSD Channels -->
