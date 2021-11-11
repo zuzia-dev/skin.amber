@@ -24,7 +24,9 @@
     <variable name="FullScreenTitle">
         <value condition="Player.HasAudio">$INFO[MusicPlayer.Artist,, - ]$INFO[MusicPlayer.Album,, - ]$INFO[MusicPlayer.TrackNumber,,: ][B]$INFO[Player.Title][/B]</value>
 		<value condition="VideoPlayer.Content(Movies)">$INFO[VideoPlayer.Title,[B],[/B]]$INFO[VideoPlayer.Year, (,)]</value>
-        <value condition="!Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + Control.HasFocus(601)" >$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ]</value>
+		<value condition="!Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + Control.HasFocus(601) + String.IsEmpty(VideoPlayer.Season) + String.IsEmpty(VideoPlayer.Episode)">$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ] ($INFO[VideoPlayer.StartTime] - $INFO[VideoPlayer.EndTime])</value>
+		<value condition="!Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + Control.HasFocus(601) + ![String.IsEmpty(VideoPlayer.Season) + String.IsEmpty(VideoPlayer.Episode)] + String.IsEmpty(VideoPlayer.EpisodeName)">$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ] - [I]$VAR[PlayerSeasonEpisodeLabel][/I] ($INFO[VideoPlayer.StartTime] - $INFO[VideoPlayer.EndTime])</value>
+		<value condition="!Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + Control.HasFocus(601) + ![String.IsEmpty(VideoPlayer.Season) + String.IsEmpty(VideoPlayer.Episode)] + !String.IsEmpty(VideoPlayer.EpisodeName)">$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ] - [I]$VAR[PlayerSeasonEpisodeLabel]: $INFO[VideoPlayer.EpisodeName][/I] ($INFO[VideoPlayer.StartTime] - $INFO[VideoPlayer.EndTime])</value>
         <value condition="!Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + Control.HasFocus(602)" >$INFO[VideoPlayer.NextTitle,$LOCALIZE[19031]: ]</value>
 		<value condition="Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + String.IsEmpty(VideoPlayer.Season) + String.IsEmpty(VideoPlayer.Episode)">$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ]</value>
 		<value condition="Skin.HasSetting(DirectSeekInInfo) + VideoPlayer.Content(livetv) + ![String.IsEmpty(VideoPlayer.Season) + String.IsEmpty(VideoPlayer.Episode)] + String.IsEmpty(VideoPlayer.EpisodeName)">$INFO[VideoPlayer.Title,$LOCALIZE[19030]: ] - [I]$VAR[PlayerSeasonEpisodeLabel][/I]</value>
@@ -49,7 +51,8 @@
     <variable name="VideoBottomHeading">
         <value condition="VideoPlayer.Content(Movies)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20339]:[/COLOR] $INFO[VideoPlayer.Director]</value>
         <value condition="VideoPlayer.Content(Episodes)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20373]:[/COLOR] $INFO[VideoPlayer.Season] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[20359]:[/COLOR] $INFO[VideoPlayer.Episode]</value>
-        <value condition="VideoPlayer.Content(livetv)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[19031]:[/COLOR] $INFO[VideoPlayer.NextTitle]</value>
+        <value condition="VideoPlayer.Content(livetv) + PVR.IsTimeShift">[COLOR=$VAR[HighlightColor]]$INFO[VideoPlayer.StartTime] - $INFO[VideoPlayer.EndTime][/COLOR]</value>
+		<value condition="VideoPlayer.Content(livetv) + !PVR.IsTimeShift">[COLOR=$VAR[HighlightColor]]$LOCALIZE[19031]:[/COLOR] $INFO[VideoPlayer.NextTitle]</value>
     </variable>
 
     <variable name="VideoPlayerTitle">
