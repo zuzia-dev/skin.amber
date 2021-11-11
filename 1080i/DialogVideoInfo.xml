@@ -1002,9 +1002,11 @@
                 <font>Details</font>
                 <align>center</align>
                 <label>$LOCALIZE[20410]</label>
-				<onclick condition="Skin.HasSetting(Enable.TMDbHelper)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.Trailer])</onclick>
+                <onclick>PlayMedia($INFO[ListItem.Trailer])</onclick>
+				<onclick>Dialog.Close(all)</onclick>
+<!--				<onclick condition="Skin.HasSetting(Enable.TMDbHelper)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.Trailer])</onclick>
 				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper)">SendClick(11)</onclick>
-				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper)">Dialog.Close(all)</onclick>
+				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper)">Dialog.Close(all)</onclick> -->
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
             </control>
             <control type="button" id="6" description="Refresh">
