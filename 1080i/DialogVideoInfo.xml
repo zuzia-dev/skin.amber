@@ -138,15 +138,27 @@
 			<visible>String.Contains(ListItem.FolderPath,type=person)</visible>
         </control>
 		<!-- Poster -->
-        <include content="ShadowedImage">
-            <param name="top">24</param>
-            <param name="left">24</param>
-            <param name="width">619</param>
-            <param name="height">960</param>
-            <param name="shadowoffset">16</param>
-            <param name="texture">$VAR[DialogVideoInfoPoster]</param>
-            <param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)]</param>
-        </include>
+        <control type="group">
+		    
+		    <include content="ShadowedImage">
+                <param name="top">24</param>
+                <param name="left">24</param>
+                <param name="width">619</param>
+                <param name="height">960</param>
+                <param name="shadowoffset">16</param>
+                <param name="texture">$VAR[DialogVideoInfoPoster]</param>
+                <param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)] + ![Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo]</param>
+            </include>
+			<include content="ShadowedImage">
+                <param name="top">24</param>
+                <param name="left">174</param>
+                <param name="width">350</param>
+                <param name="height">490</param>
+                <param name="shadowoffset">16</param>
+                <param name="texture">$VAR[DialogVideoInfoPoster]</param>
+                <param name="visibility">[!String.IsEqual(ListItem.DBType,episode) | !Skin.HasSetting(Show.EpisodeThumbInfo)] + [Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo]</param>
+            </include>
+		</control>	
 		<!-- Episode images -->
         <control type="group" description="episode images, regular info dialog">
             <visible>String.IsEqual(ListItem.DBType,episode) + Skin.HasSetting(Show.EpisodeThumbInfo)</visible>
@@ -166,7 +178,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">[[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
+                <param name="visibility">![Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo] + [[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + !String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>
             <include content="ShadowedImage">
                 <param name="top">340</param>
@@ -175,7 +187,7 @@
                 <param name="height">348</param>
                 <param name="shadowoffset">16</param>
                 <param name="texture">$VAR[DialogVideoInfoThumb]</param>
-                <param name="visibility">[[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(Player.Art(tvshow.banner))]</param>
+                <param name="visibility">![Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo] + [[String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) | !String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(ListItem.Art(tvshow.banner))] | [[!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)] + String.IsEmpty(Player.Art(tvshow.banner))]</param>
             </include>            
         </control>
 		<!-- TV Show banner if there is no cast and seasons list is disabled -->
@@ -1423,6 +1435,26 @@
             <animation effect="fade" start="100" end="0" time="300">Hidden</animation>
             <animation effect="fade" start="100" end="0" time="0">WindowClose</animation>
             <visible>Control.HasFocus(90050) + System.HasAddon(resource.images.actorart)</visible>
+        </control>
+		
+		<control type="group">
+		    <visible>Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo</visible>
+            <left>10</left>
+			<top>500</top>
+			<width>670</width>
+			<height>500</height>
+			<control type="image" description="BG">
+			    <posx>0</posx>
+			    <posy>62</posy>
+			    <width>670</width>
+			    <height>392</height>
+			    <texture border="8">img/WhiteRoundedST2.png</texture>
+				<colordiffuse>Black</colordiffuse>
+			    <aspectratio>stretch</aspectratio>
+			</control>
+            <control type="videowindow">
+			    <top>14</top>
+            </control>
         </control>
 
     </controls>
