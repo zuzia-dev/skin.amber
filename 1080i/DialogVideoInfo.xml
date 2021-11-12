@@ -1037,11 +1037,17 @@
                 <font>Details</font>
                 <align>center</align>
                 <label>$LOCALIZE[32464]</label>
-				<onclick condition="System.AddonIsEnabled(plugin.video.youtube)">Dialog.Close(movieinformation)</onclick>
-				<onclick condition="System.AddonIsEnabled(plugin.video.youtube) + ![String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Label] trailer/",return)</onclick>
-				<onclick condition="System.AddonIsEnabled(plugin.video.youtube) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.TVShowTitle] $INFO[ListItem.Label] trailer/",return)</onclick>
-				<onclick condition="!System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
-				<onclick condition="System.HasAddon(plugin.video.youtube) + !System.AddonIsEnabled(plugin.video.youtube)">EnableAddon(plugin.video.youtube)</onclick>
+				<!-- Search with imdb trailers addon -->
+				<onclick condition="Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.imdb.trailers)">Dialog.Close(movieinformation)</onclick>
+				<onclick condition="Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.imdb.trailers) + !String.IsEmpty(ListItem.uniqueid(imdb))">PlayMedia(plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.uniqueid(imdb)])</onclick>
+				<onclick condition="Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.imdb.trailers) + String.IsEmpty(ListItem.uniqueid(imdb)) + ![String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.imdb.trailers/?action=search_word&amp;keyword=$INFO[ListItem.Label]",return)</onclick>
+				<onclick condition="Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.imdb.trailers) + String.IsEmpty(ListItem.uniqueid(imdb)) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.imdb.trailers/?action=search_word&amp;keyword=$INFO[ListItem.TVShowTitle] $INFO[ListItem.Label]",return)</onclick>
+				<!-- Search with YouTube addon -->
+				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.youtube)">Dialog.Close(movieinformation)</onclick>
+				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.youtube) + ![String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Label] trailer/",return)</onclick>
+				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.youtube) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.TVShowTitle] $INFO[ListItem.Label] trailer/",return)</onclick>
+				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + !System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
+				<onclick condition="1Skin.HasSetting(Trailer.SearchIMDb) + System.HasAddon(plugin.video.youtube) + !System.AddonIsEnabled(plugin.video.youtube)">EnableAddon(plugin.video.youtube)</onclick>
 				<visible>String.IsEmpty(ListItem.Trailer) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
 			</control>
             <control type="button" id="6" description="Refresh">
