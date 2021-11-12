@@ -1002,13 +1002,36 @@
                 <font>Details</font>
                 <align>center</align>
                 <label>$LOCALIZE[20410]</label>
-                <onclick>PlayMedia($INFO[ListItem.Trailer])</onclick>
-				<onclick>Dialog.Close(all)</onclick>
-<!--				<onclick condition="Skin.HasSetting(Enable.TMDbHelper)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia=$INFO[ListItem.Trailer])</onclick>
-				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper)">SendClick(11)</onclick>
-				<onclick condition="!Skin.HasSetting(Enable.TMDbHelper)">Dialog.Close(all)</onclick> -->
+                <onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[ListItem.Trailer])</onclick>
+				<onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">Dialog.Close(all)</onclick>
+				<onclick condition="Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[ListItem.Trailer],1)</onclick>
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
             </control>
+			<control type="button" id="8004" description="TMDb Helper Trailer">
+                <height>90</height>
+                <width min="210">auto</width>
+                <font>Details</font>
+                <align>center</align>
+                <label>$LOCALIZE[20410]</label>
+                <onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)])</onclick>
+				<onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">Dialog.Close(all)</onclick>
+				<onclick condition="Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)],1)</onclick>
+                <visible>Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Trailer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+            </control>
+			<control type="button" id="8005">
+				<description>Search Trailer</description>
+				<height>90</height>
+                <width min="210">auto</width>
+                <font>Details</font>
+                <align>center</align>
+                <label>$LOCALIZE[32464]</label>
+				<onclick condition="System.AddonIsEnabled(plugin.video.youtube)">Dialog.Close(movieinformation)</onclick>
+				<onclick condition="System.AddonIsEnabled(plugin.video.youtube) + ![String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Label] trailer/",return)</onclick>
+				<onclick condition="System.AddonIsEnabled(plugin.video.youtube) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.TVShowTitle] $INFO[ListItem.Label] trailer/",return)</onclick>
+				<onclick condition="!System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
+				<onclick condition="System.HasAddon(plugin.video.youtube) + !System.AddonIsEnabled(plugin.video.youtube)">EnableAddon(plugin.video.youtube)</onclick>
+				<visible>String.IsEmpty(ListItem.Trailer) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+			</control>
             <control type="button" id="6" description="Refresh">
                 <height>90</height>
                 <width min="210">auto</width>
