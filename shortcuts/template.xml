@@ -6725,6 +6725,8 @@
 		<property name="labelscroll2" tag="property" attribute="name|widgetLabelScroll.2" />
 		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
+		<property name="singleWidget" tag="property" attribute="name|widgetType.2" value="none">true</property>
+		<property name="singleWidget">false</property>
 		
 		<!-- if shelves info enabled, coordinates for both widgets big -->
 		<property name="topdouble" propertyValue="170">
@@ -6960,9 +6962,11 @@
 		<controls>
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
-				<animation effect="fade" start="100" end="0" time="100" condition="Skin.HasSetting(Enable.BottomShortcuts) + !ControlGroup(700).HasFocus">Conditional</animation>
 				
-<!--				<include content="WidgetBackground2" condition="![!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)]"> -->
+				<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + !ControlGroup(700).HasFocus + !$SKINSHORTCUTS[singleWidget]">Conditional</animation>
+				
+				<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + $SKINSHORTCUTS[singleWidget]">Conditional</animation>
+				
 				<include content="WidgetBackground2">
 					<param name="id1">1600$SKINSHORTCUTS[id]1</param>
 					<param name="id2">1600$SKINSHORTCUTS[id]2</param>
@@ -6978,6 +6982,7 @@
 					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
 					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
 					<param name="showShelvesInfo">$SKINSHORTCUTS[showShelvesInfo]</param>
+					<param name="singleWidget">$SKINSHORTCUTS[singleWidget]</param>
 				</include>
 				
 			</control>
@@ -7407,8 +7412,13 @@
 				
 				<!-- If bottom shortcuts enabled, draw background higher, and only one row, for the first widget -->
 				<control type="group">
-				    <!-- Fade out this single background if widgets are focused, so that the double background can show -->
-					<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus">Conditional</animation>
+				    
+					<!-- Fade out this single background if widgets are focused, so that the double background can show -->
+					<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + !$SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
+					<!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,360" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus + $SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
 					<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
 					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
 					    <param name="label">$SKINSHORTCUTS[label1]</param>
@@ -7419,7 +7429,7 @@
 					    <param name="ShowMedium2Logo">false</param>
 					    <param name="ShowLargeLogo">false</param>
 				    </include>
-				</control>	
+				</control>
 				
 				<control type="$SKINSHORTCUTS[containertype1]" id="1600$SKINSHORTCUTS[id]1">
 					
@@ -7433,7 +7443,10 @@
 					<animation effect="fade" start="100" end="0" time="0" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + !ControlGroup(700).HasFocus + !String.IsEmpty(Window(Home).Property(SecondWidgetFocused1600$SKINSHORTCUTS[id]))">conditional</animation>
 					
 					<!-- Lower this widget if bottom shortcuts and widgets are focused -->
-					<animation effect="slide" start="0,0" end="0,317" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,317" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + !$SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
+					<!-- Lower this widget if bottom shortcuts and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,360" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + $SKINSHORTCUTS[singleWidget]">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll]" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]1</param>
@@ -7916,10 +7929,14 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay1" tag="property" attribute="name|widgetPopupDelay" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup1" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
 		<property name="doInfoPopup1" tag="property" attribute="name|doInfoPopup" />
+		
+		<property name="singleWidget" tag="property" attribute="name|widgetType.2" value="none">true</property>
+		<property name="singleWidget">false</property>
 		
 		<!-- Top when only widget 1 has items -->
 		<!-- Widgets in standard position -->
@@ -7994,21 +8011,88 @@
 				<skinshortcuts>visibility</skinshortcuts>
 				<animation effect="fade" time="200">VisibleChange</animation>
 				
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<top>100</top>
+					<left>0</left>
+					
+					<!-- Dark background for readability -->
+					<control type="image">
+						<left>0</left>
+						<top>-20</top>
+						<height>420</height>
+						<width>1940</width>
+						<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						<visible>$SKINSHORTCUTS[singleWidget]</visible>
+					</control>
+					
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<control type="group">
+						    <!-- Info for horizontal mennu, or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="left">38</param>
+								<param name="width">1850</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="left">38</param>
+								<param name="width">1420</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="left">38</param>
+								<param name="width">1730</param>
+								<param name="isTopShelf">true</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
 				<!-- If bottom shortcuts enabled, draw background higher, and only one row, for the first widget -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]1</param>
-					<param name="label">$SKINSHORTCUTS[label1]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<control type="group">
+				    
+					<!-- Fade out this single background if widgets are focused, so that the double background can show -->
+					<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + !$SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
+					<!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,360" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus + $SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
+					<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
+					    <param name="label">$SKINSHORTCUTS[label1]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				</control>
 				
 				<control type="$SKINSHORTCUTS[containertype1]" id="1600$SKINSHORTCUTS[id]1">
 					
-					<include condition="Skin.HasSetting(Enable.BottomShortcuts) + !Skin.HasSetting(VerticalHome)">StaticWidgetPositioning</include>
+					<!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- Fade out this shelf if the other is focused, so there is room for the shelf info -->
+					<animation effect="fade" start="100" end="0" time="0" condition="Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
+					
+					<!-- Fade out this shelf if bottom shortcuts and the widgets are not focused -->
+					<animation effect="fade" start="100" end="0" time="0" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + !ControlGroup(700).HasFocus + !String.IsEmpty(Window(Home).Property(SecondWidgetFocused1600$SKINSHORTCUTS[id]))">conditional</animation>
+					
+					<!-- Lower this widget if bottom shortcuts, both widget have items, and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,317" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + !$SKINSHORTCUTS[singleWidget]">Conditional</animation>
+					
+					<!-- Lower this widget if bottom shortcuts, only widget 1 has items, and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,360" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus + $SKINSHORTCUTS[singleWidget]">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll]" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]1</param>
@@ -8039,6 +8123,7 @@
 					<height>315</height>
 					<autoscroll time="$SKINSHORTCUTS[autoscroll1]">!Control.HasFocus(1600$SKINSHORTCUTS[id]1)</autoscroll>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]1,Home)</onfocus>
+					<onfocus>ClearProperty(SecondWidgetFocused1600$SKINSHORTCUTS[id],Home)</onfocus>
 					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetProperty(WidgetFocus$SKINSHORTCUTS[id],2,home)</onup>
 					<onup condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]2).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]2)</onup>
 					<onup condition="!String.IsEmpty(Window(Home).Property(ShelfTrailerPlaying)) + Player.HasVideo">PlayerControl(Stop)</onup>
@@ -8090,6 +8175,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget.2" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay2" tag="property" attribute="name|widgetPopupDelay.2" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup2" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -8141,21 +8227,71 @@
 				<skinshortcuts>visibility</skinshortcuts>
 				<animation effect="fade" time="200">VisibleChange</animation>
 				
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<top>435</top>
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<control type="group">
+						    <!-- Info for horizontal mennu -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="left">38</param>
+								<param name="width">1850</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="left">38</param>
+								<param name="width">1420</param>
+								<param name="isTopShelf">true</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContentTwoShelves">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="left">38</param>
+								<param name="width">1730</param>
+								<param name="isTopShelf">true</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
 				<!-- If bottom shortcuts enabled, draw background higher, and only one row, for the first widget -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]2</param>
-					<param name="label">$SKINSHORTCUTS[label2]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<control type="group">
+				    
+					<!-- Fade out this single background when bottom shortcuts and widgets are focused, so double background can show -->
+					<animation effect="fade" start="100" end="0" time="100" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + ControlGroup(700).HasFocus">Conditional</animation>
+					
+					<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label2]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype2]" id="1600$SKINSHORTCUTS[id]2">
 					
-					<include condition="Skin.HasSetting(Enable.BottomShortcuts) + !Skin.HasSetting(VerticalHome)">StaticWidgetPositioning</include>
+					<!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- Fade out this shelf if the other one is focused, so there is room for the shelf info -->
+					<animation effect="fade" start="100" end="0" time="0" condition="Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
+					
+					<!-- Fade out this shelf if other shelf was last focused, bottom shortcuts and the widgets are not focused -->
+					<animation effect="fade" start="100" end="0" time="0" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + !ControlGroup(700).HasFocus + String.IsEmpty(Window(Home).Property(SecondWidgetFocused1600$SKINSHORTCUTS[id]))">conditional</animation>
+					
+					<!-- Slide shelf up when shelves info shown, so there's more room for the shelf info -->
+					<animation effect="slide" start="0,0" end="0,-60" time="250" tween="sine" easing="in" condition="Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]">conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll]" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]2</param>
@@ -8186,6 +8322,7 @@
 					<height>315</height>
 					<autoscroll time="$SKINSHORTCUTS[autoscroll2]">!Control.HasFocus(1600$SKINSHORTCUTS[id]2)</autoscroll>
                     <onfocus>SetProperty(TMDbHelper.WidgetContainer,1600$SKINSHORTCUTS[id]2,Home)</onfocus>
+					<onfocus>SetProperty(SecondWidgetFocused1600$SKINSHORTCUTS[id],Yes,Home)</onfocus>
 					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">ClearProperty(WidgetFocus$SKINSHORTCUTS[id],home)</ondown>
 					<ondown condition="Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">SetFocus(1600$SKINSHORTCUTS[id]1)</ondown>
 					<ondown condition="!Integer.IsGreater(Container(1600$SKINSHORTCUTS[id]1).NumItems,0)">300</ondown>
@@ -18322,6 +18459,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.1.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.1.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.1.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.1.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.1.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.1.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.1.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.1.Outlook))</visible>
@@ -18334,6 +18474,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.2.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.2.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.2.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.2.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.2.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.2.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.2.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.2.Outlook))</visible>
@@ -18346,6 +18489,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.3.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.3.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.3.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.3.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.3.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.3.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.3.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.3.Outlook))</visible>
@@ -18358,6 +18504,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.4.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.4.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.4.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.4.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.4.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.4.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.4.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.4.Outlook))</visible>
@@ -18370,6 +18519,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.5.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.5.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.5.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.5.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.5.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.5.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.5.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.5.Outlook))</visible>
@@ -18382,6 +18534,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.6.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.6.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.6.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.6.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.6.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.6.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.6.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.6.Outlook))</visible>
@@ -18394,6 +18549,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.7.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.7.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.7.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.7.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.7.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.7.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.7.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.7.Outlook))</visible>
@@ -18406,6 +18564,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.8.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.8.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.8.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.8.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.8.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.8.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.8.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.8.Outlook))</visible>
@@ -18418,6 +18579,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.9.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.9.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.9.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.9.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.9.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.9.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.9.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.9.Outlook))</visible>
@@ -18430,6 +18594,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.10.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.10.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.10.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.10.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.10.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.10.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.10.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.10.Outlook))</visible>
@@ -18442,6 +18609,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.11.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.11.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.11.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.11.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.11.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.11.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.11.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.11.Outlook))</visible>
@@ -18454,6 +18624,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.12.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.12.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.12.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.12.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.12.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.12.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.12.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.12.Outlook))</visible>
@@ -18466,6 +18639,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.13.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.13.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.13.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.13.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.13.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.13.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.13.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.13.Outlook))</visible>
@@ -18478,6 +18654,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.14.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.14.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.14.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.14.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.14.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.14.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.14.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.14.Outlook))</visible>
@@ -18502,6 +18681,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.1.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.1.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.1.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.1.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.1.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.1.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.1.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.1.Outlook))</visible>
@@ -18514,6 +18696,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.2.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.2.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.2.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.2.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.2.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.2.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.2.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.2.Outlook))</visible>
@@ -18526,6 +18711,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.3.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.3.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.3.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.3.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.3.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.3.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.3.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.3.Outlook))</visible>
@@ -18538,6 +18726,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.4.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.4.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.4.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.4.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.4.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.4.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.4.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.4.Outlook))</visible>
@@ -18550,6 +18741,9 @@
 			    <property name="Cloudiness">$INFO[Window(weather).Property(Hourly.5.Cloudiness)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Hourly.5.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Hourly.5.FanartCode)]</property>
+				<property name="Precipitation">$INFO[Window(weather).Property(Hourly.5.Precipitation)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Hourly.5.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Hourly.5.FeelsLike)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Hourly.5.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Hourly.5.Outlook))</visible>
@@ -18574,6 +18768,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.1.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.1.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.1.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.1.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.1.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.1.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.1.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.1.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.1.Outlook))</visible>
@@ -18586,6 +18784,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.2.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.2.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.2.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.2.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.2.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.2.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.2.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.2.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.2.Outlook))</visible>
@@ -18598,6 +18800,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.3.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.3.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.3.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.3.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.3.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.3.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.3.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.3.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.3.Outlook))</visible>
@@ -18610,6 +18816,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.4.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.4.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.4.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.4.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.4.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.4.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.4.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.4.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.4.Outlook))</visible>
@@ -18622,6 +18832,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.5.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.5.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.5.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.5.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.5.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.5.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.5.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.5.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.5.Outlook))</visible>
@@ -18634,6 +18848,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.6.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.6.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.6.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.6.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.6.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.6.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.6.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.6.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.6.Outlook))</visible>
@@ -18646,6 +18864,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.7.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.7.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.7.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.7.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.7.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.7.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.7.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.7.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.7.Outlook))</visible>
@@ -18658,6 +18880,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.8.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.8.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.8.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.8.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.8.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.8.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.8.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.8.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.8.Outlook))</visible>
@@ -18670,6 +18896,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.9.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.9.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.9.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.9.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.9.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.9.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.9.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.9.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.9.Outlook))</visible>
@@ -18682,6 +18912,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.10.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.10.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.10.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.10.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.10.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.10.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.10.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.10.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.10.Outlook))</visible>
@@ -18694,6 +18928,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.11.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.11.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.11.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.11.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.11.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.11.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.11.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.11.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.11.Outlook))</visible>
@@ -18706,6 +18944,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.12.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.12.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.12.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.12.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.12.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.12.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.12.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.12.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.12.Outlook))</visible>
@@ -18718,6 +18960,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.13.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.13.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.13.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.13.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.13.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.13.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.13.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.13.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.13.Outlook))</visible>
@@ -18730,6 +18976,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.14.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.14.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.14.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.14.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.14.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.14.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.14.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.14.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.14.Outlook))</visible>
@@ -18754,6 +19004,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.1.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.1.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.1.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.1.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.1.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.1.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.1.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.1.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.1.Outlook))</visible>
@@ -18766,6 +19020,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.2.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.2.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.2.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.2.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.2.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.2.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.2.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.2.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.2.Outlook))</visible>
@@ -18778,6 +19036,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.3.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.3.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.3.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.3.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.3.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.3.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.3.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.3.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.3.Outlook))</visible>
@@ -18790,6 +19052,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.4.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.4.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.4.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.4.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.4.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.4.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.4.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.4.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.4.Outlook))</visible>
@@ -18802,6 +19068,10 @@
 			    <property name="Outlook">$INFO[Window(weather).Property(Daily.5.Outlook)]</property>
 			    <property name="ShortDate">$INFO[Window(weather).Property(Daily.5.ShortDate)]</property>
 			    <property name="FanartCode">$INFO[Window(weather).Property(Daily.5.FanartCode)]</property>
+				<property name="Probability">$INFO[Window(weather).Property(Daily.5.Probability)]</property>
+				<property name="Humidity">$INFO[Window(weather).Property(Daily.5.Humidity)]</property>
+				<property name="FeelsLike">$INFO[Window(weather).Property(Daily.5.FeelsLike)]</property>
+				<property name="MoonPhase">$INFO[Window(weather).Property(Daily.5.MoonPhase)]</property>
 			    <icon>$VAR[WeatherIconPath]$INFO[Window(weather).Property(Daily.5.FanartCode)]$VAR[WeatherIconExt]</icon>
 			    <onclick>noop</onclick>
 			    <visible>!String.IsEmpty(Window(weather).Property(Daily.5.Outlook))</visible>

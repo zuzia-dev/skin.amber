@@ -849,7 +849,7 @@
 				    <height>10</height>
 				    <font>font12_title</font>
 				    <label></label>
-				    <visible>!String.IsEmpty(Container.ListItem.Title)</visible>
+				    <visible>!String.IsEmpty(Container.ListItem.Title) | [String.IsEmpty(Container.ListItem.Title) + !String.IsEmpty(Container.ListItem.Property(Outlook))]</visible>
 			    </control>
 			    <!-- Episode title and number -->
 				<control type="label">
@@ -868,11 +868,67 @@
 					<textcolor>$VAR[HighlightColor]</textcolor>
 				    <visible>!String.IsEmpty(Container.ListItem.Title) + !String.IsEqual(Container.ListItem.DBType,episode)</visible>
 			    </control>
+				<!-- Weather item label -->
+				<control type="label">
+				    <height>60</height>
+				    <font>font24_title</font>
+				    <label>$INFO[Container.ListItem.Label]</label>
+				    <visible>String.IsEmpty(Container.ListItem.Title) + !String.IsEmpty(Container.ListItem.Property(Outlook))</visible>
+			    </control>
 				<!-- Spacer -->
 			    <control type="label">
 				    <height>5</height>
 				    <font>font12_title</font>
 				    <label></label>
+			    </control>
+				
+				<!-- Weather items -->
+			    <control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[33030]: [/COLOR]$INFO[Container.ListItem.Property(Outlook)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook))</visible>
+			    </control>
+			    <control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[402]: [/COLOR]$INFO[Container.ListItem.Property(FeelsLike)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook)) + !String.IsEmpty(Container.ListItem.Property(FeelsLike))</visible>
+				    <scroll>true</scroll>
+			    </control>
+				<control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[406]: [/COLOR]$INFO[Container.ListItem.Property(Humidity)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook)) + !String.IsEmpty(Container.ListItem.Property(Humidity))</visible>
+				    <scroll>true</scroll>
+			    </control>
+				<control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32467]: [/COLOR]$INFO[Container.ListItem.Property(Cloudiness)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook)) + !String.IsEmpty(Container.ListItem.Property(Cloudiness))</visible>
+				    <scroll>true</scroll>
+			    </control>
+				<control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32468]: [/COLOR]$INFO[Container.ListItem.Property(Probability)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook)) + !String.IsEmpty(Container.ListItem.Property(Probability))</visible>
+				    <scroll>true</scroll>
+			    </control>
+				<control type="label">
+				    <width>$PARAM[width]</width>
+				    <height>38</height>
+				    <font>font13_title</font>
+				    <label>[COLOR=$VAR[HighlightColor]]$LOCALIZE[32468]: [/COLOR]$INFO[Container.ListItem.Property(Precipitation)]</label>
+				    <visible>!String.IsEmpty(Container.ListItem.Property(Outlook)) + String.IsEmpty(Container.ListItem.Property(Probability)) + !String.IsEmpty(Container.ListItem.Property(Precipitation))</visible>
+				    <scroll>true</scroll>
 			    </control>
 				
 				<!-- Person items -->
