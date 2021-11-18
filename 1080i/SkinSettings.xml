@@ -1492,6 +1492,14 @@
                             <param name="CustomProperty">CustomSelectStartupBackground</param>
 		                    <param name="CustomDialog">1121</param>
 						</include>
+						<include content="CustomDialogSettingItem">
+                            <param name="itemid">18</param>
+                            <param name="itemlabel">      [B]$LOCALIZE[32469][/B]</param>
+		                    <param name="itemlabel2">$VAR[StartupVideoDurationLabelVar]</param>
+                            <param name="CustomProperty">CustomSelectStartupVideoDuration</param>
+		                    <param name="CustomDialog">1121</param>
+							<param name="itemvisibility" value="!String.IsEmpty(Skin.String(StartupPlaylist))"/>
+						</include>
 					</content>
 				</control>
 				<!-- 9000 12 - Backup/Restore -->
@@ -1508,20 +1516,20 @@
 							<label>$LOCALIZE[32065]</label>
 							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.xbmcbackup,mode=backup)</onclick>
 							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.skin.helper.skinbackup,action=backup)</onclick>
-                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
 						</item>
 						<item id="2" description="Restore Skin Settings Backup">
 							<label>$LOCALIZE[32066]</label>
 							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.xbmcbackup,mode=restore)</onclick>
 							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">RunScript(script.skin.helper.skinbackup,action=restore)</onclick>
-                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
+                            <onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
 							<onclick>ReloadSkin()</onclick>
 						</item>
 						<item id="3" description="Backup/Restore Config">
 							<label>$LOCALIZE[32067]</label>
 							<onclick condition="System.HasAddon(script.xmbcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">Addon.OpenSettings(script.xbmcbackup)</onclick>
 							<onclick condition="System.HasAddon(script.skin.helper.skinbackup)">Addon.OpenSettings(script.skin.helper.skinbackup)</onclick>
-							<onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.xbmcbackup)</onclick>
+							<onclick condition="!System.HasAddon(script.xbmcbackup) + !System.HasAddon(script.skin.helper.skinbackup)">InstallAddon(script.skin.helper.skinbackup)</onclick>
 							
 						</item>
 						<item id="4" description="Reset all settings to default">
