@@ -1339,7 +1339,19 @@
 							<param name="ColorString">$VAR[ViewsBGColor]</param>
 						</include>
 					</control>
-                    <control type="button" id="910912">
+					<control type="radiobutton" id="910912">
+						<label>$LOCALIZE[32470]</label>
+						<font>ListDetails</font>
+						<onclick>Skin.SetString(SelectColorLabel,$LOCALIZE[32470])</onclick>
+<!--						<onclick>SetProperty(colorpick,ViewsBGColor,Home)</onclick>
+                        <onclick>ActivateWindow(1117)</onclick> -->
+						<onclick condition="!System.HasAddon(script.skin.helper.colorpicker)">InstallAddon(script.skin.helper.colorpicker)</onclick>
+						<onclick condition="System.HasAddon(script.skin.helper.colorpicker)">RunScript(script.skin.helper.colorpicker,skinstring=TimeshiftBufferColorStr,palette=rainbow)</onclick>
+						<include content="ColorButton">
+							<param name="ColorString">$VAR[TimeshiftBufferColor]</param>
+						</include>
+					</control>
+                    <control type="button" id="910913">
 					    <width>1350</width>
 					    <height>60</height>
 					    <texturenofocus />
