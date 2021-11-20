@@ -1711,7 +1711,7 @@
 					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]2)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)]">Conditional</animation>
 					
 					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
-					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation> -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]2</param>
@@ -4935,6 +4935,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay1" tag="property" attribute="name|widgetPopupDelay" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup1" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -5051,31 +5052,117 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]1</param>
-					<param name="label">$SKINSHORTCUTS[label1]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]1</param>
-					<param name="label">$SKINSHORTCUTS[label1]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]1) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]1</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				    
+				    <!-- Background for when bottom shortcuts are disabled -->
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
+					    <param name="label">$SKINSHORTCUTS[label1]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- Background when bottom shortcuts are enabled - Higher and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
+					    <param name="nextid">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label1]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
+					    <param name="label">$SKINSHORTCUTS[label1]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]1</param>
+					    <param name="label">$SKINSHORTCUTS[label1]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll1]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype1]" id="1600$SKINSHORTCUTS[id]1">
 					
+					<!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]1)] | [!ControlGroup(700).HasFocus + !String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]))]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEmpty(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id])) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]1</param>
@@ -5224,6 +5311,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget.2" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay2" tag="property" attribute="name|widgetPopupDelay.2" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup2" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -5339,31 +5427,115 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]2</param>
-					<param name="label">$SKINSHORTCUTS[label2]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]2</param>
-					<param name="label">$SKINSHORTCUTS[label2]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]2) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]2</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label2]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- If bottom shortcuts enabled, draw background higher, and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label2]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label2]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+    					<param name="id">1600$SKINSHORTCUTS[id]2</param>
+					    <param name="label">$SKINSHORTCUTS[label2]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll2]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype2]" id="1600$SKINSHORTCUTS[id]2">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]2)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2)]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),2) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]2</param>
@@ -5515,6 +5687,7 @@
         <property name="shortstatic" tag="property" attribute="name|shortStaticWidget.3" />	
         <property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay3" tag="property" attribute="name|widgetPopupDelay.3" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup3" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -5630,32 +5803,116 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]3</param>
-					<param name="label">$SKINSHORTCUTS[label3]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]3</param>
-					<param name="label">$SKINSHORTCUTS[label3]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]3) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]3</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]3</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]3</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]3</param>
+					    <param name="label">$SKINSHORTCUTS[label3]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- If bottom shortcuts enabled, draw background higher, and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]3</param>
+					    <param name="label">$SKINSHORTCUTS[label3]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]3</param>
+					    <param name="label">$SKINSHORTCUTS[label3]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+    					<param name="id">1600$SKINSHORTCUTS[id]3</param>
+					    <param name="label">$SKINSHORTCUTS[label3]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll3]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype3]" id="1600$SKINSHORTCUTS[id]3">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
 					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]3)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3)]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),3) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+						
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]3</param>
 		                <param name="center228">true</param>
@@ -5806,6 +6063,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget.4" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay4" tag="property" attribute="name|widgetPopupDelay.4" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup4" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -5941,31 +6199,115 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]4</param>
-					<param name="label">$SKINSHORTCUTS[label4]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]4</param>
-					<param name="label">$SKINSHORTCUTS[label4]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]4) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]4</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]4</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]4</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]4</param>
+					    <param name="label">$SKINSHORTCUTS[label4]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- If bottom shortcuts enabled, draw background higher, and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]4</param>
+					    <param name="label">$SKINSHORTCUTS[label4]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]4</param>
+					    <param name="label">$SKINSHORTCUTS[label4]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+    					<param name="id">1600$SKINSHORTCUTS[id]4</param>
+					    <param name="label">$SKINSHORTCUTS[label4]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll4]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype4]" id="1600$SKINSHORTCUTS[id]4">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]4)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4)]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),4) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]4</param>
@@ -6118,6 +6460,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget.5" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay5" tag="property" attribute="name|widgetPopupDelay.5" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup5" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -6253,31 +6596,115 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]5</param>
-					<param name="label">$SKINSHORTCUTS[label5]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]5</param>
-					<param name="label">$SKINSHORTCUTS[label5]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]5) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]5</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]5</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]5</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]5</param>
+					    <param name="label">$SKINSHORTCUTS[label5]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- If bottom shortcuts enabled, draw background higher, and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]5</param>
+					    <param name="label">$SKINSHORTCUTS[label5]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]5</param>
+					    <param name="label">$SKINSHORTCUTS[label5]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+    					<param name="id">1600$SKINSHORTCUTS[id]5</param>
+					    <param name="label">$SKINSHORTCUTS[label5]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll5]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype5]" id="1600$SKINSHORTCUTS[id]5">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]5)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5)]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),5) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]5</param>
@@ -6431,6 +6858,7 @@
 		<property name="shortstatic" tag="property" attribute="name|shortStaticWidget.6" />
 		<property name="centerShelves" tag="property" attribute="name|centerShelves" />
 		<property name="widgetPopupDelay6" tag="property" attribute="name|widgetPopupDelay.6" />
+		<property name="showShelvesInfo" tag="property" attribute="name|showShelvesInfo" />
 		
 		<!-- If show selves info is true then do not show info popup -->
 		<property name="doInfoPopup6" tag="property" attribute="name|showShelvesInfo" value="true">false</property>
@@ -6563,31 +6991,115 @@
 			<control type="group">
 				<skinshortcuts>visibility</skinshortcuts>
 				
-				<include content="WidgetBackground" condition="!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)">
-					<param name="id">1600$SKINSHORTCUTS[id]6</param>
-					<param name="label">$SKINSHORTCUTS[label6]</param>
-					<param name="top">$SKINSHORTCUTS[top]</param>
-					<param name="height">$SKINSHORTCUTS[backgroundheight]</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
-					<param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
-					<param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
-					<param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
-				</include>
-				<!-- If bottom shortcuts enabled, draw background higher, and only one row -->
-				<include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
-					<param name="id">1600$SKINSHORTCUTS[id]6</param>
-					<param name="label">$SKINSHORTCUTS[label6]</param>
-					<param name="top">170</param>
-					<param name="height">375</param>
-					<param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
-					<param name="ShowMediumLogo">false</param>
-					<param name="ShowMedium2Logo">false</param>
-					<param name="ShowLargeLogo">false</param>
-				</include>
+				<!-- Shelf Info -->
+				<control type="group">
+					<visible>Control.HasFocus(1600$SKINSHORTCUTS[id]6) + $SKINSHORTCUTS[showShelvesInfo]</visible>
+					
+					<include condition="Skin.HasSetting(VerticalHome)">ShelfInfoTopVert</include>
+					<include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoTopHorz</include>
+					
+					<left>0</left>
+					<control type="group">
+						<animation effect="fade" end="0">WindowClose</animation>
+						<!-- Dark background for readability -->
+						<control type="image">
+						
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVert</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertIcon</include>
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)">ShelfInfoBackCoordsVertHideFocus</include>
+					        <include condition="!Skin.HasSetting(VerticalHome)">ShelfInfoBackCoordsHorz</include>
+							
+							<texture colordiffuse="CFFFFFFF">img/list_shadow.png</texture>
+						</control>
+						<control type="group">
+						    <!-- Info for horizontal mennu or vertical menu when menu is hidden when widgets focused -->
+							<include condition="!Skin.HasSetting(VerticalHome) | [Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.HideFocusShelves)]" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]6</param>
+								<param name="width">1850</param>
+							</include>
+							<!-- Info for vertical menu, text -->
+							<include condition="Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]6</param>
+								<param name="width">1420</param>
+							</include>
+							<!-- Info for vertical menu, icons -->
+							<include condition="Skin.HasSetting(VerticalHome) + Skin.HasSetting(Vertical.IconOnly) + !Skin.HasSetting(Vertical.HideFocusShelves)" content="ShelfInfoContent">
+								<param name="id">1600$SKINSHORTCUTS[id]6</param>
+								<param name="width">1740</param>
+							</include>
+						</control>
+					</control>
+				</control>
+				
+				<control type="group">
+				
+				    <!-- Lower the background if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
+				
+				    <include content="WidgetBackground" condition="[!Skin.HasSetting(Enable.BottomShortcuts) | Skin.HasSetting(VerticalHome)] + !$SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]6</param>
+					    <param name="label">$SKINSHORTCUTS[label6]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					    <param name="top">$SKINSHORTCUTS[top]</param>
+					    <param name="height">$SKINSHORTCUTS[backgroundheight]</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					    <param name="ShowMediumLogo">$SKINSHORTCUTS[ShowMediumLogo]</param>
+					    <param name="ShowMedium2Logo">$SKINSHORTCUTS[ShowMedium2Logo]</param>
+					    <param name="ShowLargeLogo">$SKINSHORTCUTS[ShowLargeLogo]</param>
+				    </include>
+				    <!-- If bottom shortcuts enabled, draw background higher, and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">
+					    <param name="id">1600$SKINSHORTCUTS[id]6</param>
+					    <param name="label">$SKINSHORTCUTS[label6]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					    <param name="top">170</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					    <param name="ShowMediumLogo">!$SKINSHORTCUTS[showShelvesInfo]</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="!Skin.HasSetting(VerticalHome) + !Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo]">
+					    <param name="id">1600$SKINSHORTCUTS[id]6</param>
+					    <param name="label">$SKINSHORTCUTS[label6]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					    <param name="top">534</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLarge2Logo">false</param>
+				    </include>
+				    <!-- Background when shelf info is enabled - low and only one row -->
+				    <include content="WidgetBackground" condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">
+    					<param name="id">1600$SKINSHORTCUTS[id]6</param>
+					    <param name="label">$SKINSHORTCUTS[label6]</param>
+					    <param name="labelscroll">$SKINSHORTCUTS[labelscroll6]</param>
+					    <param name="top">594</param>
+					    <param name="height">375</param>
+					    <param name="visible">String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)</param>
+					    <param name="ShowMediumLogo">false</param>
+					    <param name="ShowMedium2Logo">false</param>
+					    <param name="ShowLargeLogo">false</param>
+					    <param name="ShowLargeLogoUnfocused">true</param>
+				    </include>
+				</control>	
 				
 				<control type="$SKINSHORTCUTS[containertype6]" id="1600$SKINSHORTCUTS[id]6">
-					
+				
+				    <!-- If bottomn shortcuts enabled, widget needs to be in high position and only one widget row -->
 					<include condition="!Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts)">StaticWidgetPositioning</include>
+					
+					<!-- If shelves info enabled, widget needs to be in low position and only one widget row -->
+					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningHorz</include>
+					<include condition="Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[showShelvesInfo]">ShelfInfoWidgetPositioningVert</include>
+					
+					<animation effect="fade" start="100" end="0" time="100" condition="[ControlGroup(700).HasFocus + !Control.HasFocus(1600$SKINSHORTCUTS[id]6)] | [!ControlGroup(700).HasFocus + !String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6)]">Conditional</animation>
+					
+					<!-- Lower the widget if bottom shortcuts and showing info and widgets are focused -->
+					<animation effect="slide" start="0,0" end="0,364" time="250" tween="sine" easing="in" condition="String.IsEqual(Window(home).Property(WidgetFocus$SKINSHORTCUTS[id]),6) + !Skin.HasSetting(VerticalHome) + Skin.HasSetting(Enable.BottomShortcuts) + $SKINSHORTCUTS[showShelvesInfo] + ControlGroup(700).HasFocus">Conditional</animation>
 					
 					<include condition="!Skin.HasSetting(VerticalHome) + $SKINSHORTCUTS[centerShelves] + !$SKINSHORTCUTS[isAutoScroll] + !Skin.HasSetting(Enable.BottomShortcuts)" content="ShelfCenterAnimationsHoriz">
 	                    <param name="id">1600$SKINSHORTCUTS[id]6</param>
@@ -19671,6 +20183,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.1.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.1.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.1.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.1.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.1.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.1.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.1.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.1.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.1.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.1.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.1.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.1.File)])</onclick>
 		    </item>
@@ -19681,6 +20200,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.2.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.2.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.2.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.2.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.2.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.2.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.2.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.2.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.2.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.2.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.2.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.2.File)])</onclick>
 		    </item>
@@ -19691,6 +20217,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.3.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.3.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.3.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.3.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.3.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.3.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.3.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.3.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.3.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.3.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.3.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.3.File)])</onclick>
 		    </item>
@@ -19701,6 +20234,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.4.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.4.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.4.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.4.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.4.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.4.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.4.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.4.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.4.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.4.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.4.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.4.File)])</onclick>
 		    </item>
@@ -19711,6 +20251,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.5.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.5.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.5.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.5.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.5.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.5.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.5.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.5.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.5.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.5.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.5.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.5.File)])</onclick>
 		    </item>
@@ -19721,6 +20268,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.6.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.6.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.6.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.6.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.6.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.6.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.6.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.6.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.6.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.6.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.6.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.6.File)])</onclick>
 		    </item>
@@ -19731,6 +20285,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.7.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.7.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.7.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.7.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.7.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.7.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.7.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.7.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.7.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.7.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.7.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.7.File)])</onclick>
 		    </item>
@@ -19741,6 +20302,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.8.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.8.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.8.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.8.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.8.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.8.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.8.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.8.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.8.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.8.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.8.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.8.File)])</onclick>
 		    </item>
@@ -19751,6 +20319,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.9.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.9.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.9.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.9.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.9.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.9.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.9.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.9.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.9.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.9.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.9.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.9.File)])</onclick>
 		    </item>
@@ -19761,6 +20336,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.10.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.10.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.10.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.10.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.10.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.10.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.10.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.10.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.10.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.10.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.10.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.10.File)])</onclick>
 		    </item>
@@ -19771,6 +20353,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.11.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.11.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.11.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.11.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.11.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.11.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.11.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.11.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.11.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.11.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.11.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.11.File)])</onclick>
 		    </item>
@@ -19781,6 +20370,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.12.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.12.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.12.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.12.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.12.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.12.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.12.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.12.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.12.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.12.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.12.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.12.File)])</onclick>
 		    </item>
@@ -19791,6 +20387,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.13.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.13.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.13.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.13.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.13.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.13.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.13.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.13.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.13.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.13.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.13.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.13.File)])</onclick>
 		    </item>
@@ -19801,6 +20404,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.14.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.14.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.14.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.14.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.14.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.14.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.14.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.14.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.14.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.14.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.14.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.14.File)])</onclick>
 		    </item>
@@ -19811,6 +20421,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.15.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.15.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.15.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.15.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.15.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.15.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.15.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.15.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.15.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.15.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.15.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.15.File)])</onclick>
 		    </item>
@@ -19821,6 +20438,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.16.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.16.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.16.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.16.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.16.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.16.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.16.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.16.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.16.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.16.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.16.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.16.File)])</onclick>
 		    </item>
@@ -19831,6 +20455,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.17.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.17.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.17.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.17.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.17.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.17.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.17.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.17.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.17.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.17.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.17.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.17.File)])</onclick>
 		    </item>
@@ -19841,6 +20472,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.18.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.18.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.18.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.18.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.18.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.18.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.18.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.18.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.18.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.18.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.18.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.18.File)])</onclick>
 		    </item>
@@ -19851,6 +20489,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.19.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.19.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.19.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.19.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.19.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.19.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.19.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.19.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.19.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.19.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.19.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.19.File)])</onclick>
 		    </item>
@@ -19861,6 +20506,13 @@
                 <property name="recommendedfanart">$INFO[Window(Home).Property(RecommendedEpisode.20.Art(tvshow.fanart))]</property>
 				<property name="recommendedclearlogo">$INFO[Window(Home).Property(RecommendedEpisode.20.Art(tvshow.clearlogo))]</property>
                 <property name="recommendedtvshowtitle">$INFO[Window(Home).Property(RecommendedEpisode.20.TVshowTitle)]</property>
+				<property name="recommendedtitle">$INFO[Window(Home).Property(RecommendedEpisode.20.Title)]</property>
+				<property name="recommendedepisode">$INFO[Window(Home).Property(RecommendedEpisode.20.Episode)]</property>
+				<property name="recommendedseason">$INFO[Window(Home).Property(RecommendedEpisode.20.Season)]</property>
+				<property name="recommendedepisodeno">$INFO[Window(Home).Property(RecommendedEpisode.20.EpisodeNo)]</property>
+				<property name="recommendedplot">$INFO[Window(Home).Property(RecommendedEpisode.20.Plot)]</property>
+				<property name="recommendedrating">$INFO[Window(Home).Property(RecommendedEpisode.20.Rating)]</property>
+				<property name="recommendedstudio">$INFO[Window(Home).Property(RecommendedEpisode.20.Studio)]</property>
 			    <icon>$INFO[Window(Home).Property(RecommendedEpisode.20.Art(tvshow.poster))]</icon>
 			    <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.20.File)])</onclick>
 		    </item>            
