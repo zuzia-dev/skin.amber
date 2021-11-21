@@ -117,11 +117,11 @@
 				<visible>!String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive)) + String.IsEqual(ListItem.Title,Player.Title)</visible>
             </control>
             
-			<include condition="Skin.HasSetting(Enable.BlurredVideoInfo)" content="BackgroundOverlayVideoInfo">
+			<include condition="Skin.HasSetting(Enable.BlurredVideoInfo) + String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))" content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
 				<param name="colordiffuse">9FFFFFFF</param>
             </include>
-			<include condition="!Skin.HasSetting(Enable.BlurredVideoInfo)" content="BackgroundOverlayVideoInfo">
+			<include condition="!Skin.HasSetting(Enable.BlurredVideoInfo) | !String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))" content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
             </include>
 			
@@ -1018,6 +1018,7 @@
 				<onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">Dialog.Close(all)</onclick>
 				<onclick condition="Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[ListItem.Trailer],1)</onclick>
                 <visible>!String.IsEmpty(ListItem.Trailer) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
             </control>
 			<control type="button" id="8004" description="TMDb Helper Trailer">
                 <height>90</height>
@@ -1029,6 +1030,7 @@
 				<onclick condition="!Skin.HasSetting(Trailer.WindowVideoInfo)">Dialog.Close(all)</onclick>
 				<onclick condition="Skin.HasSetting(Trailer.WindowVideoInfo)">PlayMedia($INFO[Window(Home).Property(TMDbHelper.ListItem.Trailer)],1)</onclick>
                 <visible>Skin.HasSetting(Enable.TMDbHelper) + String.IsEmpty(ListItem.Trailer) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
             </control>
 			<control type="button" id="8005">
 				<description>Search Trailer</description>
@@ -1049,6 +1051,7 @@
 				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + !System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
 				<onclick condition="1Skin.HasSetting(Trailer.SearchIMDb) + System.HasAddon(plugin.video.youtube) + !System.AddonIsEnabled(plugin.video.youtube)">EnableAddon(plugin.video.youtube)</onclick>
 				<visible>String.IsEmpty(ListItem.Trailer) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
 			</control>
             <control type="button" id="6" description="Refresh">
                 <height>90</height>
@@ -1444,7 +1447,7 @@
         </control>
 		
 		<control type="group">
-		    <visible>Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo</visible>
+		    <visible>Skin.HasSetting(Trailer.WindowVideoInfo) + Player.HasVideo + String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
             <left>10</left>
 			<top>500</top>
 			<width>670</width>
