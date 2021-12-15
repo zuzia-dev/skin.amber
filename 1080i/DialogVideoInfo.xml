@@ -139,7 +139,6 @@
         </control>
 		<!-- Poster -->
         <control type="group">
-		    
 		    <include content="ShadowedImage">
                 <param name="top">24</param>
                 <param name="left">24</param>
@@ -1050,7 +1049,7 @@
 				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + System.AddonIsEnabled(plugin.video.youtube) + [String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,season) | [String.IsEqual(ListItem.DBType,tvshow) + !String.IsEqual(ListItem.TVShowTitle,ListItem.Label)]]">ActivateWindow(videos,"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.TVShowTitle] $INFO[ListItem.Label] trailer/",return)</onclick>
 				<onclick condition="!Skin.HasSetting(Trailer.SearchIMDb) + !System.HasAddon(plugin.video.youtube)">InstallAddon(plugin.video.youtube)</onclick>
 				<onclick condition="1Skin.HasSetting(Trailer.SearchIMDb) + System.HasAddon(plugin.video.youtube) + !System.AddonIsEnabled(plugin.video.youtube)">EnableAddon(plugin.video.youtube)</onclick>
-				<visible>String.IsEmpty(ListItem.Trailer) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+				<visible>!String.Contains(ListItem.FolderPath,type=person) + String.IsEmpty(ListItem.Trailer) + String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Trailer)) + !ListItem.IsCollection + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
 				<visible>String.IsEmpty(Window(Home).Property(OSDinfodialogButtonActive))</visible>
 			</control>
             <control type="button" id="6" description="Refresh">
