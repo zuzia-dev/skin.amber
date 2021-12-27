@@ -166,6 +166,17 @@
 					<param name="width">650</param>
 					<param name="heading">$VAR[panelheading]</param>
 					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content() + String.IsEmpty(ListItem.Plot) + Window.IsActive(MyPVRRecordings.xml)]</param>
+				</include>
+				<include content="PanelTemplate">
+					<param name="top">355</param>
+					<param name="left">535</param>
+					<param name="height">400</param>
+					<param name="width">650</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
 					<param name="subheading2">$VAR[panelsubheading2]</param>
 					<param name="subheading2_visible">[Container.content(movies) | Container.content(episodes)] + [Skin.HasSetting(ShowAudioSub) + ![String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))]]</param>
 					<param name="plot">$VAR[Plots]</param>
@@ -310,6 +321,13 @@
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
+						<param name="texture">$INFO[Container(4400).ListItem.Icon]</param>
+						<param name="aspect">stretch</param>
+						<param name="visibility">$EXP[isPVRRecordingsList]</param>
+					</include>
+					<include content="ShadowedImage">
+						<param name="width">490</param>
+						<param name="height">700</param>
 						<param name="texture">$VAR[Episode]</param>
 						<param name="visibility">Container.Content(episodes) + !Skin.HasSetting(EpisodesUsePoster)</param>
 					</include>
@@ -324,7 +342,7 @@
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$VAR[Square]</param>
-						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)]</param>
+						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + !$EXP[isPVRRecordingsList]</param>
 					</include>
 					<include content="ShadowedImage">
 						<param name="width">490</param>
