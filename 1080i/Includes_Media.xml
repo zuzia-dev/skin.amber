@@ -5007,7 +5007,7 @@
 			</include>
 		</definition>
 	</include>
-
+	
 	<include name="GenericPosterIconBig">
 		<param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
@@ -5028,6 +5028,50 @@
 				<param name="overlaylabel">$VAR[PosterLabel]</param>
 				<param name="overlaylabelalign">center</param>
 				<param name="overlaylabelyoffset">90r</param>
+				<param name="aspect">stretch</param>
+			</include>
+		</definition>
+	</include>
+
+	<include name="GenericRecordingIconSmall">
+		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
+		<param name="isSearch">false</param>
+		<param name="viewid"></param>
+		<definition>
+			<include content="GenericThumbIconTemplate">
+				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				<param name="isSearch">$PARAM[isSearch]</param>
+				<param name="iconwidth">232.5</param>
+				<param name="iconheight">326</param>
+				<param name="iconoffset">0</param>
+				<param name="iconimage">$INFO[Container(4400$PARAM[viewid]).ListItem.Icon]</param>
+				<param name="shadowoffset">8</param>
+				<param name="bordersizeLT">12</param>
+				<param name="bordersizeRB">20</param>
+				<param name="aspect">stretch</param>
+			</include>
+		</definition>
+	</include>
+
+	<include name="GenericRecordingIconBig">
+		<param name="isFocused">false</param>
+		<param name="isSmallIcon">false</param>
+		<param name="isSearch">false</param>
+		<param name="viewid"></param>
+		<definition>
+			<include content="GenericThumbIconTemplate">
+				<param name="isFocused">$PARAM[isFocused]</param>
+				<param name="isSmallIcon">$PARAM[isSmallIcon]</param>
+				<param name="isSearch">$PARAM[isSearch]</param>
+				<param name="iconwidth">310</param>
+				<param name="iconheight">437</param>
+				<param name="iconoffset">0</param>
+				<param name="iconimage">$INFO[Container(4400$PARAM[viewid]).ListItem.Icon]</param>
+				<param name="shadowoffset">8</param>
+				<param name="bordersizeLT">16</param>
+				<param name="bordersizeRB">24</param>
 				<param name="aspect">stretch</param>
 			</include>
 		</definition>
@@ -5425,7 +5469,41 @@
 			</focusedlayout>
 		</definition>
 	</include>
-
+    
+	<include name="RecordingsLayout">
+		<param name="viewid"/>
+		<definition>
+			<itemlayout condition="[!Skin.HasSetting($PARAM[viewid]_SmallIcons) + Window.IsActive(MyPVRRecordings.xml)]" height="437" width="310">
+				<include content="GenericRecordingIconBig">
+					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
+					<param name="viewid">$PARAM[viewid]</param>
+				</include>
+			</itemlayout>
+			<focusedlayout condition="[!Skin.HasSetting($PARAM[viewid]_SmallIcons) + Window.IsActive(MyPVRRecordings.xml)]" height="437" width="310">
+				<include content="GenericRecordingIconBig">
+					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
+					<param name="viewid">$PARAM[viewid]</param>
+				</include>
+			</focusedlayout>
+			<itemlayout condition="[Skin.HasSetting($PARAM[viewid]_SmallIcons) + Window.IsActive(MyPVRRecordings.xml)]" height="326" width="232.5">
+				<include content="GenericRecordingIconSmall">
+					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
+					<param name="viewid">$PARAM[viewid]</param>
+				</include>
+			</itemlayout>
+			<focusedlayout condition="[Skin.HasSetting($PARAM[viewid]_SmallIcons) + Window.IsActive(MyPVRRecordings.xml)]" height="326" width="232.5">
+				<include content="GenericRecordingIconSmall">
+					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
+					<param name="viewid">$PARAM[viewid]</param>
+				</include>
+			</focusedlayout>
+		</definition>
+	</include>
+	
 	<include name="PosterLayout">
 		<param name="viewid"/>
 		<definition>
@@ -5652,25 +5730,25 @@
 	<include name="GenericLayout">
 		<param name="viewid"/>
 		<definition>
-			<itemlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
+			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="!Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
+			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
-			<itemlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
+			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
+			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">true</param>

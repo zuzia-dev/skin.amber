@@ -2,7 +2,12 @@
 <includes>
     <include name="View_55_BigPanel">
         <control type="group" description="Content">
-            <include content="BackgroundOverlay">
+            
+			<include content="PVRBackground">
+			    <param name="viewid">55</param>
+			</include>
+			
+			<include content="BackgroundOverlay">
                 <param name="parentid" value="55"/>
             </include>
             <visible>Control.IsVisible(55)</visible>
@@ -38,7 +43,11 @@
                     <param name="viewid">55</param>
                 </include>
 
-                <include content="PosterLayout">
+                <include content="RecordingsLayout">
+                    <param name="viewid">55</param>
+                </include>
+				
+				<include content="PosterLayout">
                     <param name="viewid">55</param>
                 </include>
 
@@ -68,7 +77,22 @@
             </control>
 
             <include content="PanelTemplate">
-                <param name="top">100</param>
+                <param name="viewid">55</param>
+				<param name="top">100</param>
+                <param name="height">640</param>
+                <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">590</param>
+                <param name="heading">$VAR[panelheading]</param>
+                <param name="subheading">$VAR[panelsubheading]</param>
+                <param name="plot">$VAR[Plots]</param>
+                <param name="footer">$VAR[panelfooter]</param>
+				<param name="footertop">900</param>
+                <param name="visibility">$EXP[isPVRRecordingsList]</param>
+            </include>
+			<include content="PanelTemplate">
+                <param name="viewid">55</param>
+				<param name="top">100</param>
                 <param name="height">640</param>
                 <param name="width">850</param>
 				<param name="groupheight">850</param>
@@ -82,9 +106,10 @@
 				<param name="footertop">900</param>
 				<param name="flagitemwidth">102</param>
 				<param name="flagitemheight">70</param>
-                <param name="visibility">![Container.Content(artists) | Container.Content(albums) | Container.Content(images) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</param>
+                <param name="visibility">![$EXP[isPVRRecordingsList]] + ![Container.Content(artists) | Container.Content(albums) | Container.Content(images) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</param>
             </include>
 			<include content="PanelTemplate">
+				<param name="viewid">55</param>
 				<param name="top">100</param>
 				<param name="height">640</param>
                 <param name="width">850</param>
@@ -99,7 +124,8 @@
 				<param name="visibility">[Container.Content(tvshows) | Container.Content(seasons)]</param>
 			</include>            
             <include content="PanelTemplate">
-                <param name="top">100</param>
+                <param name="viewid">55</param>
+				<param name="top">100</param>
                 <param name="height">640</param>
                 <param name="width">850</param>
 				<param name="groupheight">850</param>
@@ -110,7 +136,8 @@
                 <param name="visibility">Container.Content(sets)</param>
             </include>
             <include content="PanelTemplate">
-                <param name="top">100</param>
+                <param name="viewid">55</param>
+				<param name="top">100</param>
                 <param name="height">760</param>
                 <param name="width">850</param>
 				<param name="groupheight">850</param>
@@ -122,7 +149,8 @@
                 <param name="visibility">Container.Content(images)</param>
             </include>
             <include content="PanelTemplate">
-                <param name="top">100</param>
+                <param name="viewid">55</param>
+				<param name="top">100</param>
                 <param name="height">710</param>
                 <param name="width">850</param>
 				<param name="groupheight">870</param>
@@ -135,7 +163,8 @@
                 <param name="visibility">Container.Content(artists)</param>
             </include>
             <include content="PanelTemplate">
-                <param name="top">100</param>
+                <param name="viewid">55</param>
+				<param name="top">100</param>
                 <param name="height">635</param>
                 <param name="width">850</param>
 				<param name="groupheight">850</param>
