@@ -5,7 +5,12 @@
 	    <param name="ListType">list</param>
 		<definition>
 		    <control type="group" description="Large Infolist2">
-			    <include content="BackgroundOverlay">
+			    
+				<include content="PVRBackground">
+			        <param name="viewid">52</param>
+			    </include>
+				
+				<include content="BackgroundOverlay">
 			        <param name="parentid" value="52"/>
 		        </include>
 			    <visible>Control.IsVisible(52)</visible>
@@ -35,7 +40,8 @@
 				    <preloaditems>4</preloaditems>
 				    <include condition="Skin.HasSetting(ListCenterFocus)">ListCenterFocusParams</include>
 					<visible>[$EXP[Exp_View_52] + Skin.HasSetting(Enable.NewViewSelector)] | [!Skin.HasSetting(hide.biglistview) + !Skin.HasSetting(Enable.NewViewSelector)]</visible>
-				    <itemlayout height="104" width="1070" condition="![$EXP[BigListPanelIsSwapped]] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+				    
+					<itemlayout height="104" width="1070" condition="$EXP[isPVRRecordingsList]">
 					    <include content="52_layout">
 						    <param name="left">850</param>
 							<param name="thumbleft">855</param>
@@ -45,7 +51,7 @@
 			    			<param name="isfocused">false</param>
 					    </include>
 				    </itemlayout>
-				    <focusedlayout height="104" width="1070" condition="![$EXP[BigListPanelIsSwapped]] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+				    <focusedlayout height="104" width="1070" condition="$EXP[isPVRRecordingsList]">
 					    <include content="52_layout">
 						    <param name="left">850</param>
 							<param name="thumbleft">855</param>
@@ -55,7 +61,28 @@
 						    <param name="isfocused">true</param>
 					    </include>
 				    </focusedlayout>
-					<itemlayout height="104" width="1070" condition="$EXP[BigListPanelIsSwapped] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+					
+					<itemlayout height="104" width="1070" condition="![$EXP[isPVRRecordingsList]] + ![$EXP[BigListPanelIsSwapped]] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+					    <include content="52_layout">
+						    <param name="left">850</param>
+							<param name="thumbleft">855</param>
+    						<param name="width">1150</param>
+	    					<param name="imgwidth">60</param>
+		    				<param name="image">$VAR[Square]</param>
+			    			<param name="isfocused">false</param>
+					    </include>
+				    </itemlayout>
+				    <focusedlayout height="104" width="1070" condition="![$EXP[isPVRRecordingsList]] + ![$EXP[BigListPanelIsSwapped]] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+					    <include content="52_layout">
+						    <param name="left">850</param>
+							<param name="thumbleft">855</param>
+						    <param name="width">1150</param>
+						    <param name="imgwidth">60</param>
+						    <param name="image">$VAR[Square]</param>
+						    <param name="isfocused">true</param>
+					    </include>
+				    </focusedlayout>
+					<itemlayout height="104" width="1070" condition="![$EXP[isPVRRecordingsList]] + $EXP[BigListPanelIsSwapped] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
 					    <include content="52_layout">
 						    <param name="left">0</param>
 							<param name="thumbleft">5</param>
@@ -67,7 +94,7 @@
 			    			<param name="isfocused">false</param>
 					    </include>
 				    </itemlayout>
-				    <focusedlayout height="104" width="1070" condition="$EXP[BigListPanelIsSwapped] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
+				    <focusedlayout height="104" width="1070" condition="![$EXP[isPVRRecordingsList]] + $EXP[BigListPanelIsSwapped] + [Container.Content() | Container.Content(videos) | Container.Content(files) | Container.Content(playlists) | Container.Content(Tags) | Container.Content(Actors) | Container.Content(Directors) | Container.Content(Years) | Container.Content(Countries) | Container.Content(roles) | Container.Content(genres) | Container.Content(studios)]">
 					    <include content="52_layout">
 						    <param name="left">0</param>
 							<param name="thumbleft">5</param>
@@ -333,8 +360,12 @@
                     <visible>Control.IsVisible(52)</visible>
                     <visible>Skin.HasSetting(Show.JumpToLetter) + !Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
                 </control>
-            
-			    <include content="PanelTemplate52">
+                
+				<include content="PanelTemplate52">
+				    <param name="visibility">$EXP[isPVRRecordingsList]</param>
+			    </include>
+				
+				<include content="PanelTemplate52">
 				    <param name="visibility">![$EXP[BigListPanelIsSwapped]] + ![Container.Content(movies) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(seasons) | Container.Content(albums) | Container.Content(artists)]</param>
 			    </include>
 				<include content="PanelTemplate52">
