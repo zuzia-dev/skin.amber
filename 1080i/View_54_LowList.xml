@@ -5,6 +5,10 @@
 		<definition>
 			<control type="group">
 				
+				<include content="PVRBackground">
+				    <param name="viewid">54</param>
+				</include>
+				
 				<include condition="Skin.HasSetting(ShowSetCount)">LowListMovieSetDiscs</include>
 				
 				<include content="ListTopDisc">
@@ -216,8 +220,29 @@
 					<visible>Skin.HasSetting(Show.JumpToLetter) + !Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
 				</control>            
 
-                <!-- Info panels in original position -->
+                <!-- Info panel for PVR Recordings List -->
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
+					<param name="lowpanel">true</param>
+					<param name="top">600</param>
+					<param name="left">355</param>
+					<param name="groupheight">365</param>
+					<param name="footertop">965</param>
+		            <param name="footerheight">115</param>
+					<param name="height">205</param>
+					<param name="width">850</param>
+					<param name="heading">$VAR[panelheading]</param>
+					<param name="subheading">$VAR[panelsubheading]</param>
+					<param name="plot">$VAR[Plots]</param>
+					<param name="plotheight">200</param>
+					<param name="footer">$VAR[panelfooter]</param>
+					<param name="footertop">910</param>
+					<param name="visibility">Control.IsVisible(54) + $EXP[isPVRRecordingsList]</param>
+				</include>
+				
+				<!-- Info panels in original position -->
+				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">600</param>
 					<param name="left">355</param>
@@ -234,10 +259,11 @@
 					<param name="plotheight">200</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
+					<param name="visibility">![$EXP[isPVRRecordingsList]] + $EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
 				</include>
 
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">355</param>
@@ -256,6 +282,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.content(seasons) | Container.Content(tvshows)] + $EXP[PanelShouldShow]</param>
 				</include>            
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">355</param>
@@ -270,6 +297,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.content(addons) | Container.content(images) | Container.content(games)]</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">355</param>
@@ -285,6 +313,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + Container.content(sets)</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">355</param>
@@ -301,6 +330,7 @@
 					<param name="visibility">Container.Content(artists) + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]]</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">355</param>
@@ -318,6 +348,7 @@
 				
 				<!-- Info panels in swapped position -->
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">600</param>
 					<param name="left">1020</param>
@@ -333,10 +364,11 @@
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">$EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
+					<param name="visibility">![$EXP[isPVRRecordingsList]] + $EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
 				</include>
 
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">1020</param>
@@ -355,6 +387,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.content(seasons) | Container.Content(tvshows)] + $EXP[PanelShouldShow]</param>
 				</include>            
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">1030</param>
@@ -369,6 +402,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.content(addons) | Container.content(images) | Container.content(games)]</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">1030</param>
@@ -384,6 +418,7 @@
 					<param name="visibility">![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + Container.content(sets)</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">1020</param>
@@ -400,6 +435,7 @@
 					<param name="visibility">Container.Content(artists) + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped]</param>
 				</include>
 				<include content="PanelTemplate">
+					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
 					<param name="top">610</param>
 					<param name="left">1020</param>
@@ -435,6 +471,14 @@
 						<param name="top">-11</param>
 						<param name="width">295</param>
 						<param name="height">450</param>
+						<param name="texture">$INFO[Container(440054).ListItem.Icon]</param>
+						<param name="aspect">stretch</param>
+						<param name="visibility">$EXP[isPVRRecordingsList]</param>
+					</include>
+					<include content="ShadowedImage">
+						<param name="top">-11</param>
+						<param name="width">295</param>
+						<param name="height">450</param>
 						<param name="texture">$VAR[Poster]</param>
 						<param name="aspect">stretch</param>
 						<param name="visibility">[Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)]</param>
@@ -459,7 +503,7 @@
 						<param name="width">295</param>
 						<param name="height">450</param>
 						<param name="texture">$VAR[Square]</param>
-						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)]</param>
+						<param name="visibility">!$EXP[isPVRRecordingsList] + ![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)]</param>
 					</include>
 					<include content="ShadowedImage">
 						<param name="top">-11</param>

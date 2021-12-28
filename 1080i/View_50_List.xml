@@ -5,6 +5,10 @@
 		<definition>
 			<control type="group">
 				
+				<include content="PVRBackground">
+				    <param name="viewid">50</param>
+				</include>	
+				
 				<include condition="Skin.HasSetting(ShowSetCount)">ListMovieSetDiscs</include>
 				<include>ListTopDisc</include>
 				<include>ListMusicDisc</include>
@@ -168,7 +172,7 @@
 					<param name="subheading">$VAR[panelsubheading]</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsDisabled]] + ![$EXP[ListPanelIsSwapped]] + [Container.Content() + String.IsEmpty(ListItem.Plot) + Window.IsActive(MyPVRRecordings.xml)]</param>
+					<param name="visibility">Control.IsVisible(50) + $EXP[isPVRRecordingsList]</param>
 				</include>
 				<include content="PanelTemplate">
 					<param name="top">355</param>
@@ -321,7 +325,7 @@
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
-						<param name="texture">$INFO[Container(4400).ListItem.Icon]</param>
+						<param name="texture">$INFO[Container(440050).ListItem.Icon]</param>
 						<param name="aspect">stretch</param>
 						<param name="visibility">$EXP[isPVRRecordingsList]</param>
 					</include>
