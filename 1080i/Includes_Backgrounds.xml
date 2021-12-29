@@ -230,8 +230,7 @@
 		<value condition="Window.IsVisible(MyMusicNav.xml) + Container.Content(genres) + !String.IsEmpty(Skin.String(musicgenrefanartresource.path)) + String.IsEqual(Skin.String(musicgenrefanartresource.ext),.png)">$INFO[Skin.String(musicgenrefanartresource.path)]$INFO[ListItem.Label,,.png]</value>
 		<value condition="Window.IsVisible(MyMusicNav.xml) + Container.Content(genres) + !String.IsEmpty(Skin.String(musicgenrefanartresource.path)) + String.IsEqual(Skin.String(musicgenrefanartresource.ext),.jpg)">$INFO[Skin.String(musicgenrefanartresource.path)]$INFO[ListItem.Label,,.jpg]</value>
 		<value condition="Window.IsVisible(MyMusicNav.xml) + Container.Content(genres) + !String.IsEmpty(Skin.String(CustomMusicGenreFanartPath))">$INFO[Skin.String(CustomMusicGenreFanartPath)]$INFO[ListItem.Label]$VAR[MusicGenreFanartExt]</value>
-		<!-- PVR Recordings List fanart -->
-		<value condition="$EXP[isPVRRecordingsList] + !String.IsEmpty(Container(4400).ListItem.Art(fanart))">$INFO[Container(4400).ListItem.Art(fanart)]</value>
+		
 		<value>$VAR[Fanart.Art]</value>
 	</variable>
 
@@ -403,7 +402,7 @@
 		<control type="multiimage">
 			<visible>![Player.HasVideo + [Skin.HasSetting(Show_VideoBackground) | Skin.HasSetting(AutoPlayTrailer)]]</visible>
 			<visible>[!Control.IsVisible(56) | [Control.IsVisible(56) + ![$EXP[56_FanartViewNetflix]]]]</visible>
-			<visible>!$EXP[isPVRRecordingsList]</visible>
+			<visible>!$EXP[isPVRRecordingsGroups]</visible>
 			<width>100%</width>
 			<height>100%</height>
 			<timeperimage>8000</timeperimage>
@@ -417,7 +416,7 @@
 		<control type="multiimage">
 			<visible>![Player.HasVideo + [Skin.HasSetting(Show_VideoBackground) | Skin.HasSetting(AutoPlayTrailer)]]</visible>
 			<visible>Control.IsVisible(56) + $EXP[56_FanartViewNetflix]</visible>
-			<visible>!$EXP[isPVRRecordingsList]</visible>
+			<visible>!$EXP[isPVRRecordingsGroups]</visible>
 			<left>250</left>
 			<width>1896</width>
 			<height>864</height>
@@ -449,7 +448,16 @@
 			    <height>100%</height>
 			    <texture background="true">$INFO[Container(4400$PARAM[viewid]).ListItem.Art(fanart)]</texture>
 			    <aspectratio>scale</aspectratio>
-				<visible>$EXP[isPVRRecordingsList]</visible>
+				<visible>$EXP[isPVRRecordingsGroups] + !Control.HasFocus(501)</visible>
+		    </control>
+			<control type="image">
+			    <posx>0</posx>
+				<posy>0</posy>
+				<width>100%</width>
+			    <height>100%</height>
+			    <texture background="true">$INFO[Container(440$PARAM[viewid]).ListItem.Art(fanart)]</texture>
+			    <aspectratio>scale</aspectratio>
+				<visible>$EXP[isPVRRecordingsGroups] + Control.HasFocus(501)</visible>
 		    </control>
 		</definition>
 	</include>	

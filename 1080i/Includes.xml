@@ -1259,7 +1259,7 @@
             <control type="grouplist" id="4000" description="Media Info Panel">
                 <include>OpenClose</include>
                 <visible>$PARAM[visibility]</visible>
-                <visible>[[$EXP[PanelShouldShow] | $EXP[isPVRRecordingsList]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | 
+                <visible>[[$EXP[PanelShouldShow] | $EXP[isPVRRecordingsGroups]] + [Container.Content(files) | Container.Content(videos) | Container.Content() | Container.Content(episodes) | 
 				         Container.Content(movies) | Container.Content(tvshows) | Container.Content(musicvideos) | Container.Content(seasons)]] | 
 						 [Container.Content(sets) | Container.Content(addons) | Container.Content(albums) | Container.Content(artists) | 
 						 Container.Content(images) | Container.Content(games)]</visible>
@@ -1586,8 +1586,10 @@
 			</control>	
         </definition>
     </include>
+	
     <!-- Panel Template for Tall List -->
     <include name="PanelTemplateTall">
+		<param name="viewid">501</param>
 		<param name="top"></param>
         <param name="left">60</param>
         <param name="height"></param>
@@ -1710,14 +1712,14 @@
                         </control>
 					</control>	
 					<include content="SubcontentInfoList">
-                        <param name="viewid">501</param>
+                        <param name="viewid">$PARAM[viewid]</param>
 						<param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
 		                <param name="width">$PARAM[width]</param>
 						<param name="labelwidth">$PARAM[width]</param>
 					</include>
 					<include content="SubcontentInfoList">
-                        <param name="viewid">501</param>
-						<param name="list_id">4200</param>
+                        <param name="viewid">$PARAM[viewid]</param>
+						<param name="list_id">420</param>
 						<param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Year,  (,)]</param>
 						<param name="subcontent_order">descending</param>
 						<param name="subcontent_visible">[String.IsEqual(ListItem.DBType,artist) + String.IsEmpty(ListItem.Property(Artist_Description))]</param>
@@ -1726,8 +1728,8 @@
 						<param name="labelwidth">$PARAM[width]</param>
 					</include>	
 					<include content="SubcontentInfoList">
-                        <param name="viewid">501</param>
-						<param name="list_id">4300</param>
+                        <param name="viewid">$PARAM[viewid]</param>
+						<param name="list_id">430</param>
 						<param name="subcontent_label1">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$INFO[ListItem.Duration,  (,)]</param>
 					    <param name="subcontent_label2">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$VAR[ItemDurationHrMins,  (,)]</param>
 						<param name="subcontent_visible">[String.IsEqual(ListItem.DBType,album) + String.IsEmpty(ListItem.Property(Album_Description))]</param>
@@ -1737,8 +1739,8 @@
 						<param name="labelwidth">$PARAM[width]</param>
 					</include>
 					<include content="SubcontentInfoList">
-                        <param name="viewid">501</param>
-						<param name="list_id">4400</param>
+                        <param name="viewid">$PARAM[viewid]</param>
+						<param name="list_id">440</param>
 						<param name="subcontent_label1">$INFO[ListItem.Label][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Date][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Duration]</param>
 					    <param name="subcontent_label2">$INFO[ListItem.Label][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Date][COLOR=$VAR[HighlightColor]] • [/COLOR]$VAR[ItemDurationHrMins]</param>
 						<param name="subcontent_visible">Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + !ListItem.IsParentFolder</param>
@@ -1775,7 +1777,8 @@
     </include>
     <!-- Panel Template for Big List -->
     <include name="PanelTemplate52">
-        <param name="top">40</param>
+        <param name="viewid">52</param>
+		<param name="top">40</param>
         <param name="left">0</param>
         <param name="width">880</param>
         <param name="heading">$VAR[panelheading]</param>
@@ -1811,7 +1814,7 @@
 					<param name="width">750</param>
 					<param name="height">399</param>
 					<param name="texture">$VAR[Fanart]</param>
-					<param name="visibility">!$EXP[isPVRRecordingsList]</param>
+					<param name="visibility">!$EXP[isPVRRecordingsGroups]</param>
 				</include>
 				<include content="ShadowedImage">
                     <param name="top">105</param>
@@ -1819,7 +1822,15 @@
 					<param name="width">750</param>
 					<param name="height">399</param>
 					<param name="texture">$INFO[Container(440052).ListItem.Art(fanart)]</param>
-					<param name="visibility">$EXP[isPVRRecordingsList]</param>
+					<param name="visibility">$EXP[isPVRRecordingsGroups] + !$EXP[BigListPanelIsSwapped]</param>
+				</include>
+				<include content="ShadowedImage">
+                    <param name="top">105</param>
+                    <param name="left">67</param>
+					<param name="width">750</param>
+					<param name="height">399</param>
+					<param name="texture">$INFO[Container(4400152).ListItem.Art(fanart)]</param>
+					<param name="visibility">$EXP[isPVRRecordingsGroups] + $EXP[BigListPanelIsSwapped]</param>
 				</include>
 				<control type="group">
 				    <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
@@ -1913,13 +1924,13 @@
                         <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
                     </control>
 					<include content="SubcontentInfoList">
-                        <param name="viewid">52</param>
+                        <param name="viewid">$PARAM[viewid]</param>
 						<param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
 		                <param name="width">800</param>
 						<param name="labelwidth">$PARAM[labelwidth]</param>
 					</include>
 					<include content="SubcontentInfoList">
-                        <param name="viewid">52</param>
+                        <param name="viewid">$PARAM[viewid]</param>
 						<param name="list_id">4200</param>
 						<param name="subcontent_label1">$INFO[ListItem.Label]$INFO[ListItem.Year,  (,)]</param>
 						<param name="subcontent_order">descending</param>
@@ -1929,7 +1940,7 @@
 						<param name="labelwidth">$PARAM[labelwidth]</param>
 					</include>	
 					<include content="SubcontentInfoList">
-                        <param name="viewid">52</param>
+                        <param name="viewid">$PARAM[viewid]</param>
 						<param name="list_id">4300</param>
 						<param name="subcontent_label1">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$INFO[ListItem.Duration,  (,)]</param>
 					    <param name="subcontent_label2">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Label]$VAR[ItemDurationHrMins,  (,)]</param>
@@ -1940,7 +1951,7 @@
 						<param name="labelwidth">$PARAM[labelwidth]</param>
 					</include>
 					<include content="SubcontentInfoList">
-                        <param name="viewid">52</param>
+                        <param name="viewid">$PARAM[viewid]</param>
 						<param name="list_id">4400</param>
 						<param name="subcontent_label1">$INFO[ListItem.Label][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Date][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Duration]</param>
 					    <param name="subcontent_label2">$INFO[ListItem.Label][COLOR=$VAR[HighlightColor]] • [/COLOR]$INFO[ListItem.Date][COLOR=$VAR[HighlightColor]] • [/COLOR]$VAR[ItemDurationHrMins]</param>
