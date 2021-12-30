@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+	
+	<include name="PVRRecordingSpaceUsage">
+	    <param name="posx">355</param>
+		<param name="posy">1020</param>
+		<param name="height">38</param>
+		<param name="width">760</param>
+		<definition>
+		    <control type="group">
+			    <posx>$PARAM[posx]</posx>
+				<posy>$PARAM[posy]</posy>
+				<height>$PARAM[height]</height>
+				<visible>Window.IsActive(MyPVRRecordings.xml)</visible>
+				<control type="label">
+					<description>Disk usage text</description>
+					<top>0</top>
+					<width>$PARAM[width]</width>
+					<height>20</height>
+					<label>$INFO[PVR.backenddiskspace]</label>
+					<visible>!Integer.IsGreater(PVR.backenddiskspaceprogr,100)</visible>
+				</control>
+				<control type="progress">
+					<description>Disk usage bar</description>
+					<top>30</top>
+					<width>$PARAM[width]</width>
+					<height>6</height>
+					<info>PVR.backenddiskspaceprogr</info>
+					<texturebg border="0,0,0,0">img/AmberDotBG.png</texturebg>
+					<midtexture border="0,0,0,0">img/AmberDot.png</midtexture>
+					<visible>!Integer.IsGreater(PVR.backenddiskspaceprogr,100)</visible>
+				</control>
+			</control>
+		</definition>
+	</include>
+	
 	<include name="PVRSideBlade">
 		<control type="group" id="8999">
 			<include>9000Commons</include>
