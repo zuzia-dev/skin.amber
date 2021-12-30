@@ -1247,19 +1247,21 @@
         <control type="button" id="60581">
             <include>9000SysButtons</include>
             <label>$LOCALIZE[137]</label>
-			<onclick>Skin.Reset(CustomSearchTerm)</onclick>
-		    <onclick>Skin.SetString(CustomSearchTerm)</onclick>
-		    <onclick>SetProperty(DoVideoSearch,true,Home)</onclick>
-			<onclick>ActivateWindow(1122)</onclick>
+			<onclick condition="Skin.HasSetting(DoCustomVideoSearch)">Skin.Reset(CustomSearchTerm)</onclick>
+		    <onclick condition="Skin.HasSetting(DoCustomVideoSearch)">Skin.SetString(CustomSearchTerm)</onclick>
+		    <onclick condition="Skin.HasSetting(DoCustomVideoSearch)">SetProperty(DoVideoSearch,true,Home)</onclick>
+			<onclick condition="Skin.HasSetting(DoCustomVideoSearch)">ActivateWindow(1122)</onclick>
+			<onclick condition="!Skin.HasSetting(DoCustomVideoSearch)">SendClick(videos,8)</onclick>
             <visible>Window.IsVisible(Videos)</visible>
         </control>
 		<control type="button" id="60582">
             <include>9000SysButtons</include>
             <label>$LOCALIZE[137]</label>
-			<onclick>Skin.Reset(CustomSearchTerm)</onclick>
-		    <onclick>Skin.SetString(CustomSearchTerm)</onclick>
-		    <onclick>SetProperty(DoMusicSearch,true,Home)</onclick>
-			<onclick>ActivateWindow(1122)</onclick>
+			<onclick condition="Skin.HasSetting(DoCustomMusicSearch)">Skin.Reset(CustomSearchTerm)</onclick>
+		    <onclick condition="Skin.HasSetting(DoCustomMusicSearch)">Skin.SetString(CustomSearchTerm)</onclick>
+		    <onclick condition="Skin.HasSetting(DoCustomMusicSearch)">SetProperty(DoMusicSearch,true,Home)</onclick>
+			<onclick condition="Skin.HasSetting(DoCustomMusicSearch)">ActivateWindow(1122)</onclick>
+			<onclick condition="!Skin.HasSetting(DoCustomMusicSearch)">SendClick(music,8)</onclick>
             <visible>Window.IsVisible(Music)</visible>
         </control>
 		<control type="edit" id="19">
