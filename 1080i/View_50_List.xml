@@ -167,6 +167,7 @@
 				</control>
 
                 <!-- Panels in original position -->
+				<!-- Panel for Recordings or Timers -->
 				<include content="PanelTemplate">
 					<param name="top">355</param>
 					<param name="left">535</param>
@@ -176,8 +177,9 @@
 					<param name="subheading">$VAR[panelsubheading]</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsSwapped]] + $EXP[isPVRRecordingsGroups]</param>
+					<param name="visibility">Control.IsVisible(50) + ![$EXP[ListPanelIsSwapped]] + [$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]]</param>
 				</include>
+				
 				<include content="PanelTemplate">
 					<param name="top">355</param>
 					<param name="left">535</param>
@@ -243,6 +245,7 @@
 				</include>
 
 				<!-- Panels in swapped position -->
+				<!-- Panel for PVR Recordings or Timers -->
 				<include content="PanelTemplate">
 					<param name="viewid">150</param>
 					<param name="top">355</param>
@@ -253,7 +256,7 @@
 					<param name="subheading">$VAR[panelsubheading]</param>
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
-					<param name="visibility">Control.IsVisible(50) + $EXP[ListPanelIsSwapped] + $EXP[isPVRRecordingsGroups]</param>
+					<param name="visibility">Control.IsVisible(50) + $EXP[ListPanelIsSwapped] + [$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]]</param>
 				</include>
 				
 				<include content="PanelTemplate">
@@ -351,7 +354,7 @@
 						<param name="height">700</param>
 						<param name="texture">$INFO[Container(4400150).ListItem.Icon]</param>
 						<param name="aspect">stretch</param>
-						<param name="visibility">$EXP[isPVRRecordingsGroups] + $EXP[ListPanelIsSwapped]</param>
+						<param name="visibility">EXP[isPVRRecordingsGroups] + $EXP[ListPanelIsSwapped]</param>
 					</include>
 					<include content="ShadowedImage">
 						<param name="width">490</param>
@@ -370,7 +373,7 @@
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$VAR[Square]</param>
-						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + !$EXP[isPVRRecordingsGroups]</param>
+						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + ![Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + !ListItem.IsParentFolder]</param>
 					</include>
 					<include content="ShadowedImage">
 						<param name="width">490</param>
