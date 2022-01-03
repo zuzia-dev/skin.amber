@@ -1068,12 +1068,13 @@
                 <align>center</align>
                 <font>Details</font>
                 <label>$LOCALIZE[32127]</label>
-				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(ListItem.IMDBNumber)">RunScript(script.embuary.info,call=movie,external_id=$INFO[ListItem.IMDBNumber])</onclick>
-				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.IMDBNumber)">RunScript(script.embuary.info,call=movie,query='"$INFO[ListItem.Title]"',year=$INFO[ListItem.Year])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + !String.IsEmpty(ListItem.uniqueid(tmdb))">RunScript(script.embuary.info,call=movie,tmdb_id=$INFO[ListItem.uniqueid(tmdb)])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.uniqueid(tmdb)) + !String.IsEmpty(ListItem.IMDBNumber)">RunScript(script.embuary.info,call=movie,external_id=$INFO[ListItem.IMDBNumber])</onclick>
+				<onclick condition="String.IsEqual(ListItem.DBTYPE,movie) + String.IsEmpty(ListItem.uniqueid(tmdb)) + String.IsEmpty(ListItem.IMDBNumber)">RunScript(script.embuary.info,call=movie,query='"$INFO[ListItem.Title]"',year=$INFO[ListItem.Year])</onclick>
 				<onclick condition="String.IsEqual(ListItem.DBTYPE,tvshow)">RunScript(script.embuary.info,call=tv,query='"$INFO[ListItem.Title]"',year=$INFO[ListItem.Year])</onclick>
                 <onclick condition="String.IsEqual(ListItem.DBTYPE,episode)">RunScript(script.embuary.info,call=tv,query=$INFO[ListItem.TVShowTitle])</onclick>
-				<visible>[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie)] + system.hasaddon(script.embuary.info)</visible>
-                <visible>!String.IsEmpty(Listitem.DBID) + String.IsEmpty(ListItem.Property(tmdb_id))</visible>
+				<visible>[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie)] + System.AddonIsEnabled(script.embuary.info)</visible>
+                <visible>!String.IsEmpty(Listitem.DBID)</visible>
             </control>
             <control type="button" id="296" description="Special Features">
                 <height>90</height>
