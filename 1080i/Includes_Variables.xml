@@ -979,7 +979,7 @@
         <value condition="[String.IsEqual(ListItem.DBType,episode) | Container.Content(episodes)]  + !String.IsEmpty(ListItem.Episode)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[20373]:[/COLOR] $INFO[Listitem.Season] • [COLOR=$VAR[HighlightColor]][CAPITALIZE]$LOCALIZE[20452][/CAPITALIZE]:[/COLOR] $INFO[Listitem.Episode][CR][COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
         <value condition="String.IsEqual(ListItem.DBType,album)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[ListItem.Genre][CR][COLOR=$VAR[HighlightColor]]$LOCALIZE[562]:[/COLOR] $INFO[ListItem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[21899]:[/COLOR] $INFO[ListItem.Property(Album_Label)]</value>
         <value condition="String.IsEqual(ListItem.DBType,artist)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Property(Artist_Genre)][CR][COLOR=$VAR[HighlightColor]]$LOCALIZE[21898]:[/COLOR] $INFO[Listitem.Property(Artist_YearsActive)]</value>
-        <value condition="String.IsEqual(ListItem.DBType,song) + Control.IsVisible(52)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[558]: [/COLOR]$INFO[Listitem.Album] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
+		<value condition="String.IsEqual(ListItem.DBType,song) + [Control.IsVisible(52) | Control.IsVisible(51) | Control.IsVisible(511) | Control.IsVisible(55) | Control.IsVisible(551)]">[COLOR=$VAR[HighlightColor]]$LOCALIZE[558]: [/COLOR]$INFO[Listitem.Album] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
 		<value condition="String.IsEqual(ListItem.DBType,musicvideo) + Control.IsVisible(52) + !Skin.HasSetting(Enable.HourMinutes)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[180]: [/COLOR]$INFO[Listitem.Duration]$LOCALIZE[31297] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
         <value condition="String.IsEqual(ListItem.DBType,musicvideo) + Control.IsVisible(52) + Skin.HasSetting(Enable.HourMinutes)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[180]: [/COLOR]$VAR[ItemDurationHrMins] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
         <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
@@ -998,7 +998,8 @@
         <value condition="Container.Content(songs)">$INFO[Listitem.Album]$INFO[ListItem.Year, (,)]</value>
     </variable>
     <variable name="listmediafooter">
-        <value condition="Container.Content(songs)">$INFO[Listitem.AlbumArtist]</value>
+        <value condition="Container.Content(songs) + !String.IsEmpty(ListItem.AlbumArtist)">$INFO[Listitem.AlbumArtist]</value>
+		<value condition="Container.Content(songs) + String.IsEmpty(ListItem.AlbumArtist)">$INFO[Listitem.Artist]</value>
     </variable>
 
     <variable name="SeekLabel">
