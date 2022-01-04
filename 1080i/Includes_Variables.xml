@@ -89,7 +89,8 @@
 		<value condition="Container.Content(songs) + !Window.IsVisible(script.globalsearch.xml) + Skin.HasSetting(Hide.Label2.Lists) + Skin.HasSetting(Enable.HourMinutes) + Skin.HasSetting(ShowRatingMain) + !Skin.HasSetting(ShowRatingUser) + [Integer.IsGreater(ListItem.PlayCount,0) + Skin.HasSetting(ShowPlayCount)]">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$VAR[ItemDurationHrMins, • (,)]$INFO[ListItem.Rating,, • ]$INFO[ListItem.PlayCount, • $LOCALIZE[32022] ]</value>
 		<value condition="Container.Content(songs) + !Window.IsVisible(script.globalsearch.xml) + Skin.HasSetting(Hide.Label2.Lists) + Skin.HasSetting(Enable.HourMinutes) + !Skin.HasSetting(ShowRatingMain) + Skin.HasSetting(ShowRatingUser) + [Integer.IsGreater(ListItem.PlayCount,0) + Skin.HasSetting(ShowPlayCount)]">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$VAR[ItemDurationHrMins, • (,)]$INFO[ListItem.UserRating,, • ]$INFO[ListItem.PlayCount, • $LOCALIZE[32022] ]</value>
 		<value condition="Container.Content(songs) + !Window.IsVisible(script.globalsearch.xml) + Skin.HasSetting(Hide.Label2.Lists) + Skin.HasSetting(Enable.HourMinutes) + !Skin.HasSetting(ShowRatingMain) + !Skin.HasSetting(ShowRatingUser) + [Integer.IsGreater(ListItem.PlayCount,0) + Skin.HasSetting(ShowPlayCount)]">$INFO[ListItem.TrackNumber,,. ]$INFO[ListItem.Title]$VAR[ItemDurationHrMins, • (,)]$INFO[ListItem.PlayCount, • $LOCALIZE[32022] ]</value>
-        <value>$INFO[ListItem.Label]</value>
+        <value condition="Window.IsActive(MyPVRChannels.xml)">[B]$INFO[ListItem.ChannelNumberLabel][/B] - $INFO[ListItem.ChannelName]</value>
+		<value>$INFO[ListItem.Label]</value>
     </variable>
 
     <variable name="MediaListLabel2">
@@ -984,6 +985,8 @@
         <value condition="String.IsEqual(ListItem.DBType,musicvideo) + Control.IsVisible(52) + Skin.HasSetting(Enable.HourMinutes)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[180]: [/COLOR]$VAR[ItemDurationHrMins] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[562]: [/COLOR]$INFO[Listitem.Year] • [COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
         <value condition="Window.IsActive(MyPVRChannels.xml)">[COLOR=Grey3]$LOCALIZE[19031]: [/COLOR]$INFO[ListItem.NextTitle]</value>
         <value condition="Window.IsActive(MyPVRTimers.xml)">$INFO[PVR.NextTimer]</value>
+		<value condition="Window.IsActive(MyPVRSearch.xml) + !String.IsEmpty(ListItem.Genre)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre][CR]$VAR[TVSearchStatus]</value>
+		<value condition="Window.IsActive(MyPVRSearch.xml) + String.IsEmpty(ListItem.Genre)">$VAR[TVSearchStatus]</value>
 		<value condition="!String.IsEmpty(ListItem.Genre)">[COLOR=$VAR[HighlightColor]]$LOCALIZE[515]: [/COLOR]$INFO[Listitem.Genre]</value>
 	</variable>
 	

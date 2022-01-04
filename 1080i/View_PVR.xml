@@ -34,6 +34,74 @@
 		</definition>
 	</include>
 	
+	<include name="PVRChannelProgress">
+	    <param name="posx">355</param>
+		<param name="posy">1020</param>
+		<param name="height">38</param>
+		<param name="width">760</param>
+		<definition>
+		    <control type="group">
+			    <visible>Window.IsActive(MyPVRChannels.xml)</visible>
+				<visible>ListItem.HasEPG</visible>
+				<posx>$PARAM[posx]</posx>
+				<posy>$PARAM[posy]</posy>
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<control type="label">
+				    <top>0</top>
+					<height>30</height>
+					<width>$PARAM[width]</width>
+					<label>$LOCALIZE[32478]</label>
+					<textcolor>$VAR[HighlightColor]</textcolor>
+					<font>ListDetailsSmall</font>
+				</control>
+				<control type="progress">
+				    <top>33</top>
+					<width>$PARAM[width]</width>
+					<height>5</height>
+				    <texturebg border="0,0,0,0">img/AmberDotBG.png</texturebg>
+				    <midtexture colordiffuse="Red" border="0,0,0,0">img/AmberDot.png</midtexture>
+				    <info>ListItem.Progress</info>
+				    <visible>ListItem.IsRecording</visible>
+			    </control>
+			    <control type="progress">
+				    <top>33</top>
+					<width>$PARAM[width]</width>
+					<height>5</height>
+				    <texturebg border="0,0,0,0" colordiffuse="$VAR[LabelTextColor]">img/AmberDotBG.png</texturebg>
+				    <midtexture border="0,0,0,0" colordiffuse="$VAR[HighlightColor]">img/AmberDot.png</midtexture>
+				    <info>ListItem.Progress</info>
+				    <visible>!ListItem.IsRecording</visible>
+			    </control>
+			</control>	
+	    </definition>
+	</include>
+	
+	<include name="PVRChannelOverlay">
+        <param name="isFocused">false</param>
+		<param name="itemheight">72</param>
+		<param name="posx">1295</param>
+		<definition>
+			<control type="image">
+			    <visible>!$PARAM[isFocused]</visible>
+				<posx>$PARAM[posx]</posx>
+			    <width>30</width>
+			    <height>$PARAM[itemheight]</height>
+			    <texture>$VAR[PVROverlay]</texture>
+			    <aspectratio aligny="center">keep</aspectratio>
+			</control>
+			<control type="image">
+			    <visible>$PARAM[isFocused]</visible>
+				<posx>$PARAM[posx]</posx>
+			    <width>30</width>
+			    <height>$PARAM[itemheight]</height>
+			    <texture>$VAR[PVROverlay]</texture>
+			    <aspectratio aligny="center">keep</aspectratio>
+				<colordiffuse>$VAR[FocusedTextColor]</colordiffuse>
+			</control>
+		</definition>
+	</include>
+	
 	<include name="PVRSideBlade">
 		<control type="group" id="8999">
 			<include>9000Commons</include>
