@@ -342,20 +342,39 @@
 						<param name="aspect">stretch</param>
 						<param name="visibility">[Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons)]</param>
 					</include>
+					
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$INFO[Container(440050).ListItem.Icon]</param>
 						<param name="aspect">stretch</param>
-						<param name="visibility">$EXP[isPVRRecordingsGroups] + !$EXP[ListPanelIsSwapped]</param>
+						<param name="visibility">!$EXP[PVRChannelPlaying] + $EXP[isPVRRecordingsGroups] + !$EXP[ListPanelIsSwapped]</param>
 					</include>
+					<include content="ShadowedImage">
+						<param name="left">100</param>
+						<param name="width">240</param>
+						<param name="height">350</param>
+						<param name="texture">$INFO[Container(440050).ListItem.Icon]</param>
+						<param name="aspect">stretch</param>
+						<param name="visibility">$EXP[PVRChannelPlaying] + $EXP[isPVRRecordingsGroups] + !$EXP[ListPanelIsSwapped]</param>
+					</include>
+					
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$INFO[Container(4400150).ListItem.Icon]</param>
 						<param name="aspect">stretch</param>
-						<param name="visibility">EXP[isPVRRecordingsGroups] + $EXP[ListPanelIsSwapped]</param>
+						<param name="visibility">!$EXP[PVRChannelPlaying] + $EXP[isPVRRecordingsGroups] + $EXP[ListPanelIsSwapped]</param>
 					</include>
+					<include content="ShadowedImage">
+						<param name="left">100</param>
+						<param name="width">240</param>
+						<param name="height">350</param>
+						<param name="texture">$INFO[Container(4400150).ListItem.Icon]</param>
+						<param name="aspect">stretch</param>
+						<param name="visibility">$EXP[PVRChannelPlaying] + $EXP[isPVRRecordingsGroups] + $EXP[ListPanelIsSwapped]</param>
+					</include>
+					
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
@@ -369,12 +388,21 @@
 						<param name="aspect">stretch</param>
 						<param name="visibility">Container.Content(episodes) + Skin.HasSetting(EpisodesUsePoster)</param>
 					</include>
+					
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
 						<param name="texture">$VAR[Square]</param>
-						<param name="visibility">![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + ![Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + !ListItem.IsParentFolder]</param>
+						<param name="visibility">!$EXP[PVRChannelPlaying] + ![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + ![Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + !ListItem.IsParentFolder]</param>
 					</include>
+					<include content="ShadowedImage">
+						<param name="left">100</param>
+						<param name="width">240</param>
+						<param name="height">360</param>
+						<param name="texture">$VAR[Square]</param>
+						<param name="visibility">$EXP[PVRChannelPlaying] + !$EXP[isPVRRecordingsGroups] + ![Container.Content(images) | Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(episodes)] + ![Window.IsActive(MyPVRRecordings.xml) + ListItem.IsFolder + !ListItem.IsParentFolder]</param>
+					</include>
+					
 					<include content="ShadowedImage">
 						<param name="width">490</param>
 						<param name="height">700</param>
@@ -489,6 +517,16 @@
 					<param name="posy">1018</param>
 					<param name="width">650</param>
 				</include>
+				
+				<control type="group">
+		            <visible>$EXP[PVRChannelPlaying]</visible>
+                    <left>20</left>
+			        <top>726</top>
+                    <control type="videowindow">
+			            <width>480</width>
+			            <height>300</height>
+                    </control>
+                </control>
 				
 				<include content="TouchButtons">
 		            <param name="ButtonsTop">980</param>

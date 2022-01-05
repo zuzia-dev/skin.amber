@@ -915,7 +915,7 @@
                 <include>VisibleFadeEffect</include>
                 <left>$PARAM[left]</left>
                 <top>$PARAM[top]</top>
-                <control type="group" description="Video Window Grouo">
+                <control type="group" description="Video Window Group">
                     <visible>Player.HasVideo + !Skin.HasSetting(Show_VideoBackground) + !Skin.HasSetting(HidePVRPreview)</visible>
                     <control type="videowindow" description="Current Video">
                         <width>$PARAM[width]</width>
@@ -1796,7 +1796,7 @@
                 <posx>$PARAM[left]</posx>
                 <posy>$PARAM[top]</posy>
                 <width>$PARAM[width]</width>
-                <control type="label" description="Heading Label">
+				<control type="label" description="Heading Label">
                     <top>30</top>
                     <left>47</left>
                     <width>$PARAM[labelwidth]</width>
@@ -1808,51 +1808,66 @@
                     <wrapmultiline>true</wrapmultiline>
                     <label>$PARAM[heading]</label>
                 </control>
-				<include content="ShadowedImage">
-                    <param name="top">105</param>
-                    <param name="left">67</param>
-					<param name="width">750</param>
-					<param name="height">399</param>
-					<param name="texture">$VAR[Fanart]</param>
-					<param name="visibility">!$EXP[isPVRRecordingsGroups]</param>
-				</include>
-				<include content="ShadowedImage">
-                    <param name="top">105</param>
-                    <param name="left">67</param>
-					<param name="width">750</param>
-					<param name="height">399</param>
-					<param name="texture">$INFO[Container(440052).ListItem.Art(fanart)]</param>
-					<param name="visibility">$EXP[isPVRRecordingsGroups] + !$EXP[BigListPanelIsSwapped]</param>
-				</include>
-				<include content="ShadowedImage">
-                    <param name="top">105</param>
-                    <param name="left">67</param>
-					<param name="width">750</param>
-					<param name="height">399</param>
-					<param name="texture">$INFO[Container(4400152).ListItem.Art(fanart)]</param>
-					<param name="visibility">$EXP[isPVRRecordingsGroups] + $EXP[BigListPanelIsSwapped]</param>
-				</include>
+				
 				<control type="group">
-				    <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
-					<control type="image">
-				        <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
-				        <posx>127</posx>
-				        <posy>80</posy>
-				        <height>52</height>
-				        <width>52</width>
-			        </control>
-				    <control type="label" description="l2">
-					    <posx>103</posx>
-				        <posy>90</posy>
-					    <height>30</height>
-					    <width>100</width>
-					    <font>font20_title</font>
-					    <align>center</align>
-					    <shadowcolor></shadowcolor>
-					    <label>[B]$VAR[RatingOverlayVar][/B]</label>
-					    <textcolor>$VAR[FocusedTextColor]</textcolor>
+		            <visible>$EXP[PVRChannelPlaying]</visible>
+                    <left>67</left>
+			        <top>105</top>
+                    <control type="videowindow">
+			            <width>750</width>
+			            <height>399</height>
+                    </control>
+                </control>
+				
+				<control type="group">
+				    <animation effect="fade" start="100" end="0" time="100" condition="$EXP[PVRChannelPlaying]">Conditional</animation>
+				    <include content="ShadowedImage">
+                        <param name="top">105</param>
+                        <param name="left">67</param>
+					    <param name="width">750</param>
+					    <param name="height">399</param>
+					    <param name="texture">$VAR[Fanart]</param>
+					    <param name="visibility">!$EXP[isPVRRecordingsGroups]</param>
+				    </include>
+				    <include content="ShadowedImage">
+                        <param name="top">105</param>
+                        <param name="left">67</param>
+					    <param name="width">750</param>
+					    <param name="height">399</param>
+					    <param name="texture">$INFO[Container(440052).ListItem.Art(fanart)]</param>
+					    <param name="visibility">$EXP[isPVRRecordingsGroups] + !$EXP[BigListPanelIsSwapped]</param>
+				    </include>
+				    <include content="ShadowedImage">
+                        <param name="top">105</param>
+                        <param name="left">67</param>
+					    <param name="width">750</param>
+					    <param name="height">399</param>
+					    <param name="texture">$INFO[Container(4400152).ListItem.Art(fanart)]</param>
+					    <param name="visibility">$EXP[isPVRRecordingsGroups] + $EXP[BigListPanelIsSwapped]</param>
+				    </include>
+				    <control type="group">
+				        <visible>Skin.HasSetting(ShowRatingOverlays) + $EXP[canShowRatingOverlay]</visible>
+					    <control type="image">
+				            <texture background="true" colordiffuse="$VAR[HighlightColor]">common/box.png</texture>
+				            <posx>127</posx>
+				            <posy>80</posy>
+				            <height>52</height>
+				            <width>52</width>
+			            </control>
+				        <control type="label" description="l2">
+    					    <posx>103</posx>
+				            <posy>90</posy>
+					        <height>30</height>
+					        <width>100</width>
+					        <font>font20_title</font>
+					        <align>center</align>
+					        <shadowcolor></shadowcolor>
+					        <label>[B]$VAR[RatingOverlayVar][/B]</label>
+					        <textcolor>$VAR[FocusedTextColor]</textcolor>
+				        </control>
 				    </control>
-				</control>
+				</control>	
+				
                 <control type="group">
 				    <visible>String.IsEqual(ListItem.DBType,episode)</visible>
 					<control type="label" description="Subheading Label">

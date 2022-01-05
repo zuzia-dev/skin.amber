@@ -4801,6 +4801,7 @@
 		<param name="aspect">keep</param>
 		<param name="iconwidth">310</param>
 		<param name="iconheight">310</param>
+		<param name="belowtextbox">$INFO[ListItem.Label]</param>
 		<param name="belowtextboxwidth">272</param>
 		<param name="belowtextboxheight">64</param>
 		<param name="belowtextboxbackheight">74</param>
@@ -4818,7 +4819,7 @@
 				<param name="bordersizeLT">16</param>
 				<param name="bordersizeRB">24</param>
 				<param name="belowtextboxvisibility">true</param>
-				<param name="belowtextbox">$INFO[ListItem.Label]</param>
+				<param name="belowtextbox">$PARAM[belowtextbox]</param>
 				<param name="belowtextboxwidth">$PARAM[belowtextboxwidth]</param>
 				<param name="belowtextboxfont">Shelf_Label</param>
 		        <param name="belowtextboxheight">$PARAM[belowtextboxheight]</param>
@@ -4836,6 +4837,7 @@
 		<param name="aspect">keep</param>
 		<param name="iconwidth">232.5</param>
 		<param name="iconheight">232.5</param>
+		<param name="belowtextbox">$INFO[ListItem.Label]</param>
 		<param name="belowtextboxwidth">208</param>
 		<param name="belowtextboxheight">64</param>
 		<param name="belowtextboxbackheight">74</param>
@@ -4854,7 +4856,7 @@
 				<param name="bordersizeLT">12</param>
 				<param name="bordersizeRB">20</param>
 				<param name="belowtextboxvisibility">true</param>
-				<param name="belowtextbox">$INFO[ListItem.Label]</param>
+				<param name="belowtextbox">$PARAM[belowtextbox]</param>
 				<param name="belowtextboxwidth">$PARAM[belowtextboxwidth]</param>
 				<param name="belowtextboxfont">ListDetailsSmall</param>
 		        <param name="belowtextboxheight">$PARAM[belowtextboxheight]</param>
@@ -5730,25 +5732,56 @@
 	<include name="GenericLayout">
 		<param name="viewid"/>
 		<definition>
-			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
+		
+		    <itemlayout condition="Window.IsActive(MyPVRChannels.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons)" height="400" width="310">
+				<include content="GenericThumbIconBig">
+					<param name="isFocused">false</param>
+					<param name="isSmallIcon">false</param>
+					<param name="belowtextbox">$INFO[ListItem.ChannelNumberLabel] - $INFO[ListItem.ChannelName]</param>
+				</include>
+			</itemlayout>
+			<focusedlayout condition="Window.IsActive(MyPVRChannels.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons)" height="400" width="310">
+				<include content="GenericThumbIconBig">
+					<param name="isFocused">true</param>
+					<param name="isSmallIcon">false</param>
+					<param name="belowtextbox">$INFO[ListItem.ChannelNumberLabel] - $INFO[ListItem.ChannelName]</param>
+				</include>
+			</focusedlayout>
+			
+			<itemlayout condition="Window.IsActive(MyPVRChannels.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons)" height="320" width="232.5">
+				<include content="GenericThumbIconSmall">
+					<param name="isFocused">false</param>
+					<param name="isSmallIcon">true</param>
+					<param name="belowtextbox">$INFO[ListItem.ChannelNumberLabel] - $INFO[ListItem.ChannelName]</param>
+				</include>
+			</itemlayout>
+			<focusedlayout condition="Window.IsActive(MyPVRChannels.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons)" height="320" width="232.5">
+				<include content="GenericThumbIconSmall">
+					<param name="isFocused">true</param>
+					<param name="isSmallIcon">true</param>
+					<param name="belowtextbox">$INFO[ListItem.ChannelNumberLabel] - $INFO[ListItem.ChannelName]</param>
+				</include>
+			</focusedlayout>
+		
+			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Window.IsActive(MyPVRChannels.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">false</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
+			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Window.IsActive(MyPVRChannels.xml) + !Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="400" width="310">
 				<include content="GenericThumbIconBig">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">false</param>
 				</include>
 			</focusedlayout>
-			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
+			<itemlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Window.IsActive(MyPVRChannels.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(tvshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">false</param>
 					<param name="isSmallIcon">true</param>
 				</include>
 			</itemlayout>
-			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
+			<focusedlayout condition="!Window.IsActive(MyPVRRecordings.xml) + !Window.IsActive(MyPVRChannels.xml) + Skin.HasSetting($PARAM[viewid]_SmallIcons) + ![container.content(videos) | container.content(episodes) | container.content(addons) | container.content(artists) | container.content(albums) | container.content(songs) | Container.Content(images) | Container.Content(musicvideos) | container.content(movies) | container.content(sets) | container.content(TVshows) | container.content(seasons)]" height="320" width="232.5">
 				<include content="GenericThumbIconSmall">
 					<param name="isFocused">true</param>
 					<param name="isSmallIcon">true</param>

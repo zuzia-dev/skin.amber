@@ -86,8 +86,24 @@
                 <param name="plot">$VAR[Plots]</param>
                 <param name="footer">$VAR[panelfooter]</param>
 				<param name="footertop">900</param>
-                <param name="visibility">[$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]]</param>
+                <param name="visibility">[$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer] | Window.IsActive(MyPVRChannels.xml)] + !$EXP[PVRChannelPlaying]</param>
             </include>
+			<include content="PanelTemplate">
+                <param name="viewid">551</param>
+				<param name="top">100</param>
+                <param name="left">1000</param>
+				<param name="height">245</param>
+                <param name="width">850</param>
+				<param name="groupheight">850</param>
+				<param name="plotheight">590</param>
+                <param name="heading">$VAR[panelheading]</param>
+                <param name="subheading">$VAR[panelsubheading]</param>
+                <param name="plot">$VAR[Plots]</param>
+                <param name="footer"></param>
+				<param name="footertop">900</param>
+                <param name="visibility">[Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml) | Window.IsActive(MyPVRChannels.xml)] + $EXP[PVRChannelPlaying]</param>
+            </include>
+			
 			<include content="PanelTemplate">
                 <param name="viewid">551</param>
 				<param name="top">100</param>
@@ -105,7 +121,7 @@
 				<param name="footertop">900</param>
 				<param name="flagitemwidth">102</param>
 				<param name="flagitemheight">70</param>
-                <param name="visibility">![$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]] + ![Container.Content(artists) | Container.Content(albums) | Container.Content(images) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</param>
+                <param name="visibility">![$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer] | $EXP[PVRChannelPlaying]] + ![Container.Content(artists) | Container.Content(albums) | Container.Content(images) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)]</param>
             </include>
 			<include content="PanelTemplate">
 				<param name="viewid">551</param>
@@ -309,6 +325,16 @@
 				<param name="posy">980</param>
 				<param name="width">850</param>
 			</include>
+			
+			<control type="group">
+		        <visible>$EXP[PVRChannelPlaying]</visible>
+                <left>970</left>
+			    <top>500</top>
+                <control type="videowindow">
+			        <width>900</width>
+			        <height>450</height>
+                </control>
+            </control>
 
 			<include condition="Skin.HasSetting(Enable.TouchSupport)" content="TouchButtons">
 		        <param name="ButtonsTop">980</param>
