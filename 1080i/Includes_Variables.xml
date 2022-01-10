@@ -123,6 +123,44 @@
         <value></value>
     </variable>
 	
+	<variable name="EpisodesListOverlay" description="Overlay image">
+        <value condition="!Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + Container(6001).ListItem.IsResumable">$VAR[EpisodesListSoloInProgress]</value>
+        <value condition="Skin.HasSetting(Hide_InProgress_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + Container(6001).ListItem.IsResumable"></value>
+        <value condition="!Skin.HasSetting(Hide_Watched_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + String.IsEqual(Container(6001).ListItem.Overlay,OverlayWatched.png)">$INFO[Container(6001).ListItem.Overlay]</value>
+        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + String.IsEqual(Container(6001).ListItem.Overlay,OverlayUnWatched.png)">$INFO[Container(6001).ListItem.Overlay]</value>
+        <value></value>
+    </variable>
+	
+	<variable name="EpisodesListSoloInProgress" description="Overlay image">
+        <value condition="Integer.IsLess(Container(6001).ListItem.PercentPlayed,20)">OverlayInProgress10.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,20) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,30)">OverlayInProgress20.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,30) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,40)">OverlayInProgress30.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,40) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,50)">OverlayInProgress40.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,50) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,60)">OverlayInProgress50.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,60) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,70)">OverlayInProgress60.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,70) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,80)">OverlayInProgress70.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,80) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,90)">OverlayInProgress80.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,90) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,100)">OverlayInProgress90.png</value>
+    </variable>
+	
+	<variable name="EpisodesListTopRightOverlay" description="Overlay image">
+        <value condition="!Skin.HasSetting(Hide_Watched_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + String.IsEqual(Container(6001).ListItem.Overlay,OverlayWatched.png)">overlays/toprightwatched.png</value>
+        <value condition="!Skin.HasSetting(Hide_Unwatched_Marks) + !String.IsEmpty(Container(6001).ListItem.Overlay) + String.IsEqual(Container(6001).ListItem.Overlay,OverlayUnWatched.png)">overlays/toprightunwatched.png</value>
+        <value></value>
+    </variable>
+	
+	<variable name="EpisodesListTopRightInProgress" description="Overlay image">
+        <value condition="Integer.IsLess(Container(6001).ListItem.PercentPlayed,20)">overlays/toprightinprogress10.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,20) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,30)">overlays/toprightinprogress20.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,30) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,40)">overlays/toprightinprogress30.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,40) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,50)">overlays/toprightinprogress40.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,50) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,60)">overlays/toprightinprogress50.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,60) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,70)">overlays/toprightinprogress60.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,70) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,80)">overlays/toprightinprogress70.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,80) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,90)">overlays/toprightinprogress80.png</value>
+		<value condition="Integer.IsGreaterOrEqual(Container(6001).ListItem.PercentPlayed,90) + Integer.IsLess(Container(6001).ListItem.PercentPlayed,100)">overlays/toprightinprogress90.png</value>
+    </variable>
+	
 	<variable name="SoloInProgress" description="Overlay image">
         <value condition="Integer.IsLess(ListItem.PercentPlayed,20)">OverlayInProgress10.png</value>
 		<value condition="Integer.IsGreaterOrEqual(ListItem.PercentPlayed,20) + Integer.IsLess(ListItem.PercentPlayed,30)">OverlayInProgress20.png</value>
@@ -2072,6 +2110,11 @@
 	<variable name="RatingOverlayVar">
 		<value condition="Skin.HasSetting(UserRatingOverlay)">$INFO[ListItem.UserRating]</value>
 		<value>$INFO[ListItem.Rating]</value>
+	</variable>
+	
+	<variable name="EpisodesListRatingOverlayVar">
+		<value condition="Skin.HasSetting(UserRatingOverlay)">$INFO[Container(6001).ListItem.UserRating]</value>
+		<value>$INFO[Container(6001).ListItem.Rating]</value>
 	</variable>
 	
 	<variable name="RightListItemType">
