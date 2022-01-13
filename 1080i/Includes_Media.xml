@@ -1634,6 +1634,74 @@
 		</definition>
 	</include>	
 	
+	<include name="PlayerAudioFlagItems">
+		<param name="itemwidth" default="90"/>
+		<param name="itemheight" default="80"/>
+		<param name="diffuse">Silver</param>
+		<definition>
+			<control type="label" id="89000">
+                <height>$PARAM[itemheight]</height>
+				<width>100</width>
+                <font>ListDetails</font>
+                <align>left</align>
+                <textcolor>$VAR[HighlightColor]</textcolor>
+                <label>$INFO[MusicPlayer.BitRate] $LOCALIZE[32480]</label>
+			    <visible>!String.IsEmpty(MusicPlayer.BitRate)</visible>
+            </control>
+			<control type="image" id="89001">
+				<visible>!String.IsEmpty(MusicPlayer.Codec) + !Skin.HasSetting(coloredflags)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaFlagsPathVar]/audiocodec/$INFO[MusicPlayer.Codec,,.png]</texture>
+			</control>
+			<control type="image" id="89001">
+				<visible>!String.IsEmpty(MusicPlayer.Codec) + Skin.HasSetting(coloredflags)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<texture>$VAR[MediaFlagsPathVar]/audiocodec/$INFO[MusicPlayer.Codec,,.png]</texture>
+			</control>
+			<control type="image" id="89005">
+				<visible>!String.IsEmpty(ListItem.FileExtension) + !Skin.HasSetting(coloredflags)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<texture>$VAR[MediaFlagsPathVar]/audiocodec/$INFO[ListItem.FileExtension,,.png]</texture>
+			</control>
+			<control type="image" id="89005">
+				<visible>!String.IsEmpty(ListItem.FileExtension) + Skin.HasSetting(coloredflags)</visible>
+				<visible>$PARAM[showaudiobadge]</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<texture>$VAR[MediaFlagsPathVar]/audiocodec/$INFO[ListItem.FileExtension,,.png]</texture>
+			</control>
+			<control type="image" id="89006">
+				<visible>!String.IsEmpty(MusicPlayer.Channels) + !Skin.HasSetting(coloredflags)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<colordiffuse>$PARAM[diffuse]</colordiffuse>
+				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[MusicPlayer.Channels,,.png]</texture>
+			</control>
+			<control type="image" id="89006">
+				<visible>!String.IsEmpty(MusicPlayer.Channels) + Skin.HasSetting(coloredflags)</visible>
+				<height>$PARAM[itemheight]</height>
+				<width>$PARAM[itemwidth]</width>
+				<bordersize>3</bordersize>
+				<aspectratio>keep</aspectratio>
+				<texture>$VAR[MediaFlagsPathVar]/audiochannels/channels$INFO[MusicPlayer.Channels,,.png]</texture>
+			</control>
+		</definition>
+	</include>	
+	
 	<include name="TopRightOverlayTemplate">
 	    <param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
