@@ -456,8 +456,8 @@
 		<value condition="Container.content(studios) | String.IsEqual(ListItem.DBType,studio)">$VAR[Studios]</value>
         <value condition="Container.content(countries) | String.IsEqual(ListItem.DBType,country)">$VAR[Countries]</value>
         <value condition="Container.content(years) | String.IsEqual(ListItem.DBType,year) | [String.IsEmpty(ListItem.DBType) + String.Contains(ListItem.FolderPath,years)]">DefaultYear.png</value>
-        <value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + !System.HasAddon(resource.images.moviedirectorthumbs)">DefaultDirector.png</value>
-		<value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + System.HasAddon(resource.images.moviedirectorthumbs)">$INFO[ListItem.Label,resource://resource.images.moviedirectorthumbs/,.jpg]</value>
+        <value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + !System.AddonIsEnabled(resource.images.moviedirectorthumbs)">DefaultDirector.png</value>
+		<value condition="[Container.content(directors) | String.IsEqual(ListItem.DBType,director)] + String.IsEmpty(ListItem.Thumb) + System.AddonIsEnabled(resource.images.moviedirectorthumbs)">$INFO[ListItem.Label,resource://resource.images.moviedirectorthumbs/,.jpg]</value>
 		<value condition="[Container.content(actors) | String.IsEqual(ListItem.DBType,actor)] + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Icon)">DefaultActor.png</value>
         <value condition="[Container.content(genres) | String.IsEqual(ListItem.DBType,genre)] + ![String.Contains(ListItem.Icon,Music) | String.Contains(ListItem.FolderPath,music)]">$VAR[MovieGenres]</value>
 		<value condition="[Container.content(genres) | String.IsEqual(ListItem.DBType,genre)] + [String.Contains(ListItem.Icon,Music) | String.Contains(ListItem.FolderPath,music)]">$VAR[MusicGenres]</value>

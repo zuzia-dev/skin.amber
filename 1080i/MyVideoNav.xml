@@ -5,8 +5,8 @@
 	
 	<onload>ClearProperty(MediaMenu,Home)</onload>
 	<onload>ClearProperty(gallery)</onload>
-    <onload condition="System.HasAddon(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
-	<onload condition="System.HasAddon(script.tv.show.next.aired)">RunScript(script.tv.show.next.aired,backend=True)</onload>
+    <onload condition="System.AddonIsEnabled(script.skin.info.service) + String.IsEmpty(Window(home).Property(skininfos_daemon_running))">RunScript(script.skin.info.service)</onload>
+	<onload condition="System.AddonIsEnabled(script.tv.show.next.aired)">RunScript(script.tv.show.next.aired,backend=True)</onload>
 	<onload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onload>
 	<onunload>ClearProperty(gallery)</onunload>
 	<menucontrol>9000</menucontrol>
@@ -314,7 +314,7 @@
 					<include>9000SysButtons</include>
 					<label>$LOCALIZE[32392]</label>
 					<onclick>RunScript(script.playrandomvideos, "$INFO[Container.FolderPath]", "label=$INFO[Container.FolderName]")</onclick>
-					<visible>System.HasAddon(script.playrandomvideos)</visible>
+					<visible>System.AddonIsEnabled(script.playrandomvideos)</visible>
 					<visible>!String.Contains(Container.FolderPath,plugin) + !String.Contains(Container.FolderPath,addons) + !String.Contains(Container.FolderPath,sources)</visible>
 				</control>
 				<control type="radiobutton" id="16">
