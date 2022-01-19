@@ -768,6 +768,19 @@
 			<onclick>setrating</onclick>
 			<visible>Window.IsVisible(MusicOSD)</visible>
         </control>
+		<!-- Music Playlist -->
+    	<control type="button" id="652">
+	        <width>64</width>
+            <height>64</height>
+            <label/>
+            <font/>
+            <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/OSDTeletextNF.png</texturefocus>
+            <texturenofocus>OSD/OSDTeletextNF.png</texturenofocus>
+		    <onclick>Dialog.Close(all,true)</onclick>
+			<onclick>ActivateWindow(musicplaylist)</onclick>
+			<visible>Integer.IsGreater(Playlist.Length(music),0)</visible>
+		    <visible>Window.IsVisible(MusicOSD)</visible>
+		</control>
 		<!-- video: 3D -->
 		<control type="button" id="655">
 		    <visible>VideoPlayer.IsStereoscopic</visible>
@@ -880,6 +893,19 @@
             <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/rating.png</texturefocus>
             <texturenofocus>OSD/compact/rating.png</texturenofocus>
 		    <onclick>setrating</onclick>
+			<visible>Window.IsVisible(MusicOSD)</visible>
+		</control>
+		<!-- Music Playlist -->
+    	<control type="button" id="6541">
+	        <width>64</width>
+            <height>64</height>
+            <label/>
+            <font/>
+            <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/playlist.png</texturefocus>
+            <texturenofocus>OSD/compact/playlist.png</texturenofocus>
+		    <onclick>Dialog.Close(all,true)</onclick>
+			<onclick>ActivateWindow(musicplaylist)</onclick>
+			<visible>Integer.IsGreater(Playlist.Length(music),0)</visible>
 			<visible>Window.IsVisible(MusicOSD)</visible>
 		</control>
 		<!-- 3D -->
@@ -1114,7 +1140,7 @@
 						<visible>!Skin.HasSetting(Disable.Lyrics)</visible>
 						<visible>Window.IsVisible(MusicOSD)</visible>
                     </control>
-                    <control type="button" id="10107">
+<!--                    <control type="button" id="10107">
                         <width>470</width>
                         <font>Details</font>
                         <label>$LOCALIZE[559]</label>
@@ -1122,7 +1148,7 @@
                         <onclick>ActivateWindow(MusicPlaylist)</onclick>
                         <texturenofocus colordiffuse="ff161612">img/WhiteRoundedST2.png</texturenofocus>
 						<visible>Window.IsVisible(MusicOSD)</visible>
-                    </control>
+                    </control> -->
                     <control type="button" id="10108">
                         <width>470</width>
                         <font>Details</font>
@@ -1370,6 +1396,88 @@
 			
 		    </control>
 			
+		</definition>
+	</include>
+	
+	<include name="SidebladeNowPlaying">
+	    <param name="left">15</param>
+		<param name="top">0</param>
+		<param name="height">64</param>
+		<param name="itemsize">64</param>
+		<param name="width">460</param>
+		<param name="itemgap">10</param>
+		<param name="onleft">9000</param>
+	    <definition>
+			<control type="grouplist" id="9700">
+				<animation effect="fade" start="0" end="100" time="400">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="300">WindowClose</animation>
+				<animation effect="fade" time="300">VisibleChange</animation>
+				<orientation>horizontal</orientation>
+				<itemgap>10</itemgap>
+				<left>$PARAM[left]</left>
+				<top>$PARAM[top]</top>
+				<onleft>$PARAM[onleft]</onleft>
+				<width>$PARAM[width]</width>
+				<height>$PARAM[height]</height>
+				<visible>Player.HasAudio</visible>
+				<visible>!System.HasActiveModalDialog</visible>
+				<!-- Previous -->
+				<control type="button" id="9701">
+		            <width>$PARAM[itemsize]</width>
+                    <height>$PARAM[itemsize]</height>
+                    <label/>
+                    <font/>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]" flipx="true">OSD/compact/next.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]" flipx="true">OSD/compact/next.png</texturenofocus>
+		            <onclick>PlayerControl(Previous)</onclick>
+		        </control>
+		        <!-- Play/Pause -->
+		        <control type="togglebutton" id="9702">
+                    <width>$PARAM[itemsize]</width>
+                    <height>$PARAM[itemsize]</height>
+                    <label/>
+                    <altlabel></altlabel>
+                    <font/>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/pause.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">OSD/compact/pause.png</texturenofocus>
+                    <usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
+                    <alttexturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/play.png</alttexturefocus>
+                    <alttexturenofocus colordiffuse="$VAR[LabelTextColor]">OSD/compact/play.png</alttexturenofocus>
+		            <onclick>PlayerControl(Play)</onclick>
+		            <visible>Player.PauseEnabled</visible>
+                    <animation effect="fade" start="100" end="33" time="100" condition="!Player.PauseEnabled">Conditional</animation>
+                </control>
+		        <!-- Stop -->
+		        <control type="button" id="9703">
+		            <width>$PARAM[itemsize]</width>
+                    <height>$PARAM[itemsize]</height>
+                    <label/>
+                    <font/>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/stop.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">OSD/compact/stop.png</texturenofocus>
+		            <onclick>PlayerControl(Stop)</onclick>
+		        </control>
+		        <!-- Next -->
+		        <control type="button" id="9704">
+		            <width>$PARAM[itemsize]</width>
+                    <height>$PARAM[itemsize]</height>
+                    <label/>
+                    <font/>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/next.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">OSD/compact/next.png</texturenofocus>
+		            <onclick>PlayerControl(Next)</onclick>
+		        </control>
+		        <!-- Fullscreen -->
+		        <control type="button" id="9705">
+		            <width>$PARAM[itemsize]</width>
+                    <height>$PARAM[itemsize]</height>
+                    <label/>
+                    <font/>
+                    <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/compact/fullscreen.png</texturefocus>
+                    <texturenofocus colordiffuse="$VAR[LabelTextColor]">OSD/compact/fullscreen.png</texturenofocus>
+		            <onclick>fullscreen</onclick>
+		        </control>
+			</control>	
 		</definition>
 	</include>
 
