@@ -112,6 +112,8 @@
     </variable>
 
     <variable name="Overlay" description="Overlay image">
+		<value condition="[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)] + !Skin.HasSetting(Hide_Watched_Marks) + Integer.IsGreater(Container.ListItem.Playcount,0)">OverlayWatched.png</value>
+		<value condition="[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)] + !String.IsEmpty(Container.ListItem.DBID)">library.png</value>
 		<value condition="!String.IsEmpty(ListItem.Property(Container.Info)) + !String.IsEmpty(ListItem.DBID)">library.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + !String.IsEqual(ListItem.Overlay,OverlayWatched.png)">Collection.png</value>
         <value condition="ListItem.IsRecording">img/PVR-IsRecording.png</value>
@@ -174,7 +176,9 @@
     </variable>
 	
 	<variable name="TopRightOverlay" description="Overlay image">
-        <value condition="[[Window.IsActive(DialogVideoInfo.xml) + !Window.IsActive(Custom_1122_Search.xml) + !Window.IsActive(Custom_1131_SingleSearch.xml)] + 
+		<value condition="[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)] + !Skin.HasSetting(Hide_Watched_Marks) + Integer.IsGreater(Container.ListItem.Playcount,0)">overlays/toprightwatched.png</value>
+		<value condition="[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)] + !String.IsEmpty(Container.ListItem.DBID)">overlays/toprightlibrary.png</value>
+		<value condition="[[Window.IsActive(DialogVideoInfo.xml) + !Window.IsActive(Custom_1122_Search.xml) + !Window.IsActive(Custom_1131_SingleSearch.xml)] + 
 		                  !String.IsEmpty(ListItem.Property(Container.Info))] + !String.IsEmpty(Container.ListItem.DBID)">overlays/toprightlibrary.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + !String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/toprightcollectionsnf.png</value>
 		<value condition="!Skin.HasSetting(Hide_Collection_Marks) + ListItem.IsCollection + String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/toprightwatched.png</value>

@@ -34,10 +34,6 @@
             <include content="BackgroundOverlayVideoInfo">
                 <param name="parentid" value="9000"/>
             </include>
-<!--            <include condition="Skin.HasSetting(Enable.BlurredVideoInfo) + Skin.HasSetting(Blur.UsePoster)" content="BackgroundOverlay">
-                <param name="parentid" value="9000"/>
-                <param name="colordiffuse" value="9FC8C8C8"/>
-            </include> -->
         </control>
         
         <include content="ShadowedImage">
@@ -48,9 +44,51 @@
             <param name="shadowoffset">16</param>
             <param name="texture">$INFO[Container(10051).ListItem.Art(thumb)]</param>
         </include>
+   		<control type="group">
+		    <visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+	        <control type="image" description="Watched Overlay">
+		        <left>570</left>
+		        <top>900</top>
+		        <width>50</width>
+		        <height>50</height>
+		        <texture>OverlayWatched.png</texture>
+		        <aspectratio>keep</aspectratio>
+				<visible>Integer.IsGreater(Container(10051).ListItem.Playcount,0)</visible>
+	        </control>
+			<control type="image" description="Library Overlay">
+		        <left>570</left>
+		        <top>900</top>
+		        <width>50</width>
+		        <height>50</height>
+		        <texture>library.png</texture>
+		        <aspectratio>keep</aspectratio>
+				<visible>!Integer.IsGreater(Container(10051).ListItem.Playcount,0) + !String.IsEmpty(Container(10051).ListItem.DBID)</visible>
+	        </control>
+		</control>
+		<control type="group">
+            <visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
+            <control type="image">
+	            <texture background="true">overlays/toprightwatched.png</texture>
+	            <posx>521</posx>
+	            <posy>40</posy>
+	            <height>122</height>
+	            <width>122</width>
+	            <aspectratio>keep</aspectratio>
+				<visible>Integer.IsGreater(Container(10051).ListItem.Playcount,0)</visible>
+            </control>
+			<control type="image">
+	            <texture background="true">overlays/toprightlibrary.png</texture>
+	            <posx>521</posx>
+	            <posy>40</posy>
+	            <height>122</height>
+	            <width>122</width>
+	            <aspectratio>keep</aspectratio>
+				<visible>!Integer.IsGreater(Container(10051).ListItem.Playcount,0) + !String.IsEmpty(Container(10051).ListItem.DBID)</visible>
+            </control>
+        </control>
         <!-- Powered by TMDb image -->
         <control type="image" description="Powered by TMDb">
-            <posy>980</posy>
+            <posy>990</posy>
             <left>250</left>
             <height>70</height>
             <width>177</width>

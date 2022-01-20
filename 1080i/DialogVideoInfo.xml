@@ -25,6 +25,8 @@
 	<onload condition="Window.IsVisible(Custom_1122_Search.xml)">Dialog.Close(1122,force)</onload>
 	<onload condition="Window.IsVisible(Custom_1131_SingleSearch.xml)">Dialog.Close(1131,force)</onload>
 	
+	<onload condition="!String.IsEmpty(Window(Home).Property(InfoPlayingMedia))">ClearProperty(InfoPlayingMedia,Home)</onload>
+	
 	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive))">ClearProperty(OSDinfodialogButtonActive,home)</onunload>
 	<onunload condition="!String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + Skin.HasSetting(PauseOnVideoInfo) + Player.Paused">Play</onunload>
 	
@@ -32,9 +34,9 @@
 	<onunload condition="!String.IsEmpty(Window(Home).Property(KodiDefaultCastSearch))">ClearProperty(KodiDefaultCastSearch,Home)</onunload>
 	
 	
-	<onunload condition="String.IsEqual(Window(Home).Property(GeneralSearchCalledInfo),yes) + String.IsEmpty(Window(Home).Property(SingleSearchCalledInfo)) + String.IsEmpty(Window(Home).Property(InfoCalledSingleSearch)) + !String.IsEmpty(Skin.String(CustomSearchTerm)) + !Player.HasVideo">ActivateWindow(1122)</onunload>
+	<onunload condition="String.IsEqual(Window(Home).Property(GeneralSearchCalledInfo),yes) + String.IsEmpty(Window(Home).Property(SingleSearchCalledInfo)) + String.IsEmpty(Window(Home).Property(InfoCalledSingleSearch)) + !String.IsEmpty(Skin.String(CustomSearchTerm)) + !Player.HasVideo + String.IsEmpty(Window(Home).Property(InfoPlayingMedia))">ActivateWindow(1122)</onunload>
 	<onunload condition="String.IsEqual(Window(Home).Property(GeneralSearchCalledInfo),yes)">ClearProperty(GeneralSearchCalledInfo,Home)</onunload>
-	<onunload condition="String.IsEqual(Window(Home).Property(SingleSearchCalledInfo),yes) + String.IsEmpty(Window(Home).Property(GeneralSearchCalledInfo)) + String.IsEmpty(Window(Home).Property(InfoCalledGeneralSearch)) + !String.IsEmpty(Skin.String(SingleSearchTerm)) + !Player.HasVideo">ActivateWindow(1131)</onunload>
+	<onunload condition="String.IsEqual(Window(Home).Property(SingleSearchCalledInfo),yes) + String.IsEmpty(Window(Home).Property(GeneralSearchCalledInfo)) + String.IsEmpty(Window(Home).Property(InfoCalledGeneralSearch)) + !String.IsEmpty(Skin.String(SingleSearchTerm)) + !Player.HasVideo + String.IsEmpty(Window(Home).Property(InfoPlayingMedia))">ActivateWindow(1131)</onunload>
 	<onunload condition="String.IsEqual(Window(Home).Property(SingleSearchCalledInfo),yes)">ClearProperty(SingleSearchCalledInfo,Home)</onunload>
 	
 	
@@ -962,12 +964,14 @@
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + System.AddonIsEnabled(script.embuary.helper) + Skin.HasSetting(Enable.EmbuaryHelper) + [String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.DBID)">RunScript(script.embuary.helper,action=goto,path='"videodb://tvshows/titles/$INFO[ListItem.DBID]/"',target=videos)</onclick>
 				<!-- PKC On Deck: No FileName or FolderPath -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SendClick(8)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">SetProperty(InfoPlayingMedia,yes,Home)</onclick>
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + [String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,musicvideo)] + String.IsEmpty(ListItem.FileNameAndPath) + String.IsEmpty(ListItem.FolderPath)">Dialog.Close(all)</onclick>
 				<!-- Online item, tmdb helper not active, or Person Info dialog -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID) + [!Skin.HasSetting(Enable.TMDbHelper) | String.Contains(ListItem.FolderPath,type=person)]">Action(Close)</onclick>
                 <!-- Local item -->
-				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">Dialog.Close(all)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">SetProperty(InfoPlayingMedia,yes,Home)</onclick>
+				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + !String.IsEmpty(ListItem.DBID)">SendClick(8)</onclick>
 				<!-- tmdb helper active, path is not empty -->
 				<onclick condition="String.IsEmpty(Window(home).Property(OSDinfodialogButtonActive)) + String.IsEmpty(ListItem.DBID) + System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(Enable.TMDbHelper) + !String.Contains(ListItem.FolderPath,type=person) + !String.IsEmpty(ListItem.FileNameAndPath)">RunScript(plugin.video.themoviedb.helper,close_dialog=1134,playmedia='$ESCINFO[ListItem.FileNameAndPath]')</onclick>
                 <!-- tmdb helper active, path is empty -->

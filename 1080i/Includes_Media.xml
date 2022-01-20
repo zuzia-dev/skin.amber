@@ -4544,25 +4544,75 @@
 					<param name="textboxheight">$PARAM[belowtextboxheight]</param>
 					<param name="backgroundheight">$PARAM[belowtextboxbackheight]</param>
 				</include>
-				<control type="image" description="Watched Overlay">
-					<visible>!$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
-					<left>60r</left>
-					<top>60r</top>
-					<width>30</width>
-					<height>30</height>
-					<texture>$VAR[Overlay]</texture>
-					<aspectratio>keep</aspectratio>
-				</control>
-				<control type="image" description="Watched Overlay">
-					<visible>$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
-					<left>60r</left>
-					<top>60r</top>
-					<width>30</width>
-					<height>30</height>
-					<texture>$VAR[Overlay]</texture>
-    				<colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
-					<aspectratio>keep</aspectratio>
-				</control>
+				<control type="group">
+				    <visible>![Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)]</visible>
+					<control type="image" description="Watched Overlay">
+					    <visible>!$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
+					    <left>60r</left>
+					    <top>60r</top>
+					    <width>30</width>
+					    <height>30</height>
+					    <texture>$VAR[Overlay]</texture>
+					    <aspectratio>keep</aspectratio>
+				    </control>
+				    <control type="image" description="Watched Overlay">
+					    <visible>$PARAM[isFocused] + $PARAM[showOverlay] + [!Skin.HasSetting(ShowTopRightOverlays) | [Skin.HasSetting(ShowTopRightOverlays) + [![$EXP[IsIconView]] | ListItem.IsRecording | String.StartsWith(ListItem.FolderPath,pvr)]]]</visible>
+					    <left>60r</left>
+					    <top>60r</top>
+					    <width>30</width>
+					    <height>30</height>
+					    <texture>$VAR[Overlay]</texture>
+    				    <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+					    <aspectratio>keep</aspectratio>
+				    </control>
+				</control>	
+				<control type="group">
+				    <visible>[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)]</visible>
+					<control type="group">
+					    <visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+						<control type="image" description="Watched Overlay">
+					        <visible>!$PARAM[isFocused]</visible>
+					        <left>60r</left>
+					        <top>60r</top>
+					        <width>30</width>
+					        <height>30</height>
+					        <texture>$VAR[Overlay]</texture>
+					        <aspectratio>keep</aspectratio>
+				        </control>
+				        <control type="image" description="Watched Overlay">
+					        <visible>$PARAM[isFocused]</visible>
+					        <left>60r</left>
+					        <top>60r</top>
+					        <width>30</width>
+					        <height>30</height>
+					        <texture>$VAR[Overlay]</texture>
+    				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+					        <aspectratio>keep</aspectratio>
+				        </control>
+					</control>
+					<control type="group">
+			            <visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
+					    <control type="image">
+				            <visible>!$PARAM[isFocused]</visible>
+				            <texture background="true">$VAR[TopRightOverlay]</texture>
+				            <posx>98r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+				            <aspectratio>keep</aspectratio>
+			            </control>
+			            <control type="image">
+				            <visible>$PARAM[isFocused]</visible>
+				            <texture background="true">$VAR[TopRightOverlay]</texture>
+				            <posx>98r</posx>
+				            <posy>12</posy>
+				            <height>82</height>
+				            <width>82</width>
+				            <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				            <aspectratio>keep</aspectratio>
+			            </control>
+			        </control>
+				</control>	
 			</control>
 		</definition>
 	</include>	
