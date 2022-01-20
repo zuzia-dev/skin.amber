@@ -4383,6 +4383,107 @@
 		</definition>
 	</include>
 
+
+    <include name="EmbuaryInfoListsOverlays">
+	    <control type="group">
+		    <visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
+			<control type="image" description="Watched Overlay">
+		        <visible>!$PARAM[isFocused]</visible>
+		        <left>60r</left>
+		        <top>60r</top>
+		        <width>30</width>
+		        <height>30</height>
+		        <texture>$VAR[Overlay]</texture>
+		        <aspectratio>keep</aspectratio>
+		    </control>
+		    <control type="image" description="Watched Overlay">
+		        <visible>$PARAM[isFocused]</visible>
+		        <left>60r</left>
+				<top>60r</top>
+				<width>30</width>
+				<height>30</height>
+				<texture>$VAR[Overlay]</texture>
+    			<colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+				<aspectratio>keep</aspectratio>
+			</control>
+		</control>
+		<control type="group">
+		    <visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
+		    <!-- Watched and Library overlays -->
+			<control type="group">
+			    <visible>!Integer.IsGreater(Container.ListItem.Property(UnwatchedEpisodes),0)</visible>
+			    <control type="image">
+		            <visible>!$PARAM[isFocused]</visible>
+		            <texture background="true">$VAR[TopRightOverlay]</texture>
+		            <posx>98r</posx>
+		            <posy>12</posy>
+		            <height>82</height>
+		            <width>82</width>
+		            <aspectratio>keep</aspectratio>
+		        </control>
+			    <control type="image">
+			        <visible>$PARAM[isFocused]</visible>
+			        <texture background="true">$VAR[TopRightOverlay]</texture>
+			        <posx>98r</posx>
+			        <posy>12</posy>
+			        <height>82</height>
+			        <width>82</width>
+			        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			        <aspectratio>keep</aspectratio>
+			    </control>
+			</control>
+            <!-- Unwatched episodes overlay -->
+			<control type="group">
+			    <visible>Integer.IsGreater(Container.ListItem.Property(UnwatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+			    <control type="group">
+				    <control type="image">
+			            <visible>!$PARAM[isFocused]</visible>
+			            <texture background="true">overlays/toprightempty2.png</texture>
+			            <posx>101r</posx>
+			            <posy>12</posy>
+			            <height>82</height>
+			            <width>82</width>
+			        </control>
+			        <control type="image">
+			            <visible>$PARAM[isFocused]</visible>
+			            <texture background="true" colordiffuse="$VAR[MediaWidgetsHighlightColor]">overlays/toprightempty2.png</texture>
+			            <posx>101r</posx>
+			            <posy>12</posy>
+			            <height>82</height>
+			            <width>82</width>
+			        </control>
+				</control>
+				<control type="group">
+				    <control type="label" description="l2">
+				        <visible>$PARAM[isFocused]</visible>
+				        <posx>94r</posx>
+			            <posy>-255</posy>
+				        <height>$PARAM[itemheight]</height>
+				        <width>100</width>
+				        <font>ListDetailsSmall</font>
+				        <align>center</align>
+				        <shadowcolor></shadowcolor>
+				        <label>$VAR[VideoInfoUnwatchedEpisodes]</label>
+				        <textcolor>$VAR[MediaWidgetsHighlightColor]</textcolor>
+				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
+			        </control>
+			        <control type="label" description="l2">
+				        <visible>!$PARAM[isFocused]</visible>
+				        <posx>94r</posx>
+			            <posy>-255</posy>
+				        <height>$PARAM[itemheight]</height>
+				        <width>100</width>
+				        <font>ListDetailsSmall</font>
+				        <align>center</align>
+				        <label>$VAR[VideoInfoUnwatchedEpisodes]</label>
+				        <textcolor>White2</textcolor>
+			        </control>
+				</control>
+			</control>			
+		</control>
+	</include>
+
+
 	<include name="GenericThumbIconTemplate">
 		<param name="isFocused">false</param>
 		<param name="isSmallIcon">false</param>
@@ -4568,50 +4669,7 @@
 				</control>	
 				<control type="group">
 				    <visible>[Window.IsActive(script-embuary-video.xml) | Window.IsActive(script-embuary-person.xml)]</visible>
-					<control type="group">
-					    <visible>!Skin.HasSetting(ShowTopRightOverlays)</visible>
-						<control type="image" description="Watched Overlay">
-					        <visible>!$PARAM[isFocused]</visible>
-					        <left>60r</left>
-					        <top>60r</top>
-					        <width>30</width>
-					        <height>30</height>
-					        <texture>$VAR[Overlay]</texture>
-					        <aspectratio>keep</aspectratio>
-				        </control>
-				        <control type="image" description="Watched Overlay">
-					        <visible>$PARAM[isFocused]</visible>
-					        <left>60r</left>
-					        <top>60r</top>
-					        <width>30</width>
-					        <height>30</height>
-					        <texture>$VAR[Overlay]</texture>
-    				        <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
-					        <aspectratio>keep</aspectratio>
-				        </control>
-					</control>
-					<control type="group">
-			            <visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
-					    <control type="image">
-				            <visible>!$PARAM[isFocused]</visible>
-				            <texture background="true">$VAR[TopRightOverlay]</texture>
-				            <posx>98r</posx>
-				            <posy>12</posy>
-				            <height>82</height>
-				            <width>82</width>
-				            <aspectratio>keep</aspectratio>
-			            </control>
-			            <control type="image">
-				            <visible>$PARAM[isFocused]</visible>
-				            <texture background="true">$VAR[TopRightOverlay]</texture>
-				            <posx>98r</posx>
-				            <posy>12</posy>
-				            <height>82</height>
-				            <width>82</width>
-				            <colordiffuse>$VAR[MediaWidgetsHighlightColor]</colordiffuse>
-				            <aspectratio>keep</aspectratio>
-			            </control>
-			        </control>
+					<include>EmbuaryInfoListsOverlays</include>
 				</control>	
 			</control>
 		</definition>

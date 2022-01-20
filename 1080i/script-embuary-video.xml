@@ -67,24 +67,47 @@
 		</control>
 		<control type="group">
             <visible>Skin.HasSetting(ShowTopRightOverlays)</visible>
-            <control type="image">
-	            <texture background="true">overlays/toprightwatched.png</texture>
-	            <posx>521</posx>
-	            <posy>40</posy>
-	            <height>122</height>
-	            <width>122</width>
-	            <aspectratio>keep</aspectratio>
-				<visible>Integer.IsGreater(Container(10051).ListItem.Playcount,0)</visible>
-            </control>
-			<control type="image">
-	            <texture background="true">overlays/toprightlibrary.png</texture>
-	            <posx>521</posx>
-	            <posy>40</posy>
-	            <height>122</height>
-	            <width>122</width>
-	            <aspectratio>keep</aspectratio>
-				<visible>!Integer.IsGreater(Container(10051).ListItem.Playcount,0) + !String.IsEmpty(Container(10051).ListItem.DBID)</visible>
-            </control>
+            <control type="group">
+			    <visible>!Integer.IsGreater(Container(10051).ListItem.Property(UnWatchedEpisodes),0)</visible>
+			    <control type="image">
+	                <texture background="true">overlays/toprightwatched.png</texture>
+	                <posx>521</posx>
+	                <posy>40</posy>
+	                <height>122</height>
+	                <width>122</width>
+	                <aspectratio>keep</aspectratio>
+				    <visible>Integer.IsGreater(Container(10051).ListItem.Playcount,0)</visible>
+                </control>
+			    <control type="image">
+	                <texture background="true">overlays/toprightlibrary.png</texture>
+	                <posx>521</posx>
+	                <posy>40</posy>
+	                <height>122</height>
+	                <width>122</width>
+	                <aspectratio>keep</aspectratio>
+				    <visible>!Integer.IsGreater(Container(10051).ListItem.Playcount,0) + !String.IsEmpty(Container(10051).ListItem.DBID)</visible>
+                </control>
+			</control>
+            <control type="group">
+			    <visible>Integer.IsGreater(Container(10051).ListItem.Property(UnwatchedEpisodes),0) + !Skin.HasSetting(Hide_Episode_Marks)</visible>
+				<control type="image">
+			        <texture background="true">overlays/toprightempty2.png</texture>
+			        <posx>521</posx>
+			        <posy>40</posy>
+			        <height>122</height>
+			        <width>122</width>
+			    </control>
+			    <control type="label">
+				    <posx>586</posx>
+			        <posy>60</posy>
+				    <height>30</height>
+				    <width>40</width>
+				    <font>ListDetails</font>
+				    <align>center</align>
+				    <label>$INFO[Container(10051).ListItem.Property(UnwatchedEpisodes)]</label>
+				    <textcolor>White2</textcolor>
+			    </control>
+			</control>			
         </control>
         <!-- Powered by TMDb image -->
         <control type="image" description="Powered by TMDb">
