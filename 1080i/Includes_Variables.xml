@@ -332,7 +332,8 @@
     </variable>
 
     <variable name="Fanart">
-        <value condition="String.IsEqual(ListItem.DBType,season) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + String.IsEmpty(ListItem.Art(fanart)) + !String.IsEmpty(ListItem(1).Art(fanart))">$INFO[ListItem(1).Art(fanart)]</value>
+        <value condition="Skin.HasSetting(UseThumbForYT) + !String.IsEmpty(Container.ListItem.Art(fanart)) + String.Contains(Container.ListItem.Art(fanart),plugin.video.youtube\resources\media\fanart.jpg)">$INFO[Container.ListItem.Art(thumb)]</value>
+		<value condition="String.IsEqual(ListItem.DBType,season) + String.IsEqual(ListItem.Label,$LOCALIZE[20366]) + String.IsEmpty(ListItem.Art(fanart)) + !String.IsEmpty(ListItem(1).Art(fanart))">$INFO[ListItem(1).Art(fanart)]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
         <value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(thumb)) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
 		<value condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.Art(thumb)) + String.IsEmpty(ListItem.Art(fanart)) + !String.IsEmpty(ListItem.Art(tvshow.anart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
