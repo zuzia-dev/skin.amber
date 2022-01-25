@@ -224,7 +224,7 @@
 					<visible>Skin.HasSetting(Show.JumpToLetter) + !Skin.HasSetting(Show.EHJumpToLetter) + [String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[561]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557])]</visible>
 				</control>            
 
-                <!-- Info panel for PVR Recordings List -->
+                <!-- Info panel for PVR Recordings or Timers -->
 				<include content="PanelTemplate">
 					<param name="viewid">54</param>
 					<param name="lowpanel">true</param>
@@ -241,7 +241,7 @@
 					<param name="plotheight">200</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">Control.IsVisible(54) + ![$EXP[LowListPanelIsSwapped]] + [$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]]</param>
+					<param name="visibility">Control.IsVisible(54) + ![$EXP[LowListPanelIsSwapped]] + [Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRTimers.xml)]</param>
 				</include>
 				
 				<!-- Info panels in original position -->
@@ -263,7 +263,7 @@
 					<param name="plotheight">200</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">![$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
+					<param name="visibility">![Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRTimers.xml)] + ![$EXP[LowListPanelIsDisabled]] + ![$EXP[LowListPanelIsSwapped]] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
 				</include>
 
 				<include content="PanelTemplate">
@@ -400,7 +400,7 @@
 					<param name="plot">$VAR[Plots]</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">[$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]] + $EXP[LowListPanelIsSwapped]</param>
+					<param name="visibility">[Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRTimers.xml)] + $EXP[LowListPanelIsSwapped]</param>
 				</include>
 				
 				<include content="PanelTemplate">
@@ -421,7 +421,7 @@
 					<param name="plotheight">200</param>
 					<param name="footer">$VAR[panelfooter]</param>
 					<param name="footertop">910</param>
-					<param name="visibility">![$EXP[isPVRRecordingsGroups] | $EXP[isPVRTimerRules] | $EXP[isPVRTimer]] + $EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
+					<param name="visibility">![Window.IsActive(MyPVRRecordings.xml) | Window.IsActive(MyPVRTimers.xml)] + $EXP[PanelShouldShow] + ![$EXP[LowListPanelIsDisabled]] + $EXP[LowListPanelIsSwapped] + [Container.Content(videos) | Container.Content(files) | Container.Content() | Container.content(movies) | Container.Content(musicvideos) | Container.Content(episodes)]</param>
 				</include>
 
 				<include content="PanelTemplate">
@@ -563,7 +563,6 @@
 						<param name="width">295</param>
 						<param name="height">450</param>
 						<param name="texture">$INFO[Container(440054).ListItem.Icon]</param>
-						<param name="aspect">stretch</param>
 						<param name="visibility">$EXP[isPVRRecordingsGroups] + ![$EXP[LowListPanelIsSwapped]]</param>
 					</include>
 					<include content="ShadowedImage">
@@ -571,7 +570,6 @@
 						<param name="width">295</param>
 						<param name="height">450</param>
 						<param name="texture">$INFO[Container(4400154).ListItem.Icon]</param>
-						<param name="aspect">stretch</param>
 						<param name="visibility">$EXP[isPVRRecordingsGroups] + $EXP[LowListPanelIsSwapped]</param>
 					</include>
 					<include content="ShadowedImage">
