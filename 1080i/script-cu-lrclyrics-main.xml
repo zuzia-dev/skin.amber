@@ -4,21 +4,29 @@
 	<zorder>0</zorder>
 	<include>OpenClose</include>
 	<controls>
+	    <control type="group">
+		    <visible>!Skin.HasSetting(Enable.VideoLyrics)</visible>
+			<animation effect="fade" start="100" end="0" time="200" condition="!String.IsEmpty(Window(Home).Property(culrc.hidedialog)) | ">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,160" time="0" condition="!Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(ShowInfoWithSeekBar) + !Window.IsVisible(MusicOSD)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="0,130" time="0" condition="!Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(ShowInfoWithSeekBar) + Window.IsVisible(MusicOSD)">Conditional</animation>
+			<top>30</top>
+			<left>300</left>
+			<control type="image">
+			    <posx>0</posx>
+			    <posy>0</posy>
+			    <width>1320</width>
+			    <height>660</height>
+			    <texture flipx="true">dialogs/SettingsBG.png</texture>
+			    <colordiffuse>dfcebe9e</colordiffuse>
+		    </control>
+		</control>
+	    
 		<control type="group">
-		    <control type="label" description="Header">
-				<posx>30</posx>
-				<posy>150</posy>
-				<width>1860</width>
-				<height>30</height>
-				<font>InfoTitle</font>
-				<label>$ADDON[script.cu.lrclyrics 32199]</label>
-				<align>center</align>
-				<aligny>center</aligny>
-				<textcolor>$VAR[HighlightColor]</textcolor>
-			</control>
 			<control type="list" id="110">
+				<animation effect="slide" start="0,0" end="0,160" time="0" condition="!Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(ShowInfoWithSeekBar) + !Window.IsVisible(MusicOSD)">Conditional</animation>
+			    <animation effect="slide" start="0,0" end="0,130" time="0" condition="!Skin.HasSetting(enable.bottomseekbar) + Skin.HasSetting(ShowInfoWithSeekBar) + Window.IsVisible(MusicOSD)">Conditional</animation>
 				<posx>30</posx>
-				<posy>210</posy>
+				<posy>70</posy>
 				<width>1860</width>
 				<height>600</height>
 				<onleft>dialog.close(all,true)</onleft>
@@ -35,108 +43,12 @@
 					</include>
 				</focusedlayout>
 			</control>
-			<control type="spincontrol" id="111">
-				<visible>false</visible>
-				<description>Next page button</description>
-				<posx>520</posx>
-				<posy>650</posy>
-				<subtype>page</subtype>
-				<onleft>110</onleft>
-				<onright>110</onright>
-				<ondown>110</ondown>
-				<onup>110</onup>
-				<showonepage>true</showonepage>
-				<visible>Control.IsVisible(110)</visible>
-			</control>
-			<control type="label">
-				<left>870</left>
-				<top>1020</top>
-				<width>825</width>
-				<height>45</height>
-				<label>$LOCALIZE[31205] - $INFO[Control.GetLabel(200)]</label>
-				<font>font12_title</font>
-				<align>right</align>
-				<textcolor>grey2</textcolor>
-				<visible>false</visible>
-			</control>
 			<control type="label" id="200">
 				<visible>false</visible>
 			</control>
 		</control>
+		
 		<include condition="Skin.HasSetting(Enable.VideoLyrics)">VideoLyrics</include>
-		<control type="group">
-		    <control type="list" id="120">
-				<posx>30</posx>
-				<posy>170</posy>
-				<width>550</width>
-				<height>440</height>
-				<onleft>121</onleft>
-				<onright>121</onright>
-				<onup>120</onup>
-				<ondown>120</ondown>
-				<pagecontrol>121</pagecontrol>
-				<scrolltime>200</scrolltime>
-				<animation effect="slide" start="0,0" end="20,0" time="0" condition="!Control.IsVisible(121)">Conditional</animation>
-				<itemlayout height="40">
-					<control type="image">
-						<width>550</width>
-						<height>40</height>
-						<texture flipy="true" border="3">list/ListNF.png</texture>
-					</control>
-					<control type="label">
-						<posx>10</posx>
-						<width>530</width>
-						<height>40</height>
-						<align>left</align>
-						<aligny>center</aligny>
-						<selectedcolor>$VAR[SelectedTextColor]</selectedcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout height="40">
-					<control type="image">
-						<width>550</width>
-						<height>40</height>
-						<texture border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texture>
-					</control>
-					<control type="label">
-						<posx>10</posx>
-						<width>530</width>
-						<height>40</height>
-						<align>left</align>
-						<aligny>center</aligny>
-						<textcolor>$VAR[FocusedTextColor]</textcolor>
-						<shadowcolor></shadowcolor>
-						<selectedcolor>$VAR[FocusedTextColor]</selectedcolor>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</focusedlayout>
-			</control>
-			<control type="spincontrol" id="121">
-				<visible>false</visible>
-				<description>Next page button</description>
-				<posx>520</posx>
-				<posy>650</posy>
-				<subtype>page</subtype>
-				<onleft>120</onleft>
-				<onright>120</onright>
-				<ondown>120</ondown>
-				<onup>120</onup>
-				<showonepage>true</showonepage>
-				<visible>Control.IsVisible(120)</visible>
-			</control>
-			<control type="label" id="2">
-				<description>Pick label</description>
-				<posx>30</posx>
-				<posy>130</posy>
-				<width>550</width>
-				<height>30</height>
-				<align>center</align>
-				<aligny>center</aligny>
-				<label>$ADDON[script.cu.lrclyrics 32005]</label>
-				<textcolor>$VAR[LabelTextColor]</textcolor>
-				<visible>Control.IsVisible(120) + !Control.IsVisible(110)</visible>
-			</control>
-		</control>
+		
 	</controls>
 </window>
