@@ -790,18 +790,20 @@
 		    <onup>1200</onup>
 			<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
 		</control>
-		<!-- Subtitles -->
+		<!-- Subtitles/Lyrics -->
 		<control type="radiobutton" id="656">
 		    <include content="OSDButtons">
 			    <param name="icon">OSD/OSDSubtitlesNF.png</param>
 		    </include>
 		    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
 		    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
-			<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
-		    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
-			<onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
+			<onclick condition="Window.IsVisible(VideoOSD) + Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
+		    <onclick condition="Window.IsVisible(VideoOSD) + !Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
+			<onclick condition="Window.IsVisible(VideoOSD) + !Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
+			<onclick condition="Window.IsVisible(MusicOSD) + String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
+            <onclick condition="Window.IsVisible(MusicOSD) + !String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
 			<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
-			<visible>Window.IsVisible(VideoOSD)</visible>
+			<visible>Window.IsVisible(VideoOSD) | [Window.IsVisible(MusicOSD) + !Skin.HasSetting(Disable.Lyrics)]</visible>
 		</control>
 		<!-- PVR OSD Channels -->
 		<control type="radiobutton" id="606">
@@ -931,11 +933,13 @@
             <texturenofocus>OSD/compact/subs.png</texturenofocus>
 		    <onup condition="!Skin.HasSetting(SubtitleOpensSettings)">1110</onup>
 		    <onfocus>ClearProperty(PopupMenuActive,Home)</onfocus>
-			<onclick condition="Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
-		    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
-		    <onclick condition="!Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
-		    <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
-			<visible>Window.IsVisible(VideoOSD)</visible>
+			<onclick condition="Window.IsVisible(VideoOSD) + Skin.HasSetting(SubtitleOpensSettings)">ActivateWindow(osdsubtitlesettings)</onclick>
+		    <onclick condition="Window.IsVisible(VideoOSD) + !Skin.HasSetting(SubtitleOpensSettings)">SetProperty(PopupMenuActive,Yes,Home)</onclick>
+			<onclick condition="Window.IsVisible(VideoOSD) + !Skin.HasSetting(SubtitleOpensSettings)">SetFocus(1110)</onclick>
+			<onclick condition="Window.IsVisible(MusicOSD) + String.IsEmpty(Skin.String(LyricPath))">Skin.SetAddon(LyricPath,xbmc.python.lyrics)</onclick>
+            <onclick condition="Window.IsVisible(MusicOSD) + !String.IsEmpty(Skin.String(LyricPath))">RunScript($INFO[Skin.String(LyricPath)])</onclick>
+			<oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+			<visible>Window.IsVisible(VideoOSD) | [Window.IsVisible(MusicOSD) + !Skin.HasSetting(Disable.Lyrics)]</visible>
 		</control>
 		<!-- Channels -->
     	<control type="button" id="606">
