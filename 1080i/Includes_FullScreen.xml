@@ -256,22 +256,25 @@
 	</include>
 	
 	<include name="OSDButtons">
-        <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioonfocus>
-        <textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
-        <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioofffocus>
-        <textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
-        <textureradioondisabled colordiffuse="Disabled">$PARAM[icon]</textureradioondisabled>
-        <textureradiooffdisabled colordiffuse="Disabled">$PARAM[icon]</textureradiooffdisabled>
-        <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
-        <width>64</width>
-        <height>64</height>
-        <radiowidth>64</radiowidth>
-        <radioheight>64</radioheight>
-        <font></font>
-        <texturenofocus></texturenofocus>
-        <radioposx>0.1</radioposx>
-        <radioposy>0</radioposy>
-        <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+	    <param name="icon"></param>
+		<definition>
+            <textureradioonfocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioonfocus>
+            <textureradioonnofocus>$PARAM[icon]</textureradioonnofocus>
+            <textureradioofffocus colordiffuse="$VAR[FocusedTextColor]">$PARAM[icon]</textureradioofffocus>
+            <textureradiooffnofocus>$PARAM[icon]</textureradiooffnofocus>
+            <textureradioondisabled colordiffuse="Disabled">$PARAM[icon]</textureradioondisabled>
+            <textureradiooffdisabled colordiffuse="Disabled">$PARAM[icon]</textureradiooffdisabled>
+            <texturefocus border="4" colordiffuse="$VAR[HighlightColor]">img/WhiteRoundedST2.png</texturefocus>
+            <width>64</width>
+            <height>64</height>
+            <radiowidth>64</radiowidth>
+            <radioheight>64</radioheight>
+            <font></font>
+            <texturenofocus></texturenofocus>
+            <radioposx>0.1</radioposx>
+            <radioposy>0</radioposy>
+            <oninfo>Skin.ToggleSetting(OSDInfo)</oninfo>
+		</definition>	
     </include>
 	
 	<include name="FullScreenExtraArt">
@@ -769,13 +772,10 @@
 			<visible>Window.IsVisible(MusicOSD)</visible>
         </control>
 		<!-- Music Playlist -->
-    	<control type="button" id="652">
-	        <width>64</width>
-            <height>64</height>
-            <label/>
-            <font/>
-            <texturefocus colordiffuse="$VAR[HighlightColor]">OSD/OSDTeletextNF.png</texturefocus>
-            <texturenofocus>OSD/OSDTeletextNF.png</texturenofocus>
+    	<control type="radiobutton" id="652">
+	        <include content="OSDButtons">
+			    <param name="icon">OSD/OSDTeletextNF.png</param>
+		    </include>
 		    <onclick>Dialog.Close(all,true)</onclick>
 			<onclick>ActivateWindow(musicplaylist)</onclick>
 			<visible>Integer.IsGreater(Playlist.Length(music),0)</visible>
@@ -1313,6 +1313,7 @@
 	    <param name="isStandard">true</param>
 		<param name="isUltraCompact">false</param>
 		<param name="isCompact">false</param>
+		<param name="backgroundwidth">460</param>
 		<param name="group1top">84</param>
 		<param name="group1left">30</param>
 		<param name="group1width">1305</param>
@@ -1328,7 +1329,7 @@
 		    <control type="image">
 			    <left>0</left>
 			    <bottom>0</bottom>
-			    <width>460</width>
+			    <width>$PARAM[backgroundwidth]</width>
 			    <height>220</height>
 			    <texture border="0,30,0,30">OSD/FS_OSDBackground.png</texture>
 			    <colordiffuse>80E2E2E2</colordiffuse>
