@@ -138,7 +138,7 @@
 			<aspectratio>keep</aspectratio>
             <visible>!String.IsEmpty(Player.Art(artist.clearlogo)) + Skin.HasSetting(ShowLogoMusicViz) + !Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
 			<visible>!String.IsEqual(Skin.String(OSDExtraArt),logo) </visible>
-			<animation effect="fade" start="100" end="0" time="100" condition="[Window.IsVisible(DialogSeekBar.xml) + !Skin.HasSetting(enable.bottomseekbar)]">Conditional</animation>
+			<animation effect="fade" start="100" end="0" time="100" condition="Window.IsVisible(DialogSeekBar.xml) + !Skin.HasSetting(enable.bottomseekbar)">Conditional</animation>
         </control>
 		
 		<!-- Background image to dim lyrics -->
@@ -154,7 +154,7 @@
 		<!-- Track Info -->
         <control type="group">
 			<visible>[Player.ShowInfo | Window.IsActive(musicosd)] + !Window.IsActive(playerprocessinfo)</visible>
-			<visible>![$EXP[showCompactSeekBar]] + !Skin.HasSetting(UseUltraCompactOSD)</visible>
+			<visible>!$EXP[showCompactSeekBar] + !Skin.HasSetting(UseUltraCompactOSD)</visible>
 
 			<include condition="Skin.HasSetting(enable.bottomseekbar)">LowerMusicFullScreenInfo</include>
 			<include condition="!Skin.HasSetting(enable.bottomseekbar)">RegularMusicFullScreenInfo</include>
@@ -245,26 +245,8 @@
                 <orientation>horizontal</orientation>
                 <itemgap>15</itemgap>
                 <align>right</align>
-				<include content="PlayerAudioFlagItems">
-				</include>	
+				<include>PlayerAudioFlagItems</include>	
 			</control>	
-<!--                <control type="image">
-                    <description>Audio Codec Image</description>
-                    <width>85</width>
-                    <aspectratio align="center">keep</aspectratio>
-                    <texture>$INFO[MusicPlayer.Codec,badges/audiocodec/,.png]</texture>
-                    <colordiffuse>silver</colordiffuse>
-                    <visible>!Player.ChannelPreviewActive</visible>
-                </control>
-                <control type="image">
-                    <description>Audio Channels Image</description>
-                    <width>85</width>
-                    <aspectratio align="center">keep</aspectratio>
-                    <texture>$INFO[MusicPlayer.Channels,badges/audiochannels/channels,.png]</texture>
-                    <colordiffuse>silver</colordiffuse>
-                    <visible>!Player.ChannelPreviewActive</visible>
-                </control>
-            </control> -->
 			
 			<!-- Track number and title; recording indicator -->
             <control type="grouplist">
