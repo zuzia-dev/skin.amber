@@ -5,7 +5,11 @@
     <animation effect="fade" time="150">WindowClose</animation>
     <conload condition="System.AddonIsEnabled(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9000||9009||10052||10053||10054||10055||10056||10057||10058||10059)</conload>
     <onload>SetProperty(onclose,SetFocus(9000))</onload>
-    <controls>
+    
+	<onload>SetProperty(ResetScroll," ",home)</onload>
+    <onload>AlarmClock(ClearValue,ClearProperty(ResetScroll,home),00:01,silent)</onload>
+	
+	<controls>
 
         <!-- Hide Details list for video -->
 		<control type="list" id="10051">
@@ -304,7 +308,7 @@
                     <font>InfoPlot</font>
                     <textcolor>$VAR[InfoPlotTextColor]</textcolor>
                     <shadowcolor>LiteShadow</shadowcolor>
-                    <label fallback="19055">$VAR[Plots]</label>
+                    <label fallback="19055">$VAR[Plots]$INFO[Window(home).Property(ResetScroll)]</label>
                 </control>
                 <control type="radiobutton" id="90003">
                     <posy>447</posy>

@@ -3,7 +3,12 @@
 	<defaultcontrol always="true">8</defaultcontrol>
 	<animation effect="fade" time="200">WindowOpen</animation>
 	<animation effect="fade" time="150">WindowClose</animation>
-    <onload condition="System.AddonIsEnabled(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9009||90150)</onload>
+    
+	<onload condition="System.AddonIsEnabled(script.embuary.helper)">RunScript(script.embuary.helper,action=resetposition,container=9009||90150)</onload>
+	
+	<onload>SetProperty(ResetScroll," ",home)</onload>
+    <onload>AlarmClock(ClearValue,ClearProperty(ResetScroll,home),00:01,silent)</onload>
+	
 	<controls>
     
 		<control type="image">
@@ -172,7 +177,7 @@
 					<font>InfoPlot</font>
                     <textcolor>$VAR[InfoPlotTextColor]</textcolor>
                     <shadowcolor>LiteShadow</shadowcolor>
-					<label fallback="19055">$VAR[Plots]</label>
+					<label fallback="19055">$VAR[Plots]$INFO[Window(home).Property(ResetScroll)]</label>
 				</control>
 				<control type="radiobutton" id="90003">
 					<posy>447</posy>
