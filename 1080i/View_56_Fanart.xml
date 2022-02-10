@@ -961,7 +961,7 @@
 				    </control>                    
 				    <control type="label" description="Genre">
 					    <posy>220</posy>
-					    <visible>![Container.Content(Artists) | Container.Content(albums)] + !ListItem.IsParentFolder + ![$EXP[56_FanartIsAllItems]] + !String.IsEmpty(ListItem.Genre)</visible>
+					    <visible>![Container.Content(Artists) | Container.Content(albums)] + !ListItem.IsParentFolder + !$EXP[56_FanartIsAllItems] + !String.IsEmpty(ListItem.Genre)</visible>
 					    <height>33</height>
 					    <width>900</width>
 					    <font>Details</font>
@@ -970,7 +970,7 @@
 				    </control>
 					<control type="label" description="Genre">
 					    <posy>187</posy>
-					    <visible>Container.Content(albums) + !ListItem.IsParentFolder + ![$EXP[56_FanartIsAllItems]] + !String.IsEmpty(ListItem.Genre)</visible>
+					    <visible>Container.Content(albums) + !ListItem.IsParentFolder + !$EXP[56_FanartIsAllItems] + !String.IsEmpty(ListItem.Genre)</visible>
 					    <height>33</height>
 					    <width>900</width>
 					    <font>Details</font>
@@ -1041,7 +1041,7 @@
 						    <height>348</height>
 						    <texture>$VAR[Fanart.Art]</texture>
 						    <aspectratio aligny="top">scale</aspectratio>
-							<visible>![$EXP[ShowExtraFanartOnInfo]] | ![$EXP[ExtraFanartPresent]]</visible>
+							<visible>!$EXP[ShowExtraFanartOnInfo] | !$EXP[ExtraFanartPresent]</visible>
 					    </control>
 					    <control type="multiimage" description="Extra Fanart">
 						    <posx>1023</posx>
@@ -1601,7 +1601,7 @@
 				<!-- Slide down the media items when trailer is playing -->
 			    <animation effect="slide" start="0,0" end="0,1080" time="250" tween="sine" easing="in" condition="Skin.HasSetting(Trailer.MediaSlideOut) + Player.HasVideo + 
 			                                                                                                      Skin.HasSetting(AutoPlayTrailer) + !String.IsEmpty(Window(Home).Property(MovieTrailerPlaying)) + 
-																											      ![$EXP[56_FanartViewNetflix]]">Conditional</animation>
+																											      !$EXP[56_FanartViewNetflix]">Conditional</animation>
 				
 				<control type="group" description="background">
 				    <include>VignetteFade</include>
@@ -1614,7 +1614,7 @@
 					    <texture border="0,30,0,30">OSD/OSDBackground.png</texture>
 				    </control>
 				    <control type="image">
-    					<visible>Window.IsActive(MyPics.xml) | [String.IsEmpty(Window.Property(gallery)) + ![$EXP[56_FanartViewInfo]]]</visible>
+    					<visible>Window.IsActive(MyPics.xml) | [String.IsEmpty(Window.Property(gallery)) + !$EXP[56_FanartViewInfo]]</visible>
 					    <animation effect="fade" start="100" end="0" time="100" delay="0">Hidden</animation>
 					    <animation effect="fade" start="0" end="100" time="200" delay="0">Visible</animation>
 					    <width>1920</width>
@@ -1655,8 +1655,8 @@
 						<oninfo condition="ListItem.IsCollection + !String.Contains(System.BuildVersion,19)">ActivateWindow(1127)</oninfo>
 					    <onup condition="!String.IsEmpty(Window.Property(gallery))">ClearProperty(gallery)</onup>
 					    <ondown condition="$EXP[56_FanartViewGallery]">SetProperty(gallery,true)</ondown>
-                        <ondown condition="![$EXP[56_FanartViewGallery]] + [!Control.IsVisible(616) | [Control.IsVisible(616) + Control.IsVisible(66)]]">66</ondown>
-						<ondown condition="![$EXP[56_FanartViewGallery]] + Control.IsVisible(616)">616</ondown>
+                        <ondown condition="!$EXP[56_FanartViewGallery] + [!Control.IsVisible(616) | [Control.IsVisible(616) + Control.IsVisible(66)]]">66</ondown>
+						<ondown condition="!$EXP[56_FanartViewGallery] + Control.IsVisible(616)">616</ondown>
 						<ondown condition="!String.IsEmpty(Window(Home).Property(MovieTrailerPlaying)) + Player.HasVideo">PlayerControl(Stop)</ondown>
 					    <ondown condition="!String.IsEmpty(Window(Home).Property(MovieTrailerPlaying))">ClearProperty(MovieTrailerPlaying,Home)</ondown>
 					    <viewtype label="$LOCALIZE[20445]">list</viewtype>
@@ -1729,7 +1729,7 @@
 						    </control>
 					    </focusedlayout>
 						<!-- Poster type items: musicvideos -->
-						<itemlayout height="339" width="240" condition="container.content(musicvideos) + [[$EXP[56_FanartViewNetflix] + !Skin.HasSetting(56_Posters_Netflix_Landscape)] | ![$EXP[56_FanartViewNetflix]]]">
+						<itemlayout height="339" width="240" condition="container.content(musicvideos) + [[$EXP[56_FanartViewNetflix] + !Skin.HasSetting(56_Posters_Netflix_Landscape)] | !$EXP[56_FanartViewNetflix]]">
 						    <control type="image">
 							    <include>MovieFanartThumbDimensions</include>
 								<include content="MovieFanartThumb">
@@ -1765,7 +1765,7 @@
 						        <bordersize>8</bordersize>
 					        </control>
 					    </itemlayout>
-					    <focusedlayout height="339" width="240" condition="container.content(musicvideos) + [[$EXP[56_FanartViewNetflix] + !Skin.HasSetting(56_Posters_Netflix_Landscape)] | ![$EXP[56_FanartViewNetflix]]]">
+					    <focusedlayout height="339" width="240" condition="container.content(musicvideos) + [[$EXP[56_FanartViewNetflix] + !Skin.HasSetting(56_Posters_Netflix_Landscape)] | !$EXP[56_FanartViewNetflix]]">
 						    <control type="group">
 							    <animation effect="zoom" easing="out" start="100" end="118" time="350" delay="0" center="120,243">Focus</animation>
 							    <animation effect="zoom" easing="in" start="118" end="100" time="250" delay="0" center="120,243">UnFocus</animation>
