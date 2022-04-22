@@ -1295,8 +1295,8 @@
                     <label>$PARAM[heading]</label>
 					<wrapmultiline>true</wrapmultiline>
                 </control>
-                <control type="label" description="Subheading">
-                    <visible>!$PARAM[lowpanel] + Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+				<control type="label" description="Subheading">
+                    <visible>!$PARAM[lowpanel] + Skin.HasSetting(ShowAudioSub) + !Container.Content(addons) + [!Skin.HasSetting(ShowLastPlayed) | [Skin.HasSetting(ShowLastPlayed) + String.IsEmpty(ListItem.LastPlayed)]]</visible>
                     <height>60</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
@@ -1305,7 +1305,7 @@
                     <wrapmultiline>true</wrapmultiline>
                 </control>
 				<control type="label" description="Subheading">
-                    <visible>!$PARAM[lowpanel] + !Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+                    <visible>!$PARAM[lowpanel] + [!Skin.HasSetting(ShowAudioSub) | [Skin.HasSetting(ShowLastPlayed) + !String.IsEmpty(ListItem.LastPlayed)]] + !Container.Content(addons)</visible>
                     <height>80</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
@@ -1648,18 +1648,8 @@
                     <label>$PARAM[heading]</label>
                 </control>
                 <control type="label" description="Subheading">
-                    <top>60</top>
-					<visible>Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
-                    <height>80</height>
-                    <width>$PARAM[width]</width>
-                    <font>font20_title</font>
-                    <label>[B]$PARAM[subheading][/B]</label>
-                    <aligny>center</aligny>
-                    <wrapmultiline>true</wrapmultiline>
-                </control>
-				<control type="label" description="Subheading">
-                    <top>65</top>
-					<visible>!Skin.HasSetting(ShowAudioSub) + !Container.Content(addons)</visible>
+                    <top>70</top>
+					<visible>!Container.Content(addons)</visible>
                     <height>80</height>
                     <width>$PARAM[width]</width>
                     <font>font20_title</font>
@@ -1668,7 +1658,7 @@
                     <wrapmultiline>true</wrapmultiline>
                 </control>
 				<control type="label" description="Subheading2">
-                    <top>127</top>
+                    <top>150</top>
                     <visible>$PARAM[subheading2_visible]</visible>
                     <height>80</height>
                     <width>$PARAM[width]</width>
@@ -1695,7 +1685,7 @@
                         </control>
 					    <!-- Plot for normal panel when audio/sub info or next aired episode info is shown -->
 					    <control type="textbox" id="4001">
-					        <top>40</top>
+					        <top>50</top>
 						    <visible>[[Skin.HasSetting(ShowAudioSub) + [!String.IsEmpty(ListItem.Property(AudioLanguage.1)) | !String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [Container.Content(movies) | Container.Content(episodes)]] | 
 						             [!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]]</visible>
 						    <height>$PARAM[plotheight]</height>
