@@ -29,7 +29,9 @@
 				<pagecontrol></pagecontrol>
 				<focusposition>2</focusposition>
 				<orientation>horizontal</orientation>
-				<itemlayout height="70" width="519">
+				
+				<!-- Horizontal text menu layout -->
+				<itemlayout height="70" width="519" condition="!Skin.HasSetting(HorizIconMenu)">
 					<control type="label">
 						<animation effect="fade" time="0" start="100" end="20" condition="Skin.HasSetting(FadeUnfocusedMenu)">Conditional</animation>
 						<width>519</width>
@@ -44,7 +46,7 @@
 						<font>MainMenu</font>
 					</control>
 				</itemlayout>
-				<focusedlayout height="70" width="519">
+				<focusedlayout height="70" width="519" condition="!Skin.HasSetting(HorizIconMenu)">
 					<control type="label">
 						<width>519</width>
 						<textcolor>$VAR[HighlightColor]</textcolor>
@@ -57,6 +59,52 @@
 						<font>MainMenu</font>
 					</control>
 				</focusedlayout>
+				
+				<!-- Horizontal Icon menu layout -->
+				<itemlayout height="100" width="519" condition="Skin.HasSetting(HorizIconMenu)">
+			        <control type="group">
+					    <animation effect="fade" time="0" start="100" end="20" condition="Skin.HasSetting(FadeUnfocusedMenu)">Conditional</animation>
+						<control type="image">
+				            <left>72</left>
+				            <top>-18</top>
+				            <width>105</width>
+				            <height>105</height>
+				            <texture background="true">$INFO[ListItem.Icon]</texture>
+				            <colordiffuse>$VAR[LabelTextColor]</colordiffuse>
+			            </control>
+			            <control type="label">
+				            <top>60</top>
+				            <width>250</width>
+				            <height>41</height>
+				            <font>Details</font>
+				            <textcolor>$VAR[LabelTextColor]</textcolor>
+				            <align>center</align>
+				            <label>[B]$INFO[ListItem.Label][/B]</label>
+				            <visible>Skin.HasSetting(ShowIconMenuLabel)</visible>
+			            </control>
+					</control>
+		        </itemlayout>
+		        <focusedlayout height="100" width="519" condition="Skin.HasSetting(HorizIconMenu)">
+			        <control type="image">
+				        <left>72</left>
+				        <top>-18</top>
+				        <width>105</width>
+				        <height>105</height>
+				        <texture background="true">$INFO[ListItem.Icon]</texture>
+				        <colordiffuse>$VAR[HighlightColor]</colordiffuse>
+			        </control>
+			        <control type="label">
+				        <top>60</top>
+				        <width>250</width>
+				        <height>41</height>
+				        <font>Details</font>
+				        <textcolor>$VAR[HighlightColor]</textcolor>
+				        <align>center</align>
+				        <label>[B]$INFO[ListItem.Label][/B]</label>
+				        <visible>Skin.HasSetting(ShowIconMenuLabel)</visible>
+			        </control>
+		        </focusedlayout>
+				
 				<content>
                     <include>skinshortcuts-mainmenu</include>
 				</content>

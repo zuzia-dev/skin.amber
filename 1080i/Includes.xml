@@ -1237,7 +1237,7 @@
         <param name="top"></param>
         <param name="left">60</param>
         <param name="height">430</param>
-		<param name="subinfoheight">430</param>
+		<param name="subinfoheight">400</param>
 		<param name="groupheight">610</param>
         <param name="width">870</param>
         <param name="heading"></param>
@@ -1353,7 +1353,7 @@
 					    <!-- Plot when there is no next episode info or audio/sub info being displayed -->
 						<control type="textbox">
                             <top>5</top>
-						    <visible>[!Skin.HasSetting(ShowAudioSub) + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
+						    <visible>[!Skin.HasSetting(ShowAudioSub) + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot) + !Skin.HasSetting(AlwaysShowSetList)] | 
 						             [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
 								     [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						    <align>justify</align>
@@ -1414,7 +1414,7 @@
 					</control>	
 					<include content="SubcontentInfoList">
                         <param name="viewid">$PARAM[viewid]</param>
-						<param name="subcontent_visible">ListItem.IsCollection + String.IsEmpty(ListItem.Plot)</param>
+						<param name="subcontent_visible">ListItem.IsCollection + [String.IsEmpty(ListItem.Plot) | Skin.HasSetting(AlwaysShowSetList)]</param>
 		                <param name="width">$PARAM[width]</param>
 						<param name="labelwidth">$PARAM[width]</param>
 						<param name="subinfoheight">$PARAM[subinfoheight]</param>
@@ -1675,7 +1675,7 @@
 						<!-- Plot when there is no next episode info or audio/sub info being displayed -->
 					    <control type="textbox" id="4001">
                             <top>5</top>
-						    <visible>[!Skin.HasSetting(ShowAudioSub) + [Container.Content(movies) | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot)] | 
+						    <visible>[!Skin.HasSetting(ShowAudioSub) + [Container.Content(movies) | Container.Content(episodes)]] | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot) + !Skin.HasSetting(AlwaysShowSetList)] | 
 						             [Skin.HasSetting(ShowAudioSub) + [String.IsEmpty(ListItem.Property(AudioLanguage.1)) + String.IsEmpty(ListItem.Property(SubtitleLanguage.1))] + [[Container.Content(movies) + !ListItem.IsCollection] | Container.Content(episodes)]] | 
 								     [String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired)) + [Container.Content(tvshows) | Container.Content(seasons)]]</visible>
 						    <align>justify</align>
@@ -1714,7 +1714,7 @@
 					</control>	
 					<include content="SubcontentInfoList">
                         <param name="viewid">$PARAM[viewid]</param>
-						<param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
+						<param name="subcontent_visible">ListItem.IsCollection + [String.IsEmpty(ListItem.Plot) | Skin.HasSetting(AlwaysShowSetList)]</param>
 		                <param name="width">$PARAM[width]</param>
 						<param name="labelwidth">$PARAM[width]</param>
 						<param name="subinfoheight">$PARAM[subinfoheight]</param>
@@ -1943,10 +1943,11 @@
                         <width>$PARAM[plotwidth]</width>
                         <height>$PARAM[plotheight]</height>
                         <autoscroll delay="3000" time="2000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+						<visible>!ListItem.IsCollection | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot) + !Skin.HasSetting(AlwaysShowSetList)]</visible>
                     </control>
 					<include content="SubcontentInfoList">
                         <param name="viewid">$PARAM[viewid]</param>
-						<param name="subcontent_visible">[ListItem.IsCollection + String.IsEmpty(ListItem.Plot)]</param>
+						<param name="subcontent_visible">ListItem.IsCollection + [String.IsEmpty(ListItem.Plot) | Skin.HasSetting(AlwaysShowSetList)]</param>
 		                <param name="width">800</param>
 						<param name="labelwidth">$PARAM[labelwidth]</param>
 						<param name="subinfoheight">$PARAM[subinfoheight]</param>

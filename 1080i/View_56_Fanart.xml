@@ -308,12 +308,13 @@
 				    <shadowcolor></shadowcolor>
 				    <label>$VAR[Plots]</label>
                     <autoscroll delay="3000" time="3000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
+					<visible>!ListItem.IsCollection | [ListItem.IsCollection + !String.IsEmpty(ListItem.Plot) + !Skin.HasSetting(AlwaysShowSetList)]</visible>
 			    </control>
 				<control type="panel">
                     <posy>256</posy>
 				    <width>1400</width>
 				    <height>165</height>
-					<visible>[ListItem.IsCollection + String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))]</visible>
+					<visible>[ListItem.IsCollection] + [[String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))] | Skin.HasSetting(AlwaysShowSetList)]</visible>
                     <visible>!ListItem.IsParentFolder</visible>
                     <orientation>horizontal</orientation>
                     <focusedlayout height="40" width="700">
@@ -987,7 +988,7 @@
 					    <align>justify</align>
 					    <label>$VAR[Plots]</label>
                         <autoscroll delay="3000" time="3000" repeat="10000">Skin.HasSetting(AutoScroll)</autoscroll>
-						<visible>![Container.Content(Artists) | Container.Content(albums)]</visible>
+						<visible>![Container.Content(Artists) | Container.Content(albums) | Container.Content(sets)] | [ListItem.IsCollection + [!String.IsEmpty(ListItem.Plot) | !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))] + !Skin.HasSetting(AlwaysShowSetList)]</visible>
 				    </control>
 					<control type="textbox" description="Plot">
 					    <posy>230</posy>
@@ -1003,7 +1004,7 @@
                         <posy>290</posy>
 					    <width>900</width>
 					    <height>164</height>
-						<visible>[ListItem.IsCollection + String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))]</visible>
+						<visible>ListItem.IsCollection + [[String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))] | Skin.HasSetting(AlwaysShowSetList)]</visible>
                         <visible>!ListItem.IsParentFolder</visible>
                         <orientation>vertical</orientation>
                         <focusedlayout height="40" width="900">
@@ -1342,7 +1343,37 @@
 							<height>160</height>
 							<label>$VAR[Plots]</label>
 							<autoscroll delay="3000" time="3000" repeat="4000">true</autoscroll>
+							<visible>![[String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))] | Skin.HasSetting(AlwaysShowSetList)]</visible>
 						</control>
+						<!-- Movies in collection when the plot is empty -->
+					    <control type="panel">
+                            <posy>150</posy>
+					        <width>800</width>
+					        <height>160</height>
+						    <visible>[String.IsEmpty(ListItem.Plot) + String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.ExtendedPlot))] | Skin.HasSetting(AlwaysShowSetList)</visible>
+                            <visible>!ListItem.IsParentFolder</visible>
+                            <orientation>vertical</orientation>
+                            <focusedlayout height="40" width="800">
+                            </focusedlayout>
+                            <itemlayout height="40" width="800">
+                                <control type="image">
+                                    <top>5</top>
+                                    <width>30</width>
+                                    <height>30</height>
+                                    <texture>$VAR[Overlay]</texture>
+                                </control>
+                                <control type="label">
+                                    <left>40</left>
+                                    <height>40</height>
+                                    <width>800</width>
+                                    <aligny>center</aligny>
+                                    <label>$INFO[ListItem.Label][COLOR $VAR[HighlightColor]]$INFO[ListItem.Year,  (,)][/COLOR]</label>
+                                    <font>ListDetails</font>
+                                    <scrollspeed>25</scrollspeed>
+                                </control>
+                            </itemlayout>
+                            <content sortby="year" sortorder="ascending">videodb://movies/sets/$INFO[ListItem.DBID]/?setid=$INFO[ListItem.DBID]</content>
+                        </control>
 					</control>
 					<!-- Info for tvshows or seasons -->
 					<control type="grouplist">
