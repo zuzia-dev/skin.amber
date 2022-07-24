@@ -4,14 +4,20 @@
 	<controls>
 		<include condition="Skin.HasSetting(Sub_MainMenuBG)">SubBackgroundLists</include>
 		<include>DefaultBackground</include>
-		<include content="BackgroundOverlay">
-			<param name="parentid" value="450"/>
-		</include>
-		<include>Time</include>
+		
 		<control type="group">
 			<include>OpenClose</include>
 			
-			<include condition="Skin.HasSetting(Favourites.AlternateLayout)">AlternateFavouritesLayout</include>
+			<include condition="Skin.HasSetting(Favourites.AlternateLayout) + Skin.HasSetting(Favourites.Alternate.List) + !Skin.HasSetting(Favourites.Alternate.List.MoreItems)" content="AlternateFavouritesList">
+			    <param name="itemheight">72</param>
+				<param name="ListLabelFont">font16</param>
+			</include>
+			<include condition="Skin.HasSetting(Favourites.AlternateLayout) + Skin.HasSetting(Favourites.Alternate.List) + Skin.HasSetting(Favourites.Alternate.List.MoreItems)" content="AlternateFavouritesList">
+			    <param name="itemheight">52</param>
+				<param name="ListLabelFont">ListDetails</param>
+			</include>
+			<include condition="Skin.HasSetting(Favourites.AlternateLayout) + !Skin.HasSetting(Favourites.Alternate.List)">AlternateFavouritesBigList</include>
+			
 			<include condition="!Skin.HasSetting(Favourites.AlternateLayout)">StandardFavouritesLayout</include>
 			
 		</control>
