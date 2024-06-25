@@ -1,8 +1,4 @@
-skin.amber
-==========
+skin.blue.amber
+===============
 
-Amber skin for Kodi
-
-Master branch: Kodi Omega
-
-Nexus branch: Kodi Nexus
+Amber skin for Kodi v21 Omega. Blue MOD.
